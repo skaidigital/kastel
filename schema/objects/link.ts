@@ -2,7 +2,7 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const link = defineType({
-  title: 'Lenke',
+  title: 'Link',
   name: 'link',
   type: 'object',
   preview: {

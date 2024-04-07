@@ -2,7 +2,7 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const meganav = defineType({
-  title: 'Dropdown',
+  title: 'Meganav',
   name: 'meganav',
   type: 'object',
   preview: {
