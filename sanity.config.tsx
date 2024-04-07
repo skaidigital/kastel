@@ -46,9 +46,7 @@ const config = definePlugin({
     I18nFields({
       locales: [
         { code: 'no', title: 'Norway', label: '🇧🇻', default: true },
-        { code: 'sv', title: 'Sweden', label: '🇸🇪' },
-        { code: 'dk', title: 'Denmark', label: '🇩🇰' },
-        { code: 'eu', title: 'Europe', label: '🇪🇺' }
+        { code: 'en', title: 'English', label: '🇬🇧' }
       ]
     })
   ],

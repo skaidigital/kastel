@@ -6,6 +6,7 @@ import {
   applyDiscountToCart,
   createCart,
   getCart,
+  removeFromCart,
   updateCart,
   updateCartAttributes
 } from '@/lib/shopify';
@@ -116,6 +117,19 @@ export const updateItemQuantity = async ({
     ]);
   } catch (e) {
     return 'Error updating item quantity';
+  }
+};
+
+export const removeItem = async (lineId: string): Promise<string | undefined> => {
+  const cartId = cookies().get('cartId')?.value;
+
+  if (!cartId) {
+    return 'Missing cart ID';
+  }
+  try {
+    await removeFromCart(cartId, [lineId]);
+  } catch (e) {
+    return 'Error removing item from cart';
   }
 };
 
