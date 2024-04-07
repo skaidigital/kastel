@@ -1,4 +1,5 @@
 'use client';
+
 import { Dictionary } from '@/app/dictionaries';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { OptionGroup } from '@/components/VariantSelector/OptionGroup';
@@ -31,13 +32,15 @@ export function VariantSelector({
     availableForSale:
       inventory.variants.edges.find((edge) => edge.node.id === variant.id)?.node
         ?.availableForSale || false,
-    ...variant.selectedOptions.reduce(
-      (accumulator, option) => ({
-        ...accumulator,
-        [option.name.toLowerCase()]: option.value
-      }),
-      {}
-    )
+    ...variant.selectedOptions
+      ?.filter((option): option is { value: string; name: string } => option !== undefined)
+      .reduce(
+        (accumulator, option) => ({
+          ...accumulator,
+          [option.name.toLowerCase()]: option.value
+        }),
+        {} as Record<string, string>
+      )
   }));
 
   // Filter out any option where there are not a corresponding variant
