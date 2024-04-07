@@ -4,16 +4,13 @@ import { CACHE_TAGS, MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugsProducts } from '@/lib/sanity/loader/generateStaticSlugs';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { SearchParams } from '@/lib/types';
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-const ProductPreview = dynamic(() => import('components/pages/ProductPage/ProductPreview'));
+// const ProductPreview = dynamic(() => import('components/pages/ProductPage/ProductPreview'));
 
 export async function generateStaticParams() {
   const slugs = await generateStaticSlugsProducts();
@@ -42,23 +39,23 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
   const initial = await loadProduct(slug, market);
   const { product_page: dictionary } = await getDictionary();
 
-  if (draftMode().isEnabled) {
-    return (
-      <ProductPreview
-        params={params}
-        initial={initial}
-        market={market}
-        dictionary={dictionary}
-        searchParams={searchParams}
-      />
-    );
-  }
+  // if (draftMode().isEnabled) {
+  //   return (
+  //     <ProductPreview
+  //       params={params}
+  //       initial={initial}
+  //       market={market}
+  //       dictionary={dictionary}
+  //       searchParams={searchParams}
+  //     />
+  //   );
+  // }
 
   if (!initial.data) {
     notFound();
   }
 
-  const productWithoutNullValues = nullToUndefined(initial.data);
+  // const productWithoutNullValues = nullToUndefined(initial.data);
 
   // const validatedProduct = productValidator.parse(productWithoutNullValues);
 
