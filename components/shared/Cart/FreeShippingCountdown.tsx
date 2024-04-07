@@ -1,6 +1,6 @@
 'use client';
 
-import { formatPrice } from '@/app/(site)/shopify/utils';
+import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
 import { Dictionary } from '@/app/dictionaries-client';
 import { Text } from '@/components/base/Text';
 import * as Progress from '@radix-ui/react-progress';

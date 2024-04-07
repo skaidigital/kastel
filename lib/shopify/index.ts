@@ -1,4 +1,4 @@
-import { isShopifyError } from '@/app/(site)/shopify/utils';
+import { isShopifyError } from '@/app/[market]/[lang]/(site)/shopify/utils';
 import { env } from '@/env';
 import { ensureStartsWith } from '@/lib/utils';
 import { cookies } from 'next/headers';

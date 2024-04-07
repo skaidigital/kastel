@@ -1,4 +1,4 @@
-import { formatPrice } from '@/app/(site)/shopify/utils';
+import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import EditItemQuantityButton from '@/components/shared/Cart/EditQuantityButton';

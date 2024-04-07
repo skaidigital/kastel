@@ -3,7 +3,7 @@ import {
   formatPrice,
   getOrderFinancialStatusBadgeVariant,
   getOrderFullfillmentStatusBadgeVariant
-} from '@/app/(site)/shopify/utils';
+} from '@/app/[market]/[lang]/(site)/shopify/utils';
 import { getDictionary } from '@/app/dictionaries';
 import { Badge } from '@/components/Badge';
 import { Pagination } from '@/components/Pagination';

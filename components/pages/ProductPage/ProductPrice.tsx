@@ -1,6 +1,6 @@
 'use client';
 
-import { formatPrice } from '@/app/(site)/shopify/utils';
+import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
 import { Badge } from '@/components/Badge';
 import { Text } from '@/components/base/Text';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';

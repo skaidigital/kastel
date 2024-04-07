@@ -1,6 +1,6 @@
 'use client';
 
-import { UserError } from '@/app/(site)/shopify/types';
+import { UserError } from '@/app/[market]/[lang]/(site)/shopify/types';
 import { Dictionary } from '@/app/dictionaries';
 import { BackButton } from '@/components/BackButton';
 import { Container } from '@/components/base/Container';
