@@ -1,7 +1,6 @@
 import { Configurator } from '@/components/pages/ConfiguratorPage/ConfiguratorPageLayout';
 import { getConfiguratorQuery } from '@/components/pages/ConfiguratorPage/hooks';
 import { MarketValues } from '@/data/constants';
-import { env } from '@/env';
 import { getMarket } from '@/lib/getMarket';
 import { loadQuery } from '@/lib/sanity/store';
 import { Metadata } from 'next';
@@ -30,8 +29,9 @@ export const metadata: Metadata = {
   title: getTitle()
 };
 
+// TODO get market from params
 function getTitle() {
-  const market = env.NEXT_PUBLIC_MARKET as MarketValues;
+  const market = 'no' as MarketValues;
   switch (market) {
     case 'dk':
       return 'Konfigurator';

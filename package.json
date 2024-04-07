@@ -18,8 +18,7 @@
     "commit": "cz",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check",
-    "studio": "npx drizzle-kit studio"
+    "test": "pnpm lint && pnpm prettier:check"
   },
   "git": {
     "pre-commit": "lint-staged"
@@ -82,9 +81,6 @@
     "autoprefixer": "^10.4.14",
     "clsx": "^2.0.0",
     "cva": "1.0.0-beta.1",
-    "drizzle-kit": "^0.20.14",
-    "drizzle-orm": "^0.29.3",
-    "drizzle-zod": "^0.5.1",
     "eslint-config-next": "^13.4.12",
     "framer-motion": "^10.16.4",
     "graphql": "^16.8.1",

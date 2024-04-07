@@ -1,7 +1,6 @@
 'use server';
 
 import { MarketValues } from '@/data/constants';
-import { env } from '@/env';
 import { cookies, draftMode } from 'next/headers';
 
 export async function getMarket() {
@@ -9,7 +8,7 @@ export async function getMarket() {
     const previewMarket = cookies().get('previewMarket')?.value || 'no';
     return previewMarket as MarketValues;
   }
-  const market = env.NEXT_PUBLIC_MARKET as MarketValues;
+  const market = 'no' as MarketValues;
 
   return market;
 }

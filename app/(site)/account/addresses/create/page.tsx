@@ -1,7 +1,6 @@
 import { getDictionary } from '@/app/dictionaries';
 import { CreateAddressPage } from '@/components/pages/CreateAddressPage';
 import { MarketValues } from '@/data/constants';
-import { env } from '@/env';
 import { Metadata } from 'next';
 
 export default async function Page() {
@@ -13,8 +12,9 @@ export const metadata: Metadata = {
   title: getTitle()
 };
 
+// TODO get market from params
 function getTitle() {
-  const market = env.NEXT_PUBLIC_MARKET as MarketValues;
+  const market = 'no' as MarketValues;
 
   switch (market) {
     case 'dk':

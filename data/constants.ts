@@ -26,6 +26,10 @@ export const CACHE_TAGS = {
   METADATA: 'settingsSEOAndSocials'
 };
 
+export const EMAILS = {
+  CONTACT: 'support@kastelshoes.com'
+};
+
 export const ANALTYICS_EVENT_NAME = {
   ADD_TO_CART: 'add_to_cart',
   GO_TO_CHECKOUT: 'go_to_checkout',

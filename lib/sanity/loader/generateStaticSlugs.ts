@@ -6,7 +6,7 @@ import { env } from '@/env';
 import { client } from '@/lib/sanity/client';
 
 export function generateStaticSlugs(type: string) {
-  const market = env.NEXT_PUBLIC_MARKET;
+  const market = 'no';
 
   // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
   return client
@@ -23,7 +23,7 @@ export function generateStaticSlugs(type: string) {
 }
 
 export function generateStaticSlugsProducts() {
-  const market = env.NEXT_PUBLIC_MARKET;
+  const market = 'no';
 
   // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
   return client

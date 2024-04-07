@@ -1,39 +1,39 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { withSentryConfig } = require('@sentry/nextjs');
-const { createClient } = require('next-sanity');
+// const { createClient } = require('next-sanity');
 const createJITI = require('jiti');
 const { withPlausibleProxy } = require('next-plausible');
 var jiti = createJITI(__filename);
 
 jiti('./env');
 
-const client = createClient({
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  useCdn: false,
-  apiVersion: '2022-06-28'
-});
+// const client = createClient({
+//   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+//   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+//   useCdn: false,
+//   apiVersion: '2022-06-28'
+// });
 
-async function fetchSanityRedirects() {
-  const market = process.env.NEXT_PUBLIC_MARKET;
+// async function fetchSanityRedirects() {
+//   const market = process.env.NEXT_PUBLIC_MARKET;
 
-  const redirectDocs = await client.fetch(
-    `*[_type == "redirect" && market == $market]{ source, destination, permanent }`,
-    {
-      market
-    }
-  );
+//   const redirectDocs = await client.fetch(
+//     `*[_type == "redirect" && market == $market]{ source, destination, permanent }`,
+//     {
+//       market
+//     }
+//   );
 
-  const redirects = redirectDocs.map((redirect) => {
-    return {
-      source: `/${redirect.source}`,
-      destination: `/${redirect.destination}`,
-      permanent: redirect.permanent
-    };
-  });
+//   const redirects = redirectDocs.map((redirect) => {
+//     return {
+//       source: `/${redirect.source}`,
+//       destination: `/${redirect.destination}`,
+//       permanent: redirect.permanent
+//     };
+//   });
 
-  return redirects;
-}
+//   return redirects;
+// }
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -61,11 +61,11 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'https://3wkb686r-3000.euw.devtunnels.ms']
     }
-  },
-  async redirects() {
-    const sanityRedirects = await fetchSanityRedirects();
-    return [...sanityRedirects];
   }
+  // async redirects() {
+  //   const sanityRedirects = await fetchSanityRedirects();
+  //   return [...sanityRedirects];
+  // }
 };
 
 const SentryWebpackPluginOptions = {

@@ -1,6 +1,5 @@
 import { OrderDetailsPage } from '@/components/pages/OrderDetailsPage';
 import { MarketValues } from '@/data/constants';
-import { env } from '@/env';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -31,8 +30,9 @@ export function generateMetadata({
   };
 }
 
+// TODO get market from params
 function getTitle() {
-  const market = env.NEXT_PUBLIC_MARKET as MarketValues;
+  const market = 'no' as MarketValues;
   switch (market) {
     case 'dk':
       return 'Order';
