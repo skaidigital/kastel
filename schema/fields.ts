@@ -35,7 +35,7 @@ export const ogImage = defineType({
 });
 
 export const figure = defineType({
-  title: 'Bilde',
+  title: 'Image',
   name: 'figure',
   type: 'image',
   options: {
@@ -89,8 +89,6 @@ export const bottomBorder = defineType({
   validation: (Rule) => Rule.required()
 });
 
-// TODO add warning if alt text is not set
-// TODO make i18n for alt text
 export const gallery = defineType({
   title: 'Gallery',
   name: 'gallery',
@@ -128,7 +126,7 @@ export const gallery = defineType({
 });
 
 export const pageBuilder = defineType({
-  title: 'Sidebygger',
+  title: 'Page builder',
   name: 'pageBuilder',
   type: 'array',
   components: {
