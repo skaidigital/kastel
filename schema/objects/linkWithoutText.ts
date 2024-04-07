@@ -1,7 +1,7 @@
 import { ValidationContext, defineField, defineType } from 'sanity';
 
 export const linkWithoutText = defineType({
-  title: 'Lenke uten tekst',
+  title: 'Link without text',
   name: 'linkWithoutText',
   type: 'object',
   preview: {

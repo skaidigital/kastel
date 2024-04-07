@@ -4,26 +4,26 @@ import { linkWithoutTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
-const hiddenInfoBannerValidator = z.object({
+const hiddenAnnouncementBannerValidator = z.object({
   isShown: z.literal(false)
 });
 
-const shownInfoBannerValidator = z.object({
+const shownAnnouncementBannerValidator = z.object({
   isShown: z.literal(true),
   content: z.string(),
   link: linkWithoutTextValidator
 });
 
-export const infoBannerValidator = z.discriminatedUnion('isShown', [
-  hiddenInfoBannerValidator,
-  shownInfoBannerValidator
+export const announcementBannerValidator = z.discriminatedUnion('isShown', [
+  hiddenAnnouncementBannerValidator,
+  shownAnnouncementBannerValidator
 ]);
 
-export type InfoBannerPayload = z.infer<typeof infoBannerValidator>;
+export type AnnouncementBannerPayload = z.infer<typeof announcementBannerValidator>;
 
-export function getInfoBannerQuery(market: MarketValues) {
+export function getAnnouncementBannerQuery(market: MarketValues) {
   const query = groq`
-    *[_type == "infoBanner"][0] {
+    *[_type == "announcementBanner"][0] {
       isShown,
       "content": content.${market},
       "link": linkWithoutText{

@@ -97,8 +97,9 @@ const config = definePlugin({
 
 export default defineConfig({
   basePath: '/studio',
-  title: 'Abate Sanity Studio',
+  title: 'Kastel',
   name: 'studio',
+  // TODO switch logo
   // eslint-disable-next-line @next/next/no-img-element
   icon: () => <img src="/images/logo.webp" alt="Abate Logo" />,
   projectId,

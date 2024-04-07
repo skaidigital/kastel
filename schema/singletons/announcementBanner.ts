@@ -2,15 +2,15 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { SpeakerLoudIcon } from '@radix-ui/react-icons';
 import { defineField, defineType } from 'sanity';
 
-export const infoBanner = defineType({
-  title: 'Info-fane',
-  name: 'infoBanner',
+export const announcementBanner = defineType({
+  title: 'Announcement banner',
+  name: 'announcementBanner',
   type: 'document',
   icon: SpeakerLoudIcon,
   preview: {
     prepare() {
       return {
-        title: 'Info-fane'
+        title: 'Announcement banner'
       };
     }
   },
@@ -19,7 +19,8 @@ export const infoBanner = defineType({
       title: 'Show banner?',
       name: 'isShown',
       type: 'boolean',
-      initialValue: true
+      initialValue: true,
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Content',

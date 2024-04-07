@@ -1,3 +1,6 @@
+'use client';
+
+import { SCHEMA_NAMES } from '@/data/constants';
 import { LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types';
 
 export const getSlug = (link: LinkProps | LinkWithoutTextProps) => {
@@ -17,12 +20,12 @@ export const getSlug = (link: LinkProps | LinkWithoutTextProps) => {
   if (internalLinkType === 'page' && slug === 'home') {
     return `/`;
   }
-  if (internalLinkType === 'page') {
+  if (internalLinkType === SCHEMA_NAMES.PAGE) {
     return `/${slug}`;
   } else if (internalLinkType === 'product') {
-    return `/products/${slug}`;
+    return `/${SCHEMA_NAMES.PRODUCT}/${slug}`;
   } else if (internalLinkType === 'collection') {
-    return `/collections/${slug}`;
+    return `/${SCHEMA_NAMES.COLLECTION}/${slug}`;
   } else if (internalLinkType === 'storeLocator') {
     return `/stores`;
   } else {

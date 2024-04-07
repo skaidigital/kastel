@@ -67,7 +67,7 @@ export function filterAlreadyAddedReferences(filter: any) {
 export const validateAllStringTranslations = (Rule: any) =>
   Rule.custom((value: any) => {
     const hasNo = value?.no;
-    const hasEn = value?.no;
+    const hasEn = value?.en;
 
     if (!hasNo || !hasEn) {
       return [
@@ -95,7 +95,7 @@ interface Props {
 }
 
 // TODO hent options fra Sanity field i stedet
-// TODO expand validation to make sure it hits the right field. For example with content in infoBanner where we have a boolean we check
+// TODO expand validation to make sure it hits the right field. For example with content in announcementBanner where we have a boolean we check
 // TODO Make i18nStirng, i18n, etc? instead
 export function i18nField({
   title,
@@ -217,6 +217,15 @@ export function i18nSlug({ schemaType, validation }: { schemaType: string; valid
       group: market.id,
       validation,
       title: 'Slug',
+      hidden: (context: any) => {
+        const thisSlug = context.document[`slug_${market.id}`]?.current;
+
+        if (thisSlug === 'home') {
+          return true;
+        }
+
+        return false;
+      },
       options: {
         source: `title_${market.id}`,
         isUnique: (slug, context) =>

@@ -7,9 +7,11 @@ import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { VisualEditing } from 'next-sanity';
 import { draftMode } from 'next/headers';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
+import { Skeleton } from '@/components/Skeleton';
+import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -35,9 +37,9 @@ export default function IndexRoute({ children }: { children: ReactNode }) {
               {/* <Suspense>
                 <PopupHandler />
               </Suspense> */}
-              {/* <Suspense fallback={<Skeleton className="h-11 w-full" />}>
-                <InfoBanner />
-              </Suspense> */}
+              <Suspense fallback={<Skeleton className="h-11 w-full" />}>
+                <AnnouncementBanner />
+              </Suspense>
               {/* <Suspense>
                 <Navbar />
               </Suspense> */}

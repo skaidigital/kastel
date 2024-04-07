@@ -16,6 +16,7 @@ export const ROUTES = {
 export const CACHE_TAGS = {
   CART: 'cart',
   CUSTOMER_ADDRESS: 'customer-address',
+  ANNOUNCEMENT_BANNER: 'announcement-banner',
   USPS: 'unique-selling-points',
   MERCHANDISING: 'merchandising',
   NOT_FOUND_PAGE: 'pageNotFound',
@@ -23,6 +24,12 @@ export const CACHE_TAGS = {
   PAYMENT_PROVIDERS: 'paymentProviders',
   NAVBAR: 'navbar',
   METADATA: 'settingsSEOAndSocials'
+};
+
+export const SCHEMA_NAMES = {
+  PAGE: 'page',
+  PRODUCT: 'product',
+  COLLECTION: 'collection'
 };
 
 export const EMAILS = {

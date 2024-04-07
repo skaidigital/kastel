@@ -37,7 +37,8 @@ export const page = defineType({
       name: 'internalTitle',
       type: 'internalTitle',
       group: 'shared',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id === 'home'
     }),
     ...i18nSlug({ schemaType: 'page', validation: (Rule: any) => Rule.required() }),
     defineField({

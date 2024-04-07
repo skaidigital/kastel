@@ -1,6 +1,6 @@
-import { MARKETS } from '@/data/constants';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Check } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const usps = defineType({
   title: 'USPs',
@@ -19,16 +19,23 @@ export const usps = defineType({
       title: 'USPs above footer',
       name: 'items',
       type: 'array',
-      validation: (Rule) => Rule.required().min(1).max(3),
-      of: [{ type: 'i18n.string' }]
-    }),
-    ...MARKETS.map((market) =>
-      defineField({
-        title: `USPs under add to cart button for ${market.name} ${market.flag}`,
-        name: `productForm_${market.id}`,
-        type: 'richText',
-        validation: (Rule) => Rule.required()
-      })
-    )
+      validation: (Rule) => Rule.required().min(1).max(8),
+      of: [
+        defineArrayMember({
+          title: 'USP',
+          name: 'usp',
+          type: 'i18n.string',
+          validation: validateAllStringTranslations
+        })
+      ]
+    })
+    // ...MARKETS.map((market) =>
+    //   defineField({
+    //     title: `USPs under add to cart button for ${market.name} ${market.flag}`,
+    //     name: `productForm_${market.id}`,
+    //     type: 'richText',
+    //     validation: (Rule) => Rule.required()
+    //   })
+    // )
   ]
 });

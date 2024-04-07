@@ -7,6 +7,7 @@ import {
   Cookie,
   CreditCard,
   File,
+  Folders,
   Gear,
   GoogleLogo,
   GridFour,
@@ -82,7 +83,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
       singleton(S, 'Store locator', 'storeLocator', 'storeLocator').icon(MapPin),
       group(S, 'Site', [
-        singleton(S, 'Info banner', 'infoBanner', 'infoBanner').icon(Info),
+        singleton(S, 'Announcement banner', 'announcementBanner', 'announcementBanner').icon(Info),
         singleton(S, 'Navbar', 'navbar', 'navbar').icon(ArrowLineUp),
         singleton(S, 'Footer', 'footer', 'footer').icon(SquareHalfBottom),
         singleton(S, 'Cookie consent', 'cookieConsent', 'cookieConsent').icon(Cookie),
@@ -98,6 +99,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Card', schemaType: 'card' }).icon(Square)
       ]).icon(Recycle),
       group(S, 'Settings', [
+        // singleton(S, 'General', 'settingsGeneral', 'settingsGeneral').icon(Gear),
         singleton(S, 'SEO & Socials', 'settingsSEOAndSocials', 'settingsSEOAndSocials').icon(
           GoogleLogo
         ),
@@ -112,8 +114,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         list(S, 'Product option types', `_type == 'productOptionType'`).icon(GridFour),
         list(S, 'Product options', `_type == 'productOption'`).icon(Square),
         listNew({ S, title: 'Colors', schemaType: 'colorDocument' }).icon(PaintBucket),
-        // listNew({ S, title: 'Tags', schemaType: 'tag' }).icon(Tag),
-        // listNew({ S, title: 'Tag groups', schemaType: 'tagGroup' }).icon(Folders),
+        listNew({ S, title: 'Tags', schemaType: 'tag' }).icon(Tag),
+        listNew({ S, title: 'Tag groups', schemaType: 'tagGroup' }).icon(Folders),
         listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag)
       ]).icon(Gear)
     ]);

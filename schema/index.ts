@@ -52,9 +52,9 @@ import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { productLsting as productListing } from '@/schema/pageBuilderBlocks/productListing';
 import { textAndImage } from '@/schema/pageBuilderBlocks/textAndImage';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
+import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
 import { footer } from '@/schema/singletons/footer';
-import { infoBanner } from '@/schema/singletons/infoBanner';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
 import { popup } from '@/schema/singletons/popup';
@@ -135,7 +135,7 @@ const schema = [
   // Singletons
   footer,
   navbar,
-  infoBanner,
+  announcementBanner,
   popup,
   cookieConsent,
   usps,

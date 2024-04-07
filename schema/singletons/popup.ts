@@ -19,7 +19,21 @@ export const popup = defineType({
       title: 'Show popup?',
       name: 'isShown',
       type: 'boolean',
-      initialValue: true
+      initialValue: true,
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Type',
+      name: 'type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Info', value: 'info' },
+          { title: 'Newsletter Signup', value: 'newsletter' }
+        ]
+      },
+      initialValue: 'info',
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Title',
