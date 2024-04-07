@@ -1,6 +1,5 @@
 import { getDictionary } from '@/app/dictionaries';
-import { ProductPageLayout } from '@/components/pages/ProductPage/ProductPageLayout';
-import { Product, getProductQuery, productValidator } from '@/components/pages/ProductPage/hooks';
+import { Product, getProductQuery } from '@/components/pages/ProductPage/hooks';
 import { CACHE_TAGS, MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
@@ -61,15 +60,16 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
 
   const productWithoutNullValues = nullToUndefined(initial.data);
 
-  const validatedProduct = productValidator.parse(productWithoutNullValues);
+  // const validatedProduct = productValidator.parse(productWithoutNullValues);
 
-  return (
-    <ProductPageLayout
-      data={validatedProduct}
-      dictionary={dictionary}
-      searchParams={searchParams}
-    />
-  );
+  // return (
+  //   <ProductPageLayout
+  //     data={validatedProduct}
+  //     dictionary={dictionary}
+  //     searchParams={searchParams}
+  //   />
+  // );
+  return <div>Product</div>;
 }
 
 export async function generateMetadata({

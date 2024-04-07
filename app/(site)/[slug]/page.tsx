@@ -1,5 +1,4 @@
-import { PageLayout } from '@/components/pages/PageLayout';
-import { PagePayload, getPageQuery, pageValidator } from '@/components/pages/PageLayout/hooks';
+import { PagePayload, getPageQuery } from '@/components/pages/PageLayout/hooks';
 import { MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
@@ -38,9 +37,10 @@ export default async function PageSlugRoute({ params }: Props) {
   }
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
-  pageValidator.parse(pageWithoutNullValues);
+  // pageValidator.parse(pageWithoutNullValues);
 
-  return <PageLayout data={pageWithoutNullValues} market={market} />;
+  // return <PageLayout data={pageWithoutNullValues} market={market} />;
+  return <div>Page</div>;
 }
 
 export async function generateMetadata({

@@ -1,5 +1,4 @@
 import { getDictionary } from '@/app/dictionaries';
-import { BundlePage } from '@/components/pages/BundlePage';
 import { cleanedProductData, getBundleQuery } from '@/components/pages/ProductPage/hooks';
 import { MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
@@ -37,7 +36,8 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
     notFound();
   }
 
-  return <BundlePage data={cleanedProduct} dictionary={dictionary} params={searchParams} />;
+  // return <BundlePage data={cleanedProduct} dictionary={dictionary} params={searchParams} />;
+  return <div>Bundle</div>;
 }
 
 export async function generateMetadata({

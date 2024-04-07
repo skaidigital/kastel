@@ -1,8 +1,6 @@
-import { CollectionPage } from '@/components/pages/CollectionPage';
 import {
   CollectionBasePayload,
   CollectionProductsPayload,
-  collectionValidator,
   getCollectionBaseQuery,
   getCollectionProductsQuery,
   mergeCollectionBaseAndProducts
@@ -88,9 +86,10 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     notFound();
   }
 
-  const validatedData = collectionValidator.parse(mergedData);
+  // const validatedData = collectionValidator.parse(mergedData);
 
-  return <CollectionPage data={validatedData} currentPage={currentPage} />;
+  // return <CollectionPage data={validatedData} currentPage={currentPage} />;
+  return <div>Collection</div>;
 }
 
 export async function generateMetadata({
