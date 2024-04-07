@@ -67,20 +67,6 @@ export function SyncProductToShopify(context: DocumentActionsContext) {
       onHandle: async () => {
         await sendData(MARKET.eu.id);
       }
-    },
-    {
-      label: `Sync to ${MARKET.sv.name} ${MARKET.sv.flag}`,
-      icon: UploadIcon,
-      onHandle: async () => {
-        await sendData(MARKET.sv.id);
-      }
-    },
-    {
-      label: `Sync to ${MARKET.dk.name} ${MARKET.dk.flag}`,
-      icon: UploadIcon,
-      onHandle: async () => {
-        await sendData(MARKET.dk.id);
-      }
     }
   ];
 }

@@ -17,12 +17,8 @@ function getTitle() {
   const market = 'no' as MarketValues;
 
   switch (market) {
-    case 'dk':
-      return 'Opret adresse';
     case 'no':
       return 'Opprett adresse';
-    case 'sv':
-      return 'Skapa adress';
     case 'eu':
       return 'Create address';
   }

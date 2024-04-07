@@ -1,7 +1,7 @@
 import { apiVersion, dataset, projectId, studioUrl } from '@/lib/sanity/api';
 import { createClient } from '@sanity/client/stega';
 
-const excludedFields = ['slug_eu', 'slug_no', 'slug_dk', 'slug_sv', 'video'];
+const excludedFields = ['slug_eu', 'slug_no', 'video'];
 
 const excludedNestedFields = [
   'padding',

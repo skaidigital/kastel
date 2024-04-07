@@ -35,18 +35,6 @@ export const popup = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
-      title: 'Content 🇸🇪',
-      name: 'content_sv',
-      type: 'richText',
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      title: 'Content 🇩🇰',
-      name: 'content_dk',
-      type: 'richText',
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
       title: 'Content 🇪🇺',
       name: 'content_eu',
       type: 'richText',

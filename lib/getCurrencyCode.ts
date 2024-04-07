@@ -6,10 +6,6 @@ export async function getCurrencyCode() {
   switch (market) {
     case 'no':
       return 'NOK';
-    case 'sv':
-      return 'SEK';
-    case 'dk':
-      return 'DKK';
     case 'eu':
       return 'EUR';
     default:

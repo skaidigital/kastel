@@ -28,11 +28,7 @@ function getTitle() {
   const market = 'no' as MarketValues;
 
   switch (market) {
-    case 'dk':
-      return 'Adresser';
     case 'no':
-      return 'Adresser';
-    case 'sv':
       return 'Adresser';
     case 'eu':
       return 'Addresses';

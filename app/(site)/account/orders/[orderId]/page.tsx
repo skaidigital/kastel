@@ -34,11 +34,7 @@ export function generateMetadata({
 function getTitle() {
   const market = 'no' as MarketValues;
   switch (market) {
-    case 'dk':
-      return 'Order';
     case 'no':
-      return 'Ordre';
-    case 'sv':
       return 'Ordre';
     case 'eu':
       return 'Order';

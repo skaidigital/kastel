@@ -50,10 +50,6 @@ function getReccommendedMarketUrl(country: string) {
   switch (country) {
     case 'NO':
       return 'https://abate-b2c-no.vercel.app';
-    case 'SE':
-      return 'https://abate-b2c-sv.vercel.app';
-    case 'DK':
-      return 'https://abate-b2c-dk.vercel.app';
     default:
       return 'https://abate-b2c-eu.vercel.app';
   }

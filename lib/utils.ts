@@ -48,10 +48,6 @@ export function formatDate(dateString: string) {
 
 export function getMarketFlag(market: MarketValues) {
   switch (market) {
-    case 'dk':
-      return '🇩🇰';
-    case 'sv':
-      return '🇸🇪';
     case 'no':
       return '🇳🇴';
     case 'eu':

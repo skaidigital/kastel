@@ -32,11 +32,7 @@ function getTitle() {
   const market = 'no' as MarketValues;
 
   switch (market) {
-    case 'dk':
-      return 'Konto';
     case 'no':
-      return 'Konto';
-    case 'sv':
       return 'Konto';
     case 'eu':
       return 'Account';

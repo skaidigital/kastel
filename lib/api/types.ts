@@ -2,12 +2,7 @@ import { MARKET, MarketValues } from 'data/constants';
 import { z } from 'zod';
 
 // market union type
-export const marketType = z.union([
-  z.literal(MARKET.no.id),
-  z.literal(MARKET.sv.id),
-  z.literal(MARKET.dk.id),
-  z.literal(MARKET.eu.id)
-]);
+export const marketType = z.union([z.literal(MARKET.no.id), z.literal(MARKET.eu.id)]);
 
 export const ValidatePayloadBody = z.object({
   _id: z.string(),
