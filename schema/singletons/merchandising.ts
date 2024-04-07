@@ -30,12 +30,19 @@ export const merchandising = defineType({
       validation: (Rule) => Rule.min(4).max(12)
     }),
     defineField({
-      title: 'Cross sell product in cart',
-      name: 'cartCrossSell',
-      type: 'reference',
-      to: [{ type: 'product' }],
-      validation: (Rule) => Rule.required(),
-      description: 'Product that will be shown in the cart as a cross sell'
+      title: 'Cross sell products in the cart drawer (optional)',
+      description: 'Products that will be shown in the cart drawer as a cross sell',
+      name: 'cartCrossSellProducts',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'product' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ]
     }),
     defineField({
       title: 'Free shipping limit',

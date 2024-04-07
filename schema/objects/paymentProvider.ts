@@ -20,7 +20,6 @@ export const paymentProvider = defineType({
       return {
         title: title ? title.charAt(0).toUpperCase() + title.substring(1) : 'Ikke valgt enda',
         subtitle: 'Betalingsalternativ'
-        // media: getIcon(title) || null,
       };
     }
   },
@@ -35,20 +34,3 @@ export const paymentProvider = defineType({
     })
   ]
 });
-
-// const getIcon = (icon) => {
-//   switch (icon) {
-//     case "visa":
-//       return FaCcVisa;
-//     case "mastercard":
-//       return FaCcMastercard;
-//     case "vipps":
-//       return "";
-//     case "klarna":
-//       return SiKlarna;
-//     case "paypal":
-//       return FaCcPaypal;
-//     default:
-//       return false;
-//   }
-// };

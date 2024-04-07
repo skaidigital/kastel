@@ -1,7 +1,6 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
-// TODO figure out what more to put here
 export const settingsSEOAndSocials = defineType({
   title: 'SEO & Socials',
   name: 'settingsSEOAndSocials',

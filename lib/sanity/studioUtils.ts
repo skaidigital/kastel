@@ -67,16 +67,12 @@ export function filterAlreadyAddedReferences(filter: any) {
 export const validateAllStringTranslations = (Rule: any) =>
   Rule.custom((value: any) => {
     const hasNo = value?.no;
-    const hasSv = value?.sv;
-    const hasDk = value?.dk;
-    const hasEu = value?.eu;
+    const hasEn = value?.no;
 
-    if (!hasNo || !hasSv || !hasDk || !hasEu) {
+    if (!hasNo || !hasEn) {
       return [
         !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-        !hasSv && { message: 'You must provide a Swedish translation', paths: ['sv'] },
-        !hasDk && { message: 'You must provide a Danish translation', paths: ['dk'] },
-        !hasEu && { message: 'You must provide a European translation', paths: ['eu'] }
+        !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
       ].filter(Boolean);
     }
     return true;

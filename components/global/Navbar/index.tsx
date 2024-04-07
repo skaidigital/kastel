@@ -1,7 +1,6 @@
 import { NavbarLayout } from '@/components/global/Navbar/NavbarLayout';
 import { NavbarPayload, getNavbarQuery } from '@/components/global/Navbar/hooks';
 import Cart from '@/components/shared/Cart';
-import { CrossSell } from '@/components/shared/Cart/CrossSell';
 import { CrossSellSkeleton } from '@/components/shared/Cart/CrossSell/CrossSellSkeleton';
 import OpenCart from '@/components/shared/Cart/open-cart';
 import { CACHE_TAGS, MarketValues } from '@/data/constants';
@@ -36,7 +35,7 @@ export async function Navbar() {
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
           <Suspense fallback={<CrossSellSkeleton className="p-5" />}>
-            <CrossSell className="border-t border-brand-border p-5" />
+            {/* <CrossSell className="border-t border-brand-border p-5" /> */}
           </Suspense>
         </Cart>
       </Suspense>

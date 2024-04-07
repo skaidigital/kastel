@@ -21,11 +21,7 @@ async function loadCrossSellProduct(market: MarketValues) {
   return loadQuery<CrossSellPayload>(query, {}, { next: { tags: [CACHE_TAGS.MERCHANDISING] } });
 }
 
-interface Props {
-  className?: string;
-}
-
-export async function CrossSell({ className }: Props) {
+export async function CrossSell() {
   const cartId = cookies().get('cartId')?.value;
 
   let cart;
