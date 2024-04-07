@@ -1,7 +1,6 @@
 import { getDictionary } from '@/app/dictionaries';
 import { Product, getProductQuery } from '@/components/pages/ProductPage/hooks';
 import { CACHE_TAGS, MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugsProducts } from '@/lib/sanity/loader/generateStaticSlugs';
 import { loadQuery } from '@/lib/sanity/store';
@@ -29,13 +28,14 @@ function loadProduct(slug: string, market: MarketValues) {
 }
 
 interface Props {
-  params: { slug: string };
+  params: { slug: string; market: MarketValues };
   searchParams?: SearchParams;
 }
 
 export default async function SlugProductPage({ params, searchParams }: Props) {
   const slug = params.slug;
-  const market = await getMarket();
+  const market = params.market;
+
   const initial = await loadProduct(slug, market);
   const { product_page: dictionary } = await getDictionary();
 
@@ -70,14 +70,10 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
 }
 
 export async function generateMetadata({
-  params
+  params: { slug, market }
 }: {
-  params: { slug: string };
+  params: { slug: string; market: MarketValues };
 }): Promise<Metadata> {
-  const slug = params.slug;
-
-  const market = await getMarket();
-
   const metadata = await loadMetadata({
     market,
     slug,

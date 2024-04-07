@@ -6,7 +6,6 @@ import {
   mergeCollectionBaseAndProducts
 } from '@/components/pages/CollectionPage/hooks';
 import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -48,19 +47,19 @@ function loadCollectionProducts(slug: string, market: MarketValues, pageIndex: n
 }
 
 interface Props {
-  params: { slug: string };
+  params: { slug: string; market: MarketValues };
   searchParams?: {
     page?: string;
   };
 }
 
 export default async function SlugCollectionPage({ params, searchParams }: Props) {
-  const market = await getMarket();
+  const { market, slug } = params;
 
   const currentPage = Number(searchParams?.page) || 1;
 
-  const initialBase = await loadCollectionBase(params.slug, market);
-  const initialProducts = await loadCollectionProducts(params.slug, market, currentPage);
+  const initialBase = await loadCollectionBase(slug, market);
+  const initialProducts = await loadCollectionProducts(slug, market, currentPage);
 
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
   const collectionProductsWithoutNullValues = nullToUndefined(initialProducts.data);
@@ -93,14 +92,10 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 }
 
 export async function generateMetadata({
-  params
+  params: { slug, market }
 }: {
-  params: { slug: string };
+  params: { slug: string; market: MarketValues };
 }): Promise<Metadata> {
-  const slug = params.slug;
-
-  const market = await getMarket();
-
   const metadata = await loadMetadata({
     market,
     slug,

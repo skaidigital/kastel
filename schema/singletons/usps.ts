@@ -20,7 +20,7 @@ export const usps = defineType({
       name: 'items',
       type: 'array',
       validation: (Rule) => Rule.required().min(1).max(3),
-      of: [{ type: 'usp' }]
+      of: [{ type: 'i18n.string' }]
     }),
     ...MARKETS.map((market) =>
       defineField({

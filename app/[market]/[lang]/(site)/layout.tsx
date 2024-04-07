@@ -1,7 +1,6 @@
 import Providers from '@/components/Providers';
 import PreviewMarketSelector from '@/components/sanity/PreviewMarketSelector';
 import { env } from '@/env';
-import { getMarket } from '@/lib/getMarket';
 import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Analytics } from '@vercel/analytics/react';
@@ -11,6 +10,7 @@ import { draftMode } from 'next/headers';
 import { ReactNode } from 'react';
 
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
+import { MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
 import '../../../../styles/globals.css';
@@ -64,11 +64,12 @@ export default function IndexRoute({ children }: { children: ReactNode }) {
   );
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const market = await getMarket();
-
+export async function generateMetadata({
+  params: { market }
+}: {
+  params: { market: MarketValues };
+}): Promise<Metadata> {
   const defaultMetadata = await loadDefaultMetadata(market);
-
   const ogImage = urlForOpenGraphImage(defaultMetadata?.ogImage);
 
   return {

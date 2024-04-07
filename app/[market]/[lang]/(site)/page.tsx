@@ -1,6 +1,5 @@
 import { PagePayload, getPageQuery } from '@/components/pages/PageLayout/hooks';
 import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
@@ -35,9 +34,11 @@ export default async function HomePage({
   return <div>Home page</div>;
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const market = await getMarket();
-
+export async function generateMetadata({
+  params: { market }
+}: {
+  params: { market: MarketValues };
+}): Promise<Metadata> {
   const metadata = await loadMetadata({ market, slug: 'home', schemaType: 'page' });
 
   const title = metadata?.metaTitle;

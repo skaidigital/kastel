@@ -17,26 +17,26 @@ export default function Page({
   return <OrderDetailsPage orderId={orderId} />;
 }
 
-// TODO show the order number from Shopify instead (i.e. #1008)
 export function generateMetadata({
-  params
+  params: { orderId, market }
 }: {
   params: {
     orderId: string;
+    market: MarketValues;
   };
 }): Metadata {
   return {
-    title: `${getTitle()} ${params.orderId}`
+    title: `${getTitle(market)} ${orderId}`
   };
 }
 
-// TODO get market from params
-function getTitle() {
-  const market = 'no' as MarketValues;
+function getTitle(market: MarketValues) {
   switch (market) {
     case 'no':
       return 'Ordre';
     case 'eu':
       return 'Order';
+    default:
+      throw new Error(`Unknown market: ${market}`);
   }
 }

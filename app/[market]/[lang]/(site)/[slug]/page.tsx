@@ -1,6 +1,5 @@
 import { PagePayload, getPageQuery } from '@/components/pages/PageLayout/hooks';
 import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -25,12 +24,12 @@ function loadPage(slug: string, market: MarketValues) {
 }
 
 interface Props {
-  params: { slug: string };
+  params: { slug: string; market: MarketValues };
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const market = await getMarket();
-  const initial = await loadPage(params.slug, market);
+  const { slug, market } = params;
+  const initial = await loadPage(slug, market);
 
   if (draftMode().isEnabled) {
     return <PagePreview params={params} initial={initial} market={market} />;
@@ -44,14 +43,10 @@ export default async function PageSlugRoute({ params }: Props) {
 }
 
 export async function generateMetadata({
-  params
+  params: { slug, market }
 }: {
-  params: { slug: string };
+  params: { slug: string; market: MarketValues };
 }): Promise<Metadata> {
-  const slug = params.slug;
-
-  const market = await getMarket();
-
   const metadata = await loadMetadata({
     market,
     slug,
