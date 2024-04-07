@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-brand-dark-grey;
+  }
+  .link-animation {
+    @apply transition-colors duration-100 ease-in-out;
+  }
+}
+
+@layer utilities {
+  :root {
+    --smooth-bezier: cubic-bezier(0.16, 1, 0.3, 1);
+    --header-height: 44px;
+    --announcement-bar-height: 44px;
+    --product-bg-color: #dedede;
+  }
+
+  body {
+    font-display: swap;
+  }
+
+  .top-offset {
+    top: calc(var(--header-height) + var(--announcement-bar-height));
+  }
+
+  .no-scroll {
+    overflow: hidden;
+    padding-right: 15px; /* Approx. width of scrollbar */
+  }
+}
+
+@layer utilities {
+  .with-brand-dark-grey {
+    --brand-dark-grey: #1c1b1b;
+  }
+}
+
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading='lazy'] {
+    clip-path: inset(0.6px);
+  }
+}
+
+/* TODO see if this can be turned into tailwind/see how Shadcn does it */
+.AccordionContent {
+  overflow: hidden;
+}
+.AccordionContent[data-state='open'] {
+  animation: slideDown 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+.AccordionContent[data-state='closed'] {
+  animation: slideUp 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+.AccordionTrigger[data-state='open'] {
+  animation: rotateDown 300ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+.AccordionTrigger[data-state='closed'] {
+  animation: rotateUp 300ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes rotateDown {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateUp {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Dropdown menu animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    /* transform: scaleY(0); */
+    height: 0;
+  }
+  to {
+    opacity: 1;
+    /* transform: scaleY(1); */
+    height: 440px;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+.NavigationMenuItems {
+  transform-origin: top;
+  will-change: transform, opacity;
+}
+
+.NavigationMenuContent[data-state='open'] .NavigationMenuItems {
+  animation: fadeIn 300ms ease-out;
+}
+
+.NavigationMenuContent[data-state='closed'] .NavigationMenuItems {
+  animation: fadeOut 300ms ease-in;
+}

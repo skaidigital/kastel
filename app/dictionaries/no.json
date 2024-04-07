@@ -1,0 +1,185 @@
+{
+  "footer": {
+    "made_with": "Laget med",
+    "by": "av",
+    "about": "Om",
+    "sign_up": {
+      "title": "Nyhetsbrev",
+      "description": "Skriv deg opp på vårt nyhetsbrev for oppdateringer.",
+      "email": "E-post",
+      "button_text": "Meld meg på nyhetsbrevet",
+      "success_message": "Takk for at du meldte deg på nyhetsbrevet vårt!",
+      "success_description": "Du vil snart motta en epost med en bekreftelseslenke.",
+      "error_message": "Noe gikk galt",
+      "error_description": "Vennligst prøv igjen senere."
+    }
+  },
+  "product_page": {
+    "discount": "Rabatt",
+    "add_to_cart": "Legg i handlekurv",
+    "choose_size": "Velg størrelse",
+    "show_all_sizes": "Vis alle størrelser",
+    "color": "Farge",
+    "close": "Lukke",
+    "reccommended": "Anbefalt",
+    "description": "Beskrivelse",
+    "expected_back_in_stock": "Forventet tilbake på lager",
+    "stock": {
+      "out_of_stock": "Utsolgt",
+      "low_stock": "Bare __AMOUNT__ igjen på lager",
+      "in_stock": "På lager"
+    },
+    "back_in_stock_notification": {
+      "this_product_is_out_of_stock": "Dette produktet er utsolgt",
+      "if_you_want_to_be_notified": "Hvis du vil bli varslet når det er tilbake på lager, kan du skrive inn e-postadressen din nedenfor.",
+      "email": "E-post",
+      "notify_me": "Varsle meg",
+      "you_will_be_notified": "Takk! Du vil bli varslet når produktet er tilbake på lager."
+    }
+  },
+  "search_page": {
+    "search_results": "Søkeresultater",
+    "no_products_that_match": "Det er ingen produkter som samsvarer",
+    "showing": "Viser",
+    "for": "for",
+    "next_page": "Neste side",
+    "previous_page": "Forrige side",
+    "result": "resultat",
+    "results": "resultater"
+  },
+  "account_page": {
+    "recent_orders": "Nylige bestillinger",
+    "order": "Bestilling",
+    "date": "Dato",
+    "status_payment": "Betalingsstatus",
+    "status_shipping": "Forsendelsesstatus",
+    "total": "Totalt",
+    "no_orders": "Du har ingen bestillinger",
+    "order_not_shipped": "Ikke sendt"
+  },
+  "account_layout": {
+    "my_account": "Min konto",
+    "orders": "Bestillinger",
+    "addresses": "Adresser",
+    "log_out": "Logg ut"
+  },
+  "order_details_page": {
+    "order": "Bestilling",
+    "order_not_shipped": "Ikke sendt",
+    "product": "Produkt",
+    "quantity": "Antall",
+    "price": "Pris",
+    "summary": "Sammendrag",
+    "subtotal": "Delsum",
+    "shipping": "Frakt",
+    "discounts": "Rabatter",
+    "tax": "Skatt",
+    "total": "Totalt",
+    "delivery_address": "Leveringsadresse",
+    "track_your_package": "Spor pakken din",
+    "order_overview": "Bestillingsoversikt"
+  },
+  "address_page": {
+    "addresses": "Adresser",
+    "address_info": "Adresseinfo",
+    "no_addresses": "Du har ingen adresser",
+    "add_address": "Legg til adresse",
+    "primary": "Primær",
+    "update_address": "Oppdater adresse",
+    "form": {
+      "first_name": "Fornavn",
+      "last_name": "Etternavn",
+      "address1": "Adresse",
+      "address2": "Adresse 2",
+      "zip": "Postnummer",
+      "city": "By",
+      "country": "Land",
+      "phone_number": "Telefonnummer",
+      "default_address": "Standardadresse",
+      "save_address": "Lagre adresse"
+    },
+    "delete_address": "Slett adresse",
+    "are_you_sure": "Er du sikker?",
+    "cancel": "Avbryt",
+    "delete": "Slett",
+    "orders": "Bestillinger"
+  },
+  "create_address_page": {
+    "new_address": "Ny adresse",
+    "first_name": "Fornavn",
+    "last_name": "Etternavn",
+    "address1": "Adresse",
+    "address2": "Adresse 2",
+    "zip": "Postnummer",
+    "city": "By",
+    "country": "Land",
+    "phone_number": "Telefonnummer",
+    "email": "E-post",
+    "default_address": "Standardadresse",
+    "create_address": "Lag ny adresse",
+    "addresses": "Adresser"
+  },
+  "cookie_consent": {
+    "accept": "Jeg forstår",
+    "learn_more": "Personvernregler"
+  },
+  "cart_drawer": {
+    "shipping": "Frakt",
+    "total_incl_vat": "Totalt (inkl. mva)",
+    "free": "Gratis",
+    "calculated_at_checkout": "Beregnes ved utsjekking",
+    "you_are_away_from_free_shipping": "Du er __AMOUNT__ unna gratis frakt",
+    "you_get_free_shipping": "Du får gratis frakt!",
+    "cart": "Handlekurv",
+    "close_cart": "Lukk handlekurv",
+    "checkout": "Sjekk ut",
+    "quantity_short": "Ant",
+    "cart_is_empty": "Handlekurven din er tom.",
+    "start_shopping": "Start handelen",
+    "cross_sell": {
+      "we_think_you_will_like": "Kanskje du vil like",
+      "add_to_cart": "Legg i handlekurv",
+      "choose_option": "Velg alternativ"
+    }
+  },
+  "configurator": {
+    "size_picker": "Velg størrelse",
+    "summary": "Sammendrag",
+    "pick": "Velg et",
+    "next": "Neste",
+    "back": "Tilbake",
+    "success_title": "Oppdatert handlekurv"
+  },
+  "market_selector": {
+    "switch_location": "Bytt butikk",
+    "stay": "Fortsatt her",
+    "are_you_in": "Handler du fra",
+    "based_on_your_location": "Basert på plasseringen din, anbefaler vi at du handler i __URL__ butikken."
+  },
+  "reccommended_products": {
+    "we_think_you_will_like": "Vi anbefaler også"
+  },
+  "page_builder": {
+    "contact_form": {
+      "we_have_received_your_inquiry": "Vi har mottatt din henvendelse",
+      "we_will_respond_as_soon_as_possible": "Vi vil svare så snart som mulig!",
+      "contact_us": "Kontakt oss",
+      "name": "Navn",
+      "email": "Epost",
+      "message": "Melding",
+      "send": "Send"
+    }
+  },
+  "not_found_page": {
+    "back_to_home": "Tilbake til hjem"
+  },
+  "product_layout": {
+    "home": "Hjem",
+    "products": "Produkter"
+  },
+  "bundle": {
+    "bundle_select": {
+      "choose_option": "Velg alternativ"
+    }
+  }
+}

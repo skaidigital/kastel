@@ -1,0 +1,88 @@
+{
+  "Use Client (React 18)": {
+    "prefix": "cli",
+    "body": ["'use client'", "$0"]
+  },
+  "Console.log": {
+    "prefix": "clg",
+    "body": ["console.log($1)", "$0"]
+  },
+  "Console.log w/ Object Destructuring": {
+    "prefix": "clo",
+    "body": ["console.log({$1})", "$0"]
+  },
+  "Console.table": {
+    "prefix": "clt",
+    "body": ["console.table($1)", "$0"]
+  },
+  "Console.error": {
+    "prefix": "cle",
+    "body": ["console.error($1)", "$0"]
+  },
+  "UseState": {
+    "prefix": "usst",
+    "body": ["const [${1:}, set${1/(.*)/${1:/pascalcase}/}] = useState<$2>(${3:})", "$0"]
+  },
+  "UseEffect": {
+    "prefix": "usef",
+    "body": ["useEffect(() => {", "\t$0", "}, [$1])"]
+  },
+  "AsyncFunction": {
+    "prefix": "async",
+    "body": ["async function ${1:}(${2:}) {", "\t$0", "}"]
+  },
+  "Functional component with interface": {
+    "prefix": ["fcp"],
+    "body": [
+      "interface Props {",
+      "\t$1",
+      "}",
+      "",
+      "export function ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}({${2:}}: Props) {",
+      "\t$3",
+      "\t\treturn (",
+      "\t\t\t$0",
+      "\t\t)",
+      "}"
+    ]
+  },
+  "Functional component without interface": {
+    "prefix": ["fcpu"],
+    "body": [
+      "export function ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(){",
+      "\t$2",
+      "\t\treturn (",
+      "\t\t\t$0",
+      "\t\t)",
+      "}"
+    ]
+  },
+  "App router layout component": {
+    "prefix": ["layout"],
+    "body": [
+      "import {ReactNode} from 'react';",
+      "",
+      "export default function Layout({children}: {children: ReactNode}){",
+      "\treturn (",
+      "\t\t$0",
+      "\t)",
+      "}"
+    ]
+  },
+  "App router page component": {
+    "prefix": ["page"],
+    "body": ["export default function Page(){", "\treturn (", "\t\t$0", "\t)", "}"]
+  },
+  "App router loading component": {
+    "prefix": ["loading"],
+    "body": [
+      "import {ReactNode} from 'react';",
+      "",
+      "export default function Loading(){",
+      "\treturn (",
+      "\t\t$0",
+      "\t)",
+      "}"
+    ]
+  }
+}

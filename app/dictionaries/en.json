@@ -1,0 +1,185 @@
+{
+  "footer": {
+    "made_with": "Made with",
+    "by": "by",
+    "about": "About",
+    "sign_up": {
+      "title": "Newsletter",
+      "description": "Sign up for our newsletter and get the latest news and offers.",
+      "email": "Email",
+      "button_text": "Sign up for newsletter",
+      "success_message": "Thank you for signing up for our newsletter!",
+      "success_description": "You will receive an email shortly with a confirmation link.",
+      "error_message": "Something went wrong",
+      "error_description": "Please try again later."
+    }
+  },
+  "product_page": {
+    "discount": "Discount",
+    "add_to_cart": "Add to Cart",
+    "choose_size": "Choose size",
+    "show_all_sizes": "Show all sizes",
+    "color": "Color",
+    "close": "Close",
+    "reccommended": "Reccommended",
+    "description": "Description",
+    "expected_back_in_stock": "Expected back in stock",
+    "stock": {
+      "out_of_stock": "Out of stock",
+      "low_stock": "Only __AMOUNT__ left in stock",
+      "in_stock": "In stock"
+    },
+    "back_in_stock_notification": {
+      "this_product_is_out_of_stock": "This product is out of stock",
+      "if_you_want_to_be_notified": "If you want to be notified when it's back in stock, please enter your email below.",
+      "email": "Email",
+      "notify_me": "Notify me",
+      "you_will_be_notified": "Thank you! You will be notified when the product is back in stock."
+    }
+  },
+  "search_page": {
+    "search_results": "Search results",
+    "no_products_that_match": "There are no products that match",
+    "showing": "Showing",
+    "for": "for",
+    "next_page": "Next page",
+    "previous_page": "Previous page",
+    "result": "result",
+    "results": "results"
+  },
+  "account_page": {
+    "recent_orders": "Recent orders",
+    "order": "Order",
+    "date": "Date",
+    "status_payment": "Payment status",
+    "status_shipping": "Shipping status",
+    "total": "Total",
+    "no_orders": "You have no orders",
+    "order_not_shipped": "Not shipped"
+  },
+  "account_layout": {
+    "my_account": "My account",
+    "orders": "Orders",
+    "addresses": "Addresses",
+    "log_out": "Log out"
+  },
+  "order_details_page": {
+    "order": "Order",
+    "order_not_shipped": "Not shipped",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price",
+    "summary": "Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "discounts": "Discounts",
+    "tax": "Tax",
+    "total": "Total",
+    "delivery_address": "Delivery address",
+    "track_your_package": "Track your package",
+    "order_overview": "Order overview"
+  },
+  "address_page": {
+    "addresses": "Addresses",
+    "address_info": "Address info",
+    "no_addresses": "You have no addresses",
+    "add_address": "Add address",
+    "primary": "Primary",
+    "update_address": "Update address",
+    "form": {
+      "first_name": "First name",
+      "last_name": "Last name",
+      "address1": "Address",
+      "address2": "Address 2",
+      "zip": "Zip",
+      "city": "City",
+      "country": "Country",
+      "phone_number": "Phone number",
+      "default_address": "Default address",
+      "save_address": "Save address"
+    },
+    "delete_address": "Delete address",
+    "are_you_sure": "Are you sure?",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "orders": "Orders"
+  },
+  "create_address_page": {
+    "new_address": "New address",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "address1": "Address",
+    "address2": "Address 2",
+    "zip": "Zip",
+    "city": "City",
+    "country": "Country",
+    "phone_number": "Phone number",
+    "email": "Email",
+    "default_address": "Default address",
+    "create_address": "Create address",
+    "addresses": "Addresses"
+  },
+  "cookie_consent": {
+    "accept": "I understand",
+    "learn_more": "Privacy policy"
+  },
+  "cart_drawer": {
+    "shipping": "Shipping",
+    "total_incl_vat": "Total (incl. VAT)",
+    "free": "Free",
+    "calculated_at_checkout": "Calculated at checkout",
+    "you_are_away_from_free_shipping": "You are __AMOUNT__ away from free shipping",
+    "you_get_free_shipping": "You get free shipping!",
+    "cart": "Cart",
+    "close_cart": "Close cart",
+    "checkout": "Checkout",
+    "quantity_short": "Qty",
+    "cart_is_empty": "Your cart is empty.",
+    "start_shopping": "Start shopping",
+    "cross_sell": {
+      "we_think_you_will_like": "Perhaps you would like",
+      "add_to_cart": "Add to cart",
+      "choose_option": "Choose an option"
+    }
+  },
+  "configurator": {
+    "size_picker": "Pick sizes",
+    "summary": "Summary",
+    "pick": "Pick a",
+    "next": "Next",
+    "back": "Prev",
+    "success_title": "Updated shopping cart"
+  },
+  "market_selector": {
+    "switch_location": "Switch store",
+    "stay": "Continue here",
+    "are_you_in": "Are you shopping from",
+    "based_on_your_location": "Based on your location, we reccommend you shop in the __URL__ store."
+  },
+  "reccommended_products": {
+    "we_think_you_will_like": "We also recommend"
+  },
+  "page_builder": {
+    "contact_form": {
+      "we_have_received_your_inquiry": "We have received your inquiry",
+      "we_will_respond_as_soon_as_possible": "We will respond as soon as possible!",
+      "contact_us": "Contact us",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send"
+    }
+  },
+  "not_found_page": {
+    "back_to_home": "Back to home"
+  },
+  "product_layout": {
+    "home": "Home",
+    "products": "Products"
+  },
+  "bundle": {
+    "bundle_select": {
+      "choose_option": "Choose an option"
+    }
+  }
+}
