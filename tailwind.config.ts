@@ -183,23 +183,29 @@ module.exports = {
     },
     extend: {
       fontSize: {
-        'h1-desktop': ['40px', { lineHeight: '44px' }],
-        'h1-mobile': ['36px', { lineHeight: '40px' }],
-        'h2-desktop': ['20px', { lineHeight: '28px' }],
-        'h2-mobile': ['32px', { lineHeight: '44px' }],
-        'h3-desktop': ['32px', { lineHeight: '36' }],
-        'h3-mobile': ['28px', { lineHeight: '32px' }],
-        'paragraph-sm': ['13px', { lineHeight: '19.8px' }],
-        'paragraph-lg': ['15px', { lineHeight: '24px' }],
-        eyebrow: ['12px', { lineHeight: '19.8px', letterSpacing: '0.2em' }],
-        'eyebrow-sm': ['10px', { lineHeight: '12px', letterSpacing: '0.2em' }]
+        'heading-2xs': ['16px', { lineHeight: '20px' }],
+        'heading-xs': ['20px', { lineHeight: '28px' }],
+        'heading-sm': ['28px', { lineHeight: '32px' }],
+        'heading-md': ['32px', { lineHeight: '40px' }],
+        'heading-lg': ['40px', { lineHeight: '48px' }],
+        'heading-xl': ['60px', { lineHeight: '64px' }],
+        'heading-2xl': ['80px', { lineHeight: '80px' }],
+        'text-xs': ['12px', { lineHeight: '16px' }],
+        'text-sm': ['14px', { lineHeight: '20px' }],
+        'text-md': ['18px', { lineHeight: '24px' }],
+        'text-lg': ['24px', { lineHeight: '32px' }],
+        'text-xl': ['32px', { lineHeight: '40px' }]
       },
       colors: {
         brand: {
-          border: '#CFCFCF',
-          'light-grey': '#EFEFEF',
-          'mid-grey': '#6A6A6A',
-          'dark-grey': '#1c1b1b'
+          primary: '#407F7F',
+          'light-grey': '#E2E8F0',
+          'mid-grey': '#666666',
+          'dark-grey': '#39454E'
+        },
+        'nature-lab': {
+          'dark-grey': '#151517',
+          beige: '#F0EFE7'
         }
       },
       borderRadius: {
