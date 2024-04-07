@@ -164,9 +164,7 @@ export interface Dictionary {
 
 const dictionaries: Record<string, DictionaryLoader> = {
   eu: () => import('./dictionaries/en.json').then((module) => module.default),
-  no: () => import('./dictionaries/no.json').then((module) => module.default),
-  sv: () => import('./dictionaries/sv.json').then((module) => module.default),
-  dk: () => import('./dictionaries/dk.json').then((module) => module.default)
+  no: () => import('./dictionaries/no.json').then((module) => module.default)
 };
 
 export const getDictionaryClientSide = (market: MarketValues) => {

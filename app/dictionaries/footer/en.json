@@ -1,0 +1,15 @@
+{
+  "made_with": "Made with",
+  "by": "by",
+  "about": "About",
+  "sign_up": {
+    "title": "Newsletter",
+    "description": "Sign up for our newsletter and get the latest news and offers.",
+    "email": "Email",
+    "button_text": "Sign up for newsletter",
+    "success_message": "Thank you for signing up for our newsletter!",
+    "success_description": "You will receive an email shortly with a confirmation link.",
+    "error_message": "Something went wrong",
+    "error_description": "Please try again later."
+  }
+}

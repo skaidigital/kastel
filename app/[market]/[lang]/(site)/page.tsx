@@ -18,13 +18,10 @@ function loadHomePage(market: MarketValues) {
 }
 
 export default async function HomePage({
-  params: { market, lang }
+  params: { market }
 }: {
-  params: { market: MarketValues; lang: string };
+  params: { market: MarketValues };
 }) {
-  console.log('HomePage', market, lang);
-
-  // const market = await getMarket();
   const initial = await loadHomePage(market);
 
   if (draftMode().isEnabled) {

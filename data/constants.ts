@@ -96,6 +96,7 @@ type Market = {
 };
 
 export type MarketValues = 'no' | 'eu';
+export type LangValues = 'en' | 'no';
 
 export const FALLBACK_MARKET: MarketValues = 'no';
 

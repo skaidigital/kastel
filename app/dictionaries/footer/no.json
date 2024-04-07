@@ -1,0 +1,15 @@
+{
+  "made_with": "Laget med",
+  "by": "av",
+  "about": "Om",
+  "sign_up": {
+    "title": "Nyhetsbrev",
+    "description": "Skriv deg opp på vårt nyhetsbrev for oppdateringer.",
+    "email": "E-post",
+    "button_text": "Meld meg på nyhetsbrevet",
+    "success_message": "Takk for at du meldte deg på nyhetsbrevet vårt!",
+    "success_description": "Du vil snart motta en epost med en bekreftelseslenke.",
+    "error_message": "Noe gikk galt",
+    "error_description": "Vennligst prøv igjen senere."
+  }
+}

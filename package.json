@@ -1,6 +1,6 @@
 {
-  "name": "abate-new",
-  "version": "0.1.2",
+  "name": "kastel",
+  "version": "1.0",
   "private": true,
   "packageManager": "pnpm@8.2.0",
   "engines": {

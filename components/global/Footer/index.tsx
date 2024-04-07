@@ -1,9 +1,8 @@
-import { getDictionary } from '@/app/dictionaries';
+import { getFooterDictionary } from '@/app/dictionaries/footer';
 import { FooterLayout } from '@/components/global/Footer/FooterLayout';
 import { FooterPayload, footerValidator, getFooterQuery } from '@/components/global/Footer/hooks';
 import { PaymentProviders } from '@/components/shared/PaymentProviders';
-import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import dynamic from 'next/dynamic';
@@ -17,10 +16,13 @@ function loadFooter(market: MarketValues) {
   return loadQuery<FooterPayload>(query, {}, { next: { tags: ['footer', 'home'] } });
 }
 
-export async function Footer() {
-  const market = await getMarket();
+export async function Footer({
+  params: { market, lang }
+}: {
+  params: { market: MarketValues; lang: LangValues };
+}) {
   const initial = await loadFooter(market);
-  const { footer: dictionary } = await getDictionary();
+  const dictionary = await getFooterDictionary(lang);
 
   if (draftMode().isEnabled) {
     return <FooterPreview initial={initial} market={market} dictionary={dictionary} />;
