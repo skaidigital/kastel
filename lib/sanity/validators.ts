@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // # Simple types
 export const linkToValidator = z.object({
-  type: z.enum(['page', 'product', 'collection', 'storeLocator', 'configurator']),
+  type: z.enum(['page', 'product', 'collection', 'storeLocator']),
   slug: z.string()
 });
 

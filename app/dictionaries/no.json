@@ -142,14 +142,6 @@
       "choose_option": "Velg alternativ"
     }
   },
-  "configurator": {
-    "size_picker": "Velg størrelse",
-    "summary": "Sammendrag",
-    "pick": "Velg et",
-    "next": "Neste",
-    "back": "Tilbake",
-    "success_title": "Oppdatert handlekurv"
-  },
   "market_selector": {
     "switch_location": "Bytt butikk",
     "stay": "Fortsatt her",
@@ -176,10 +168,5 @@
   "product_layout": {
     "home": "Hjem",
     "products": "Produkter"
-  },
-  "bundle": {
-    "bundle_select": {
-      "choose_option": "Velg alternativ"
-    }
   }
 }

@@ -142,14 +142,6 @@
       "choose_option": "Vælg en mulighed"
     }
   },
-  "configurator": {
-    "size_picker": "Vælg størrelse",
-    "summary": "Oversigt",
-    "pick": "Vælg et",
-    "next": "Næste",
-    "back": "Tilbage",
-    "success_title": "Opdateret indkøbskurv"
-  },
   "market_selector": {
     "switch_location": "Skift butik",
     "stay": "Bliv her",
@@ -176,10 +168,5 @@
   "product_layout": {
     "home": "Hjem",
     "products": "Produkter"
-  },
-  "bundle": {
-    "bundle_select": {
-      "choose_option": "Vælg en mulighed"
-    }
   }
 }

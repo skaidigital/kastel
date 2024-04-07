@@ -24,7 +24,6 @@ import {
   Signpost,
   Square,
   SquareHalfBottom,
-  Stack,
   Tag
 } from '@phosphor-icons/react';
 import type { StructureBuilder, StructureResolver } from 'sanity/structure';
@@ -80,43 +79,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
             )
         )
         .icon(ShoppingCartSimple),
-      S.listItem()
-        .title('Bundles')
-        .child(
-          S.documentTypeList('bundle')
-            .title('Bundles')
-            .defaultOrdering([{ field: 'internalTitle', direction: 'asc' }])
-            .filter(`_type == 'bundle' `)
-            .apiVersion(SANITY_STUDIO_API_VERSION)
-            .child((_id) =>
-              S.list()
-                .title('Bundle')
-                .items([
-                  S.documentListItem({
-                    schemaType: 'bundle',
-                    title: 'Edit bundle',
-                    id: _id,
-                    icon: ShoppingCartSimple
-                  })
-                  // S.listItem()
-                  //   .title('Variants')
-                  //   .child(
-                  //     S.documentTypeList('productVariant')
-                  //       .title('Variants')
-                  //       .apiVersion('v2023-08-01')
-                  //       .filter("_type == 'productVariant' && references($id)")
-                  //       .params({ id: _id })
-                  //       .defaultOrdering([{ field: 'price_no', direction: 'asc' }])
-                  //       .initialValueTemplates([
-                  //         S.initialValueTemplateItem('product-variant-based-on-product', { _id })
-                  //       ])
-                  //   )
-                ])
-            )
-        )
-        .icon(Stack),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
-      singleton(S, 'Configurator', 'configurator', 'configurator').icon(Gear),
       singleton(S, 'Store locator', 'storeLocator', 'storeLocator').icon(MapPin),
       group(S, 'Site', [
         singleton(S, 'Info banner', 'infoBanner', 'infoBanner').icon(Info),

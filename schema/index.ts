@@ -62,13 +62,8 @@ import { settingsPaymentProviders } from '@/schema/singletons/settingsPaymentPro
 import { settingsSEOAndSocials } from '@/schema/singletons/settingsSEOAndSocials';
 import { storeLocator } from '@/schema/singletons/storeLocator';
 import { usps } from '@/schema/singletons/usps';
-import { bundle } from './documents/bundle';
-import { bundleItem } from './objects/bundleItem';
-import { configurationStep } from './objects/configurationStep';
-import { configurationStepImages } from './objects/configurationStepImages';
 import { featureOptionConfig } from './objects/featureOptionConfig';
 import { price } from './objects/price';
-import { configurator } from './singletons/configurator';
 import { pageNotFound } from './singletons/pageNotFound';
 
 const schema = [
@@ -97,7 +92,6 @@ const schema = [
   paymentProvider,
   collectionProduct,
   collectionImage,
-  bundleItem,
   usp,
   featureOptionConfig,
   price,
@@ -117,14 +111,6 @@ const schema = [
   textAndImage,
   textSection,
   accordionBlock,
-
-  // Bundle
-  bundle,
-
-  // configurator
-  configurator,
-  configurationStep,
-  configurationStepImages,
 
   // Product
   productType,

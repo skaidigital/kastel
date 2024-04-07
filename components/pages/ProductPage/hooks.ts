@@ -4,7 +4,6 @@ import {
 } from '@/components/shared/PageBuilder/hooks';
 import { MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
-import { simpleProductVariants, variableProductVariants } from '@/lib/sanity/getProductData';
 import { galleryValidator, richTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
@@ -222,50 +221,6 @@ export function getProductQuery(market: MarketValues) {
       ${concatenatePageBuilderQueries(market)}
     },
     "usp": *[_type == "usps"][0].${fragments.getRichText({ market, fieldName: 'productForm' })}
-  }
-  `;
-
-  return query;
-}
-
-export function getBundleQuery(market: MarketValues) {
-  const query = groq`
-  *[_type == "bundle" && slug_${market}.current == $slug && status_${market} == "ACTIVE"][0]{
-    "title": title_${market},
-    "slug": slug_${market}.current,
-    "description": description_${market},
-    "discountPercentage": price_${market},
-    "items": bundleItems[]{
-      internalTitle,
-      numberOfItems,
-      "product": bundleItems[]->{
-        "id":  gid_${market},
-        "slug": slug_${market}.current,
-        "title": title_${market},
-        type,
-        "priceRange": {
-          "minVariantPrice": minPrice_${market}{
-            "amount": coalesce(amount, 0),
-            "currencyCode": coalesce(currencyCode, "") 
-          },
-          "maxVariantPrice": maxPrice_${market}{
-            "amount": coalesce(amount, 0),
-            "currencyCode": coalesce(currencyCode, "") 
-          }
-        },
-        "options": options[]{
-          "title": optionType->.title_${market},
-          "slug": optionType->.slug_${market}.current,
-          "options": options[]->.title_${market},
-        },
-        "variants": select(type == "VARIABLE" => ${variableProductVariants(market)}, type == 'SIMPLE' => ${simpleProductVariants(market)})
-      },
-    },
-    ${fragments.getGallery(market)},
-    "id": _id,
-    pageBuilder[]{
-      ${concatenatePageBuilderQueries(market)}
-    },
   }
   `;
 

@@ -139,14 +139,6 @@ export interface Dictionary {
     cart_is_empty: string;
     start_shopping: string;
   };
-  configurator: {
-    size_picker: string;
-    summary: string;
-    pick: string;
-    next: string;
-    back: string;
-    success_title: string;
-  };
   market_selector: {
     switch_location: string;
     stay: string;

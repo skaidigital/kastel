@@ -25,8 +25,6 @@ export const getSlug = (link: LinkProps | LinkWithoutTextProps) => {
     return `/collections/${slug}`;
   } else if (internalLinkType === 'storeLocator') {
     return `/stores`;
-  } else if (internalLinkType === 'configurator') {
-    return `/configurator`;
   } else {
     return '/';
   }

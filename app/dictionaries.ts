@@ -153,14 +153,6 @@ export interface Dictionary {
       choose_option: string;
     };
   };
-  configurator: {
-    size_picker: string;
-    summary: string;
-    pick: string;
-    next: string;
-    back: string;
-    success_title: string;
-  };
   market_selector: {
     switch_location: string;
     stay: string;
@@ -185,11 +177,6 @@ export interface Dictionary {
   product_layout: {
     home: string;
     products: string;
-  };
-  bundle: {
-    bundle_select: {
-      choose_option: string;
-    };
   };
 }
 

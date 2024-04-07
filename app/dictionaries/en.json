@@ -142,14 +142,6 @@
       "choose_option": "Choose an option"
     }
   },
-  "configurator": {
-    "size_picker": "Pick sizes",
-    "summary": "Summary",
-    "pick": "Pick a",
-    "next": "Next",
-    "back": "Prev",
-    "success_title": "Updated shopping cart"
-  },
   "market_selector": {
     "switch_location": "Switch store",
     "stay": "Continue here",
@@ -176,10 +168,5 @@
   "product_layout": {
     "home": "Home",
     "products": "Products"
-  },
-  "bundle": {
-    "bundle_select": {
-      "choose_option": "Choose an option"
-    }
   }
 }

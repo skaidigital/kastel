@@ -7,7 +7,6 @@ import { Money, SelectedOption, ShopifyImage } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import Image from 'next/image';
-import EditBundleItemQuantityButton from './EditBundleQuantityButton';
 
 interface Props {
   lineId: string;
@@ -21,7 +20,6 @@ interface Props {
   image: ShopifyImage;
   variantDescription?: string;
   className?: string;
-  isBundle?: boolean;
 }
 
 export function CartItem({
@@ -34,8 +32,7 @@ export function CartItem({
   quantity,
   subtotal,
   image,
-  className,
-  isBundle = false
+  className
 }: Props) {
   const formattedPrice = formatPrice(subtotal);
 
@@ -81,44 +78,23 @@ export function CartItem({
               )}
             </div>
             <div className="flex h-9 w-fit flex-row items-center rounded-project border border-brand-border">
-              {!isBundle && (
-                <>
-                  <EditItemQuantityButton
-                    lineId={lineId}
-                    variantId={variantId}
-                    quantity={quantity}
-                    type="minus"
-                  />
-                  <p className="w-6 text-center">
-                    <span className="w-full text-sm">{quantity}</span>
-                  </p>
-                  <EditItemQuantityButton
-                    lineId={lineId}
-                    variantId={variantId}
-                    quantity={quantity}
-                    type="plus"
-                  />
-                </>
-              )}
-              {isBundle && (
-                <>
-                  <EditBundleItemQuantityButton
-                    lineId={lineId}
-                    variantId={variantId}
-                    quantity={quantity}
-                    type="minus"
-                  />
-                  <p className="w-6 text-center">
-                    <span className="w-full text-sm">{quantity}</span>
-                  </p>
-                  <EditBundleItemQuantityButton
-                    lineId={lineId}
-                    variantId={variantId}
-                    quantity={quantity}
-                    type="plus"
-                  />
-                </>
-              )}
+              <>
+                <EditItemQuantityButton
+                  lineId={lineId}
+                  variantId={variantId}
+                  quantity={quantity}
+                  type="minus"
+                />
+                <p className="w-6 text-center">
+                  <span className="w-full text-sm">{quantity}</span>
+                </p>
+                <EditItemQuantityButton
+                  lineId={lineId}
+                  variantId={variantId}
+                  quantity={quantity}
+                  type="plus"
+                />
+              </>
             </div>
           </div>
           <Text size="sm">{formattedPrice}</Text>

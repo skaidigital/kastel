@@ -12,12 +12,6 @@ export type Response<T> = SuccessResponse<T> | ErrorResponse;
 
 export type SearchParams = { [key: string]: string };
 
-export interface ConfiguratorImageProps {
-  src: string;
-  altText: string;
-  type: 'product' | 'mood';
-}
-
 export type ConsentType = 'accept' | 'reject';
 
 export interface TrackEventOptions {

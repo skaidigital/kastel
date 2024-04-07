@@ -142,14 +142,6 @@
       "choose_option": "Välj ett alternativ"
     }
   },
-  "configurator": {
-    "size_picker": "Välj storlek",
-    "summary": "Sammanfattning",
-    "pick": "Välj ett",
-    "next": "Nästa",
-    "back": "Tillbaka",
-    "success_title": "Uppdaterad kundvagn"
-  },
   "market_selector": {
     "switch_location": "Byt butik",
     "stay": "Fortsätt här",
@@ -176,10 +168,5 @@
   "product_layout": {
     "home": "Hem",
     "products": "Produkter"
-  },
-  "bundle": {
-    "bundle_select": {
-      "choose_option": "Välj ett alternativ"
-    }
   }
 }

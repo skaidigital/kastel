@@ -6,11 +6,10 @@ import { MetadataRoute } from 'next/types';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = env.BASE_URL;
 
-  const [pageSlugs, collectionSlugs, productSlugs, bundleSlugs] = await Promise.all([
+  const [pageSlugs, collectionSlugs, productSlugs] = await Promise.all([
     generateStaticSlugs('page'),
     generateStaticSlugs('collection'),
-    generateStaticSlugs('product'),
-    generateStaticSlugs('bundle')
+    generateStaticSlugs('product')
   ]);
 
   const pageSlugsWithoutHome = pageSlugs.filter((slug) => slug.slug !== 'home');
@@ -33,12 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'monthly' as const,
     priority: 0.8
   }));
-  const formattedBundleSlugs = bundleSlugs.map((slug) => ({
-    url: `${baseUrl}/bundles/${slug.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8
-  }));
 
   return [
     {
@@ -48,12 +41,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1
     },
     {
-      url: `${baseUrl}${ROUTES.CONFIGURATOR}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
       url: `${baseUrl}${ROUTES.STORE_LOCATOR}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -61,7 +48,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...formattedPageSlugs,
     ...formattedCollectionSlugs,
-    ...formattedProductSlugs,
-    ...formattedBundleSlugs
+    ...formattedProductSlugs
   ];
 }

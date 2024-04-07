@@ -8,7 +8,6 @@ import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 
 import { Button } from '@/components/Button';
 import { Drawer } from '@/components/Drawer';
-import { ActiveVariants } from '@/components/pages/BundlePage/BundleButtons';
 import { CartItem } from '@/components/shared/Cart/CartItem';
 import { EmptyState } from '@/components/shared/Cart/EmptyState';
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
@@ -18,31 +17,15 @@ import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
 
-interface BundleConfigProps {
-  lineId: string;
-  bundleId: string;
-  variants: ActiveVariants[];
-  discount: string;
-  quantity: number;
-}
-
 interface Props {
   checkoutUrl: string;
   dictionary: Dictionary['cart_drawer'];
   children: React.ReactNode;
   cart?: Cart;
-  bundleConfig?: BundleConfigProps;
   freeShippingAmount?: number;
 }
 
-export function CartDrawer({
-  cart,
-  checkoutUrl,
-  dictionary,
-  children,
-  bundleConfig,
-  freeShippingAmount
-}: Props) {
+export function CartDrawer({ cart, checkoutUrl, dictionary, children, freeShippingAmount }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const quantityRef = useRef(cart?.totalQuantity);
 
@@ -98,50 +81,21 @@ export function CartDrawer({
               )}
               <div className="flex h-0 flex-grow flex-col overflow-y-auto">
                 <div className="flex flex-col space-y-8 p-5 pb-10">
-                  {cart.lines?.map((line) => {
-                    if (bundleConfig && line.id === bundleConfig.lineId) {
-                      const bundleContents = bundleConfig?.variants.map((variant) => {
-                        const title = variant.title?.split('-') || [];
-                        return {
-                          name: title[0] || '',
-                          value: title[1] || ''
-                        };
-                      });
-
-                      return (
-                        <CartItem
-                          key={line.id}
-                          lineId={line.id}
-                          variantId={line.merchandise.id}
-                          title={'Bundle'}
-                          option1={bundleContents[0]}
-                          option2={bundleContents[1]}
-                          option3={bundleContents[2] || undefined}
-                          variantDescription={'yo'}
-                          image={line.merchandise.product.featuredImage}
-                          quantity={bundleConfig.quantity}
-                          subtotal={line.cost.totalAmount}
-                          isBundle
-                        />
-                      );
-                    }
-
-                    return (
-                      <CartItem
-                        key={line.id}
-                        lineId={line.id}
-                        variantId={line.merchandise.id}
-                        title={line.merchandise.product.title}
-                        option1={line.merchandise.selectedOptions[0]}
-                        option2={line.merchandise.selectedOptions[1]}
-                        option3={line.merchandise.selectedOptions[2]}
-                        variantDescription={line.merchandise.product.description}
-                        image={line.merchandise.product.featuredImage}
-                        quantity={line.quantity}
-                        subtotal={line.cost.totalAmount}
-                      />
-                    );
-                  })}
+                  {cart.lines?.map((line) => (
+                    <CartItem
+                      key={line.id}
+                      lineId={line.id}
+                      variantId={line.merchandise.id}
+                      title={line.merchandise.product.title}
+                      option1={line.merchandise.selectedOptions[0]}
+                      option2={line.merchandise.selectedOptions[1]}
+                      option3={line.merchandise.selectedOptions[2]}
+                      variantDescription={line.merchandise.product.description}
+                      image={line.merchandise.product.featuredImage}
+                      quantity={line.quantity}
+                      subtotal={line.cost.totalAmount}
+                    />
+                  ))}
                 </div>
               </div>
               {children}

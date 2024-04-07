@@ -10,8 +10,7 @@ export const ROUTES = {
   REGISTER_ACCOUNT: '/register-account',
   RESET_PASSWORD: '/reset-password',
   SHOP: '/shop',
-  STORE_LOCATOR: '/stores',
-  CONFIGURATOR: '/configurator'
+  STORE_LOCATOR: '/stores'
 };
 
 export const CACHE_TAGS = {
