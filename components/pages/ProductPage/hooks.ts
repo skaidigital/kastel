@@ -51,7 +51,6 @@ export type ProductOption = z.infer<typeof productOptionValidator>;
 const selectedOptionValidator = z.object({
   name: z.string(),
   value: z.string()
-  // hex: z.string().optional()
 });
 export type SelectedOption = z.infer<typeof selectedOptionValidator>;
 
@@ -70,18 +69,7 @@ const productVariantValidator = z.object({
   id: z.string(),
   price: z.number(),
   discountedPrice: z.number().optional(),
-  // selectedOptions: z.array(selectedOptionValidator),
-  selectedOptions: z
-    .array(
-      z
-        .object({
-          name: z.string(),
-          value: z.string()
-          // color: z.string().optional()
-        })
-        .optional()
-    )
-    .optional(),
+  selectedOptions: z.array(selectedOptionValidator),
   sku: z.string()
 });
 export type ProductVariant = z.infer<typeof productVariantValidator>;
@@ -214,7 +202,10 @@ export function getProductQuery(market: MarketValues) {
         "price": price_${market},
         "discountedPrice": compareAtPrice_${market},
         sku, 
-        "selectedOptions": [],
+        "selectedOptions": [
+          "name": "Default",
+          "value": "Default",
+        ],
       }]
     ),
     pageBuilder[]{
