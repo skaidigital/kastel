@@ -226,21 +226,3 @@ export function getProductQuery(market: MarketValues) {
 
   return query;
 }
-
-export function cleanedProductData(product: Product): Product {
-  if (product.type === 'SIMPLE') {
-    return product;
-  }
-
-  const { variants, ...rest } = product;
-
-  return {
-    ...rest,
-    variants: variants?.map((variant: ProductVariant) => ({
-      ...variant,
-      selectedOptions: variant.selectedOptions.filter(
-        (option: SelectedOption) => option.name !== undefined && option.value !== undefined
-      )
-    }))
-  };
-}

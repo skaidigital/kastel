@@ -2,8 +2,9 @@
 
 import { Dictionary } from '@/app/dictionaries';
 import { ProductPagePreviewLayout } from '@/components/pages/ProductPage/ProductPagePreviewLayout';
-import { Product, cleanedProductData, getProductQuery } from '@/components/pages/ProductPage/hooks';
+import { Product, getProductQuery } from '@/components/pages/ProductPage/hooks';
 import { MarketValues } from '@/data/constants';
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { SearchParams } from '@/lib/types';
 import { useQuery, type QueryResponseInitial } from '@sanity/react-loader';
 
@@ -30,11 +31,11 @@ export default function ProductPreview({
 
   if (!data) return null;
 
-  const cleanedProduct = cleanedProductData(data);
+  const productWithoutNullValues = nullToUndefined(data);
 
   return (
     <ProductPagePreviewLayout
-      data={cleanedProduct}
+      data={productWithoutNullValues}
       dictionary={dictionary}
       searchParams={searchParams}
     />
