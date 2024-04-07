@@ -82,7 +82,7 @@ function filterOptions(
   featuredOptions: string[]
 ) {
   // Gather all variant values
-  const variantValues = variants.map((variant) => variant.selectedOptions[0]?.value);
+  const variantValues = variants.map((variant) => variant.selectedOptions?.[0]?.value);
 
   // Filter out any options not present in variants
   // and also filter featuredValues
