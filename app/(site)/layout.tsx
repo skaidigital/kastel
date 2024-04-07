@@ -18,6 +18,7 @@ import { ReactNode, Suspense } from 'react';
 
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { GoogleTagManager } from '@next/third-parties/google';
+import PlausibleProvider from 'next-plausible';
 import localFont from 'next/font/local';
 import '../../styles/globals.css';
 
@@ -38,7 +39,7 @@ export default function IndexRoute({ children }: { children: ReactNode }) {
     <html lang="en" className={iowan.className}>
       <GoogleTagManager gtmId={env.GTM_ID} />
       <head>
-        {/* <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} /> */}
+        <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
         <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
