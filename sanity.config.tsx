@@ -101,9 +101,6 @@ export default defineConfig({
   basePath: '/studio',
   title: 'Kastel',
   name: 'studio',
-  // TODO switch logo
-  // eslint-disable-next-line @next/next/no-img-element
-  // icon: () => <img src="/images/logo.webp" alt="Abate Logo" />,
   projectId,
   dataset: 'production',
   plugins: [config()]
