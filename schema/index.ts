@@ -37,6 +37,7 @@ import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
+import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
@@ -53,6 +54,7 @@ import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { productLsting as productListing } from '@/schema/pageBuilderBlocks/productListing';
 import { textAndImage } from '@/schema/pageBuilderBlocks/textAndImage';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
+import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
 import { footer } from '@/schema/singletons/footer';
@@ -98,6 +100,7 @@ const schema = [
   featureOptionConfig,
   price,
   media,
+  productDisplay,
 
   // Page builder blocks (objects)
   hero,
@@ -138,6 +141,7 @@ const schema = [
   // Singletons
   footer,
   navbar,
+  accountPage,
   announcementBanner,
   popup,
   cookieConsent,

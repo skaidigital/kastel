@@ -26,7 +26,8 @@ import {
   Signpost,
   Square,
   SquareHalfBottom,
-  Tag
+  Tag,
+  User
 } from '@phosphor-icons/react';
 import type { StructureBuilder, StructureResolver } from 'sanity/structure';
 
@@ -41,10 +42,11 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         .id('home')
         .child(S.document().schemaType('page').documentId('home'))
         .icon(House),
-      list(S, 'Pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
+      list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
       listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(File),
+      singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()
         .title('Products')
