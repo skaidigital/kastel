@@ -20,6 +20,7 @@ import {
   Package,
   PaintBucket,
   Placeholder,
+  Question,
   Recycle,
   ShoppingCartSimple,
   Signpost,
@@ -83,6 +84,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         .icon(ShoppingCartSimple),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
       singleton(S, 'Store locator', 'storeLocator', 'storeLocator').icon(MapPin),
+      singleton(S, 'Help center', 'helpCenter', 'helpCenter').icon(Question),
       group(S, 'Site', [
         singleton(S, 'Announcement banner', 'announcementBanner', 'announcementBanner').icon(Info),
         singleton(S, 'Navbar', 'navbar', 'navbar').icon(ArrowLineUp),
@@ -95,8 +97,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       group(S, 'Reusable content', [
         list(S, 'Text block', `_type == 'textBlock'`).icon(Layout),
         list(S, 'Text and image block', `_type == 'textAndImage'`).icon(Layout),
-        listNew({ S, title: 'Accordion', schemaType: 'accordion' }).icon(List),
-        list(S, 'Accordion block', `_type == 'accordionBlock'`).icon(List),
+        listNew({ S, title: 'Question', schemaType: 'question' }).icon(List),
+        list(S, 'FAQ section', `_type == 'faqSection'`).icon(List),
         listNew({ S, title: 'Card', schemaType: 'card' }).icon(Square)
       ]).icon(Recycle),
       group(S, 'Settings', [

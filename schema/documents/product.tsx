@@ -346,13 +346,13 @@ export const product = defineType({
       type: 'richText'
     }),
     defineField({
-      title: 'Accordions',
-      name: 'accordions',
+      title: 'FAQs',
+      name: 'faqs',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'reference',
-          to: [{ type: 'accordion' }]
+          to: [{ type: 'question' }]
         })
       ],
       group: 'editorial'

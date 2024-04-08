@@ -1,9 +1,9 @@
 import { List } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const accordionSection = defineType({
-  title: 'Accordion section',
-  name: 'accordionSection',
+export const faqSection = defineType({
+  title: 'FAQ section',
+  name: 'faqSection',
   type: 'object',
   icon: List,
   fieldsets: [{ name: 'paddingSettings', title: 'Padding settings', options: { columns: 2 } }],
@@ -21,10 +21,10 @@ export const accordionSection = defineType({
   },
   fields: [
     defineField({
-      title: 'Accordion',
+      title: 'FAQs',
       type: 'reference',
-      name: 'accordionBlock',
-      to: [{ type: 'accordionBlock' }],
+      name: 'faqs',
+      to: [{ type: 'faqBlock' }],
       validation: (Rule) => Rule.required()
     }),
     defineField({

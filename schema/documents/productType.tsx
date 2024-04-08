@@ -70,13 +70,13 @@ export const productType = defineType({
       group: 'settings'
     }),
     defineField({
-      title: 'Accordions',
-      name: 'accordions',
+      title: 'Questions',
+      name: 'questions',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'reference',
-          to: [{ type: 'accordion' }],
+          to: [{ type: 'question' }],
           options: {
             filter: filterAlreadyAddedReferences
           }

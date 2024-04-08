@@ -1,15 +1,15 @@
-import { accordion } from '@/schema/documents/accordion';
-import { accordionBlock } from '@/schema/documents/accordionBlock';
 import { badge } from '@/schema/documents/badge';
 import { card } from '@/schema/documents/card';
 import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
+import { faqBlock } from '@/schema/documents/faqBlock';
 import { legalPage } from '@/schema/documents/legalPage';
 import { page } from '@/schema/documents/page';
 import { product } from '@/schema/documents/product';
 import { productOption } from '@/schema/documents/productOption';
 import { productOptionType } from '@/schema/documents/productOptionType';
 import { productType } from '@/schema/documents/productType';
+import { question } from '@/schema/documents/question';
 import { redirect } from '@/schema/documents/redirect';
 import { tag } from '@/schema/documents/tag';
 import { tagGroup } from '@/schema/documents/tagGroup';
@@ -42,10 +42,10 @@ import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
 import { textBlock } from '@/schema/objects/textBlock';
 import { usp } from '@/schema/objects/usp';
-import { accordionSection } from '@/schema/pageBuilderBlocks/accordionSection';
 import { cardGrid } from '@/schema/pageBuilderBlocks/cardGrid';
 import { collectionListing } from '@/schema/pageBuilderBlocks/collectionListing';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
+import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
 import { featuredProduct } from '@/schema/pageBuilderBlocks/featuredProduct';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
@@ -56,6 +56,7 @@ import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
 import { footer } from '@/schema/singletons/footer';
+import { helpCenter } from '@/schema/singletons/helpCenter';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
 import { popup } from '@/schema/singletons/popup';
@@ -107,11 +108,11 @@ const schema = [
   productListing,
   collectionListing,
   cardGrid,
-  accordionSection,
+  faqSection,
   // Page builder blocks (documents)
   textAndImage,
   textSection,
-  accordionBlock,
+  faqBlock,
 
   // Product
   productType,
@@ -129,7 +130,7 @@ const schema = [
   redirect,
   tag,
   tagGroup,
-  accordion,
+  question,
   textBlock,
   badge,
   card,
@@ -141,6 +142,7 @@ const schema = [
   popup,
   cookieConsent,
   usps,
+  helpCenter,
   merchandising,
   settingsSEOAndSocials,
   settingsPaymentProviders,

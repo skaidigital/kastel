@@ -146,8 +146,8 @@ export const pageBuilder = defineType({
       type: 'featuredProduct'
     }),
     defineArrayMember({
-      title: 'Accordion section',
-      type: 'accordionSection'
+      title: 'FAQ section',
+      type: 'faqSection'
     }),
     defineArrayMember({
       title: 'Text + Image',
