@@ -5,11 +5,15 @@ import { groq } from 'next-sanity';
 import { z } from 'zod';
 
 export const popupValidator = z.object({
+  isShown: z.boolean(),
+  type: z.union([z.literal('info'), z.literal('newsletter')]),
+  badge: z.string().optional(),
   title: z.string(),
-  image: imageValidator,
   content: richTextValidator,
-  link: linkValidator,
-  isShown: z.boolean()
+  image: imageValidator,
+  buttonText: z.string(),
+  // TODO make conditional based on the type
+  link: linkValidator.optional()
 });
 
 export type PopupPayload = z.infer<typeof popupValidator>;
@@ -17,15 +21,18 @@ export type PopupPayload = z.infer<typeof popupValidator>;
 export function getPopupQuery(market: MarketValues) {
   const query = groq`
     *[_type == "popup"][0] {
+      isShown,
+      type,
+      "badge": badge->title.${market},
       "title": title.${market},
+      "content": content_${market},
       image{
         ${fragments.getImageBase(market)}
       },
-      "content": content_${market},
+      "buttonText": buttonText.${market},
       link{
         ${fragments.getLink(market)}
       },
-      isShown
     }
   `;
 

@@ -36,6 +36,12 @@ export const popup = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Badge (optional)',
+      name: 'badge',
+      type: 'reference',
+      to: [{ type: 'badge' }]
+    }),
+    defineField({
       title: 'Title',
       name: 'title',
       type: 'i18n.string',
@@ -61,10 +67,24 @@ export const popup = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
-      title: 'Link',
-      name: 'link',
-      type: 'link',
-      validation: (Rule) => Rule.required()
+      title: 'CTA button text',
+      name: 'buttonText',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
     })
+
+    // defineField({
+    //   title: 'Link',
+    //   name: 'link',
+    //   type: 'link',
+    //   validation: (Rule) =>
+    //     Rule.custom((value, context) => {
+    //       if (context.parent.type === 'newsletter' && !value) {
+    //         return 'Required';
+    //       }
+
+    //       return true;
+    //     })
+    // })
   ]
 });

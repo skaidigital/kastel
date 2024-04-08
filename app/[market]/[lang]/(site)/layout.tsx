@@ -12,6 +12,7 @@ import { ReactNode, Suspense } from 'react';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
+import { PopupHandler } from '@/components/global/Popup/PopupHandler';
 import { MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -31,12 +32,12 @@ export default function IndexRoute({ children }: { children: ReactNode }) {
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
-        <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
+        <div className="fixed bottom-0 top-0 w-full overflow-x-auto bg-black">
           <Providers>
             <div>
-              {/* <Suspense>
+              <Suspense>
                 <PopupHandler />
-              </Suspense> */}
+              </Suspense>
               <Suspense fallback={<Skeleton className="h-11 w-full" />}>
                 <AnnouncementBanner />
               </Suspense>

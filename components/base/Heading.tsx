@@ -3,12 +3,12 @@ import { cva, type VariantProps } from 'cva';
 import React from 'react';
 
 export const headingStyles = cva({
-  base: 'uppercase',
+  base: 'uppercase font-bold',
   variants: {
     size: {
-      xs: 'text-[12px] leading-[24px] tracking-[2.4px]',
+      xs: 'text-heading-xs',
       sm: 'text-[12px] leading-[24px] tracking-[2.4px] md:text-[16px] md:leading-[24px] md:tracking-[3.2px]',
-      md: 'text-[16px]  md:text-[24px] tracking-[4px] leading-[28px] ',
+      md: 'text-heading-md',
       lg: 'text-[24px] leading-[28px]  md:text-[32px] tracking-[4px] lg:leading-[36px]'
     }
   },

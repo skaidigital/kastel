@@ -10,7 +10,7 @@ import { Drawer } from 'vaul';
 
 interface Props {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   className?: string;
 }
 
@@ -21,12 +21,15 @@ export function SheetContent({ children, title, className }: Props) {
       <Drawer.Content
         forceMount
         className={cn(
-          'fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project rounded-t-[10px] border-t border-black bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none',
+          'rounded-t-3 fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none',
           className
         )}
       >
-        {title && <SheetHeader title={title} />}
-        {children}
+        <div className="mx-auto mb-4 mt-1.5 h-1.5 w-12 rounded-full bg-brand-light-grey" />
+        <div className="p-4">
+          {title && <SheetHeader title={title} className="mb-4" />}
+          {children}
+        </div>
       </Drawer.Content>
     </Drawer.Portal>
   );
@@ -54,23 +57,22 @@ export function Sheet({ children, isOpen, onOpenChange }: SheetRootProps) {
 
 interface SheetHeaderProps {
   title: string;
+  className?: string;
 }
 
-export function SheetHeader({ title }: SheetHeaderProps) {
+export function SheetHeader({ title, className }: SheetHeaderProps) {
   return (
-    <div className="border-brand-border border-b">
-      <div className="flex items-center justify-between p-5">
-        <Heading as="h3" size="sm">
-          {title}
-        </Heading>
-        <Drawer.Close>
-          <button>
-            <TouchTarget>
-              <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey" />
-            </TouchTarget>
-          </button>
-        </Drawer.Close>
-      </div>
+    <div className={cn('flex items-center justify-between', className)}>
+      <Heading as="h2" size="xs">
+        {title}
+      </Heading>
+      <Drawer.Close>
+        <button>
+          <TouchTarget>
+            <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey" />
+          </TouchTarget>
+        </button>
+      </Drawer.Close>
     </div>
   );
 }

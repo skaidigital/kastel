@@ -29,29 +29,29 @@ export async function PopupHandler() {
   const hasSeenCookieConsent = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT);
   const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP);
 
-  if (!hasChosenMarket && reccommendedMarket && requestCountry) {
-    return (
-      <Suspense>
-        <MarketPopup />
-      </Suspense>
-    );
-  }
+  // if (!hasChosenMarket && reccommendedMarket && requestCountry) {
+  //   return (
+  //     <Suspense>
+  //       <MarketPopup />
+  //     </Suspense>
+  //   );
+  // }
 
-  if (!hasAccepted) {
-    return (
-      <Suspense>
-        <CookieConsent />
-      </Suspense>
-    );
-  }
+  // if (!hasAccepted) {
+  //   return (
+  //     <Suspense>
+  //       <CookieConsent />
+  //     </Suspense>
+  //   );
+  // }
 
-  if (!hasSeenCookieConsent || !hasSeenPopupInLastDay) {
-    return (
-      <Suspense>
-        <Popup />
-      </Suspense>
-    );
-  }
+  // if (!hasSeenCookieConsent || !hasSeenPopupInLastDay) {
+  return (
+    <Suspense>
+      <Popup />
+    </Suspense>
+  );
+  // }
 
   return null;
 }

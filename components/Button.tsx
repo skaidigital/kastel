@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils';
 import { forwardRef } from 'react';
 
 const buttonProps = cva({
-  base: 'uppercase text-[12px] leading-[12px] tracking-[2.4px] transition-brand inline-flex items-center justify-center rounded-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+  base: 'uppercase font-bold',
   variants: {
     variant: {
-      primary: 'bg-brand-dark-grey text-white hover:bg-black',
+      primary: 'bg-brand-primary text-white',
       secondary:
         'bg-transparent text-brand-dark-grey border border-brand-border hover:border-brand-mid-grey focus:ring-brand-dark-grey',
       ghost:
@@ -21,6 +21,7 @@ const buttonProps = cva({
       icon: 'border-0 p-1 flex items-center justify-center text-gray-600 hover:bg-black/[5%] pressed:bg-black/10 dark:text-zinc-400 dark:hover:bg-white/10 dark:pressed:bg-white/20 disabled:bg-transparent'
     },
     size: {
+      sm: 'py-4 px-6 text-text-sm',
       default: 'px-8 h-11',
       icon: 'h-11 w-11'
     },
@@ -30,7 +31,7 @@ const buttonProps = cva({
   },
   defaultVariants: {
     variant: 'primary',
-    size: 'default',
+    size: 'sm',
     fullWidth: false
   }
 });
