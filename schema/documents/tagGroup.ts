@@ -1,5 +1,8 @@
-import { MARKETS, TAG_OPTIONS } from '@/data/constants';
-import { i18nSlug, i18nString } from '@/lib/sanity/studioUtils';
+import { TAG_OPTIONS } from '@/data/constants';
+import {
+  slugIsUniqueForLangAndSchemaType,
+  validateAllStringTranslations
+} from '@/lib/sanity/studioUtils';
 import { Folders } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -8,22 +11,15 @@ export const tagGroup = defineType({
   name: 'tagGroup',
   type: 'document',
   icon: Folders,
-  groups: [
-    ...MARKETS.map((market) => ({
-      name: market.id,
-      title: market.name,
-      icon: () => market.flag
-    })),
-    {
-      name: 'settings',
-      title: 'Settings',
-      icon: () => '⚙️',
-      default: true
-    }
-  ],
   preview: {
     select: {
-      title: 'title_no'
+      title: 'title.no'
+    },
+    prepare({ title }) {
+      return {
+        title: title || 'Untitled',
+        subtitle: 'Tag group'
+      };
     }
   },
   fields: [
@@ -31,7 +27,6 @@ export const tagGroup = defineType({
       title: 'Type',
       name: 'type',
       type: 'string',
-      group: 'settings',
       validation: (Rule) => Rule.required(),
       options: {
         list: TAG_OPTIONS.map((option) => ({
@@ -40,13 +35,43 @@ export const tagGroup = defineType({
         }))
       }
     }),
-    ...i18nString({
+    defineField({
       title: 'Title',
       name: 'title',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Slug 🇧🇻',
+      name: 'slug_no',
+      type: 'slug',
+      options: {
+        source: 'title.no',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'tagGroup',
+            lang: 'no',
+            context
+          })
+      },
       validation: (Rule) => Rule.required()
     }),
-    ...i18nSlug({
-      schemaType: 'tagGroup'
+    defineField({
+      title: 'Slug 🇬🇧',
+      name: 'slug_en',
+      type: 'slug',
+      options: {
+        source: 'title.en',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'tagGroup',
+            lang: 'en',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required()
     })
   ]
 });
