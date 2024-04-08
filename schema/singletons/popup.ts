@@ -2,6 +2,15 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { MegaphoneSimple } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
+const validateAllStringsIfTypeIs = (type: string) => (Rule: any) =>
+  Rule.custom((value: any, context: any) => {
+    if (context.parent.type === type) {
+      return validateAllStringTranslations(Rule)(value);
+    }
+
+    return true;
+  });
+
 export const popup = defineType({
   title: 'Popup',
   name: 'popup',
@@ -14,13 +23,19 @@ export const popup = defineType({
       };
     }
   },
+  groups: [
+    { title: 'Settings', name: 'settings', default: true },
+    { title: 'Info popup', name: 'info' },
+    { title: 'Newsletter popup', name: 'newsletter' }
+  ],
   fields: [
     defineField({
       title: 'Show popup?',
       name: 'isShown',
       type: 'boolean',
       initialValue: true,
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Type',
@@ -33,58 +48,106 @@ export const popup = defineType({
         ]
       },
       initialValue: 'info',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Badge (optional)',
-      name: 'badge',
+      name: 'badgeInfo',
       type: 'reference',
-      to: [{ type: 'badge' }]
+      to: [{ type: 'badge' }],
+      group: 'info'
     }),
     defineField({
       title: 'Title',
-      name: 'title',
+      name: 'titleInfo',
       type: 'i18n.string',
-      validation: validateAllStringTranslations
-    }),
-    // TODO replace with a custom component that can render the content in different languages
-    defineField({
-      title: 'Content 🇧🇻',
-      name: 'content_no',
-      type: 'richText',
-      validation: (Rule) => Rule.required()
+      validation: validateAllStringsIfTypeIs('info'),
+      group: 'info'
     }),
     defineField({
-      title: 'Content 🇪🇺',
-      name: 'content_eu',
-      type: 'richText',
-      validation: (Rule) => Rule.required()
+      title: 'Badge (optional)',
+      name: 'badgeNewsletter',
+      type: 'reference',
+      to: [{ type: 'badge' }],
+      group: 'newsletter'
+    }),
+    defineField({
+      title: 'Title',
+      name: 'titleNewsletter',
+      type: 'i18n.string',
+      validation: validateAllStringsIfTypeIs('newsletter'),
+      group: 'newsletter'
     }),
     defineField({
       title: 'Image',
-      name: 'image',
+      name: 'imageInfo',
       type: 'figure',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context.parent.type === 'info' && !value) {
+            return 'Required';
+          }
+
+          return true;
+        }),
+      group: 'info'
+    }),
+    defineField({
+      title: 'Content 🇧🇻',
+      name: 'contentInfo_no',
+      type: 'richText',
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context.parent.type === 'info' && !value) {
+            return 'Required';
+          }
+
+          return true;
+        }),
+      group: 'info'
+    }),
+    defineField({
+      title: 'Content 🇪🇺',
+      name: 'contentInfo_eu',
+      type: 'richText',
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context.parent.type === 'info' && !value) {
+            return 'Required';
+          }
+
+          return true;
+        }),
+      group: 'info'
     }),
     defineField({
       title: 'CTA button text',
-      name: 'buttonText',
+      name: 'buttonTextInfo',
       type: 'i18n.string',
-      validation: validateAllStringTranslations
+      validation: validateAllStringsIfTypeIs('info'),
+      group: 'info'
+    }),
+    defineField({
+      title: 'Image',
+      name: 'imageNewsletter',
+      type: 'figure',
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context.parent.type === 'newsletter' && !value) {
+            return 'Required';
+          }
+
+          return true;
+        }),
+      group: 'newsletter'
+    }),
+    defineField({
+      title: 'CTA button text',
+      name: 'buttonTextNewsletter',
+      type: 'i18n.string',
+      validation: validateAllStringsIfTypeIs('newsletter'),
+      group: 'newsletter'
     })
-
-    // defineField({
-    //   title: 'Link',
-    //   name: 'link',
-    //   type: 'link',
-    //   validation: (Rule) =>
-    //     Rule.custom((value, context) => {
-    //       if (context.parent.type === 'newsletter' && !value) {
-    //         return 'Required';
-    //       }
-
-    //       return true;
-    //     })
-    // })
   ]
 });
