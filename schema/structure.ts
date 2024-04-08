@@ -43,6 +43,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
+      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(File),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()
         .title('Products')

@@ -4,6 +4,7 @@ import { badge } from '@/schema/documents/badge';
 import { card } from '@/schema/documents/card';
 import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
+import { legalPage } from '@/schema/documents/legalPage';
 import { page } from '@/schema/documents/page';
 import { product } from '@/schema/documents/product';
 import { productOption } from '@/schema/documents/productOption';
@@ -122,6 +123,7 @@ const schema = [
 
   // Documents
   page,
+  legalPage,
   color,
   collection,
   redirect,
