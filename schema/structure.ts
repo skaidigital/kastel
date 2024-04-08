@@ -8,6 +8,7 @@ import {
   CreditCard,
   File,
   Folders,
+  Gavel,
   Gear,
   GoogleLogo,
   GridFour,
@@ -45,7 +46,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(File),
+      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()

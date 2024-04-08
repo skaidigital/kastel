@@ -39,7 +39,9 @@ const config = definePlugin({
     muxInput({
       mp4_support: 'standard'
     }),
-    scheduledPublishing(),
+    scheduledPublishing({
+      inputDateTimeFormat: 'dd.MM.yyyy HH:mm'
+    }),
     visionTool({ defaultApiVersion: apiVersion }),
     simplerColorInput(),
     webhooks(),

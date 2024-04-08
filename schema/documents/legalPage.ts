@@ -2,12 +2,14 @@ import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
+import { Gavel } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const legalPage = defineType({
   title: 'Legal page',
   name: 'legalPage',
   type: 'document',
+  icon: Gavel,
   preview: {
     select: {
       title: 'internalTitle'
