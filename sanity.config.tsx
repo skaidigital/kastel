@@ -1,6 +1,7 @@
 import { apiVersion, projectId } from '@/lib/sanity/api';
 import { defaultDocumentNodeResolver } from '@/schema/defaultDocumentNodeResolver';
 import { structure } from '@/schema/structure';
+import { scheduledPublishing } from '@sanity/scheduled-publishing';
 import { visionTool } from '@sanity/vision';
 import { defineConfig, definePlugin } from 'sanity';
 import { media, mediaAssetSource } from 'sanity-plugin-media';
@@ -38,6 +39,7 @@ const config = definePlugin({
     muxInput({
       mp4_support: 'standard'
     }),
+    scheduledPublishing(),
     visionTool({ defaultApiVersion: apiVersion }),
     simplerColorInput(),
     webhooks(),
