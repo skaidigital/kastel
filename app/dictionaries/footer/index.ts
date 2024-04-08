@@ -27,7 +27,7 @@ const dictionaries: Record<string, DictionaryLoader> = {
 };
 
 export const getFooterDictionary = async (lang: LangValues) => {
-  if (!lang || lang !== 'en' || lang !== 'en') {
+  if (!lang && lang !== 'no' && lang !== 'en') {
     throw new Error('Not supported language');
   }
 

@@ -3,7 +3,7 @@ import { i18nSlug, i18nString } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const color = defineType({
-  title: 'Farge',
+  title: 'Color',
   name: 'colorDocument',
   type: 'document',
   groups: [

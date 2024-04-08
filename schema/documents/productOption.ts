@@ -6,7 +6,7 @@ import { SlugRule, defineField, defineType } from 'sanity';
 // TODO sette type på optinType som enten er text eller color.
 // TODO hvis parent er color, så må du sette en farge her.
 export const productOption = defineType({
-  title: 'Product Option',
+  title: 'Option',
   name: 'productOption',
   type: 'document',
   icon: Square,
@@ -39,9 +39,9 @@ export const productOption = defineType({
   },
   fields: [
     defineField({
-      title: 'What is a product option?',
+      title: 'What is a option?',
       description:
-        'A product option is a specific option for a given product option type. For example, if you have a product option type called "Size", you would create a product option called "Small".',
+        'A option is a specific option for a given option type. For example, if you have a option group called "Size", you would create a option called "Small".',
       name: 'myCustomNote',
       group: 'settings',
       type: 'note',

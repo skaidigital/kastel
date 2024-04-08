@@ -17,7 +17,7 @@ export const footer = defineType({
       title: 'Description',
       name: 'description',
       type: 'i18n.text',
-      description: "The text under the 'About Abate' heading",
+      description: "The accompanying text next to the brand tagline 'Raised by Weather'",
       options: {
         rows: 3
       },

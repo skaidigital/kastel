@@ -10,9 +10,9 @@ export const tag = defineType({
   icon: Tag,
   groups: [
     {
-      name: 'shared',
-      title: 'Shared',
-      icon: () => '🙌',
+      name: 'settings',
+      title: 'Settings',
+      icon: () => '⚙️',
       default: true
     },
     ...MARKETS.map((market) => ({
@@ -39,24 +39,11 @@ export const tag = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
-      title: 'Type',
-      name: 'type',
-      type: 'string',
-      group: 'shared',
-      validation: (Rule) => Rule.required(),
-      options: {
-        list: [
-          { title: 'Text', value: 'text' },
-          { title: 'Color', value: 'color' }
-        ]
-      }
-    }),
-    defineField({
       title: 'Color',
       name: 'color',
       type: 'reference',
       to: { type: 'colorDocument' },
-      group: 'shared',
+      group: 'settings',
       hidden: ({ parent }) => parent?.type !== 'color',
       validation: (Rule) => Rule.custom((color) => !!color || 'Required')
     }),
@@ -66,7 +53,7 @@ export const tag = defineType({
       name: 'group',
       type: 'reference',
       to: { type: 'tagGroup' },
-      group: 'shared',
+      group: 'settings',
       validation: (Rule) => Rule.required()
     })
   ]

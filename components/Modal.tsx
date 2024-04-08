@@ -49,7 +49,7 @@ export function ModalContent({
         forceMount
         aria-label={label}
         className={cn(
-          'fixed left-[50%] top-[50%] z-30 w-full translate-x-[-50%] translate-y-[-50%] rounded-project border  border-brand-border bg-white transition-[transform,opacity] data-[state=closed]:animate-modal-hide data-[state=open]:animate-modal-show  focus:outline-none',
+          'border-brand-border fixed left-[50%] top-[50%] z-30 w-full translate-x-[-50%] translate-y-[-50%] rounded-project  border bg-white transition-[transform,opacity] data-[state=closed]:animate-modal-hide data-[state=open]:animate-modal-show  focus:outline-none',
           size === 'sm' && 'max-w-xl',
           size === 'md' && 'max-w-4xl',
           size === 'lg' && 'max-w-6xl',

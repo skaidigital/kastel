@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/Button';
 import { ControlledAlertDrawerCancel } from '@/components/ControlledAlertDrawer';
-import { handleHasChosenMarket } from '@/components/global/MarketSelector/actions';
+import { handleHasChosenMarket } from '@/components/global/MarketPopup/actions';
 
 interface Props {
   children: React.ReactNode;

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 
 const MarketPopup = dynamic(
-  () => import('@/components/global/MarketSelector/index').then((mod) => mod.MarketPopup),
+  () => import('@/components/global/MarketPopup/index').then((mod) => mod.MarketPopup),
   {
     suspense: true
   }
@@ -30,28 +30,10 @@ export async function PopupHandler() {
   const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP);
 
   // if (!hasChosenMarket && reccommendedMarket && requestCountry) {
-  //   return (
-  //     <Suspense>
-  //       <MarketPopup />
-  //     </Suspense>
-  //   );
-  // }
-
-  // if (!hasAccepted) {
-  //   return (
-  //     <Suspense>
-  //       <CookieConsent />
-  //     </Suspense>
-  //   );
-  // }
-
-  // if (!hasSeenCookieConsent || !hasSeenPopupInLastDay) {
   return (
     <Suspense>
+      {/* <MarketPopup /> */}
       <Popup />
     </Suspense>
   );
-  // }
-
-  return null;
 }

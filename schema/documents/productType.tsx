@@ -4,7 +4,7 @@ import { Question, Square } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const productType = defineType({
-  title: 'Product Type',
+  title: 'Model',
   name: 'productType',
   type: 'document',
   icon: Square,
@@ -20,9 +20,9 @@ export const productType = defineType({
   },
   groups: [
     {
-      icon: () => '🙌',
-      name: 'shared',
-      title: 'Shared',
+      icon: () => '⚙️',
+      name: 'settings',
+      title: 'Settings',
       default: true
     },
     ...MARKETS.map((market) => ({
@@ -42,30 +42,21 @@ export const productType = defineType({
         icon: () => <Question size={16} weight="duotone" />,
         tone: 'positive'
       },
-      group: 'shared'
+      group: 'settings'
     }),
     defineField({
       title: 'Internal title',
       name: 'internalTitle',
       type: 'internalTitle',
       validation: (Rule) => Rule.required(),
-      group: 'shared'
+      group: 'settings'
     }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'i18n.string',
       validation: (Rule) => Rule.required(),
-      group: 'shared'
-    }),
-    defineField({
-      title: 'Gallery',
-      name: 'gallery',
-      type: 'gallery',
-      options: {
-        layout: 'grid'
-      },
-      group: 'shared'
+      group: 'settings'
     }),
     ...i18nField({
       title: 'Description',
@@ -76,7 +67,7 @@ export const productType = defineType({
       title: 'Page builder',
       name: 'pageBuilder',
       type: 'pageBuilder',
-      group: 'shared'
+      group: 'settings'
     }),
     defineField({
       title: 'Accordions',
@@ -91,7 +82,16 @@ export const productType = defineType({
           }
         })
       ],
-      group: 'shared'
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Gallery',
+      name: 'gallery',
+      type: 'gallery',
+      options: {
+        layout: 'grid'
+      },
+      group: 'settings'
     })
   ]
 });

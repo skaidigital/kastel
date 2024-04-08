@@ -1,7 +1,7 @@
-import { MARKETS } from '@/data/constants';
+import { MARKETS, TAG_OPTIONS } from '@/data/constants';
 import { i18nSlug, i18nString } from '@/lib/sanity/studioUtils';
 import { Folders } from '@phosphor-icons/react';
-import { defineType } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 export const tagGroup = defineType({
   title: 'Tag group',
@@ -12,9 +12,14 @@ export const tagGroup = defineType({
     ...MARKETS.map((market) => ({
       name: market.id,
       title: market.name,
-      icon: () => market.flag,
-      default: market.id === 'no'
-    }))
+      icon: () => market.flag
+    })),
+    {
+      name: 'settings',
+      title: 'Settings',
+      icon: () => '⚙️',
+      default: true
+    }
   ],
   preview: {
     select: {
@@ -22,6 +27,19 @@ export const tagGroup = defineType({
     }
   },
   fields: [
+    defineField({
+      title: 'Type',
+      name: 'type',
+      type: 'string',
+      group: 'settings',
+      validation: (Rule) => Rule.required(),
+      options: {
+        list: TAG_OPTIONS.map((option) => ({
+          title: option.name,
+          value: option.id
+        }))
+      }
+    }),
     ...i18nString({
       title: 'Title',
       name: 'title',

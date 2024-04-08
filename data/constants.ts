@@ -164,12 +164,26 @@ type ProductOptionValues = {
 };
 
 export const PRODUCT_OPTION: Record<ProductOptionName, ProductOptionValues> = {
-  // color: { name: 'Color', id: 'color' },
   size: { name: 'Size', id: 'size' },
   text: { name: 'Text', id: 'text' }
 };
 
 export const PRODUCT_OPTIONS = Object.values(PRODUCT_OPTION);
+
+export type TagTypeName = 'size' | 'color' | 'text';
+
+type TagValues = {
+  name: string;
+  id: TagTypeName;
+};
+
+export const TAG_TYPE: Record<TagTypeName, TagValues> = {
+  size: { name: 'Size', id: 'size' },
+  color: { name: 'Color', id: 'color' },
+  text: { name: 'Text', id: 'text' }
+};
+
+export const TAG_OPTIONS = Object.values(TAG_TYPE);
 
 export const SKAI_URL = 'https://skaidigital.com';
 

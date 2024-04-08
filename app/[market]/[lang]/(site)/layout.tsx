@@ -12,8 +12,9 @@ import { ReactNode, Suspense } from 'react';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
-import { PopupHandler } from '@/components/global/Popup/PopupHandler';
-import { MarketValues } from '@/data/constants';
+import { Footer } from '@/components/global/Footer';
+import { PopupHandler } from '@/components/global/PopupHandler';
+import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
 import '../../../../styles/globals.css';
@@ -22,7 +23,13 @@ const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${env.NEXT_PUBLIC_VERCEL_URL}`
   : 'http://localhost:3000';
 
-export default function IndexRoute({ children }: { children: ReactNode }) {
+export default function IndexRoute({
+  children,
+  params: { market, lang }
+}: {
+  children: ReactNode;
+  params: { market: MarketValues; lang: LangValues };
+}) {
   // const hasConsent = cookies().get(COOKIE_NAMES.COOKIE_CONSENT)?.value === 'true';
 
   return (
@@ -32,7 +39,7 @@ export default function IndexRoute({ children }: { children: ReactNode }) {
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
-        <div className="fixed bottom-0 top-0 w-full overflow-x-auto bg-black">
+        <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
           <Providers>
             <div>
               <Suspense>
@@ -55,9 +62,9 @@ export default function IndexRoute({ children }: { children: ReactNode }) {
             {/* <Suspense>
               <USP />
             </Suspense> */}
-            {/* <Suspense>
-              <Footer />
-            </Suspense> */}
+            <Suspense>
+              <Footer market={market} lang={lang} />
+            </Suspense>
             <ShopifyAnalytics hasConsent />
             {draftMode().isEnabled && <PreviewMarketSelector />}
           </Providers>

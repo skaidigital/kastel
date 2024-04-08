@@ -4,7 +4,7 @@ import { GridFour } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const productOptionType = defineType({
-  title: 'Product Option Type',
+  title: 'Option group',
   name: 'productOptionType',
   type: 'document',
   icon: GridFour,
@@ -35,7 +35,7 @@ export const productOptionType = defineType({
     defineField({
       title: 'What is a product option type?',
       description:
-        'A product option type is a type of option that a product can have. For example, a product can have a size option, a color option, a material option, etc. This is where you define the different types of options that a product can have. This is used to create the different options that a product can have. For example, if you have a product that can have a size option, you would create a product option type called "Size".',
+        'An option group is a collection of options. When you create an option you will select which option group it belongs to. For example, if you have a "Size" option, you would create a "Size" option group and add the sizes as options when you create them.',
       name: 'myCustomNote',
       group: 'settings',
       type: 'note',

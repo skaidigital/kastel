@@ -33,7 +33,7 @@ const EXCLUDED_PAGE_IDS = ['home'];
 
 export const structure: StructureResolver = (S: StructureBuilder) => {
   return S.list()
-    .title('Abate')
+    .title('Kastel')
     .items([
       S.listItem()
         .title('Home')
@@ -43,7 +43,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      list(S, 'Product Types', `_type == 'productType'`).icon(Square),
+      list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()
         .title('Products')
         .child(
@@ -111,8 +111,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
           'settingsPaymentProviders',
           'settingsPaymentProviders'
         ).icon(CreditCard),
-        list(S, 'Product option types', `_type == 'productOptionType'`).icon(GridFour),
-        list(S, 'Product options', `_type == 'productOption'`).icon(Square),
+        list(S, 'Options', `_type == 'productOption'`).icon(Square),
+        list(S, 'Option groups', `_type == 'productOptionType'`).icon(GridFour),
         listNew({ S, title: 'Colors', schemaType: 'colorDocument' }).icon(PaintBucket),
         listNew({ S, title: 'Tags', schemaType: 'tag' }).icon(Tag),
         listNew({ S, title: 'Tag groups', schemaType: 'tagGroup' }).icon(Folders),
