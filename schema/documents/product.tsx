@@ -357,6 +357,24 @@ export const product = defineType({
       ],
       group: 'editorial'
     }),
+    defineField({
+      title: 'Reccommended products (optional)',
+      name: 'reccommendedProducts',
+      description:
+        'Products that will be shown in a carousel on the product pages. If you don&rsquo;t choose any, we will use the default reccommended products set in merchandising under settings',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'product' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ],
+      validation: (Rule) => Rule.max(12),
+      group: 'editorial'
+    }),
     ...i18nfeaturedOptions(),
     ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
     ...i18nField({
