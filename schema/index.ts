@@ -4,7 +4,12 @@ import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
 import { faqBlock } from '@/schema/documents/faqBlock';
 import { legalPage } from '@/schema/documents/legalPage';
+import { natureLabLandingPage } from '@/schema/documents/natureLabLandingPage';
+import { natureLabSettings } from '@/schema/documents/natureLabSettings';
 import { page } from '@/schema/documents/page';
+import { phase1BlogPost } from '@/schema/documents/phase1BlogPost';
+import { phase2Product } from '@/schema/documents/phase2Product';
+import { phase3BlogPost } from '@/schema/documents/phase3BlogPost';
 import { product } from '@/schema/documents/product';
 import { productOption } from '@/schema/documents/productOption';
 import { productOptionType } from '@/schema/documents/productOptionType';
@@ -127,6 +132,13 @@ const schema = [
   productOption,
   productOptionType,
   productOptionConfig,
+
+  // Nature Lab
+  natureLabLandingPage,
+  natureLabSettings,
+  phase1BlogPost,
+  phase2Product,
+  phase3BlogPost,
 
   // Documents
   page,

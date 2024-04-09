@@ -87,6 +87,13 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         )
         .icon(Sneaker),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
+      group(S, 'Nature Lab', [
+        listNew({ S, title: 'Landing page', schemaType: 'natureLabLandingPage' }).icon(File),
+        listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
+        listNew({ S, title: 'Phase 2 products', schemaType: 'phase2Product' }).icon(Sneaker),
+        listNew({ S, title: 'Phase 3 blog posts', schemaType: 'phase3BlogPost' }).icon(File),
+        listNew({ S, title: 'Settings', schemaType: 'natureLabSettings' }).icon(Gear)
+      ]).icon(Recycle),
       singleton(S, 'Store locator', 'storeLocator', 'storeLocator').icon(MapPin),
       singleton(S, 'Help center', 'helpCenter', 'helpCenter').icon(Question),
       group(S, 'Site', [
