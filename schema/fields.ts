@@ -131,9 +131,15 @@ export const pageBuilder = defineType({
       title: 'Page title',
       type: 'pageTitle'
     }),
-    // Full width media sectino
+    // Full width media section
     // USP + Shoe
     // Shoe picker
+    defineArrayMember({
+      title: 'Shoe picker',
+      type: 'reference',
+      to: [{ type: 'shoePicker' }],
+      name: 'shoePicker'
+    }),
     // Nature Lab explanation
     defineArrayMember({
       title: 'Nature Lab explainer',

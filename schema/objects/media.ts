@@ -4,6 +4,14 @@ export const media = defineType({
   title: 'Media',
   name: 'media',
   type: 'object',
+  preview: {
+    select: {
+      title: 'type'
+    },
+    prepare: ({ title }) => ({
+      title: title || 'Untitled'
+    })
+  },
   fields: [
     defineField({
       title: 'Type',

@@ -64,6 +64,7 @@ import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollectio
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
+import { shoePicker } from '@/schema/pageBuilderBlocks/shoePicker';
 import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { accountPage } from '@/schema/singletons/accountPage';
@@ -134,6 +135,7 @@ const schema = [
   kastelClub,
   shopOurModels,
   natureLabExplainer,
+  shoePicker,
 
   // Product
   productType,
