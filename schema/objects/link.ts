@@ -1,10 +1,12 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { Link } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const link = defineType({
   title: 'Link',
   name: 'link',
   type: 'object',
+  icon: Link,
   preview: {
     select: {
       text: 'text.no',

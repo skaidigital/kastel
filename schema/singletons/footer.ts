@@ -24,14 +24,26 @@ export const footer = defineType({
       validation: validateAllStringTranslations
     }),
     defineField({
-      title: 'Items',
-      name: 'items',
+      title: 'Items (Norwegian market)',
+      name: 'itemsNo',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'headingAndLinks'
         })
-      ]
+      ],
+      validation: (Rule) => Rule.min(1).max(4)
+    }),
+    defineField({
+      title: 'Items (Swedish market)',
+      name: 'itemsSv',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'headingAndLinks'
+        })
+      ],
+      validation: (Rule) => Rule.min(1).max(4)
     })
   ]
 });

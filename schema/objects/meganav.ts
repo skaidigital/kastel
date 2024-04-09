@@ -1,10 +1,12 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { TagChevron } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const meganav = defineType({
   title: 'Meganav',
   name: 'meganav',
   type: 'object',
+  icon: TagChevron,
   preview: {
     select: {
       title: 'title.no'
