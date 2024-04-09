@@ -3,7 +3,7 @@ import { Check } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const usps = defineType({
-  title: 'USPs',
+  title: 'USPs above footer',
   name: 'usps',
   type: 'document',
   icon: Check,
@@ -17,7 +17,7 @@ export const usps = defineType({
   fields: [
     defineField({
       title: 'USPs above footer',
-      name: 'items',
+      name: 'footer',
       type: 'array',
       validation: (Rule) => Rule.required().min(1).max(8),
       of: [
@@ -28,14 +28,24 @@ export const usps = defineType({
           validation: validateAllStringTranslations
         })
       ]
+    }),
+    defineField({
+      title: 'USPs under add to cart button for regular products',
+      description:
+        "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
+      name: 'productForm',
+      type: 'array',
+      of: [{ type: 'i18n.string', validation: validateAllStringTranslations }],
+      validation: (Rule) => Rule.min(1).max(4)
+    }),
+    defineField({
+      title: 'USPs under add to cart button for Nature Lab products',
+      description:
+        "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
+      name: 'productFormNatureLab',
+      type: 'array',
+      of: [{ type: 'i18n.string', validation: validateAllStringTranslations }],
+      validation: (Rule) => Rule.min(1).max(4)
     })
-    // ...MARKETS.map((market) =>
-    //   defineField({
-    //     title: `USPs under add to cart button for ${market.name} ${market.flag}`,
-    //     name: `productForm_${market.id}`,
-    //     type: 'richText',
-    //     validation: (Rule) => Rule.required()
-    //   })
-    // )
   ]
 });

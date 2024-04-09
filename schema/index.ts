@@ -13,6 +13,7 @@ import { question } from '@/schema/documents/question';
 import { redirect } from '@/schema/documents/redirect';
 import { tag } from '@/schema/documents/tag';
 import { tagGroup } from '@/schema/documents/tagGroup';
+import { usp } from '@/schema/documents/usp';
 import {
   alternativeText,
   bottomBorder,
@@ -42,7 +43,6 @@ import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
 import { textBlock } from '@/schema/objects/textBlock';
-import { usp } from '@/schema/objects/usp';
 import { cardGrid } from '@/schema/pageBuilderBlocks/cardGrid';
 import { collectionListing } from '@/schema/pageBuilderBlocks/collectionListing';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
@@ -96,7 +96,6 @@ const schema = [
   paymentProvider,
   collectionProduct,
   collectionImage,
-  usp,
   featureOptionConfig,
   price,
   media,
@@ -137,6 +136,7 @@ const schema = [
   textBlock,
   badge,
   card,
+  usp,
 
   // Singletons
   footer,

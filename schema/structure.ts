@@ -16,6 +16,7 @@ import {
   Info,
   Layout,
   List,
+  ListBullets,
   MapPin,
   MegaphoneSimple,
   Package,
@@ -122,7 +123,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Colors', schemaType: 'colorDocument' }).icon(PaintBucket),
         listNew({ S, title: 'Tags', schemaType: 'tag' }).icon(Tag),
         listNew({ S, title: 'Tag groups', schemaType: 'tagGroup' }).icon(Folders),
-        listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag)
+        listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag),
+        listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets)
       ]).icon(Gear)
     ]);
 };
