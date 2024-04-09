@@ -40,6 +40,7 @@ import { collectionImage } from '@/schema/objects/collectionImage';
 import { collectionProduct } from '@/schema/objects/collectionProduct';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
+import { hotspotImage } from '@/schema/objects/hotspotImage';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
@@ -61,6 +62,7 @@ import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
 import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollection';
+import { featuredShoe } from '@/schema/pageBuilderBlocks/featuredShoe';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
@@ -117,6 +119,7 @@ const schema = [
   productDescription,
   aspectRatioSettings,
   sectionSettings,
+  hotspotImage,
 
   // Page builder blocks (objects)
   hero,
@@ -136,6 +139,7 @@ const schema = [
   shopOurModels,
   natureLabExplainer,
   shoePicker,
+  featuredShoe,
 
   // Product
   productType,

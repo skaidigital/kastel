@@ -30,6 +30,7 @@ import {
   Sneaker,
   Square,
   SquareHalfBottom,
+  Star,
   Tag,
   Trophy,
   User,
@@ -122,7 +123,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Nature Lab explainer', schemaType: 'natureLabExplainer' }).icon(
           Trophy
         ),
-        listNew({ S, title: 'Shoe picker', schemaType: 'shoePicker' }).icon(Sneaker)
+        listNew({ S, title: 'Shoe picker', schemaType: 'shoePicker' }).icon(Sneaker),
+        listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star)
       ]).icon(Recycle),
       group(S, 'Settings', [
         // singleton(S, 'General', 'settingsGeneral', 'settingsGeneral').icon(Gear),

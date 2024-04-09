@@ -162,7 +162,12 @@ export const pageBuilder = defineType({
       name: 'ugcs'
     }),
     // Featured shoe
-
+    defineArrayMember({
+      title: 'Featured shoe',
+      type: 'reference',
+      to: [{ type: 'featuredShoe' }],
+      name: 'featuredShoe'
+    }),
     // Featured collection
     defineArrayMember({
       title: 'Featured collection',
