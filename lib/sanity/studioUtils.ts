@@ -121,7 +121,7 @@ export function i18nField({
       fieldset,
       description,
       hidden,
-      rows,
+      ...(type === 'text' && { rows }),
       initialValue,
       validation,
       readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)

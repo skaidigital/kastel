@@ -121,6 +121,18 @@ export const pageBuilder = defineType({
     input: PageBuilderModal
   },
   of: [
+    // Full width media sectino
+    // USP + Shoe
+    // Shoe picker
+    // Nature Lab explanation
+    // Shop our models
+    // UGCs
+    // Featured shoe
+    // Featured collection
+    // Card section
+    // Blog posts
+    // Kastel Club
+    // Timeline
     defineArrayMember({
       title: 'Page title',
       type: 'pageTitle'
