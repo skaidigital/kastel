@@ -98,25 +98,7 @@ export const product = defineType({
       title: 'Page builder',
       name: 'pageBuilder',
       type: 'pageBuilder',
-      group: 'editorial',
-      validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
-          if (!value.length) {
-            return 'You need to add at least one section';
-          }
-
-          const firstComponent = value[0];
-
-          if (
-            firstComponent._type !== 'hero' &&
-            firstComponent._type !== 'pageTitle' &&
-            firstComponent._type !== 'emailCapture'
-          ) {
-            return 'The first section must be a hero, page title or email capture';
-          }
-
-          return true;
-        })
+      group: 'editorial'
     }),
     defineField({
       title: 'Badges (optional)',
@@ -269,6 +251,14 @@ export const product = defineType({
       ]
     }),
     defineField({
+      title: 'Tags (optional)',
+      description: 'Tags that will be used for filtering and search',
+      name: 'tags',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Track stock',
       name: 'trackStock',
       type: 'boolean',
@@ -413,11 +403,11 @@ export const product = defineType({
       group: 'editorial'
     }),
     ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
-    ...i18nField({
-      title: 'Metadata',
-      name: 'metadata',
-      type: 'metadata'
-    }),
+    // ...i18nField({
+    //   title: 'Metadata',
+    //   name: 'metadata',
+    //   type: 'metadata'
+    // }),
     ...i18nField({
       title: 'Created at',
       name: 'createdAt',
