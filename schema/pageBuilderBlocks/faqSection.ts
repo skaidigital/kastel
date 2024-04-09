@@ -4,7 +4,7 @@ import { defineField, defineType } from 'sanity';
 export const faqSection = defineType({
   title: 'FAQ section',
   name: 'faqSection',
-  type: 'object',
+  type: 'document',
   icon: List,
   fieldsets: [{ name: 'paddingSettings', title: 'Padding settings', options: { columns: 2 } }],
   preview: {

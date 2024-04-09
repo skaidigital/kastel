@@ -1,10 +1,12 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { Recycle } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const natureLabExplainer = defineType({
   title: 'Nature Lab explainer',
   name: 'natureLabExplainer',
   type: 'document',
+  icon: Recycle,
   fields: [
     defineField({
       title: 'Internal title',
