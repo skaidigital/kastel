@@ -136,6 +136,12 @@ export const pageBuilder = defineType({
     // Shoe picker
     // Nature Lab explanation
     // Shop our models
+    defineArrayMember({
+      title: 'Shop our models',
+      type: 'reference',
+      to: [{ type: 'shopOurModels' }],
+      name: 'shopOurModels'
+    }),
     // UGCs
     defineArrayMember({
       title: 'UGC section',

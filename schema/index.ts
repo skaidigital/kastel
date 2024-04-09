@@ -63,6 +63,7 @@ import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollectio
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
+import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
@@ -130,6 +131,7 @@ const schema = [
   ugcs,
   cardSection,
   kastelClub,
+  shopOurModels,
 
   // Product
   productType,

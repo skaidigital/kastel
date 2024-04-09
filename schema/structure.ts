@@ -26,6 +26,7 @@ import {
   Question,
   Recycle,
   Signpost,
+  Slideshow,
   Sneaker,
   Square,
   SquareHalfBottom,
@@ -115,6 +116,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Question', schemaType: 'question' }).icon(List),
         listNew({ S, title: 'FAQ section', schemaType: 'faqSection' }).icon(List),
         listNew({ S, title: 'Card section', schemaType: 'cardSection' }).icon(GridFour),
+        listNew({ S, title: 'Shop our models', schemaType: 'shopOurModels' }).icon(Slideshow),
         listNew({ S, title: 'UGC section', schemaType: 'UGCSection' }).icon(VideoCamera),
         listNew({ S, title: 'Kastel Club', schemaType: 'kastelClub' }).icon(Trophy)
       ]).icon(Recycle),
