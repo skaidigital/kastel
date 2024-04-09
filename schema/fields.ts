@@ -135,6 +135,12 @@ export const pageBuilder = defineType({
     // USP + Shoe
     // Shoe picker
     // Nature Lab explanation
+    defineArrayMember({
+      title: 'Nature Lab explainer',
+      type: 'reference',
+      to: [{ type: 'natureLabExplainer' }],
+      name: 'natureLabExplainer'
+    }),
     // Shop our models
     defineArrayMember({
       title: 'Shop our models',

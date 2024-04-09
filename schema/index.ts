@@ -1,4 +1,5 @@
 import { kastelClub } from '@/components/shared/PageBuilder/kastelClub';
+import { natureLabExplainer } from '@/components/shared/PageBuilder/natureLabExplainer';
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
 import { collection } from '@/schema/documents/collection';
@@ -132,6 +133,7 @@ const schema = [
   cardSection,
   kastelClub,
   shopOurModels,
+  natureLabExplainer,
 
   // Product
   productType,

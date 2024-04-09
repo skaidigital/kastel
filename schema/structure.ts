@@ -118,7 +118,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Card section', schemaType: 'cardSection' }).icon(GridFour),
         listNew({ S, title: 'Shop our models', schemaType: 'shopOurModels' }).icon(Slideshow),
         listNew({ S, title: 'UGC section', schemaType: 'UGCSection' }).icon(VideoCamera),
-        listNew({ S, title: 'Kastel Club', schemaType: 'kastelClub' }).icon(Trophy)
+        listNew({ S, title: 'Kastel Club', schemaType: 'kastelClub' }).icon(Trophy),
+        listNew({ S, title: 'Nature Lab explainer', schemaType: 'natureLabExplainer' }).icon(Trophy)
       ]).icon(Recycle),
       group(S, 'Settings', [
         // singleton(S, 'General', 'settingsGeneral', 'settingsGeneral').icon(Gear),
