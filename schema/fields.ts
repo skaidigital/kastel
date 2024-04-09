@@ -138,7 +138,8 @@ export const pageBuilder = defineType({
     defineArrayMember({
       title: 'UGC section',
       type: 'reference',
-      to: [{ type: 'UGCSection' }]
+      to: [{ type: 'UGCSection' }],
+      name: 'ugcs'
     }),
     // Featured shoe
 
@@ -160,6 +161,12 @@ export const pageBuilder = defineType({
       type: 'blogPosts'
     }),
     // Kastel Club
+    defineArrayMember({
+      title: 'Kastel Club',
+      type: 'reference',
+      to: [{ type: 'kastelClub' }],
+      name: 'kastelClub'
+    }),
     // Timeline
     // FAQ section
     defineArrayMember({

@@ -19,21 +19,17 @@ export const collectionImage = defineType({
   },
   fields: [
     defineField({
-      title: 'Card',
-      name: 'card',
-      type: 'reference',
-      to: [{ type: 'card' }],
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      title: 'Size',
-      name: 'size',
-      type: 'string',
-      initialValue: 'small',
-      options: {
-        list: ['small', 'large']
-      },
-      validation: (Rule) => Rule.required()
+      title: 'Temp',
+      name: 'temp',
+      type: 'string'
     })
+
+    // defineField({
+    //   title: 'Card',
+    //   name: 'card',
+    //   type: 'reference',
+    //   to: [{ type: 'card' }],
+    //   validation: (Rule) => Rule.required()
+    // }),
   ]
 });

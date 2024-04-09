@@ -22,9 +22,11 @@ export const cardSection = defineType({
     }),
     defineField({
       title: 'Cards',
+      description: 'Create 2-3 cards',
       name: 'cards',
       type: 'array',
-      of: [{ type: 'media' }]
+      of: [{ type: 'media' }],
+      validation: (Rule) => Rule.min(2).max(3)
     })
   ]
 });

@@ -69,7 +69,7 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'image' && !image) {
+          if (!sameAssetForMobileAndDesktop && type === 'image' && !image) {
             return 'Image is required';
           }
 
@@ -87,7 +87,7 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'image' && !image) {
+          if (!sameAssetForMobileAndDesktop && type === 'image' && !image) {
             return 'Image is required';
           }
 
@@ -105,7 +105,7 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'video' && !video) {
+          if (!sameAssetForMobileAndDesktop && type === 'video' && !video) {
             return 'Video is required';
           }
 
@@ -123,7 +123,7 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'video' && !video) {
+          if (!sameAssetForMobileAndDesktop && type === 'video' && !video) {
             return 'Video is required';
           }
 

@@ -98,8 +98,8 @@ export const collection = defineType({
       of: [
         defineArrayMember({
           title: 'Mood',
-          name: 'collectionImage',
-          type: 'collectionImage'
+          name: 'mood',
+          type: 'media'
         })
       ]
     }),

@@ -30,6 +30,7 @@ import {
   Square,
   SquareHalfBottom,
   Tag,
+  Trophy,
   User,
   VideoCamera
 } from '@phosphor-icons/react';
@@ -106,7 +107,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, 'Cookie consent', 'cookieConsent', 'cookieConsent').icon(Cookie),
         singleton(S, 'Popup', 'popup', 'popup').icon(MegaphoneSimple),
         singleton(S, 'USPs', 'usps', 'usps').icon(Check),
-        singleton(S, '404', 'pageNotFound', 'pageNotFound').icon(Placeholder)
+        singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
       group(S, 'Reusable content', [
         list(S, 'Text block', `_type == 'textBlock'`).icon(Layout),
@@ -114,7 +115,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Question', schemaType: 'question' }).icon(List),
         listNew({ S, title: 'FAQ section', schemaType: 'faqSection' }).icon(List),
         listNew({ S, title: 'Card section', schemaType: 'cardSection' }).icon(GridFour),
-        listNew({ S, title: 'UGC section', schemaType: 'UGCSection' }).icon(VideoCamera)
+        listNew({ S, title: 'UGC section', schemaType: 'UGCSection' }).icon(VideoCamera),
+        listNew({ S, title: 'Kastel Club', schemaType: 'kastelClub' }).icon(Trophy)
       ]).icon(Recycle),
       group(S, 'Settings', [
         // singleton(S, 'General', 'settingsGeneral', 'settingsGeneral').icon(Gear),

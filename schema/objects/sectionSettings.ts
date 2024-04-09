@@ -4,6 +4,7 @@ export const sectionSettings = defineType({
   title: 'Section settings',
   name: 'sectionSettings',
   type: 'object',
+  fieldsets: [{ name: 'paddingSettings', title: 'Padding settings', options: { columns: 2 } }],
   fields: [
     defineField({
       title: 'Padding',

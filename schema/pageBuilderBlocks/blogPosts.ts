@@ -1,3 +1,4 @@
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Article } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -16,6 +17,18 @@ export const blogPosts = defineType({
   },
   fields: [
     defineField({
+      title: 'Title',
+      name: 'title',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Button text',
+      name: 'buttonText',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
+    }),
+    defineField({
       title: 'Type',
       name: 'type',
       type: 'string',
@@ -28,7 +41,6 @@ export const blogPosts = defineType({
       },
       initialValue: 'mostRecent'
     }),
-
     defineField({
       title: 'Blog posts',
       name: 'posts',

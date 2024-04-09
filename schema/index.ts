@@ -1,3 +1,4 @@
+import { kastelClub } from '@/components/shared/PageBuilder/kastelClub';
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
 import { collection } from '@/schema/documents/collection';
@@ -126,6 +127,7 @@ const schema = [
   faqBlock,
   ugcs,
   cardSection,
+  kastelClub,
 
   // Product
   productType,
