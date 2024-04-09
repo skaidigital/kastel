@@ -9,12 +9,14 @@ export const usp = defineType({
   icon: ListBullets,
   preview: {
     select: {
-      title: 'internalTitle'
+      title: 'internalTitle',
+      image: 'icon'
     },
-    prepare({ title }) {
+    prepare({ title, image }) {
       return {
         title: title || 'No title defined',
-        subtitle: 'USP'
+        subtitle: 'USP',
+        media: image || ListBullets
       };
     }
   },
@@ -29,6 +31,11 @@ export const usp = defineType({
       name: 'titleInfo',
       type: 'i18n.string',
       validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Icon',
+      name: 'icon',
+      type: 'figure'
     })
   ]
 });

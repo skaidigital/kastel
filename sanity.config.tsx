@@ -4,6 +4,7 @@ import { structure } from '@/schema/structure';
 import { scheduledPublishing } from '@sanity/scheduled-publishing';
 import { visionTool } from '@sanity/vision';
 import { defineConfig, definePlugin } from 'sanity';
+import { IconManager } from 'sanity-plugin-icon-manager';
 import { media, mediaAssetSource } from 'sanity-plugin-media';
 import { muxInput } from 'sanity-plugin-mux-input';
 import { noteField } from 'sanity-plugin-note-field';
@@ -52,7 +53,8 @@ const config = definePlugin({
         { code: 'no', title: 'Norway', label: '🇧🇻', default: true },
         { code: 'en', title: 'English', label: '🇬🇧' }
       ]
-    })
+    }),
+    IconManager()
   ],
   tools: (prev, { currentUser }) => {
     const isAdmin = currentUser?.roles?.some((role) => role.name === 'administrator');
@@ -66,6 +68,9 @@ const config = definePlugin({
     return prev.filter((tool) => !filteredTools.includes(tool.name));
   },
   form: {
+    file: {
+      assetSources: () => [mediaAssetSource]
+    },
     image: {
       assetSources: () => [mediaAssetSource]
     }
