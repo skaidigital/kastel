@@ -1,6 +1,5 @@
 import { MARKETS } from '@/data/constants';
 import {
-  filterAlreadyAddedReferences,
   i18nField,
   i18nSlug,
   i18nString,
@@ -82,13 +81,9 @@ export const collection = defineType({
       group: 'settings',
       of: [
         defineArrayMember({
-          title: 'Produkt',
+          title: 'Product',
           name: 'product',
-          type: 'reference',
-          to: [{ type: 'product' }],
-          options: {
-            filter: filterAlreadyAddedReferences
-          }
+          type: 'collectionProduct'
         })
       ]
     }),
@@ -102,7 +97,7 @@ export const collection = defineType({
       },
       of: [
         defineArrayMember({
-          title: 'Produkt',
+          title: 'Mood',
           name: 'collectionImage',
           type: 'collectionImage'
         })
