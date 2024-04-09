@@ -120,6 +120,28 @@ export const pageBuilder = defineType({
   components: {
     input: PageBuilderModal
   },
+  // Validate that either hero, pageTitle or emailCapture is in the first position
+  validation: (Rule) =>
+    Rule.custom((value: any, context: any) => {
+      if (!value.length) {
+        return 'You need to add at least one section';
+      }
+
+      const firstComponent = value[0];
+      console.log(firstComponent);
+
+      console.log(firstComponent._type);
+
+      if (
+        firstComponent._type !== 'hero' &&
+        firstComponent._type !== 'pageTitle' &&
+        firstComponent._type !== 'emailCapture'
+      ) {
+        return 'The first section must be a hero, page title or email capture';
+      }
+
+      return true;
+    }),
   of: [
     defineArrayMember({
       title: 'Page title',
@@ -183,6 +205,11 @@ export const pageBuilder = defineType({
     defineArrayMember({
       title: 'Contact form',
       type: 'contactForm'
+    }),
+    // Email capture
+    defineArrayMember({
+      title: 'Email capture',
+      type: 'emailCapture'
     })
   ]
 });

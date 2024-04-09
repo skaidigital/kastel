@@ -57,6 +57,7 @@ import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
 import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
+import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
 import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollection';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
@@ -122,6 +123,7 @@ const schema = [
   faqSection,
   blogPosts,
   featuredCollection,
+  emailCapture,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
