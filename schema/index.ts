@@ -1,4 +1,5 @@
 import { badge } from '@/schema/documents/badge';
+import { blogPost } from '@/schema/documents/blogPost';
 import { card } from '@/schema/documents/card';
 import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
@@ -50,6 +51,7 @@ import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
+import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
 import { cardGrid } from '@/schema/pageBuilderBlocks/cardGrid';
 import { collectionListing } from '@/schema/pageBuilderBlocks/collectionListing';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
@@ -120,6 +122,7 @@ const schema = [
   collectionListing,
   cardGrid,
   faqSection,
+  blogPosts,
   // Page builder blocks (documents)
   textAndImage,
   textSection,
@@ -153,6 +156,7 @@ const schema = [
   badge,
   card,
   usp,
+  blogPost,
 
   // Singletons
   footer,

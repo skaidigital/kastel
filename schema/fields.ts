@@ -131,6 +131,10 @@ export const pageBuilder = defineType({
     // Featured collection
     // Card section
     // Blog posts
+    defineArrayMember({
+      title: 'Blog posts',
+      type: 'blogPosts'
+    }),
     // Kastel Club
     // Timeline
     defineArrayMember({
