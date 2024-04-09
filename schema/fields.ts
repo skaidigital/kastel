@@ -121,6 +121,14 @@ export const pageBuilder = defineType({
     input: PageBuilderModal
   },
   of: [
+    defineArrayMember({
+      title: 'Page title',
+      type: 'pageTitle'
+    }),
+    defineArrayMember({
+      title: 'Hero',
+      type: 'hero'
+    }),
     // Full width media sectino
     // USP + Shoe
     // Shoe picker
@@ -133,12 +141,19 @@ export const pageBuilder = defineType({
       to: [{ type: 'UGCSection' }]
     }),
     // Featured shoe
+
     // Featured collection
     defineArrayMember({
       title: 'Featured collection',
       type: 'featuredCollection'
     }),
     // Card section
+    defineArrayMember({
+      title: 'Card section',
+      type: 'reference',
+      to: [{ type: 'cardSection' }],
+      name: 'cardSection'
+    }),
     // Blog posts
     defineArrayMember({
       title: 'Blog posts',
@@ -146,51 +161,21 @@ export const pageBuilder = defineType({
     }),
     // Kastel Club
     // Timeline
-    defineArrayMember({
-      title: 'Page title',
-      type: 'pageTitle'
-    }),
-    defineArrayMember({
-      title: 'Hero',
-      type: 'hero'
-    }),
-    defineArrayMember({
-      title: 'Featured product',
-      type: 'featuredProduct'
-    }),
+    // FAQ section
     defineArrayMember({
       title: 'FAQ section',
-      type: 'faqSection'
-    }),
-    defineArrayMember({
-      title: 'Text + Image',
       type: 'reference',
-      name: 'textAndImage',
-      to: [{ type: 'textAndImage' }]
+      to: [{ type: 'faqSection' }]
     }),
+    // Text section
     defineArrayMember({
       title: 'Text section',
       type: 'textSection'
     }),
-    defineArrayMember({
-      title: 'Product listing',
-      type: 'productListing'
-    }),
-    defineArrayMember({
-      title: 'Collection listing',
-      type: 'collectionListing'
-    }),
-    defineArrayMember({
-      title: 'Card grid',
-      type: 'cardGrid'
-    }),
+    // Contact form
     defineArrayMember({
       title: 'Contact form',
       type: 'contactForm'
-    }),
-    defineArrayMember({
-      title: 'Instagram feed',
-      type: 'instagramFeed'
     })
   ]
 });

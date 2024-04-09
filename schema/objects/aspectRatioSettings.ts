@@ -1,7 +1,7 @@
 import { defineField, defineType } from 'sanity';
 
 export const aspectRatioSettings = defineType({
-  title: 'aspectRatioSettings',
+  title: 'Aspect Ratio Settings',
   name: 'aspectRatioSettings',
   type: 'object',
   fields: [
@@ -36,7 +36,7 @@ export const aspectRatioSettings = defineType({
 
           return true;
         }),
-      hidden: ({ parent }) => parent?.sameAspectRatio === true
+      hidden: ({ parent }) => parent?.sameAspectRatio === false
     }),
     defineField({
       title: 'Desktop aspect ratio',
@@ -54,7 +54,7 @@ export const aspectRatioSettings = defineType({
         Rule.custom((aspectRatioDesktop, context: any) => {
           const sameAspectRatio = context.parent?.sameAspectRatio;
 
-          if (sameAspectRatio && !aspectRatioDesktop) {
+          if (!sameAspectRatio && !aspectRatioDesktop) {
             return 'Aspect ratio is required';
           }
 
@@ -77,7 +77,7 @@ export const aspectRatioSettings = defineType({
         Rule.custom((aspectRatioDesktop, context: any) => {
           const sameAspectRatio = context.parent?.sameAspectRatio;
 
-          if (sameAspectRatio && !aspectRatioDesktop) {
+          if (!sameAspectRatio && !aspectRatioDesktop) {
             return 'Aspect ratio is required';
           }
 

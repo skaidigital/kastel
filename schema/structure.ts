@@ -112,8 +112,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         list(S, 'Text block', `_type == 'textBlock'`).icon(Layout),
         list(S, 'Text and image block', `_type == 'textAndImage'`).icon(Layout),
         listNew({ S, title: 'Question', schemaType: 'question' }).icon(List),
-        list(S, 'FAQ section', `_type == 'faqSection'`).icon(List),
-        listNew({ S, title: 'Card', schemaType: 'card' }).icon(Square),
+        listNew({ S, title: 'FAQ section', schemaType: 'faqSection' }).icon(List),
+        listNew({ S, title: 'Card section', schemaType: 'cardSection' }).icon(GridFour),
         listNew({ S, title: 'UGC section', schemaType: 'UGCSection' }).icon(VideoCamera)
       ]).icon(Recycle),
       group(S, 'Settings', [

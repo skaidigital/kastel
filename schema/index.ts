@@ -1,6 +1,5 @@
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
-import { card } from '@/schema/documents/card';
 import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
 import { faqBlock } from '@/schema/documents/faqBlock';
@@ -50,21 +49,18 @@ import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
+import { sectionSettings } from '@/schema/objects/sectionSettings';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
 import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
 import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
-import { cardGrid } from '@/schema/pageBuilderBlocks/cardGrid';
-import { collectionListing } from '@/schema/pageBuilderBlocks/collectionListing';
+import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
 import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollection';
-import { featuredProduct } from '@/schema/pageBuilderBlocks/featuredProduct';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
-import { productLsting as productListing } from '@/schema/pageBuilderBlocks/productListing';
-import { textAndImage } from '@/schema/pageBuilderBlocks/textAndImage';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
@@ -115,24 +111,21 @@ const schema = [
   spot,
   productDescription,
   aspectRatioSettings,
+  sectionSettings,
 
   // Page builder blocks (objects)
   hero,
-  featuredProduct,
   pageTitle,
   instagramFeed,
   contactForm,
-  productListing,
-  collectionListing,
-  cardGrid,
   faqSection,
   blogPosts,
   featuredCollection,
   // Page builder blocks (documents)
-  textAndImage,
   textSection,
   faqBlock,
   ugcs,
+  cardSection,
 
   // Product
   productType,
@@ -160,7 +153,6 @@ const schema = [
   question,
   textBlock,
   badge,
-  card,
   usp,
   blogPost,
 
