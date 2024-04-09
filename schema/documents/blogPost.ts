@@ -93,6 +93,53 @@ export const blogPost = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Set reccommended blog posts?',
+      description: 'If you leave this unchecked we will get the 3 latest blog posts',
+      name: 'setReccommendedBlogPosts',
+      type: 'boolean',
+      initialValue: false
+    }),
+    defineField({
+      title: 'Reccommended blog posts',
+      name: 'reccommendedBlogPosts',
+      type: 'object',
+      validation: (Rule) =>
+        Rule.custom((value: any, context: any) => {
+          if (context.parent.setReccommendedBlogPosts && !value.posts) {
+            return 'Please select 3 blog posts';
+          }
+          return true;
+        }),
+      hidden: ({ parent }) => !parent.setReccommendedBlogPosts,
+      fields: [
+        defineField({
+          title: 'Title',
+          name: 'title',
+          type: 'i18n.string',
+          validation: validateAllStringTranslations
+        }),
+        defineField({
+          title: 'Button text',
+          name: 'buttonText',
+          type: 'i18n.string',
+          validation: validateAllStringTranslations
+        }),
+        defineField({
+          title: 'Blog posts',
+          description: 'Select 3 blog posts',
+          name: 'posts',
+          type: 'array',
+          of: [
+            {
+              type: 'reference',
+              to: [{ type: 'blogPost' }]
+            }
+          ],
+          validation: (Rule) => Rule.min(3).max(3)
+        })
+      ]
+    }),
+    defineField({
       title: 'Slug 🇧🇻',
       name: 'slug_no',
       type: 'slug',

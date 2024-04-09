@@ -1,5 +1,5 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Image, Link, Sneaker, Video } from '@phosphor-icons/react';
+import { Image, Images, Link, Quotes, Sneaker, TextColumns, Video } from '@phosphor-icons/react';
 import { defineArrayMember, defineField } from 'sanity';
 
 export const richText = defineField({
@@ -142,6 +142,89 @@ export const richText = defineField({
             }
           ],
           validation: (Rule) => Rule.min(1).max(8)
+        })
+      ]
+    },
+    {
+      title: 'Quote',
+      name: 'quote',
+      type: 'reference',
+      to: [{ type: 'quote' }],
+      icon: Quotes
+    },
+    {
+      title: 'Standout section',
+      name: 'standout',
+      type: 'object',
+      icon: TextColumns,
+      preview: {
+        select: {
+          title: 'content'
+        },
+        prepare(selection) {
+          return {
+            title: selection.title[0].children[0].text,
+            subtitle: 'Standout section'
+          };
+        }
+      },
+      fields: [
+        defineField({
+          title: 'Background color',
+          name: 'backgroundColor',
+          type: 'reference',
+          to: [{ type: 'colorDocument' }],
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          title: 'Content',
+          name: 'content',
+          type: 'richText',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          title: 'Media',
+          name: 'media',
+          type: 'media',
+          validation: (Rule) => Rule.required()
+        })
+      ]
+    },
+    {
+      title: 'Image grid',
+      name: 'imageGrid',
+      type: 'object',
+      icon: Images,
+      preview: {
+        select: {
+          images: 'images'
+        },
+        prepare(selection) {
+          return {
+            title: selection.images ? `${selection.images.length} images` : 'No images',
+            subtitle: 'Image grid'
+          };
+        }
+      },
+      fields: [
+        defineField({
+          title: 'Images',
+          description: 'Add 2-3 images',
+          name: 'images',
+          type: 'array',
+          of: [
+            {
+              type: 'image',
+              fields: [
+                defineField({
+                  title: 'Aspect ratio settings',
+                  name: 'aspectRatioSettings',
+                  type: 'aspectRatioSettings'
+                })
+              ]
+            }
+          ],
+          validation: (Rule) => Rule.min(2).max(3)
         })
       ]
     }
