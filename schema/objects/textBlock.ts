@@ -1,5 +1,3 @@
-import { MARKETS } from '@/data/constants';
-import { i18nField } from '@/lib/sanity/studioUtils';
 import { TextIcon } from '@radix-ui/react-icons';
 import { defineField, defineType } from 'sanity';
 
@@ -19,32 +17,24 @@ export const textBlock = defineType({
       };
     }
   },
-  groups: [
-    {
-      icon: () => '🙌',
-      name: 'shared',
-      title: 'Shared',
-      default: true
-    },
-    ...MARKETS.map((market) => ({
-      name: market.id,
-      title: market.name,
-      icon: () => market.flag
-    }))
-  ],
   fields: [
     defineField({
       title: 'Internal title',
       name: 'internalTitle',
       type: 'internalTitle',
-      group: 'shared',
       validation: (Rule) => Rule.required()
     }),
-    ...i18nField({
-      title: 'Content',
-      name: 'richText',
+    defineField({
+      title: 'Content 🇧🇻',
+      name: 'contentNo',
       type: 'richText',
-      validation: (Rule: any) => Rule.required()
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Content 🇬🇧',
+      name: 'contentEn',
+      type: 'richText',
+      validation: (Rule) => Rule.required()
     })
   ]
 });

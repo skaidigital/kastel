@@ -123,6 +123,11 @@ export const blogPost = defineType({
           })
       },
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Metadata',
+      name: 'metadata',
+      type: 'metadata'
     })
   ]
 });

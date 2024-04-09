@@ -1,3 +1,4 @@
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const metadata = defineType({
@@ -8,19 +9,23 @@ export const metadata = defineType({
     defineField({
       title: 'Title for SEO & social sharing (meta title)',
       name: 'metaTitle',
-      type: 'string',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations,
       description:
-        'Make it as enticing as possible convert users in social feeds and Google searches. Ideally between 15 and 70 characters',
-      validation: (Rule) => [
-        Rule.min(15).warning('It is recommended to have at least 15 characters'),
-        Rule.max(70).warning('It is recommended to have at most 70 characters')
-      ]
+        'Make it as enticing as possible convert users in social feeds and Google searches. Ideally between 15 and 70 characters'
+      // validation: (Rule) => [
+      //   Rule.min(15).warning('It is recommended to have at least 15 characters'),
+      //   Rule.max(70).warning('It is recommended to have at most 70 characters')
+      // ]
     }),
     defineField({
       title: 'Short paragraph for SEO & social sharing (meta description)',
       name: 'metaDescription',
-      type: 'text',
-      rows: 3,
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      },
+      validation: validateAllStringTranslations,
       description:
         'Optional, but highly encouraged as it will help you converet more visitors from Google & social. Ideally between 70 and 160 characters'
     }),

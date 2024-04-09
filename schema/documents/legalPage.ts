@@ -89,6 +89,11 @@ export const legalPage = defineType({
           })
       },
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Metadata',
+      name: 'metadata',
+      type: 'metadata'
     })
   ]
 });

@@ -54,8 +54,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      listNew({ S, schemaType: 'blogPost', title: 'Blog posts' }).icon(Article),
-      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
+      listNew({ S, schemaType: 'blogPost', title: '✅ Blog posts' }).icon(Article),
+      listNew({ S, schemaType: 'legalPage', title: '✅ Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()
@@ -95,7 +95,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         )
         .icon(Sneaker),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
-      group(S, 'Nature Lab', [
+      group(S, '(WIP) Nature Lab', [
         listNew({ S, title: 'Landing page', schemaType: 'natureLabLandingPage' }).icon(File),
         listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
         listNew({ S, title: 'Phase 2 products', schemaType: 'phase2Product' }).icon(Sneaker),
@@ -115,7 +115,6 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       ]).icon(Layout),
       group(S, 'Reusable content', [
         list(S, 'Text block', `_type == 'textBlock'`).icon(Layout),
-        list(S, 'Text and image block', `_type == 'textAndImage'`).icon(Layout),
         listNew({ S, title: 'Question', schemaType: 'question' }).icon(List),
         listNew({ S, title: 'FAQ section', schemaType: 'faqSection' }).icon(List),
         listNew({ S, title: 'Card section', schemaType: 'cardSection' }).icon(GridFour),
@@ -130,7 +129,6 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes)
       ]).icon(Recycle),
       group(S, 'Settings', [
-        // singleton(S, 'General', 'settingsGeneral', 'settingsGeneral').icon(Gear),
         singleton(S, 'SEO & Socials', 'settingsSEOAndSocials', 'settingsSEOAndSocials').icon(
           GoogleLogo
         ),
