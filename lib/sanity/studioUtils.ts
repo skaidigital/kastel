@@ -92,6 +92,7 @@ interface Props {
   options?: any;
   description?: string;
   readOnly?: boolean;
+  rows?: number;
 }
 
 // TODO hent options fra Sanity field i stedet
@@ -107,7 +108,8 @@ export function i18nField({
   initialValue,
   description,
   validation,
-  readOnly
+  readOnly,
+  rows
 }: Props) {
   return MARKETS.map((market) =>
     defineField({
@@ -119,6 +121,7 @@ export function i18nField({
       fieldset,
       description,
       hidden,
+      rows,
       initialValue,
       validation,
       readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)

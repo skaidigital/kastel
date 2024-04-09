@@ -104,18 +104,6 @@ export const gallery = defineType({
           title: 'Descriptive text for screen readers and search engines',
           type: 'altText',
           name: 'altText'
-        }),
-        defineField({
-          title: 'Width',
-          name: 'width',
-          type: 'string',
-          initialValue: '1-COL',
-          options: {
-            list: [
-              { title: '1 column on desktop', value: '1-COL' },
-              { title: '2 columns on desktop', value: '2-COL' }
-            ]
-          }
         })
       ]
     }

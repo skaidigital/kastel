@@ -24,8 +24,8 @@ import {
   Placeholder,
   Question,
   Recycle,
-  ShoppingCartSimple,
   Signpost,
+  Sneaker,
   Square,
   SquareHalfBottom,
   Tag,
@@ -66,7 +66,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
                     schemaType: 'product',
                     title: 'Edit product',
                     id: _id,
-                    icon: ShoppingCartSimple
+                    icon: Sneaker
                   }),
                   S.listItem()
                     .title('Variants')
@@ -81,11 +81,11 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
                           S.initialValueTemplateItem('product-variant-based-on-product', { _id })
                         ])
                     )
-                    .icon(ShoppingCartSimple)
+                    .icon(Sneaker)
                 ])
             )
         )
-        .icon(ShoppingCartSimple),
+        .icon(Sneaker),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
       singleton(S, 'Store locator', 'storeLocator', 'storeLocator').icon(MapPin),
       singleton(S, 'Help center', 'helpCenter', 'helpCenter').icon(Question),

@@ -38,10 +38,12 @@ import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
+import { productDescription } from '@/schema/objects/productDescription';
 import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
+import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
 import { cardGrid } from '@/schema/pageBuilderBlocks/cardGrid';
 import { collectionListing } from '@/schema/pageBuilderBlocks/collectionListing';
@@ -100,6 +102,8 @@ const schema = [
   price,
   media,
   productDisplay,
+  spot,
+  productDescription,
 
   // Page builder blocks (objects)
   hero,

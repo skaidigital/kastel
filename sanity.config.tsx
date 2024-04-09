@@ -4,7 +4,7 @@ import { structure } from '@/schema/structure';
 import { scheduledPublishing } from '@sanity/scheduled-publishing';
 import { visionTool } from '@sanity/vision';
 import { defineConfig, definePlugin } from 'sanity';
-import { IconManager } from 'sanity-plugin-icon-manager';
+import { imageHotspotArrayPlugin } from 'sanity-plugin-hotspot-array';
 import { media, mediaAssetSource } from 'sanity-plugin-media';
 import { muxInput } from 'sanity-plugin-mux-input';
 import { noteField } from 'sanity-plugin-note-field';
@@ -54,7 +54,7 @@ const config = definePlugin({
         { code: 'en', title: 'English', label: '🇬🇧' }
       ]
     }),
-    IconManager()
+    imageHotspotArrayPlugin()
   ],
   tools: (prev, { currentUser }) => {
     const isAdmin = currentUser?.roles?.some((role) => role.name === 'administrator');
