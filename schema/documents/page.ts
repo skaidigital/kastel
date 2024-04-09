@@ -54,12 +54,8 @@ export const page = defineType({
 
           const firstComponent = value[0];
 
-          if (
-            firstComponent._type !== 'hero' &&
-            firstComponent._type !== 'pageTitle' &&
-            firstComponent._type !== 'emailCapture'
-          ) {
-            return 'The first section must be a hero, page title or email capture';
+          if (firstComponent._type !== 'hero' && firstComponent._type !== 'emailCapture') {
+            return 'The first section must be a hero or email capture';
           }
 
           return true;

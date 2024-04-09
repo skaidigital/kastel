@@ -141,13 +141,14 @@ export const pageBuilder = defineType({
       title: 'Hero',
       type: 'hero'
     }),
-    // Page title
-    defineArrayMember({
-      title: 'Page title',
-      type: 'pageTitle'
-    }),
     // Full width media section
     // USP + Shoe
+    defineArrayMember({
+      title: 'USP explainer',
+      type: 'reference',
+      to: [{ type: 'uspExplainer' }],
+      name: 'uspExplainer'
+    }),
     // Shoe picker
     defineArrayMember({
       title: 'Shoe picker',
@@ -174,7 +175,7 @@ export const pageBuilder = defineType({
       title: 'UGC section',
       type: 'reference',
       to: [{ type: 'UGCSection' }],
-      name: 'ugcs'
+      name: 'UGCSection'
     }),
     // Featured shoe
     defineArrayMember({
@@ -212,6 +213,7 @@ export const pageBuilder = defineType({
     defineArrayMember({
       title: 'FAQ section',
       type: 'reference',
+      name: 'faqSection',
       to: [{ type: 'faqSection' }]
     }),
     // Text section

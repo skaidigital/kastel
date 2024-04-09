@@ -1,5 +1,6 @@
 import { kastelClub } from '@/components/shared/PageBuilder/kastelClub';
 import { natureLabExplainer } from '@/components/shared/PageBuilder/natureLabExplainer';
+import { uspExplainer } from '@/components/shared/PageBuilder/uspExplainer';
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
 import { collection } from '@/schema/documents/collection';
@@ -144,6 +145,7 @@ const schema = [
   natureLabExplainer,
   shoePicker,
   featuredShoe,
+  uspExplainer,
 
   // Product
   productType,
