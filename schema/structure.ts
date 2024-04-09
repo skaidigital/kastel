@@ -24,6 +24,7 @@ import {
   PaintBucket,
   Placeholder,
   Question,
+  Quotes,
   Recycle,
   Signpost,
   Slideshow,
@@ -34,6 +35,7 @@ import {
   Tag,
   Trophy,
   User,
+  UserCircle,
   VideoCamera
 } from '@phosphor-icons/react';
 import type { StructureBuilder, StructureResolver } from 'sanity/structure';
@@ -124,7 +126,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
           Trophy
         ),
         listNew({ S, title: 'Shoe picker', schemaType: 'shoePicker' }).icon(Sneaker),
-        listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star)
+        listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star),
+        listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes)
       ]).icon(Recycle),
       group(S, 'Settings', [
         // singleton(S, 'General', 'settingsGeneral', 'settingsGeneral').icon(Gear),
@@ -145,7 +148,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Tags', schemaType: 'tag' }).icon(Tag),
         listNew({ S, title: 'Tag groups', schemaType: 'tagGroup' }).icon(Folders),
         listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag),
-        listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets)
+        listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets),
+        listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle)
       ]).icon(Gear)
     ]);
 };

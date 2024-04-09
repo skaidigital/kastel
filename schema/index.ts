@@ -9,6 +9,7 @@ import { legalPage } from '@/schema/documents/legalPage';
 import { natureLabLandingPage } from '@/schema/documents/natureLabLandingPage';
 import { natureLabSettings } from '@/schema/documents/natureLabSettings';
 import { page } from '@/schema/documents/page';
+import { person } from '@/schema/documents/person';
 import { phase1BlogPost } from '@/schema/documents/phase1BlogPost';
 import { phase2Product } from '@/schema/documents/phase2Product';
 import { phase3BlogPost } from '@/schema/documents/phase3BlogPost';
@@ -17,12 +18,14 @@ import { productOption } from '@/schema/documents/productOption';
 import { productOptionType } from '@/schema/documents/productOptionType';
 import { productType } from '@/schema/documents/productType';
 import { question } from '@/schema/documents/question';
+import { quote } from '@/schema/documents/quote';
 import { redirect } from '@/schema/documents/redirect';
 import { tag } from '@/schema/documents/tag';
 import { tagGroup } from '@/schema/documents/tagGroup';
 import { usp } from '@/schema/documents/usp';
 import {
   alternativeText,
+  blogWidthSettings,
   bottomBorder,
   bottomPadding,
   figure,
@@ -98,6 +101,7 @@ const schema = [
   bottomBorder,
   alternativeText,
   ogImage,
+  blogWidthSettings,
 
   // Objects
   address,
@@ -169,6 +173,8 @@ const schema = [
   badge,
   usp,
   blogPost,
+  person,
+  quote,
 
   // Singletons
   footer,

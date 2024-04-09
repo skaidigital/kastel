@@ -1,4 +1,5 @@
-import { Link } from '@phosphor-icons/react';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { Image, Link, Sneaker, Video } from '@phosphor-icons/react';
 import { defineArrayMember, defineField } from 'sanity';
 
 export const richText = defineField({
@@ -22,13 +23,27 @@ export const richText = defineField({
           {
             name: 'inlineLink',
             type: 'object',
-            title: 'Lenke i tekst',
+            title: 'Inline link',
             icon: Link,
             fields: [
               defineField({
                 title: 'Lenke',
                 name: 'link',
                 type: 'linkWithoutText'
+              })
+            ]
+          },
+          {
+            name: 'productLink',
+            type: 'object',
+            title: 'Product link',
+            icon: Sneaker,
+            fields: [
+              defineField({
+                title: 'Product',
+                name: 'product',
+                type: 'reference',
+                to: [{ type: 'product' }]
               })
             ]
           }
@@ -41,17 +56,13 @@ export const richText = defineField({
           {
             title: 'Bold',
             value: 'strong'
-          },
-          {
-            title: 'Muted / Grey text',
-            value: 'muted'
           }
         ]
       },
       styles: [
         {
-          title: 'Paragraph (normal)',
-          value: 'normal'
+          title: 'Text (Normal)',
+          value: 'text-md'
         },
         {
           title: 'H2',
@@ -62,25 +73,77 @@ export const richText = defineField({
           value: 'h3'
         },
         {
-          title: 'Paragraph (small)',
-          value: 'small'
+          title: 'H4',
+          value: 'h4'
         },
         {
-          title: 'Paragraph (large)',
-          value: 'large'
+          title: 'Text (Large)',
+          value: 'text-lg'
+        },
+        {
+          title: 'Text (Small)',
+          value: 'text-sm'
         }
       ],
       type: 'block'
     }),
     {
-      type: 'mux.video',
+      type: 'object',
       name: 'video',
-      title: 'Video'
+      title: 'Video',
+      icon: Video,
+      fields: [
+        defineField({
+          title: 'Video',
+          name: 'video',
+          type: 'mux.video',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          title: 'Width',
+          name: 'width',
+          type: 'blogWidthSettings'
+        })
+      ]
     },
     {
-      type: 'figure',
-      name: 'figure',
-      title: 'Image'
+      type: 'image',
+      name: 'image',
+      title: 'Image',
+      icon: Image,
+      fields: [
+        defineField({
+          title: 'Width',
+          name: 'width',
+          type: 'blogWidthSettings'
+        })
+      ]
+    },
+    {
+      type: 'object',
+      name: 'products',
+      title: 'Products',
+      icon: Sneaker,
+      fields: [
+        defineField({
+          title: 'Title',
+          name: 'title',
+          type: 'i18n.string',
+          validation: validateAllStringTranslations
+        }),
+        defineField({
+          title: 'Products',
+          name: 'products',
+          type: 'array',
+          of: [
+            {
+              type: 'reference',
+              to: [{ type: 'product' }]
+            }
+          ],
+          validation: (Rule) => Rule.min(1).max(8)
+        })
+      ]
     }
   ]
 });

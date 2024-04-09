@@ -39,7 +39,8 @@ export const blogPosts = defineType({
         ],
         layout: 'radio'
       },
-      initialValue: 'mostRecent'
+      initialValue: 'mostRecent',
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Blog posts',
@@ -53,13 +54,12 @@ export const blogPosts = defineType({
       ],
       validation: (Rule) =>
         Rule.custom((posts: any, context: any) => {
-          const { type } = context.parent;
-          if (type === 'selected' && !posts.length) {
+          if (context?.parent?.type === 'selected' && !posts.length) {
             return 'Please select at least one blog post';
           }
           return true;
         }),
-      hidden: ({ parent }) => parent.type === 'mostRecent'
+      hidden: ({ parent }) => parent?.type === 'mostRecent'
     })
   ]
 });

@@ -34,6 +34,21 @@ export const ogImage = defineType({
   validation: (Rule) => Rule.required()
 });
 
+export const blogWidthSettings = defineType({
+  title: 'Width',
+  name: 'blogWidthSettings',
+  type: 'string',
+  options: {
+    layout: 'radio',
+    list: [
+      { title: 'Normal', value: 'normal' },
+      { title: 'Wide', value: 'wide' }
+    ]
+  },
+  initialValue: 'normal',
+  validation: (Rule) => Rule.required()
+});
+
 export const figure = defineType({
   title: 'Image',
   name: 'figure',
