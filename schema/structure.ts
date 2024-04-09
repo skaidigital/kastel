@@ -2,6 +2,7 @@ import { SANITY_STUDIO_API_VERSION } from '@/data/constants';
 import { group, list, listNew, singleton } from '@/lib/sanity/studioUtils';
 import {
   ArrowLineUp,
+  Article,
   Check,
   Coins,
   Cookie,
@@ -47,6 +48,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
+      listNew({ S, schemaType: 'blogPost', title: 'Blog posts' }).icon(Article),
       listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
