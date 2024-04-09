@@ -29,6 +29,12 @@ export const emailCapture = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Badge (optional)',
+      name: 'badge',
+      type: 'reference',
+      to: [{ type: 'badge' }]
+    }),
+    defineField({
       title: 'Description 🇧🇻',
       name: 'descriptionNo',
       type: 'richText',

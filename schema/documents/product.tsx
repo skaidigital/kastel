@@ -98,7 +98,25 @@ export const product = defineType({
       title: 'Page builder',
       name: 'pageBuilder',
       type: 'pageBuilder',
-      group: 'editorial'
+      group: 'editorial',
+      validation: (Rule) =>
+        Rule.custom((value: any, context: any) => {
+          if (!value.length) {
+            return 'You need to add at least one section';
+          }
+
+          const firstComponent = value[0];
+
+          if (
+            firstComponent._type !== 'hero' &&
+            firstComponent._type !== 'pageTitle' &&
+            firstComponent._type !== 'emailCapture'
+          ) {
+            return 'The first section must be a hero, page title or email capture';
+          }
+
+          return true;
+        })
     }),
     defineField({
       title: 'Badges (optional)',
