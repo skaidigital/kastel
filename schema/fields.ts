@@ -127,8 +127,17 @@ export const pageBuilder = defineType({
     // Nature Lab explanation
     // Shop our models
     // UGCs
+    defineArrayMember({
+      title: 'UGC section',
+      type: 'reference',
+      to: [{ type: 'UGCSection' }]
+    }),
     // Featured shoe
     // Featured collection
+    defineArrayMember({
+      title: 'Featured collection',
+      type: 'featuredCollection'
+    }),
     // Card section
     // Blog posts
     defineArrayMember({

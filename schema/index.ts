@@ -34,6 +34,7 @@ import {
   topPadding
 } from '@/schema/fields';
 import { address } from '@/schema/objects/address';
+import { aspectRatioSettings } from '@/schema/objects/aspectRatioSettings';
 import { collectionImage } from '@/schema/objects/collectionImage';
 import { collectionProduct } from '@/schema/objects/collectionProduct';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
@@ -51,11 +52,13 @@ import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
+import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
 import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
 import { cardGrid } from '@/schema/pageBuilderBlocks/cardGrid';
 import { collectionListing } from '@/schema/pageBuilderBlocks/collectionListing';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
+import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollection';
 import { featuredProduct } from '@/schema/pageBuilderBlocks/featuredProduct';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
@@ -111,6 +114,7 @@ const schema = [
   productDisplay,
   spot,
   productDescription,
+  aspectRatioSettings,
 
   // Page builder blocks (objects)
   hero,
@@ -123,10 +127,12 @@ const schema = [
   cardGrid,
   faqSection,
   blogPosts,
+  featuredCollection,
   // Page builder blocks (documents)
   textAndImage,
   textSection,
   faqBlock,
+  ugcs,
 
   // Product
   productType,

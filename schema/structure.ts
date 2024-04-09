@@ -30,7 +30,8 @@ import {
   Square,
   SquareHalfBottom,
   Tag,
-  User
+  User,
+  VideoCamera
 } from '@phosphor-icons/react';
 import type { StructureBuilder, StructureResolver } from 'sanity/structure';
 
@@ -112,7 +113,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         list(S, 'Text and image block', `_type == 'textAndImage'`).icon(Layout),
         listNew({ S, title: 'Question', schemaType: 'question' }).icon(List),
         list(S, 'FAQ section', `_type == 'faqSection'`).icon(List),
-        listNew({ S, title: 'Card', schemaType: 'card' }).icon(Square)
+        listNew({ S, title: 'Card', schemaType: 'card' }).icon(Square),
+        listNew({ S, title: 'UGC section', schemaType: 'UGCSection' }).icon(VideoCamera)
       ]).icon(Recycle),
       group(S, 'Settings', [
         // singleton(S, 'General', 'settingsGeneral', 'settingsGeneral').icon(Gear),
