@@ -103,7 +103,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
         listNew({ S, title: 'Phase 2 products', schemaType: 'phase2Product' }).icon(Sneaker),
         listNew({ S, title: 'Phase 3 blog posts', schemaType: 'phase3BlogPost' }).icon(File),
-        listNew({ S, title: 'Settings', schemaType: 'natureLabSettings' }).icon(Gear)
+        singleton(S, 'Settings', 'natureLabSettings', 'natureLabSettings').icon(Gear)
       ]).icon(Recycle),
       singleton(S, 'Store locator', 'storeLocator', 'storeLocator').icon(MapPin),
       singleton(S, 'Help center', 'helpCenter', 'helpCenter').icon(Question),

@@ -51,6 +51,7 @@ import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
 import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
+import { natureLabProductStatusItem } from '@/schema/objects/natureLabProductStatusItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
 import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
@@ -133,6 +134,7 @@ const schema = [
   aspectRatioSettings,
   sectionSettings,
   natureLabInnovationItem,
+  natureLabProductStatusItem,
 
   // Page builder blocks (objects)
   hero,
