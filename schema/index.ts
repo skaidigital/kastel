@@ -52,7 +52,6 @@ import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
 import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
-import { productDescription } from '@/schema/objects/productDescription';
 import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
@@ -82,6 +81,7 @@ import { timelineSection } from '@/schema/pageBuilderBlocks/timelineSection';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
+import { defaultProductFAQS } from '@/schema/singletons/defaultProductFAQS';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
 import { merchandising } from '@/schema/singletons/merchandising';
@@ -130,7 +130,6 @@ const schema = [
   media,
   productDisplay,
   spot,
-  productDescription,
   aspectRatioSettings,
   sectionSettings,
   natureLabInnovationItem,
@@ -203,7 +202,8 @@ const schema = [
   settingsSEOAndSocials,
   settingsPaymentProviders,
   storeLocator,
-  pageNotFound
+  pageNotFound,
+  defaultProductFAQS
 ];
 
 export default schema;

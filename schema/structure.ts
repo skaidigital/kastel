@@ -26,6 +26,7 @@ import {
   PaintBucket,
   Placeholder,
   Question,
+  QuestionMark,
   Quotes,
   Recycle,
   Signpost,
@@ -151,7 +152,10 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Tag groups', schemaType: 'tagGroup' }).icon(Folders),
         listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag),
         listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets),
-        listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle)
+        listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle),
+        singleton(S, 'Default Product FAQs', 'defaultProductFAQS', 'defaultProductFAQS').icon(
+          QuestionMark
+        )
       ]).icon(Gear)
     ]);
 };

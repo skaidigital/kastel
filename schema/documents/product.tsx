@@ -5,7 +5,8 @@ import {
   i18nNumber,
   i18nSlug,
   i18nString,
-  isActiveProductValidation
+  isActiveProductValidation,
+  validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
 import { Sneaker } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
@@ -191,29 +192,16 @@ export const product = defineType({
         ]
       }
     }),
-    ...i18nField({
+    defineField({
       title: 'Title',
       name: 'title',
-      type: 'string',
-      validation: isActiveProductValidation
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
     }),
-    ...i18nField({
+    defineField({
       title: 'Subtitle (optional)',
       name: 'subtitle',
-      type: 'string'
-    }),
-    ...i18nField({
-      title: 'Short description',
-      name: 'descriptionShort',
-      type: 'text',
-      rows: 2,
-      validation: isActiveProductValidation
-    }),
-    ...i18nField({
-      title: 'Long description',
-      name: 'descriptionLong',
-      type: 'descriptionDetailed',
-      validation: isActiveProductValidation
+      type: 'i18n.string'
     }),
     defineField({
       title: 'Product type',

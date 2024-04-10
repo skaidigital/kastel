@@ -1,5 +1,7 @@
-import { MARKETS } from '@/data/constants';
-import { filterAlreadyAddedReferences, i18nField } from '@/lib/sanity/studioUtils';
+import {
+  filterAlreadyAddedReferences,
+  validateAllStringTranslations
+} from '@/lib/sanity/studioUtils';
 import { Question, Square } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
@@ -18,78 +20,64 @@ export const productType = defineType({
       };
     }
   },
-  groups: [
-    {
-      icon: () => '⚙️',
-      name: 'settings',
-      title: 'Settings',
-      default: true
-    },
-    ...MARKETS.map((market) => ({
-      name: market.id,
-      title: market.name,
-      icon: () => market.flag
-    }))
-  ],
   fields: [
     defineField({
       title: 'What is this?',
       description:
-        'A product type is used to share images, page builder blocks and other content between related products. It is also used to link to products that are of the same type from within a product page',
+        'A product model is used to share images, page builder blocks and other content between related products. It is also used to link to products that are of the same type from within a product page',
       name: 'myCustomNote',
       type: 'note',
       options: {
         icon: () => <Question size={16} weight="duotone" />,
         tone: 'positive'
-      },
-      group: 'settings'
+      }
     }),
     defineField({
       title: 'Internal title',
       name: 'internalTitle',
       type: 'internalTitle',
-      validation: (Rule) => Rule.required(),
-      group: 'settings'
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'i18n.string',
-      validation: (Rule) => Rule.required(),
-      group: 'settings'
+      validation: (Rule) => Rule.required()
     }),
-    ...i18nField({
-      title: 'Description',
-      name: 'description',
-      type: 'richText'
+    defineField({
+      title: 'Short description',
+      name: 'descriptionShort',
+      type: 'i18n.text',
+      options: {
+        rows: 2
+      },
+      validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Long description title',
+      name: 'descriptionLongTitle',
+      type: 'i18n.string',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Long description details',
+      name: 'descriptionLongDetails',
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      },
+      validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Page builder',
       name: 'pageBuilder',
-      type: 'pageBuilder',
-      group: 'settings',
-      validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
-          if (!value.length) {
-            return 'You need to add at least one section';
-          }
-
-          const firstComponent = value[0];
-
-          if (
-            firstComponent._type !== 'hero' &&
-            firstComponent._type !== 'pageTitle' &&
-            firstComponent._type !== 'emailCapture'
-          ) {
-            return 'The first section must be a hero, page title or email capture';
-          }
-
-          return true;
-        })
+      type: 'pageBuilder'
     }),
     defineField({
-      title: 'Questions',
-      name: 'questions',
+      title: 'FAQs',
+      description:
+        'These will be added alongside the default product FAQs set in settings -> Default product FAQs',
+      name: 'faqs',
       type: 'array',
       of: [
         defineArrayMember({
@@ -99,17 +87,7 @@ export const productType = defineType({
             filter: filterAlreadyAddedReferences
           }
         })
-      ],
-      group: 'settings'
-    }),
-    defineField({
-      title: 'Gallery',
-      name: 'gallery',
-      type: 'gallery',
-      options: {
-        layout: 'grid'
-      },
-      group: 'settings'
+      ]
     })
   ]
 });
