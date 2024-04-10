@@ -66,7 +66,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         .child(
           S.documentTypeList('product')
             .title('Products')
-            .defaultOrdering([{ field: 'title_eu', direction: 'asc' }])
+            .defaultOrdering([{ field: 'title.en', direction: 'asc' }])
             .apiVersion(SANITY_STUDIO_API_VERSION)
             .filter(`_type == 'product' `)
             .child((_id) =>

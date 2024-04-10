@@ -8,11 +8,11 @@ import {
   isActiveProductValidation,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
-import { Sneaker } from '@phosphor-icons/react';
+import { Gear, Image, PaintBrush, Sneaker } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const product = defineType({
-  title: 'Produkt',
+  title: 'Product',
   name: 'product',
   type: 'document',
   icon: Sneaker,
@@ -24,13 +24,18 @@ export const product = defineType({
       icon: () => market.flag
     })),
     {
-      icon: () => '📝',
+      icon: PaintBrush,
       name: 'editorial',
       title: 'Editorial',
       default: true
     },
     {
-      icon: () => '⚙️',
+      icon: Image,
+      name: 'images',
+      title: 'Images'
+    },
+    {
+      icon: Gear,
       name: 'settings',
       title: 'Settings'
     }
@@ -54,32 +59,39 @@ export const product = defineType({
   ],
   fields: [
     defineField({
-      title: 'Gallery',
-      name: 'gallery',
-      type: 'gallery',
-      group: 'editorial',
-      validation: (Rule) => Rule.min(1).max(10)
-    }),
-    defineField({
       title: 'Main image',
       name: 'mainImage',
       type: 'figure',
-      group: 'editorial',
+      group: 'images',
       validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Lifestyle image (optional)',
       name: 'lifestyleImage',
       type: 'figure',
-      group: 'editorial',
+      group: 'images',
       description: 'This image will be shown when the user hovers over the product card'
+    }),
+    defineField({
+      title: 'Gallery - Female',
+      name: 'galleryFemale',
+      type: 'gallery',
+      group: 'images',
+      validation: (Rule) => Rule.min(1).max(10)
+    }),
+    defineField({
+      title: 'Gallery - Male',
+      name: 'galleryMale',
+      type: 'gallery',
+      group: 'images',
+      validation: (Rule) => Rule.min(1).max(10)
     }),
     defineField({
       title: 'Detail image (optional)',
       description: 'Add an image with a hotspot that will be shown below the product form',
       name: 'detailImage',
       type: 'figure',
-      group: 'editorial'
+      group: 'images'
     }),
     defineField({
       title: 'Hotspots for detail image (optional)',
@@ -93,6 +105,19 @@ export const product = defineType({
           tooltip: undefined
         }
       },
+      group: 'images'
+    }),
+    defineField({
+      title: 'Title',
+      name: 'title',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations,
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Subtitle (optional)',
+      name: 'subtitle',
+      type: 'i18n.string',
       group: 'editorial'
     }),
     defineField({
@@ -193,17 +218,6 @@ export const product = defineType({
       }
     }),
     defineField({
-      title: 'Title',
-      name: 'title',
-      type: 'i18n.string',
-      validation: validateAllStringTranslations
-    }),
-    defineField({
-      title: 'Subtitle (optional)',
-      name: 'subtitle',
-      type: 'i18n.string'
-    }),
-    defineField({
       title: 'Product type',
       name: 'type',
       type: 'string',
@@ -214,7 +228,8 @@ export const product = defineType({
           title: type.name,
           value: type.id
         }))
-      }
+      },
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Options',
@@ -223,9 +238,19 @@ export const product = defineType({
       group: 'settings',
       hidden: ({ parent }) => parent?.type !== 'VARIABLE',
       validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.parent?.type === 'VARIABLE' && !value) {
+        Rule.custom((value: any, context: any) => {
+          const isSimpleProduct = context.parent?.type === 'SIMPLE';
+
+          if (isSimpleProduct) {
+            return true;
+          }
+
+          if (!value) {
             return 'Options are required';
+          }
+
+          if (value?.length < 1 || value?.length > 3) {
+            return 'You must have between 1 and 3 options';
           }
 
           return true;
@@ -458,25 +483,23 @@ export const product = defineType({
     select: {
       isDeleted: 'isDeleted',
       options: 'options',
-      productGallery: 'gallery',
+      mainImage: 'mainImage',
       productTypeGallery: 'productType.gallery',
       productType: 'productType.title_no',
       isActive: 'isActive',
-      title: 'title_no',
+      title: 'title.en',
       variants: 'variants',
       internalTitle: 'internalTitle'
     },
     prepare(selection) {
-      const { productGallery, productTypeGallery, productType, internalTitle } = selection;
+      const { mainImage, title, productType, internalTitle } = selection;
 
-      const bestPreviewImage = productGallery?.at(0) || productTypeGallery?.at(0);
-
-      const bestTitle = internalTitle || 'No Internal title';
+      const bestTitle = internalTitle || title || 'Untitled';
 
       return {
         subtitle: productType || '',
         title: bestTitle,
-        media: bestPreviewImage
+        media: mainImage
       };
     }
   }

@@ -21,18 +21,24 @@ export const spot = defineType({
     defineField({
       title: 'Details',
       name: 'details',
+      type: 'string',
+      hidden: true
+    }),
+    defineField({
+      title: 'Description',
+      name: 'description',
       type: 'i18n.text',
       options: {
         rows: 2
       },
       validation: (Rule) =>
         Rule.custom((value: any, context: any) => {
-          if (context?.parent?.type === 'productCard') {
+          if (context?.parent && context?.parent?.type && context?.parent?.type === 'productCard') {
             return true;
           }
 
-          const hasNo = value?.no;
-          const hasEn = value?.en;
+          const hasNo = value && value?.no;
+          const hasEn = value && value?.en;
 
           if (!hasNo || !hasEn) {
             return [
@@ -51,7 +57,12 @@ export const spot = defineType({
       to: [{ type: 'product' }],
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
-          if (context.parent?.type === 'productCard' && !value) {
+          if (
+            context?.parent &&
+            context?.parent?.type &&
+            context.parent?.type === 'productCard' &&
+            !value
+          ) {
             return 'Product is required';
           }
           return true;

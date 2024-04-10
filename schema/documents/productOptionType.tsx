@@ -13,11 +13,12 @@ export const productOptionType = defineType({
   icon: GridFour,
   preview: {
     select: {
-      title: 'title.no'
+      title: 'title.en'
     },
     prepare: ({ title }) => {
       return {
-        title: title || 'Missing title'
+        title: title || 'Missing title',
+        subtitle: 'Option group'
       };
     }
   },
