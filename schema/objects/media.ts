@@ -1,9 +1,11 @@
+import { Image } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const media = defineType({
   title: 'Media',
   name: 'media',
   type: 'object',
+  icon: Image,
   preview: {
     select: {
       title: 'type'

@@ -8,6 +8,7 @@ import {
   Coins,
   Cookie,
   CreditCard,
+  Crosshair,
   File,
   Folders,
   Gavel,
@@ -128,7 +129,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Shoe picker', schemaType: 'shoePicker' }).icon(Sneaker),
         listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
-        listNew({ S, title: 'Timeline section', schemaType: 'timelineSection' }).icon(Calendar)
+        listNew({ S, title: 'Timeline section', schemaType: 'timelineSection' }).icon(Calendar),
+        listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
       ]).icon(Recycle),
       group(S, 'Settings', [
         singleton(S, 'SEO & Socials', 'settingsSEOAndSocials', 'settingsSEOAndSocials').icon(

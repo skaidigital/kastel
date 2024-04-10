@@ -6,6 +6,7 @@ import { blogPost } from '@/schema/documents/blogPost';
 import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
 import { faqBlock } from '@/schema/documents/faqBlock';
+import { hotspotImage } from '@/schema/documents/hotspotImage';
 import { legalPage } from '@/schema/documents/legalPage';
 import { natureLabLandingPage } from '@/schema/documents/natureLabLandingPage';
 import { natureLabSettings } from '@/schema/documents/natureLabSettings';
@@ -44,7 +45,6 @@ import { collectionImage } from '@/schema/objects/collectionImage';
 import { collectionProduct } from '@/schema/objects/collectionProduct';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
-import { hotspotImage } from '@/schema/objects/hotspotImage';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
@@ -133,7 +133,6 @@ const schema = [
   productDescription,
   aspectRatioSettings,
   sectionSettings,
-  hotspotImage,
   natureLabInnovationItem,
 
   // Page builder blocks (objects)
@@ -189,6 +188,7 @@ const schema = [
   blogPost,
   person,
   quote,
+  hotspotImage,
 
   // Singletons
   footer,
