@@ -196,6 +196,11 @@ export const pageBuilder = defineType({
       to: [{ type: 'cardSection' }],
       name: 'cardSection'
     }),
+    // Nature Lab Innovation item (only for productType and product)
+    defineArrayMember({
+      title: 'Nature Lab Innovations',
+      type: 'natureLabInnovationSection'
+    }),
     // Blog posts
     defineArrayMember({
       title: 'Blog posts',

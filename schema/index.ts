@@ -50,6 +50,7 @@ import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
+import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
 import { productDescription } from '@/schema/objects/productDescription';
 import { productDisplay } from '@/schema/objects/productDisplay';
@@ -72,6 +73,7 @@ import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollectio
 import { featuredShoe } from '@/schema/pageBuilderBlocks/featuredShoe';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
+import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { shoePicker } from '@/schema/pageBuilderBlocks/shoePicker';
 import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
@@ -132,6 +134,7 @@ const schema = [
   aspectRatioSettings,
   sectionSettings,
   hotspotImage,
+  natureLabInnovationItem,
 
   // Page builder blocks (objects)
   hero,
@@ -142,6 +145,7 @@ const schema = [
   blogPosts,
   featuredCollection,
   emailCapture,
+  natureLabInnovationSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
