@@ -399,16 +399,16 @@ export const product = defineType({
       readOnly: true
     }),
     ...MARKETS.map((market) => ({
-      title: 'Max price',
-      name: `maxPrice_${market.id}`,
+      title: 'Min price',
+      name: `minVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
       group: market.id,
       readOnly: true
     })),
     ...MARKETS.map((market) => ({
-      title: 'Min price',
-      name: `minPrice_${market.id}`,
+      title: 'Max price',
+      name: `maxVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
       group: market.id,
