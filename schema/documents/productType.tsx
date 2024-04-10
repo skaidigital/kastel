@@ -2,7 +2,7 @@ import {
   filterAlreadyAddedReferences,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
-import { Question, Square } from '@phosphor-icons/react';
+import { Gear, PaintBrush, Question, Square } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const productType = defineType({
@@ -20,6 +20,19 @@ export const productType = defineType({
       };
     }
   },
+  groups: [
+    {
+      icon: PaintBrush,
+      name: 'editorial',
+      title: 'Editorial',
+      default: true
+    },
+    {
+      icon: Gear,
+      name: 'settings',
+      title: 'Settings'
+    }
+  ],
   fields: [
     defineField({
       title: 'What is this?',
@@ -29,20 +42,23 @@ export const productType = defineType({
       type: 'note',
       options: {
         icon: () => <Question size={16} weight="duotone" />,
-        tone: 'positive'
+        tone: 'positive',
+        group: 'editorial'
       }
     }),
     defineField({
       title: 'Internal title',
       name: 'internalTitle',
       type: 'internalTitle',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'i18n.string',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
       title: 'Short description',
@@ -51,27 +67,52 @@ export const productType = defineType({
       options: {
         rows: 2
       },
-      validation: validateAllStringTranslations
+      validation: validateAllStringTranslations,
+      group: 'editorial'
     }),
     defineField({
       title: 'Long description title',
+      description: 'Title of the longer description below the product hero',
       name: 'descriptionLongTitle',
-      type: 'i18n.string',
-      validation: (Rule) => Rule.required()
+      type: 'i18n.text',
+      options: {
+        rows: 2
+      },
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
       title: 'Long description details',
       name: 'descriptionLongDetails',
       type: 'i18n.text',
       options: {
-        rows: 3
+        rows: 4
       },
-      validation: validateAllStringTranslations
+      validation: validateAllStringTranslations,
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Badges (optional)',
+      name: 'badges',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'badge' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        }
+      ],
+      description: 'Adds badges to the product card',
+      validation: (Rule) => Rule.max(2),
+      group: 'settings'
     }),
     defineField({
       title: 'Page builder',
       name: 'pageBuilder',
-      type: 'pageBuilder'
+      type: 'pageBuilder',
+      group: 'editorial'
     }),
     defineField({
       title: 'FAQs',
@@ -87,7 +128,45 @@ export const productType = defineType({
             filter: filterAlreadyAddedReferences
           }
         })
-      ]
+      ],
+      validation: (Rule) => Rule.max(10),
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Tags (optional)',
+      description: 'Tags that will be used for filtering and search',
+      name: 'tags',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+      group: 'settings'
+    }),
+    defineField({
+      title: 'USPs',
+      description:
+        'The USPs that will displayed in the marquee on the top and below the product hero',
+      name: 'usps',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'usp' }] }],
+      validation: (Rule) => Rule.max(5),
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Reccommended products (optional)',
+      name: 'reccommendedProducts',
+      description:
+        'Products that will be shown in a carousel on the product pages. If you do not choose any, we will use the default reccommended products set in merchandising under settings',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'product' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ],
+      validation: (Rule) => Rule.max(12),
+      group: 'settings'
     })
   ]
 });

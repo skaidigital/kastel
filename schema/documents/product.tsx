@@ -358,30 +358,6 @@ export const product = defineType({
       hidden: ({ parent }) => parent?.type !== 'SIMPLE'
     }),
     defineField({
-      title: 'FAQs',
-      description: 'These will be added alongside the default FAQs set in settings',
-      name: 'faqs',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'question' }]
-        })
-      ],
-      group: 'editorial',
-      validation: (Rule) => Rule.max(20)
-    }),
-    defineField({
-      title: 'USPs',
-      description:
-        'The USPs that will displayed in the marquee on the top and below the product hero',
-      name: 'usps',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'usp' }] }],
-      validation: (Rule) => Rule.max(5),
-      group: 'editorial'
-    }),
-    defineField({
       title: 'Cross sell products in the cart drawer (optional)',
       description: 'Products that will be shown in the cart drawer as a cross sell',
       name: 'cartCrossSellProducts',
@@ -396,24 +372,6 @@ export const product = defineType({
         })
       ],
       validation: (Rule) => Rule.max(3)
-    }),
-    defineField({
-      title: 'Reccommended products (optional)',
-      name: 'reccommendedProducts',
-      description:
-        'Products that will be shown in a carousel on the product pages. If you do not choose any, we will use the default reccommended products set in merchandising under settings',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'product' }],
-          options: {
-            filter: filterAlreadyAddedReferences
-          }
-        })
-      ],
-      validation: (Rule) => Rule.max(12),
-      group: 'editorial'
     }),
     ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
     // ...i18nField({
@@ -481,23 +439,16 @@ export const product = defineType({
   ],
   preview: {
     select: {
-      isDeleted: 'isDeleted',
-      options: 'options',
       mainImage: 'mainImage',
-      productTypeGallery: 'productType.gallery',
-      productType: 'productType.title_no',
-      isActive: 'isActive',
       title: 'title.en',
-      variants: 'variants',
       internalTitle: 'internalTitle'
     },
     prepare(selection) {
-      const { mainImage, title, productType, internalTitle } = selection;
+      const { mainImage, title, internalTitle } = selection;
 
       const bestTitle = internalTitle || title || 'Untitled';
 
       return {
-        subtitle: productType || '',
         title: bestTitle,
         media: mainImage
       };
