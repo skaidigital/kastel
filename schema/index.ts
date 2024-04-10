@@ -56,6 +56,7 @@ import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
+import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
@@ -107,6 +108,7 @@ const schema = [
   // Objects
   address,
   richText,
+  richTextNatureLab,
   metadata,
   link,
   linkWithoutText,

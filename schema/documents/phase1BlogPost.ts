@@ -29,7 +29,7 @@ export const phase1BlogPost = defineType({
     }),
     defineField({
       title: 'Title',
-      name: 'titleInfo',
+      name: 'title',
       type: 'i18n.string',
       validation: validateAllStringTranslations
     }),

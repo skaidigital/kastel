@@ -113,6 +113,11 @@ export const richText = defineField({
       icon: Image,
       fields: [
         defineField({
+          title: 'Descriptive text for screen readers and search engines',
+          type: 'altText',
+          name: 'altText'
+        }),
+        defineField({
           title: 'Width',
           name: 'width',
           type: 'blogWidthSettings'

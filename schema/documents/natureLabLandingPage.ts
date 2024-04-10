@@ -8,7 +8,7 @@ export const natureLabLandingPage = defineType({
   fields: [
     defineField({
       title: 'Title',
-      name: 'titleInfo',
+      name: 'title',
       type: 'i18n.string',
       validation: validateAllStringTranslations
     })

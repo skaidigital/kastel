@@ -53,7 +53,8 @@ export const quote = defineType({
         layout: 'radio'
       },
       initialValue: 'internal',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      hidden: ({ parent }) => !parent?.showAuthor
     }),
     defineField({
       title: 'Author',
@@ -62,12 +63,16 @@ export const quote = defineType({
       to: [{ type: 'person' }],
       validation: (Rule) =>
         Rule.custom((person, context: any) => {
-          if (context?.parent?.authorType === 'internal' && !person) {
+          if (
+            context?.parent?.showAuthor &&
+            context?.parent?.authorType === 'internal' &&
+            !person
+          ) {
             return 'Please select a person';
           }
           return true;
         }),
-      hidden: ({ parent }) => parent?.showAuthor && parent?.authorType === 'external'
+      hidden: ({ parent }) => !parent?.showAuthor || parent?.authorType === 'external'
     }),
     defineField({
       title: 'Author',
@@ -75,12 +80,16 @@ export const quote = defineType({
       type: 'string',
       validation: (Rule) =>
         Rule.custom((person, context: any) => {
-          if (context?.parent?.authorType === 'external' && !person) {
-            return 'Please select a person';
+          if (
+            context?.parent?.showAuthor &&
+            context?.parent?.authorType === 'external' &&
+            !person
+          ) {
+            return 'Please write the name of the author';
           }
           return true;
         }),
-      hidden: ({ parent }) => parent?.showAuthor && parent?.authorType === 'internal'
+      hidden: ({ parent }) => !parent?.showAuthor || parent?.authorType === 'internal'
     })
   ]
 });
