@@ -2,7 +2,7 @@ import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
-import { Article } from '@phosphor-icons/react';
+import { Article, Gear, PaintBrush } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const blogPost = defineType({
@@ -10,6 +10,26 @@ export const blogPost = defineType({
   name: 'blogPost',
   type: 'document',
   icon: Article,
+  groups: [
+    {
+      icon: PaintBrush,
+      name: 'editorial',
+      title: 'Editorial',
+      default: true
+    },
+    {
+      icon: Gear,
+      name: 'settings',
+      title: 'Settings'
+    }
+  ],
+  fieldsets: [
+    {
+      name: 'aspectRatio',
+      title: 'Aspect ratio',
+      options: { columns: 2 }
+    }
+  ],
   preview: {
     select: {
       title: 'internalTitle',
@@ -27,41 +47,61 @@ export const blogPost = defineType({
     defineField({
       title: 'Internal title',
       name: 'internalTitle',
-      type: 'internalTitle'
+      type: 'internalTitle',
+      group: 'settings'
     }),
-
     defineField({
       title: 'Title',
       name: 'title',
       type: 'i18n.string',
-      validation: validateAllStringTranslations
+      validation: validateAllStringTranslations,
+      group: 'editorial'
     }),
     defineField({
       title: 'Content 🇧🇻',
       name: 'contentNo',
       type: 'richText',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
       title: 'Content 🇬🇧',
       name: 'contentEn',
       type: 'richText',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
       title: 'Desktop image',
       name: 'imageDesktop',
       type: 'figure',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
       title: 'Mobile image',
       name: 'imageMobile',
       type: 'figure',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
-      title: 'Desktop aspect ratio',
+      title: 'Mobile',
+      name: 'aspectRatioMobile',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+      options: {
+        list: [
+          { title: '9:16', value: '9:16' },
+          { title: '3:4', value: '3:4' }
+        ]
+      },
+      initialValue: '9:16',
+      fieldset: 'aspectRatio',
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Desktop',
       name: 'aspectRatioDesktop',
       type: 'string',
       validation: (Rule) => Rule.required(),
@@ -71,38 +111,32 @@ export const blogPost = defineType({
           { title: '4:3', value: '4:3' },
           { title: '21:9', value: '21:9' }
         ]
-      }
-    }),
-    defineField({
-      title: 'Mobile aspect ratio',
-      name: 'aspectRatioMobile',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-      options: {
-        list: [
-          { title: '9:16', value: '9:16' },
-          { title: '3:4', value: '3:4' }
-        ]
-      }
+      },
+      initialValue: '16:9',
+      fieldset: 'aspectRatio',
+      group: 'editorial'
     }),
     defineField({
       title: 'Author',
       name: 'author',
       type: 'reference',
       to: [{ type: 'person' }],
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
       title: 'Set reccommended blog posts?',
       description: 'If you leave this unchecked we will get the 3 latest blog posts',
       name: 'setReccommendedBlogPosts',
       type: 'boolean',
-      initialValue: false
+      initialValue: false,
+      group: 'editorial'
     }),
     defineField({
       title: 'Reccommended blog posts',
       name: 'reccommendedBlogPosts',
       type: 'object',
+      group: 'editorial',
       validation: (Rule) =>
         Rule.custom((value: any, context: any) => {
           if (context.parent.setReccommendedBlogPosts && !value.posts) {
@@ -153,7 +187,8 @@ export const blogPost = defineType({
             context
           })
       },
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Slug 🇬🇧',
@@ -169,12 +204,14 @@ export const blogPost = defineType({
             context
           })
       },
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Metadata',
       name: 'metadata',
-      type: 'metadata'
+      type: 'metadata',
+      group: 'settings'
     })
   ]
 });

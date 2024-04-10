@@ -1,5 +1,4 @@
-import { MARKETS } from '@/data/constants';
-import { i18nField, i18nSlug } from '@/lib/sanity/studioUtils';
+import { slugIsUniqueForLangAndSchemaType } from '@/lib/sanity/studioUtils';
 import { Pencil2Icon } from '@radix-ui/react-icons';
 import { defineField, defineType } from 'sanity';
 
@@ -18,34 +17,50 @@ export const page = defineType({
       };
     }
   },
-  groups: [
-    {
-      icon: () => '🙌',
-      name: 'shared',
-      title: 'Shared',
-      default: true
-    },
-    ...MARKETS.map((market) => ({
-      name: market.id,
-      title: market.name,
-      icon: () => market.flag
-    }))
-  ],
   fields: [
     defineField({
       title: 'Internal title',
       name: 'internalTitle',
       type: 'internalTitle',
-      group: 'shared',
       validation: (Rule) => Rule.required(),
-      hidden: ({ document }: { document: any }) => document._id === 'home'
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
-    ...i18nSlug({ schemaType: 'page', validation: (Rule: any) => Rule.required() }),
+    defineField({
+      title: 'Slug 🇧🇻',
+      name: 'slug_no',
+      type: 'slug',
+      options: {
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'page',
+            lang: 'no',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
+    defineField({
+      title: 'Slug 🇬🇧',
+      name: 'slug_en',
+      type: 'slug',
+      options: {
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'page',
+            lang: 'en',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
     defineField({
       title: 'Page builder',
       name: 'pageBuilder',
       type: 'pageBuilder',
-      group: 'shared',
       validation: (Rule) =>
         Rule.custom((value: any, context: any) => {
           if (!value.length) {
@@ -61,7 +76,7 @@ export const page = defineType({
           return true;
         })
     }),
-    ...i18nField({
+    defineField({
       title: 'Metadata',
       name: 'metadata',
       type: 'metadata'

@@ -1,11 +1,8 @@
-import { MARKETS } from '@/data/constants';
 import {
-  i18nField,
-  i18nSlug,
-  i18nString,
+  slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
-import { Package } from '@phosphor-icons/react';
+import { Gear, Package, PaintBrush } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const collection = defineType({
@@ -15,16 +12,16 @@ export const collection = defineType({
   icon: Package,
   groups: [
     {
-      icon: () => '⚙️',
-      name: 'settings',
-      title: 'Settings',
+      icon: PaintBrush,
+      name: 'editorial',
+      title: 'Editorial',
       default: true
     },
-    ...MARKETS.map((market) => ({
-      name: market.id,
-      title: market.name,
-      icon: () => market.flag
-    }))
+    {
+      icon: Gear,
+      name: 'settings',
+      title: 'Settings'
+    }
   ],
   preview: {
     select: {
@@ -43,10 +40,12 @@ export const collection = defineType({
       type: 'internalTitle',
       group: 'settings'
     }),
-    ...i18nString({
+    defineField({
       title: 'Title',
       name: 'title',
-      validation: (rule) => rule.required()
+      type: 'i18n.string',
+      validation: validateAllStringTranslations,
+      group: 'editorial'
     }),
     defineField({
       title: 'Short description',
@@ -56,7 +55,7 @@ export const collection = defineType({
       options: {
         rows: 2
       },
-      group: 'settings'
+      group: 'editorial'
     }),
     defineField({
       title: 'Long description',
@@ -66,32 +65,61 @@ export const collection = defineType({
       options: {
         rows: 5
       },
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Slug 🇧🇻',
+      name: 'slug_no',
+      type: 'slug',
+      options: {
+        source: 'title.no',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'collection',
+            lang: 'no',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
       group: 'settings'
     }),
-    ...i18nField({
-      title: 'Description',
-      name: 'description',
-      type: 'richText'
+    defineField({
+      title: 'Slug 🇬🇧',
+      name: 'slug_en',
+      type: 'slug',
+      options: {
+        source: 'title.en',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'collection',
+            lang: 'en',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
-    ...i18nSlug({ schemaType: 'collection' }),
     defineField({
       title: 'Products',
       name: 'products',
       type: 'array',
-      group: 'settings',
+      group: 'editorial',
       of: [
         defineArrayMember({
           title: 'Product',
           name: 'product',
           type: 'collectionProduct'
         })
-      ]
+      ],
+      validation: (Rule) => Rule.min(1)
     }),
     defineField({
       title: 'Moods',
       name: 'moods',
       type: 'array',
-      group: 'settings',
+      group: 'editorial',
       options: {
         layout: 'grid'
       },
@@ -109,10 +137,11 @@ export const collection = defineType({
       type: 'pageBuilder',
       group: 'settings'
     }),
-    ...i18nField({
+    defineField({
       title: 'Metadata',
       name: 'metadata',
-      type: 'metadata'
+      type: 'metadata',
+      group: 'settings'
     })
   ]
 });

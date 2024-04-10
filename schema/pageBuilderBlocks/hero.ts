@@ -88,7 +88,10 @@ export const hero = defineType({
           { title: 'Center right', value: 'center-right' },
           { title: 'Bottom left', value: 'bottom-left' },
           { title: 'Bottom center', value: 'bottom-center' },
-          { title: 'Bottom right', value: 'bottom-right' }
+          { title: 'Bottom right', value: 'bottom-right' },
+          { title: 'Split top', value: 'split-top' },
+          { title: 'Split center', value: 'split-center' },
+          { title: 'Split bottom', value: 'split-bottom' }
         ]
       },
       fieldset: 'settings'
