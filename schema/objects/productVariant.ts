@@ -5,7 +5,7 @@ import {
   i18nString,
   skuIsUniqueForSchemaType
 } from '@/lib/sanity/studioUtils';
-import { ShoppingCartSimple } from '@phosphor-icons/react';
+import { Sneaker } from '@phosphor-icons/react';
 import { SanityDocument, groq } from 'next-sanity';
 import { defineField, defineType } from 'sanity';
 
@@ -13,7 +13,7 @@ export const productVariant = defineType({
   title: 'Produktvariant',
   name: 'productVariant',
   type: 'document',
-  icon: ShoppingCartSimple,
+  icon: Sneaker,
   fieldsets: [
     {
       name: 'shopify',
@@ -48,15 +48,15 @@ export const productVariant = defineType({
   preview: {
     select: {
       title: 'title',
-      option1: 'option1.title_no',
-      option2: 'option2.title_no',
-      option3: 'option3.title_no',
-      parentTitle: 'parentProduct.title_no'
+      option1: 'option1.title.en',
+      option2: 'option2.title.en',
+      option3: 'option3.title.en',
+      parentTitle: 'parentProduct'
     },
     prepare({ option1, option2, option3, parentTitle }) {
       return {
-        title: `${option1 ? option1 : ''} ${option2 ? option2 : ''} ${option3 ? option3 : ''}`,
-        subtitle: parentTitle ? parentTitle : 'Parent product not set'
+        title: `${option1 ? option1 : ''} ${option2 ? option2 : ''} ${option3 ? option3 : ''}`
+        // subtitle: parentTitle ? parentTitle : 'Product not set'
       };
     }
   },
@@ -219,12 +219,12 @@ export const productVariant = defineType({
     {
       name: 'titleAsc',
       title: 'Title (A-Z)',
-      by: [{ field: 'option1.title_no', direction: 'asc' }]
+      by: [{ field: 'option1.title.en', direction: 'asc' }]
     },
     {
       name: 'titleDesc',
       title: 'Title (Z-A)',
-      by: [{ field: 'option1.title_no', direction: 'desc' }]
+      by: [{ field: 'option1.title.en', direction: 'desc' }]
     },
     {
       name: 'priceDesc',

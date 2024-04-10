@@ -34,19 +34,21 @@ export const spot = defineType({
       validation: (Rule) =>
         Rule.custom((value: any, context: any) => {
           if (context?.parent && context?.parent?.type && context?.parent?.type === 'productCard') {
-            return true;
+            return true; // Immediately return true if the parent's type is 'productCard'
           }
 
           const hasNo = value && value?.no;
           const hasEn = value && value?.en;
 
           if (!hasNo || !hasEn) {
-            return [
-              !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-              !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
-            ].filter(Boolean);
+            let errorMessage = 'You must provide:';
+            if (!hasNo) errorMessage += ' a Norwegian translation';
+            if (!hasNo && !hasEn) errorMessage += ' and';
+            if (!hasEn) errorMessage += ' an English translation';
+            return errorMessage; // Construct and return a single error message string
           }
-          return true;
+
+          return true; // Validation successful
         }),
       hidden: ({ parent }) => parent?.type && parent?.type !== 'text'
     }),
