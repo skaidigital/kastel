@@ -548,3 +548,31 @@ export type PublicationInput = {
     publicationId: string;
   }[];
 };
+
+export type CustomerWishlist = {
+  data: {
+    customer: {
+      metafield: {
+        id: string;
+        key: string;
+        value: string;
+      };
+    };
+  };
+  variables: {
+    token: string;
+    key: string;
+    namespace: string;
+  };
+};
+
+export type MetafieldDelete = {
+  data: {
+    metafieldDelete: {
+      deletedId: string;
+    };
+  };
+  variables: {
+    id: string;
+  };
+};

@@ -1,4 +1,4 @@
-import { getWishlistQuery } from '@/lib/shopify/wishlist/wishlist';
+import { getWishlist } from '@/lib/shopify';
 
 const STATUS_CODE = {
   OK: 200,
@@ -8,17 +8,12 @@ const STATUS_CODE = {
 
 export async function GET(request: Request) {
   // get customer id from cookies
-  const responseData = JSON.stringify('Get the wishlist');
+
+  const getWishlistResponse = await getWishlist();
+  const responseData = JSON.stringify(getWishlistResponse);
   return new Response(responseData, {
     status: STATUS_CODE.OK
   });
-}
-
-function getWishlist() {
-  // get customer id from cookies
-  const customerId = '7742157848805';
-
-  const query = getWishlistQuery;
 }
 
 export async function DELETE(request: Request) {

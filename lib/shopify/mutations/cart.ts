@@ -71,7 +71,7 @@ export const applyDiscountToCartMutation = /* GraphQL */ `
 `;
 
 export const customerAccessTokenCreateMutation = /* GraphQL */ `
-  mutation {
+  mutation customerAccessTokenCreate($email: String!, $password: String!) {
     customerAccessTokenCreate(input: { email: $email, password: $password }) {
       customerAccessToken {
         accessToken

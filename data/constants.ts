@@ -193,6 +193,12 @@ export const METAFIELDS = {
       namespace: 'skai',
       key: 'sanityId'
     }
+  },
+  customer: {
+    wishlist: {
+      namespace: 'skai',
+      key: 'wishlist'
+    }
   }
 };
 

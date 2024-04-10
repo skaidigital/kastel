@@ -1,4 +1,5 @@
 import { isShopifyError } from '@/app/[market]/[lang]/(site)/shopify/utils';
+import { METAFIELDS } from '@/data/constants';
 import { env } from '@/env';
 import { ensureStartsWith } from '@/lib/utils';
 import { cookies } from 'next/headers';
@@ -16,6 +17,8 @@ import {
   Cart,
   Connection,
   CustomerAccessToken,
+  CustomerWishlist,
+  MetafieldDelete,
   ShopifyAddDiscountCodeOperation,
   ShopifyAddToCartOperation,
   ShopifyCart,
@@ -27,6 +30,7 @@ import {
   ShopifyUpdateCartAttributesOperation,
   ShopifyUpdateCartOperation
 } from './types';
+import { deleteWishlistQuery, getWishlistQuery } from './wishlist/query';
 
 const domain = env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -49,6 +53,8 @@ export async function shopifyFetch<T>({
   tags?: string[];
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
+  console.log(endpoint);
+
   try {
     const result = await fetch(endpoint, {
       method: 'POST',
@@ -249,4 +255,34 @@ export async function applyDiscountToCart(cartId: string, discountCodes: string[
   });
 
   return reshapeCart(res.body.data.cart);
+}
+
+export async function getWishlistForUser() {
+  const accessToken = cookies().get('accessToken')?.value;
+
+  if (!accessToken) {
+    throw new Error('No access token');
+  }
+
+  const wishlistResponse = await shopifyFetch<CustomerWishlist>({
+    query: getWishlistQuery,
+    variables: {
+      token: accessToken,
+      key: METAFIELDS.customer.wishlist.key,
+      namespace: METAFIELDS.customer.wishlist.namespace
+    },
+    cache: 'no-store'
+  });
+
+  return wishlistResponse.body.data?.customer?.metafield;
+}
+
+export async function deleteWishlistForUser({ gid }: { gid: string }) {
+  const deleteWishlistResponse = await shopifyFetch<MetafieldDelete>({
+    query: deleteWishlistQuery,
+    variables: { id: gid },
+    cache: 'no-store'
+  });
+
+  return deleteWishlistResponse;
 }
