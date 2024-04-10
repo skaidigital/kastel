@@ -60,6 +60,7 @@ import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
+import { updateItem } from '@/schema/objects/updateItem';
 import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
 import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
@@ -109,6 +110,7 @@ const schema = [
   address,
   richText,
   richTextNatureLab,
+  updateItem,
   metadata,
   link,
   linkWithoutText,

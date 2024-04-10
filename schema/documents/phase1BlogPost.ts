@@ -1,4 +1,8 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import {
+  slugIsUniqueForLangAndSchemaType,
+  validateAllStringTranslations
+} from '@/lib/sanity/studioUtils';
+import { Article } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 // TODO Validate everything in the question based on the boolean
@@ -10,9 +14,10 @@ export const phase1BlogPost = defineType({
   title: 'Nature Lab phase 1 blog post',
   name: 'phase1BlogPost',
   type: 'document',
+  icon: Article,
   preview: {
     select: {
-      title: 'internalTitle'
+      title: 'title.en'
     },
     prepare({ title }) {
       return {
@@ -21,53 +26,70 @@ export const phase1BlogPost = defineType({
       };
     }
   },
+  groups: [
+    { name: 'settings', title: 'Settings', icon: () => '⚙️', default: true },
+    { name: 'editorial', title: 'Editorial', icon: () => '📝' }
+  ],
   fields: [
-    defineField({
-      title: 'Internal title',
-      name: 'internalTitle',
-      type: 'internalTitle'
-    }),
     defineField({
       title: 'Title',
       name: 'title',
       type: 'i18n.string',
-      validation: validateAllStringTranslations
+      validation: validateAllStringTranslations,
+      group: 'settings'
     }),
     defineField({
       title: 'Experiment ID',
+      description: "For example '#2' or 'NLE-2'",
       name: 'experimentId',
       type: 'string',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Start date',
       name: 'startDate',
       type: 'date',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Status',
       name: 'status',
       type: 'string',
       options: {
-        list: ['open', 'closed']
+        list: [
+          { value: 'open', title: 'OPEN' },
+          { value: 'closed', title: 'CLOSED' }
+        ]
       },
       initialValue: 'open',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Callout (optional)',
       description:
         'Can be used for directing the user to a phase 2 product that came from this experiment.',
       name: 'callout',
-      type: 'richText'
+      type: 'richText',
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Content',
+      name: 'content',
+      type: 'array',
+      of: [{ type: 'updateItem' }],
+      validation: (Rule) => Rule.min(1),
+      group: 'editorial'
     }),
     defineField({
       title: 'Question for the reader?',
       name: 'hasQuestion',
       type: 'boolean',
       initialValue: false,
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
     }),
     defineField({
       title: 'Question',
@@ -77,14 +99,17 @@ export const phase1BlogPost = defineType({
         defineField({
           title: 'Title',
           name: 'title',
-          type: 'i18n.string'
-          // validation: validateAllStringTranslations
+          type: 'i18n.string',
+          validation: validateAllStringTranslations
         }),
         defineField({
           title: 'Description',
           name: 'description',
-          type: 'i18n.string'
-          // validation: validateAllStringTranslations
+          type: 'i18n.text',
+          options: {
+            rows: 2
+          },
+          validation: validateAllStringTranslations
         }),
         defineField({
           title: 'Questions',
@@ -101,14 +126,57 @@ export const phase1BlogPost = defineType({
             return 'Title is required when question is enabled';
           }
           return true;
-        })
+        }),
+      group: 'settings'
     }),
     defineField({
       title: 'Image',
-      description: 'The image that will be shown in the landing page with all the blog posts',
+      description:
+        "The image that is shown in the Nature Lab landing page and the 'blog posts' page for Nature Lab",
       name: 'image',
       type: 'figure',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Slug 🇧🇻',
+      name: 'slug_no',
+      type: 'slug',
+      options: {
+        source: 'title.no',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'phase1BlogPost',
+            lang: 'no',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Slug 🇬🇧',
+      name: 'slug_en',
+      type: 'slug',
+      options: {
+        source: 'title.en',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'phase1BlogPost',
+            lang: 'en',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Metadata',
+      name: 'metadata',
+      type: 'metadata',
+      group: 'settings'
     })
   ]
 });
