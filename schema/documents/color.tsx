@@ -1,51 +1,69 @@
-import { MARKETS } from '@/data/constants';
-import { i18nSlug, i18nString } from '@/lib/sanity/studioUtils';
+import {
+  slugIsUniqueForLangAndSchemaType,
+  validateAllStringTranslations
+} from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const color = defineType({
-  title: 'Farge',
+  title: 'Color',
   name: 'colorDocument',
   type: 'document',
-  groups: [
-    {
-      name: 'shared',
-      title: 'Shared',
-      icon: () => '🙌',
-      default: true
-    },
-    ...MARKETS.map((market) => ({
-      name: market.id,
-      title: market.name,
-      icon: () => market.flag
-    }))
-  ],
   preview: {
     select: {
-      title: 'title_no',
+      title: 'title.no',
       color: 'color.value'
     },
     prepare({ title, color }) {
       return {
-        title,
+        title: title || 'Untitled',
         media: () => <div style={{ backgroundColor: color, width: '100%', height: '100%' }} />
       };
     }
   },
   fields: [
-    ...i18nString({
+    defineField({
       title: 'Title',
       name: 'title',
-      validation: (Rule) => Rule.required()
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Farge',
       name: 'color',
       type: 'simplerColor',
-      validation: (Rule) => Rule.required(),
-      group: 'shared'
+      validation: (Rule) => Rule.required()
     }),
-    ...i18nSlug({
-      schemaType: 'colorDocument'
+    defineField({
+      title: 'Slug 🇧🇻',
+      name: 'slug_no',
+      type: 'slug',
+      options: {
+        source: 'title.no',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'colorDocument',
+            lang: 'no',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Slug 🇬🇧',
+      name: 'slug_en',
+      type: 'slug',
+      options: {
+        source: 'title.en',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'colorDocument',
+            lang: 'en',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required()
     })
   ]
 });

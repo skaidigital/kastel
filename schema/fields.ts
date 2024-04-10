@@ -34,6 +34,21 @@ export const ogImage = defineType({
   validation: (Rule) => Rule.required()
 });
 
+export const blogWidthSettings = defineType({
+  title: 'Width',
+  name: 'blogWidthSettings',
+  type: 'string',
+  options: {
+    layout: 'radio',
+    list: [
+      { title: 'Normal', value: 'normal' },
+      { title: 'Wide', value: 'wide' }
+    ]
+  },
+  initialValue: 'normal',
+  validation: (Rule) => Rule.required()
+});
+
 export const figure = defineType({
   title: 'Image',
   name: 'figure',
@@ -104,18 +119,6 @@ export const gallery = defineType({
           title: 'Descriptive text for screen readers and search engines',
           type: 'altText',
           name: 'altText'
-        }),
-        defineField({
-          title: 'Width',
-          name: 'width',
-          type: 'string',
-          initialValue: '1-COL',
-          options: {
-            list: [
-              { title: '1 column on desktop', value: '1-COL' },
-              { title: '2 columns on desktop', value: '2-COL' }
-            ]
-          }
         })
       ]
     }
@@ -133,51 +136,111 @@ export const pageBuilder = defineType({
     input: PageBuilderModal
   },
   of: [
-    defineArrayMember({
-      title: 'Page title',
-      type: 'pageTitle'
-    }),
+    // Hero
     defineArrayMember({
       title: 'Hero',
       type: 'hero'
     }),
+    // Full width media section
+    // USP + Shoe
     defineArrayMember({
-      title: 'Featured product',
-      type: 'featuredProduct'
-    }),
-    defineArrayMember({
-      title: 'Accordion section',
-      type: 'accordionSection'
-    }),
-    defineArrayMember({
-      title: 'Text + Image',
+      title: 'USP explainer',
       type: 'reference',
-      name: 'textAndImage',
-      to: [{ type: 'textAndImage' }]
+      to: [{ type: 'uspExplainer' }],
+      name: 'uspExplainer'
     }),
+    // Shoe picker
+    defineArrayMember({
+      title: 'Shoe picker',
+      type: 'reference',
+      to: [{ type: 'shoePicker' }],
+      name: 'shoePicker'
+    }),
+    // Nature Lab explanation
+    defineArrayMember({
+      title: 'Nature Lab explainer',
+      type: 'reference',
+      to: [{ type: 'natureLabExplainer' }],
+      name: 'natureLabExplainer'
+    }),
+    // Shop our models
+    defineArrayMember({
+      title: 'Shop our models',
+      type: 'reference',
+      to: [{ type: 'shopOurModels' }],
+      name: 'shopOurModels'
+    }),
+    // UGCs
+    defineArrayMember({
+      title: 'UGC section',
+      type: 'reference',
+      to: [{ type: 'UGCSection' }],
+      name: 'UGCSection'
+    }),
+    // Featured shoe
+    defineArrayMember({
+      title: 'Featured shoe',
+      type: 'reference',
+      to: [{ type: 'featuredShoe' }],
+      name: 'featuredShoe'
+    }),
+    // Featured collection
+    defineArrayMember({
+      title: 'Featured collection',
+      type: 'featuredCollection'
+    }),
+    // Card section
+    defineArrayMember({
+      title: 'Card section',
+      type: 'reference',
+      to: [{ type: 'cardSection' }],
+      name: 'cardSection'
+    }),
+    // Nature Lab Innovation item (only for productType and product)
+    defineArrayMember({
+      title: 'Nature Lab Innovations',
+      type: 'natureLabInnovationSection'
+    }),
+    // Blog posts
+    defineArrayMember({
+      title: 'Blog posts',
+      type: 'blogPosts'
+    }),
+    // Kastel Club
+    defineArrayMember({
+      title: 'Kastel Club',
+      type: 'reference',
+      to: [{ type: 'kastelClub' }],
+      name: 'kastelClub'
+    }),
+    // Timeline
+    defineArrayMember({
+      title: 'Timeline',
+      type: 'reference',
+      to: [{ type: 'timelineSection' }],
+      name: 'timelineSection'
+    }),
+    // FAQ section
+    defineArrayMember({
+      title: 'FAQ section',
+      type: 'reference',
+      name: 'faqSection',
+      to: [{ type: 'faqSection' }]
+    }),
+    // Text section
     defineArrayMember({
       title: 'Text section',
       type: 'textSection'
     }),
-    defineArrayMember({
-      title: 'Product listing',
-      type: 'productListing'
-    }),
-    defineArrayMember({
-      title: 'Collection listing',
-      type: 'collectionListing'
-    }),
-    defineArrayMember({
-      title: 'Card grid',
-      type: 'cardGrid'
-    }),
+    // Contact form
     defineArrayMember({
       title: 'Contact form',
       type: 'contactForm'
     }),
+    // Email capture
     defineArrayMember({
-      title: 'Instagram feed',
-      type: 'instagramFeed'
+      title: 'Email capture',
+      type: 'emailCapture'
     })
   ]
 });

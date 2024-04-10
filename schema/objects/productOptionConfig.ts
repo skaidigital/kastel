@@ -6,7 +6,7 @@ export const productOptionConfig = defineType({
   type: 'object',
   preview: {
     select: {
-      title: 'optionType.title_no',
+      title: 'optionType.title.no',
       options: 'options'
     },
     prepare: ({ title, options }) => {

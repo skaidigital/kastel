@@ -1,9 +1,9 @@
 import { MARKETS } from '@/data/constants';
 import {
-  filterAlreadyAddedReferences,
   i18nField,
   i18nSlug,
-  i18nString
+  i18nString,
+  validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
 import { Package } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
@@ -15,9 +15,9 @@ export const collection = defineType({
   icon: Package,
   groups: [
     {
-      icon: () => '🙌',
-      name: 'shared',
-      title: 'Shared',
+      icon: () => '⚙️',
+      name: 'settings',
+      title: 'Settings',
       default: true
     },
     ...MARKETS.map((market) => ({
@@ -41,12 +41,32 @@ export const collection = defineType({
       title: 'Internal title',
       name: 'internalTitle',
       type: 'internalTitle',
-      group: 'shared'
+      group: 'settings'
     }),
     ...i18nString({
       title: 'Title',
       name: 'title',
       validation: (rule) => rule.required()
+    }),
+    defineField({
+      title: 'Short description',
+      name: 'descriptionShort',
+      type: 'i18n.text',
+      validation: validateAllStringTranslations,
+      options: {
+        rows: 2
+      },
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Long description',
+      name: 'descriptionLong',
+      type: 'i18n.text',
+      validation: validateAllStringTranslations,
+      options: {
+        rows: 5
+      },
+      group: 'settings'
     }),
     ...i18nField({
       title: 'Description',
@@ -58,16 +78,12 @@ export const collection = defineType({
       title: 'Products',
       name: 'products',
       type: 'array',
-      group: 'shared',
+      group: 'settings',
       of: [
         defineArrayMember({
-          title: 'Produkt',
+          title: 'Product',
           name: 'product',
-          type: 'reference',
-          to: [{ type: 'product' }],
-          options: {
-            filter: filterAlreadyAddedReferences
-          }
+          type: 'collectionProduct'
         })
       ]
     }),
@@ -75,17 +91,23 @@ export const collection = defineType({
       title: 'Moods',
       name: 'moods',
       type: 'array',
-      group: 'shared',
+      group: 'settings',
       options: {
         layout: 'grid'
       },
       of: [
         defineArrayMember({
-          title: 'Produkt',
-          name: 'collectionImage',
-          type: 'collectionImage'
+          title: 'Mood',
+          name: 'mood',
+          type: 'media'
         })
       ]
+    }),
+    defineField({
+      title: 'Page builder',
+      name: 'pageBuilder',
+      type: 'pageBuilder',
+      group: 'settings'
     }),
     ...i18nField({
       title: 'Metadata',

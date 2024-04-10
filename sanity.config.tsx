@@ -1,8 +1,10 @@
 import { apiVersion, projectId } from '@/lib/sanity/api';
 import { defaultDocumentNodeResolver } from '@/schema/defaultDocumentNodeResolver';
 import { structure } from '@/schema/structure';
+import { scheduledPublishing } from '@sanity/scheduled-publishing';
 import { visionTool } from '@sanity/vision';
 import { defineConfig, definePlugin } from 'sanity';
+import { imageHotspotArrayPlugin } from 'sanity-plugin-hotspot-array';
 import { media, mediaAssetSource } from 'sanity-plugin-media';
 import { muxInput } from 'sanity-plugin-mux-input';
 import { noteField } from 'sanity-plugin-note-field';
@@ -38,6 +40,9 @@ const config = definePlugin({
     muxInput({
       mp4_support: 'standard'
     }),
+    scheduledPublishing({
+      inputDateTimeFormat: 'dd.MM.yyyy HH:mm'
+    }),
     visionTool({ defaultApiVersion: apiVersion }),
     simplerColorInput(),
     webhooks(),
@@ -48,7 +53,8 @@ const config = definePlugin({
         { code: 'no', title: 'Norway', label: '🇧🇻', default: true },
         { code: 'en', title: 'English', label: '🇬🇧' }
       ]
-    })
+    }),
+    imageHotspotArrayPlugin()
   ],
   tools: (prev, { currentUser }) => {
     const isAdmin = currentUser?.roles?.some((role) => role.name === 'administrator');
@@ -62,6 +68,9 @@ const config = definePlugin({
     return prev.filter((tool) => !filteredTools.includes(tool.name));
   },
   form: {
+    file: {
+      assetSources: () => [mediaAssetSource]
+    },
     image: {
       assetSources: () => [mediaAssetSource]
     }
@@ -99,9 +108,6 @@ export default defineConfig({
   basePath: '/studio',
   title: 'Kastel',
   name: 'studio',
-  // TODO switch logo
-  // eslint-disable-next-line @next/next/no-img-element
-  icon: () => <img src="/images/logo.webp" alt="Abate Logo" />,
   projectId,
   dataset: 'production',
   plugins: [config()]

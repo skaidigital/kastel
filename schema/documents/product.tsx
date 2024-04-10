@@ -5,17 +5,16 @@ import {
   i18nNumber,
   i18nSlug,
   i18nString,
-  i18nfeaturedOptions,
   isActiveProductValidation
 } from '@/lib/sanity/studioUtils';
-import { ShoppingCartSimple } from '@phosphor-icons/react';
+import { Sneaker } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const product = defineType({
   title: 'Produkt',
   name: 'product',
   type: 'document',
-  icon: ShoppingCartSimple,
+  icon: Sneaker,
   groups: [
     ...MARKETS.map((market) => ({
       name: market.id,
@@ -54,26 +53,55 @@ export const product = defineType({
   ],
   fields: [
     defineField({
+      title: 'Gallery',
+      name: 'gallery',
+      type: 'gallery',
+      group: 'editorial',
+      validation: (Rule) => Rule.min(1).max(10)
+    }),
+    defineField({
+      title: 'Main image',
+      name: 'mainImage',
+      type: 'figure',
+      group: 'editorial',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Lifestyle image (optional)',
+      name: 'lifestyleImage',
+      type: 'figure',
+      group: 'editorial',
+      description: 'This image will be shown when the user hovers over the product card'
+    }),
+    defineField({
+      title: 'Detail image (optional)',
+      description: 'Add an image with a hotspot that will be shown below the product form',
+      name: 'detailImage',
+      type: 'figure',
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Hotspots for detail image (optional)',
+      name: `hotspots`,
+      type: `array`,
+      of: [{ type: 'spot' }],
+      options: {
+        imageHotspot: {
+          imagePath: `detailImage`,
+          descriptionPath: `details`,
+          tooltip: undefined
+        }
+      },
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Page builder',
       name: 'pageBuilder',
       type: 'pageBuilder',
       group: 'editorial'
     }),
     defineField({
-      title: 'Gallery',
-      name: 'gallery',
-      type: 'gallery',
-      group: 'editorial'
-    }),
-    defineField({
-      title: 'Hover image on cards',
-      name: 'hoverImage',
-      type: 'figure',
-      group: 'editorial',
-      description: 'This image will be shown when the user hovers over the product card'
-    }),
-    defineField({
-      title: 'Badges',
+      title: 'Badges (optional)',
       name: 'badges',
       type: 'array',
       of: [
@@ -142,63 +170,13 @@ export const product = defineType({
         })
     }),
     defineField({
-      title: 'Product type',
+      title: 'Model',
       name: 'productType',
       type: 'reference',
       to: [{ type: 'productType' }],
       group: 'settings',
       description:
-        'This will add the product type&rsquo;s gallery, page builder blocks and other content to this product as well as link to other products in the product group'
-    }),
-    defineField({
-      title: 'Add product type name to title',
-      name: 'addProductTypeNameToTitle',
-      description: "This will add the product type name to the product's title",
-      type: 'boolean',
-      group: 'settings',
-      initialValue: true,
-      hidden: ({ parent }) => !parent?.productType,
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (!value && context.parent?.productType) {
-            return 'You have to set this field';
-          }
-
-          return true;
-        })
-    }),
-    defineField({
-      title: 'Is this product a color?',
-      name: 'isColor',
-      type: 'boolean',
-      group: 'settings',
-      initialValue: false,
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (!value && context.parent?.productType) {
-            return 'You have to set this field';
-          }
-
-          return true;
-        }),
-      description:
-        "If this product is a specific color like 'Dusty Blue Sengesett' we will set a color swatch for the product here."
-    }),
-    defineField({
-      title: 'Color',
-      name: 'color',
-      type: 'reference',
-      to: [{ type: 'colorDocument' }],
-      group: 'settings',
-      hidden: ({ parent }) => !parent?.isColor,
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.parent?.isColor && !value) {
-            return 'You have to set this field';
-          }
-
-          return true;
-        })
+        'This will add the gallery, page builder blocks and other content to this product form its model as well as link to other products of the same model in the product page (colors)'
     }),
     ...i18nField({
       title: 'Status',
@@ -217,6 +195,24 @@ export const product = defineType({
       title: 'Title',
       name: 'title',
       type: 'string',
+      validation: isActiveProductValidation
+    }),
+    ...i18nField({
+      title: 'Subtitle (optional)',
+      name: 'subtitle',
+      type: 'string'
+    }),
+    ...i18nField({
+      title: 'Short description',
+      name: 'descriptionShort',
+      type: 'text',
+      rows: 2,
+      validation: isActiveProductValidation
+    }),
+    ...i18nField({
+      title: 'Long description',
+      name: 'descriptionLong',
+      type: 'descriptionDetailed',
       validation: isActiveProductValidation
     }),
     defineField({
@@ -253,6 +249,14 @@ export const product = defineType({
           type: 'productOptionConfig'
         })
       ]
+    }),
+    defineField({
+      title: 'Tags (optional)',
+      description: 'Tags that will be used for filtering and search',
+      name: 'tags',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+      group: 'editorial'
     }),
     defineField({
       title: 'Track stock',
@@ -340,30 +344,70 @@ export const product = defineType({
       group: 'settings',
       hidden: ({ parent }) => parent?.type !== 'SIMPLE'
     }),
-    ...i18nField({
-      title: 'Description',
-      name: 'description',
-      type: 'richText'
-    }),
     defineField({
-      title: 'Accordions',
-      name: 'accordions',
+      title: 'FAQs',
+      description: 'These will be added alongside the default FAQs set in settings',
+      name: 'faqs',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'reference',
-          to: [{ type: 'accordion' }]
+          to: [{ type: 'question' }]
         })
       ],
+      group: 'editorial',
+      validation: (Rule) => Rule.max(20)
+    }),
+    defineField({
+      title: 'USPs',
+      description:
+        'The USPs that will displayed in the marquee on the top and below the product hero',
+      name: 'usps',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'usp' }] }],
+      validation: (Rule) => Rule.max(5),
       group: 'editorial'
     }),
-    ...i18nfeaturedOptions(),
-    ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
-    ...i18nField({
-      title: 'Metadata',
-      name: 'metadata',
-      type: 'metadata'
+    defineField({
+      title: 'Cross sell products in the cart drawer (optional)',
+      description: 'Products that will be shown in the cart drawer as a cross sell',
+      name: 'cartCrossSellProducts',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'product' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ],
+      validation: (Rule) => Rule.max(3)
     }),
+    defineField({
+      title: 'Reccommended products (optional)',
+      name: 'reccommendedProducts',
+      description:
+        'Products that will be shown in a carousel on the product pages. If you do not choose any, we will use the default reccommended products set in merchandising under settings',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'product' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ],
+      validation: (Rule) => Rule.max(12),
+      group: 'editorial'
+    }),
+    ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
+    // ...i18nField({
+    //   title: 'Metadata',
+    //   name: 'metadata',
+    //   type: 'metadata'
+    // }),
     ...i18nField({
       title: 'Created at',
       name: 'createdAt',

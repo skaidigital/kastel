@@ -42,7 +42,8 @@ export const merchandising = defineType({
             filter: filterAlreadyAddedReferences
           }
         })
-      ]
+      ],
+      validation: (Rule) => Rule.max(3)
     }),
     defineField({
       title: 'Free shipping limit',

@@ -1,20 +1,23 @@
 import { defineField, defineType } from 'sanity';
 
-// TODO make image preview work
 export const collectionProduct = defineType({
   title: 'Collection product',
   name: 'collectionProduct',
   type: 'object',
   preview: {
     select: {
-      title: 'product.title',
-      image: 'product.images.0'
+      title: 'product.internalTitle',
+      image: 'product.mainImage',
+      lifeStyleImage: 'product.lifestyleImage',
+      firstImage: 'firstImage'
     },
-    prepare({ title, image }) {
+    prepare({ title, image, firstImage, lifeStyleImage }) {
+      const subtitle = firstImage === 'lifestyle' ? 'Lifestyle image' : 'Product image';
+      const media = firstImage === 'lifestyle' ? lifeStyleImage : image;
       return {
         title: title || 'No title defined',
-        subtitle: 'Product',
-        media: image
+        subtitle,
+        media
       };
     }
   },
@@ -23,15 +26,23 @@ export const collectionProduct = defineType({
       title: 'Produkt',
       name: 'product',
       type: 'reference',
-      to: [{ type: 'product' }]
-      // options: {
-      //   filter: filterAlreadyAddedReferences
-      // }
+      to: [{ type: 'product' }],
+      validation: (Rule) => Rule.required()
     }),
     defineField({
-      title: 'Erstatningsbilde',
-      name: 'replacementImage',
-      type: 'image'
+      title: 'Show image first',
+      description:
+        'You can choose to show a lifestyle image first and the product image on hover. This will only apply if you have both a lifestyle and a product image set on the product',
+      name: 'firstImage',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Product', value: 'product' },
+          { title: 'Lifestyle', value: 'lifestyle' }
+        ]
+      },
+      initialValue: 'product',
+      validation: (Rule) => Rule.required()
     })
   ]
 });

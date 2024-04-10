@@ -4,6 +4,14 @@ export const media = defineType({
   title: 'Media',
   name: 'media',
   type: 'object',
+  preview: {
+    select: {
+      title: 'type'
+    },
+    prepare: ({ title }) => ({
+      title: title || 'Untitled'
+    })
+  },
   fields: [
     defineField({
       title: 'Type',
@@ -69,7 +77,7 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'image' && !image) {
+          if (!sameAssetForMobileAndDesktop && type === 'image' && !image) {
             return 'Image is required';
           }
 
@@ -87,7 +95,7 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'image' && !image) {
+          if (!sameAssetForMobileAndDesktop && type === 'image' && !image) {
             return 'Image is required';
           }
 
@@ -105,7 +113,7 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'video' && !video) {
+          if (!sameAssetForMobileAndDesktop && type === 'video' && !video) {
             return 'Video is required';
           }
 
@@ -123,39 +131,12 @@ export const media = defineType({
           const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
           const type = context.parent?.type;
 
-          if (sameAssetForMobileAndDesktop && type === 'video' && !video) {
+          if (!sameAssetForMobileAndDesktop && type === 'video' && !video) {
             return 'Video is required';
           }
 
           return true;
         })
-    }),
-    defineField({
-      title: 'Desktop aspect ratio',
-      name: 'aspectRatioDesktop',
-      type: 'string',
-      initialValue: '16:9',
-      options: {
-        list: [
-          { title: '16:9', value: '16:9' },
-          { title: '4:3', value: '4:3' },
-          { title: '21:9', value: '21:9' }
-        ]
-      },
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      title: 'Mobile aspect ratio',
-      name: 'aspectRatioMobile',
-      type: 'string',
-      initialValue: '9:16',
-      options: {
-        list: [
-          { title: '9:16', value: '9:16' },
-          { title: '3:4', value: '3:4' }
-        ]
-      },
-      validation: (Rule) => Rule.required()
     })
   ]
 });

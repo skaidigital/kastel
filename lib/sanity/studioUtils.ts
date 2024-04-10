@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { FeaturedOptionField } from '@/components/sanity/CustomField';
-import { MARKETS, MarketValues, SANITY_STUDIO_API_VERSION } from '@/data/constants';
+import { LangValues, MARKETS, MarketValues, SANITY_STUDIO_API_VERSION } from '@/data/constants';
 import { groq } from 'next-sanity';
 import {
   CurrentUser,
@@ -92,6 +92,7 @@ interface Props {
   options?: any;
   description?: string;
   readOnly?: boolean;
+  rows?: number;
 }
 
 // TODO hent options fra Sanity field i stedet
@@ -107,7 +108,8 @@ export function i18nField({
   initialValue,
   description,
   validation,
-  readOnly
+  readOnly,
+  rows
 }: Props) {
   return MARKETS.map((market) =>
     defineField({
@@ -119,6 +121,7 @@ export function i18nField({
       fieldset,
       description,
       hidden,
+      ...(type === 'text' && { rows }),
       initialValue,
       validation,
       readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)
@@ -309,6 +312,35 @@ export async function slugIsUniqueForMarketAndSchemaType({
     type: schemaType
   };
   const query = groq`!defined(*[!(_id in [$draft, $published]) && slug_${market}.current == $slug && _type == $type][0]._id)`;
+  const result = await client.fetch(query, params);
+
+  return result;
+}
+
+interface SlugIsUniqueForLangAndSchemaTypeProps {
+  slug: string;
+  schemaType: string;
+  lang: LangValues;
+  context: SlugValidationContext;
+}
+
+export async function slugIsUniqueForLangAndSchemaType({
+  slug,
+  schemaType,
+  lang,
+  context
+}: SlugIsUniqueForLangAndSchemaTypeProps) {
+  const { document, getClient } = context;
+
+  const client = getClient({ apiVersion: '2022-12-07' });
+  const id = document?._id?.replace(/^drafts\./, '');
+  const params = {
+    draft: `drafts.${id}`,
+    published: id,
+    slug,
+    type: schemaType
+  };
+  const query = groq`!defined(*[!(_id in [$draft, $published]) && slug_${lang}.current == $slug && _type == $type][0]._id)`;
   const result = await client.fetch(query, params);
 
   return result;

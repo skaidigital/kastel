@@ -41,141 +41,27 @@ export const hero = defineType({
   fields: [
     defineField({
       title: 'Type',
-      name: 'imageOrVideo',
+      name: 'type',
       type: 'string',
-      initialValue: 'image',
+      initialValue: 'fullBleed',
       options: {
         list: [
-          { title: 'Image', value: 'image' },
-          { title: 'Video', value: 'video' }
+          { title: 'Full bleed', value: 'fullBleed' },
+          { title: 'Contained', value: 'contained' }
         ]
       },
       validation: (Rule) => Rule.required()
     }),
+
     defineField({
-      title: 'Desktop aspect ratio',
-      name: 'aspectRatioDesktop',
-      type: 'string',
-      initialValue: '16:9',
-      options: {
-        list: [
-          { title: '16:9', value: '16:9' },
-          { title: '4:3', value: '4:3' },
-          { title: '21:9', value: '21:9' }
-        ]
-      },
-      fieldset: 'settings'
+      title: 'Aspect ratio settings',
+      name: 'aspectRatioSettings',
+      type: 'aspectRatioSettings'
     }),
     defineField({
-      title: 'Mobile aspect ratio',
-      name: 'aspectRatioMobile',
-      type: 'string',
-      initialValue: '9:16',
-      options: {
-        list: [
-          { title: '9:16', value: '9:16' },
-          { title: '3:4', value: '3:4' }
-        ]
-      },
-      fieldset: 'settings'
-    }),
-    defineField({
-      title: 'Video mobile',
-      name: 'videoMobile',
-      type: 'mux.video',
-      hidden: ({ parent }) => parent?.imageOrVideo !== 'video',
-      validation: (Rule) =>
-        Rule.custom((video, context: any) => {
-          const imageOrVideo = context.parent?.imageOrVideo;
-
-          if (imageOrVideo === 'video' && !video) {
-            return 'Video is required';
-          }
-
-          return true;
-        })
-    }),
-    defineField({
-      title: 'Video desktop',
-      name: 'videoDesktop',
-      type: 'mux.video',
-      hidden: ({ parent }) => parent?.imageOrVideo !== 'video',
-      validation: (Rule) =>
-        Rule.custom((video, context: any) => {
-          const imageOrVideo = context.parent?.imageOrVideo;
-
-          if (imageOrVideo === 'video' && !video) {
-            return 'Video is required';
-          }
-
-          return true;
-        })
-    }),
-    defineField({
-      title: 'Background image – Mobile',
-      name: 'imageMobile',
-      type: 'image',
-      hidden: ({ parent }) => parent?.imageOrVideo !== 'image',
-      validation: (Rule) =>
-        Rule.custom((image, context: any) => {
-          const imageOrVideo = context.parent?.imageOrVideo;
-
-          if (imageOrVideo === 'image' && !image) {
-            return 'Image is required';
-          }
-
-          return true;
-        }),
-      options: {
-        hotspot: true
-      },
-      fieldsets: [
-        {
-          name: 'settings',
-          title: 'Settings',
-          options: { collapsible: true, collapsed: true, columns: 2 }
-        }
-      ],
-      fields: [
-        defineField({
-          title: 'Descriptive text for screen readers and search engines',
-          type: 'altText',
-          name: 'altText'
-        })
-      ]
-    }),
-    defineField({
-      title: 'Background image – Desktop',
-      name: 'imageDesktop',
-      type: 'image',
-      hidden: ({ parent }) => parent?.imageOrVideo !== 'image',
-      validation: (Rule) =>
-        Rule.custom((image, context: any) => {
-          const imageOrVideo = context.parent?.imageOrVideo;
-
-          if (imageOrVideo === 'image' && !image) {
-            return 'Image is required';
-          }
-
-          return true;
-        }),
-      options: {
-        hotspot: true
-      },
-      fieldsets: [
-        {
-          name: 'settings',
-          title: 'Settings',
-          options: { collapsible: true, collapsed: true, columns: 2 }
-        }
-      ],
-      fields: [
-        defineField({
-          title: 'Descriptive text for screen readers and search engines',
-          type: 'altText',
-          name: 'altText'
-        })
-      ]
+      title: 'Media',
+      name: 'media',
+      type: 'media'
     }),
     defineField({
       title: 'Title',

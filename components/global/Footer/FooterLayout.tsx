@@ -4,12 +4,8 @@ import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { FooterPayload } from '@/components/global/Footer/hooks';
 import { MarketSelector } from '@/components/shared/MarketSelector';
-import { NavItem } from '@/components/shared/NavItem';
-import { NavSection } from '@/components/shared/NavSection';
 import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
 import { MarketValues, SKAI_URL } from '@/data/constants';
-import { HeadingAndLinksProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
 
 interface Props {
   data: FooterPayload;
@@ -20,6 +16,8 @@ interface Props {
 
 export function FooterLayout({ data: footer, dictionary, market, children }: Props) {
   if (!footer) return null;
+
+  console.log(dictionary);
 
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
@@ -41,7 +39,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
             {children}
           </div>
         </div>
-        {footer?.items?.map((item: HeadingAndLinksProps, index: number) => (
+        {/* {footer?.items?.map((item: HeadingAndLinksProps, index: number) => (
           <NavSection
             heading={item.heading}
             key={item.heading + index}
@@ -53,7 +51,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
               </li>
             ))}
           </NavSection>
-        ))}
+        ))} */}
         <div className="content col-span-2 lg:col-start-5 lg:justify-self-end">
           <NewsletterSignup
             klaviyoId={footer.klaviyoId}
@@ -62,7 +60,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
           />
         </div>
       </Container>
-      <div className="border-t border-brand-border py-6">
+      <div className="border-brand-border border-t py-6">
         <Container className="mx-auto flex w-full flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4">
           <Text size="sm">
             &copy; {copyrightDate} {copyrightName}
