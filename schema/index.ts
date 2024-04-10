@@ -60,6 +60,7 @@ import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
+import { timelineItem } from '@/schema/objects/timelineItem';
 import { updateItem } from '@/schema/objects/updateItem';
 import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
 import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
@@ -75,6 +76,7 @@ import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { shoePicker } from '@/schema/pageBuilderBlocks/shoePicker';
 import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
+import { timelineSection } from '@/schema/pageBuilderBlocks/timelineSection';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
@@ -111,6 +113,7 @@ const schema = [
   richText,
   richTextNatureLab,
   updateItem,
+  timelineItem,
   metadata,
   link,
   linkWithoutText,
@@ -150,6 +153,7 @@ const schema = [
   shoePicker,
   featuredShoe,
   uspExplainer,
+  timelineSection,
 
   // Product
   productType,

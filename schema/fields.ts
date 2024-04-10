@@ -209,6 +209,12 @@ export const pageBuilder = defineType({
       name: 'kastelClub'
     }),
     // Timeline
+    defineArrayMember({
+      title: 'Timeline',
+      type: 'reference',
+      to: [{ type: 'timelineSection' }],
+      name: 'timelineSection'
+    }),
     // FAQ section
     defineArrayMember({
       title: 'FAQ section',

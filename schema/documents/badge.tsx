@@ -9,7 +9,7 @@ export const badge = defineType({
   icon: Tag,
   preview: {
     select: {
-      title: 'title.no'
+      title: 'title.en'
     },
     prepare({ title }) {
       return {
@@ -22,7 +22,7 @@ export const badge = defineType({
     defineField({
       title: 'What is a badge?',
       description:
-        'A badge is a small piece of information that can be used to highlight something on product cards',
+        'A badge is a small piece of information that can be used to highlight something on product cards and above titles for example',
       name: 'myCustomNote',
       type: 'note',
       options: {

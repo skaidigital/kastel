@@ -3,6 +3,7 @@ import { group, list, listNew, singleton } from '@/lib/sanity/studioUtils';
 import {
   ArrowLineUp,
   Article,
+  Calendar,
   Check,
   Coins,
   Cookie,
@@ -126,7 +127,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         ),
         listNew({ S, title: 'Shoe picker', schemaType: 'shoePicker' }).icon(Sneaker),
         listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star),
-        listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes)
+        listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
+        listNew({ S, title: 'Timeline section', schemaType: 'timelineSection' }).icon(Calendar)
       ]).icon(Recycle),
       group(S, 'Settings', [
         singleton(S, 'SEO & Socials', 'settingsSEOAndSocials', 'settingsSEOAndSocials').icon(
