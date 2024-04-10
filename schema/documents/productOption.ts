@@ -12,8 +12,8 @@ export const productOption = defineType({
   icon: Square,
   preview: {
     select: {
-      title: 'title.no',
-      type: 'type.title.no',
+      title: 'title.en',
+      type: 'type.title.en',
       internal: 'internalUsedFor'
     },
     prepare({ title, type, internal }) {

@@ -6,6 +6,7 @@ import { blogPost } from '@/schema/documents/blogPost';
 import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
 import { faqBlock } from '@/schema/documents/faqBlock';
+import { hotspotImage } from '@/schema/documents/hotspotImage';
 import { legalPage } from '@/schema/documents/legalPage';
 import { natureLabLandingPage } from '@/schema/documents/natureLabLandingPage';
 import { natureLabSettings } from '@/schema/documents/natureLabSettings';
@@ -44,7 +45,6 @@ import { collectionImage } from '@/schema/objects/collectionImage';
 import { collectionProduct } from '@/schema/objects/collectionProduct';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
-import { hotspotImage } from '@/schema/objects/hotspotImage';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
@@ -52,7 +52,6 @@ import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
 import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
-import { productDescription } from '@/schema/objects/productDescription';
 import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
@@ -82,6 +81,7 @@ import { timelineSection } from '@/schema/pageBuilderBlocks/timelineSection';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
+import { defaultProductFAQS } from '@/schema/singletons/defaultProductFAQS';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
 import { merchandising } from '@/schema/singletons/merchandising';
@@ -130,10 +130,8 @@ const schema = [
   media,
   productDisplay,
   spot,
-  productDescription,
   aspectRatioSettings,
   sectionSettings,
-  hotspotImage,
   natureLabInnovationItem,
 
   // Page builder blocks (objects)
@@ -189,6 +187,7 @@ const schema = [
   blogPost,
   person,
   quote,
+  hotspotImage,
 
   // Singletons
   footer,
@@ -203,7 +202,8 @@ const schema = [
   settingsSEOAndSocials,
   settingsPaymentProviders,
   storeLocator,
-  pageNotFound
+  pageNotFound,
+  defaultProductFAQS
 ];
 
 export default schema;

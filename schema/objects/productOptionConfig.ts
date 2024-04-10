@@ -6,7 +6,7 @@ export const productOptionConfig = defineType({
   type: 'object',
   preview: {
     select: {
-      title: 'optionType.title.no',
+      title: 'optionType.title.en',
       options: 'options'
     },
     prepare: ({ title, options }) => {
@@ -30,6 +30,7 @@ export const productOptionConfig = defineType({
       title: 'Options',
       name: 'options',
       type: 'array',
+      validation: (Rule) => Rule.min(1),
       of: [
         defineField({
           title: 'Option',

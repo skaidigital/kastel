@@ -32,6 +32,12 @@ export const featuredShoe = defineType({
       }
     }),
     defineField({
+      title: 'Badge (optional)',
+      name: 'badge',
+      type: 'reference',
+      to: [{ type: 'badge' }]
+    }),
+    defineField({
       title: 'Shoe',
       name: 'shoe',
       type: 'reference',
@@ -39,11 +45,21 @@ export const featuredShoe = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Links to',
+      name: 'link',
+      type: 'link',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
       title: 'Content',
-      description: 'Images / Video / Hotspot images',
+      description: 'Add 2-5 images/video/hotspot images',
       name: 'content',
       type: 'array',
-      of: [{ type: 'hotspotImage' }]
+      of: [
+        { type: 'reference', title: 'Hotspot image', to: [{ type: 'hotspotImage' }] },
+        { type: 'media', title: 'Image / Video' }
+      ],
+      validation: (Rule) => Rule.min(2).max(5)
     })
   ]
 });

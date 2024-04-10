@@ -8,6 +8,7 @@ import {
   Coins,
   Cookie,
   CreditCard,
+  Crosshair,
   File,
   Folders,
   Gavel,
@@ -25,6 +26,7 @@ import {
   PaintBucket,
   Placeholder,
   Question,
+  QuestionMark,
   Quotes,
   Recycle,
   Signpost,
@@ -55,8 +57,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      listNew({ S, schemaType: 'blogPost', title: '✅ Blog posts' }).icon(Article),
-      listNew({ S, schemaType: 'legalPage', title: '✅ Legal pages' }).icon(Gavel),
+      listNew({ S, schemaType: 'blogPost', title: 'Blog posts' }).icon(Article),
+      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()
@@ -64,7 +66,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         .child(
           S.documentTypeList('product')
             .title('Products')
-            .defaultOrdering([{ field: 'title_eu', direction: 'asc' }])
+            .defaultOrdering([{ field: 'title.en', direction: 'asc' }])
             .apiVersion(SANITY_STUDIO_API_VERSION)
             .filter(`_type == 'product' `)
             .child((_id) =>
@@ -96,7 +98,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         )
         .icon(Sneaker),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
-      group(S, '(WIP) Nature Lab', [
+      group(S, 'Nature Lab', [
         listNew({ S, title: 'Landing page', schemaType: 'natureLabLandingPage' }).icon(File),
         listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
         listNew({ S, title: 'Phase 2 products', schemaType: 'phase2Product' }).icon(Sneaker),
@@ -128,7 +130,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Shoe picker', schemaType: 'shoePicker' }).icon(Sneaker),
         listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
-        listNew({ S, title: 'Timeline section', schemaType: 'timelineSection' }).icon(Calendar)
+        listNew({ S, title: 'Timeline section', schemaType: 'timelineSection' }).icon(Calendar),
+        listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
       ]).icon(Recycle),
       group(S, 'Settings', [
         singleton(S, 'SEO & Socials', 'settingsSEOAndSocials', 'settingsSEOAndSocials').icon(
@@ -149,7 +152,10 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Tag groups', schemaType: 'tagGroup' }).icon(Folders),
         listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag),
         listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets),
-        listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle)
+        listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle),
+        singleton(S, 'Default Product FAQs', 'defaultProductFAQS', 'defaultProductFAQS').icon(
+          QuestionMark
+        )
       ]).icon(Gear)
     ]);
 };

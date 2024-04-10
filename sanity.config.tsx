@@ -13,6 +13,7 @@ import { vercelDeployTool } from 'sanity-plugin-vercel-deploy';
 import { webhooks } from 'sanity-plugin-webhooks';
 import { presentationTool } from 'sanity/presentation';
 
+import { env } from '@/env';
 import { locate } from '@/lib/sanity/plugins/locate';
 import { productVariantBasedOnProduct } from '@/lib/sanity/templates';
 import { I18nFields } from 'sanity-plugin-i18n-fields';
@@ -109,6 +110,6 @@ export default defineConfig({
   title: 'Kastel',
   name: 'studio',
   projectId,
-  dataset: 'production',
+  dataset: env.NEXT_PUBLIC_SANITY_DATASET,
   plugins: [config()]
 });

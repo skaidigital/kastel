@@ -58,6 +58,18 @@ export const kastelClub = defineType({
       of: [
         {
           type: 'object',
+          preview: {
+            select: {
+              title: 'titleFront.en',
+              subtitle: 'descriptionFront.en'
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title || 'Untitled',
+                subtitle: subtitle || 'Untitled'
+              };
+            }
+          },
           fields: [
             defineField({
               title: 'Title front (before you click on desktop)',
@@ -78,16 +90,59 @@ export const kastelClub = defineType({
               validation: validateAllStringTranslations
             }),
             defineField({
-              title: 'Title back (before you click on desktop)',
+              title: 'Title back (after you click on desktop)',
               name: 'titleBack',
               type: 'i18n.string',
               validation: validateAllStringTranslations
             }),
             defineField({
-              title: 'Description back (before you click on desktop)',
+              title: 'Description back (after you click on desktop)',
               name: 'descriptionBack',
-              type: 'i18n.string',
+              type: 'i18n.text',
+              options: {
+                rows: 2
+              },
               validation: validateAllStringTranslations
+            }),
+            defineField({
+              title: 'Description list (optional)',
+              name: 'descriptionList',
+              type: 'array',
+              of: [
+                defineField({
+                  title: 'Item',
+                  name: 'item',
+                  type: 'object',
+                  preview: {
+                    select: {
+                      title: 'descriptionTerm.en',
+                      subtitle: 'descriptionDetails.en'
+                    },
+                    prepare({ title, subtitle }) {
+                      return {
+                        title: title || 'Untitled',
+                        subtitle: subtitle || 'Untitled'
+                      };
+                    }
+                  },
+                  fields: [
+                    defineField({
+                      title: 'Description term',
+                      description: "For example '10% off'",
+                      name: 'descriptionTerm',
+                      type: 'i18n.string',
+                      validation: validateAllStringTranslations
+                    }),
+                    defineField({
+                      title: 'Description details',
+                      description: "For example 'Earn 1000 Kastel Points'",
+                      name: 'descriptionDetails',
+                      type: 'i18n.string',
+                      validation: validateAllStringTranslations
+                    })
+                  ]
+                })
+              ]
             })
           ]
         }

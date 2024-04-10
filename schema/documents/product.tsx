@@ -5,13 +5,14 @@ import {
   i18nNumber,
   i18nSlug,
   i18nString,
-  isActiveProductValidation
+  isActiveProductValidation,
+  validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
-import { Sneaker } from '@phosphor-icons/react';
+import { Gear, Image, PaintBrush, Sneaker } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const product = defineType({
-  title: 'Produkt',
+  title: 'Product',
   name: 'product',
   type: 'document',
   icon: Sneaker,
@@ -23,13 +24,18 @@ export const product = defineType({
       icon: () => market.flag
     })),
     {
-      icon: () => '📝',
+      icon: PaintBrush,
       name: 'editorial',
       title: 'Editorial',
       default: true
     },
     {
-      icon: () => '⚙️',
+      icon: Image,
+      name: 'images',
+      title: 'Images'
+    },
+    {
+      icon: Gear,
       name: 'settings',
       title: 'Settings'
     }
@@ -53,32 +59,39 @@ export const product = defineType({
   ],
   fields: [
     defineField({
-      title: 'Gallery',
-      name: 'gallery',
-      type: 'gallery',
-      group: 'editorial',
-      validation: (Rule) => Rule.min(1).max(10)
-    }),
-    defineField({
       title: 'Main image',
       name: 'mainImage',
       type: 'figure',
-      group: 'editorial',
+      group: 'images',
       validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Lifestyle image (optional)',
       name: 'lifestyleImage',
       type: 'figure',
-      group: 'editorial',
+      group: 'images',
       description: 'This image will be shown when the user hovers over the product card'
+    }),
+    defineField({
+      title: 'Gallery - Female',
+      name: 'galleryFemale',
+      type: 'gallery',
+      group: 'images',
+      validation: (Rule) => Rule.min(1).max(10)
+    }),
+    defineField({
+      title: 'Gallery - Male',
+      name: 'galleryMale',
+      type: 'gallery',
+      group: 'images',
+      validation: (Rule) => Rule.min(1).max(10)
     }),
     defineField({
       title: 'Detail image (optional)',
       description: 'Add an image with a hotspot that will be shown below the product form',
       name: 'detailImage',
       type: 'figure',
-      group: 'editorial'
+      group: 'images'
     }),
     defineField({
       title: 'Hotspots for detail image (optional)',
@@ -92,6 +105,19 @@ export const product = defineType({
           tooltip: undefined
         }
       },
+      group: 'images'
+    }),
+    defineField({
+      title: 'Title',
+      name: 'title',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations,
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Subtitle (optional)',
+      name: 'subtitle',
+      type: 'i18n.string',
       group: 'editorial'
     }),
     defineField({
@@ -191,30 +217,6 @@ export const product = defineType({
         ]
       }
     }),
-    ...i18nField({
-      title: 'Title',
-      name: 'title',
-      type: 'string',
-      validation: isActiveProductValidation
-    }),
-    ...i18nField({
-      title: 'Subtitle (optional)',
-      name: 'subtitle',
-      type: 'string'
-    }),
-    ...i18nField({
-      title: 'Short description',
-      name: 'descriptionShort',
-      type: 'text',
-      rows: 2,
-      validation: isActiveProductValidation
-    }),
-    ...i18nField({
-      title: 'Long description',
-      name: 'descriptionLong',
-      type: 'descriptionDetailed',
-      validation: isActiveProductValidation
-    }),
     defineField({
       title: 'Product type',
       name: 'type',
@@ -226,7 +228,8 @@ export const product = defineType({
           title: type.name,
           value: type.id
         }))
-      }
+      },
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Options',
@@ -235,9 +238,19 @@ export const product = defineType({
       group: 'settings',
       hidden: ({ parent }) => parent?.type !== 'VARIABLE',
       validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.parent?.type === 'VARIABLE' && !value) {
+        Rule.custom((value: any, context: any) => {
+          const isSimpleProduct = context.parent?.type === 'SIMPLE';
+
+          if (isSimpleProduct) {
+            return true;
+          }
+
+          if (!value) {
             return 'Options are required';
+          }
+
+          if (value?.length < 1 || value?.length > 3) {
+            return 'You must have between 1 and 3 options';
           }
 
           return true;
@@ -345,30 +358,6 @@ export const product = defineType({
       hidden: ({ parent }) => parent?.type !== 'SIMPLE'
     }),
     defineField({
-      title: 'FAQs',
-      description: 'These will be added alongside the default FAQs set in settings',
-      name: 'faqs',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'question' }]
-        })
-      ],
-      group: 'editorial',
-      validation: (Rule) => Rule.max(20)
-    }),
-    defineField({
-      title: 'USPs',
-      description:
-        'The USPs that will displayed in the marquee on the top and below the product hero',
-      name: 'usps',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'usp' }] }],
-      validation: (Rule) => Rule.max(5),
-      group: 'editorial'
-    }),
-    defineField({
       title: 'Cross sell products in the cart drawer (optional)',
       description: 'Products that will be shown in the cart drawer as a cross sell',
       name: 'cartCrossSellProducts',
@@ -383,24 +372,6 @@ export const product = defineType({
         })
       ],
       validation: (Rule) => Rule.max(3)
-    }),
-    defineField({
-      title: 'Reccommended products (optional)',
-      name: 'reccommendedProducts',
-      description:
-        'Products that will be shown in a carousel on the product pages. If you do not choose any, we will use the default reccommended products set in merchandising under settings',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'product' }],
-          options: {
-            filter: filterAlreadyAddedReferences
-          }
-        })
-      ],
-      validation: (Rule) => Rule.max(12),
-      group: 'editorial'
     }),
     ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
     // ...i18nField({
@@ -468,27 +439,18 @@ export const product = defineType({
   ],
   preview: {
     select: {
-      isDeleted: 'isDeleted',
-      options: 'options',
-      productGallery: 'gallery',
-      productTypeGallery: 'productType.gallery',
-      productType: 'productType.title_no',
-      isActive: 'isActive',
-      title: 'title_no',
-      variants: 'variants',
+      mainImage: 'mainImage',
+      title: 'title.en',
       internalTitle: 'internalTitle'
     },
     prepare(selection) {
-      const { productGallery, productTypeGallery, productType, internalTitle } = selection;
+      const { mainImage, title, internalTitle } = selection;
 
-      const bestPreviewImage = productGallery?.at(0) || productTypeGallery?.at(0);
-
-      const bestTitle = internalTitle || 'No Internal title';
+      const bestTitle = internalTitle || title || 'Untitled';
 
       return {
-        subtitle: productType || '',
         title: bestTitle,
-        media: bestPreviewImage
+        media: mainImage
       };
     }
   }
