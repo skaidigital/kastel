@@ -197,7 +197,8 @@ export const METAFIELDS = {
   customer: {
     wishlist: {
       namespace: 'skai',
-      key: 'wishlist'
+      key: 'wishlist',
+      type: 'list.product_reference'
     }
   }
 };

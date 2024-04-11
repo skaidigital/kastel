@@ -18,7 +18,6 @@ import {
   Connection,
   CustomerAccessToken,
   CustomerWishlist,
-  MetafieldDelete,
   ShopifyAddDiscountCodeOperation,
   ShopifyAddToCartOperation,
   ShopifyCart,
@@ -30,7 +29,7 @@ import {
   ShopifyUpdateCartAttributesOperation,
   ShopifyUpdateCartOperation
 } from './types';
-import { deleteWishlistQuery, getWishlistQuery } from './wishlist/query';
+import { getWishlistQuery } from './wishlist/query';
 
 const domain = env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -275,14 +274,4 @@ export async function getWishlistForUser() {
   });
 
   return wishlistResponse.body.data?.customer?.metafield;
-}
-
-export async function deleteWishlistForUser({ gid }: { gid: string }) {
-  const deleteWishlistResponse = await shopifyFetch<MetafieldDelete>({
-    query: deleteWishlistQuery,
-    variables: { id: gid },
-    cache: 'no-store'
-  });
-
-  return deleteWishlistResponse;
 }
