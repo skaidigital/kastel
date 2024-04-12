@@ -32,6 +32,7 @@ export default async function Page() {
 
   const gid = 'gid://shopify/Product/8618931388645';
   const customerGid = 'gid://shopify/Customer/7742157848805';
+
   let removeItemResponse;
   let addItemResponse;
 
