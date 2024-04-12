@@ -1,4 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
+import { SmileButton } from '@/components/smile/Button';
+import { SMILE_DEEP_LINKS } from '@/data/constants';
 import { createCustomerAccessToken } from '@/lib/shopify';
 import {
   addItemToWishlist,
@@ -31,10 +33,10 @@ export default async function Page() {
   const isInWishlist = await isItemInWishlist(gid);
 
   if (isInWishlist) {
-    console.log('Item is in wishlist');
+    // console.log('Item is in wishlist');
     removeItemResponse = await removeItemFromWishlist(customerGid, gid);
   } else {
-    console.log('Item is not in wishlist');
+    // console.log('Item is not in wishlist');
     addItemResponse = await addItemToWishlist(customerGid, gid);
   }
 
@@ -47,6 +49,15 @@ export default async function Page() {
       <p>isItemInWishlistResponse: {String(isInWishlist)}</p>
       <p>addItemResponse: {addItemResponse || 'Not ran now'}</p>
       <p>removeItemResponse: {removeItemResponse || 'Not ran now'}</p>
+      <SmileButton deepLink={SMILE_DEEP_LINKS.home} label="Home" />
+      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Activity Rules" />
+      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Points Product" />
+      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Referral" />
+
+      {/* <OpenSmileHome />
+      <OpenSmileActivityRules />
+      <OpenSmilePointsProduct />
+      <OpenSmileReferral /> */}
     </div>
   );
 }

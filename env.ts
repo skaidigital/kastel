@@ -41,7 +41,8 @@ export const env = createEnv({
     NEXT_PUBLIC_SANITY_API_VERSION: z.string().min(1),
 
     //   Other
-    NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY: z.string().min(1)
+    NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY: z.string().min(1),
+    NEXT_PUBLIC_SMILE_CHANNEL_KEY: z.string().min(1)
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
@@ -51,7 +52,8 @@ export const env = createEnv({
     NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET,
     NEXT_PUBLIC_SANITY_API_VERSION: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
-    NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY: process.env.NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY
+    NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY: process.env.NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY,
+    NEXT_PUBLIC_SMILE_CHANNEL_KEY: process.env.NEXT_PUBLIC_SMILE_CHANNEL_KEY
   },
   isServer: typeof window === 'undefined'
 });

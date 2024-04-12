@@ -206,3 +206,12 @@ export const METAFIELDS = {
 export const SANITY_STUDIO_API_VERSION = 'v2023-08-01';
 
 export const HEADLESS_PUBLICATION_ID = 'gid://shopify/Publication/211462553912';
+
+export const SMILE_DEEP_LINKS = {
+  home: 'home',
+  points_activity_rules: 'points_activity_rules',
+  points_products: 'points_products',
+  referral_program_details: 'referral_program_details'
+} as const;
+
+export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_LINKS];
