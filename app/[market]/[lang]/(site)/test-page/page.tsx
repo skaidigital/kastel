@@ -22,7 +22,10 @@ export default async function Page() {
 
   const data = await getWishlist();
 
-  const getPoints = await getSmilePoints();
+  // Same as smile init const customerId = '7292377628922';
+  const email = 'olgaterese@gmail.com';
+
+  const getPoints = await getSmilePoints(email);
   console.log(getPoints);
 
   // console.log(data);
