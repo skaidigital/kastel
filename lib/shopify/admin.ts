@@ -16,7 +16,7 @@ export const shopifyAdminQuery = async (
   const accessToken = env.SHOPIFY_ADMIN_ACCESS_TOKEN;
   const graphQlEndpoint = env.SHOPIFY_GRAPHQL_API_ENDPOINT;
 
-  const URL = `${domain}/admin${graphQlEndpoint}`;
+  const URL = `https://${domain}/admin${graphQlEndpoint}`;
 
   const variables = data ?? null;
 
