@@ -40,8 +40,6 @@ export default async function Page() {
     addItemResponse = await addItemToWishlist(customerGid, gid);
   }
 
-  console.log(isInWishlist);
-
   return (
     <div className="flex flex-col">
       <SheetTest />
@@ -49,10 +47,11 @@ export default async function Page() {
       <p>isItemInWishlistResponse: {String(isInWishlist)}</p>
       <p>addItemResponse: {addItemResponse || 'Not ran now'}</p>
       <p>removeItemResponse: {removeItemResponse || 'Not ran now'}</p>
+      {/* <OpenSmileHome />  */}
       <SmileButton deepLink={SMILE_DEEP_LINKS.home} label="Home" />
       <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Activity Rules" />
-      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Points Product" />
-      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Referral" />
+      <SmileButton deepLink={SMILE_DEEP_LINKS.points_products} label="Points Product" />
+      <SmileButton deepLink={SMILE_DEEP_LINKS.referral_program_details} label="Referral" />
 
       {/* <OpenSmileHome />
       <OpenSmileActivityRules />

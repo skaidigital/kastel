@@ -9,13 +9,18 @@ interface SmileButtonProps {
 
 export const SmileButton = ({ deepLink, label }: SmileButtonProps) => {
   console.log('SmileButton');
+  const customerId = '123123';
 
+  //   SmileInit({ customerId });
   return (
     <button
       onClick={() => {
         console.log('Click ', deepLink);
-
-        window.SmileUI.openPanel({ deep_link: deepLink });
+        if (window.SmileUI) {
+          window.SmileUI.openPanel({ deep_link: deepLink });
+        } else {
+          console.log('SmileUI is not loaded and initialized.');
+        }
       }}
     >
       {label}
@@ -24,13 +29,28 @@ export const SmileButton = ({ deepLink, label }: SmileButtonProps) => {
 };
 
 // export function OpenSmileHome() {
-//   const customerId = '123123123123123';
+//   console.log('OpenSmileHome');
 
-//   SmileInit({ customerId });
+//   const customerId = '7292377628922';
+
+//   //   SmileInit({ customerId });
+//   if (window.SmileUI) {
+//     console.log('SmileUI is already loaded and initialized.');
+//   } else {
+//     console.log('SmileUI is not loaded and initialized.');
+//   }
 
 //   return (
 //     <button
 //       onClick={() => {
+//         console.log('Click Home');
+
+//         if (window.SmileUI) {
+//           console.log('SmileUI is already loaded and initialized.');
+//         } else {
+//           console.log('SmileUI is not loaded and initialized.');
+//         }
+
 //         window.SmileUI.openPanel({ deep_link: 'home' });
 //       }}
 //     >
