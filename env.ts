@@ -24,7 +24,8 @@ export const env = createEnv({
     KLAVIYO_API_KEY: z.string().min(1),
     //  Other
     RESEND_API_KEY: z.string().min(1),
-    GTM_ID: z.string().min(1)
+    GTM_ID: z.string().min(1),
+    SMILE_API_KEY: z.string().min(1)
   },
   client: {
     //   Base

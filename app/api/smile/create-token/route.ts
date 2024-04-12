@@ -1,13 +1,12 @@
+import { env } from '@/env';
 import jwt from 'jsonwebtoken';
-
-const SECRET_SMILE_PRIVATE_KEY = 'int_BTtWcvsm18Ard1LDAECZ';
 
 export async function POST(request: Request) {
   const { customer_id } = await request.json(); // This should be dynamically determined based on the logged-in user
 
   console.log(customer_id);
 
-  const private_key = SECRET_SMILE_PRIVATE_KEY;
+  const private_key = env.SMILE_API_KEY;
 
   try {
     const payload = {

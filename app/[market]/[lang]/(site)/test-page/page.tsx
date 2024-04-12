@@ -1,5 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import { SmileButton } from '@/components/smile/Button';
+import { getSmilePoints } from '@/components/smile/hooks';
 import { SMILE_DEEP_LINKS } from '@/data/constants';
 import { createCustomerAccessToken } from '@/lib/shopify';
 import {
@@ -20,6 +21,10 @@ export default async function Page() {
   }
 
   const data = await getWishlist();
+
+  const getPoints = await getSmilePoints();
+  console.log(getPoints);
+
   // console.log(data);
 
   //! This one deletes the wishlist
@@ -47,6 +52,7 @@ export default async function Page() {
       <p>isItemInWishlistResponse: {String(isInWishlist)}</p>
       <p>addItemResponse: {addItemResponse || 'Not ran now'}</p>
       <p>removeItemResponse: {removeItemResponse || 'Not ran now'}</p>
+      <p>getPoints: {JSON.stringify(getPoints) || ''}</p>
       {/* <OpenSmileHome />  */}
       <SmileButton deepLink={SMILE_DEEP_LINKS.home} label="Home" />
       <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Activity Rules" />
