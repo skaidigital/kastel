@@ -1,4 +1,5 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
+import { getLipscoreReviews } from '@/components/lipscore/hook';
 import { SmileButton } from '@/components/smile/Button';
 import { getSmilePoints } from '@/components/smile/hooks';
 import { SMILE_DEEP_LINKS } from '@/data/constants';
@@ -24,17 +25,23 @@ export default async function Page() {
 
   // Same as smile init const customerId = '7292377628922';
   const email = 'olgaterese@gmail.com';
+  const customerGid = 'gid://shopify/Customer/7742157848805';
+  const gid = 'gid://shopify/Product/8618931388645';
+  const productSku = 'SOL002-002-021-40';
 
   const getPoints = await getSmilePoints(email);
+
   console.log(getPoints);
+
+  //
+  const getProductRating = await getLipscoreReviews(productSku);
+
+  console.log(getProductRating);
 
   // console.log(data);
 
   //! This one deletes the wishlist
   // await deleteWishlist();
-
-  const gid = 'gid://shopify/Product/8618931388645';
-  const customerGid = 'gid://shopify/Customer/7742157848805';
 
   let removeItemResponse;
   let addItemResponse;

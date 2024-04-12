@@ -25,7 +25,9 @@ export const env = createEnv({
     //  Other
     RESEND_API_KEY: z.string().min(1),
     GTM_ID: z.string().min(1),
-    SMILE_API_KEY: z.string().min(1)
+    SMILE_API_KEY: z.string().min(1),
+    LIPSCORE_API_KEY: z.string().min(1),
+    LIPSCORE_API_SECRET: z.string().min(1)
   },
   client: {
     //   Base
