@@ -7,10 +7,6 @@ import {
 import { MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { loadQuery } from '@/lib/sanity/store';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
-
-const CookieConsentPreview = dynamic(() => import('./CookieConsentPreview'));
 
 async function loadCookieConsent(market: MarketValues) {
   const query = getCookieConsentQuery(market);
@@ -22,10 +18,6 @@ export async function CookieConsent() {
   const market = (await getMarket()) as MarketValues;
   const initial = await loadCookieConsent(market);
   const dictionary = await getDictionary();
-
-  if (draftMode().isEnabled) {
-    return <CookieConsentPreview initial={initial} market={market} dictionary={dictionary} />;
-  }
 
   return <CookieConsentLayout data={initial.data} dictionary={dictionary} />;
 }

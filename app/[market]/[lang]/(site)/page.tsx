@@ -5,10 +5,6 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
-
-const PagePreview = dynamic(() => import('@/components/pages/PageLayout/PagePreview'));
 
 function loadHomePage(market: MarketValues) {
   const query = getPageQuery(market);
@@ -23,15 +19,11 @@ export default async function HomePage({
 }) {
   const initial = await loadHomePage(market);
 
-  if (draftMode().isEnabled) {
-    return <PagePreview params={{ slug: 'home' }} initial={initial} market={market} />;
-  }
-
   const pageWithoutNullValues = nullToUndefined(initial.data);
   // pageValidator.parse(pageWithoutNullValues);
 
   // return <PageLayout data={pageWithoutNullValues} market={market} />;
-  return <div>Home page</div>;
+  return <div className="h-dvh">Home page</div>;
 }
 
 export async function generateMetadata({

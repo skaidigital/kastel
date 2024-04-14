@@ -28,7 +28,7 @@ export type NavbarPayload = z.infer<typeof navbarValidator>;
 export function getNavbarQuery(market: MarketValues) {
   const query = groq`
   *[_type == "navbar"][0] {
-    items[]{
+    "items": items_${market}[]{
       _type == "meganav" => {
         "type": _type,
         "title": title.${market},

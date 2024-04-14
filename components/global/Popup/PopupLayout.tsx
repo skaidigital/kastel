@@ -9,6 +9,7 @@ import { hasSeenPopup } from '@/components/global/Popup/actions';
 import { PopupPayload } from '@/components/global/Popup/hooks';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { useDeviceType } from '@/lib/useDeviceType';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import * as Dialog from '@radix-ui/react-dialog';
 import { EncodeDataAttributeCallback } from '@sanity/react-loader';
@@ -34,10 +35,7 @@ export function PopupLayout({ data, encodeDataAttribute }: Props) {
     await hasSeenPopup();
     setIsOpen(false);
   }
-
-  const isClient = typeof window !== 'undefined';
-  const isMobile = isClient && window.innerWidth < 768;
-  const isDesktop = isClient && window.innerWidth >= 768;
+  const { isDesktop } = useDeviceType();
 
   if (isDesktop) {
     return (
@@ -61,7 +59,7 @@ export function PopupLayout({ data, encodeDataAttribute }: Props) {
               </div>
             </div>
             <div className="flex flex-col justify-between bg-white p-8">
-              {!isMobile && (
+              {isDesktop && (
                 <Dialog.Close asChild>
                   <Button onClick={handlePopupClose} variant="ghost" size="icon" className="p-1">
                     <XMarkIcon className="size-6" />

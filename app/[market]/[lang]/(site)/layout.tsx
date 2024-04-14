@@ -13,7 +13,7 @@ import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
-import { PopupHandler } from '@/components/global/PopupHandler';
+import { Navbar } from '@/components/global/Navbar';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -42,15 +42,15 @@ export default function IndexRoute({
         <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
           <Providers>
             <div>
-              <Suspense>
+              {/* <Suspense>
                 <PopupHandler />
-              </Suspense>
+              </Suspense> */}
               <Suspense fallback={<Skeleton className="h-11 w-full" />}>
                 <AnnouncementBanner />
               </Suspense>
-              {/* <Suspense>
-                <Navbar />
-              </Suspense> */}
+              <Suspense>
+                <Navbar market={market} />
+              </Suspense>
               {/* <Suspense fallback={<Skeleton className="h-dvh max-h-dvh w-full" />}> */}
               <main>
                 {children}

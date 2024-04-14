@@ -18,23 +18,23 @@ interface Props {
 
 export function DesktopMenu({ items, className }: Props) {
   return (
-    <NavigationMenu.Root className={cn('z-10 flex w-screen justify-center', className)}>
+    <NavigationMenu.Root className={cn('z-10 flex justify-center', className)}>
       <NavigationMenu.List className="center m-0 flex list-none items-center bg-white">
         {items?.map((item) => {
           if (item.type === 'link') {
             return (
               <NavigationMenu.Item key={item.text} className="pr-5">
                 <NavigationMenu.Link asChild>
-                  <Link href={getSlug(item)}>{item.text}</Link>
+                  <Link className="text-text-sm" href={getSlug(item)}>
+                    {item.text}
+                  </Link>
                 </NavigationMenu.Link>
               </NavigationMenu.Item>
             );
           }
           if (item.type === 'meganav') {
-            const featuredItemCount = item.featuredProducts?.length;
-
             return (
-              <NavigationMenu.Item key={item.title} className="pr-5">
+              <NavigationMenu.Item key={item.title} className="text-text-sm pr-5">
                 <NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-[2px] rounded-project text-brand-dark-grey outline-none">
                   {item.title}{' '}
                   <CaretDownIcon
@@ -44,9 +44,9 @@ export function DesktopMenu({ items, className }: Props) {
                 </NavigationMenu.Trigger>
                 <NavigationMenu.Content className="sm:w-auto absolute left-0 top-0 w-screen data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft">
                   <Container>
-                    <NavigationMenu.Sub className="grid grid-cols-5 gap-x-5 p-10">
+                    <NavigationMenu.Sub className="grid grid-cols-4 gap-4 p-8">
                       {item?.links?.map((link) => (
-                        <div className="flex flex-col" key={link.heading}>
+                        <div className="row-start-1 flex w-full flex-col" key={link.heading}>
                           <Heading
                             size="sm"
                             className="mb-5 translate-y-[-10px] animate-fade-in-text text-left text-brand-dark-grey opacity-0 transition-[opacity] [--animation-delay:300ms]"
@@ -60,7 +60,7 @@ export function DesktopMenu({ items, className }: Props) {
                                   <SanityLink
                                     link={link}
                                     className={cn(
-                                      'transition-brand w-fit translate-y-[-10px] animate-fade-in-text opacity-0 transition-[opacity,color] hover:text-brand-mid-grey hover:duration-100 hover:ease-in-out',
+                                      'text-text-sm transition-brand w-fit translate-y-[-10px] animate-fade-in-text opacity-0 transition-[opacity,color] hover:duration-100 hover:ease-in-out',
                                       index === 0 && '[--animation-delay:600ms]',
                                       index === 1 && '[--animation-delay:700ms]',
                                       index === 2 && '[--animation-delay:800ms]',
@@ -81,10 +81,7 @@ export function DesktopMenu({ items, className }: Props) {
                       {item.featuredProducts?.map((product, index) => (
                         <FeaturedItem
                           className={cn(
-                            'shrink-0 translate-y-[-10px] animate-fade-in-text opacity-0 transition-[opacity] [--animation-delay:600ms]',
-                            index === 0 && featuredItemCount === 2 && 'col-start-4',
-                            index === 1 && featuredItemCount === 2 && 'col-start-5',
-                            featuredItemCount === 1 && 'col-start-5'
+                            'row-start-2 shrink-0 translate-y-[-10px] animate-fade-in-text opacity-0 transition-[opacity] [--animation-delay:600ms]'
                           )}
                           key={product.title}
                           title={product.title}
@@ -104,7 +101,7 @@ export function DesktopMenu({ items, className }: Props) {
       </NavigationMenu.List>
 
       <div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
-        <NavigationMenu.Viewport className="sm:w-[var(--radix-navigation-menu-viewport-width)] relative mt-[1px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden border-b border-brand-border bg-white transition-[width,_height] duration-300 data-[state=closed]:animate-menu-slide-up data-[state=open]:animate-menu-slide-down" />
+        <NavigationMenu.Viewport className="sm:w-[var(--radix-navigation-menu-viewport-width)] border-brand-border relative mt-[1px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden border-b bg-white/80 backdrop-blur-lg transition-[width,_height] duration-300 data-[state=closed]:animate-menu-slide-up data-[state=open]:animate-menu-slide-down" />
       </div>
     </NavigationMenu.Root>
   );

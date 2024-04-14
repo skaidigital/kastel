@@ -8,10 +8,6 @@ import { CACHE_TAGS, MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
-
-const AnnouncementBannerPreview = dynamic(() => import('./Preview'));
 
 function loadAnnouncementBanner(market: MarketValues) {
   const query = getAnnouncementBannerQuery(market);
@@ -27,12 +23,12 @@ export async function AnnouncementBanner() {
   const market = await getMarket();
   const initial = await loadAnnouncementBanner(market);
 
-  if (draftMode().isEnabled) {
-    return <AnnouncementBannerPreview initial={initial} market={market} />;
+  const dataWithoutNullValues = nullToUndefined(initial.data);
+  const validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
+
+  if (!validatedData.success) {
+    return null;
   }
 
-  const dataWithoutNullValues = nullToUndefined(initial.data);
-  const validatedData = announcementBannerValidator.parse(dataWithoutNullValues);
-
-  return <AnnouncementBannerLayout data={validatedData} />;
+  return <AnnouncementBannerLayout data={validatedData.data} />;
 }

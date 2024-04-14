@@ -12,13 +12,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-
-const CollectionPreview = dynamic(
-  () => import('components/pages/CollectionPage/CollectionPreview')
-);
 
 export async function generateStaticParams() {
   const slugs = await generateStaticSlugs('collection');
@@ -68,18 +62,6 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     collectionBaseWithoutNullValues,
     collectionProductsWithoutNullValues
   );
-
-  if (draftMode().isEnabled) {
-    return (
-      <CollectionPreview
-        params={params}
-        initialBase={initialBase}
-        intialProducts={initialProducts}
-        market={market}
-        currentPage={currentPage}
-      />
-    );
-  }
 
   if (!initialBase.data) {
     notFound();

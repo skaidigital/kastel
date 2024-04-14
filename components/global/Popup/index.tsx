@@ -4,10 +4,6 @@ import { MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
-
-const PopupPreview = dynamic(() => import('./PopupPreview'));
 
 function loadPopup(market: MarketValues) {
   const query = getPopupQuery(market);
@@ -21,10 +17,6 @@ export async function Popup() {
 
   if (!initial.data.isShown) {
     return null;
-  }
-
-  if (draftMode().isEnabled) {
-    return <PopupPreview initial={initial} market={market} />;
   }
 
   const withoutNullValues = nullToUndefined(initial.data);
