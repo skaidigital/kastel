@@ -1,3 +1,4 @@
+import { ASPECT_RATIOS } from '@/data/constants';
 import { defineField, defineType } from 'sanity';
 
 export const aspectRatioSettings = defineType({
@@ -18,13 +19,7 @@ export const aspectRatioSettings = defineType({
       type: 'string',
       initialValue: '16:9',
       options: {
-        list: [
-          { title: '16:9', value: '16:9' },
-          { title: '4:3', value: '4:3' },
-          { title: '21:9', value: '21:9' },
-          { title: '9:16', value: '9:16' },
-          { title: '3:4', value: '3:4' }
-        ]
+        list: ASPECT_RATIOS
       },
       validation: (Rule) =>
         Rule.custom((aspectRatio, context: any) => {
@@ -44,11 +39,7 @@ export const aspectRatioSettings = defineType({
       type: 'string',
       initialValue: '16:9',
       options: {
-        list: [
-          { title: '16:9', value: '16:9' },
-          { title: '4:3', value: '4:3' },
-          { title: '21:9', value: '21:9' }
-        ]
+        list: ASPECT_RATIOS
       },
       validation: (Rule) =>
         Rule.custom((aspectRatioDesktop, context: any) => {
@@ -68,10 +59,7 @@ export const aspectRatioSettings = defineType({
       type: 'string',
       initialValue: '9:16',
       options: {
-        list: [
-          { title: '9:16', value: '9:16' },
-          { title: '3:4', value: '3:4' }
-        ]
+        list: ASPECT_RATIOS
       },
       validation: (Rule) =>
         Rule.custom((aspectRatioDesktop, context: any) => {

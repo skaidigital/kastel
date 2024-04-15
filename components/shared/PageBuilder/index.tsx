@@ -1,5 +1,5 @@
 import { AccordionSection } from '@/components/shared/PageBuilder/AccordionSection';
-import { CardGrid } from '@/components/shared/PageBuilder/CardGrid';
+import { CardSection } from '@/components/shared/PageBuilder/CardSection';
 import { ContactForm } from '@/components/shared/PageBuilder/ContactForm';
 import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
@@ -20,14 +20,14 @@ const blockTypes: BlockType = {
   hero: Hero,
   // New blocks start
   featuredCollection: FeaturedCollection,
+  cardSection: CardSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,
   accordionSection: AccordionSection,
   contactForm: ContactForm,
   instagramFeed: InstagramFeed,
-  productListing: ProductListing,
-  cardGrid: CardGrid
+  productListing: ProductListing
 };
 
 interface Props {

@@ -15,7 +15,7 @@ export function Media({ media, loading }: Props) {
   if (typeIsImage && sameAssetForMobileAndDesktop) {
     return (
       <SanityImage
-        priority={loading === 'eager'}
+        priority={loading === 'eager' ? true : false}
         image={media.image}
         className="absolute inset-0 -z-10 h-full w-full object-cover"
         sizes="100vw"
@@ -28,14 +28,14 @@ export function Media({ media, loading }: Props) {
     return (
       <>
         <SanityImage
-          priority={loading === 'eager'}
+          priority={loading === 'eager' ? true : false}
           image={media.imageMobile}
           className="absolute inset-0 -z-10 h-full w-full object-cover lg:hidden"
           sizes="100vw"
           fill
         />
         <SanityImage
-          priority={loading === 'eager'}
+          priority={loading === 'eager' ? true : false}
           image={media.imageDesktop}
           className="absolute inset-0 -z-10 hidden h-full w-full object-cover lg:block"
           sizes="100vw"

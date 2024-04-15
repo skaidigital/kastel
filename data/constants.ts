@@ -1,3 +1,5 @@
+import { AspectRatios } from '@/lib/sanity/types';
+
 // Routes
 export const ROUTES = {
   HOME: '/',
@@ -219,3 +221,11 @@ export const SMILE_DEEP_LINKS = {
 } as const;
 
 export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_LINKS];
+
+export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
+  { title: '16:9', value: '16:9' },
+  { title: '4:3', value: '4:3' },
+  { title: '21:9', value: '21:9' },
+  { title: '9:16', value: '9:16' },
+  { title: '3:4', value: '3:4' }
+];

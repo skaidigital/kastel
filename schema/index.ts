@@ -42,8 +42,11 @@ import {
 } from '@/schema/fields';
 import { address } from '@/schema/objects/address';
 import { aspectRatioSettings } from '@/schema/objects/aspectRatioSettings';
+import { card } from '@/schema/objects/card';
+import { cardBlock } from '@/schema/objects/cardBlock';
 import { collectionImage } from '@/schema/objects/collectionImage';
 import { collectionProduct } from '@/schema/objects/collectionProduct';
+import { conditionalLink } from '@/schema/objects/conditionalLink';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
 import { link } from '@/schema/objects/link';
@@ -137,6 +140,8 @@ const schema = [
   sectionSettings,
   natureLabInnovationItem,
   natureLabProductStatusItem,
+  card,
+  conditionalLink,
 
   // Page builder blocks (objects)
   hero,
@@ -148,11 +153,11 @@ const schema = [
   featuredCollection,
   emailCapture,
   natureLabInnovationSection,
+  cardSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
   ugcs,
-  cardSection,
   kastelClub,
   shopOurModels,
   natureLabExplainer,
@@ -160,6 +165,7 @@ const schema = [
   featuredShoe,
   uspExplainer,
   timelineSection,
+  cardBlock,
 
   // Product
   productType,

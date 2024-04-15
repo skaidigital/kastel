@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
 // # Simple types
+export const pageTypes = z.enum(['home', 'page', 'product', 'collection', 'storeLocator']);
+
 export const linkToValidator = z.object({
-  type: z.enum(['page', 'product', 'collection', 'storeLocator']),
+  type: pageTypes,
   slug: z.string()
 });
 
@@ -117,12 +119,14 @@ export const SEOAndSocialsValidator = z.object({
 
 const sameAssetImageValidator = z.object({
   type: z.literal('image'),
+  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(true),
   image: imageValidator
 });
 
 const differentAssetImageValidator = z.object({
   type: z.literal('image'),
+  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(false),
   imageMobile: imageValidator,
   imageDesktop: imageValidator
@@ -130,12 +134,14 @@ const differentAssetImageValidator = z.object({
 
 const sameAssetVideoValidator = z.object({
   type: z.literal('video'),
+  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(true),
   video: videoValidator
 });
 
 const differentAssetVideoValidator = z.object({
   type: z.literal('video'),
+  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(false),
   videoMobile: videoValidator,
   videoDesktop: videoValidator
@@ -147,3 +153,48 @@ export const mediaValidator = z.union([
   sameAssetVideoValidator,
   differentAssetVideoValidator
 ]);
+
+export const aspectRatiosValidator = z.enum(['16:9', '4:3', '21:9', '9:16', '3:4']);
+
+const sameAspectRatioSettingsValidator = z.object({
+  sameAspectRatio: z.literal(true),
+  aspectRatio: aspectRatiosValidator
+});
+
+const differentAspectRatioSettingsValidator = z.object({
+  sameAspectRatio: z.literal(false),
+  aspectRatioMobile: aspectRatiosValidator,
+  aspectRatioDesktop: aspectRatiosValidator
+});
+
+export const aspectRatioSettingsValidator = z.union([
+  sameAspectRatioSettingsValidator,
+  differentAspectRatioSettingsValidator
+]);
+
+const internalLinkValidator = z.object({
+  type: z.literal('internal'),
+  text: z.string(),
+  linkTo: linkToValidator
+});
+
+const externalLinkValidator = z.object({
+  type: z.literal('external'),
+  text: z.string(),
+  href: z.string().url()
+});
+
+const hasLinkValidator = z.union([
+  internalLinkValidator.extend({
+    hasLink: z.literal(true)
+  }),
+  externalLinkValidator.extend({
+    hasLink: z.literal(true)
+  })
+]);
+
+const noLinkValidator = z.object({
+  hasLink: z.literal(false)
+});
+
+export const conditionalLinkValidator = z.union([hasLinkValidator, noLinkValidator]);

@@ -1,8 +1,11 @@
 import { MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import {
+  aspectRatioSettingsValidator,
+  conditionalLinkValidator,
   imageValidator,
   linkToValidator,
+  mediaValidator,
   portableTextValidator,
   productCardValidator,
   richTextValidator
@@ -83,7 +86,7 @@ const heroValidator = z.object({
   imageDesktop: imageValidator.optional()
 });
 
-const mediaValidator = z.any();
+// New validators start
 
 const featuredCollectionValidator = z.object({
   type: z.literal('featuredCollection'),
@@ -96,6 +99,21 @@ const featuredCollectionValidator = z.object({
   slug: z.string(),
   sectionSettings: sectionSettingsValidator
 });
+
+const cardSectionValidator = z.object({
+  type: z.literal('cardSection'),
+  key: z.string(),
+  cards: z.array(
+    z.object({
+      link: conditionalLinkValidator,
+      media: mediaValidator
+    })
+  ),
+  aspectRatioSettings: aspectRatioSettingsValidator,
+  sectionSettings: sectionSettingsValidator
+});
+
+// New validators end
 
 const textAndImageValidator = z.object({
   type: z.literal('textAndImage'),
@@ -235,23 +253,11 @@ export const cardValidator = z.discriminatedUnion('type', [
 
 export type CardProps = z.infer<typeof cardValidator>;
 
-const cardGridValidator = z.object({
-  type: z.literal('cardGrid'),
-  key: z.string(),
-  title: z.string().optional(),
-  cards: z.array(cardValidator),
-  padding: paddingValidator,
-  aspectRatioDesktop: z.union([z.literal('16:9'), z.literal('4:3'), z.literal('21:9')]),
-  aspectRatioMobile: z.union([z.literal('9:16'), z.literal('3:4')]),
-  hasTopPadding: z.boolean(),
-  hasBottomPadding: z.boolean(),
-  hasBottomBorder: z.boolean()
-});
-
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   heroValidator,
   // New blocks start
   featuredCollectionValidator,
+  cardSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -259,7 +265,6 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   accordionSectionValidator,
   productListingValidator,
   collectionListingValidator,
-  cardGridValidator,
   contactFormValidator,
   instagramFeedValidator
 ]);
@@ -269,6 +274,7 @@ export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
 export type HeroProps = z.infer<typeof heroValidator>;
 // Start new validators
 export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
+export type CardSectionProps = z.infer<typeof cardSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -276,7 +282,6 @@ export type PageTitleProps = z.infer<typeof pageTitleValidator>;
 export type TextSectionProps = z.infer<typeof textSectionValidator>;
 export type ProductListingProps = z.infer<typeof productListingValidator>;
 export type CollectionListingProps = z.infer<typeof collectionListingValidator>;
-export type CardGridProps = z.infer<typeof cardGridValidator>;
 export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
 export type PageBuilder = z.infer<typeof pageBuilderValidator>;
 export type AccordionSectionProps = z.infer<typeof accordionSectionValidator>;
@@ -326,6 +331,25 @@ export const PAGE_BUILDER_TYPES: {
      ${fragments.getMedia(market)}
     },
     "buttonText": buttonText.${market},
+    sectionSettings{
+      ${fragments.sectionSettings}
+    }
+  `,
+  cardSection: (market) => `
+    ${fragments.base},
+    ...cardBlock->{
+      "cards": cards[]{
+        "link": link{
+          ${fragments.getConditionalLink(market)}
+        },
+        "media": media{
+          ${fragments.getMedia(market)}
+        }
+      },
+      aspectRatioSettings{
+        ${fragments.aspectRatioSettings}
+      },
+    },
     sectionSettings{
       ${fragments.sectionSettings}
     }
@@ -402,19 +426,6 @@ export const PAGE_BUILDER_TYPES: {
    hasBottomPadding,
    hasBottomBorder
  `,
-  cardGrid: (market) => `
-    ${fragments.base},
-    "title": title.${market},
-    cards[]->{
-      ${fragments.getCard(market)}
-    },
-    aspectRatioDesktop,
-    aspectRatioMobile,
-    padding,
-    hasTopPadding,
-    hasBottomPadding,
-    hasBottomBorder
-  `,
   contactForm: () => `
     ${fragments.base},
     padding,

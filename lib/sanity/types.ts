@@ -1,5 +1,8 @@
 import {
   SEOAndSocialsValidator,
+  aspectRatioSettingsValidator,
+  aspectRatiosValidator,
+  conditionalLinkValidator,
   galleryValidator,
   headingAndLinksValidator,
   imageValidator,
@@ -7,6 +10,7 @@ import {
   linkValidator,
   linkWithoutTextValidator,
   mediaValidator,
+  pageTypes,
   productCardValidator,
   richTextValidator
 } from '@/lib/sanity/validators';
@@ -38,3 +42,7 @@ export type DesktopImageAspectRatio = '16:9' | '4:3' | '21:9';
 export type GalleryProps = z.infer<typeof galleryValidator>;
 
 export type MediaProps = z.infer<typeof mediaValidator>;
+export type AspectRatios = z.infer<typeof aspectRatiosValidator>;
+export type AspectRatioSettingsProps = z.infer<typeof aspectRatioSettingsValidator>;
+export type ConditionalLinkProps = z.infer<typeof conditionalLinkValidator>;
+export type PageTypes = z.infer<typeof pageTypes>;

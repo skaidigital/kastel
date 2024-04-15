@@ -4,7 +4,7 @@ import { defineField, defineType } from 'sanity';
 export const cardSection = defineType({
   title: 'Card section',
   name: 'cardSection',
-  type: 'document',
+  type: 'object',
   icon: GridFour,
   preview: {
     prepare() {
@@ -16,17 +16,17 @@ export const cardSection = defineType({
   },
   fields: [
     defineField({
-      title: 'Aspect ratio settings',
-      name: 'aspectRatioSettings',
-      type: 'aspectRatioSettings'
+      title: 'Cards',
+      name: 'cardBlock',
+      type: 'reference',
+      to: [{ type: 'cardBlock' }],
+      validation: (Rule) => Rule.required()
     }),
     defineField({
-      title: 'Cards',
-      description: 'Create 2-3 cards',
-      name: 'cards',
-      type: 'array',
-      of: [{ type: 'media' }],
-      validation: (Rule) => Rule.min(2).max(3)
+      title: 'Section settings',
+      name: 'sectionSettings',
+      type: 'sectionSettings',
+      validation: (Rule) => Rule.required()
     })
   ]
 });

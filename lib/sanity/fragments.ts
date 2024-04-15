@@ -261,3 +261,25 @@ export const sectionSettings = groq`
   hasBottomPadding,
   hasBottomBorder
 `;
+
+export const aspectRatioSettings = groq`
+  sameAspectRatio,
+  aspectRatio,
+  aspectRatioMobile,
+  aspectRatioDesktop
+`;
+
+export function getConditionalLink(market: MarketValues) {
+  return groq`
+    type,
+    hasLink,
+    "text": text.${market},
+    type == "internal" => {
+      ${getLinkTo(market)}
+    },
+    type == "external" => {
+       href
+    },
+    openInNewTab
+`;
+}
