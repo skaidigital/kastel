@@ -1,3 +1,4 @@
+import countries from '@/data/countries';
 import { defineField, defineType } from 'sanity';
 
 export const address = defineType({
@@ -28,7 +29,7 @@ export const address = defineType({
         })
     }),
     defineField({
-      title: 'Address 2',
+      title: 'Address 2 (optional)',
       name: 'address2',
       type: 'string',
       fieldset: 'address'
@@ -64,23 +65,17 @@ export const address = defineType({
       name: 'country',
       type: 'string',
       fieldset: 'address',
+      options: {
+        list: countries.map((country) => ({
+          title: country.label,
+          value: country.value
+        }))
+      },
+      initialValue: 'NO',
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.document.differentInvoiceAddress && !value) {
             return 'Land er påkrevd';
-          }
-          return true;
-        })
-    }),
-    defineField({
-      title: 'Phone number',
-      name: 'phoneNumber',
-      type: 'string',
-      fieldset: 'address',
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.document.differentInvoiceAddress && !value) {
-            return 'Telefonnummer er påkrevd';
           }
           return true;
         })

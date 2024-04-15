@@ -22,6 +22,7 @@ import { productType } from '@/schema/documents/productType';
 import { question } from '@/schema/documents/question';
 import { quote } from '@/schema/documents/quote';
 import { redirect } from '@/schema/documents/redirect';
+import { retailer } from '@/schema/documents/retailer';
 import { tag } from '@/schema/documents/tag';
 import { tagGroup } from '@/schema/documents/tagGroup';
 import { usp } from '@/schema/documents/usp';
@@ -88,6 +89,7 @@ import { helpCenter } from '@/schema/singletons/helpCenter';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
 import { popup } from '@/schema/singletons/popup';
+import { retailersPage } from '@/schema/singletons/retailersPage';
 import { settingsPaymentProviders } from '@/schema/singletons/settingsPaymentProviders';
 import { settingsSEOAndSocials } from '@/schema/singletons/settingsSEOAndSocials';
 import { storeLocator } from '@/schema/singletons/storeLocator';
@@ -190,6 +192,7 @@ const schema = [
   person,
   quote,
   hotspotImage,
+  retailer,
 
   // Singletons
   footer,
@@ -205,7 +208,8 @@ const schema = [
   settingsPaymentProviders,
   storeLocator,
   pageNotFound,
-  defaultProductFAQS
+  defaultProductFAQS,
+  retailersPage
 ];
 
 export default schema;

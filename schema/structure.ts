@@ -35,6 +35,7 @@ import {
   Square,
   SquareHalfBottom,
   Star,
+  Storefront,
   Tag,
   Trophy,
   User,
@@ -133,6 +134,10 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Timeline section', schemaType: 'timelineSection' }).icon(Calendar),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
       ]).icon(Recycle),
+      group(S, 'Retailers', [
+        singleton(S, 'Retailers page', 'retailersPage', 'retailersPage').icon(File),
+        listNew({ S, title: 'Retailers', schemaType: 'retailer' }).icon(Storefront)
+      ]).icon(Storefront),
       group(S, 'Settings', [
         singleton(S, 'SEO & Socials', 'settingsSEOAndSocials', 'settingsSEOAndSocials').icon(
           GoogleLogo
