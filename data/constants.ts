@@ -25,7 +25,9 @@ export const CACHE_TAGS = {
   PAYMENT_PROVIDERS: 'paymentProviders',
   NAVBAR: 'navbar',
   FOOTER: 'footer',
-  METADATA: 'settingsSEOAndSocials'
+  POPUP: 'popup',
+  METADATA: 'settingsSEOAndSocials',
+  COOKIE_CONSENT: 'cookieConsent'
 };
 
 export const SCHEMA_NAMES = {

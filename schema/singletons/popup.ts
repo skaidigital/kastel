@@ -1,15 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { validateAllStringsIfTypeIs } from '@/lib/sanity/studioUtils';
 import { MegaphoneSimple } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
-
-const validateAllStringsIfTypeIs = (type: string) => (Rule: any) =>
-  Rule.custom((value: any, context: any) => {
-    if (context.parent.type === type) {
-      return validateAllStringTranslations(Rule)(value);
-    }
-
-    return true;
-  });
 
 export const popup = defineType({
   title: 'Popup',
@@ -108,8 +99,8 @@ export const popup = defineType({
       group: 'info'
     }),
     defineField({
-      title: 'Content 🇪🇺',
-      name: 'contentInfo_eu',
+      title: 'Content 🇬🇧',
+      name: 'contentInfo_en',
       type: 'richText',
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
@@ -122,10 +113,17 @@ export const popup = defineType({
       group: 'info'
     }),
     defineField({
-      title: 'CTA button text',
-      name: 'buttonTextInfo',
-      type: 'i18n.string',
-      validation: validateAllStringsIfTypeIs('info'),
+      title: 'Link',
+      name: 'linkInfo',
+      type: 'link',
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context.parent.type === 'info' && !value) {
+            return 'Required';
+          }
+
+          return true;
+        }),
       group: 'info'
     }),
     defineField({

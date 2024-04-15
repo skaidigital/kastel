@@ -14,6 +14,7 @@ import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
+import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -42,22 +43,20 @@ export default function IndexRoute({
         <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
           <Providers>
             <div>
-              {/* <Suspense>
-                <PopupHandler />
-              </Suspense> */}
+              <Suspense>
+                <PopupHandler market={market} />
+              </Suspense>
               <Suspense fallback={<Skeleton className="h-11 w-full" />}>
                 <AnnouncementBanner />
               </Suspense>
               <Suspense>
                 <Navbar market={market} />
               </Suspense>
-              {/* <Suspense fallback={<Skeleton className="h-dvh max-h-dvh w-full" />}> */}
               <main>
                 {children}
                 {draftMode().isEnabled && <VisualEditing />}
                 <Analytics />
               </main>
-              {/* </Suspense> */}
             </div>
             {/* <Suspense>
               <USP />
