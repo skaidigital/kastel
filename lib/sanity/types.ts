@@ -6,7 +6,7 @@ import {
   linkToValidator,
   linkValidator,
   linkWithoutTextValidator,
-  loginFormValidator,
+  mediaValidator,
   productCardValidator,
   richTextValidator
 } from '@/lib/sanity/validators';
@@ -29,9 +29,6 @@ export type ProductCardProps = z.infer<typeof productCardValidator>;
 
 export type SEOAndSocialsProps = z.infer<typeof SEOAndSocialsValidator>;
 
-// # Pages
-export type LoginFormProps = z.infer<typeof loginFormValidator>;
-
 // Product types
 export type ProductType = 'SIMPLE' | 'VARIABLE';
 
@@ -39,3 +36,5 @@ export type MobileImageAspectRatio = '9:16' | '3:4';
 export type DesktopImageAspectRatio = '16:9' | '4:3' | '21:9';
 
 export type GalleryProps = z.infer<typeof galleryValidator>;
+
+export type MediaProps = z.infer<typeof mediaValidator>;

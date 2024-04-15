@@ -60,21 +60,21 @@ export const page = defineType({
     defineField({
       title: 'Page builder',
       name: 'pageBuilder',
-      type: 'pageBuilder',
-      validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
-          if (!value.length) {
-            return 'You need to add at least one section';
-          }
+      type: 'pageBuilder'
+      // validation: (Rule) =>
+      //   Rule.custom((value: any, context: any) => {
+      //     if (!value.length) {
+      //       return 'You need to add at least one section';
+      //     }
 
-          const firstComponent = value[0];
+      //     const firstComponent = value[0];
 
-          if (firstComponent._type !== 'hero' && firstComponent._type !== 'emailCapture') {
-            return 'The first section must be a hero or email capture';
-          }
+      //     if (firstComponent._type !== 'hero' && firstComponent._type !== 'emailCapture') {
+      //       return 'The first section must be a hero or email capture';
+      //     }
 
-          return true;
-        })
+      //     return true;
+      //   })
     }),
     defineField({
       title: 'Metadata',

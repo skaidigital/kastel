@@ -1,6 +1,7 @@
 import { AccordionSection } from '@/components/shared/PageBuilder/AccordionSection';
 import { CardGrid } from '@/components/shared/PageBuilder/CardGrid';
 import { ContactForm } from '@/components/shared/PageBuilder/ContactForm';
+import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { InstagramFeed } from '@/components/shared/PageBuilder/InstagramFeed';
 import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
@@ -17,6 +18,9 @@ type BlockType = {
 
 const blockTypes: BlockType = {
   hero: Hero,
+  // New blocks start
+  featuredCollection: FeaturedCollection,
+  // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,
   accordionSection: AccordionSection,

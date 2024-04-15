@@ -76,6 +76,18 @@ const heroValidator = z.object({
   imageDesktop: imageValidator.optional()
 });
 
+const mediaValidator = z.any();
+
+const featuredCollectionValidator = z.object({
+  type: z.literal('featuredCollection'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string(),
+  media: mediaValidator,
+  buttonText: z.string(),
+  slug: z.string()
+});
+
 const textAndImageValidator = z.object({
   type: z.literal('textAndImage'),
   key: z.string(),
@@ -195,9 +207,6 @@ const cardBaseValidator = z.object({
     z.literal('bottom-center'),
     z.literal('bottom-right')
   ])
-  // type: z.union([z.literal('image'), z.literal('video')]),
-  // video: z.string().optional(),
-  // image: imageValidator.optional()
 });
 
 const imageCardValidator = z.object({
@@ -214,37 +223,6 @@ export const cardValidator = z.discriminatedUnion('type', [
   cardBaseValidator.merge(imageCardValidator),
   cardBaseValidator.merge(videoCardValidator)
 ]);
-
-// export const cardValidator = z.object({
-//   title: z.string().optional(),
-//   subtitle: z.string().optional(),
-//   link: linkValidator,
-//   textPositionMobile: z.union([
-//     z.literal('top-left'),
-//     z.literal('top-center'),
-//     z.literal('top-right'),
-//     z.literal('center-left'),
-//     z.literal('center'),
-//     z.literal('center-right'),
-//     z.literal('bottom-left'),
-//     z.literal('bottom-center'),
-//     z.literal('bottom-right')
-//   ]),
-//   textPositionDesktop: z.union([
-//     z.literal('top-left'),
-//     z.literal('top-center'),
-//     z.literal('top-right'),
-//     z.literal('center-left'),
-//     z.literal('center'),
-//     z.literal('center-right'),
-//     z.literal('bottom-left'),
-//     z.literal('bottom-center'),
-//     z.literal('bottom-right')
-//   ]),
-//   type: z.union([z.literal('image'), z.literal('video')]),
-//   video: z.string().optional(),
-//   image: imageValidator.optional()
-// });
 
 export type CardProps = z.infer<typeof cardValidator>;
 
@@ -263,6 +241,9 @@ const cardGridValidator = z.object({
 
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   heroValidator,
+  // New blocks start
+  featuredCollectionValidator,
+  // New blocks end
   textAndImageValidator,
   pageTitleValidator,
   textSectionValidator,
@@ -277,6 +258,10 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
 
 export type HeroProps = z.infer<typeof heroValidator>;
+// Start new validators
+export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
+
+// End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
 export type PageTitleProps = z.infer<typeof pageTitleValidator>;
 export type TextSectionProps = z.infer<typeof textSectionValidator>;
@@ -312,6 +297,18 @@ export const PAGE_BUILDER_TYPES: {
     imageDesktop{
       ${fragments.getImageBase(market)},
     }
+  `,
+  featuredCollection: (market) => `
+    ${fragments.base},
+    ...collection->{
+      "title": title.${market},
+      "description": descriptionShort.${market},
+      "slug": "/collections/"+slug_${market}.current,
+    },
+    media{
+     ${fragments.getMedia(market)}
+    },
+    "buttonText": buttonText.${market}
   `,
   pageTitle: (market) => `
     ${fragments.base},

@@ -235,3 +235,22 @@ export function getCard(market: MarketValues) {
   },
 `;
 }
+
+export function getMedia(market: MarketValues) {
+  return groq`
+  type,
+  sameAssetForMobileAndDesktop,
+  image{
+    ${getImageBase(market)}
+  },
+  'video': video.asset->.playbackId,
+  imageMobile{
+    ${getImageBase(market)}
+  },
+  imageDesktop{
+    ${getImageBase(market)}
+  },
+  'videoMobile': videoMobile.asset->.playbackId,
+  'videoDesktop': videoDesktop.asset->.playbackId
+`;
+}

@@ -1,3 +1,4 @@
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Package } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -27,9 +28,15 @@ export const featuredCollection = defineType({
     }),
     defineField({
       title: 'Background image/video',
-      name: 'meida',
+      name: 'media',
       type: 'media',
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Button text',
+      name: 'buttonText',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
     })
   ]
 });

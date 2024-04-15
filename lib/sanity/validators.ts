@@ -59,6 +59,8 @@ export const imageValidator = z.object({
     .optional()
 });
 
+export const videoValidator = z.string();
+
 export const galleryValidator = z.array(
   imageValidator.extend({
     width: z.union([z.literal('1-COL'), z.literal('2-COL')]).optional()
@@ -113,8 +115,35 @@ export const SEOAndSocialsValidator = z.object({
   seo: metadataValidator
 });
 
-// # Pages
-export const loginFormValidator = z.object({
-  email: z.string().email(),
-  password: z.string()
+const sameAssetImageValidator = z.object({
+  type: z.literal('image'),
+  sameAssetForMobileAndDesktop: z.literal(true),
+  image: imageValidator
 });
+
+const differentAssetImageValidator = z.object({
+  type: z.literal('image'),
+  sameAssetForMobileAndDesktop: z.literal(false),
+  imageMobile: imageValidator,
+  imageDesktop: imageValidator
+});
+
+const sameAssetVideoValidator = z.object({
+  type: z.literal('video'),
+  sameAssetForMobileAndDesktop: z.literal(true),
+  video: videoValidator
+});
+
+const differentAssetVideoValidator = z.object({
+  type: z.literal('video'),
+  sameAssetForMobileAndDesktop: z.literal(false),
+  videoMobile: videoValidator,
+  videoDesktop: videoValidator
+});
+
+export const mediaValidator = z.union([
+  sameAssetImageValidator,
+  differentAssetImageValidator,
+  sameAssetVideoValidator,
+  differentAssetVideoValidator
+]);

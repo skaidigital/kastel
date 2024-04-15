@@ -8,11 +8,11 @@ const textProps = cva({
       sm: 'text-sm placeholder:text-sm',
       lg: 'text-lg placeholder:text-lg',
       eyebrow: 'text-eyebrow uppercase placeholder:text-eyebrow',
-      default: 'text-paragraph-sm lg:text-paragraph-lg placeholder:text-sm lg:placeholder:text-lg'
+      default: 'text-sm lg:text-md'
     }
   },
   defaultVariants: {
-    size: 'lg'
+    size: 'default'
   }
 });
 
