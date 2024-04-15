@@ -37,6 +37,38 @@ export const featuredCollection = defineType({
       name: 'buttonText',
       type: 'i18n.string',
       validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Choose products manually',
+      description:
+        'If disabled, we get the first 8 products from the collection. If enabled, you can choose the products manually.',
+      name: 'isManual',
+      type: 'boolean',
+      initialValue: false,
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Products',
+      name: 'products',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'product' }], title: 'Product' }],
+      validation: (Rule) =>
+        Rule.custom((field: any, context: any) => {
+          const isManual = context.parent?.isManual;
+
+          if (isManual && (field?.length < 1 || field?.length > 8 || !field)) {
+            return 'When "Choose products manually" is enabled, you must select between 1 and 8 products.';
+          }
+
+          return true;
+        }),
+      hidden: ({ parent }) => parent?.isManual === false
+    }),
+    defineField({
+      title: 'Section settings',
+      name: 'sectionSettings',
+      type: 'sectionSettings',
+      validation: (Rule) => Rule.required()
     })
   ]
 });

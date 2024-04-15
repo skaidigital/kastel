@@ -11,6 +11,13 @@ import { z } from 'zod';
 
 const paddingValidator = z.union([z.literal('sm'), z.literal('md'), z.literal('lg')]);
 
+export const sectionSettingsValidator = z.object({
+  padding: paddingValidator,
+  hasTopPadding: z.boolean(),
+  hasBottomPadding: z.boolean(),
+  hasBottomBorder: z.boolean()
+});
+
 const linkExternalValidator = z.object({
   hasLink: z.literal(true),
   linkType: z.literal('external'),
@@ -84,8 +91,10 @@ const featuredCollectionValidator = z.object({
   title: z.string(),
   description: z.string(),
   media: mediaValidator,
+  products: z.array(productCardValidator),
   buttonText: z.string(),
-  slug: z.string()
+  slug: z.string(),
+  sectionSettings: sectionSettingsValidator
 });
 
 const textAndImageValidator = z.object({
@@ -303,12 +312,23 @@ export const PAGE_BUILDER_TYPES: {
     ...collection->{
       "title": title.${market},
       "description": descriptionShort.${market},
-      "slug": "/collections/"+slug_${market}.current,
+      "slug": "/collections/"+slug_${market}.current
     },
+    "products": select(
+      isManual == true => products[]->{
+        ${fragments.getProductCard(market)}
+      },
+      isManual == false => collection->.products[].product->{
+        ${fragments.getProductCard(market)},
+      }
+    ),
     media{
      ${fragments.getMedia(market)}
     },
-    "buttonText": buttonText.${market}
+    "buttonText": buttonText.${market},
+    sectionSettings{
+      ${fragments.sectionSettings}
+    }
   `,
   pageTitle: (market) => `
     ${fragments.base},

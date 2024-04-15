@@ -19,7 +19,7 @@ export const AccordionSection = ({ data }: Props) => {
       noBottomPadding={!hasBottomPadding}
       label="accordion"
       srHeading="Accordion block"
-      className={hasBottomBorder ? 'border-b border-brand-border' : ''}
+      className={hasBottomBorder ? 'border-brand-border border-b' : ''}
     >
       <Container className="flex flex-col items-center justify-center space-y-5 lg:space-y-10">
         {title && (

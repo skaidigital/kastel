@@ -1,11 +1,18 @@
 import { Button } from '@/components/Button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from '@/components/Carousel';
 import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { FeaturedCollectionProps } from '@/components/shared/PageBuilder/hooks';
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
+import { ProductCard } from '@/components/shared/ProductCard';
 import Link from 'next/link';
 
 interface PropsWithExtra extends FeaturedCollectionProps {
@@ -19,16 +26,49 @@ interface Props {
 }
 
 export const FeaturedCollection = ({ data }: Props) => {
-  const { index, pageId, pageType, title, description, media, slug, buttonText } = data;
+  const {
+    index,
+    pageId,
+    pageType,
+    title,
+    description,
+    media,
+    slug,
+    buttonText,
+    products,
+    sectionSettings
+  } = data;
 
   return (
     <Section
       label="featuredCollection"
       srHeading={`Featured collection – ${title ? title : 'Untitled'}`}
+      noTopPadding={!sectionSettings?.hasTopPadding}
+      noBottomPadding={!sectionSettings?.hasBottomPadding}
+      hasBottomBorder={sectionSettings?.hasBottomBorder}
     >
       <div className="flex flex-col gap-y-10 lg:hidden">
         <MediaContent title={title} description={description} media={media} />
-        <div className="h-[80px] bg-[red] ml-4">products</div>
+        <div className="ml-4">
+          <Carousel>
+            <CarouselContent>
+              {products.map((product) => (
+                <CarouselItem key={product.title} className="basis-[80%] pl-0">
+                  <ProductCard
+                    title={product.title}
+                    slugPrefix={'products'}
+                    firstImage={'product'}
+                    mainImage={product.mainImage}
+                    lifestyleImage={product.lifestyleImage}
+                    badges={product.badges}
+                    slug={product.slug}
+                    type={product.type}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
         {buttonText && slug && (
           <Container>
             <Button asChild size="sm" className="w-full">
@@ -37,28 +77,48 @@ export const FeaturedCollection = ({ data }: Props) => {
           </Container>
         )}
       </div>
-      <Container className="hidden gap-y-10 lg:block">
-        <div className="flex justify-end">
-          <div className="flex gap-x-4">
-            <div className="flex gap-x-2">
-              <Button size="icon" variant="outline">
-                <ChevronLeftIcon />
-              </Button>
-              <Button size="icon" variant="outline">
-                <ChevronRightIcon />
-              </Button>
+      <Container className="hidden lg:block">
+        <Carousel
+          opts={{
+            slidesToScroll: 2
+          }}
+          className="grid gap-y-10"
+        >
+          <div className="flex justify-end">
+            <div className="flex gap-x-4">
+              <div className="flex gap-x-2">
+                <CarouselPrevious />
+                <CarouselNext className="relative" />
+              </div>
+              {buttonText && (
+                <Button asChild size="md">
+                  <Link href={slug}>{buttonText}</Link>
+                </Button>
+              )}
             </div>
-            {buttonText && (
-              <Button asChild>
-                <Link href={slug}>{buttonText}</Link>
-              </Button>
-            )}
           </div>
-        </div>
-        <div className="flex gap-x-10">
-          <MediaContent title={title} description={description} media={media} />
-          <div className="w-full bg-[red] h-[80px]">products 2</div>
-        </div>
+          <div className="flex gap-x-10">
+            <MediaContent title={title} description={description} media={media} />
+            <div className="w-full grow">
+              <CarouselContent>
+                {products.map((product) => (
+                  <CarouselItem key={product.title} className="pl-0 lg:basis-1/2">
+                    <ProductCard
+                      title={product.title}
+                      slugPrefix={'products'}
+                      firstImage={'product'}
+                      mainImage={product.mainImage}
+                      lifestyleImage={product.lifestyleImage}
+                      badges={product.badges}
+                      slug={product.slug}
+                      type={product.type}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </div>
+          </div>
+        </Carousel>
       </Container>
     </Section>
   );
@@ -74,10 +134,10 @@ function MediaContent({
   media: FeaturedCollectionProps['media'];
 }) {
   return (
-    <div className="w-full lg:max-w-[480px]">
-      <div className="aspect-h-4 aspect-w-3 relative h-0 w-full bg-gradient-to-t from-black/80 from-0% to-black/20 to-30%">
+    <div className="lg:basis-1/2">
+      <div className="!lg:aspect-none aspect-h-4 aspect-w-3 relative h-full w-full bg-gradient-to-t from-black/80 from-0% to-black/20 to-30%">
         <Media media={{ ...media }} loading="lazy" />
-        <div className="flex items-end justify-start">
+        <div className="flex h-full items-end justify-start">
           <div className="flex h-fit w-fit flex-col gap-y-4 p-8 text-white">
             {title && (
               <Heading as="h2" size="xl">

@@ -254,3 +254,10 @@ export function getMedia(market: MarketValues) {
   'videoDesktop': videoDesktop.asset->.playbackId
 `;
 }
+
+export const sectionSettings = groq`
+  padding,
+  hasTopPadding,
+  hasBottomPadding,
+  hasBottomBorder
+`;
