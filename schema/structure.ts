@@ -61,6 +61,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       listNew({ S, schemaType: 'blogPost', title: 'Blog posts' }).icon(Article),
       listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
+      S.divider(),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()
         .title('Products')
@@ -99,6 +100,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         )
         .icon(Sneaker),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
+      S.divider(),
       group(S, 'Nature Lab', [
         listNew({ S, title: 'Landing page', schemaType: 'natureLabLandingPage' }).icon(File),
         listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
