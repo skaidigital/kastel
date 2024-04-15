@@ -28,16 +28,17 @@ export const meganav = defineType({
     }),
     defineField({
       title: 'Links',
-      description: "Adds a column of heading + links under it. For example for 'All models'",
+      description:
+        "Adds a column of heading + links under it. For example for 'All models'. Add 1-4 items",
       name: 'links',
       type: 'array',
       of: [{ type: 'headingAndLinks' }],
-      validation: (Rule) => Rule.max(4)
+      validation: (Rule) => Rule.min(1).max(4)
     }),
     defineField({
       title: 'Featured products',
       description:
-        'Adds a large image with a link to a page/product/external link. Can for example be used for a featured shoe. These will be hidden in the mobile menu',
+        'Adds a large image with a link to a page/product/external link. Can for example be used for a featured shoe. These will be hidden in the mobile menu. Max 4 items',
       name: 'featuredProducts',
       type: 'array',
       of: [{ type: 'featuredNavItem' }],

@@ -25,7 +25,7 @@ export const footer = defineType({
     }),
     defineField({
       title: 'Items (Norwegian market)',
-      name: 'itemsNo',
+      name: 'items_no',
       type: 'array',
       of: [
         defineArrayMember({
@@ -36,7 +36,7 @@ export const footer = defineType({
     }),
     defineField({
       title: 'Items (Swedish market)',
-      name: 'itemsSv',
+      name: 'items_sv',
       type: 'array',
       of: [
         defineArrayMember({

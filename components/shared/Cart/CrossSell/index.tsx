@@ -8,8 +8,7 @@ import {
   getCrossSellQuery
 } from '@/components/shared/Cart/CrossSell/hooks';
 import { CACHE_TAGS, MarketValues } from '@/data/constants';
-import { getCurrencyCode } from '@/lib/getCurrencyCode';
-import { getMarket } from '@/lib/getMarket';
+import { env } from '@/env';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { getCart } from '@/lib/shopify';
@@ -21,7 +20,11 @@ async function loadCrossSellProduct(market: MarketValues) {
   return loadQuery<CrossSellPayload>(query, {}, { next: { tags: [CACHE_TAGS.MERCHANDISING] } });
 }
 
-export async function CrossSell() {
+interface Props {
+  market: MarketValues;
+}
+
+export async function CrossSell({ market }: Props) {
   const cartId = cookies().get('cartId')?.value;
 
   let cart;
@@ -34,8 +37,8 @@ export async function CrossSell() {
     return null;
   }
 
-  const market = await getMarket();
-  const currencyCode = await getCurrencyCode();
+  const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
+
   const dict = await getDictionary();
   const dictionary = dict.cart_drawer.cross_sell;
   const initial = await loadCrossSellProduct(market);

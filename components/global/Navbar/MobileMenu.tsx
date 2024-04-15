@@ -4,6 +4,8 @@ import { Drawer } from '@/components/Drawer';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
+import { LogoButton } from '@/components/global/Navbar/LogoButton';
+import { SearchBar } from '@/components/global/Navbar/SearchBar';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
 import { cn } from '@/lib/utils';
@@ -37,13 +39,17 @@ export function MobileMenu({ items }: Props) {
           </Drawer.Trigger>
           <Drawer.Content
             placement="left"
-            className="flex h-dvh flex-col space-y-7 overflow-y-auto p-5"
+            className="flex h-dvh max-w-full flex-col space-y-7 overflow-y-auto bg-white/80 p-5 backdrop-blur-lg"
           >
-            <Drawer.Close>
-              <button className="relative flex w-fit items-center justify-center rounded-project text-brand-dark-grey transition-colors hover:bg-brand-light-grey lg:h-11 lg:w-11">
-                <Cross1Icon className="transition-brand w-6 lg:w-4" />
-              </button>
-            </Drawer.Close>
+            <div className="flex w-full items-center justify-between">
+              <LogoButton />
+              <Drawer.Close>
+                <button className="relative flex w-fit items-center justify-center rounded-project text-brand-dark-grey transition-colors hover:bg-brand-light-grey lg:h-11 lg:w-11">
+                  <Cross1Icon className="transition-brand w-6 lg:w-4" />
+                </button>
+              </Drawer.Close>
+            </div>
+            <SearchBar />
             <ul className="space-y-7">
               {items?.map((item, index) => (
                 <NavigationMenu.Item key={index}>
@@ -53,7 +59,7 @@ export function MobileMenu({ items }: Props) {
                         link={item}
                         onClick={onCloseMainMenu}
                         className={cn(
-                          'flex translate-y-[-10px] animate-fade-in-text items-center justify-between opacity-0 outline-none transition-[opacity,transform]',
+                          'text-text-md flex translate-y-[-10px] animate-fade-in-text items-center justify-between font-medium opacity-0 outline-none transition-[opacity,transform]',
                           index === 0 && '[--animation-delay:600ms]',
                           index === 1 && '[--animation-delay:700ms]',
                           index === 2 && '[--animation-delay:800ms]',
@@ -73,7 +79,7 @@ export function MobileMenu({ items }: Props) {
                         <Drawer.Trigger>
                           <button
                             className={cn(
-                              'flex w-full translate-y-[-10px] animate-fade-in-text items-center justify-between opacity-0 outline-none transition-[opacity,transform]',
+                              'text-text-md flex w-full translate-y-[-10px] animate-fade-in-text items-center justify-between font-medium opacity-0 outline-none transition-[opacity,transform]',
                               index === 0 && '[--animation-delay:600ms]',
                               index === 1 && '[--animation-delay:700ms]',
                               index === 2 && '[--animation-delay:800ms]',
@@ -84,16 +90,17 @@ export function MobileMenu({ items }: Props) {
                             )}
                           >
                             {item.title}
-                            <ChevronRightIcon />
+                            <ChevronRightIcon className="h-5 w-5 text-brand-dark-grey" />
                           </button>
                         </Drawer.Trigger>
                         <Drawer.Content
                           placement="left"
-                          className="flex max-h-dvh flex-col overflow-y-auto p-5"
+                          className="flex max-h-dvh max-w-full flex-col overflow-y-auto bg-white/80 p-5 backdrop-blur-lg"
                         >
                           <Drawer.Close>
-                            <button className="w-fit outline-none focus:outline-1">
+                            <button className="flex w-fit items-center gap-x-2 outline-none focus:outline-1">
                               <ChevronLeftIcon className="h-5 w-5" />
+                              <span className="text-text-sm font-medium">{item.title}</span>
                             </button>
                           </Drawer.Close>
                           <NavigationMenu.Sub className="mt-10 flex grow flex-col gap-y-10 overflow-y-auto">

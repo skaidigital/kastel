@@ -104,8 +104,8 @@ export const productCardValidator = z.object({
   type: z.literal('product'),
   title: z.string(),
   slug: z.string(),
-  image: imageValidator,
-  hoverImage: imageValidator.optional(),
+  mainImage: imageValidator,
+  lifestyleImage: imageValidator.optional(),
   badges: z.array(z.string()).optional()
 });
 

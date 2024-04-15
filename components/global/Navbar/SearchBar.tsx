@@ -2,18 +2,16 @@
 
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { SearchClose } from '@/components/global/Navbar/SearchButton';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { createUrl } from '@/lib/utils';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
 
-interface Props {
-  onClose: () => void;
-}
-
-export const SearchBar = ({ onClose }: Props) => {
+export const SearchBar = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const { market, lang } = useBaseParams();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -47,8 +45,7 @@ export const SearchBar = ({ onClose }: Props) => {
         newParams.delete('q');
       }
 
-      onClose();
-      router.push(createUrl('/search', newParams));
+      router.push(createUrl(`/${market}/${lang}/search`, newParams));
     });
   }
 
@@ -72,7 +69,7 @@ export const SearchBar = ({ onClose }: Props) => {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Søk..."
-          className="focus:ring-none grow font-serif text-paragraph-lg focus:outline-none"
+          className="focus:ring-none text-paragraph-lg grow bg-transparent font-serif focus:outline-none"
         />
         <SearchClose>
           <XMarkIcon className="h-5 w-5 text-brand-mid-grey" />

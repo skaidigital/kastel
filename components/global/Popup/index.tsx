@@ -1,30 +1,24 @@
 import { PopupLayout } from '@/components/global/Popup/PopupLayout';
 import { PopupPayload, getPopupQuery, popupValidator } from '@/components/global/Popup/hooks';
-import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { CACHE_TAGS, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
-
-const PopupPreview = dynamic(() => import('./PopupPreview'));
 
 function loadPopup(market: MarketValues) {
   const query = getPopupQuery(market);
 
-  return loadQuery<PopupPayload>(query, {}, { next: { tags: ['popup'] } });
+  return loadQuery<PopupPayload>(query, {}, { next: { tags: [CACHE_TAGS.POPUP] } });
 }
 
-export async function Popup() {
-  const market = await getMarket();
+interface Props {
+  market: MarketValues;
+}
+
+export async function Popup({ market }: Props) {
   const initial = await loadPopup(market);
 
-  if (!initial.data.isShown) {
+  if (!initial.data || !initial.data.isShown) {
     return null;
-  }
-
-  if (draftMode().isEnabled) {
-    return <PopupPreview initial={initial} market={market} />;
   }
 
   const withoutNullValues = nullToUndefined(initial.data);

@@ -100,11 +100,12 @@ export default async function Page({
           <Grid>
             {foundProducts?.map((product: ProductCardProps, index) => (
               <ProductCard
+                type={product.type}
                 key={product.slug}
                 slug={product.slug}
                 title={product.title}
-                image={product.image}
-                hoverImage={product.hoverImage}
+                mainImage={product.mainImage}
+                lifestyleImage={product.lifestyleImage}
                 badges={product.badges}
                 priority={productIndicesToReceivePriorityProp.includes(index)}
               />

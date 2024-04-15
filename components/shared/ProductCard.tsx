@@ -3,36 +3,42 @@
 import { Badge } from '@/components/Badge';
 import { Heading } from '@/components/base/Heading';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityImageProps } from '@/lib/sanity/types';
+import { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import Link from 'next/link';
 import { useState } from 'react';
 
-interface Props {
-  slug: string;
-  image: SanityImageProps;
-  title: string;
+interface Props extends ProductCardProps {
+  firstImage?: 'product' | 'lifestyle';
+  priority?: boolean;
   className?: string;
   slugPrefix?: string;
-  hoverImage?: SanityImageProps;
-  badges?: string[];
-  priority?: boolean;
 }
 
 export function ProductCard({
   slug,
-  image,
+  firstImage,
+  mainImage,
+  lifestyleImage,
   title,
   className,
   slugPrefix = 'products',
-  hoverImage,
   badges,
   priority
 }: Props) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
-  const hasHoverImage = hoverImage ? true : false;
+  const hasLifestyleImage = lifestyleImage ? true : false;
+  const wantsLifestyleImageFirst = firstImage === 'lifestyle';
+  const preferredFirstImage = firstImage;
+
+  const chosenFirstImage =
+    hasLifestyleImage && wantsLifestyleImageFirst ? lifestyleImage : mainImage;
+  const chosenHoverImage =
+    preferredFirstImage === 'lifestyle' && lifestyleImage ? lifestyleImage : mainImage;
+
+  const hasHoverImage = chosenHoverImage !== chosenFirstImage;
 
   return (
     <div
@@ -51,9 +57,9 @@ export function ProductCard({
               ))}
             </div>
           )}
-          {image && (
+          {chosenFirstImage && (
             <SanityImage
-              image={isHovered && hoverImage ? hoverImage : image}
+              image={isHovered && hasLifestyleImage ? chosenHoverImage : chosenFirstImage}
               className={cn('scale-100 rounded-project object-cover')}
               sizes="(min-width: 640px) 50vw, 25vw"
               fill

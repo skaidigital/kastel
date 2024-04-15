@@ -9,9 +9,10 @@ import { hasSeenPopup } from '@/components/global/Popup/actions';
 import { PopupPayload } from '@/components/global/Popup/hooks';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { getSlug } from '@/lib/sanity/getSlug';
+import { useDeviceType } from '@/lib/useDeviceType';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import * as Dialog from '@radix-ui/react-dialog';
-import { EncodeDataAttributeCallback } from '@sanity/react-loader';
 import clsx from 'clsx';
 import { PortableTextBlock } from 'next-sanity';
 import Link from 'next/link';
@@ -19,25 +20,20 @@ import { useState } from 'react';
 
 interface Props {
   data: PopupPayload;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
 }
 
-export function PopupLayout({ data, encodeDataAttribute }: Props) {
+export function PopupLayout({ data }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  const { title, link, content, image, badge, buttonText, type } = data;
-
-  // const href = getSlug(link);
-  const href = '#';
+  const { title, content, image, badge, type } = data;
 
   async function handlePopupClose() {
     await hasSeenPopup();
     setIsOpen(false);
   }
+  const { isDesktop } = useDeviceType();
 
-  const isClient = typeof window !== 'undefined';
-  const isMobile = isClient && window.innerWidth < 768;
-  const isDesktop = isClient && window.innerWidth >= 768;
+  console.log(type);
 
   if (isDesktop) {
     return (
@@ -61,7 +57,7 @@ export function PopupLayout({ data, encodeDataAttribute }: Props) {
               </div>
             </div>
             <div className="flex flex-col justify-between bg-white p-8">
-              {!isMobile && (
+              {isDesktop && (
                 <Dialog.Close asChild>
                   <Button onClick={handlePopupClose} variant="ghost" size="icon" className="p-1">
                     <XMarkIcon className="size-6" />
@@ -69,10 +65,12 @@ export function PopupLayout({ data, encodeDataAttribute }: Props) {
                 </Dialog.Close>
               )}
               <MainContent badge={badge} title={title} content={content} />
-              {type === 'newsletter' && buttonText && (
-                <NewsletterSignupForm buttonText={buttonText} />
+              {type === 'newsletter' && data.buttonText && (
+                <NewsletterSignupForm buttonText={data.buttonText} />
               )}
-              {link?.text && <InfoLink href={href}>{link.text}</InfoLink>}
+              {type === 'info' && data.link?.text && (
+                <InfoLink href={getSlug(data.link)}>{data.link.text}</InfoLink>
+              )}
             </div>
           </div>
         </ModalContent>
@@ -92,8 +90,12 @@ export function PopupLayout({ data, encodeDataAttribute }: Props) {
               )}
             </div>
           </div>
-          {type === 'newsletter' && buttonText && <NewsletterSignupForm buttonText={buttonText} />}
-          {link?.text && <InfoLink href={href}>{link.text}</InfoLink>}
+          {type === 'newsletter' && data.buttonText && (
+            <NewsletterSignupForm buttonText={data.buttonText} />
+          )}
+          {type === 'info' && data.link?.text && (
+            <InfoLink href={getSlug(data.link)}>{data.link.text}</InfoLink>
+          )}
         </div>
       </SheetContent>
     </Sheet>
@@ -129,7 +131,11 @@ function MainContent({
 function NewsletterSignupForm({ buttonText }: { buttonText: string }) {
   return (
     <div className="flex flex-col gap-y-2">
-      <input type="text" />
+      <input
+        type="text"
+        className="h-10 w-full border border-brand-light-grey p-3"
+        placeholder="test"
+      />
       <Button type="submit">{buttonText}</Button>
     </div>
   );

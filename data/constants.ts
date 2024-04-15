@@ -2,6 +2,7 @@
 export const ROUTES = {
   HOME: '/',
   ACCOUNT: '/account',
+  WISHLIST: '/account/wishlist',
   ADDRESSES: '/account/addresses',
   CREATE_ADDRESS: '/account/addresses/create',
   ORDERS: '/orders',
@@ -23,7 +24,10 @@ export const CACHE_TAGS = {
   PRODUCT: 'product:',
   PAYMENT_PROVIDERS: 'paymentProviders',
   NAVBAR: 'navbar',
-  METADATA: 'settingsSEOAndSocials'
+  FOOTER: 'footer',
+  POPUP: 'popup',
+  METADATA: 'settingsSEOAndSocials',
+  COOKIE_CONSENT: 'cookieConsent'
 };
 
 export const SCHEMA_NAMES = {

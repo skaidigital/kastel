@@ -113,7 +113,7 @@ export const collection = defineType({
           type: 'collectionProduct'
         })
       ],
-      validation: (Rule) => Rule.min(1)
+      validation: (Rule) => Rule.required().min(1)
     }),
     defineField({
       title: 'Moods',

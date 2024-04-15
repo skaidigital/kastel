@@ -1,7 +1,6 @@
 'use client';
 
 import { Card } from '@/components/Card';
-import { Container } from '@/components/base/Container';
 import { Grid } from '@/components/base/Grid';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
@@ -16,15 +15,13 @@ import {
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE } from '@/data/constants';
 import { cn } from '@/lib/utils';
-import { EncodeDataAttributeCallback } from '@sanity/react-loader';
 
 interface Props {
   data: Collection;
   currentPage: number;
-  encodedDataAttribute?: EncodeDataAttributeCallback;
 }
 
-export function CollectionLayout({ data, currentPage, encodedDataAttribute }: Props) {
+export function CollectionLayout({ data, currentPage }: Props) {
   const { products, moods, title, hasNextPage, productCount } = data;
 
   const collection = adjustProductsWithMoods({
@@ -36,7 +33,7 @@ export function CollectionLayout({ data, currentPage, encodedDataAttribute }: Pr
   const pageCount = Math.ceil(productCount / COLLECTION_PAGE_SIZE);
 
   return (
-    <Container>
+    <>
       <Section size="sm" label="collection-hero" srHeading="Collection hero">
         <div className="relative flex items-center justify-center">
           <Heading as="h1" size="lg">
@@ -64,7 +61,6 @@ export function CollectionLayout({ data, currentPage, encodedDataAttribute }: Pr
                     card={item.card}
                     sizes={'(min-width: 1024px) 50vw, 100vw'}
                     priority={index === 0}
-                    encodeDataAttribute={encodedDataAttribute}
                   />
                 </div>
               );
@@ -75,10 +71,11 @@ export function CollectionLayout({ data, currentPage, encodedDataAttribute }: Pr
             return (
               <ProductCard
                 key={index}
+                type={item.type}
                 title={item.title}
                 slug={item.slug}
-                image={item.image}
-                hoverImage={item.hoverImage}
+                mainImage={item.mainImage}
+                lifestyleImage={item.lifestyleImage}
                 badges={item.badges}
                 priority={priorityIndices.includes(index)}
               />
@@ -93,7 +90,7 @@ export function CollectionLayout({ data, currentPage, encodedDataAttribute }: Pr
           <PageCounter pageCount={pageCount} />
         </div>
       </Section>
-    </Container>
+    </>
   );
 }
 

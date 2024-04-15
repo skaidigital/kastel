@@ -5,11 +5,8 @@ import { productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
-const collectionProductValidator = productCardValidator;
-
-const collectionProductsValidator = z.object({
-  products: z.array(collectionProductValidator),
-  hasNextPage: z.boolean()
+const collectionProductValidator = productCardValidator.extend({
+  firstImage: z.union([z.literal('product'), z.literal('lifestyle')])
 });
 
 const collectionMoodValidator = z.object({
@@ -21,6 +18,11 @@ export const collectionBaseValidator = z.object({
   title: z.string(),
   productIds: z.array(z.string()),
   moods: z.array(collectionMoodValidator).optional()
+});
+
+export const collectionProductsValidator = z.object({
+  products: z.array(collectionProductValidator),
+  hasNextPage: z.boolean()
 });
 
 export const collectionValidator = z.object({
@@ -40,8 +42,8 @@ export type Collection = z.infer<typeof collectionValidator>;
 export function getCollectionBaseQuery(market: MarketValues) {
   const query = groq`
     *[_type == "collection" && slug_${market}.current == $slug][0]{
-      "title": title_${market},
-      "productIds": products[]._ref,
+      "title": title.${market},
+      "productIds": products[].product._ref,
       moods[]{
         card->{
           ${fragments.getCard(market)}
@@ -60,8 +62,11 @@ export function getCollectionProductsQuery(market: MarketValues, pageIndex: numb
 
   const query = groq`
     {
-    "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[${start}...${end}]->{
-      ${fragments.getProductCard(market)},
+    "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[${start}...${end}]{
+      firstImage,
+      ...product->{
+        ${fragments.getProductCard(market)},
+      },
     },
     "hasNextPage": count(*[_type == "collection" && slug_${market}.current == $slug][0].products[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
     }

@@ -1,4 +1,4 @@
-import { COOKIE_NAMES } from '@/data/constants';
+import { COOKIE_NAMES, MarketValues } from '@/data/constants';
 import dynamic from 'next/dynamic';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
@@ -20,7 +20,11 @@ const Popup = dynamic(() => import('@/components/global/Popup').then((mod) => mo
   suspense: true
 });
 
-export async function PopupHandler() {
+interface Props {
+  market: MarketValues;
+}
+
+export async function PopupHandler({ market }: Props) {
   const cookiesStore = cookies();
   const hasChosenMarket = cookiesStore.get(COOKIE_NAMES.HAS_CHOSEN_MARKET)?.value;
   const hasAccepted = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT);
@@ -29,11 +33,29 @@ export async function PopupHandler() {
   const hasSeenCookieConsent = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT);
   const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP);
 
-  // if (!hasChosenMarket && reccommendedMarket && requestCountry) {
-  return (
-    <Suspense>
-      {/* <MarketPopup /> */}
-      <Popup />
-    </Suspense>
-  );
+  if (!hasChosenMarket && reccommendedMarket && requestCountry) {
+    return (
+      <Suspense>
+        <MarketPopup />
+      </Suspense>
+    );
+  }
+
+  if (!hasAccepted) {
+    return (
+      <Suspense>
+        <CookieConsent market={market} />
+      </Suspense>
+    );
+  }
+
+  if (!hasSeenCookieConsent || !hasSeenPopupInLastDay) {
+    return (
+      <Suspense>
+        <Popup market={market} />
+      </Suspense>
+    );
+  }
+
+  return null;
 }

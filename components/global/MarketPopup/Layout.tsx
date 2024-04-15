@@ -17,8 +17,7 @@ interface Props {
 export function MarketLayout({ dictionary, country, reccommendedMarket, requestCountry }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  const deviceType = useDeviceType();
-  const isDesktop = deviceType === 'desktop';
+  const { isDesktop } = useDeviceType();
 
   const basedOnLocation = dictionary.based_on_your_location;
   const firstPart = basedOnLocation.split('__URL__')[0];

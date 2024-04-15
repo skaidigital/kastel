@@ -6,10 +6,6 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
-
-const PagePreview = dynamic(() => import('@/components/pages/PageLayout/PagePreview'));
 
 export async function generateStaticParams() {
   const slugs = await generateStaticSlugs('page');
@@ -30,10 +26,6 @@ interface Props {
 export default async function PageSlugRoute({ params }: Props) {
   const { slug, market } = params;
   const initial = await loadPage(slug, market);
-
-  if (draftMode().isEnabled) {
-    return <PagePreview params={params} initial={initial} market={market} />;
-  }
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
   // pageValidator.parse(pageWithoutNullValues);

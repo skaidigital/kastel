@@ -190,12 +190,12 @@ export const productLimited = groq`
 export function getProductCard(market: MarketValues) {
   return groq`
   "type": _type,
-  "title": title_${market},
+  "title": title.${market},
   ${getSlug(market)},
-  "image": gallery[0]{
+  mainImage{
     ${getImageBase(market)}
   },
-  hoverImage{
+  lifestyleImage{
     ${getImageBase(market)}
   },
   "badges": badges[]->.title.${market}

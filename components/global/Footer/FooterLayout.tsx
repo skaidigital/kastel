@@ -4,8 +4,9 @@ import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { FooterPayload } from '@/components/global/Footer/hooks';
 import { MarketSelector } from '@/components/shared/MarketSelector';
-import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
+import { PaymentProviders } from '@/components/shared/PaymentProviders';
 import { MarketValues, SKAI_URL } from '@/data/constants';
+import { Suspense } from 'react';
 
 interface Props {
   data: FooterPayload;
@@ -17,15 +18,12 @@ interface Props {
 export function FooterLayout({ data: footer, dictionary, market, children }: Props) {
   if (!footer) return null;
 
-  console.log(dictionary);
-
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  // const copyrightName = env.SITE_NAME || '';
-  const copyrightName = 'Abate';
+  const copyrightName = 'Kastel Shoes';
 
   return (
-    <footer>
+    <footer className="bg-brand-primary text-white">
       <Container className="grid w-full grid-cols-2 flex-col gap-x-5 gap-y-20 px-6 py-12 md:grid-cols-4 md:flex-row md:gap-x-10 lg:grid-cols-6 lg:gap-x-20 ">
         <div className="col-span-2">
           <Heading as="h3" size="sm">
@@ -53,11 +51,14 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
           </NavSection>
         ))} */}
         <div className="content col-span-2 lg:col-start-5 lg:justify-self-end">
-          <NewsletterSignup
+          {/* <NewsletterSignup
             klaviyoId={footer.klaviyoId}
             dictionary={dictionary.sign_up}
             className="max-w-xs"
-          />
+          /> */}
+          <Suspense>
+            <PaymentProviders market={market} />
+          </Suspense>
         </div>
       </Container>
       <div className="border-brand-border border-t py-6">
@@ -82,41 +83,3 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
     </footer>
   );
 }
-
-// const SOCIAL_MEDIA = [
-//   {
-//     socialMedia: 'facebook',
-//     url: 'https://www.facebook.com/abateoslo/',
-//   },
-//   {
-//     socialMedia: 'instagram',
-//     url: 'https://www.instagram.com/abateoslo/',
-//   },
-// ];
-
-// interface SoMeProps {
-//   url: string;
-//   socialMedia: string;
-// }
-
-// TODO turn into dynamic fetch from Sanity
-// const MapSocialMedia = () => {
-//   return (
-//     <div className="flex items-center">
-//       {SOCIAL_MEDIA?.map((item: SoMeProps, key) => {
-//         return (
-//           <Link key={key} href={item.url} target="blank">
-//             <Icon
-//               color="white"
-//               width="40"
-//               viewBox="0 0 40 40"
-//               className="w-10 h-auto text-brand-mid-grey fill-brand-mid-grey"
-//               name={item.socialMedia}
-//               key={key}
-//             />
-//           </Link>
-//         );
-//       })}
-//     </div>
-//   );
-// };

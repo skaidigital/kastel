@@ -25,8 +25,20 @@ export const announcementBanner = defineType({
     defineField({
       title: 'Content',
       name: 'content',
-      type: 'i18n.text',
-      validation: validateAllStringTranslations
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              title: 'Content',
+              name: 'content',
+              type: 'i18n.string',
+              validation: validateAllStringTranslations
+            })
+          ]
+        }
+      ]
     }),
     defineField({
       title: 'Link',

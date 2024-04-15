@@ -10,7 +10,7 @@ const hiddenAnnouncementBannerValidator = z.object({
 
 const shownAnnouncementBannerValidator = z.object({
   isShown: z.literal(true),
-  content: z.string(),
+  content: z.array(z.string()),
   link: linkWithoutTextValidator
 });
 
@@ -25,7 +25,7 @@ export function getAnnouncementBannerQuery(market: MarketValues) {
   const query = groq`
     *[_type == "announcementBanner"][0] {
       isShown,
-      "content": content.${market},
+      "content": content[].content.${market},
       "link": linkWithoutText{
         ${fragments.getLinkWithoutText(market)}
       },

@@ -1,5 +1,5 @@
 import { getDictionary } from '@/app/dictionaries';
-import { CartDrawer } from '@/components/shared/Cart/CartDrawer';
+import { CartLayout } from '@/components/shared/Cart/CartLayout';
 import { getCheckoutUrl } from '@/components/shared/Cart/actions';
 import { loadFreeShippingAmount } from '@/components/shared/Cart/hooks';
 import { MarketValues } from '@/data/constants';
@@ -32,13 +32,13 @@ export default async function Cart({ children, market }: Props) {
   }
 
   return (
-    <CartDrawer
+    <CartLayout
       cart={cart}
       checkoutUrl={checkoutUrl}
       dictionary={dictionary}
       freeShippingAmount={freeShippingAmount?.data}
     >
       {children}
-    </CartDrawer>
+    </CartLayout>
   );
 }

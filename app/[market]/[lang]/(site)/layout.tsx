@@ -13,6 +13,7 @@ import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
+import { Navbar } from '@/components/global/Navbar';
 import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -43,21 +44,19 @@ export default function IndexRoute({
           <Providers>
             <div>
               <Suspense>
-                <PopupHandler />
+                <PopupHandler market={market} />
               </Suspense>
               <Suspense fallback={<Skeleton className="h-11 w-full" />}>
                 <AnnouncementBanner />
               </Suspense>
-              {/* <Suspense>
-                <Navbar />
-              </Suspense> */}
-              {/* <Suspense fallback={<Skeleton className="h-dvh max-h-dvh w-full" />}> */}
+              <Suspense>
+                <Navbar market={market} />
+              </Suspense>
               <main>
                 {children}
                 {draftMode().isEnabled && <VisualEditing />}
                 <Analytics />
               </main>
-              {/* </Suspense> */}
             </div>
             {/* <Suspense>
               <USP />

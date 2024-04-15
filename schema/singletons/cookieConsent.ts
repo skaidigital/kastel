@@ -1,7 +1,5 @@
-import { MARKETS } from '@/data/constants';
-import { i18nField } from '@/lib/sanity/studioUtils';
 import { Cookie } from '@phosphor-icons/react';
-import { defineType } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 export const cookieConsent = defineType({
   title: 'Cookie consent',
@@ -17,18 +15,10 @@ export const cookieConsent = defineType({
       };
     }
   },
-  groups: [
-    ...MARKETS.map((market) => ({
-      name: market.id,
-      title: market.name,
-      icon: () => market.flag,
-      default: market.id === 'no'
-    }))
-  ],
   fields: [
-    ...i18nField({
-      title: 'Content',
-      name: 'content',
+    defineField({
+      title: 'Content 🇧🇻',
+      name: 'content_no',
       type: 'richText',
       validation: (Rule: any) => Rule.required()
     })

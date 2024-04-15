@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export const useDeviceType = (): 'mobile' | 'desktop' => {
+export const useDeviceType = () => {
   const [deviceType, setDeviceType] = useState<'mobile' | 'desktop'>('desktop');
 
   useEffect(() => {
@@ -17,5 +17,7 @@ export const useDeviceType = (): 'mobile' | 'desktop' => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return deviceType;
+  const isDesktop = deviceType === 'desktop';
+
+  return { isDesktop };
 };

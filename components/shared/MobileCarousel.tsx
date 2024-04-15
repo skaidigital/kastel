@@ -1,8 +1,8 @@
 'use client';
 
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { useWindowSize } from '@/lib/hooks/useWindowSize';
 import { GalleryProps } from '@/lib/sanity/types';
+import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
@@ -34,7 +34,7 @@ export function MobileCarousel({ images, className }: Props) {
     setCurrentSlide(0);
   }, []);
 
-  const { isDesktop } = useWindowSize();
+  const { isDesktop } = useDeviceType();
 
   if (isDesktop) return null;
 

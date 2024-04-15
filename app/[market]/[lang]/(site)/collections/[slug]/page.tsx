@@ -1,6 +1,9 @@
+import { CollectionPage } from '@/components/pages/CollectionPage';
 import {
   CollectionBasePayload,
   CollectionProductsPayload,
+  collectionBaseValidator,
+  collectionProductsValidator,
   getCollectionBaseQuery,
   getCollectionProductsQuery,
   mergeCollectionBaseAndProducts
@@ -12,13 +15,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-
-const CollectionPreview = dynamic(
-  () => import('components/pages/CollectionPage/CollectionPreview')
-);
 
 export async function generateStaticParams() {
   const slugs = await generateStaticSlugs('collection');
@@ -59,36 +56,35 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   const currentPage = Number(searchParams?.page) || 1;
 
   const initialBase = await loadCollectionBase(slug, market);
-  const initialProducts = await loadCollectionProducts(slug, market, currentPage);
-
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
+  const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
+
+  if (!validatedBase.success) {
+    console.error(validatedBase.error);
+    notFound();
+  }
+
+  const initialProducts = await loadCollectionProducts(slug, market, currentPage);
   const collectionProductsWithoutNullValues = nullToUndefined(initialProducts.data);
+  const validatedProducts = collectionProductsValidator.safeParse(
+    collectionProductsWithoutNullValues
+  );
+
+  if (!validatedProducts.success) {
+    console.error(validatedProducts.error);
+    notFound();
+  }
 
   const mergedData = mergeCollectionBaseAndProducts(
     collectionBaseWithoutNullValues,
     collectionProductsWithoutNullValues
   );
 
-  if (draftMode().isEnabled) {
-    return (
-      <CollectionPreview
-        params={params}
-        initialBase={initialBase}
-        intialProducts={initialProducts}
-        market={market}
-        currentPage={currentPage}
-      />
-    );
-  }
-
   if (!initialBase.data) {
     notFound();
   }
 
-  // const validatedData = collectionValidator.parse(mergedData);
-
-  // return <CollectionPage data={validatedData} currentPage={currentPage} />;
-  return <div>Collection</div>;
+  return <CollectionPage data={mergedData} currentPage={currentPage} />;
 }
 
 export async function generateMetadata({

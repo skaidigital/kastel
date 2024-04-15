@@ -2,30 +2,42 @@ import { getDictionary } from '@/app/dictionaries';
 import { CookieConsentLayout } from '@/components/global/CookieConsent/CookieConsentLayout';
 import {
   CookieConsentPayload,
+  cookieConsentValidator,
   getCookieConsentQuery
 } from '@/components/global/CookieConsent/hooks';
-import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { CACHE_TAGS, MarketValues } from '@/data/constants';
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
-
-const CookieConsentPreview = dynamic(() => import('./CookieConsentPreview'));
 
 async function loadCookieConsent(market: MarketValues) {
   const query = getCookieConsentQuery(market);
-  return loadQuery<CookieConsentPayload>(query, {}, { next: { tags: ['cookieConsent', 'home'] } });
+
+  return loadQuery<CookieConsentPayload>(
+    query,
+    {},
+    { next: { tags: [CACHE_TAGS.COOKIE_CONSENT] } }
+  );
 }
 
-// TODO add zod validator
-export async function CookieConsent() {
-  const market = (await getMarket()) as MarketValues;
+interface Props {
+  market: MarketValues;
+}
+
+export async function CookieConsent({ market }: Props) {
   const initial = await loadCookieConsent(market);
   const dictionary = await getDictionary();
 
-  if (draftMode().isEnabled) {
-    return <CookieConsentPreview initial={initial} market={market} dictionary={dictionary} />;
+  if (!initial.data?.content) {
+    return null;
   }
 
-  return <CookieConsentLayout data={initial.data} dictionary={dictionary} />;
+  const withoutNullValues = nullToUndefined(initial.data);
+  const validatedData = cookieConsentValidator.safeParse(withoutNullValues);
+
+  if (!validatedData.success) {
+    console.error(validatedData.error.errors);
+    return null;
+  }
+
+  return <CookieConsentLayout data={validatedData.data} dictionary={dictionary} />;
 }

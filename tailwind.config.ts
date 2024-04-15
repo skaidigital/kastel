@@ -190,11 +190,13 @@ module.exports = {
         'heading-lg': ['40px', { lineHeight: '48px' }],
         'heading-xl': ['60px', { lineHeight: '64px' }],
         'heading-2xl': ['80px', { lineHeight: '80px' }],
-        'text-xs': ['12px', { lineHeight: '16px' }],
-        'text-sm': ['14px', { lineHeight: '20px' }],
-        'text-md': ['18px', { lineHeight: '24px' }],
-        'text-lg': ['24px', { lineHeight: '32px' }],
-        'text-xl': ['32px', { lineHeight: '40px' }]
+        xs: ['12px', { lineHeight: '16px' }],
+        sm: ['14px', { lineHeight: '20px' }],
+        md: ['18px', { lineHeight: '24px' }],
+        lg: ['24px', { lineHeight: '32px' }],
+        xl: ['32px', { lineHeight: '40px' }],
+        'overline-sm': ['10px', { lineHeight: '10px' }],
+        'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
       },
       colors: {
         brand: {
@@ -210,6 +212,9 @@ module.exports = {
       },
       borderRadius: {
         project: '2px'
+      },
+      backdropBlur: {
+        brand: '16px'
       }
     }
   },

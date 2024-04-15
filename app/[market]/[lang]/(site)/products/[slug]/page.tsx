@@ -9,8 +9,6 @@ import { SearchParams } from '@/lib/types';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-// const ProductPreview = dynamic(() => import('components/pages/ProductPage/ProductPreview'));
-
 export async function generateStaticParams() {
   const slugs = await generateStaticSlugsProducts();
 
@@ -38,18 +36,6 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
 
   const initial = await loadProduct(slug, market);
   const { product_page: dictionary } = await getDictionary();
-
-  // if (draftMode().isEnabled) {
-  //   return (
-  //     <ProductPreview
-  //       params={params}
-  //       initial={initial}
-  //       market={market}
-  //       dictionary={dictionary}
-  //       searchParams={searchParams}
-  //     />
-  //   );
-  // }
 
   if (!initial.data) {
     notFound();
