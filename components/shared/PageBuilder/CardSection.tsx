@@ -18,6 +18,11 @@ interface Props {
   data: PropsWithExtra;
 }
 
+/**
+ * Renders 2-3 cards in a row
+ *
+ * NOTE: Test
+ */
 export const CardSection = ({ data }: Props) => {
   const { index, pageId, pageType, cards, aspectRatioSettings, sectionSettings } = data;
 
