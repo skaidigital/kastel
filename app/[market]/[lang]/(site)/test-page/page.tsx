@@ -1,4 +1,5 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
+import { ProductReviewWidget } from '@/components/lipscore/ProductReviewWidget';
 import { getLipscoreReviews } from '@/components/lipscore/hook';
 import { SmileButton } from '@/components/smile/Button';
 import { getSmilePoints } from '@/components/smile/hooks';
@@ -96,7 +97,7 @@ export default async function Page() {
       <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Activity Rules" />
       <SmileButton deepLink={SMILE_DEEP_LINKS.points_products} label="Points Product" />
       <SmileButton deepLink={SMILE_DEEP_LINKS.referral_program_details} label="Referral" />
-
+      <ProductReviewWidget />
       {/* <OpenSmileHome />
       <OpenSmileActivityRules />
       <OpenSmilePointsProduct />
