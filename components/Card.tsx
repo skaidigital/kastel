@@ -8,17 +8,15 @@ import { SanityImage } from '@/components/sanity/SanityImage';
 import { SanityLinkHero } from '@/components/sanity/SanityLink';
 import { CardProps } from '@/components/shared/PageBuilder/hooks';
 import { cn } from '@/lib/utils';
-import { EncodeDataAttributeCallback } from '@sanity/react-loader';
 
 interface Props {
   card: CardProps;
   sizes?: string;
   className?: string;
   priority?: boolean;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
 }
 
-export function Card({ card, sizes, className, priority, encodeDataAttribute }: Props) {
+export function Card({ card, sizes, className, priority }: Props) {
   const { title, subtitle, link, textPositionMobile, textPositionDesktop, type } = card;
 
   const video = type === 'video' ? card.video : null;
