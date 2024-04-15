@@ -1,27 +1,3 @@
-export const getWishlistQuery = /* GraphQL */ `
-  query getWishlist($token: String!, $key: String!, $namespace: String!) {
-    customer(customerAccessToken: $token) {
-      metafield(key: $key, namespace: $namespace) {
-        id
-        key
-        value
-      }
-    }
-  }
-`;
-
-export const deleteWishlistQuery = /* GraphQL */ `
-  mutation metafieldDelete($id: ID!) {
-    metafieldDelete(input: { id: $id }) {
-      deletedId
-      userErrors {
-        field
-        message
-      }
-    }
-  }
-`;
-
 export const metafieldsSetMutation = /* GraphQL */ `
   mutation MetafieldsSet($metafields: [MetafieldsSetInput!]!) {
     metafieldsSet(metafields: $metafields) {
@@ -36,27 +12,6 @@ export const metafieldsSetMutation = /* GraphQL */ `
         field
         message
         code
-      }
-    }
-  }
-`;
-
-export const updateCustomerInformation = /* GraphQL */ `
-  mutation customerUpdate($customer: CustomerUpdateInput!, $customerAccessToken: String!) {
-    customerUpdate(customer: $customer, customerAccessToken: $customerAccessToken) {
-      customer {
-        id
-        firstName
-        lastName
-      }
-      customerUserErrors {
-        code
-        field
-        message
-      }
-      userErrors {
-        field
-        message
       }
     }
   }

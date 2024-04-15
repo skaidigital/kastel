@@ -6,12 +6,12 @@ import { SMILE_DEEP_LINKS } from '@/data/constants';
 import { createCustomerAccessToken } from '@/lib/shopify';
 import {
   addItemToWishlist,
-  getCustomerData,
-  getWishlist,
-  isItemInWishlist,
-  removeItemFromWishlist,
-  updateCustomerData
-} from '@/lib/shopify/metafields/hooks';
+  removeItemFromWishlist
+} from '@/lib/shopify/metafields/adjustItemInWishlist';
+import { getCustomerData } from '@/lib/shopify/metafields/getCustomerData';
+import { getWishlist } from '@/lib/shopify/metafields/getWishlist';
+import { isItemInWishlist } from '@/lib/shopify/metafields/isItemInWishlist';
+import { updateCustomerData } from '@/lib/shopify/metafields/updateCustomerData';
 import { cookies } from 'next/headers';
 
 export default async function Page() {

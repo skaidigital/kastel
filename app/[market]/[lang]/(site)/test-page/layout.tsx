@@ -5,6 +5,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <SmileInit customerId="7292377628922" />
+      {/* <LipscoreInit /> */}
       {children}
     </>
   );

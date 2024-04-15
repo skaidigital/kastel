@@ -1,9 +1,7 @@
 import { isShopifyError } from '@/app/[market]/[lang]/(site)/shopify/utils';
-import { METAFIELDS } from '@/data/constants';
 import { env } from '@/env';
 import { ensureStartsWith } from '@/lib/utils';
 import { cookies } from 'next/headers';
-import { getWishlistQuery, updateCustomerInformation } from './metafields/query';
 import {
   addToCartMutation,
   applyDiscountToCartMutation,
@@ -18,8 +16,6 @@ import {
   Cart,
   Connection,
   CustomerAccessToken,
-  CustomerMetadata,
-  CustomerUpdateData,
   ShopifyAddDiscountCodeOperation,
   ShopifyAddToCartOperation,
   ShopifyCart,
@@ -253,66 +249,4 @@ export async function applyDiscountToCart(cartId: string, discountCodes: string[
   });
 
   return reshapeCart(res.body.data.cart);
-}
-
-export async function getWishlistForUser() {
-  const accessToken = cookies().get('accessToken')?.value;
-
-  if (!accessToken) {
-    throw new Error('No access token');
-  }
-
-  const wishlistResponse = await shopifyFetch<CustomerMetadata>({
-    query: getWishlistQuery,
-    variables: {
-      token: accessToken,
-      key: METAFIELDS.customer.wishlist.key,
-      namespace: METAFIELDS.customer.wishlist.namespace
-    },
-    cache: 'no-store'
-  });
-
-  return wishlistResponse.body.data?.customer?.metafield;
-}
-
-export async function getCustomDataForUser() {
-  const accessToken = cookies().get('accessToken')?.value;
-
-  if (!accessToken) {
-    throw new Error('No access token');
-  }
-
-  const wishlistResponse = await shopifyFetch<CustomerMetadata>({
-    query: getWishlistQuery,
-    variables: {
-      token: accessToken,
-      key: METAFIELDS.customer.customer_data.key,
-      namespace: METAFIELDS.customer.customer_data.namespace
-    },
-    cache: 'no-store'
-  });
-
-  return wishlistResponse.body.data?.customer?.metafield;
-}
-
-export async function updateCustomerName(fistName: string, lastName: string) {
-  const accessToken = cookies().get('accessToken')?.value;
-
-  if (!accessToken) {
-    throw new Error('No access token');
-  }
-
-  const res = await shopifyFetch<CustomerUpdateData>({
-    query: updateCustomerInformation,
-    variables: {
-      customer: {
-        firstName: fistName,
-        lastName: lastName
-      },
-      customerAccessToken: accessToken
-    },
-    cache: 'no-store'
-  });
-
-  return res.body.data?.customerUpdate?.customer || null;
 }
