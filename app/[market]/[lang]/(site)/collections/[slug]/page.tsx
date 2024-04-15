@@ -1,6 +1,9 @@
+import { CollectionPage } from '@/components/pages/CollectionPage';
 import {
   CollectionBasePayload,
   CollectionProductsPayload,
+  collectionBaseValidator,
+  collectionProductsValidator,
   getCollectionBaseQuery,
   getCollectionProductsQuery,
   mergeCollectionBaseAndProducts
@@ -53,10 +56,24 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   const currentPage = Number(searchParams?.page) || 1;
 
   const initialBase = await loadCollectionBase(slug, market);
-  const initialProducts = await loadCollectionProducts(slug, market, currentPage);
-
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
+  const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
+
+  if (!validatedBase.success) {
+    console.error(validatedBase.error);
+    notFound();
+  }
+
+  const initialProducts = await loadCollectionProducts(slug, market, currentPage);
   const collectionProductsWithoutNullValues = nullToUndefined(initialProducts.data);
+  const validatedProducts = collectionProductsValidator.safeParse(
+    collectionProductsWithoutNullValues
+  );
+
+  if (!validatedProducts.success) {
+    console.error(validatedProducts.error);
+    notFound();
+  }
 
   const mergedData = mergeCollectionBaseAndProducts(
     collectionBaseWithoutNullValues,
@@ -67,10 +84,7 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     notFound();
   }
 
-  // const validatedData = collectionValidator.parse(mergedData);
-
-  // return <CollectionPage data={validatedData} currentPage={currentPage} />;
-  return <div>Collection</div>;
+  return <CollectionPage data={mergedData} currentPage={currentPage} />;
 }
 
 export async function generateMetadata({
