@@ -68,23 +68,14 @@ export function CollectionLayout({ data, currentPage }: Props) {
 
             const priorityIndices = [0, 1, 2];
 
-            const hasLifestyleImage = item.lifestyleImage ? true : false;
-            const wantsLifestyleImageFirst = item.firstImage === 'lifestyle';
-            const preferredFirstImage = item.firstImage;
-
-            const image =
-              hasLifestyleImage && wantsLifestyleImageFirst ? item.lifestyleImage : item.mainImage;
-            const hoverImage =
-              preferredFirstImage === 'lifestyle' ? item.mainImage : item.lifestyleImage;
-
             return (
               <ProductCard
                 key={index}
+                type={item.type}
                 title={item.title}
                 slug={item.slug}
-                // TODO figure out how to fix this undefined
-                image={image}
-                hoverImage={hoverImage}
+                mainImage={item.mainImage}
+                lifestyleImage={item.lifestyleImage}
                 badges={item.badges}
                 priority={priorityIndices.includes(index)}
               />

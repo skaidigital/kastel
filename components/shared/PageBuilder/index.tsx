@@ -1,6 +1,5 @@
 import { AccordionSection } from '@/components/shared/PageBuilder/AccordionSection';
 import { CardGrid } from '@/components/shared/PageBuilder/CardGrid';
-import { CollectionListing } from '@/components/shared/PageBuilder/CollectionListing';
 import { ContactForm } from '@/components/shared/PageBuilder/ContactForm';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { InstagramFeed } from '@/components/shared/PageBuilder/InstagramFeed';
@@ -24,7 +23,6 @@ const blockTypes: BlockType = {
   contactForm: ContactForm,
   instagramFeed: InstagramFeed,
   productListing: ProductListing,
-  collectionListing: CollectionListing,
   cardGrid: CardGrid
 };
 

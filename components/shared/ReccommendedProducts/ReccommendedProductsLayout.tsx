@@ -1,8 +1,6 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
-import { ProductCard } from '@/components/shared/ProductCard';
-import { ProductCarousel } from '@/components/shared/ProductCarousel';
 import { ReccommendedProductPayload } from '@/components/shared/ReccommendedProducts/hooks';
 
 interface Props {
@@ -15,10 +13,10 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
     <Section
       srHeading={dictionary.we_think_you_will_like || 'We can also reccommend'}
       label="reccommended-products"
-      className="border-b border-brand-border"
+      className="border-brand-border border-b"
     >
       <Container>
-        <ProductCarousel heading={dictionary.we_think_you_will_like}>
+        {/* <ProductCarousel heading={dictionary.we_think_you_will_like}>
           {data?.map((product, index) => (
             <ProductCard
               key={`${product.title}-${index}`}
@@ -28,7 +26,7 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
               className={`keen-slider__slide number-slide-${index} max-w-[300px]`}
             />
           ))}
-        </ProductCarousel>
+        </ProductCarousel> */}
       </Container>
     </Section>
   );

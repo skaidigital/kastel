@@ -1,8 +1,6 @@
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { ProductListingProps } from '@/components/shared/PageBuilder/hooks';
-import { ProductCard } from '@/components/shared/ProductCard';
-import { ProductCarousel } from '@/components/shared/ProductCarousel';
 import { vercelStegaCleanAll } from '@sanity/client/stega';
 
 interface Props {
@@ -32,10 +30,10 @@ export const ProductListing = ({ data }: Props) => {
       noBottomPadding={!hasBottomPadding}
       label="page-title"
       srHeading="Page title"
-      className={hasBottomBorder ? 'border-b border-brand-border' : ''}
+      className={hasBottomBorder ? 'border-brand-border border-b' : ''}
     >
       <Container>
-        <ProductCarousel heading={title}>
+        {/* <ProductCarousel heading={title}>
           {products?.map((product, index) => (
             <ProductCard
               key={`${product.title}-${index}`}
@@ -47,7 +45,7 @@ export const ProductListing = ({ data }: Props) => {
               className={`keen-slider__slide transform-gpu number-slide-${index} min-w-[50%] max-w-[50%] transform-gpu lg:min-w-[25%] lg:max-w-[25%]`}
             />
           ))}
-        </ProductCarousel>
+        </ProductCarousel> */}
       </Container>
     </Section>
   );
