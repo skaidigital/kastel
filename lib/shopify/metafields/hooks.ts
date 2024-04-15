@@ -1,5 +1,7 @@
+'use server';
+
 import { METAFIELDS } from '@/data/constants';
-import { getWishlistForUser } from '..';
+import { getCustomDataForUser, getWishlistForUser, updateCustomerName } from '..';
 import { shopifyAdminQuery } from '../admin';
 import { deleteWishlistQuery, metafieldsSetMutation } from './query';
 
@@ -86,4 +88,74 @@ async function deleteWishlistForUser({ gid }: { gid: string }) {
   });
 
   return deleteWishlistResponse;
+}
+
+// Get customer data for user
+export async function getCustomerData() {
+  const customerDataResponse = await getCustomDataForUser();
+
+  console.log(customerDataResponse);
+
+  return (customerDataResponse && JSON.parse(customerDataResponse?.value)) || {};
+}
+
+interface CustomerData {
+  customerGid: string;
+  data: {
+    firstName: string;
+    lastName: string;
+    isPrompted?: boolean;
+    footLength?: string;
+    style?: string;
+    color?: string;
+  };
+}
+
+export async function updateCustomerData({ customerGid, data }: CustomerData) {
+  const metafields = [
+    {
+      key: METAFIELDS.customer.customer_data.key,
+      namespace: METAFIELDS.customer.customer_data.namespace,
+      type: METAFIELDS.customer.customer_data.type,
+      ownerId: customerGid,
+      value: JSON.stringify({
+        isPrompted: data.isPrompted,
+        footLength: data.footLength,
+        style: data.style,
+        color: data.color
+      })
+    }
+  ];
+  let success: boolean = true;
+  // Update first and last name
+  const updateCustomerNameResponse = await updateCustomerName(data.firstName, data.lastName);
+
+  if (!updateCustomerNameResponse) {
+    console.log('Error updating customer name', updateCustomerNameResponse);
+    success = false;
+  }
+
+  // Update customer metadata for user
+  const updateCustomerDataResponse = await shopifyAdminQuery(metafieldsSetMutation, { metafields });
+
+  if (!updateCustomerDataResponse) {
+    console.log('Error updating customer data', updateCustomerDataResponse);
+    success = false;
+  }
+
+  const updatedMetaData =
+    (updateCustomerDataResponse?.data.metafieldsSet &&
+      JSON.parse(updateCustomerDataResponse?.data.metafieldsSet?.metafields[0]?.value)) ||
+    {};
+
+  const responseForm: CustomerData['data'] = {
+    firstName: updateCustomerNameResponse.firstName || '',
+    lastName: updateCustomerNameResponse.lastName || '',
+    isPrompted: updatedMetaData.isPrompted || false,
+    footLength: updatedMetaData.footLength || '',
+    style: updatedMetaData.style || '',
+    color: updatedMetaData.color || ''
+  };
+
+  return { success, responseForm };
 }

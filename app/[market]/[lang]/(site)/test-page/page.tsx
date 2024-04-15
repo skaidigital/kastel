@@ -6,10 +6,12 @@ import { SMILE_DEEP_LINKS } from '@/data/constants';
 import { createCustomerAccessToken } from '@/lib/shopify';
 import {
   addItemToWishlist,
+  getCustomerData,
   getWishlist,
   isItemInWishlist,
-  removeItemFromWishlist
-} from '@/lib/shopify/wishlist/hooks';
+  removeItemFromWishlist,
+  updateCustomerData
+} from '@/lib/shopify/metafields/hooks';
 import { cookies } from 'next/headers';
 
 export default async function Page() {
@@ -21,28 +23,17 @@ export default async function Page() {
     console.log(token);
   }
 
-  const data = await getWishlist();
-
+  // Constants for testing
   // Same as smile init const customerId = '7292377628922';
   const email = 'olgaterese@gmail.com';
   const customerGid = 'gid://shopify/Customer/7742157848805';
   const gid = 'gid://shopify/Product/8618931388645';
   const productSku = 'SOL002-002-021-40';
 
-  const getPoints = await getSmilePoints(email);
-
-  console.log(getPoints);
-
-  //
-  const getProductRating = await getLipscoreReviews(productSku);
-
-  console.log(getProductRating);
-
-  // console.log(data);
-
-  //! This one deletes the wishlist
-  // await deleteWishlist();
-
+  // ----------------------------
+  // Testing wishlist functions
+  // ----------------------------
+  const data = await getWishlist();
   let removeItemResponse;
   let addItemResponse;
 
@@ -55,6 +46,42 @@ export default async function Page() {
     // console.log('Item is not in wishlist');
     addItemResponse = await addItemToWishlist(customerGid, gid);
   }
+
+  // ----------------------------
+  // Smile functions
+  // ----------------------------
+
+  const getPoints = await getSmilePoints(email);
+  console.log(getPoints);
+
+  // ----------------------------
+  // Lipscore functions
+  // --------------------------------
+  const getProductRating = await getLipscoreReviews(productSku);
+  console.log(getProductRating);
+
+  // ----------------------------
+  // Saving cusotmer data
+  // ----------------------------
+  const productForm = {
+    firstName: 'Petter',
+    lastName: 'Elgheim.',
+    isPrompted: true,
+    footLength: '43.5',
+    style: 'Modern',
+    color: 'Black'
+  };
+
+  const getCustomerDataResponse = await getCustomerData();
+  const updateInformationResponse = await updateCustomerData({ customerGid, data: productForm });
+
+  console.log(getCustomerDataResponse);
+  console.log(updateInformationResponse);
+
+  // console.log(data);
+
+  //! This one deletes the wishlist
+  // await deleteWishlist();
 
   return (
     <div className="flex flex-col">

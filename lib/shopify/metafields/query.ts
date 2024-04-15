@@ -40,3 +40,24 @@ export const metafieldsSetMutation = /* GraphQL */ `
     }
   }
 `;
+
+export const updateCustomerInformation = /* GraphQL */ `
+  mutation customerUpdate($customer: CustomerUpdateInput!, $customerAccessToken: String!) {
+    customerUpdate(customer: $customer, customerAccessToken: $customerAccessToken) {
+      customer {
+        id
+        firstName
+        lastName
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;

@@ -203,6 +203,11 @@ export const METAFIELDS = {
       namespace: 'skai',
       key: 'wishlist',
       type: 'list.product_reference'
+    },
+    customer_data: {
+      namespace: 'skai',
+      key: 'customer_data',
+      type: 'json'
     }
   }
 };

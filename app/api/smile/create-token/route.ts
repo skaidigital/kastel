@@ -4,8 +4,6 @@ import jwt from 'jsonwebtoken';
 export async function POST(request: Request) {
   const { customer_id } = await request.json(); // This should be dynamically determined based on the logged-in user
 
-  console.log(customer_id);
-
   const private_key = env.SMILE_API_KEY;
 
   try {
