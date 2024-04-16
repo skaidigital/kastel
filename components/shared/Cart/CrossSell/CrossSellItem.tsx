@@ -7,11 +7,11 @@ import { Combination } from '@/components/VariantSelector';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import {
-  RadixSelect,
-  RadixSelectContent,
-  RadixSelectItem,
-  RadixSelectTrigger,
-  RadixSelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from '@/components/form/RadixSelect';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
@@ -89,7 +89,7 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
   return (
     <div className={cn('flex w-full rounded-project', className)}>
       <div className="w-40">
-        <AspectRatio ratio={3 / 4} className="relative rounded-project bg-brand-border">
+        <AspectRatio ratio={3 / 4} className="bg-brand-border relative rounded-project">
           {image && <SanityImage fill image={image} className="rounded-project" />}
         </AspectRatio>
       </div>
@@ -125,22 +125,22 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
         </div>
         <div className="flex gap-x-3">
           {isVariableProduct && combinationStrings && (
-            <RadixSelect
+            <Select
               onValueChange={(e) => {
                 setSelectedCombination(e);
               }}
             >
-              <RadixSelectTrigger>
-                <RadixSelectValue placeholder={dictionary.choose_option} />
-              </RadixSelectTrigger>
-              <RadixSelectContent>
+              <SelectTrigger>
+                <SelectValue placeholder={dictionary.choose_option} />
+              </SelectTrigger>
+              <SelectContent>
                 {combinationStrings.map((option) => (
-                  <RadixSelectItem key={option} value={option}>
+                  <SelectItem key={option} value={option}>
                     {option}
-                  </RadixSelectItem>
+                  </SelectItem>
                 ))}
-              </RadixSelectContent>
-            </RadixSelect>
+              </SelectContent>
+            </Select>
           )}
           <Button
             variant="outline"
@@ -150,7 +150,7 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
             isLoading={isPending}
             fullWidth={isSimpleProduct}
             className={cn(
-              'flex items-center justify-center rounded-project border border-brand-border text-black',
+              'border-brand-border flex items-center justify-center rounded-project border text-black',
               isSimpleProduct && 'gap-x-2',
               isVariableProduct && 'h-9 w-12'
             )}

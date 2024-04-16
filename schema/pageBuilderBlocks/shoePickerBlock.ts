@@ -2,9 +2,9 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Image, Sneaker } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const shoePicker = defineType({
-  title: 'Shoe picker',
-  name: 'shoePicker',
+export const shoePickerBlock = defineType({
+  title: 'Shoe Picker block',
+  name: 'shoePickerBlock',
   type: 'document',
   icon: Sneaker,
   preview: {

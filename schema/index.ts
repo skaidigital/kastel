@@ -64,9 +64,11 @@ import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
 import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
+import { shoePickerSection } from '@/schema/objects/shoePickerSection';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
 import { timelineItem } from '@/schema/objects/timelineItem';
+import { timelineSection } from '@/schema/objects/timelineSection';
 import { updateItem } from '@/schema/objects/updateItem';
 import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
 import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
@@ -80,10 +82,10 @@ import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
-import { shoePicker } from '@/schema/pageBuilderBlocks/shoePicker';
+import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
 import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
-import { timelineSection } from '@/schema/pageBuilderBlocks/timelineSection';
+import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
@@ -156,6 +158,8 @@ const schema = [
   emailCapture,
   natureLabInnovationSection,
   cardSection,
+  shoePickerSection,
+  timelineSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
@@ -163,10 +167,10 @@ const schema = [
   kastelClub,
   shopOurModels,
   natureLabExplainer,
-  shoePicker,
+  timelineBlock,
+  shoePickerBlock,
   featuredShoe,
   uspExplainer,
-  timelineSection,
   cardBlock,
 
   // Product

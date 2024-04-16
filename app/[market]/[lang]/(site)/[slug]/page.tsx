@@ -44,6 +44,7 @@ export default async function PageSlugRoute({ params }: Props) {
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
   const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
+
   const validatedPage = pageValidator.safeParse(cleanedPageData);
 
   if (!validatedPage.success) {

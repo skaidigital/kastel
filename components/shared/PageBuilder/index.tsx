@@ -7,6 +7,7 @@ import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { InstagramFeed } from '@/components/shared/PageBuilder/InstagramFeed';
 import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
 import { ProductListing } from '@/components/shared/PageBuilder/ProductListing';
+import { ShoePicker } from '@/components/shared/PageBuilder/ShoePicker';
 import { TextSection } from '@/components/shared/PageBuilder/TextSection';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
@@ -23,6 +24,7 @@ const blockTypes: BlockType = {
   cardSection: CardSection,
   blogPostSection: BlogPostSection,
   faqSection: FAQSection,
+  shoePicker: ShoePicker,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

@@ -146,6 +146,19 @@ const FAQSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const shoePickerValidator = z.object({
+  type: z.literal('shoePicker'),
+  key: z.string(),
+  title: z.string(),
+  types: z.array(
+    z.object({
+      title: z.string(),
+      items: z.array(z.union([mediaValidator, productCardValidator]))
+    })
+  ),
+  sectionSettings: sectionSettingsValidator
+});
+
 // New validators end
 
 const textAndImageValidator = z.object({
@@ -293,6 +306,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   cardSectionValidator,
   blogPostSectionValidator,
   FAQSectionValidator,
+  shoePickerValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -313,6 +327,7 @@ export type CardSectionProps = z.infer<typeof cardSectionValidator>;
 export type BlogPostProps = z.infer<typeof blogPostValidator>;
 export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
 export type FAQSectionProps = z.infer<typeof FAQSectionValidator>;
+export type ShoePickerProps = z.infer<typeof shoePickerValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -418,6 +433,28 @@ export const PAGE_BUILDER_TYPES: {
       "question": question.${lang},
       "answer": answer_${lang}
      },
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
+    }
+  `,
+  shoePicker: (lang) => groq`
+    ${fragments.base},
+    ...shoePickerBlock->{
+      "title": title.${lang},
+      "types": types[]{
+        "title": title.${lang},
+        "items": items[]{
+          _type == "media" => {
+            ${fragments.getMedia(lang)}
+          },
+          _type == "reference" => {
+            ...@->{
+              ${fragments.getProductCard(lang)}
+            }
+          },
+        },
+      },
     },
     sectionSettings{
      ${fragments.sectionSettings}

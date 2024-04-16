@@ -152,9 +152,8 @@ export const pageBuilder = defineType({
     }),
     // Shoe picker
     defineArrayMember({
-      title: 'Shoe picker',
-      type: 'reference',
-      to: [{ type: 'shoePicker' }],
+      title: 'Shoe picker section',
+      type: 'shoePickerSection',
       name: 'shoePicker'
     }),
     // Nature Lab explanation

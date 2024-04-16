@@ -2,9 +2,9 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Calendar } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const timelineSection = defineType({
-  title: 'Timeline section',
-  name: 'timelineSection',
+export const timelineBlock = defineType({
+  title: 'Timeline block',
+  name: 'timelineBlock',
   type: 'document',
   icon: Calendar,
   preview: {

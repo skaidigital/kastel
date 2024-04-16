@@ -124,16 +124,16 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Q&A', schemaType: 'question' }).icon(List),
         listNew({ S, title: 'FAQ block', schemaType: 'faqBlock' }).icon(List),
         listNew({ S, title: 'Card block', schemaType: 'cardBlock' }).icon(GridFour),
+        listNew({ S, title: 'Shoe picker block', schemaType: 'shoePickerBlock' }).icon(Sneaker),
+        listNew({ S, title: 'Timeline block', schemaType: 'timelineBlock' }).icon(Calendar),
         listNew({ S, title: 'Shop our models', schemaType: 'shopOurModels' }).icon(Slideshow),
         listNew({ S, title: 'UGC section', schemaType: 'UGCSection' }).icon(VideoCamera),
         listNew({ S, title: 'Kastel Club', schemaType: 'kastelClub' }).icon(Trophy),
         listNew({ S, title: 'Nature Lab explainer', schemaType: 'natureLabExplainer' }).icon(
           Recycle
         ),
-        listNew({ S, title: 'Shoe picker', schemaType: 'shoePicker' }).icon(Sneaker),
         listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
-        listNew({ S, title: 'Timeline section', schemaType: 'timelineSection' }).icon(Calendar),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
       ]).icon(Recycle),
       group(S, 'Retailers', [
