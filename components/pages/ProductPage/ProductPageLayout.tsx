@@ -17,6 +17,7 @@ import { MobileCarousel } from '@/components/shared/MobileCarousel';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
+import { LangValues, MarketValues } from '@/data/constants';
 import { env } from '@/env';
 import { urlForImage } from '@/lib/sanity/image';
 import { SearchParams } from '@/lib/types';
@@ -28,10 +29,12 @@ interface Props {
   data: Product;
   dictionary: Dictionary['product_page'];
   searchParams?: SearchParams;
+  market: MarketValues;
+  lang: LangValues;
 }
 
 export function ProductPageLayout(props: Props) {
-  const { data: product, dictionary, searchParams } = props;
+  const { data: product, dictionary, searchParams, market, lang } = props;
 
   if (!product) return null;
 
@@ -65,7 +68,7 @@ export function ProductPageLayout(props: Props) {
         noTopPadding
         label="product-hero"
         srHeading="Product Hero"
-        className="space-y-5 border-b border-brand-border bg-white lg:mt-10 lg:flex lg:gap-x-20 lg:space-y-10"
+        className="border-brand-border space-y-5 border-b bg-white lg:mt-10 lg:flex lg:gap-x-20 lg:space-y-10"
       >
         <Container className="sm:mb-16 relative flex flex-1 flex-col gap-x-0 md:gap-x-7 xl:flex-row xl:gap-x-14">
           <div className=" hidden flex-1 grid-cols-1 gap-3 self-start lg:grid xl:grid-cols-2">
@@ -90,7 +93,7 @@ export function ProductPageLayout(props: Props) {
               ))}
           </div>
           <div className="sticky top-10 h-fit space-y-10 lg:max-w-[400px] lg:flex-[0_0_400px]">
-            <div className="flex flex-col gap-y-3 border-b border-brand-border pb-5">
+            <div className="border-brand-border flex flex-col gap-y-3 border-b pb-5">
               <Heading as="h1" size="md">
                 {title}
               </Heading>
@@ -126,7 +129,7 @@ export function ProductPageLayout(props: Props) {
                 />
               )}
               {accordions && (
-                <div className="divide-y divide-brand-border">
+                <div className="divide-brand-border divide-y">
                   <Accordion>
                     {accordions.map((accordion, index) => (
                       <AccordionItem key={index} title={accordion.title}>
@@ -143,7 +146,7 @@ export function ProductPageLayout(props: Props) {
 
       {pageBuilder?.length > 0 &&
         pageBuilder.map((block: PageBuilderBlock, index: number) => (
-          <PageBuilder key={index} data={block} index={index} />
+          <PageBuilder key={index} data={block} index={index} market={market} lang={lang} />
         ))}
 
       <Suspense>

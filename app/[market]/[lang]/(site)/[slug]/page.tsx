@@ -51,7 +51,7 @@ export default async function PageSlugRoute({ params }: Props) {
     return notFound();
   }
 
-  return <PageLayout data={validatedPage.data} market={market} />;
+  return <PageLayout data={validatedPage.data} market={market} lang={lang} />;
 }
 
 export async function generateMetadata({

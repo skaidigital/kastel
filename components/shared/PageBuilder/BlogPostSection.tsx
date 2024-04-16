@@ -1,3 +1,4 @@
+import { getPagebuilderDictionary } from '@/app/dictionaries/pageBuilder';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
@@ -8,21 +9,23 @@ import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { BlogPostProps, BlogPostSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { ROUTES } from '@/data/constants';
+import { LangValues, ROUTES } from '@/data/constants';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
 
 interface PropsWithExtra extends BlogPostSectionProps {
   index: number;
   pageId: string;
   pageType: string;
+  lang: LangValues;
 }
 
 interface Props {
   data: PropsWithExtra;
 }
 
-export const BlogPostSection = ({ data }: Props) => {
-  const { index, pageId, pageType, title, buttonText, sectionSettings, posts } = data;
+export const BlogPostSection = async ({ data }: Props) => {
+  const { index, pageId, pageType, lang, title, buttonText, sectionSettings, posts } = data;
+  const dictionary = await getPagebuilderDictionary(lang);
 
   return (
     <Section
@@ -38,7 +41,11 @@ export const BlogPostSection = ({ data }: Props) => {
           <CarouselContent className="-ml-3">
             {posts?.map((post) => (
               <CarouselItem key={post.title} className="basis-[80%] pl-3">
-                <BlogPostCard post={post} />
+                <BlogPostCard
+                  post={post}
+                  readTimeString={dictionary.min_read}
+                  readMoreString={dictionary.read_more}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -65,14 +72,27 @@ export const BlogPostSection = ({ data }: Props) => {
           )}
         </div>
         <div className="grid grid-cols-3 gap-x-4">
-          {posts?.map((post) => <BlogPostCard key={post.title} post={post} />)}
+          {posts?.map((post) => (
+            <BlogPostCard
+              key={post.title}
+              post={post}
+              readTimeString={dictionary.min_read}
+              readMoreString={dictionary.read_more}
+            />
+          ))}
         </div>
       </Container>
     </Section>
   );
 };
 
-function BlogPostCard({ post }: { post: BlogPostProps }) {
+interface BlogPostCardProps {
+  post: BlogPostProps;
+  readTimeString: string;
+  readMoreString: string;
+}
+
+function BlogPostCard({ post, readTimeString, readMoreString }: BlogPostCardProps) {
   const { title, description, readLength, image, slug } = post;
 
   if (!title || !image || !slug) {
@@ -86,7 +106,11 @@ function BlogPostCard({ post }: { post: BlogPostProps }) {
           {image && <SanityImage image={image} fill className="h-full w-full" />}
         </div>
         <div className="flex flex-col pr-5">
-          {readLength && <Badge className="mb-1">{readLength} min read</Badge>}
+          {readLength && (
+            <Badge className="mb-1">
+              {readLength} {readTimeString}
+            </Badge>
+          )}
           {title && (
             <Heading size="sm" className="mb-3">
               {title}
@@ -97,7 +121,7 @@ function BlogPostCard({ post }: { post: BlogPostProps }) {
           )}
           <div className="flex items-center gap-x-2">
             <Text className="font-medium text-brand-mid-grey transition-all duration-100 ease-in-out group-hover:mr-1.5">
-              Read more
+              {readMoreString}
             </Text>
             <ArrowUpRightIcon className="size-4 " />
           </div>

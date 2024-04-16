@@ -10,8 +10,7 @@ import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
 import { ProductListing } from '@/components/shared/PageBuilder/ProductListing';
 import { TextSection } from '@/components/shared/PageBuilder/TextSection';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
-import { MarketValues } from '@/data/constants';
-import { EncodeDataAttributeCallback } from '@sanity/react-loader';
+import { LangValues, MarketValues } from '@/data/constants';
 import { ComponentType } from 'react';
 
 type BlockType = {
@@ -37,14 +36,14 @@ const blockTypes: BlockType = {
 interface Props {
   data: PageBuilderBlock;
   index: number;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
-  market?: MarketValues;
+  market: MarketValues;
+  lang: LangValues;
 }
 
-export const PageBuilder = ({ data, index, encodeDataAttribute, market }: Props) => {
+export const PageBuilder = ({ data, index, market, lang }: Props) => {
   const { type } = data;
 
   const BlockType = blockTypes[type] || (() => null);
 
-  return <BlockType data={{ ...data, index, encodeDataAttribute, market }} />;
+  return <BlockType data={{ ...data, index, market, lang }} />;
 };

@@ -19,6 +19,8 @@ import { cn } from '@/lib/utils';
 interface Props {
   data: Collection;
   currentPage: number;
+  // market: MarketValues;
+  // lang: LangValues;
 }
 
 export function CollectionLayout({ data, currentPage }: Props) {

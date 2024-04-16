@@ -59,6 +59,8 @@ export default async function SlugProductPage({ params }: Props) {
   //     data={validatedProduct}
   //     dictionary={dictionary}
   //     searchParams={searchParams}
+  // market={market}
+  // lang={lang}
   //   />
   // );
   return <div>Product</div>;
