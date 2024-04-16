@@ -1,4 +1,3 @@
-import { AccordionSection } from '@/components/shared/PageBuilder/AccordionSection';
 import { BlogPostSection } from '@/components/shared/PageBuilder/BlogPostSection';
 import { CardSection } from '@/components/shared/PageBuilder/CardSection';
 import { ContactForm } from '@/components/shared/PageBuilder/ContactForm';
@@ -27,7 +26,6 @@ const blockTypes: BlockType = {
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,
-  accordionSection: AccordionSection,
   contactForm: ContactForm,
   instagramFeed: InstagramFeed,
   productListing: ProductListing

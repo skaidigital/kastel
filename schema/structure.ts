@@ -121,7 +121,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       ]).icon(Layout),
       group(S, 'Reusable content', [
         list(S, 'Text block', `_type == 'textBlock'`).icon(Layout),
-        listNew({ S, title: 'Question', schemaType: 'question' }).icon(List),
+        listNew({ S, title: 'Q&A', schemaType: 'question' }).icon(List),
         listNew({ S, title: 'FAQ block', schemaType: 'faqBlock' }).icon(List),
         listNew({ S, title: 'Card block', schemaType: 'cardBlock' }).icon(GridFour),
         listNew({ S, title: 'Shop our models', schemaType: 'shopOurModels' }).icon(Slideshow),

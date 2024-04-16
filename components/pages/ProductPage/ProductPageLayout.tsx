@@ -1,5 +1,10 @@
 import { Dictionary } from '@/app/dictionaries';
-import { Accordion, AccordionItem } from '@/components/Accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/Accordion';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductFormSkeleton } from '@/components/ProductForm/ProductFormSkeleton';
 import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
@@ -130,10 +135,13 @@ export function ProductPageLayout(props: Props) {
               )}
               {accordions && (
                 <div className="divide-brand-border divide-y">
-                  <Accordion>
+                  <Accordion type="single" collapsible>
                     {accordions.map((accordion, index) => (
-                      <AccordionItem key={index} title={accordion.title}>
-                        <PortableTextRenderer value={accordion.richText} />
+                      <AccordionItem key={index} value={accordion.title}>
+                        <AccordionTrigger>{accordion.title}</AccordionTrigger>
+                        <AccordionContent>
+                          <PortableTextRenderer value={accordion.richText} />
+                        </AccordionContent>
                       </AccordionItem>
                     ))}
                   </Accordion>
