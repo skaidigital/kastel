@@ -1,14 +1,14 @@
-import { Sneaker } from '@phosphor-icons/react';
+import { VideoCamera } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const shoePickerSection = defineType({
-  title: 'Shoe Picker section',
-  name: 'shoePickerSection',
+export const ugcSection = defineType({
+  title: 'UGC Section',
+  name: 'ugcSection',
   type: 'object',
-  icon: Sneaker,
+  icon: VideoCamera,
   preview: {
     select: {
-      title: 'shoePickerBlock.internalTitle'
+      title: 'ugcBlock.internalTitle'
     },
     prepare({ title }) {
       return {
@@ -19,10 +19,10 @@ export const shoePickerSection = defineType({
   },
   fields: [
     defineField({
-      title: 'Shoe picker block',
-      name: 'shoePickerBlock',
+      title: 'UGC block',
+      name: 'ugcBlock',
       type: 'reference',
-      to: [{ type: 'shoePickerBlock' }],
+      to: [{ type: 'ugcBlock' }],
       validation: (Rule) => Rule.required()
     }),
     defineField({

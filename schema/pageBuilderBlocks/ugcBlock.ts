@@ -1,9 +1,9 @@
 import { VideoCamera } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const ugcs = defineType({
-  title: 'UGC Section',
-  name: 'UGCSection',
+export const ugcBlock = defineType({
+  title: 'UGC Block',
+  name: 'ugcBlock',
   type: 'document',
   icon: VideoCamera,
   preview: {
@@ -12,8 +12,8 @@ export const ugcs = defineType({
     },
     prepare({ title }) {
       return {
-        title: title || 'UGC section',
-        subtitle: 'UGC section'
+        title: title || 'UGC block',
+        subtitle: 'UGC block'
       };
     }
   },
@@ -30,6 +30,17 @@ export const ugcs = defineType({
       type: 'array',
       of: [{ type: 'mux.video' }],
       validation: (Rule) => Rule.required().min(3).max(3)
+    }),
+    defineField({
+      title: 'Section settings',
+      name: 'sectionSettings',
+      type: 'sectionSettings',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Disable / Hide this block in a market',
+      name: 'marketAvailability',
+      type: 'marketAvailability'
     })
   ]
 });

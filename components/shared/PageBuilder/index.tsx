@@ -9,6 +9,7 @@ import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
 import { ProductListing } from '@/components/shared/PageBuilder/ProductListing';
 import { ShoePicker } from '@/components/shared/PageBuilder/ShoePicker';
 import { TextSection } from '@/components/shared/PageBuilder/TextSection';
+import { UGCSection } from '@/components/shared/PageBuilder/UGCSection';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import { ComponentType } from 'react';
@@ -25,6 +26,7 @@ const blockTypes: BlockType = {
   blogPostSection: BlogPostSection,
   faqSection: FAQSection,
   shoePicker: ShoePicker,
+  ugcSection: UGCSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

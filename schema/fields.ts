@@ -173,9 +173,8 @@ export const pageBuilder = defineType({
     // UGCs
     defineArrayMember({
       title: 'UGC section',
-      type: 'reference',
-      to: [{ type: 'UGCSection' }],
-      name: 'UGCSection'
+      type: 'ugcSection',
+      name: 'ugcSection'
     }),
     // Featured shoe
     defineArrayMember({

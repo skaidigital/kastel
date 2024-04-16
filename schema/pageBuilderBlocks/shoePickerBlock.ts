@@ -13,7 +13,7 @@ export const shoePickerBlock = defineType({
     },
     prepare: ({ title }) => ({
       title: title || 'Untitled',
-      subtitle: 'Shoe picker'
+      subtitle: 'Shoe Picker block'
     })
   },
   fields: [

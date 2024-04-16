@@ -159,6 +159,13 @@ const shoePickerValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const ugcSectionValidator = z.object({
+  type: z.literal('ugcSection'),
+  key: z.string(),
+  videos: z.array(z.string()),
+  sectionSettings: sectionSettingsValidator
+});
+
 // New validators end
 
 const textAndImageValidator = z.object({
@@ -307,6 +314,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   blogPostSectionValidator,
   FAQSectionValidator,
   shoePickerValidator,
+  ugcSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -328,6 +336,7 @@ export type BlogPostProps = z.infer<typeof blogPostValidator>;
 export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
 export type FAQSectionProps = z.infer<typeof FAQSectionValidator>;
 export type ShoePickerProps = z.infer<typeof shoePickerValidator>;
+export type UGCSectionProps = z.infer<typeof ugcSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -455,6 +464,15 @@ export const PAGE_BUILDER_TYPES: {
           },
         },
       },
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
+    }
+  `,
+  ugcSection: () => groq`
+    ${fragments.base},
+    ...ugcBlock->{
+      "videos": videos[].asset->.playbackId,
     },
     sectionSettings{
      ${fragments.sectionSettings}

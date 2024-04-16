@@ -69,8 +69,8 @@ import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
 import { timelineItem } from '@/schema/objects/timelineItem';
 import { timelineSection } from '@/schema/objects/timelineSection';
+import { ugcSection } from '@/schema/objects/ugcSection';
 import { updateItem } from '@/schema/objects/updateItem';
-import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
 import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
@@ -86,6 +86,7 @@ import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
 import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
+import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
@@ -160,10 +161,11 @@ const schema = [
   cardSection,
   shoePickerSection,
   timelineSection,
+  ugcSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
-  ugcs,
+  ugcBlock,
   kastelClub,
   shopOurModels,
   natureLabExplainer,
