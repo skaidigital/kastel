@@ -12,7 +12,7 @@ interface AccordionProps {
 
 export function Accordion({ children, className }: AccordionProps) {
   return (
-    <RadixAccordion.Root type="multiple" className={cn('divide-y divide-brand-border', className)}>
+    <RadixAccordion.Root type="multiple" className={cn('divide-brand-border divide-y', className)}>
       {children}
     </RadixAccordion.Root>
   );
@@ -27,7 +27,7 @@ interface AccordionItemProps {
 export function AccordionItem({ title, children }: AccordionItemProps) {
   return (
     <RadixAccordion.Item value={title}>
-      <RadixAccordion.Trigger className="group flex w-full items-center justify-between py-2">
+      <RadixAccordion.Trigger className="group flex w-full items-center justify-between py-2 text-sm font-medium lg:text-md">
         {title}
         <ChevronDownIcon className="var(--smooth-bezier) h-5 w-5 transition-transform duration-300 group-data-[state=open]:rotate-180" />
       </RadixAccordion.Trigger>

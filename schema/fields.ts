@@ -1,4 +1,5 @@
 import PageBuilderModal from '@/components/sanity/PageBuilderModal';
+import { MARKETS } from '@/data/constants';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const alternativeText = defineType({
@@ -223,9 +224,8 @@ export const pageBuilder = defineType({
     // FAQ section
     defineArrayMember({
       title: 'FAQ section',
-      type: 'reference',
-      name: 'faqSection',
-      to: [{ type: 'faqSection' }]
+      type: 'faqSection',
+      name: 'faqSection'
     }),
     // Text section
     defineArrayMember({
@@ -242,5 +242,23 @@ export const pageBuilder = defineType({
       title: 'Email capture',
       type: 'emailCapture'
     })
+  ]
+});
+
+export const marketAvailability = defineType({
+  title: 'Disable / Hide this block from specific markets (optional)',
+  description: 'Select the markets where this block should be hidden',
+  name: 'marketAvailability',
+  type: 'array',
+  of: [
+    {
+      type: 'string',
+      options: {
+        list: MARKETS.map((market) => ({
+          title: market.name,
+          value: market.id
+        }))
+      }
+    }
   ]
 });

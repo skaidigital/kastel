@@ -1,6 +1,11 @@
 import { PageLayout } from '@/components/pages/PageLayout';
-import { PagePayload, getPageQuery, pageValidator } from '@/components/pages/PageLayout/hooks';
-import { MarketValues } from '@/data/constants';
+import {
+  PagePayload,
+  getPageQuery,
+  pageValidator,
+  removeEmptyPageBuilderObjects
+} from '@/components/pages/PageLayout/hooks';
+import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -15,22 +20,31 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-function loadPage(slug: string, market: MarketValues) {
-  const query = getPageQuery(market);
+function loadPage({
+  slug,
+  market,
+  lang
+}: {
+  slug: string;
+  market: MarketValues;
+  lang: LangValues;
+}) {
+  const query = getPageQuery({ market, lang });
 
   return loadQuery<PagePayload | null>(query, { slug }, { next: { tags: [`page:${slug}`] } });
 }
 
 interface Props {
-  params: { slug: string; market: MarketValues };
+  params: { slug: string; market: MarketValues; lang: LangValues };
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const { slug, market } = params;
-  const initial = await loadPage(slug, market);
+  const { slug, market, lang } = params;
+  const initial = await loadPage({ slug, market, lang });
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
-  const validatedPage = pageValidator.safeParse(pageWithoutNullValues);
+  const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
+  const validatedPage = pageValidator.safeParse(cleanedPageData);
 
   if (!validatedPage.success) {
     console.error('Failed to validate page', validatedPage.error);

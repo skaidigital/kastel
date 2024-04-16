@@ -1,5 +1,5 @@
 import { cardValidator } from '@/components/shared/PageBuilder/hooks';
-import { COLLECTION_PAGE_SIZE, MarketValues } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -39,14 +39,14 @@ export type CollectionProductPayload = z.infer<typeof collectionProductValidator
 export type CollectionProductsPayload = z.infer<typeof collectionProductsValidator>;
 export type Collection = z.infer<typeof collectionValidator>;
 
-export function getCollectionBaseQuery(market: MarketValues) {
+export function getCollectionBaseQuery(lang: LangValues) {
   const query = groq`
-    *[_type == "collection" && slug_${market}.current == $slug][0]{
-      "title": title.${market},
+    *[_type == "collection" && slug_${lang}.current == $slug][0]{
+      "title": title.${lang},
       "productIds": products[].product._ref,
       moods[]{
         card->{
-          ${fragments.getCard(market)}
+          ${fragments.getCard(lang)}
         },
         size,
       },
@@ -56,19 +56,19 @@ export function getCollectionBaseQuery(market: MarketValues) {
   return query;
 }
 
-export function getCollectionProductsQuery(market: MarketValues, pageIndex: number = 1) {
+export function getCollectionProductsQuery(lang: LangValues, pageIndex: number = 1) {
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
   const query = groq`
     {
-    "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[${start}...${end}]{
+    "products": *[_type == "collection" && slug_${lang}.current == $slug][0].products[${start}...${end}]{
       firstImage,
       ...product->{
-        ${fragments.getProductCard(market)},
+        ${fragments.getProductCard(lang)},
       },
     },
-    "hasNextPage": count(*[_type == "collection" && slug_${market}.current == $slug][0].products[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
+    "hasNextPage": count(*[_type == "collection" && slug_${lang}.current == $slug][0].products[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
     }
   `;
 

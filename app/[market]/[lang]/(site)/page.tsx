@@ -1,29 +1,41 @@
-import { PagePayload, getPageQuery } from '@/components/pages/PageLayout/hooks';
-import { MarketValues } from '@/data/constants';
+import { PageLayout } from '@/components/pages/PageLayout';
+import {
+  PagePayload,
+  getPageQuery,
+  pageValidator,
+  removeEmptyPageBuilderObjects
+} from '@/components/pages/PageLayout/hooks';
+import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-function loadHomePage(market: MarketValues) {
-  const query = getPageQuery(market);
+function loadHomePage({ market, lang }: { market: MarketValues; lang: LangValues }) {
+  const query = getPageQuery({ market, lang });
 
   return loadQuery<PagePayload | null>(query, { slug: 'home' }, { next: { tags: ['home'] } });
 }
 
 export default async function HomePage({
-  params: { market }
+  params: { market, lang }
 }: {
-  params: { market: MarketValues };
+  params: { market: MarketValues; lang: LangValues };
 }) {
-  const initial = await loadHomePage(market);
+  const initial = await loadHomePage({ market, lang });
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
-  // pageValidator.parse(pageWithoutNullValues);
+  const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
+  const validatedPage = pageValidator.safeParse(cleanedPageData);
 
-  // return <PageLayout data={pageWithoutNullValues} market={market} />;
-  return <div className="h-dvh">Home page</div>;
+  if (!validatedPage.success) {
+    console.error('Failed to validate page', validatedPage.error);
+    return notFound();
+  }
+
+  return <PageLayout data={validatedPage.data} market={market} />;
 }
 
 export async function generateMetadata({

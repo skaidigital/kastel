@@ -109,14 +109,14 @@ type Market = {
   flag: string;
 };
 
-export type MarketValues = 'no' | 'eu';
+export type MarketValues = 'no' | 'sv';
 export type LangValues = 'en' | 'no';
 
 export const FALLBACK_MARKET: MarketValues = 'no';
 
 export const MARKET: Record<MarketValues, Market> = {
-  no: { id: 'no', name: 'Norge', flag: '🇧🇻' },
-  eu: { id: 'eu', name: 'Europa', flag: '🇪🇺' }
+  no: { id: 'no', name: 'Norway', flag: '🇧🇻' },
+  sv: { id: 'sv', name: 'Sweden', flag: '🇸🇪' }
 };
 
 export const MARKETS = Object.values(MARKET);
@@ -125,7 +125,7 @@ export const DEFAULT_CURRENCY_CODE = 'NOK';
 
 export const SITE_URLS: Record<MarketValues, string> = {
   no: 'https://abate.no',
-  eu: 'https://abate-store.com'
+  sv: 'https://abate-store.com'
 };
 
 // type ProductType = Record<'SIMPLE', 'simple'> | Record<'VARIABLE', 'variable'>;

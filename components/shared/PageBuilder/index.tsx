@@ -2,6 +2,7 @@ import { AccordionSection } from '@/components/shared/PageBuilder/AccordionSecti
 import { BlogPostSection } from '@/components/shared/PageBuilder/BlogPostSection';
 import { CardSection } from '@/components/shared/PageBuilder/CardSection';
 import { ContactForm } from '@/components/shared/PageBuilder/ContactForm';
+import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
 import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { InstagramFeed } from '@/components/shared/PageBuilder/InstagramFeed';
@@ -23,6 +24,7 @@ const blockTypes: BlockType = {
   featuredCollection: FeaturedCollection,
   cardSection: CardSection,
   blogPostSection: BlogPostSection,
+  faqSection: FAQSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

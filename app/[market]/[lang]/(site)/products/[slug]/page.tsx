@@ -1,6 +1,6 @@
 import { getDictionary } from '@/app/dictionaries';
 import { Product, getProductQuery } from '@/components/pages/ProductPage/hooks';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugsProducts } from '@/lib/sanity/loader/generateStaticSlugs';
 import { loadQuery } from '@/lib/sanity/store';
@@ -15,8 +15,16 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-function loadProduct(slug: string, market: MarketValues) {
-  const query = getProductQuery(market);
+function loadProduct({
+  slug,
+  market,
+  lang
+}: {
+  slug: string;
+  market: MarketValues;
+  lang: LangValues;
+}) {
+  const query = getProductQuery({ market, lang });
 
   return loadQuery<Product | null>(
     query,
@@ -26,15 +34,16 @@ function loadProduct(slug: string, market: MarketValues) {
 }
 
 interface Props {
-  params: { slug: string; market: MarketValues };
+  params: { slug: string; market: MarketValues; lang: LangValues };
   searchParams?: SearchParams;
 }
 
-export default async function SlugProductPage({ params, searchParams }: Props) {
+export default async function SlugProductPage({ params }: Props) {
   const slug = params.slug;
   const market = params.market;
+  const lang = params.lang;
 
-  const initial = await loadProduct(slug, market);
+  const initial = await loadProduct({ slug, market, lang });
   const { product_page: dictionary } = await getDictionary();
 
   if (!initial.data) {

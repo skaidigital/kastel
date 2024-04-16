@@ -69,6 +69,11 @@ export const featuredCollection = defineType({
       name: 'sectionSettings',
       type: 'sectionSettings',
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Disable / Hide this block in a market',
+      name: 'marketAvailability',
+      type: 'marketAvailability'
     })
   ]
 });

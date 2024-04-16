@@ -34,6 +34,7 @@ import {
   figure,
   gallery,
   internalTitle,
+  marketAvailability,
   ogImage,
   padding,
   pageBuilder,
@@ -115,6 +116,7 @@ const schema = [
   alternativeText,
   ogImage,
   blogWidthSettings,
+  marketAvailability,
 
   // Objects
   address,

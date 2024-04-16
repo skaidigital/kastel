@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import {
   aspectRatioSettingsValidator,
@@ -128,6 +128,21 @@ const blogPostSectionValidator = z.object({
   title: z.string(),
   buttonText: z.string(),
   posts: z.array(blogPostValidator),
+  sectionSettings: sectionSettingsValidator
+});
+
+const FAQSectionValidator = z.object({
+  type: z.literal('faqSection'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  badge: z.string().optional(),
+  items: z.array(
+    z.object({
+      question: z.string(),
+      answer: portableTextValidator
+    })
+  ),
   sectionSettings: sectionSettingsValidator
 });
 
@@ -277,6 +292,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
   cardSectionValidator,
   blogPostSectionValidator,
+  FAQSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -296,6 +312,7 @@ export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator
 export type CardSectionProps = z.infer<typeof cardSectionValidator>;
 export type BlogPostProps = z.infer<typeof blogPostValidator>;
 export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
+export type FAQSectionProps = z.infer<typeof FAQSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -310,14 +327,14 @@ export type ContactFormProps = z.infer<typeof contactFormValidator>;
 
 export const PAGE_BUILDER_TYPES: {
   // eslint-disable-next-line no-unused-vars
-  [key: string]: (market: MarketValues) => string;
+  [key: string]: (lang: LangValues) => string;
 } = {
-  hero: (market) => `
+  hero: (lang) => `
     ${fragments.base},
-    "title": title.${market}, 
-    "subtitle": subtitle.${market}, 
+    "title": title.${lang}, 
+    "subtitle": subtitle.${lang}, 
     link{
-      ${fragments.getLinkHero(market)}
+      ${fragments.getLinkHero(lang)}
     },
     textPositionMobile,
     textPositionDesktop,
@@ -327,44 +344,44 @@ export const PAGE_BUILDER_TYPES: {
     "videoUrlMobile": videoMobile.asset->.playbackId,
     "videoUrlDesktop": videoDesktop.asset->.playbackId,
     imageMobile{
-      ${fragments.getImageBase(market)},
+      ${fragments.getImageBase(lang)},
     },
     imageDesktop{
-      ${fragments.getImageBase(market)},
+      ${fragments.getImageBase(lang)},
     }
   `,
-  featuredCollection: (market) => `
+  featuredCollection: (lang) => `
     ${fragments.base},
     ...collection->{
-      "title": title.${market},
-      "description": descriptionShort.${market},
-      "slug": "/collections/"+slug_${market}.current
+      "title": title.${lang},
+      "description": descriptionShort.${lang},
+      "slug": "/collections/"+slug_${lang}.current
     },
     "products": select(
       isManual == true => products[]->{
-        ${fragments.getProductCard(market)}
+        ${fragments.getProductCard(lang)}
       },
       isManual == false => collection->.products[].product->{
-        ${fragments.getProductCard(market)},
+        ${fragments.getProductCard(lang)},
       }
     ),
     media{
-     ${fragments.getMedia(market)}
+     ${fragments.getMedia(lang)}
     },
-    "buttonText": buttonText.${market},
+    "buttonText": buttonText.${lang},
     sectionSettings{
       ${fragments.sectionSettings}
     }
   `,
-  cardSection: (market) => `
+  cardSection: (lang) => groq`
     ${fragments.base},
     ...cardBlock->{
       "cards": cards[]{
         "link": link{
-          ${fragments.getConditionalLink(market)}
+          ${fragments.getConditionalLink(lang)}
         },
         "media": media{
-          ${fragments.getMedia(market)}
+          ${fragments.getMedia(lang)}
         }
       },
       aspectRatioSettings{
@@ -375,20 +392,35 @@ export const PAGE_BUILDER_TYPES: {
       ${fragments.sectionSettings}
     }
   `,
-  blogPostSection: (market) => groq`
+  blogPostSection: (lang) => groq`
     ${fragments.base},
-    "title": title.${market},
-    "buttonText": buttonText.${market},
+    "title": title.${lang},
+    "buttonText": buttonText.${lang},
     "posts": select(
-      type == "mostRecent" => *[_type == "blogPost" && defined(slug_${market}.current)][0..2] | order(publishedAt desc){
-        ${fragments.getBlogPostCard(market)}
+      type == "mostRecent" => *[_type == "blogPost" && defined(slug_${lang}.current)][0..2] | order(publishedAt desc){
+        ${fragments.getBlogPostCard(lang)}
       },
       type == "selected" => posts[]->{
-        ${fragments.getBlogPostCard(market)}
+        ${fragments.getBlogPostCard(lang)}
       }
     ),
     sectionSettings{
       ${fragments.sectionSettings}
+    }
+  `,
+  faqSection: (lang) => groq`
+    ${fragments.base},
+    ...faqs->{
+    "title": title.${lang},
+    "description": description.${lang},
+    "badge": badge->title.${lang},
+    "items": items[]->{
+      "question": question.${lang},
+      "answer": answer_${lang}
+     },
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
     }
   `,
   pageTitle: (market) => `
@@ -398,7 +430,7 @@ export const PAGE_BUILDER_TYPES: {
   `,
   textSection: (market) => `
     ${fragments.base},
-    "richText": textBlock->.${fragments.getRichText({ market })},
+    "richText": textBlock->.${fragments.getRichText({ lang: market })},
     padding,
     hasTopPadding,
     hasBottomPadding,
@@ -407,7 +439,7 @@ export const PAGE_BUILDER_TYPES: {
   textAndImage: (market) => `
     ${fragments.base},
     ...@->{
-      "richText": ${fragments.getRichText({ market })},
+      "richText": ${fragments.getRichText({ lang: market })},
       image{
         ${fragments.getImageBase(market)}
       },
@@ -426,7 +458,7 @@ export const PAGE_BUILDER_TYPES: {
     "title": title_${market},
     items[]->{
       "title": title_${market},
-      "richText": ${fragments.getRichText({ market })}
+      "richText": ${fragments.getRichText({ lang: market })}
      },
     },
     padding,
@@ -475,15 +507,21 @@ export const PAGE_BUILDER_TYPES: {
 `
 };
 
-export const concatenatePageBuilderQueries = (market: MarketValues) => {
+export const concatenatePageBuilderQueries = ({
+  market,
+  lang
+}: {
+  market: MarketValues;
+  lang: LangValues;
+}) => {
   const keys = Object.keys(PAGE_BUILDER_TYPES);
 
   const queryStrings = keys.map((key: string) => {
     const pageBuilderFunction = PAGE_BUILDER_TYPES[key];
     if (typeof pageBuilderFunction === 'function') {
       return `
-        _type == "${key}" => {
-          ${pageBuilderFunction(market)}
+        _type == "${key}" && (!defined(marketAvailability) || !("${market}" in marketAvailability)) => {
+          ${pageBuilderFunction(lang)}
         },
       `;
     }

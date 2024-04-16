@@ -8,7 +8,7 @@ import {
   getCollectionProductsQuery,
   mergeCollectionBaseAndProducts
 } from '@/components/pages/CollectionPage/hooks';
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -23,8 +23,8 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-function loadCollectionBase(slug: string, market: MarketValues) {
-  const query = getCollectionBaseQuery(market);
+function loadCollectionBase(slug: string, lang: LangValues) {
+  const query = getCollectionBaseQuery(lang);
 
   return loadQuery<CollectionBasePayload | null>(
     query,
@@ -33,8 +33,8 @@ function loadCollectionBase(slug: string, market: MarketValues) {
   );
 }
 
-function loadCollectionProducts(slug: string, market: MarketValues, pageIndex: number) {
-  const query = getCollectionProductsQuery(market, pageIndex);
+function loadCollectionProducts(slug: string, lang: LangValues, pageIndex: number) {
+  const query = getCollectionProductsQuery(lang, pageIndex);
 
   return loadQuery<CollectionProductsPayload>(
     query,
@@ -44,18 +44,18 @@ function loadCollectionProducts(slug: string, market: MarketValues, pageIndex: n
 }
 
 interface Props {
-  params: { slug: string; market: MarketValues };
+  params: { slug: string; market: MarketValues; lang: LangValues };
   searchParams?: {
     page?: string;
   };
 }
 
 export default async function SlugCollectionPage({ params, searchParams }: Props) {
-  const { market, slug } = params;
+  const { slug, market, lang } = params;
 
   const currentPage = Number(searchParams?.page) || 1;
 
-  const initialBase = await loadCollectionBase(slug, market);
+  const initialBase = await loadCollectionBase(slug, lang);
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
   const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
 
@@ -64,7 +64,7 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     notFound();
   }
 
-  const initialProducts = await loadCollectionProducts(slug, market, currentPage);
+  const initialProducts = await loadCollectionProducts(slug, lang, currentPage);
   const collectionProductsWithoutNullValues = nullToUndefined(initialProducts.data);
   const validatedProducts = collectionProductsValidator.safeParse(
     collectionProductsWithoutNullValues

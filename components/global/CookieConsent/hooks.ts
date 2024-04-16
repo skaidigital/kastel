@@ -13,7 +13,7 @@ export type CookieConsentPayload = z.infer<typeof cookieConsentValidator>;
 export function getCookieConsentQuery(market: MarketValues) {
   const query = groq`
     *[_type == "cookieConsent"][0] {
-      "content": ${fragments.getRichText({ market, fieldName: 'content' })},
+      "content": ${fragments.getRichText({ lang: market, fieldName: 'content' })},
     }
   `;
 
