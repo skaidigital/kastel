@@ -166,6 +166,25 @@ const ugcSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const kastelClubStepValidator = z.object({
+  titleFront: z.string(),
+  descriptionFront: z.string(),
+  linkText: z.string(),
+  titleBack: z.string(),
+  descriptionBack: z.string()
+});
+
+const kastelClubSectionValidator = z.object({
+  type: z.literal('kastelClubSection'),
+  key: z.string(),
+  backgroundImage: imageValidator,
+  title: z.string(),
+  description: z.string().optional(),
+  buttonText: z.string(),
+  steps: z.array(kastelClubStepValidator),
+  sectionSettings: sectionSettingsValidator
+});
+
 // New validators end
 
 const textAndImageValidator = z.object({
@@ -315,6 +334,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   FAQSectionValidator,
   shoePickerValidator,
   ugcSectionValidator,
+  kastelClubSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -337,6 +357,8 @@ export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
 export type FAQSectionProps = z.infer<typeof FAQSectionValidator>;
 export type ShoePickerProps = z.infer<typeof shoePickerValidator>;
 export type UGCSectionProps = z.infer<typeof ugcSectionValidator>;
+export type KastelClubStepProps = z.infer<typeof kastelClubStepValidator>;
+export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -469,10 +491,32 @@ export const PAGE_BUILDER_TYPES: {
      ${fragments.sectionSettings}
     }
   `,
-  ugcSection: () => groq`
+  ugcSection: (lang) => groq`
     ${fragments.base},
     ...ugcBlock->{
       "videos": videos[].asset->.playbackId,
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
+    }
+  `,
+  kastelClubSection: (lang) => groq`
+    ${fragments.base},
+    ...kastelClubBlock->{
+      "title": title.${lang},
+      "description": description.${lang},
+      "buttonText": buttonText.${lang},
+      backgroundImage{
+        ${fragments.getImageBase(lang)}
+      },
+      "lang": lang,
+      steps[]{
+        "titleFront": titleFront.${lang},
+        "descriptionFront": descriptionFront.${lang},
+        "linkText": linkText.${lang},
+        "titleBack": titleBack.${lang},
+        "descriptionBack": descriptionBack.${lang}
+      },
     },
     sectionSettings{
      ${fragments.sectionSettings}

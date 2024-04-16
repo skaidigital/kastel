@@ -5,6 +5,7 @@ import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
 import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { InstagramFeed } from '@/components/shared/PageBuilder/InstagramFeed';
+import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
 import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
 import { ProductListing } from '@/components/shared/PageBuilder/ProductListing';
 import { ShoePicker } from '@/components/shared/PageBuilder/ShoePicker';
@@ -27,6 +28,7 @@ const blockTypes: BlockType = {
   faqSection: FAQSection,
   shoePicker: ShoePicker,
   ugcSection: UGCSection,
+  kastelClubSection: KastelClubSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

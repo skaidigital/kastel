@@ -1,4 +1,4 @@
-import { kastelClub } from '@/components/shared/PageBuilder/kastelClub';
+import { kastelClubBlock } from '@/components/shared/PageBuilder/kastelClubBlock';
 import { natureLabExplainer } from '@/components/shared/PageBuilder/natureLabExplainer';
 import { uspExplainer } from '@/components/shared/PageBuilder/uspExplainer';
 import { badge } from '@/schema/documents/badge';
@@ -50,6 +50,7 @@ import { collectionProduct } from '@/schema/objects/collectionProduct';
 import { conditionalLink } from '@/schema/objects/conditionalLink';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
+import { kastelClubSection } from '@/schema/objects/kastelClubSection';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
@@ -162,11 +163,12 @@ const schema = [
   shoePickerSection,
   timelineSection,
   ugcSection,
+  kastelClubSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
   ugcBlock,
-  kastelClub,
+  kastelClubBlock,
   shopOurModels,
   natureLabExplainer,
   timelineBlock,

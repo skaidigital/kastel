@@ -207,10 +207,9 @@ export const pageBuilder = defineType({
     }),
     // Kastel Club
     defineArrayMember({
-      title: 'Kastel Club',
-      type: 'reference',
-      to: [{ type: 'kastelClub' }],
-      name: 'kastelClub'
+      title: 'Kastel Club section',
+      type: 'kastelClubSection',
+      name: 'kastelClubSection'
     }),
     // Timeline
     defineArrayMember({

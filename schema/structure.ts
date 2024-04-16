@@ -125,10 +125,10 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'FAQ block', schemaType: 'faqBlock' }).icon(List),
         listNew({ S, title: 'Card block', schemaType: 'cardBlock' }).icon(GridFour),
         listNew({ S, title: 'Shoe picker block', schemaType: 'shoePickerBlock' }).icon(Sneaker),
+        listNew({ S, title: 'Kastel Club block', schemaType: 'kastelClubBlock' }).icon(Trophy),
         listNew({ S, title: 'Timeline block', schemaType: 'timelineBlock' }).icon(Calendar),
         listNew({ S, title: 'Shop our models', schemaType: 'shopOurModels' }).icon(Slideshow),
         listNew({ S, title: 'UGC block', schemaType: 'ugcBlock' }).icon(VideoCamera),
-        listNew({ S, title: 'Kastel Club', schemaType: 'kastelClub' }).icon(Trophy),
         listNew({ S, title: 'Nature Lab explainer', schemaType: 'natureLabExplainer' }).icon(
           Recycle
         ),

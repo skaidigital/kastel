@@ -2,9 +2,9 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Trophy } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const kastelClub = defineType({
-  title: 'Kastel Club',
-  name: 'kastelClub',
+export const kastelClubBlock = defineType({
+  title: 'Kastel Club block',
+  name: 'kastelClubBlock',
   type: 'document',
   icon: Trophy,
   preview: {
@@ -13,8 +13,8 @@ export const kastelClub = defineType({
     },
     prepare({ title }) {
       return {
-        title: title || 'Kastel Club',
-        subtitle: 'Kastel Club'
+        title: title || 'Kastel Club block',
+        subtitle: 'Kastel Club block'
       };
     }
   },
