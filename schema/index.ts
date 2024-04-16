@@ -96,6 +96,7 @@ import { storeLocator } from '@/schema/singletons/storeLocator';
 import { usps } from '@/schema/singletons/usps';
 import { featureOptionConfig } from './objects/featureOptionConfig';
 import { price } from './objects/price';
+import { filters } from './singletons/filters';
 import { pageNotFound } from './singletons/pageNotFound';
 
 const schema = [
@@ -196,6 +197,7 @@ const schema = [
 
   // Singletons
   footer,
+  filters,
   navbar,
   accountPage,
   announcementBanner,
