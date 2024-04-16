@@ -9,6 +9,7 @@ export const ROUTES = {
   CREATE_ADDRESS: '/account/addresses/create',
   ORDERS: '/orders',
   ORDER_DETAILS: '/account/orders',
+  BLOG: '/blog',
   SHOP_ALL: '/shop/all',
   REGISTER_ACCOUNT: '/register-account',
   RESET_PASSWORD: '/reset-password',

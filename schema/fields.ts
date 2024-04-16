@@ -203,7 +203,8 @@ export const pageBuilder = defineType({
     // Blog posts
     defineArrayMember({
       title: 'Blog posts',
-      type: 'blogPosts'
+      type: 'blogPostSection',
+      name: 'blogPostSection'
     }),
     // Kastel Club
     defineArrayMember({

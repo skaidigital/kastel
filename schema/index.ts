@@ -68,7 +68,7 @@ import { textBlock } from '@/schema/objects/textBlock';
 import { timelineItem } from '@/schema/objects/timelineItem';
 import { updateItem } from '@/schema/objects/updateItem';
 import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
-import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
+import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
@@ -149,7 +149,7 @@ const schema = [
   instagramFeed,
   contactForm,
   faqSection,
-  blogPosts,
+  blogPostSection,
   featuredCollection,
   emailCapture,
   natureLabInnovationSection,

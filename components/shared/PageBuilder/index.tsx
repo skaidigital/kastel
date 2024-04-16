@@ -1,4 +1,5 @@
 import { AccordionSection } from '@/components/shared/PageBuilder/AccordionSection';
+import { BlogPostSection } from '@/components/shared/PageBuilder/BlogPostSection';
 import { CardSection } from '@/components/shared/PageBuilder/CardSection';
 import { ContactForm } from '@/components/shared/PageBuilder/ContactForm';
 import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
@@ -21,6 +22,7 @@ const blockTypes: BlockType = {
   // New blocks start
   featuredCollection: FeaturedCollection,
   cardSection: CardSection,
+  blogPostSection: BlogPostSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

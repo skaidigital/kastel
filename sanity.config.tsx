@@ -58,7 +58,7 @@ const config = definePlugin({
     imageHotspotArrayPlugin()
   ],
   tools: (prev, { currentUser }) => {
-    const isAdmin = currentUser?.roles?.some((role) => role.name === 'administrator');
+    const isAdmin = currentUser?.roles?.some((role) => role.name === 'developer');
 
     if (isAdmin) {
       return prev;

@@ -203,7 +203,8 @@ module.exports = {
           primary: '#407F7F',
           'light-grey': '#E2E8F0',
           'mid-grey': '#666666',
-          'dark-grey': '#39454E'
+          'dark-grey': '#39454E',
+          beige: '#FDF5E6'
         },
         'nature-lab': {
           'dark-grey': '#151517',

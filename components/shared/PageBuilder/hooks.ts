@@ -10,6 +10,7 @@ import {
   productCardValidator,
   richTextValidator
 } from '@/lib/sanity/validators';
+import { groq } from 'next-sanity';
 import { z } from 'zod';
 
 const paddingValidator = z.union([z.literal('sm'), z.literal('md'), z.literal('lg')]);
@@ -110,6 +111,23 @@ const cardSectionValidator = z.object({
     })
   ),
   aspectRatioSettings: aspectRatioSettingsValidator,
+  sectionSettings: sectionSettingsValidator
+});
+
+const blogPostValidator = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  slug: z.string(),
+  readLength: z.number(),
+  image: imageValidator
+});
+
+const blogPostSectionValidator = z.object({
+  type: z.literal('blogPostSection'),
+  key: z.string(),
+  title: z.string(),
+  buttonText: z.string(),
+  posts: z.array(blogPostValidator),
   sectionSettings: sectionSettingsValidator
 });
 
@@ -258,6 +276,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   // New blocks start
   featuredCollectionValidator,
   cardSectionValidator,
+  blogPostSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -275,6 +294,8 @@ export type HeroProps = z.infer<typeof heroValidator>;
 // Start new validators
 export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
 export type CardSectionProps = z.infer<typeof cardSectionValidator>;
+export type BlogPostProps = z.infer<typeof blogPostValidator>;
+export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -350,6 +371,22 @@ export const PAGE_BUILDER_TYPES: {
         ${fragments.aspectRatioSettings}
       },
     },
+    sectionSettings{
+      ${fragments.sectionSettings}
+    }
+  `,
+  blogPostSection: (market) => groq`
+    ${fragments.base},
+    "title": title.${market},
+    "buttonText": buttonText.${market},
+    "posts": select(
+      type == "mostRecent" => *[_type == "blogPost" && defined(slug_${market}.current)][0..2] | order(publishedAt desc){
+        ${fragments.getBlogPostCard(market)}
+      },
+      type == "selected" => posts[]->{
+        ${fragments.getBlogPostCard(market)}
+      }
+    ),
     sectionSettings{
       ${fragments.sectionSettings}
     }

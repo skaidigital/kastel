@@ -2,9 +2,9 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Article } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const blogPosts = defineType({
-  title: 'Blog posts',
-  name: 'blogPosts',
+export const blogPostSection = defineType({
+  title: 'Blog post section',
+  name: 'blogPostSection',
   type: 'object',
   icon: Article,
   preview: {
@@ -60,6 +60,12 @@ export const blogPosts = defineType({
           return true;
         }),
       hidden: ({ parent }) => parent?.type === 'mostRecent'
+    }),
+    defineField({
+      title: 'Section settings',
+      name: 'sectionSettings',
+      type: 'sectionSettings',
+      validation: (Rule) => Rule.required()
     })
   ]
 });

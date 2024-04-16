@@ -283,3 +283,15 @@ export function getConditionalLink(market: MarketValues) {
     openInNewTab
 `;
 }
+
+export function getBlogPostCard(market: MarketValues) {
+  return groq`
+  "title": title.${market},
+  "description": metadata.metaDescription.${market},
+  "image": imageMobile{
+    ${getImageBase(market)}
+  },
+  "slug": slug_${market}.current,
+  "readLength": coalesce(round(length(pt::text(content + "_" + market)) / 5 / 180 ), 1)
+`;
+}
