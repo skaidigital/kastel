@@ -3,7 +3,7 @@
 import { MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { loadQuery } from '@/lib/sanity/store';
-import { FilterItem } from './FilterItem';
+import { FilterGroupItem } from './FilterGroupItem';
 import { FilterLayout } from './FilterLayout';
 import { FilterGroupsValidator, getFilterQuery } from './hooks';
 
@@ -12,7 +12,7 @@ import { FilterGroupsValidator, getFilterQuery } from './hooks';
 function loadFilter(market: MarketValues) {
   const query = getFilterQuery(market);
 
-  return loadQuery<any>(query, {}, { next: { tags: ['filter'] } });
+  return loadQuery<any>(query, {}, { next: { tags: ['filters'] } });
 }
 
 export async function Filter() {
@@ -20,14 +20,14 @@ export async function Filter() {
   const initial = await loadFilter(market);
 
   const filterGroupResponse = initial?.data?.items;
-
   const filterGroup = FilterGroupsValidator.parse(filterGroupResponse);
-  console.log(filterGroup);
+
+  const filterGroupKeys = filterGroup.map((item) => item.slug);
 
   return (
-    <FilterLayout>
+    <FilterLayout filterGroupKeys={filterGroupKeys}>
       {filterGroup.map((item, index: number) => (
-        <FilterItem key={item.id} item={item} open={index === 0 || index === 1} />
+        <FilterGroupItem key={item.id} item={item} open={index === 0 || index === 1} />
       ))}
     </FilterLayout>
   );

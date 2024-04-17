@@ -39,7 +39,7 @@ export function TextFilter({ filter, parentKey }: TextFilterProps) {
           state?.includes(filter.slug!) && 'bg-brand-primary text-white'
         )}
       >
-        <button className="w-full text-left" onClick={() => handleOnClick()}>
+        <button className="w-full text-center" onClick={() => handleOnClick()}>
           {filter.title}
         </button>
       </div>

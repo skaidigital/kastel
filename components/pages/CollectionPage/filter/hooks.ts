@@ -60,7 +60,7 @@ export function getTagTypeColor(market: MarketValues) {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current,
-        color
+        "color": color->.color.value
     }
     `;
 
@@ -72,13 +72,20 @@ export function getTagTypeSize(market: MarketValues) {
     *[_type == "tag" && references($parentId)] {
         "id": _id,
         "title": title.${market},
-        "slug": slug_${market}.current,
-        size
+        "slug": size->slug_${market}.current,
     }
     `;
 
   return query;
 }
+
+// _updatedAt: '2024-04-08T17:15:24Z',
+// _createdAt: '2024-04-08T07:45:37Z',
+// _rev: 'E87k6YxnDWNgIf2QmMFA4j',
+// slug_no: { _type: 'slug', current: '36' },
+// title: { no: '36', _type: 'i18n.string', en: '36' },
+// internalUsedFor: 'Sizes',
+// slug_en: { current: '36', _type: 'slug' }
 
 const ColorValidator = z
   .object({
@@ -88,34 +95,50 @@ const ColorValidator = z
   .optional()
   .nullable();
 
-const SizeValidator = z
-  .object({
-    _ref: z.string(),
-    _type: z.string()
-  })
-  .optional()
-  .nullable();
+const SizeValidator = z.object({
+  _ref: z.string(),
+  _type: z.string()
+});
 
-const FilterItemBaseValidator = z.object({
+// const FilterItemBaseValidator = z.object({
+//   id: z.string(),
+//   title: z.string()
+// });
+
+const FilterItemTextValidator = z.object({
   id: z.string(),
   title: z.string(),
-  slug: z.string().optional().nullable()
+  slug: z.string()
 });
 
-const FilterItemColorValidator = FilterItemBaseValidator.extend({
-  color: ColorValidator
+const FilterItemColorValidator = z.object({
+  id: z.string(),
+  title: z.string(),
+  color: z.string(),
+  slug: z.string()
 });
 
-const FilterItemSizeValidator = FilterItemBaseValidator.extend({
+const FilterItemSizeValidator = z.object({
+  id: z.string(),
+  title: z.string(),
   size: SizeValidator
 });
 
-export type FilterTextSchema = z.infer<typeof FilterItemBaseValidator>;
+export type FilterTextSchema = z.infer<typeof FilterItemTextValidator>;
 export type FilterColorSchema = z.infer<typeof FilterItemColorValidator>;
 export type FilterSizeSchema = z.infer<typeof FilterItemSizeValidator>;
 
-export const FilterItemValidator = z.union([
-  z.array(FilterItemBaseValidator),
-  z.array(FilterItemColorValidator),
-  z.array(FilterItemSizeValidator)
-]);
+// export const FilterItemValidator = z.array(
+//   z.union([FilterItemTextValidator, FilterItemColorValidator, FilterItemSizeValidator])
+// );
+
+const FilterItemValidator = z.object({
+  id: z.string(),
+  title: z.string(),
+  color: z.string().optional().nullable(),
+  slug: z.string()
+});
+
+export const FilterItemsValidator = z.array(FilterItemValidator);
+
+export type FilterItemSchema = z.infer<typeof FilterItemValidator>;

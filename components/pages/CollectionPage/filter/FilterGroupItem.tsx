@@ -2,12 +2,12 @@ import { MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { loadQuery } from '@/lib/sanity/store';
 import { ColorFilter } from './ColorFilter';
+import { SizeFilter } from './SizeFilter';
 import { TextFilter } from './TextFilter';
 import {
-  FilterColorSchema,
   FilterGroupSchema,
-  FilterItemValidator,
-  FilterTextSchema,
+  FilterItemSchema,
+  FilterItemsValidator,
   getFilterItemQuery
 } from './hooks';
 
@@ -24,31 +24,29 @@ interface FilterItemProps {
   open: boolean;
 }
 
-export async function FilterItem({ item: filterGroup, open }: FilterItemProps) {
-  console.log(filterGroup);
-  console.log(open);
+export async function FilterGroupItem({ item: filterGroup, open }: FilterItemProps) {
   const market = await getMarket();
   const initial = await loadFilterItem(market, filterGroup.type as filterType, filterGroup.id);
 
   const filterGroupResponse = initial?.data;
-  console.log(filterGroupResponse);
 
-  const filterGroups = FilterItemValidator.parse(filterGroupResponse);
+  const filterGroups = FilterItemsValidator.parse(filterGroupResponse);
 
-  console.log(initial);
-  console.log(filterGroups);
   return (
     <>
       <p>{filterGroup.title}</p>
       {filterGroup.type === 'text' &&
-        filterGroups.map((filter: FilterTextSchema) => (
+        filterGroups.map((filter: FilterItemSchema) => (
           <TextFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
         ))}
       {filterGroup.type === 'color' &&
-        filterGroups.map((filter: FilterColorSchema) => (
+        filterGroups.map((filter: FilterItemSchema) => (
           <ColorFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
         ))}
-      {filterGroup.type === 'size' && initial.data[0].title}
+      {filterGroup.type === 'size' &&
+        filterGroups.map((filter: FilterItemSchema) => (
+          <SizeFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
+        ))}
     </>
   );
 }
