@@ -72,6 +72,28 @@ export default async function Page() {
     color: 'Black'
   };
 
+  const natureLabData = {
+    name: 'Petter',
+    email: 'petter@skaidigital.com',
+    natureLabTitle: 'Phase 1',
+    questionResponse: [
+      {
+        question: 'Hva er din favorittfarge?',
+        answer: 'Grå'
+      },
+      {
+        question: 'Hva er din favorittfarge?',
+        answer: 'Grå'
+      },
+      {
+        question: 'Hva er din favorittfarge?',
+        answer: 'Grå'
+      }
+    ]
+  };
+
+  // await sendNatureLabEmail(natureLabData);
+
   const getCustomerDataResponse = await getCustomerData();
   const updateInformationResponse = await updateCustomerData({ customerGid, data: productForm });
 
