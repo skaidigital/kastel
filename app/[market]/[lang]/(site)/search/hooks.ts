@@ -18,14 +18,20 @@ export function getSearchResultQuery(market: MarketValues, pageIndex: number = 1
 
   const query = groq`
       {
-      "products": *[_type == "product" && title_${market} match $searchQuery]
-      | score(title_${market} match $searchQuery)
+      "products": *[_type == "product" && title.${market} match $searchQuery]
+      | score(title.${market} match $searchQuery)
       | order(_score desc)
       [${start}...${end}]{
-        ${fragments.getProductCard(market)}
+        defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
+          ${fragments.getProductCard(market)}
+        },
+        defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
+        !defined($tagSlugs) => {
+          ${fragments.getProductCard(market)}
+        }
       },
-      "productCount": count(*[_type == "product" && title_${market} match $searchQuery]),
-      "hasNextPage": count(*[_type == "product" && title_${market} match $searchQuery][${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
+      "productCount": count(*[_type == "product" && title.${market} match $searchQuery]),
+      "hasNextPage": count(*[_type == "product" && title.${market} match $searchQuery][${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
       }
     `;
 
