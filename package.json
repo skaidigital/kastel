@@ -111,7 +111,7 @@
     "sanity-plugin-media": "^2.2.2",
     "sanity-plugin-mux-input": "^2.2.4",
     "sanity-plugin-note-field": "^2.0.2",
-    "sanity-plugin-simpler-color-input": "^1.1.0",
+    "sanity-plugin-simpler-color-input": "^2.2.1",
     "sanity-plugin-vercel-deploy": "^3.3.4",
     "sanity-plugin-webhooks": "^1.0.0",
     "server-only": "0.0.1",

@@ -1,13 +1,10 @@
-import {
-  filterAlreadyAddedReferences,
-  validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Slideshow } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const shopOurModels = defineType({
-  title: 'Shop our models',
-  name: 'shopOurModels',
+export const shopOurModelsBlock = defineType({
+  title: 'Shop Our Models block',
+  name: 'shopOurModelsBlock',
   type: 'document',
   icon: Slideshow,
   preview: {
@@ -17,7 +14,7 @@ export const shopOurModels = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Shop our models'
+        subtitle: 'Shop Our Models block'
       };
     }
   },
@@ -43,7 +40,7 @@ export const shopOurModels = defineType({
           type: 'object',
           preview: {
             select: {
-              title: 'title.no',
+              title: 'title.no' || 'Untitled',
               media: 'shoe.mainImage'
             },
             prepare({ title, media }) {
@@ -59,9 +56,6 @@ export const shopOurModels = defineType({
               name: 'shoe',
               type: 'reference',
               to: [{ type: 'product' }],
-              options: {
-                filter: filterAlreadyAddedReferences
-              },
               validation: (Rule) => Rule.required()
             }),
             defineField({
@@ -115,7 +109,7 @@ export const shopOurModels = defineType({
                   ]
                 }
               ],
-              validation: (Rule) => Rule.min(2).max(4)
+              validation: (Rule) => Rule.required().min(2).max(4)
             })
           ]
         }

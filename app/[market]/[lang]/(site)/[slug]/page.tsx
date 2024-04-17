@@ -41,7 +41,6 @@ interface Props {
 export default async function PageSlugRoute({ params }: Props) {
   const { slug, market, lang } = params;
   const initial = await loadPage({ slug, market, lang });
-
   const pageWithoutNullValues = nullToUndefined(initial.data);
   const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
   const validatedPage = pageValidator.safeParse(cleanedPageData);

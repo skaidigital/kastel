@@ -67,6 +67,7 @@ import { richText } from '@/schema/objects/richText';
 import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
 import { shoePickerSection } from '@/schema/objects/shoePickerSection';
+import { shopOurModelsSection } from '@/schema/objects/shopOurModelsSection';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
 import { timelineItem } from '@/schema/objects/timelineItem';
@@ -85,7 +86,7 @@ import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
-import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
+import { shopOurModelsBlock } from '@/schema/pageBuilderBlocks/shopOurModelsBlock';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
 import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
@@ -166,12 +167,13 @@ const schema = [
   ugcSection,
   kastelClubSection,
   natureLabExplainerSection,
+  shopOurModelsSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
   ugcBlock,
   kastelClubBlock,
-  shopOurModels,
+  shopOurModelsBlock,
   natureLabExplainerBlock,
   timelineBlock,
   shoePickerBlock,

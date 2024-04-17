@@ -10,6 +10,7 @@ import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/Natur
 import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
 import { ProductListing } from '@/components/shared/PageBuilder/ProductListing';
 import { ShoePicker } from '@/components/shared/PageBuilder/ShoePicker';
+import { ShopOurModelsSection } from '@/components/shared/PageBuilder/ShopOurModelsSection';
 import { TextSection } from '@/components/shared/PageBuilder/TextSection';
 import { UGCSection } from '@/components/shared/PageBuilder/UGCSection';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
@@ -31,6 +32,7 @@ const blockTypes: BlockType = {
   ugcSection: UGCSection,
   kastelClubSection: KastelClubSection,
   natureLabExplainerSection: NatureLabExplainerSection,
+  shopOurModelsSection: ShopOurModelsSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

@@ -210,6 +210,32 @@ const natureLabExplainerSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const shopOurModelsSectionValidator = z.object({
+  type: z.literal('shopOurModelsSection'),
+  key: z.string(),
+  badge: z.string().optional(),
+  shoes: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      colorWays: z.array(
+        z.object({
+          image: imageValidator,
+          hexCode: z.string(),
+          slug: z.string()
+        })
+      ),
+      details: z.array(
+        z.object({
+          title: z.string(),
+          description: z.string()
+        })
+      )
+    })
+  ),
+  sectionSettings: sectionSettingsValidator
+});
+
 // New validators end
 
 const textAndImageValidator = z.object({
@@ -361,6 +387,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   ugcSectionValidator,
   kastelClubSectionValidator,
   natureLabExplainerSectionValidator,
+  shopOurModelsSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -386,6 +413,7 @@ export type UGCSectionProps = z.infer<typeof ugcSectionValidator>;
 export type KastelClubStepProps = z.infer<typeof kastelClubStepValidator>;
 export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
 export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>;
+export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -569,6 +597,32 @@ export const PAGE_BUILDER_TYPES: {
           ${fragments.getImageBase(lang)}
         }
       }, 
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
+    }
+  `,
+  shopOurModelsSection: (lang) => groq`
+    ${fragments.base},
+    ...shopOurModelsBlock->{
+      "badge": badge.${lang},
+      "shoes": shoes[]{
+        ...shoe->{
+          "colorWays": *[_type == "product" && references(productType._ref) && defined(mainImage) && defined(slug_no.current)]{
+            "image": mainImage{
+              ${fragments.getImageBase(lang)}
+            },
+            "hexCode": color->color.value,
+            "slug": slug_${lang}.current
+          },
+        },
+        "title": title.${lang},
+        "description": description.${lang},
+        "details": details[]{
+          "title": title.${lang},
+          "description": description.${lang}
+        }
+      },
     },
     sectionSettings{
      ${fragments.sectionSettings}

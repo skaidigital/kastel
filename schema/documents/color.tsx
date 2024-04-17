@@ -31,6 +31,9 @@ export const color = defineType({
       title: 'Farge',
       name: 'color',
       type: 'simplerColor',
+      options: {
+        colorFormat: 'hex'
+      },
       validation: (Rule) => Rule.required()
     }),
     defineField({

@@ -164,10 +164,9 @@ export const pageBuilder = defineType({
     }),
     // Shop our models
     defineArrayMember({
-      title: 'Shop our models',
-      type: 'reference',
-      to: [{ type: 'shopOurModels' }],
-      name: 'shopOurModels'
+      title: 'Shop Our Models section',
+      type: 'shopOurModelsSection',
+      name: 'shopOurModelsSection'
     }),
     // UGCs
     defineArrayMember({

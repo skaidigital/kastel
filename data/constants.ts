@@ -7,6 +7,7 @@ export const ROUTES = {
   WISHLIST: '/account/wishlist',
   ADDRESSES: '/account/addresses',
   CREATE_ADDRESS: '/account/addresses/create',
+  PRODUCTS: '/products',
   ORDERS: '/orders',
   ORDER_DETAILS: '/account/orders',
   BLOG: '/blog',
