@@ -194,6 +194,22 @@ const kastelClubSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const natureLabExplainerSectionValidator = z.object({
+  type: z.literal('natureLabExplainerSection'),
+  key: z.string(),
+  title: z.string(),
+  titleTitle: z.string(),
+  titleContent: z.string(),
+  steps: z.array(
+    z.object({
+      title: z.string(),
+      content: portableTextValidator,
+      image: imageValidator
+    })
+  ),
+  sectionSettings: sectionSettingsValidator
+});
+
 // New validators end
 
 const textAndImageValidator = z.object({
@@ -344,6 +360,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   shoePickerValidator,
   ugcSectionValidator,
   kastelClubSectionValidator,
+  natureLabExplainerSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -368,6 +385,7 @@ export type ShoePickerProps = z.infer<typeof shoePickerValidator>;
 export type UGCSectionProps = z.infer<typeof ugcSectionValidator>;
 export type KastelClubStepProps = z.infer<typeof kastelClubStepValidator>;
 export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
+export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -533,6 +551,24 @@ export const PAGE_BUILDER_TYPES: {
       lastSlide{
         ${fragments.getMedia(lang)}
       }
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
+    }
+  `,
+  natureLabExplainerSection: (lang) => groq`
+    ${fragments.base},
+    ...natureLabExplainerBlock->{
+      "title": title.${lang},
+      "titleTitle": titleTitle.${lang},
+      "titleContent": titleContent.${lang},
+      steps[]{
+        "title": title.${lang},
+        "content": content_${lang},
+        image{
+          ${fragments.getImageBase(lang)}
+        }
+      }, 
     },
     sectionSettings{
      ${fragments.sectionSettings}

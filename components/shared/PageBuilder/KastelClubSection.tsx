@@ -39,8 +39,8 @@ export const KastelClubSection = ({ data }: Props) => {
 
   return (
     <Section
-      label="ugcSection"
-      srHeading="UGC videos"
+      label="kastelClubSection"
+      srHeading="Explanation of the Kastel Club loyalty program"
       noTopPadding={!sectionSettings?.hasTopPadding}
       noBottomPadding={!sectionSettings?.hasBottomPadding}
       hasBottomBorder={sectionSettings?.hasBottomBorder}

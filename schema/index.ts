@@ -1,5 +1,5 @@
 import { kastelClubBlock } from '@/components/shared/PageBuilder/kastelClubBlock';
-import { natureLabExplainer } from '@/components/shared/PageBuilder/natureLabExplainer';
+import { natureLabExplainerBlock } from '@/components/shared/PageBuilder/natureLabExplainerBlock';
 import { uspExplainer } from '@/components/shared/PageBuilder/uspExplainer';
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
@@ -56,6 +56,7 @@ import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
+import { natureLabExplainerSection } from '@/schema/objects/natureLabExplainerSection';
 import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
 import { natureLabProductStatusItem } from '@/schema/objects/natureLabProductStatusItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
@@ -164,13 +165,14 @@ const schema = [
   timelineSection,
   ugcSection,
   kastelClubSection,
+  natureLabExplainerSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
   ugcBlock,
   kastelClubBlock,
   shopOurModels,
-  natureLabExplainer,
+  natureLabExplainerBlock,
   timelineBlock,
   shoePickerBlock,
   featuredShoe,

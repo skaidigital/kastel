@@ -23,7 +23,8 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
-      serif: ['var(--font-iowan)']
+      serif: ['var(--font-iowan)'],
+      mono: ['var(--font-mono)']
     },
     keyframes: {
       blink: {
@@ -195,6 +196,9 @@ module.exports = {
         md: ['18px', { lineHeight: '24px' }],
         lg: ['24px', { lineHeight: '32px' }],
         xl: ['32px', { lineHeight: '40px' }],
+        'nature-lab-md': ['14px', { lineHeight: '18px' }],
+        'nature-lab-lg': ['18px', { lineHeight: '24px' }],
+        'nature-lab-heading-lg': ['32px', { lineHeight: '36px' }],
         'overline-sm': ['10px', { lineHeight: '10px' }],
         'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
       },

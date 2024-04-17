@@ -20,6 +20,7 @@
     --smooth-bezier: cubic-bezier(0.16, 1, 0.3, 1);
     --header-height: 44px;
     --announcement-bar-height: 44px;
+    --font-mono: 'Fira Code', monospace;
   }
 
   body {

@@ -159,9 +159,8 @@ export const pageBuilder = defineType({
     // Nature Lab explanation
     defineArrayMember({
       title: 'Nature Lab explainer',
-      type: 'reference',
-      to: [{ type: 'natureLabExplainer' }],
-      name: 'natureLabExplainer'
+      type: 'natureLabExplainerSection',
+      name: 'natureLabExplainerSection'
     }),
     // Shop our models
     defineArrayMember({

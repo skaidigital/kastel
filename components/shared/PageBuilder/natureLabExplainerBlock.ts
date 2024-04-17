@@ -2,21 +2,39 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Recycle } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const natureLabExplainer = defineType({
-  title: 'Nature Lab explainer',
-  name: 'natureLabExplainer',
+export const natureLabExplainerBlock = defineType({
+  title: 'Nature Lab Explainer block',
+  name: 'natureLabExplainerBlock',
   type: 'document',
   icon: Recycle,
+  preview: {
+    select: {
+      title: 'internalTitle'
+    },
+    prepare({ title }) {
+      return {
+        title: title || 'Untitled',
+        subtitle: 'Nature Lab Explainer block'
+      };
+    }
+  },
   fields: [
     defineField({
       title: 'Internal title',
       name: 'internalTitle',
-      type: 'internalTitle'
+      type: 'internalTitle',
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Title',
       description: "I.e. 'Nature Lab'",
       name: 'title',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Title title',
+      name: 'titleTitle',
       type: 'i18n.string',
       validation: validateAllStringTranslations
     }),
@@ -43,13 +61,13 @@ export const natureLabExplainer = defineType({
             }),
             defineField({
               title: 'Content 🇧🇻',
-              name: 'contentNo',
+              name: 'content_no',
               type: 'richText',
               validation: (Rule) => Rule.required()
             }),
             defineField({
               title: 'Content 🇬🇧',
-              name: 'contentEn',
+              name: 'content_en',
               type: 'richText',
               validation: (Rule) => Rule.required()
             }),
