@@ -6,6 +6,7 @@ const textProps = cva({
   variants: {
     size: {
       sm: 'text-sm placeholder:text-sm',
+      md: 'text-md placeholder:text-md',
       lg: 'text-lg placeholder:text-lg',
       eyebrow: 'text-eyebrow uppercase placeholder:text-eyebrow',
       default: 'text-sm lg:text-md placeholder:text-sm lg:placeholder:text-md'

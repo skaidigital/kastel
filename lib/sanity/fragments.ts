@@ -295,3 +295,28 @@ export function getBlogPostCard(lang: LangValues) {
   "readLength": coalesce(round(length(pt::text(content + "_" + market)) / 5 / 180 ), 1)
 `;
 }
+
+export function getHotspotImage(lang: LangValues) {
+  return groq`
+  "type": _type,
+  image{
+    ${getImageBase(lang)}
+  },
+  hotspots[]{
+    ...select(
+      type == "text" => {
+        type,
+        "description": description.${lang},
+      },
+      type == "productCard" => {
+        "type": "product",
+        ...product->{
+          ${getProductCard(lang)}
+        },
+      },
+    ),
+    x,
+    y,
+  }
+  `;
+}

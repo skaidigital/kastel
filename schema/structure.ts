@@ -136,7 +136,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
           Slideshow
         ),
         listNew({ S, title: 'UGC block', schemaType: 'ugcBlock' }).icon(VideoCamera),
-        listNew({ S, title: 'Featured shoe', schemaType: 'featuredShoe' }).icon(Star),
+        listNew({ S, title: 'Featured Shoe block', schemaType: 'featuredShoeBlock' }).icon(Star),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
       ]).icon(Recycle),

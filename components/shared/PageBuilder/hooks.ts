@@ -3,8 +3,10 @@ import * as fragments from '@/lib/sanity/fragments';
 import {
   aspectRatioSettingsValidator,
   conditionalLinkValidator,
+  hotspotImageValidator,
   imageValidator,
   linkToValidator,
+  linkValidator,
   mediaValidator,
   portableTextValidator,
   productCardValidator,
@@ -46,16 +48,16 @@ const doesNotHaveLinkValidator = z.object({
   hasLink: z.literal(false)
 });
 
-const linkValidator = z.union([hasLinkValidator, doesNotHaveLinkValidator]);
+const heroLinkValidator = z.union([hasLinkValidator, doesNotHaveLinkValidator]);
 
-export type HeroLinkProps = z.infer<typeof linkValidator>;
+export type HeroLinkProps = z.infer<typeof heroLinkValidator>;
 
 const heroValidator = z.object({
   type: z.literal('hero'),
   key: z.string(),
   title: z.string().optional(),
   subtitle: z.string().optional(),
-  link: linkValidator,
+  link: heroLinkValidator,
   textPositionMobile: z.union([
     z.literal('top-left'),
     z.literal('top-center'),
@@ -236,6 +238,18 @@ const shopOurModelsSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const featuredShoeSectionValidator = z.object({
+  type: z.literal('featuredShoeSection'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  badge: z.string().optional(),
+  product: productCardValidator,
+  link: linkValidator,
+  content: z.array(z.union([mediaValidator, hotspotImageValidator])),
+  sectionSettings: sectionSettingsValidator
+});
+
 // New validators end
 
 const textAndImageValidator = z.object({
@@ -334,7 +348,7 @@ const collectionListingValidator = z.object({
 const cardBaseValidator = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
-  link: linkValidator,
+  link: heroLinkValidator,
   textPositionMobile: z.union([
     z.literal('top-left'),
     z.literal('top-center'),
@@ -388,6 +402,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   kastelClubSectionValidator,
   natureLabExplainerSectionValidator,
   shopOurModelsSectionValidator,
+  featuredShoeSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -414,6 +429,7 @@ export type KastelClubStepProps = z.infer<typeof kastelClubStepValidator>;
 export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
 export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>;
 export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>;
+export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -621,6 +637,33 @@ export const PAGE_BUILDER_TYPES: {
         "details": details[]{
           "title": title.${lang},
           "description": description.${lang}
+        }
+      },
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
+    }
+  `,
+  featuredShoeSection: (lang) => groq`
+    ${fragments.base},
+    ...featuredShoeBlock->{
+      "title": title.${lang},
+      "description": description.${lang},
+      "badge": badge->title.${lang},
+      "product": shoe->{
+        ${fragments.getProductCard(lang)}
+      },
+      link{
+        ${fragments.getLink(lang)}
+      },
+      content[]{
+        _type == "media" => {
+          ${fragments.getMedia(lang)}
+        },
+        _type == "reference" => {
+          ...@->{
+            ${fragments.getHotspotImage(lang)}
+          }
         }
       },
     },

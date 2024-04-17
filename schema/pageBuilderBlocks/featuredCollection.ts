@@ -2,9 +2,10 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Package } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const featuredCollection = defineType({
-  title: 'Featured collection',
-  name: 'featuredCollection',
+// TODO rename to featuredCollectionBlock
+export const featuredCollectionBlock = defineType({
+  title: 'Featured Collection block',
+  name: 'featuredCollectionBlock',
   type: 'object',
   icon: Package,
   preview: {

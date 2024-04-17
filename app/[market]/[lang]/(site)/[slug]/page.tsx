@@ -2,7 +2,6 @@ import { PageLayout } from '@/components/pages/PageLayout';
 import {
   PagePayload,
   getPageQuery,
-  pageValidator,
   removeEmptyPageBuilderObjects
 } from '@/components/pages/PageLayout/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
@@ -12,7 +11,6 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const slugs = await generateStaticSlugs('page');
@@ -43,14 +41,17 @@ export default async function PageSlugRoute({ params }: Props) {
   const initial = await loadPage({ slug, market, lang });
   const pageWithoutNullValues = nullToUndefined(initial.data);
   const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
-  const validatedPage = pageValidator.safeParse(cleanedPageData);
+  console.log(cleanedPageData);
 
-  if (!validatedPage.success) {
-    console.error('Failed to validate page', validatedPage.error);
-    return notFound();
-  }
+  // const validatedPage = pageValidator.safeParse(cleanedPageData);
 
-  return <PageLayout data={validatedPage.data} market={market} lang={lang} />;
+  // if (!validatedPage.success) {
+  //   console.error('Failed to validate page', validatedPage.error);
+  //   return notFound();
+  // }
+
+  // return <PageLayout data={validatedPage.data} market={market} lang={lang} />;
+  return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
 }
 
 export async function generateMetadata({

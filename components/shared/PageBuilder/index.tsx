@@ -3,6 +3,7 @@ import { CardSection } from '@/components/shared/PageBuilder/CardSection';
 import { ContactForm } from '@/components/shared/PageBuilder/ContactForm';
 import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
 import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
+import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedShoeSection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { InstagramFeed } from '@/components/shared/PageBuilder/InstagramFeed';
 import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
@@ -33,6 +34,7 @@ const blockTypes: BlockType = {
   kastelClubSection: KastelClubSection,
   natureLabExplainerSection: NatureLabExplainerSection,
   shopOurModelsSection: ShopOurModelsSection,
+  featuredShoeSection: FeaturedShoeSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

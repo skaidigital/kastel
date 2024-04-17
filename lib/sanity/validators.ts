@@ -119,14 +119,12 @@ export const SEOAndSocialsValidator = z.object({
 
 const sameAssetImageValidator = z.object({
   type: z.literal('image'),
-  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(true),
   image: imageValidator
 });
 
 const differentAssetImageValidator = z.object({
   type: z.literal('image'),
-  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(false),
   imageMobile: imageValidator,
   imageDesktop: imageValidator
@@ -134,14 +132,12 @@ const differentAssetImageValidator = z.object({
 
 const sameAssetVideoValidator = z.object({
   type: z.literal('video'),
-  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(true),
   video: videoValidator
 });
 
 const differentAssetVideoValidator = z.object({
   type: z.literal('video'),
-  // key: z.string(),
   sameAssetForMobileAndDesktop: z.literal(false),
   videoMobile: videoValidator,
   videoDesktop: videoValidator
@@ -198,3 +194,24 @@ const noLinkValidator = z.object({
 });
 
 export const conditionalLinkValidator = z.union([hasLinkValidator, noLinkValidator]);
+
+const textHotspotsValidator = z.object({
+  type: z.literal('text'),
+  description: z.string(),
+  x: z.number(),
+  y: z.number()
+});
+
+const productCardHotspotsValidator = productCardValidator.extend({
+  type: z.literal('product'),
+  x: z.number(),
+  y: z.number()
+});
+
+export const hotspotImageValidator = z.object({
+  type: z.literal('hotspotImage'),
+  image: imageValidator,
+  hotspots: z.array(
+    z.discriminatedUnion('type', [textHotspotsValidator, productCardHotspotsValidator])
+  )
+});

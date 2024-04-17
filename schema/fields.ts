@@ -176,15 +176,15 @@ export const pageBuilder = defineType({
     }),
     // Featured shoe
     defineArrayMember({
-      title: 'Featured shoe',
-      type: 'reference',
-      to: [{ type: 'featuredShoe' }],
-      name: 'featuredShoe'
+      title: 'Featured Shoe section',
+      type: 'featuredShoeSection',
+      name: 'featuredShoeSection'
     }),
     // Featured collection
     defineArrayMember({
       title: 'Featured collection',
-      type: 'featuredCollection'
+      name: 'featuredCollectionSection',
+      type: 'featuredCollectionSection'
     }),
     // Card section
     defineArrayMember({

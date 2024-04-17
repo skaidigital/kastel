@@ -46,9 +46,7 @@ export function Media({ media, loading }: Props) {
   }
 
   if (typeIsVideo && sameAssetForMobileAndDesktop) {
-    return (
-      <Video playbackId={media.video} resolution="HD" loading={loading} className="lg:hidden" />
-    );
+    return <Video playbackId={media.video} resolution="HD" loading={loading} />;
   }
 
   if (typeIsVideo && !sameAssetForMobileAndDesktop) {
@@ -58,13 +56,13 @@ export function Media({ media, loading }: Props) {
           playbackId={media.videoMobile}
           resolution="HD"
           loading={loading}
-          className="-z-10 lg:hidden"
+          className="lg:hidden"
         />
         <Video
           playbackId={media.videoDesktop}
           resolution="HD"
           loading={loading}
-          className="inset-0 -z-10 hidden lg:block"
+          className="inset-0 hidden lg:block"
         />
       </>
     );

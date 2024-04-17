@@ -48,7 +48,9 @@ import { cardBlock } from '@/schema/objects/cardBlock';
 import { collectionImage } from '@/schema/objects/collectionImage';
 import { collectionProduct } from '@/schema/objects/collectionProduct';
 import { conditionalLink } from '@/schema/objects/conditionalLink';
+import { featuredCollectionSection } from '@/schema/objects/featuredCollectionSection';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
+import { featuredShoeSection } from '@/schema/objects/featuredShoeSection';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
 import { kastelClubSection } from '@/schema/objects/kastelClubSection';
 import { link } from '@/schema/objects/link';
@@ -79,8 +81,8 @@ import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
-import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollection';
-import { featuredShoe } from '@/schema/pageBuilderBlocks/featuredShoe';
+import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollection';
+import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
@@ -158,7 +160,7 @@ const schema = [
   contactForm,
   faqSection,
   blogPostSection,
-  featuredCollection,
+  featuredCollectionSection,
   emailCapture,
   natureLabInnovationSection,
   cardSection,
@@ -168,6 +170,7 @@ const schema = [
   kastelClubSection,
   natureLabExplainerSection,
   shopOurModelsSection,
+  featuredShoeSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
@@ -175,9 +178,10 @@ const schema = [
   kastelClubBlock,
   shopOurModelsBlock,
   natureLabExplainerBlock,
+  featuredCollectionBlock,
   timelineBlock,
   shoePickerBlock,
-  featuredShoe,
+  featuredShoeBlock,
   uspExplainer,
   cardBlock,
 

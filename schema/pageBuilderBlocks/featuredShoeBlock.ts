@@ -2,21 +2,27 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Star } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const featuredShoe = defineType({
-  title: '(WIP) Featured shoe',
-  name: 'featuredShoe',
+export const featuredShoeBlock = defineType({
+  title: 'Featured Shoe block',
+  name: 'featuredShoeBlock',
   type: 'document',
   icon: Star,
   preview: {
     select: {
-      title: 'title.en'
+      title: 'internalTitle'
     },
     prepare: ({ title }) => ({
       title: title || 'Untitled',
-      subtitle: 'Featured shoe'
+      subtitle: 'Featured Shoe block'
     })
   },
   fields: [
+    defineField({
+      title: 'Internal title',
+      name: 'internalTitle',
+      type: 'internalTitle',
+      validation: (Rule) => Rule.required()
+    }),
     defineField({
       title: 'Title',
       name: 'title',
