@@ -43,6 +43,7 @@ import {
 } from '@/schema/fields';
 import { address } from '@/schema/objects/address';
 import { aspectRatioSettings } from '@/schema/objects/aspectRatioSettings';
+import { buttonSettings } from '@/schema/objects/buttonSettings';
 import { card } from '@/schema/objects/card';
 import { cardBlock } from '@/schema/objects/cardBlock';
 import { collectionImage } from '@/schema/objects/collectionImage';
@@ -84,6 +85,7 @@ import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
 import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollection';
 import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
+import { heroNew } from '@/schema/pageBuilderBlocks/heroNew';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
@@ -152,6 +154,7 @@ const schema = [
   natureLabProductStatusItem,
   card,
   conditionalLink,
+  buttonSettings,
 
   // Page builder blocks (objects)
   hero,
@@ -171,6 +174,7 @@ const schema = [
   natureLabExplainerSection,
   shopOurModelsSection,
   featuredShoeSection,
+  heroNew,
   // Page builder blocks (documents)
   textSection,
   faqBlock,

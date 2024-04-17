@@ -10,13 +10,13 @@ export const buttonProps = cva({
     variant: {
       primary: 'bg-brand-primary text-white',
       secondary: 'bg-white text-brand-dark-grey',
-      destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       outline: 'border border-brand-light-grey bg-background hover:bg-brand-light-grey',
+      destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       ghost: 'hover:bg-accent hover:text-accent-foreground',
       link: 'text-primary underline-offset-4 hover:underline'
     },
     size: {
-      default: 'h-10 px-4 py-2',
+      default: 'px-6 py-4 text-[14px] leading-[14px] lg:text-lg',
       sm: 'px-6 py-4 text-[14px] leading-[14px]',
       md: 'px-6 py-4 text-lg',
       lg: 'h-11 rounded-md px-8',

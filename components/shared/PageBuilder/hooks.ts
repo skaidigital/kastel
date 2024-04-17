@@ -2,6 +2,7 @@ import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import {
   aspectRatioSettingsValidator,
+  buttonSettingsValidator,
   conditionalLinkValidator,
   hotspotImageValidator,
   imageValidator,
@@ -250,6 +251,42 @@ const featuredShoeSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const heroNewValidator = z.object({
+  type: z.literal('heroNew'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  link: conditionalLinkValidator,
+  media: mediaValidator,
+  aspectRatioSettings: aspectRatioSettingsValidator,
+  textPositionMobile: z.union([
+    z.literal('top-left'),
+    z.literal('top-center'),
+    z.literal('top-right'),
+    z.literal('center-left'),
+    z.literal('center'),
+    z.literal('center-right'),
+    z.literal('bottom-left'),
+    z.literal('bottom-center'),
+    z.literal('bottom-right'),
+    z.literal('split-top'),
+    z.literal('split-center'),
+    z.literal('split-bottom')
+  ]),
+  textPositionDesktop: z.union([
+    z.literal('top-left'),
+    z.literal('top-center'),
+    z.literal('top-right'),
+    z.literal('center-left'),
+    z.literal('center'),
+    z.literal('center-right'),
+    z.literal('bottom-left'),
+    z.literal('bottom-center'),
+    z.literal('bottom-right')
+  ]),
+  buttonSettings: buttonSettingsValidator
+});
+
 // New validators end
 
 const textAndImageValidator = z.object({
@@ -403,6 +440,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   natureLabExplainerSectionValidator,
   shopOurModelsSectionValidator,
   featuredShoeSectionValidator,
+  heroNewValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -430,6 +468,7 @@ export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
 export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>;
 export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>;
 export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
+export type HeroNewProps = z.infer<typeof heroNewValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -466,6 +505,25 @@ export const PAGE_BUILDER_TYPES: {
     imageDesktop{
       ${fragments.getImageBase(lang)},
     }
+  `,
+  heroNew: (lang) => `
+    ${fragments.base},
+    "title": title.${lang},
+    "description": description.${lang},
+    link{
+      ${fragments.getConditionalLink(lang)}
+    },
+    buttonSettings{
+      ${fragments.buttonSettings}
+    },
+    media{
+      ${fragments.getMedia(lang)}
+    },
+    aspectRatioSettings{
+      ${fragments.aspectRatioSettings}
+    },
+    textPositionMobile,
+    textPositionDesktop
   `,
   featuredCollection: (lang) => `
     ${fragments.base},

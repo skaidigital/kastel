@@ -215,3 +215,7 @@ export const hotspotImageValidator = z.object({
     z.discriminatedUnion('type', [textHotspotsValidator, productCardHotspotsValidator])
   )
 });
+
+export const buttonSettingsValidator = z.object({
+  variant: z.enum(['primary', 'secondary', 'outline'])
+});

@@ -142,6 +142,11 @@ export const pageBuilder = defineType({
       title: 'Hero',
       type: 'hero'
     }),
+    defineArrayMember({
+      title: 'Hero (New)',
+      name: 'heroNew',
+      type: 'heroNew'
+    }),
     // Full width media section
     // USP + Shoe
     defineArrayMember({

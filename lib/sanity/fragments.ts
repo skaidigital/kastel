@@ -320,3 +320,7 @@ export function getHotspotImage(lang: LangValues) {
   }
   `;
 }
+
+export const buttonSettings = groq`
+  variant
+`;
