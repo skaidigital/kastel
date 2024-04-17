@@ -29,14 +29,14 @@ export const metadata = {
   }
 };
 
-interface Props {
+interface LoadSearchProps {
   market: MarketValues;
   searchQuery: string;
   page: number;
   tagSlugs: string[] | null;
 }
 
-async function loadSearchResults({ market, searchQuery, page, tagSlugs }: Props) {
+async function loadSearchResults({ market, searchQuery, page, tagSlugs }: LoadSearchProps) {
   const sanityQuery = getSearchResultQuery(market, page);
 
   return loadQuery<SearchResult | null>(
