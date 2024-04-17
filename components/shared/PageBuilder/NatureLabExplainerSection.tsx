@@ -14,6 +14,7 @@ import { SanityImage } from '@/components/sanity/SanityImage';
 import { NatureLabExplainerSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface PropsWithExtra extends NatureLabExplainerSectionProps {
   index: number;
@@ -27,8 +28,12 @@ interface Props {
 
 // TODO consider making the image of type media instead
 // TODO download and set all the fonts correctly
+// TODO make sure the image doesn't resize and look fucked
 export const NatureLabExplainerSection = ({ data }: Props) => {
   const { index, pageId, pageType, title, titleTitle, titleContent, steps, sectionSettings } = data;
+
+  // TODO figure out why it can be undefined
+  const [activeTabTitle, setActiveTabTitle] = useState<string | undefined>(steps[0]?.title);
 
   return (
     <Section
@@ -86,8 +91,12 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
         </Accordion>
       </Container>
       <div className="relative z-10 hidden lg:block">
-        <Tabs defaultValue={steps?.at(0)?.title}>
-          <Container className="mb-3">
+        <Tabs
+          value={activeTabTitle}
+          onValueChange={setActiveTabTitle}
+          defaultValue={steps?.at(0)?.title}
+        >
+          <Container className="mb-3 flex max-w-[1000px] justify-between">
             <div className="mb-4 flex flex-col gap-y-1.5">
               {titleTitle && (
                 <span className="font-mono text-nature-lab-lg text-brand-mid-grey">
@@ -96,9 +105,19 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
               )}
               {title && <h2 className="font-mono text-nature-lab-heading-lg uppercase">{title}</h2>}
             </div>
+            <div className="mb-4 flex flex-col items-end gap-y-1.5">
+              {titleTitle && (
+                <span className="font-mono text-nature-lab-lg text-brand-mid-grey">Subtitle:</span>
+              )}
+              {activeTabTitle && (
+                <h2 className="font-mono text-nature-lab-heading-lg uppercase text-red-700">
+                  {activeTabTitle}
+                </h2>
+              )}
+            </div>
           </Container>
           <div className="mb-10 border-y border-neutral-300">
-            <Container>
+            <Container className="max-w-[1000px]">
               <TabsList>
                 {steps?.map((step, index) => (
                   <TabsTrigger
@@ -117,14 +136,14 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
           </div>
           {steps?.map((step) => (
             <TabsContent value={step.title} key={step.title}>
-              <Container>
+              <Container className="max-w-[1000px]">
                 <div className="flex gap-x-10">
                   <div className="flex flex-1 flex-col gap-y-3">
                     {titleContent && (
                       <span className="font-mono text-nature-lab-md">{titleContent}:</span>
                     )}
                     <div className="*:mt-0">
-                      <PortableTextRenderer value={step.content} />
+                      <PortableTextRenderer value={step.content} type="natureLab" />
                     </div>
                   </div>
                   {step.image && (
