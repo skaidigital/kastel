@@ -171,7 +171,15 @@ const kastelClubStepValidator = z.object({
   descriptionFront: z.string(),
   linkText: z.string(),
   titleBack: z.string(),
-  descriptionBack: z.string()
+  descriptionBack: z.string(),
+  descriptionList: z
+    .array(
+      z.object({
+        descriptionTerm: z.string(),
+        descriptionDetails: z.string()
+      })
+    )
+    .optional()
 });
 
 const kastelClubSectionValidator = z.object({
@@ -182,6 +190,7 @@ const kastelClubSectionValidator = z.object({
   description: z.string().optional(),
   buttonText: z.string(),
   steps: z.array(kastelClubStepValidator),
+  lastSlide: mediaValidator,
   sectionSettings: sectionSettingsValidator
 });
 
@@ -515,8 +524,15 @@ export const PAGE_BUILDER_TYPES: {
         "descriptionFront": descriptionFront.${lang},
         "linkText": linkText.${lang},
         "titleBack": titleBack.${lang},
-        "descriptionBack": descriptionBack.${lang}
+        "descriptionBack": descriptionBack.${lang},
+        descriptionList[]{
+          "descriptionTerm": descriptionTerm.${lang},
+          "descriptionDetails": descriptionDetails.${lang}
+        },
       },
+      lastSlide{
+        ${fragments.getMedia(lang)}
+      }
     },
     sectionSettings{
      ${fragments.sectionSettings}

@@ -17,7 +17,7 @@ export function Media({ media, loading }: Props) {
       <SanityImage
         priority={loading === 'eager' ? true : false}
         image={media.image}
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
         sizes="100vw"
         fill
       />
@@ -30,14 +30,14 @@ export function Media({ media, loading }: Props) {
         <SanityImage
           priority={loading === 'eager' ? true : false}
           image={media.imageMobile}
-          className="absolute inset-0 -z-10 h-full w-full object-cover lg:hidden"
+          className="absolute inset-0 h-full w-full object-cover lg:hidden"
           sizes="100vw"
           fill
         />
         <SanityImage
           priority={loading === 'eager' ? true : false}
           image={media.imageDesktop}
-          className="absolute inset-0 -z-10 hidden h-full w-full object-cover lg:block"
+          className="absolute inset-0 hidden h-full w-full object-cover lg:block"
           sizes="100vw"
           fill
         />
@@ -47,12 +47,7 @@ export function Media({ media, loading }: Props) {
 
   if (typeIsVideo && sameAssetForMobileAndDesktop) {
     return (
-      <Video
-        playbackId={media.video}
-        resolution="HD"
-        loading={loading}
-        className="-z-10 lg:hidden"
-      />
+      <Video playbackId={media.video} resolution="HD" loading={loading} className="lg:hidden" />
     );
   }
 
