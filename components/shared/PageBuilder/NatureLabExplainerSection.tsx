@@ -53,9 +53,13 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
       <Container className="relative z-10 lg:hidden">
         <div className="mb-4 flex flex-col gap-y-1.5">
           {titleTitle && (
-            <span className="font-mono text-nature-lab-lg text-brand-mid-grey">{titleTitle}:</span>
+            <span className="font-nature-lab-body text-nature-lab-lg text-brand-mid-grey">
+              {titleTitle}:
+            </span>
           )}
-          {title && <h2 className="font-mono text-nature-lab-heading-lg uppercase">{title}</h2>}
+          {title && (
+            <h2 className="font-nature-lab-body text-nature-lab-heading-lg uppercase">{title}</h2>
+          )}
         </div>
         <Accordion type="single" defaultValue={steps?.at(0)?.title}>
           {steps?.map((step) => (
@@ -65,7 +69,7 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
               className="border-b border-nature-lab-dark-grey"
             >
               {step.title && (
-                <AccordionTrigger className="font-mono text-nature-lab-md uppercase">
+                <AccordionTrigger className="font-nature-lab-body text-nature-lab-md uppercase">
                   {step.title}
                 </AccordionTrigger>
               )}
@@ -73,7 +77,9 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
                 <AccordionContent className=" flex flex-col gap-y-10">
                   <div className="mt-6 flex flex-col gap-y-3">
                     {titleContent && (
-                      <span className="font-mono text-nature-lab-md">{titleContent}:</span>
+                      <span className="font-nature-lab-body text-nature-lab-md">
+                        {titleContent}:
+                      </span>
                     )}
                     <div className="*:mt-0">
                       <PortableTextRenderer value={step.content} />
@@ -99,18 +105,24 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
           <Container className="mb-3 flex max-w-[1000px] justify-between">
             <div className="mb-4 flex flex-col gap-y-1.5">
               {titleTitle && (
-                <span className="font-mono text-nature-lab-lg text-brand-mid-grey">
+                <span className="font-nature-lab-body text-nature-lab-lg text-brand-mid-grey">
                   {titleTitle}:
                 </span>
               )}
-              {title && <h2 className="font-mono text-nature-lab-heading-lg uppercase">{title}</h2>}
+              {title && (
+                <h2 className="font-nature-lab-heading text-nature-lab-heading-lg uppercase">
+                  {title}
+                </h2>
+              )}
             </div>
             <div className="mb-4 flex flex-col items-end gap-y-1.5">
               {titleTitle && (
-                <span className="font-mono text-nature-lab-lg text-brand-mid-grey">Subtitle:</span>
+                <span className="font-nature-lab-body text-nature-lab-lg text-brand-mid-grey">
+                  Subtitle:
+                </span>
               )}
               {activeTabTitle && (
-                <h2 className="font-mono text-nature-lab-heading-lg uppercase text-red-700">
+                <h2 className="font-nature-lab-heading text-nature-lab-heading-lg uppercase text-red-700">
                   {activeTabTitle}
                 </h2>
               )}
@@ -118,13 +130,14 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
           </Container>
           <div className="mb-10 border-y border-neutral-300">
             <Container className="max-w-[1000px]">
-              <TabsList>
+              <TabsList className="h-fit p-0">
                 {steps?.map((step, index) => (
                   <TabsTrigger
                     key={step.title}
                     value={step.title}
                     className={cn(
-                      'py-[11px] font-mono text-nature-lab-md uppercase',
+                      'py-4 font-nature-lab-body text-nature-lab-md uppercase',
+                      activeTabTitle === step.title && 'text-brand-primary',
                       index === 0 && 'pl-0'
                     )}
                   >
@@ -140,7 +153,9 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
                 <div className="flex gap-x-10">
                   <div className="flex flex-1 flex-col gap-y-3">
                     {titleContent && (
-                      <span className="font-mono text-nature-lab-md">{titleContent}:</span>
+                      <span className="font-nature-lab-body text-nature-lab-md">
+                        {titleContent}:
+                      </span>
                     )}
                     <div className="*:mt-0">
                       <PortableTextRenderer value={step.content} type="natureLab" />

@@ -21,6 +21,8 @@
     --header-height: 44px;
     --announcement-bar-height: 44px;
     --font-mono: 'Fira Code', monospace;
+    --font-nature-lab-body: 'Sono', sans-serif;
+    --font-nature-lab-heading: 'Merriweather', serif;
   }
 
   body {
@@ -47,6 +49,32 @@
   img[loading='lazy'] {
     clip-path: inset(0.6px);
   }
+}
+
+/* merriweather-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/merriweather-v30-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* sono-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Sono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/sono-v6-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* sono-500 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Sono';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../public/fonts/sono-v6-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 /* TODO see if this can be turned into tailwind/see how Shadcn does it */

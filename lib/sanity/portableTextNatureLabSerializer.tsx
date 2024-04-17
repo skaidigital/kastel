@@ -11,15 +11,9 @@ import Link from 'next/link';
 export const portableTextNatureLabSerializer = {
   block: {
     normal: ({ children }: any) => (
-      <Text className="mt-6 font-mono" as="p">
-        {children}
-      </Text>
+      <p className="mt-6 font-nature-lab-body text-nature-lab-md text-brand-mid-grey">{children}</p>
     ),
-    default: ({ children }: any) => (
-      <Text className="mt-6" as="p">
-        {children}
-      </Text>
-    ),
+    default: ({ children }: any) => <p className="mt-6 text-nature-lab-md">{children}</p>,
     small: ({ children }: any) => (
       <Text className="mt-6" as="p" size="sm">
         {children}
