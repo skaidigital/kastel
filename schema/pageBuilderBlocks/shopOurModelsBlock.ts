@@ -52,10 +52,10 @@ export const shopOurModelsBlock = defineType({
           },
           fields: [
             defineField({
-              title: 'Shoe',
+              title: 'Shoe Model',
               name: 'shoe',
               type: 'reference',
-              to: [{ type: 'product' }],
+              to: [{ type: 'productType' }],
               validation: (Rule) => Rule.required()
             }),
             defineField({

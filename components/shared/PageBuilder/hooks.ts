@@ -228,6 +228,14 @@ const shopOurModelsSectionValidator = z.object({
           slug: z.string()
         })
       ),
+      usps: z
+        .array(
+          z.object({
+            title: z.string(),
+            image: imageValidator
+          })
+        )
+        .optional(),
       details: z.array(
         z.object({
           title: z.string(),
@@ -671,15 +679,21 @@ export const PAGE_BUILDER_TYPES: {
   shopOurModelsSection: (lang) => groq`
     ${fragments.base},
     ...shopOurModelsBlock->{
-      "badge": badge.${lang},
+      "badge": badge->title.${lang},
       "shoes": shoes[]{
         ...shoe->{
-          "colorWays": *[_type == "product" && references(productType._ref) && defined(mainImage) && defined(slug_no.current)]{
+          "colorWays": *[_type == "product" && references(^._id) && defined(mainImage) && defined(slug_no.current)]{
             "image": mainImage{
               ${fragments.getImageBase(lang)}
             },
             "hexCode": color->color.value,
-            "slug": slug_${lang}.current
+            "slug": slug_${lang}.current,
+          },
+          "usps": usps[]->{
+              "title": title.${lang},
+              "image": icon{
+                ${fragments.getImageBase(lang)}
+              }
           },
         },
         "title": title.${lang},

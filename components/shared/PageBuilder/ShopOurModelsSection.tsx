@@ -26,7 +26,7 @@ import { ShopOurModelsSectionProps } from '@/components/shared/PageBuilder/hooks
 import { ROUTES } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface PropsWithExtra extends ShopOurModelsSectionProps {
   index: number;
@@ -38,7 +38,6 @@ interface Props {
   data: PropsWithExtra;
 }
 
-// ? Burde denne gjøres om til å heller være å reference en productType?
 export const ShopOurModelsSection = ({ data }: Props) => {
   const { index, pageId, pageType, badge, shoes, sectionSettings } = data;
 
@@ -53,10 +52,12 @@ export const ShopOurModelsSection = ({ data }: Props) => {
   );
 
   const slug = activeColorway?.slug;
+  const shoeCount = shoes?.length;
+  const currentShoeNumber = activeShoe ? shoes?.indexOf(activeShoe) + 1 : undefined;
 
   function setNextActiveShoe() {
-    if (!shoes) return;
-    // If at the end of the array, go back to the start
+    if (!shoes || !activeShoe) return;
+
     if (shoes.indexOf(activeShoe) === shoes.length - 1) {
       setActiveShoeTitle(shoes[0]?.title);
     } else {
@@ -65,18 +66,20 @@ export const ShopOurModelsSection = ({ data }: Props) => {
   }
 
   function setPrevActiveShoe() {
-    if (!shoes) return;
-    // If at the start of the array, go back to the end
-    if (shoes.indexOf(activeShoe) === 0) {
-      console.log(shoes[shoes.length - 1]?.title);
+    if (!shoes || !activeShoe) return;
 
+    if (shoes.indexOf(activeShoe) === 0) {
       setActiveShoeTitle(shoes[shoes.length - 1]?.title);
     } else {
-      console.log(shoes[shoes.indexOf(activeShoe) - 1]?.title);
-
       setActiveShoeTitle(shoes[shoes.indexOf(activeShoe) - 1]?.title);
     }
   }
+
+  useEffect(() => {
+    if (activeShoe) {
+      setActiveColorwaySlug(activeShoe?.colorWays?.at(0)?.slug);
+    }
+  }, [activeShoe]);
 
   return (
     <Section
@@ -88,29 +91,27 @@ export const ShopOurModelsSection = ({ data }: Props) => {
     >
       <Container className="flex flex-col gap-y-6 lg:hidden">
         <div className="flex flex-col">
-          {badge && <Badge>{badge}</Badge>}
+          {badge && <Badge className="case">{badge}</Badge>}
           {activeShoe?.title && (
             <Select value={activeShoeTitle} onValueChange={setActiveShoeTitle}>
-              <SelectTrigger>
-                <SelectValue asChild>
-                  <Heading size="lg" className="mb-4">
-                    {activeShoe?.title}
-                  </Heading>
+              <SelectTrigger className="h-fit w-fit gap-4 border-0 pl-0 [&>svg]:size-8">
+                <SelectValue asChild className="rounded-none">
+                  <Heading size="lg">{activeShoe?.title}</Heading>
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {shoes?.map((shoe) => (
-                  <SelectItem value={shoe.title} key={shoe.title}>
-                    <Heading size="lg" className="mb-4">
-                      {shoe.title}
-                    </Heading>
+                  <SelectItem value={shoe.title} key={shoe.title} className="rounded-none">
+                    <Heading size="lg">{shoe.title}</Heading>
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           )}
           {activeShoe?.description && (
-            <Text className="mb-6 text-brand-mid-grey">{activeShoe?.description}</Text>
+            <Text className="mb-6 max-w-md text-balance text-brand-mid-grey">
+              {activeShoe?.description}
+            </Text>
           )}
           {activeShoe?.colorWays && (
             <div className="flex gap-2">
@@ -118,8 +119,10 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                 <button
                   onClick={() => setActiveColorwaySlug(colorWay.slug)}
                   className={cn(
-                    'size-10',
-                    colorWay.slug === activeColorwaySlug ? 'border border-black' : 'border-0'
+                    'size-10 border-2',
+                    colorWay.slug === activeColorwaySlug
+                      ? 'border-black'
+                      : 'border-brand-light-grey'
                   )}
                   key={colorWay.slug}
                   style={{ background: colorWay.hexCode }}
@@ -139,9 +142,23 @@ export const ShopOurModelsSection = ({ data }: Props) => {
               <CustomLink href={`${ROUTES.PRODUCTS}/${slug}`}>Check out the shoe</CustomLink>
             </Button>
           )}
-          <div>usps here</div>
+          {activeShoe?.usps?.length && (
+            <div className="flex gap-x-8">
+              {activeShoe.usps.map((usp) => (
+                <div key={usp.title} className="flex flex-col items-center gap-y-1">
+                  <SanityImage width={40} height={40} image={usp.image} />
+                  <Text size="overline-sm">{usp.title}</Text>
+                </div>
+              ))}
+            </div>
+          )}
           {activeShoe?.details && (
-            <Accordion type="single" collapsible defaultValue={activeShoe.details.at(0)?.title}>
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue={activeShoe.details.at(0)?.title}
+              className="w-full"
+            >
               {activeShoe.details.map((detail) => (
                 <AccordionItem value={detail.title} key={detail.title} className="border-b-0 py-2">
                   <AccordionTrigger className="mb-2 text-sm font-medium uppercase">
@@ -168,6 +185,16 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                 {activeShoe?.description}
               </Text>
             )}
+            {activeShoe?.usps?.length && (
+              <div className="flex gap-x-8">
+                {activeShoe.usps.map((usp) => (
+                  <div key={usp.title} className="flex flex-col items-center gap-y-1">
+                    <SanityImage width={40} height={40} image={usp.image} />
+                    <Text size="overline-sm">{usp.title}</Text>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           {activeShoe?.details && (
             <Accordion type="single" collapsible defaultValue={activeShoe.details.at(0)?.title}>
@@ -177,19 +204,26 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                   key={detail.title}
                   className="border-b-0 py-2 lg:py-2"
                 >
-                  <AccordionTrigger className="mb-2 text-sm font-medium uppercase">
+                  <AccordionTrigger className="mb-4 text-md font-medium uppercase">
                     {detail.title}
                   </AccordionTrigger>
-                  <AccordionContent className="max-w-sm">{detail.description}</AccordionContent>
+                  <AccordionContent className="max-w-sm text-sm text-brand-mid-grey">
+                    {detail.description}
+                  </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           )}
-          <div className="flex gap-x-2">
+          <div className="flex items-center gap-x-2">
             <Button onClick={setPrevActiveShoe} variant="outline" size="icon-lg">
               <ArrowLeftIcon className="size-10 text-brand-primary" />
               <span className="sr-only">Previous slide</span>
             </Button>
+            {shoeCount && currentShoeNumber && (
+              <Text size="lg" className="p-2 text-brand-mid-grey">
+                {currentShoeNumber} / {shoeCount}
+              </Text>
+            )}
             <Button onClick={setNextActiveShoe} variant="outline" size="icon-lg">
               <ArrowRightIcon className="size-10 text-brand-primary" />
               <span className="sr-only">Next slide</span>

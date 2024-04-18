@@ -9,6 +9,8 @@ const textProps = cva({
       md: 'text-md placeholder:text-md',
       lg: 'text-lg placeholder:text-lg',
       eyebrow: 'text-eyebrow uppercase placeholder:text-eyebrow',
+      'overline-sm': 'text-overline-sm placeholder:text-overline-sm',
+      'overline-md': 'text-overline-md placeholder:text-overline-md',
       default: 'text-sm lg:text-md placeholder:text-sm lg:placeholder:text-md'
     }
   },
