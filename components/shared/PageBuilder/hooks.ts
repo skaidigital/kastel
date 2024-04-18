@@ -251,6 +251,21 @@ const featuredShoeSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const textPlacementValidator = z.union([
+  z.literal('top-left'),
+  z.literal('top-center'),
+  z.literal('top-right'),
+  z.literal('center-left'),
+  z.literal('center'),
+  z.literal('center-right'),
+  z.literal('bottom-left'),
+  z.literal('bottom-center'),
+  z.literal('bottom-right'),
+  z.literal('split-top'),
+  z.literal('split-center'),
+  z.literal('split-bottom')
+]);
+
 const heroNewValidator = z.object({
   type: z.literal('heroNew'),
   key: z.string(),
@@ -259,31 +274,8 @@ const heroNewValidator = z.object({
   link: conditionalLinkValidator,
   media: mediaValidator,
   aspectRatioSettings: aspectRatioSettingsValidator,
-  textPositionMobile: z.union([
-    z.literal('top-left'),
-    z.literal('top-center'),
-    z.literal('top-right'),
-    z.literal('center-left'),
-    z.literal('center'),
-    z.literal('center-right'),
-    z.literal('bottom-left'),
-    z.literal('bottom-center'),
-    z.literal('bottom-right'),
-    z.literal('split-top'),
-    z.literal('split-center'),
-    z.literal('split-bottom')
-  ]),
-  textPositionDesktop: z.union([
-    z.literal('top-left'),
-    z.literal('top-center'),
-    z.literal('top-right'),
-    z.literal('center-left'),
-    z.literal('center'),
-    z.literal('center-right'),
-    z.literal('bottom-left'),
-    z.literal('bottom-center'),
-    z.literal('bottom-right')
-  ]),
+  textPositionMobile: textPlacementValidator,
+  textPositionDesktop: textPlacementValidator,
   buttonSettings: buttonSettingsValidator
 });
 

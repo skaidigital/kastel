@@ -1,5 +1,20 @@
 import { defineField, defineType } from 'sanity';
 
+const textPlacements = [
+  { title: 'Top left', value: 'top-left' },
+  { title: 'Top center', value: 'top-center' },
+  { title: 'Top right', value: 'top-right' },
+  { title: 'Center left', value: 'center-left' },
+  { title: 'Center', value: 'center' },
+  { title: 'Center right', value: 'center-right' },
+  { title: 'Bottom left', value: 'bottom-left' },
+  { title: 'Bottom center', value: 'bottom-center' },
+  { title: 'Bottom right', value: 'bottom-right' },
+  { title: 'Split top', value: 'split-top' },
+  { title: 'Split center', value: 'split-center' },
+  { title: 'Split bottom', value: 'split-bottom' }
+];
+
 export const heroNew = defineType({
   title: 'Hero New',
   name: 'heroNew',
@@ -61,20 +76,7 @@ export const heroNew = defineType({
       type: 'string',
       initialValue: 'center',
       options: {
-        list: [
-          { title: 'Top left', value: 'top-left' },
-          { title: 'Top center', value: 'top-center' },
-          { title: 'Top right', value: 'top-right' },
-          { title: 'Center left', value: 'center-left' },
-          { title: 'Center', value: 'center' },
-          { title: 'Center right', value: 'center-right' },
-          { title: 'Bottom left', value: 'bottom-left' },
-          { title: 'Bottom center', value: 'bottom-center' },
-          { title: 'Bottom right', value: 'bottom-right' },
-          { title: 'Split top', value: 'split-top' },
-          { title: 'Split center', value: 'split-center' },
-          { title: 'Split bottom', value: 'split-bottom' }
-        ]
+        list: textPlacements
       }
     }),
     defineField({
@@ -83,17 +85,7 @@ export const heroNew = defineType({
       type: 'string',
       initialValue: 'center',
       options: {
-        list: [
-          { title: 'Top left', value: 'top-left' },
-          { title: 'Top center', value: 'top-center' },
-          { title: 'Top right', value: 'top-right' },
-          { title: 'Center left', value: 'center-left' },
-          { title: 'Center', value: 'center' },
-          { title: 'Center right', value: 'center-right' },
-          { title: 'Bottom left', value: 'bottom-left' },
-          { title: 'Bottom center', value: 'bottom-center' },
-          { title: 'Bottom right', value: 'bottom-right' }
-        ]
+        list: textPlacements
       }
     })
   ]

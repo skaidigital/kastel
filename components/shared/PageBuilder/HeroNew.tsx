@@ -77,7 +77,8 @@ export const HeroNew = ({ data }: Props) => {
             textPositionDesktop === 'bottom-left' && 'lg:items-start lg:justify-end lg:text-left',
             textPositionDesktop === 'bottom-center' &&
               'lg:items-center lg:justify-end lg:text-center',
-            textPositionDesktop === 'bottom-right' && 'lg:items-end lg:justify-end lg:text-right'
+            textPositionDesktop === 'bottom-right' && 'lg:items-end lg:justify-end lg:text-right',
+            textPositionDesktop === 'split-top' && ''
           )}
         >
           {title && (
