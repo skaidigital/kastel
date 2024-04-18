@@ -1,7 +1,7 @@
 import { apiVersion, dataset, projectId, studioUrl } from '@/lib/sanity/api';
-import { createClient } from '@sanity/client/stega';
+import { createClient } from 'next-sanity';
 
-const excludedFields = ['slug_eu', 'slug_no', 'video'];
+const excludedFields = ['slug_en', 'slug_no', 'slug', 'video'];
 
 const excludedNestedFields = [
   'padding',

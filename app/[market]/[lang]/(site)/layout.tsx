@@ -15,6 +15,7 @@ import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import '../../../../styles/globals.css';
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
@@ -47,7 +48,29 @@ export default function IndexRoute({
               <Suspense>{/* <Navbar market={market} /> */}</Suspense>
               <main>
                 {children}
-                {draftMode().isEnabled && <VisualEditing />}
+                {draftMode().isEnabled && (
+                  <VisualEditing
+                    refresh={async (payload) => {
+                      'use server';
+                      if (!draftMode().isEnabled) {
+                        console.debug('Skipped manual refresh because draft mode is not enabled');
+                        return;
+                      }
+                      if (payload.source === 'mutation') {
+                        if (payload.document.slug?.current) {
+                          console.log('Revalidate slug', payload.document.slug.current);
+
+                          const tag = `${payload.document._type}:${payload.document.slug.current}`;
+                          console.log('Revalidate slug', tag);
+                          await revalidateTag(tag);
+                        }
+                        console.log('Revalidate tag', payload.document._type);
+                        return revalidateTag(payload.document._type);
+                      }
+                      await revalidatePath('/', 'layout');
+                    }}
+                  />
+                )}
                 <Analytics />
               </main>
             </div>

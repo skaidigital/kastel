@@ -85,7 +85,6 @@ import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
 import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollection';
 import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
-import { heroNew } from '@/schema/pageBuilderBlocks/heroNew';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
@@ -107,7 +106,6 @@ import { popup } from '@/schema/singletons/popup';
 import { retailersPage } from '@/schema/singletons/retailersPage';
 import { settingsPaymentProviders } from '@/schema/singletons/settingsPaymentProviders';
 import { settingsSEOAndSocials } from '@/schema/singletons/settingsSEOAndSocials';
-import { storeLocator } from '@/schema/singletons/storeLocator';
 import { usps } from '@/schema/singletons/usps';
 import { featureOptionConfig } from './objects/featureOptionConfig';
 import { price } from './objects/price';
@@ -159,7 +157,6 @@ const schema = [
   buttonSettings,
 
   // Page builder blocks (objects)
-  hero,
   pageTitle,
   instagramFeed,
   contactForm,
@@ -176,7 +173,7 @@ const schema = [
   natureLabExplainerSection,
   shopOurModelsSection,
   featuredShoeSection,
-  heroNew,
+  hero,
   uspExplainerSection,
   // Page builder blocks (documents)
   textSection,
@@ -238,7 +235,6 @@ const schema = [
   merchandising,
   settingsSEOAndSocials,
   settingsPaymentProviders,
-  storeLocator,
   pageNotFound,
   defaultProductFAQS,
   retailersPage

@@ -5,5 +5,5 @@ export function GET(request: NextRequest) {
   draftMode().disable();
   const url = new URL(request.nextUrl);
 
-  return NextResponse.redirect(new URL('/', url.origin));
+  return NextResponse.redirect(new URL('/no/no/', url.origin));
 }

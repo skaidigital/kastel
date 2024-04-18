@@ -21,7 +21,6 @@ import {
   Layout,
   List,
   ListBullets,
-  MapPin,
   MegaphoneSimple,
   Package,
   PaintBucket,
@@ -45,7 +44,7 @@ import {
 } from '@phosphor-icons/react';
 import type { StructureBuilder, StructureResolver } from 'sanity/structure';
 
-const EXCLUDED_PAGE_IDS = ['home'];
+const EXCLUDED_PAGE_IDS = ['home', 'drafts.home'];
 
 export const structure: StructureResolver = (S: StructureBuilder) => {
   return S.list()
@@ -59,8 +58,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      listNew({ S, schemaType: 'blogPost', title: 'Blog posts' }).icon(Article),
-      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
+      listNew({ S, schemaType: 'blogPost', title: '🚧 Blog posts' }).icon(Article),
+      listNew({ S, schemaType: 'legalPage', title: '🚧 Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       S.divider(),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
@@ -109,8 +108,10 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Phase 3 blog posts', schemaType: 'phase3BlogPost' }).icon(File),
         singleton(S, 'Settings', 'natureLabSettings', 'natureLabSettings').icon(Gear)
       ]).icon(Recycle),
-      singleton(S, 'Store locator', 'storeLocator', 'storeLocator').icon(MapPin),
-      singleton(S, 'Help center', 'helpCenter', 'helpCenter').icon(Question),
+      group(S, 'Help Center', [
+        listNew({ S, title: 'Q&A', schemaType: 'question' }).icon(List),
+        singleton(S, 'Help center', 'helpCenter', 'helpCenter').icon(Question)
+      ]).icon(Question),
       group(S, 'Site', [
         singleton(S, 'Announcement banner', 'announcementBanner', 'announcementBanner').icon(Info),
         singleton(S, 'Navbar', 'navbar', 'navbar').icon(ArrowLineUp),
@@ -121,10 +122,9 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
       group(S, 'Reusable content blocks', [
-        list(S, 'Text block', `_type == 'textBlock'`).icon(Layout),
-        listNew({ S, title: 'Q&A', schemaType: 'question' }).icon(List),
+        list(S, '🚧 Text', `_type == 'textBlock'`).icon(Layout),
         listNew({ S, title: 'FAQ', schemaType: 'faqBlock' }).icon(List),
-        listNew({ S, title: 'Card', schemaType: 'cardBlock' }).icon(GridFour),
+        listNew({ S, title: 'Cards', schemaType: 'cardBlock' }).icon(GridFour),
         listNew({ S, title: 'Shoe picker', schemaType: 'shoePickerBlock' }).icon(Sneaker),
         listNew({ S, title: 'Kastel Club', schemaType: 'kastelClubBlock' }).icon(Trophy),
         listNew({
@@ -137,7 +137,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
           title: 'Nature Lab Explainer',
           schemaType: 'natureLabExplainerBlock'
         }).icon(Recycle),
-        listNew({ S, title: 'Timeline', schemaType: 'timelineBlock' }).icon(Calendar),
+        listNew({ S, title: '🚧 Timeline', schemaType: 'timelineBlock' }).icon(Calendar),
         listNew({ S, title: 'Shop Our Models', schemaType: 'shopOurModelsBlock' }).icon(Slideshow),
         listNew({ S, title: 'UGC', schemaType: 'ugcBlock' }).icon(VideoCamera),
         listNew({ S, title: 'Featured Shoe', schemaType: 'featuredShoeBlock' }).icon(Star),

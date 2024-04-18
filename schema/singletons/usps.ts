@@ -25,6 +25,7 @@ export const usps = defineType({
           title: 'USP',
           name: 'usp',
           type: 'i18n.string',
+          icon: Check,
           validation: validateAllStringTranslations
         })
       ]
@@ -35,7 +36,7 @@ export const usps = defineType({
         "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
       name: 'productForm',
       type: 'array',
-      of: [{ type: 'i18n.string', validation: validateAllStringTranslations }],
+      of: [{ type: 'i18n.string', validation: validateAllStringTranslations, icon: Check }],
       validation: (Rule) => Rule.min(1).max(4)
     }),
     defineField({
@@ -44,7 +45,7 @@ export const usps = defineType({
         "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
       name: 'productFormNatureLab',
       type: 'array',
-      of: [{ type: 'i18n.string', validation: validateAllStringTranslations }],
+      of: [{ type: 'i18n.string', validation: validateAllStringTranslations, icon: Check }],
       validation: (Rule) => Rule.min(1).max(4)
     })
   ]

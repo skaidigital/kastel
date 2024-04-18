@@ -31,8 +31,9 @@ const config = definePlugin({
     presentationTool({
       locate,
       previewUrl: {
-        draftMode: {
-          enable: '/api/draft'
+        previewMode: {
+          enable: '/api/draft',
+          disable: '/api/disable-draft'
         }
       }
     }),

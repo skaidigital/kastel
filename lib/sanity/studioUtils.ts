@@ -78,23 +78,6 @@ export const validateAllStringTranslations = (Rule: any) =>
     return true;
   });
 
-export const validateAllStringsIfTypeIs = (type: string) => (Rule: any) =>
-  Rule.custom((value: any, context: any) => {
-    if (context?.parent?.type === type) {
-      const hasNo = value?.no;
-      const hasEn = value?.en;
-
-      if (!hasNo || !hasEn) {
-        return [
-          !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-          !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
-        ].filter(Boolean);
-      }
-    }
-
-    return true;
-  });
-
 export const readOnlyUnlessAdmin = (currentUser: any) =>
   currentUser?.role === 'administrator' ? false : true;
 
@@ -452,5 +435,18 @@ export const isActiveProductValidation = (Rule: any) =>
     if ((!value || value.length === 0) && isProductActive) {
       return 'Market ' + marketId + ' is active, this field is required.';
     }
+    return true;
+  });
+
+export const hiddenBasedOnLink = ({ parent }: { parent: any }) => !parent?.hasLink;
+
+export const validateLinkType = (Rule: any) =>
+  Rule.custom((field: any, context: any) => {
+    const hasLink = context.parent?.hasLink;
+
+    if (hasLink && !field) {
+      return 'This field is required';
+    }
+
     return true;
   });

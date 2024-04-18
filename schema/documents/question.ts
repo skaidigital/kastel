@@ -9,7 +9,7 @@ export const question = defineType({
   icon: List,
   preview: {
     select: {
-      title: 'question.no'
+      title: 'question.en'
     },
     prepare({ title }) {
       return {

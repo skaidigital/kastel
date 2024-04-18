@@ -84,7 +84,7 @@ export const kastelClubBlock = defineType({
               validation: validateAllStringTranslations
             }),
             defineField({
-              title: 'Link text front ("Click to read more" in the design)',
+              title: 'Link text front (To make the user hover the card)',
               name: 'linkText',
               type: 'i18n.string',
               validation: validateAllStringTranslations

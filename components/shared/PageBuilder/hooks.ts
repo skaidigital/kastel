@@ -6,7 +6,6 @@ import {
   conditionalLinkValidator,
   hotspotImageValidator,
   imageValidator,
-  linkToValidator,
   linkValidator,
   mediaValidator,
   portableTextValidator,
@@ -24,71 +23,6 @@ export const sectionSettingsValidator = z.object({
   hasTopPadding: z.boolean(),
   hasBottomPadding: z.boolean(),
   hasBottomBorder: z.boolean()
-});
-
-const linkExternalValidator = z.object({
-  hasLink: z.literal(true),
-  linkType: z.literal('external'),
-  text: z.string(),
-  href: z.string().url(),
-  openInNewTab: z.boolean()
-});
-
-const linkInternalValidator = z.object({
-  hasLink: z.literal(true),
-  linkType: z.literal('internal'),
-  text: z.string(),
-  linkTo: linkToValidator
-});
-
-const hasLinkValidator = z.discriminatedUnion('linkType', [
-  linkExternalValidator,
-  linkInternalValidator
-]);
-
-const doesNotHaveLinkValidator = z.object({
-  hasLink: z.literal(false)
-});
-
-const heroLinkValidator = z.union([hasLinkValidator, doesNotHaveLinkValidator]);
-
-export type HeroLinkProps = z.infer<typeof heroLinkValidator>;
-
-const heroValidator = z.object({
-  type: z.literal('hero'),
-  key: z.string(),
-  title: z.string().optional(),
-  subtitle: z.string().optional(),
-  link: heroLinkValidator,
-  textPositionMobile: z.union([
-    z.literal('top-left'),
-    z.literal('top-center'),
-    z.literal('top-right'),
-    z.literal('center-left'),
-    z.literal('center'),
-    z.literal('center-right'),
-    z.literal('bottom-left'),
-    z.literal('bottom-center'),
-    z.literal('bottom-right')
-  ]),
-  textPositionDesktop: z.union([
-    z.literal('top-left'),
-    z.literal('top-center'),
-    z.literal('top-right'),
-    z.literal('center-left'),
-    z.literal('center'),
-    z.literal('center-right'),
-    z.literal('bottom-left'),
-    z.literal('bottom-center'),
-    z.literal('bottom-right')
-  ]),
-  imageOrVideo: z.union([z.literal('image'), z.literal('video')]),
-  aspectRatioDesktop: z.union([z.literal('16:9'), z.literal('4:3'), z.literal('21:9')]),
-  aspectRatioMobile: z.union([z.literal('9:16'), z.literal('3:4')]),
-  videoUrlMobile: z.string().optional(),
-  videoUrlDesktop: z.string().optional(),
-  imageMobile: imageValidator.optional(),
-  imageDesktop: imageValidator.optional()
 });
 
 // New validators start
@@ -268,8 +202,8 @@ const textPlacementValidator = z.union([
   z.literal('split-bottom')
 ]);
 
-const heroNewValidator = z.object({
-  type: z.literal('heroNew'),
+const heroValidator = z.object({
+  type: z.literal('hero'),
   key: z.string(),
   title: z.string(),
   description: z.string().optional(),
@@ -393,7 +327,7 @@ const collectionListingValidator = z.object({
 const cardBaseValidator = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
-  link: heroLinkValidator,
+  link: conditionalLinkValidator,
   textPositionMobile: z.union([
     z.literal('top-left'),
     z.literal('top-center'),
@@ -436,7 +370,6 @@ export const cardValidator = z.discriminatedUnion('type', [
 export type CardProps = z.infer<typeof cardValidator>;
 
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
-  heroValidator,
   // New blocks start
   featuredCollectionValidator,
   cardSectionValidator,
@@ -448,7 +381,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   natureLabExplainerSectionValidator,
   shopOurModelsSectionValidator,
   featuredShoeSectionValidator,
-  heroNewValidator,
+  heroValidator,
   uspExplainerSectionValidator,
   // New blocks end
   textAndImageValidator,
@@ -463,7 +396,6 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
 
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
 
-export type HeroProps = z.infer<typeof heroValidator>;
 // Start new validators
 export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
 export type CardSectionProps = z.infer<typeof cardSectionValidator>;
@@ -477,7 +409,7 @@ export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
 export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>;
 export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>;
 export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
-export type HeroNewProps = z.infer<typeof heroNewValidator>;
+export type HeroNewProps = z.infer<typeof heroValidator>;
 export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
 
 // End new validator
@@ -496,27 +428,6 @@ export const PAGE_BUILDER_TYPES: {
   [key: string]: (lang: LangValues) => string;
 } = {
   hero: (lang) => `
-    ${fragments.base},
-    "title": title.${lang}, 
-    "subtitle": subtitle.${lang}, 
-    link{
-      ${fragments.getLinkHero(lang)}
-    },
-    textPositionMobile,
-    textPositionDesktop,
-    imageOrVideo,
-    aspectRatioDesktop,
-    aspectRatioMobile,
-    "videoUrlMobile": videoMobile.asset->.playbackId,
-    "videoUrlDesktop": videoDesktop.asset->.playbackId,
-    imageMobile{
-      ${fragments.getImageBase(lang)},
-    },
-    imageDesktop{
-      ${fragments.getImageBase(lang)},
-    }
-  `,
-  heroNew: (lang) => `
     ${fragments.base},
     "title": title.${lang},
     "description": description.${lang},

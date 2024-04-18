@@ -52,6 +52,17 @@ export const natureLabExplainerBlock = defineType({
       of: [
         {
           type: 'object',
+          icon: Recycle,
+          preview: {
+            select: {
+              title: 'title.en'
+            },
+            prepare({ title }) {
+              return {
+                title: title || 'Untitled'
+              };
+            }
+          },
           fields: [
             defineField({
               title: 'Step title',

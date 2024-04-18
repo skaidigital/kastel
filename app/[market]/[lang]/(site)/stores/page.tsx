@@ -12,7 +12,6 @@ async function loadRetailersPage(market: MarketValues) {
 export default async function Page() {
   const market = await getMarket();
   const initial = await loadRetailersPage(market);
-  console.log(initial);
 
   return (
     <div className="h-dvh bg-gray-100">

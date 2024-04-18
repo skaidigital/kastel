@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // # Simple types
-export const pageTypes = z.enum(['home', 'page', 'product', 'collection', 'storeLocator']);
+export const pageTypes = z.enum(['home', 'page', 'product', 'collection', 'retailersPage']);
 
 export const linkToValidator = z.object({
   type: pageTypes,

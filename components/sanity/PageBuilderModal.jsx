@@ -4,6 +4,7 @@ import { Box, Button, Card, Dialog, Flex, Grid, Text, TextInput } from '@sanity/
 import { useCallback, useState } from 'react';
 
 /*----MODULE CARD-------*/
+// TODO make the amount of cols dependt on the container size
 const ModuleCard = ({ module, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -71,23 +72,31 @@ const SelectModuleModal = ({ modules, onClose, onItemAppend }) => {
 
   return (
     <Dialog header="Select Module" id="dialog-example" onClose={onClose} zOffset={1000} width={800}>
-      <Box padding={4} style={{ borderBottom: '1px solid var(--card-border-color)' }}>
-        <TextInput
-          fontSize={[2]}
-          onChange={(event) => setSearchValue(event.currentTarget.value)}
-          padding={[3, 3, 4]}
-          radius={2}
-          placeholder="Search"
-          value={searchValue}
-          autoFocus={true}
-          icon={SearchIcon}
-        />
-      </Box>
-      <Grid columns={[1, 1, 2, 2]} padding={4} gap={4}>
-        {filteredModules.map((module) => (
-          <ModuleCard key={module.name} module={module} onClick={() => handleModuleClick(module)} />
-        ))}
-      </Grid>
+      <div className="@container">
+        <Box padding={4} style={{ borderBottom: '1px solid var(--card-border-color)' }}>
+          <TextInput
+            fontSize={[2]}
+            onChange={(event) => setSearchValue(event.currentTarget.value)}
+            padding={[3, 3, 4]}
+            radius={2}
+            placeholder="Search"
+            value={searchValue}
+            autoFocus={true}
+            icon={SearchIcon}
+          />
+        </Box>
+        {/* <Grid columns={[1, 1, 2, 2]} padding={4} gap={4}> */}
+        <div className="grid grid-cols-1 @[320px]:grid-cols-2">
+          {filteredModules.map((module) => (
+            <ModuleCard
+              key={module.name}
+              module={module}
+              onClick={() => handleModuleClick(module)}
+            />
+          ))}
+        </div>
+        {/* </Grid> */}
+      </div>
     </Dialog>
   );
 };

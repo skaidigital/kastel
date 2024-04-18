@@ -29,6 +29,7 @@ export const uspExplainerBlock = defineType({
       of: [
         {
           type: 'object',
+          icon: Star,
           preview: {
             select: {
               title: 'title.en'

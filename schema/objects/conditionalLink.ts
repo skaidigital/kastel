@@ -1,4 +1,4 @@
-import { hiddenBasedOnLink, validateLinkType } from '@/schema/pageBuilderBlocks/hero';
+import { hiddenBasedOnLink, validateLinkType } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const conditionalLink = defineType({

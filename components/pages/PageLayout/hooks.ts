@@ -31,6 +31,6 @@ export function getPageQuery({ market, lang }: { market: MarketValues; lang: Lan
 export function removeEmptyPageBuilderObjects(page: PagePayload) {
   return {
     ...page,
-    pageBuilder: page.pageBuilder.filter((section) => Object.keys(section).length > 0)
+    pageBuilder: page?.pageBuilder?.filter((section) => Object.keys(section).length > 0)
   };
 }

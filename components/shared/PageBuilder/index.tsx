@@ -5,7 +5,6 @@ import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
 import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
 import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedShoeSection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
-import { HeroNew } from '@/components/shared/PageBuilder/HeroNew';
 import { InstagramFeed } from '@/components/shared/PageBuilder/InstagramFeed';
 import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
 import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/NatureLabExplainerSection';
@@ -25,7 +24,6 @@ type BlockType = {
 };
 
 const blockTypes: BlockType = {
-  hero: Hero,
   // New blocks start
   featuredCollection: FeaturedCollection,
   cardSection: CardSection,
@@ -37,7 +35,7 @@ const blockTypes: BlockType = {
   natureLabExplainerSection: NatureLabExplainerSection,
   shopOurModelsSection: ShopOurModelsSection,
   featuredShoeSection: FeaturedShoeSection,
-  heroNew: HeroNew,
+  hero: Hero,
   uspExplainerSection: USPExplainerSection,
   // New blocks end
   pageTitle: PageTitle,

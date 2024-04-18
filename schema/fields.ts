@@ -140,12 +140,8 @@ export const pageBuilder = defineType({
     // Hero
     defineArrayMember({
       title: 'Hero',
+      name: 'hero',
       type: 'hero'
-    }),
-    defineArrayMember({
-      title: 'Hero (New)',
-      name: 'heroNew',
-      type: 'heroNew'
     }),
     // Full width media section
     // USP + Shoe

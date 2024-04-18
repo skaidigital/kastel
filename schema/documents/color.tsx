@@ -10,7 +10,7 @@ export const color = defineType({
   type: 'document',
   preview: {
     select: {
-      title: 'title.no',
+      title: 'title.en',
       color: 'color.value'
     },
     prepare({ title, color }) {

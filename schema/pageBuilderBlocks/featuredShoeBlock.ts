@@ -65,7 +65,7 @@ export const featuredShoeBlock = defineType({
         { type: 'reference', title: 'Hotspot image', to: [{ type: 'hotspotImage' }] },
         { type: 'media', title: 'Image / Video' }
       ],
-      validation: (Rule) => Rule.min(2).max(5)
+      validation: (Rule) => Rule.required().min(2).max(5)
     })
   ]
 });

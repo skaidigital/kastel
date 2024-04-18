@@ -47,7 +47,7 @@ export const link = defineType({
       title: 'Links to',
       name: 'linkTo',
       type: 'reference',
-      to: [{ type: 'page' }, { type: 'product' }, { type: 'collection' }, { type: 'storeLocator' }],
+      to: [{ type: 'page' }, { type: 'product' }, { type: 'collection' }],
       hidden: ({ parent }) => parent?.type !== 'internal',
       validation: (Rule) =>
         Rule.custom((linkTo, context: any) => {
