@@ -30,7 +30,7 @@ function getTitle() {
   switch (market) {
     case 'no':
       return 'Adresser';
-    case 'eu':
+    case 'sv':
       return 'Addresses';
   }
 }

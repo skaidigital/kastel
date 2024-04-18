@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/Button';
 import {
   Carousel,
@@ -15,6 +17,7 @@ import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { FeaturedShoeSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
+import { resolveLink } from '@/lib/sanity/resolveLink';
 
 interface PropsWithExtra extends FeaturedShoeSectionProps {
   index: number;
@@ -26,8 +29,6 @@ interface Props {
   data: PropsWithExtra;
 }
 
-// TODO fix link
-// TODO fix validator crashing due to the union array of media and hotspotImage
 export const FeaturedShoeSection = ({ data }: Props) => {
   const {
     index,
@@ -45,7 +46,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
   const firstContentItem = content?.[0];
   const restContentItems = content?.slice(1);
 
-  const slug = '#';
+  const href = resolveLink(link);
 
   return (
     <Section
@@ -74,7 +75,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
               <div className="flex gap-x-3">
                 {link?.text && (
                   <Button size="md" asChild>
-                    <CustomLink href={slug}>{link.text}</CustomLink>
+                    <CustomLink href={href}>{link.text}</CustomLink>
                   </Button>
                 )}
                 <CarouselPrevious />
@@ -84,22 +85,24 @@ export const FeaturedShoeSection = ({ data }: Props) => {
           </div>
           <CarouselContent className="-ml-2 lg:-ml-4">
             <CarouselItem className="basis-[80%] lg:basis-1/3 relative pl-2 lg:pl-4">
-              {firstContentItem && firstContentItem.type === 'hotspotImage' ? (
-                <HotspotImage
-                  type="hotspotImage"
-                  image={firstContentItem.image}
-                  hotspots={firstContentItem.hotspots}
-                />
-              ) : (
-                <Media media={firstContentItem} loading="lazy" />
-              )}
+              {firstContentItem ? (
+                firstContentItem.type === 'hotspotImage' ? (
+                  <HotspotImage
+                    type="hotspotImage"
+                    image={firstContentItem.image}
+                    hotspots={firstContentItem.hotspots}
+                  />
+                ) : (
+                  <Media media={firstContentItem} loading="lazy" />
+                )
+              ) : null}
             </CarouselItem>
-            <CarouselItem className="basis-[80%] pl-2 lg:basis-1/3 lg:pl-4">
+            <CarouselItem className="basis-[80%] lg:basis-1/3 relative pl-2 lg:pl-4">
               <div className="w-full">
                 {product && (
                   <ProductCard
                     title={product.title}
-                    slug={slug}
+                    slug={product.slug}
                     mainImage={product.mainImage}
                     lifestyleImage={product.lifestyleImage}
                     badges={product.badges}
@@ -109,18 +112,20 @@ export const FeaturedShoeSection = ({ data }: Props) => {
               </div>
             </CarouselItem>
             {restContentItems?.map((item, index) => (
-              <CarouselItem key={index} className="relative basis-[80%] pl-2 lg:basis-1/3 lg:pl-4">
-                {item.type === 'hotspotImage' ? (
-                  <HotspotImage type="hotspotImage" image={item.image} hotspots={item.hotspots} />
-                ) : (
-                  <Media media={item} loading="lazy" />
-                )}
+              <CarouselItem key={index} className="basis-[80%] lg:basis-1/3">
+                <div className="relative h-full w-full">
+                  {item.type === 'hotspotImage' ? (
+                    <HotspotImage type="hotspotImage" image={item.image} hotspots={item.hotspots} />
+                  ) : (
+                    <Media media={item} loading="lazy" />
+                  )}
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>
           {link?.text && (
             <Button size="sm" asChild className="mt-10 w-full lg:hidden">
-              <CustomLink href={slug}>{link.text}</CustomLink>
+              <CustomLink href={href}>{link.text}</CustomLink>
             </Button>
           )}
         </Container>

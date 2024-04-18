@@ -47,7 +47,7 @@ export function ProductCard({
       onMouseLeave={() => hasHoverImage && setIsHovered(false)}
       className={cn('group flex w-full shrink-0 flex-col', className)}
     >
-      <CustomLink href={`/${ROUTES.PRODUCTS}/${slug}`} className="space-y-4">
+      <CustomLink href={`${ROUTES.PRODUCTS}/${slug}`} className="space-y-4">
         <AspectRatio ratio={3 / 4} className="relative w-full overflow-hidden">
           {badges && (
             <div className="absolute right-2 top-3 z-10 flex flex-col gap-1 xl:flex-row">

@@ -13,7 +13,7 @@ export const featuredShoeSection = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Shoe Picker section'
+        subtitle: 'Featured Shoe section'
       };
     }
   },

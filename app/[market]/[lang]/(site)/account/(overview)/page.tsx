@@ -34,7 +34,7 @@ function getTitle() {
   switch (market) {
     case 'no':
       return 'Konto';
-    case 'eu':
+    case 'sv':
       return 'Account';
   }
 }

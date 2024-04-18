@@ -247,7 +247,7 @@ export const pageBuilder = defineType({
 
 export const marketAvailability = defineType({
   title: 'Disable / Hide this block from specific markets (optional)',
-  description: 'Select the markets where this block should be hidden',
+  description: 'Select the markets where this section should be hidden',
   name: 'marketAvailability',
   type: 'array',
   of: [

@@ -335,7 +335,7 @@ const contactFormValidator = z.object({
   hasTopPadding: z.boolean(),
   hasBottomPadding: z.boolean(),
   hasBottomBorder: z.boolean(),
-  market: z.union([z.literal('no'), z.literal('eu')]).optional()
+  market: z.union([z.literal('no'), z.literal('sv')]).optional()
 });
 
 const instagramFeedValidator = z.object({

@@ -34,7 +34,7 @@ function getTitle(market: MarketValues) {
   switch (market) {
     case 'no':
       return 'Ordre';
-    case 'eu':
+    case 'sv':
       return 'Order';
     default:
       throw new Error(`Unknown market: ${market}`);

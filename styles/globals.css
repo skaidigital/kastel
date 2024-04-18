@@ -202,3 +202,22 @@
 .flip-card-back {
   transform: rotateY(180deg);
 }
+
+.heartbeat {
+  position: absolute;
+  width: fit-content;
+  background: black;
+  border-radius: 40px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.75;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

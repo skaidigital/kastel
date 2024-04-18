@@ -30,17 +30,6 @@ export const ugcBlock = defineType({
       type: 'array',
       of: [{ type: 'mux.video' }],
       validation: (Rule) => Rule.required().min(3).max(3)
-    }),
-    defineField({
-      title: 'Section settings',
-      name: 'sectionSettings',
-      type: 'sectionSettings',
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      title: 'Disable / Hide this block in a market',
-      name: 'marketAvailability',
-      type: 'marketAvailability'
     })
   ]
 });

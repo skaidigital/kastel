@@ -64,7 +64,6 @@ export const AddToCartButton = ({
 
   return (
     <Button
-      fullWidth
       title={title}
       disabled={!availableForSale || !id || !isInStock}
       isLoading={isPending}

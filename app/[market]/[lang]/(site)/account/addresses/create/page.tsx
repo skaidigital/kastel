@@ -19,7 +19,7 @@ function getTitle() {
   switch (market) {
     case 'no':
       return 'Opprett adresse';
-    case 'eu':
+    case 'sv':
       return 'Create address';
   }
 }

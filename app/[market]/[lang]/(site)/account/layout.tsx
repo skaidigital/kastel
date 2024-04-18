@@ -20,7 +20,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   return (
     <aside className="flex min-h-[800px] flex-col lg:h-full lg:flex-row lg:overflow-hidden">
-      <div className="w-full flex-none border-r border-brand-border lg:w-64">
+      <div className="border-brand-border w-full flex-none border-r lg:w-64">
         <Container className="mt-10 flex w-full lg:hidden">
           <nav className="flex space-x-3">
             <LinkItem href={ROUTES.ACCOUNT} className=" ">
@@ -48,7 +48,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
               await logOut();
             }}
           >
-            <Button variant="secondary" fullWidth className="border-x-0 border-b-0" type="submit">
+            <Button variant="secondary" className="border-x-0 border-b-0" type="submit">
               {dictionary.log_out}
             </Button>
           </form>

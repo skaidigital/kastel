@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   future: {
@@ -33,6 +34,10 @@ module.exports = {
         '0%': { opacity: 0.2 },
         '20%': { opacity: 1 },
         '100% ': { opacity: 0.2 }
+      },
+      'hotspot-blink': {
+        '0%, 100%': { opacity: 0.2, transform: 'scale(2)' },
+        '50%': { opacity: 1 }
       },
       'fade-in-text': {
         from: { opacity: 0, transform: 'translateY(-10px)' },
@@ -150,6 +155,7 @@ module.exports = {
     },
     animation: {
       blink: 'blink 1.4s both infinite',
+      'hotspot-blink': 'hotspot-blink 2.5 cubic-bezier(0, 0, 0.2, 1) infinite',
       'fade-in-text': 'fade-in-text 500ms var(--animation-delay, 0ms) ease forwards',
       'fade-up-text': 'fade-up-text 500ms var(--animation-delay, 0ms) ease forwards',
       'modal-show': 'fade-in 1000ms var(--smooth-bezier)',

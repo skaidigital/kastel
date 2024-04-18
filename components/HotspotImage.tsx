@@ -4,12 +4,11 @@ import { ProductCard } from '@/components/shared/ProductCard';
 import { HotspotImageProps } from '@/lib/sanity/types';
 
 // TODO improve type by omitting type
-// TODO add pulse animation
 export function HotspotImage({ image, hotspots }: HotspotImageProps) {
   return (
     <>
       <SanityImage image={image} fill className="absolute object-cover" />
-      {hotspots?.map((hotspot) => (
+      {hotspots.map((hotspot) => (
         <HoverCard key={hotspot.x + hotspot.y} openDelay={0} closeDelay={0}>
           <HoverCardTrigger
             style={{
@@ -18,10 +17,11 @@ export function HotspotImage({ image, hotspots }: HotspotImageProps) {
               top: `${hotspot.y}%`,
               transform: 'translate(-50%, -50%)' // Centers the hotspot marker
             }}
-            className="size-8 rounded-full bg-black"
+            className="size-8 rounded-full"
           >
-            <div className="relative h-full w-full rounded-full">
-              <span className="animate-ping absolute left-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white " />
+            <div className="absolute h-full w-full animate-blink rounded-full bg-black" />
+            <div className="relative flex h-full w-full items-center justify-center">
+              <span className="size-2 rounded-full bg-white" />
             </div>
           </HoverCardTrigger>
           {hotspot.type === 'text' && (

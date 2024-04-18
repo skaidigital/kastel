@@ -62,7 +62,7 @@ export function Media({ media, loading }: Props) {
           playbackId={media.videoDesktop}
           resolution="HD"
           loading={loading}
-          className="inset-0 hidden lg:block"
+          className="hidden lg:block"
         />
       </>
     );
