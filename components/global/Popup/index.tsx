@@ -1,21 +1,21 @@
 import { PopupLayout } from '@/components/global/Popup/PopupLayout';
 import { PopupPayload, getPopupQuery, popupValidator } from '@/components/global/Popup/hooks';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
-function loadPopup(market: MarketValues) {
-  const query = getPopupQuery(market);
+function loadPopup(lang: LangValues) {
+  const query = getPopupQuery(lang);
 
   return loadQuery<PopupPayload>(query, {}, { next: { tags: [CACHE_TAGS.POPUP] } });
 }
 
 interface Props {
-  market: MarketValues;
+  lang: LangValues;
 }
 
-export async function Popup({ market }: Props) {
-  const initial = await loadPopup(market);
+export async function Popup({ lang }: Props) {
+  const initial = await loadPopup(lang);
 
   if (!initial.data || !initial.data.isShown) {
     return null;

@@ -3,22 +3,23 @@ import { NavbarPayload, getNavbarQuery, navbarValidator } from '@/components/glo
 import Cart from '@/components/shared/Cart';
 import { CrossSellSkeleton } from '@/components/shared/Cart/CrossSell/CrossSellSkeleton';
 import OpenCart from '@/components/shared/Cart/open-cart';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { Suspense } from 'react';
 
-async function loadNavbar(market: MarketValues) {
-  const query = getNavbarQuery(market);
+async function loadNavbar(lang: LangValues) {
+  const query = getNavbarQuery(lang);
 
   return loadQuery<NavbarPayload>(query, {}, { next: { tags: [CACHE_TAGS.NAVBAR] } });
 }
 
 interface Props {
   market: MarketValues;
+  lang: LangValues;
 }
-export async function Navbar({ market }: Props) {
-  const initial = await loadNavbar(market);
+export async function Navbar({ market, lang }: Props) {
+  const initial = await loadNavbar(lang);
 
   const withoutNullValues = nullToUndefined(initial.data);
   const validatedData = navbarValidator.safeParse(withoutNullValues);

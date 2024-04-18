@@ -4,13 +4,12 @@ import {
   getPageNotFoundQuery,
   pageNotFoundValidator
 } from '@/components/pages/PageNotFoundPage/hooks';
-import { CACHE_TAGS, MarketValues, SANITY_SINGLETON_DOCUMENT_IDS } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { CACHE_TAGS, LangValues, SANITY_SINGLETON_DOCUMENT_IDS } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@sanity/react-loader';
 
-function loadPageNotFoundPage(market: MarketValues) {
-  const query = getPageNotFoundQuery(market);
+function loadPageNotFoundPage(lang: LangValues) {
+  const query = getPageNotFoundQuery(lang);
 
   return loadQuery<PageNotFoundPayload | null>(
     query,
@@ -19,9 +18,12 @@ function loadPageNotFoundPage(market: MarketValues) {
   );
 }
 
-export default async function pageNotFound() {
-  const market = await getMarket();
-  const initial = await loadPageNotFoundPage(market);
+interface Props {
+  params: { lang: LangValues };
+}
+
+export default async function pageNotFound({ params: { lang } }: Props) {
+  const initial = await loadPageNotFoundPage(lang);
 
   const dataWitoutNullValues = nullToUndefined(initial.data);
   const validatedData = pageNotFoundValidator.parse(dataWitoutNullValues);

@@ -120,13 +120,13 @@ export function getProductQuery({ market, lang }: { market: MarketValues; lang: 
     ${fragments.getGallery(market)},
     "accordions": accordions[]->{
         "title": title_${lang},
-        "richText": ${fragments.getRichText({ lang: market })},
+        "richText": ${fragments.getRichText({ lang })},
     },
     productType->{
       "title": title.${lang},
       "accordions": accordions[]->{
         "title": title_${lang},
-        "richText": ${fragments.getRichText({ lang: market })},
+        "richText": ${fragments.getRichText({ lang })},
       },
       ${fragments.getGallery(market)},
       "products": *[_type == "product" && references(^._id) && status_${lang} == "ACTIVE"]{

@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { imageValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -35,41 +35,41 @@ export const crossSellValidator = z.object({
 });
 export type CrossSellPayload = z.infer<typeof crossSellValidator>;
 
-export function getCrossSellQuery(market: MarketValues) {
+export function getCrossSellQuery(lang: LangValues) {
   const query = groq`
     *[_type == "merchandising"][0]{
         "product": cartCrossSell->{
-        "id": id_${market},
-        "title": title_${market},
+        "id": id_${lang},
+        "title": title_${lang},
         "image": gallery[0]{
-          ${fragments.getImageBase(market)}
+          ${fragments.getImageBase(lang)}
         },
         "options": select(
             type == "VARIABLE" => options[].options[]->.title_eu,
         ),
         "variants": select(
-          type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${market} != true && defined(gid_${market})]{
-            "id": gid_${market},
-            "price": price_${market},
-            "discountedPrice": discountedPrice_${market},
+          type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${lang} != true && defined(gid_${lang})]{
+            "id": gid_${lang},
+            "price": price_${lang},
+            "discountedPrice": discountedPrice_${lang},
             "selectedOptions": [
             option1->{
-                "name": type->title_${market},
-                "value": title_${market}
+                "name": type->title_${lang},
+                "value": title_${lang}
             },
             option2->{
-                "name": type->title_${market},
-                "value": title_${market}
+                "name": type->title_${lang},
+                "value": title_${lang}
             },
             option3->{
-                "name": type->title_${market},
-                "value": title_${market}
+                "name": type->title_${lang},
+                "value": title_${lang}
             }
           ]},
           type == "SIMPLE" => [{
-            "id": gid_${market},    
-            "price": price_${market},
-            "discountedPrice": compareAtPrice_${market},
+            "id": gid_${lang},    
+            "price": price_${lang},
+            "discountedPrice": compareAtPrice_${lang},
           }]
         )
      },

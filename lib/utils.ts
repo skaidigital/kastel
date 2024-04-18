@@ -50,8 +50,8 @@ export function getMarketFlag(market: MarketValues) {
   switch (market) {
     case 'no':
       return '🇳🇴';
-    case 'eu':
-      return '🇪🇺';
+    case 'sv':
+      return '🇸🇪';
     default:
       throw new Error(`Unknown market: ${market}`);
   }

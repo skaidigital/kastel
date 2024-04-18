@@ -148,10 +148,9 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
             disabled={!activeVariant}
             size="icon"
             isLoading={isPending}
-            fullWidth={isSimpleProduct}
             className={cn(
               'border-brand-border flex items-center justify-center rounded-project border text-black',
-              isSimpleProduct && 'gap-x-2',
+              isSimpleProduct && 'w-full gap-x-2',
               isVariableProduct && 'h-9 w-12'
             )}
           >

@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { portableTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -10,10 +10,10 @@ export const cookieConsentValidator = z.object({
 
 export type CookieConsentPayload = z.infer<typeof cookieConsentValidator>;
 
-export function getCookieConsentQuery(market: MarketValues) {
+export function getCookieConsentQuery(lang: LangValues) {
   const query = groq`
     *[_type == "cookieConsent"][0] {
-      "content": ${fragments.getRichText({ lang: market, fieldName: 'content' })},
+      "content": ${fragments.getRichText({ lang, fieldName: 'content' })},
     }
   `;
 

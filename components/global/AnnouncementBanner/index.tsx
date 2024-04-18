@@ -4,13 +4,12 @@ import {
   announcementBannerValidator,
   getAnnouncementBannerQuery
 } from '@/components/global/AnnouncementBanner/hooks';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
-function loadAnnouncementBanner(market: MarketValues) {
-  const query = getAnnouncementBannerQuery(market);
+function loadAnnouncementBanner(lang: LangValues) {
+  const query = getAnnouncementBannerQuery(lang);
 
   return loadQuery<AnnouncementBannerPayload>(
     query,
@@ -19,9 +18,12 @@ function loadAnnouncementBanner(market: MarketValues) {
   );
 }
 
-export async function AnnouncementBanner() {
-  const market = await getMarket();
-  const initial = await loadAnnouncementBanner(market);
+interface Props {
+  lang: LangValues;
+}
+
+export async function AnnouncementBanner({ lang }: Props) {
+  const initial = await loadAnnouncementBanner(lang);
 
   const dataWithoutNullValues = nullToUndefined(initial.data);
   const validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);

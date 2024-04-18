@@ -44,13 +44,13 @@ export default function IndexRoute({
           <Providers>
             <div>
               <Suspense>
-                <PopupHandler market={market} />
+                <PopupHandler lang={lang} />
               </Suspense>
               <Suspense fallback={<Skeleton className="h-11 w-full" />}>
-                <AnnouncementBanner />
+                <AnnouncementBanner lang={lang} />
               </Suspense>
               <Suspense>
-                <Navbar market={market} />
+                <Navbar market={market} lang={lang} />
               </Suspense>
               <main>
                 {children}
@@ -58,9 +58,6 @@ export default function IndexRoute({
                 <Analytics />
               </main>
             </div>
-            {/* <Suspense>
-              <USP />
-            </Suspense> */}
             <Suspense>
               <Footer market={market} lang={lang} />
             </Suspense>

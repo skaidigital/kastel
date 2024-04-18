@@ -6,8 +6,8 @@ import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
-function loadFooter(market: MarketValues) {
-  const query = getFooterQuery(market);
+function loadFooter(lang: LangValues) {
+  const query = getFooterQuery(lang);
 
   return loadQuery<FooterPayload>(query, {}, { next: { tags: [CACHE_TAGS.FOOTER, 'home'] } });
 }
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export async function Footer({ market, lang }: Props) {
-  const initial = await loadFooter(market);
+  const initial = await loadFooter(lang);
   const dictionary = await getFooterDictionary(lang);
 
   const footerWithoutNullValues = nullToUndefined(initial.data);

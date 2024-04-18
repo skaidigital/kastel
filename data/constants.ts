@@ -126,8 +126,8 @@ export const MARKETS = Object.values(MARKET);
 export const DEFAULT_CURRENCY_CODE = 'NOK';
 
 export const SITE_URLS: Record<MarketValues, string> = {
-  no: 'https://abate.no',
-  sv: 'https://abate-store.com'
+  no: '/no/no/',
+  sv: '/sv/en/'
 };
 
 // type ProductType = Record<'SIMPLE', 'simple'> | Record<'VARIABLE', 'variable'>;

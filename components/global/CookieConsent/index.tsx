@@ -5,12 +5,12 @@ import {
   cookieConsentValidator,
   getCookieConsentQuery
 } from '@/components/global/CookieConsent/hooks';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
-async function loadCookieConsent(market: MarketValues) {
-  const query = getCookieConsentQuery(market);
+async function loadCookieConsent(lang: LangValues) {
+  const query = getCookieConsentQuery(lang);
 
   return loadQuery<CookieConsentPayload>(
     query,
@@ -20,11 +20,11 @@ async function loadCookieConsent(market: MarketValues) {
 }
 
 interface Props {
-  market: MarketValues;
+  lang: LangValues;
 }
 
-export async function CookieConsent({ market }: Props) {
-  const initial = await loadCookieConsent(market);
+export async function CookieConsent({ lang }: Props) {
+  const initial = await loadCookieConsent(lang);
   const dictionary = await getDictionary();
 
   if (!initial.data?.content) {

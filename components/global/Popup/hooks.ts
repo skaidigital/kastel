@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { imageValidator, linkValidator, richTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -31,30 +31,30 @@ export const popupValidator = z.discriminatedUnion('type', [
 
 export type PopupPayload = z.infer<typeof popupValidator>;
 
-export function getPopupQuery(market: MarketValues) {
+export function getPopupQuery(lang: LangValues) {
   const query = groq`
     *[_type == "popup"][0] {
       isShown,
       type,
       type == "info" => {
-        "badge": badgeInfo->title.${market},
-        "title": titleInfo.${market},
-        "content": contentInfo_${market},
+        "badge": badgeInfo->title.${lang},
+        "title": titleInfo.${lang},
+        "content": contentInfo_${lang},
         "image": imageInfo{
-          ${fragments.getImageBase(market)}
+          ${fragments.getImageBase(lang)}
         },
         "link": linkInfo{
-          ${fragments.getLink(market)}
+          ${fragments.getLink(lang)}
         },
       },
       type == "newsletter" => {
-        "badge": badgeNewsletter->title.${market},
-        "title": titleNewsletter.${market},
-        "content": contentNewsletter_${market},
+        "badge": badgeNewsletter->title.${lang},
+        "title": titleNewsletter.${lang},
+        "content": contentNewsletter_${lang},
         "image": imageNewsletter{
-          ${fragments.getImageBase(market)}
+          ${fragments.getImageBase(lang)}
         },
-        "buttonText": buttonTextNewsletter.${market},
+        "buttonText": buttonTextNewsletter.${lang},
       },
     }
   `;

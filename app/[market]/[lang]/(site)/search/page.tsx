@@ -12,8 +12,7 @@ import { Text } from '@/components/base/Text';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE, MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { COLLECTION_PAGE_SIZE, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { ProductCardProps } from '@/lib/sanity/types';
@@ -28,15 +27,15 @@ export const metadata = {
 };
 
 async function loadSearchResults({
-  market,
+  lang,
   searchQuery,
   page
 }: {
-  market: MarketValues;
+  lang: LangValues;
   searchQuery: string;
   page: number;
 }) {
-  const sanityQuery = getSearchResultQuery(market, page);
+  const sanityQuery = getSearchResultQuery(lang, page);
 
   return loadQuery<SearchResult | null>(
     sanityQuery,
@@ -46,19 +45,20 @@ async function loadSearchResults({
 }
 
 export default async function Page({
+  params: { lang },
   searchParams
 }: {
+  params: { lang: LangValues };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const { q: searchValue, page } = searchParams as { [key: string]: string };
 
   const currentPage = Number(page) || 1;
 
-  const market = await getMarket();
   const { search_page: dictionary } = await getDictionary();
 
   const searchResult = await loadSearchResults({
-    market,
+    lang,
     searchQuery: searchValue || '',
     page: currentPage
   });

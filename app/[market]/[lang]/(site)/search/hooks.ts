@@ -1,4 +1,4 @@
-import { COLLECTION_PAGE_SIZE, MarketValues } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -12,20 +12,20 @@ export const searchResultValidator = z.object({
 
 export type SearchResult = z.infer<typeof searchResultValidator>;
 
-export function getSearchResultQuery(market: MarketValues, pageIndex: number = 1) {
+export function getSearchResultQuery(lang: LangValues, pageIndex: number = 1) {
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
   const query = groq`
       {
-      "products": *[_type == "product" && title_${market} match $searchQuery]
-      | score(title_${market} match $searchQuery)
+      "products": *[_type == "product" && title_${lang} match $searchQuery]
+      | score(title.${lang} match $searchQuery)
       | order(_score desc)
       [${start}...${end}]{
-        ${fragments.getProductCard(market)}
+        ${fragments.getProductCard(lang)}
       },
-      "productCount": count(*[_type == "product" && title_${market} match $searchQuery]),
-      "hasNextPage": count(*[_type == "product" && title_${market} match $searchQuery][${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
+      "productCount": count(*[_type == "product" && title.${lang} match $searchQuery]),
+      "hasNextPage": count(*[_type == "product" && title.${lang} match $searchQuery][${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
       }
     `;
 

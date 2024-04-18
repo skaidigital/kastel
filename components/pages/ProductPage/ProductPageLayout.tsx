@@ -158,7 +158,7 @@ export function ProductPageLayout(props: Props) {
         ))}
 
       <Suspense>
-        <ReccommendedProducts />
+        <ReccommendedProducts lang={lang} />
       </Suspense>
     </>
   );

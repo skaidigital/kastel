@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import { getImageBase } from '@/lib/sanity/fragments';
 import { imageValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -12,13 +12,13 @@ export const pageNotFoundValidator = z.object({
 
 export type PageNotFoundPayload = z.infer<typeof pageNotFoundValidator>;
 
-export function getPageNotFoundQuery(market: MarketValues) {
+export function getPageNotFoundQuery(lang: LangValues) {
   const query = groq`
         *[_id==$id][0] {
-            "title": title.${market},
-            "content": content.${market},
+            "title": title.${lang},
+            "content": content.${lang},
             "image": image {
-                ${getImageBase(market)}
+                ${getImageBase(lang)}
             }
       }
     `;
