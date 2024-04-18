@@ -145,7 +145,10 @@ export const SITE_URLS: Record<MarketValues, string> = {
 
 // Product type
 
-export const COLLECTION_PAGE_SIZE = 20;
+// export const COLLECTION_PAGE_SIZE = 20;
+//! Fix this
+export const COLLECTION_PAGE_SIZE = 5;
+
 export const ACCOUNT_PAGE_ORDERS_PAGE_SIZE = 10;
 
 type ProductTypeName = 'simple' | 'variable';
@@ -208,6 +211,11 @@ export const METAFIELDS = {
       namespace: 'skai',
       key: 'wishlist',
       type: 'list.product_reference'
+    },
+    customer_data: {
+      namespace: 'skai',
+      key: 'customer_data',
+      type: 'json'
     }
   }
 };

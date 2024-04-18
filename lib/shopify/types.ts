@@ -549,7 +549,7 @@ export type PublicationInput = {
   }[];
 };
 
-export type CustomerWishlist = {
+export type CustomerMetadata = {
   data: {
     customer: {
       metafield: {
@@ -574,5 +574,34 @@ export type MetafieldDelete = {
   };
   variables: {
     id: string;
+  };
+};
+
+type Input = {
+  firstName: string;
+  lastName: string;
+};
+
+export type CustomerUpdateData = {
+  data: {
+    customerUpdate: {
+      customer: {
+        id: string;
+        firstName: string;
+        lastName: string;
+      };
+      customerUserErrors: {
+        code: string;
+        field: string;
+        message: string;
+      };
+    };
+  };
+  variables: {
+    customer: {
+      firstName: string;
+      lastName: string;
+    };
+    customerAccessToken: string;
   };
 };

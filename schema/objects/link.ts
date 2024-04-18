@@ -1,3 +1,4 @@
+import { SMILE_DEEP_LINKS } from '@/data/constants';
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Link } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
@@ -30,7 +31,8 @@ export const link = defineType({
       options: {
         list: [
           { title: 'To a page made in Sanity', value: 'internal' },
-          { title: 'To an external page', value: 'external' }
+          { title: 'To an external page', value: 'external' },
+          { title: 'To Smile Lancher', value: 'smile' }
         ]
       },
       validation: (Rule) => Rule.required().error('Link type is required')
@@ -51,6 +53,41 @@ export const link = defineType({
         Rule.custom((linkTo, context: any) => {
           if (context.parent?.type === 'internal' && !linkTo) {
             return 'Internal link requires a link to a page';
+          }
+          return true;
+        })
+    }),
+    defineField({
+      title: 'Smile Launcher',
+      description: 'Pick a place in the Smile Launcher',
+      name: 'linkToSmileLancher',
+      type: 'string',
+      initialValue: SMILE_DEEP_LINKS.home,
+      options: {
+        list: [
+          {
+            title: 'Home',
+            value: SMILE_DEEP_LINKS.home
+          },
+          {
+            title: 'Points activity rules',
+            value: SMILE_DEEP_LINKS.points_activity_rules
+          },
+          {
+            title: 'Points products',
+            value: SMILE_DEEP_LINKS.points_products
+          },
+          {
+            title: 'Referral program details',
+            value: SMILE_DEEP_LINKS.referral_program_details
+          }
+        ]
+      },
+      hidden: ({ parent }) => parent?.type !== 'smile',
+      validation: (Rule) =>
+        Rule.custom((linkToSmileLancher, context: any) => {
+          if (context.parent?.type === 'smile' && !linkToSmileLancher) {
+            return 'Smile link requires a link to a place in the Smile Launcher';
           }
           return true;
         })

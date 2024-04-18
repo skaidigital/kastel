@@ -65,8 +65,14 @@ export function getCollectionProductsQuery(lang: LangValues, pageIndex: number =
     "products": *[_type == "collection" && slug_${lang}.current == $slug][0].products[${start}...${end}]{
       firstImage,
       ...product->{
-        ${fragments.getProductCard(lang)},
-      },
+        defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
+          ${fragments.getProductCard(lang)}
+        },
+        defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
+        !defined($tagSlugs) => {
+          ${fragments.getProductCard(lang)}
+        }
+      }
     },
     "hasNextPage": count(*[_type == "collection" && slug_${lang}.current == $slug][0].products[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
     }
@@ -83,7 +89,7 @@ export function mergeCollectionBaseAndProducts(
     title: collection.title,
     moods: collection.moods,
     products: products.products,
-    productCount: collection.productIds.length,
+    productCount: products.products.length || 0,
     hasNextPage: products.hasNextPage
   };
 }

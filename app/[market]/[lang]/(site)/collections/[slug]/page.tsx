@@ -33,13 +33,18 @@ function loadCollectionBase(slug: string, lang: LangValues) {
   );
 }
 
-function loadCollectionProducts(slug: string, lang: LangValues, pageIndex: number) {
+function loadCollectionProducts(
+  slug: string,
+  lang: LangValues,
+  pageIndex: number,
+  tagSlugs: string[] | null
+) {
   const query = getCollectionProductsQuery(lang, pageIndex);
 
   return loadQuery<CollectionProductsPayload>(
     query,
-    { slug },
-    { next: { tags: [`collection:${slug}`] } }
+    { slug, tagSlugs },
+    { next: { tags: [`collection:${slug}`, `tags:${tagSlugs?.join()}`] } }
   );
 }
 
@@ -47,11 +52,13 @@ interface Props {
   params: { slug: string; market: MarketValues; lang: LangValues };
   searchParams?: {
     page?: string;
+    [key: string]: string | undefined;
   };
 }
 
 export default async function SlugCollectionPage({ params, searchParams }: Props) {
-  const { slug, market, lang } = params;
+  const { market, lang, slug } = params;
+  const paramValues = formatSearchParams(searchParams);
 
   const currentPage = Number(searchParams?.page) || 1;
 
@@ -64,13 +71,27 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     notFound();
   }
 
-  const initialProducts = await loadCollectionProducts(slug, lang, currentPage);
-  const collectionProductsWithoutNullValues = nullToUndefined(initialProducts.data);
-  const validatedProducts = collectionProductsValidator.safeParse(
-    collectionProductsWithoutNullValues
+  const initialProducts = await loadCollectionProducts(
+    slug,
+    lang,
+    currentPage,
+    paramValues as string[] | null
   );
 
+  const collectionProductsWithoutNullValues = nullToUndefined(initialProducts.data);
+
+  const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
+    (product: any) => Object.keys(product).length > 1
+  );
+
+  const validatedProducts = collectionProductsValidator.safeParse({
+    products: filteredCollectionProducts,
+    hasNextPage: collectionProductsWithoutNullValues.hasNextPage
+  });
+
   if (!validatedProducts.success) {
+    console.log('Error Thrown here');
+
     console.error(validatedProducts.error);
     notFound();
   }
@@ -122,4 +143,18 @@ export async function generateMetadata({
       }
     }
   };
+}
+
+function formatSearchParams(search: Props['searchParams']) {
+  const paramValues = search
+    ? Object.entries(search)
+        .filter(([key]) => key !== 'page')
+        .flatMap(([_, value]) => value?.split(',') ?? [])
+        .filter((value) => value !== undefined)
+    : null;
+
+  if (paramValues?.length === 0) {
+    return null;
+  }
+  return paramValues;
 }
