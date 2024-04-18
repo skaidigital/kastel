@@ -13,7 +13,9 @@ export const SmileButton = ({ deepLink, label }: SmileButtonProps) => {
       onClick={() => {
         console.log('Click ', deepLink);
         if (window.SmileUI) {
-          window.SmileUI.openPanel({ deep_link: deepLink });
+          console.log('SmileUI is loaded and initialized.');
+
+          window.SmileUI.openPanel({ deep_link: 'home' });
         } else {
           console.log('SmileUI is not loaded and initialized.');
         }

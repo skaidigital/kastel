@@ -15,7 +15,7 @@ export default function SmileInit({ customerId }: Porps) {
 
     async function initializeSmileUI() {
       if (window.SmileUI) {
-        console.log('SmileUI is already loaded and initialized.');
+        console.log('SmileUI is already loaded');
         return;
       }
 
@@ -29,6 +29,8 @@ export default function SmileInit({ customerId }: Porps) {
       });
 
       const { token: customer_identity_jwt } = await response.json();
+
+      console.log(customer_identity_jwt);
 
       if (window.SmileUI) {
         window.SmileUI.init({
