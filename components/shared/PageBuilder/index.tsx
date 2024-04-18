@@ -11,10 +11,11 @@ import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSec
 import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/NatureLabExplainerSection';
 import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
 import { ProductListing } from '@/components/shared/PageBuilder/ProductListing';
-import { ShoePicker } from '@/components/shared/PageBuilder/ShoePicker';
+import { ShoePickerSection } from '@/components/shared/PageBuilder/ShoePickerSection';
 import { ShopOurModelsSection } from '@/components/shared/PageBuilder/ShopOurModelsSection';
 import { TextSection } from '@/components/shared/PageBuilder/TextSection';
 import { UGCSection } from '@/components/shared/PageBuilder/UGCSection';
+import { USPExplainerSection } from '@/components/shared/PageBuilder/USPExplainerSection';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import { ComponentType } from 'react';
@@ -30,13 +31,14 @@ const blockTypes: BlockType = {
   cardSection: CardSection,
   blogPostSection: BlogPostSection,
   faqSection: FAQSection,
-  shoePicker: ShoePicker,
+  shoePicker: ShoePickerSection,
   ugcSection: UGCSection,
   kastelClubSection: KastelClubSection,
   natureLabExplainerSection: NatureLabExplainerSection,
   shopOurModelsSection: ShopOurModelsSection,
   featuredShoeSection: FeaturedShoeSection,
   heroNew: HeroNew,
+  uspExplainerSection: USPExplainerSection,
   // New blocks end
   pageTitle: PageTitle,
   textSection: TextSection,

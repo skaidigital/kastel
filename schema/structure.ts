@@ -119,24 +119,27 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, 'USPs', 'usps', 'usps').icon(Check),
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
-      group(S, 'Reusable content', [
+      group(S, 'Reusable content blocks', [
         list(S, 'Text block', `_type == 'textBlock'`).icon(Layout),
         listNew({ S, title: 'Q&A', schemaType: 'question' }).icon(List),
-        listNew({ S, title: 'FAQ block', schemaType: 'faqBlock' }).icon(List),
-        listNew({ S, title: 'Card block', schemaType: 'cardBlock' }).icon(GridFour),
-        listNew({ S, title: 'Shoe picker block', schemaType: 'shoePickerBlock' }).icon(Sneaker),
-        listNew({ S, title: 'Kastel Club block', schemaType: 'kastelClubBlock' }).icon(Trophy),
+        listNew({ S, title: 'FAQ', schemaType: 'faqBlock' }).icon(List),
+        listNew({ S, title: 'Card', schemaType: 'cardBlock' }).icon(GridFour),
+        listNew({ S, title: 'Shoe picker', schemaType: 'shoePickerBlock' }).icon(Sneaker),
+        listNew({ S, title: 'Kastel Club', schemaType: 'kastelClubBlock' }).icon(Trophy),
         listNew({
           S,
-          title: 'Nature Lab Explainer block',
+          title: 'USP Explainer',
+          schemaType: 'uspExplainerBlock'
+        }).icon(Star),
+        listNew({
+          S,
+          title: 'Nature Lab Explainer',
           schemaType: 'natureLabExplainerBlock'
         }).icon(Recycle),
-        listNew({ S, title: 'Timeline block', schemaType: 'timelineBlock' }).icon(Calendar),
-        listNew({ S, title: 'Shop Our Models block', schemaType: 'shopOurModelsBlock' }).icon(
-          Slideshow
-        ),
-        listNew({ S, title: 'UGC block', schemaType: 'ugcBlock' }).icon(VideoCamera),
-        listNew({ S, title: 'Featured Shoe block', schemaType: 'featuredShoeBlock' }).icon(Star),
+        listNew({ S, title: 'Timeline', schemaType: 'timelineBlock' }).icon(Calendar),
+        listNew({ S, title: 'Shop Our Models', schemaType: 'shopOurModelsBlock' }).icon(Slideshow),
+        listNew({ S, title: 'UGC', schemaType: 'ugcBlock' }).icon(VideoCamera),
+        listNew({ S, title: 'Featured Shoe', schemaType: 'featuredShoeBlock' }).icon(Star),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
       ]).icon(Recycle),

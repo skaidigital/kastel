@@ -219,3 +219,8 @@ export const hotspotImageValidator = z.object({
 export const buttonSettingsValidator = z.object({
   variant: z.enum(['primary', 'secondary', 'outline'])
 });
+
+export const uspValidator = z.object({
+  title: z.string(),
+  image: imageValidator
+});

@@ -11,7 +11,8 @@ import {
   mediaValidator,
   portableTextValidator,
   productCardValidator,
-  richTextValidator
+  richTextValidator,
+  uspValidator
 } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
@@ -228,14 +229,7 @@ const shopOurModelsSectionValidator = z.object({
           slug: z.string()
         })
       ),
-      usps: z
-        .array(
-          z.object({
-            title: z.string(),
-            image: imageValidator
-          })
-        )
-        .optional(),
+      usps: z.array(uspValidator).optional(),
       details: z.array(
         z.object({
           title: z.string(),
@@ -285,6 +279,20 @@ const heroNewValidator = z.object({
   textPositionMobile: textPlacementValidator,
   textPositionDesktop: textPlacementValidator,
   buttonSettings: buttonSettingsValidator
+});
+
+const uspExplainerSectionValidator = z.object({
+  type: z.literal('uspExplainerSection'),
+  key: z.string(),
+  content: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      media: mediaValidator,
+      usps: z.array(uspValidator)
+    })
+  ),
+  sectionSettings: sectionSettingsValidator
 });
 
 // New validators end
@@ -441,6 +449,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   shopOurModelsSectionValidator,
   featuredShoeSectionValidator,
   heroNewValidator,
+  uspExplainerSectionValidator,
   // New blocks end
   textAndImageValidator,
   pageTitleValidator,
@@ -469,6 +478,7 @@ export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSe
 export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>;
 export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
 export type HeroNewProps = z.infer<typeof heroNewValidator>;
+export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
 
 // End new validator
 export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
@@ -729,6 +739,27 @@ export const PAGE_BUILDER_TYPES: {
             ${fragments.getHotspotImage(lang)}
           }
         }
+      },
+    },
+    sectionSettings{
+     ${fragments.sectionSettings}
+    }
+  `,
+  uspExplainerSection: (lang) => groq`
+    ${fragments.base},
+    ...uspExplainerBlock->{
+      content[]{
+        "title": title.${lang},
+        "description": description.${lang},
+        "media": media{
+          ${fragments.getMedia(lang)}
+        },
+        "usps": usps[]->{
+          "title": title.${lang},
+          "image": icon{
+            ${fragments.getImageBase(lang)}
+          },
+        },
       },
     },
     sectionSettings{

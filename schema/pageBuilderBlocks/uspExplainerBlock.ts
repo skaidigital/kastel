@@ -2,18 +2,18 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Star } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
-export const uspExplainer = defineType({
-  title: 'USP explainer',
-  name: 'uspExplainer',
+export const uspExplainerBlock = defineType({
+  title: 'USP Explainer block',
+  name: 'uspExplainerBlock',
   type: 'document',
   icon: Star,
   preview: {
     select: {
-      title: 'content.0.title.en'
+      title: 'internalTitle'
     },
     prepare: ({ title }) => ({
       title: title || 'Untitled',
-      subtitle: 'USP explainer'
+      subtitle: 'USP Explainer block'
     })
   },
   fields: [
@@ -39,19 +39,6 @@ export const uspExplainer = defineType({
           },
           fields: [
             defineField({
-              title: 'USPs',
-              name: 'usps',
-              type: 'array',
-              of: [{ type: 'reference', to: [{ type: 'usp' }] }],
-              validation: (Rule) => Rule.required()
-            }),
-            defineField({
-              title: 'Image / Video',
-              name: 'media',
-              type: 'media',
-              validation: (Rule) => Rule.required()
-            }),
-            defineField({
               title: 'Title',
               name: 'title',
               type: 'i18n.string',
@@ -65,6 +52,19 @@ export const uspExplainer = defineType({
                 rows: 5
               },
               validation: validateAllStringTranslations
+            }),
+            defineField({
+              title: 'USPs',
+              name: 'usps',
+              type: 'array',
+              of: [{ type: 'reference', to: [{ type: 'usp' }] }],
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              title: 'Image / Video',
+              name: 'media',
+              type: 'media',
+              validation: (Rule) => Rule.required()
             })
           ]
         }

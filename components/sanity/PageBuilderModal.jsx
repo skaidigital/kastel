@@ -83,7 +83,7 @@ const SelectModuleModal = ({ modules, onClose, onItemAppend }) => {
           icon={SearchIcon}
         />
       </Box>
-      <Grid columns={[1, 1, 2, 3]} padding={4} gap={4}>
+      <Grid columns={[1, 1, 2, 2]} padding={4} gap={4}>
         {filteredModules.map((module) => (
           <ModuleCard key={module.name} module={module} onClick={() => handleModuleClick(module)} />
         ))}

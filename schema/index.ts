@@ -1,6 +1,5 @@
 import { kastelClubBlock } from '@/components/shared/PageBuilder/kastelClubBlock';
 import { natureLabExplainerBlock } from '@/components/shared/PageBuilder/natureLabExplainerBlock';
-import { uspExplainer } from '@/components/shared/PageBuilder/uspExplainer';
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
 import { collection } from '@/schema/documents/collection';
@@ -77,6 +76,7 @@ import { timelineItem } from '@/schema/objects/timelineItem';
 import { timelineSection } from '@/schema/objects/timelineSection';
 import { ugcSection } from '@/schema/objects/ugcSection';
 import { updateItem } from '@/schema/objects/updateItem';
+import { uspExplainerSection } from '@/schema/objects/uspExplainerSection';
 import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
@@ -94,6 +94,7 @@ import { shopOurModelsBlock } from '@/schema/pageBuilderBlocks/shopOurModelsBloc
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
 import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
+import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
@@ -175,6 +176,7 @@ const schema = [
   shopOurModelsSection,
   featuredShoeSection,
   heroNew,
+  uspExplainerSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
@@ -186,7 +188,7 @@ const schema = [
   timelineBlock,
   shoePickerBlock,
   featuredShoeBlock,
-  uspExplainer,
+  uspExplainerBlock,
   cardBlock,
 
   // Product

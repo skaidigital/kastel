@@ -32,7 +32,7 @@ interface Props {
   data: PropsWithExtra;
 }
 
-export const ShoePicker = ({ data }: Props) => {
+export const ShoePickerSection = ({ data }: Props) => {
   const { index, pageId, pageType, title, types, sectionSettings } = data;
 
   // TODO fix should not be undefined-able

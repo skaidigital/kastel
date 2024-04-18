@@ -150,10 +150,9 @@ export const pageBuilder = defineType({
     // Full width media section
     // USP + Shoe
     defineArrayMember({
-      title: 'USP explainer',
-      type: 'reference',
-      to: [{ type: 'uspExplainer' }],
-      name: 'uspExplainer'
+      title: 'USP Explainer section',
+      type: 'uspExplainerSection',
+      name: 'uspExplainerSection'
     }),
     // Shoe picker
     defineArrayMember({
