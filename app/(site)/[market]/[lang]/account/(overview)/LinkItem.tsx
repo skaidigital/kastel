@@ -20,7 +20,7 @@ export function LinkItem({ href, children, className }: Props) {
     <Link
       href={href}
       className={cn(
-        'transition-brand w-full rounded-project border border-brand-border px-5 py-2 !text-eyebrow uppercase',
+        'border-brand-border !text-eyebrow transition-brand w-full rounded-project border px-5 py-2 uppercase',
         isActive
           ? 'bg-brand-dark-grey text-white hover:border-brand-dark-grey hover:bg-white hover:text-brand-dark-grey'
           : 'bg-white text-brand-dark-grey hover:bg-brand-dark-grey hover:text-white',

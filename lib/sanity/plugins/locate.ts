@@ -46,7 +46,8 @@ export const locate: DocumentLocationResolver = (params, context) => {
 
                   return {
                     title: doc?.internalTitle || doc?.title || 'Untitled',
-                    href: href!
+                    // href: `/no/no/${href!}`
+                    href: '/no/no/eksempel'
                   };
                 })
                 .filter((doc) => doc.href !== undefined),

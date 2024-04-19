@@ -1,4 +1,4 @@
-import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
+import { formatPrice } from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import EditItemQuantityButton from '@/components/shared/Cart/EditQuantityButton';
@@ -77,7 +77,7 @@ export function CartItem({
                 </Text>
               )}
             </div>
-            <div className="flex h-9 w-fit flex-row items-center rounded-project border border-brand-border">
+            <div className="border-brand-border flex h-9 w-fit flex-row items-center rounded-project border">
               <>
                 <EditItemQuantityButton
                   lineId={lineId}

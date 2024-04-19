@@ -28,7 +28,7 @@ export default function Loading() {
               </TH>
             </tr>
           </thead>
-          <tbody className="max-h-fit divide-y divide-brand-border">
+          <tbody className="divide-brand-border max-h-fit divide-y">
             <LineItem />
             <LineItem />
           </tbody>

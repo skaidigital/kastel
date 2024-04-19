@@ -1,6 +1,6 @@
 'use client';
 
-import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
+import { formatPrice } from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { Combination } from '@/components/VariantSelector';

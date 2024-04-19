@@ -29,7 +29,7 @@ export default function Loading() {
                   </TH>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-border">
+              <tbody className="divide-brand-border divide-y">
                 <Row />
                 <Row />
                 <Row />

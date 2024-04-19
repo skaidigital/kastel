@@ -1,7 +1,7 @@
 'use client';
 
-import { useShopifyAnalytics } from '@/app/[market]/[lang]/(site)/shopify/hooks/useShopifyAnalytics';
-import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
+import { useShopifyAnalytics } from '@/app/(site)/[market]/[lang]/shopify/hooks/useShopifyAnalytics';
+import { formatPrice } from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { Button } from '@/components/Button';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';

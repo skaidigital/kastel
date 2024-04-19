@@ -1,7 +1,7 @@
 'use server';
 
-import { ExtractVariables } from '@/app/[market]/[lang]/(site)/shopify/types';
-import { isShopifyError } from '@/app/[market]/[lang]/(site)/shopify/utils';
+import { ExtractVariables } from '@/app/(site)/[market]/[lang]/shopify/types';
+import { isShopifyError } from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { COOKIE_NAMES } from '@/data/constants';
 import { env } from '@/env';
 import { cookies } from 'next/headers';

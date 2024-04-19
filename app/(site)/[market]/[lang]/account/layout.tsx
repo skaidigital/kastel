@@ -1,4 +1,4 @@
-import { LinkItem } from '@/app/[market]/[lang]/(site)/account/(overview)/LinkItem';
+import { LinkItem } from '@/app/(site)/[market]/[lang]/account/(overview)/LinkItem';
 import { getDictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { Container } from '@/components/base/Container';

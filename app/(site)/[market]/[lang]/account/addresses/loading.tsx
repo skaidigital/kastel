@@ -16,7 +16,7 @@ export default function Loading() {
 
 function Item() {
   return (
-    <div className="flex h-40 w-full flex-col space-y-5 rounded-project border border-brand-border p-5">
+    <div className="border-brand-border flex h-40 w-full flex-col space-y-5 rounded-project border p-5">
       <Skeleton className="h-5 w-32" />
       <div className="flex flex-col space-y-2">
         <Skeleton className="h-3 w-24" />
