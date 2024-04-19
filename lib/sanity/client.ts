@@ -4,6 +4,8 @@ import { createClient } from 'next-sanity';
 const excludedFields = ['slug_en', 'slug_no', 'slug', 'video'];
 
 const excludedNestedFields = [
+  'slug_no',
+  'slug_en',
   'padding',
   'hasTopPadding',
   'hasBottomPadding',

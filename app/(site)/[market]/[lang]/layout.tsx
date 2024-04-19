@@ -67,6 +67,7 @@ export default function IndexRoute({
                         console.log('Revalidate tag', payload.document._type);
                         return revalidateTag(payload.document._type);
                       }
+                      console.log('Revalidate home page');
                       await revalidatePath('/', 'layout');
                     }}
                   />
