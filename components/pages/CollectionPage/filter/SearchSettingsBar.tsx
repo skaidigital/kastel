@@ -1,10 +1,10 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
-import { cn } from '@/lib/utils';
-import { SortDropdown } from './SortDrowpdown';
-import { ViewProductNumberLayout } from './ViewProductNumber';
-import { ActiveFiltersCollectionPage } from './filter/FilterCollectionPage';
-import { FilterCollectionPageButton } from './filter/FilterCollectionPageButton';
+import { SortDropdown } from '../SortDrowpdown';
+import { ViewProductNumberLayout } from '../ViewProductNumber';
+import { SettingsRow } from './CollectionSettingsBar';
+import { ActiveFiltersCollectionPage } from './FilterCollectionPage';
+import { FilterCollectionPageButton } from './FilterCollectionPageButton';
 
 interface Props {
   numberOfProducts: number;
@@ -14,7 +14,7 @@ interface Props {
   dictionary: Dictionary['collection_page'];
 }
 
-export function CollectionSettingsBar({ searchParams, numberOfProducts, dictionary }: Props) {
+export function SearchSettingsBar({ searchParams, numberOfProducts, dictionary }: Props) {
   return (
     <Container className="flex flex-col space-y-2 pb-8 lg:pb-6">
       <SettingsRow className="items-end">
@@ -32,8 +32,4 @@ export function CollectionSettingsBar({ searchParams, numberOfProducts, dictiona
       </SettingsRow>
     </Container>
   );
-}
-
-function SettingsRow({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className={cn('flex w-full justify-between', className)}>{children}</div>;
 }

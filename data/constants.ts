@@ -140,9 +140,7 @@ export const SITE_URLS: Record<MarketValues, string> = {
 
 // Product type
 
-// export const COLLECTION_PAGE_SIZE = 20;
-//! Fix this
-export const COLLECTION_PAGE_SIZE = 5;
+export const COLLECTION_PAGE_SIZE = 20;
 
 export const ACCOUNT_PAGE_ORDERS_PAGE_SIZE = 10;
 
@@ -231,5 +229,6 @@ export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_L
 export const URL_STATE_KEYS = {
   sort: 'sort',
   view: 'view',
-  page: 'page'
+  page: 'page',
+  search: 'q'
 };

@@ -16,7 +16,7 @@ import {
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE } from '@/data/constants';
 import { cn } from '@/lib/utils';
-import { CollectionSettingsBar } from './CollectionSettingsBar';
+import { CollectionSettingsBar } from './filter/CollectionSettingsBar';
 
 interface Props {
   data: Collection;
@@ -179,7 +179,13 @@ export function adjustProductsWithMoods({
   return result.slice(0, products.length + Math.min(3, moods.length - baseIndex));
 }
 
-function CollectionGrid({ number, children }: { number: string; children: React.ReactNode }) {
+export function CollectionGrid({
+  number,
+  children
+}: {
+  number: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className={cn(number === '3' ? 'grid lg:grid-cols-3' : 'grid lg:grid-cols-4')}>
       {children}

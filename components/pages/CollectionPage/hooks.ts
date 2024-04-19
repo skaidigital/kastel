@@ -90,7 +90,7 @@ export function getProductIdsByOrder(market: MarketValues, sortKey: string | und
   return query;
 }
 
-function getSortQuery(sortKey: string | undefined) {
+export function getSortQuery(sortKey: string | undefined) {
   switch (sortKey) {
     case 'price_lowest':
       return 'minPrice asc';
