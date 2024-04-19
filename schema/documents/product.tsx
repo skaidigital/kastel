@@ -204,6 +204,39 @@ export const product = defineType({
       description:
         'This will add the gallery, page builder blocks and other content to this product form its model as well as link to other products of the same model in the product page (colors)'
     }),
+    defineField({
+      title: 'Is this product a color?',
+      name: 'isColor',
+      type: 'boolean',
+      group: 'settings',
+      initialValue: false,
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (!value && context.parent?.productType) {
+            return 'You have to set this field';
+          }
+
+          return true;
+        }),
+      description:
+        "If this product is a specific color like 'Dusty Blue Sengesett' we will set a color swatch for the product here."
+    }),
+    defineField({
+      title: 'Color',
+      name: 'color',
+      type: 'reference',
+      to: [{ type: 'colorDocument' }],
+      group: 'settings',
+      hidden: ({ parent }) => !parent?.isColor,
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context.parent?.isColor && !value) {
+            return 'You have to set this field';
+          }
+
+          return true;
+        })
+    }),
     ...i18nField({
       title: 'Status',
       name: `status`,

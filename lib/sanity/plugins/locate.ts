@@ -2,6 +2,8 @@ import { resolveHref } from '@/lib/sanity/studioUtils';
 import { Observable, map } from 'rxjs';
 import { DocumentLocationResolver, DocumentLocationsState } from 'sanity/presentation';
 
+const documentTypesWithPreview = ['page', 'product', 'collection', 'bundle', 'configurator'];
+
 export const locate: DocumentLocationResolver = (params, context) => {
   const documentTypesUsedOnAllPages = ['footer', 'navbar'];
 
@@ -12,9 +14,9 @@ export const locate: DocumentLocationResolver = (params, context) => {
     } satisfies DocumentLocationsState;
   }
 
-  if (params.type === 'home' || params.type === 'page' || params.type === 'project') {
+  if (documentTypesWithPreview.includes(params.type)) {
     const doc$ = context.documentStore.listenQuery(
-      `*[_id==$id || references($id)]{_type,slug,title}`,
+      `*[_id==$id || references($id)]{_type,"slug": slug_no,"title": title_no, internalTitle}`,
       params,
       { perspective: 'previewDrafts' }
     ) as Observable<
@@ -22,46 +24,37 @@ export const locate: DocumentLocationResolver = (params, context) => {
           _type: string;
           slug: { current: string };
           title: string | null;
+          internalTitle: string | null;
         }[]
       | null
     >;
     return doc$.pipe(
       map((docs) => {
-        const isReferencedBySettings = docs?.some((doc) => doc._type === 'settings');
         switch (params.type) {
-          case 'home':
-            return isReferencedBySettings
-              ? ({
-                  locations: [
-                    {
-                      title: docs?.find((doc) => doc._type === 'home')?.title || 'Home',
-                      href: resolveHref(params.type)!
-                    }
-                  ],
-                  tone: 'positive',
-                  message: 'This document is used to render the front page'
-                } satisfies DocumentLocationsState)
-              : ({
-                  tone: 'critical',
-                  message: `The top menu isn't linking to the home page. This might make it difficult for visitors to navigate your site.`
-                } satisfies DocumentLocationsState);
           case 'page':
             return {
               locations: docs
                 ?.map((doc) => {
+                  if (doc.slug?.current === 'home') {
+                    return {
+                      title: 'Home page',
+                      href: '/no/no/'
+                    };
+                  }
+
                   const href = resolveHref(doc._type, doc?.slug?.current);
+
                   return {
-                    title: doc?.title || 'Untitled',
-                    href: href!
+                    title: doc?.internalTitle || doc?.title || 'Untitled',
+                    // href: `/no/no/${href!}`
+                    href: '/no/no/eksempel'
                   };
                 })
                 .filter((doc) => doc.href !== undefined),
-              tone: isReferencedBySettings ? 'positive' : 'critical',
-              message: isReferencedBySettings
-                ? 'The top menu is linking to this page'
-                : "The top menu isn't linking to this page. It can still be accessed if the visitor knows the URL."
+              tone: 'positive',
+              message: 'Open preview'
             } satisfies DocumentLocationsState;
-          case 'project':
+          case 'product':
             return {
               locations: docs
                 ?.map((doc) => {
@@ -72,10 +65,47 @@ export const locate: DocumentLocationResolver = (params, context) => {
                   };
                 })
                 .filter((doc) => doc.href !== undefined),
-              tone: isReferencedBySettings ? 'caution' : undefined,
-              message: isReferencedBySettings
-                ? 'This document is used on all pages as it is in the top menu'
-                : undefined
+              tone: 'positive',
+              message: 'Open preview'
+            } satisfies DocumentLocationsState;
+          case 'collection':
+            return {
+              locations: docs
+                ?.map((doc) => {
+                  const href = resolveHref(doc._type, doc?.slug?.current);
+                  return {
+                    title: doc?.title || 'Untitled',
+                    href: href!
+                  };
+                })
+                .filter((doc) => doc.href !== undefined),
+              tone: 'positive',
+              message: 'Open preview'
+            } satisfies DocumentLocationsState;
+          case 'bundle':
+            return {
+              locations: docs
+                ?.map((doc) => {
+                  const href = resolveHref(doc._type, doc?.slug?.current);
+                  return {
+                    title: doc?.title || 'Untitled',
+                    href: href!
+                  };
+                })
+                .filter((doc) => doc.href !== undefined),
+              tone: 'positive',
+              message: 'Open preview'
+            } satisfies DocumentLocationsState;
+          case 'configurator':
+            return {
+              locations: [
+                {
+                  title: 'Configurator',
+                  href: '/configurator'
+                }
+              ],
+              tone: 'positive',
+              message: 'Open preview'
             } satisfies DocumentLocationsState;
           default:
             return {
@@ -89,38 +119,3 @@ export const locate: DocumentLocationResolver = (params, context) => {
 
   return null;
 };
-
-// Pass 'context' as the second argument
-// export const locate: DocumentLocationResolver = (params, context) => {
-//   // Set up locations for post documents
-//   if (params.type === 'page') {
-//     // Subscribe to the latest slug and title
-//     const doc$ = context.documentStore.listenQuery(
-//       groq`*[_id == $id][0]{"slug":slug_eu,internalTitle}`,
-//       params,
-//       { perspective: 'previewDrafts' } // returns a draft article if it exists
-//     );
-//     // Return a streaming list of locations
-//     return doc$.pipe(
-//       map((doc) => {
-//         // If the document doesn't exist or have a slug, return null
-//         if (!doc || !doc.slug?.current) {
-//           return null;
-//         }
-//         return {
-//           locations: [
-//             {
-//               title: doc.internalTitle || 'Untitled',
-//               href: `/${doc.slug.current}`
-//             },
-//             {
-//               title: 'Posts',
-//               href: '/'
-//             }
-//           ]
-//         };
-//       })
-//     );
-//   }
-//   return null;
-// };

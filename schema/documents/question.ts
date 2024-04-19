@@ -9,7 +9,7 @@ export const question = defineType({
   icon: List,
   preview: {
     select: {
-      title: 'question.no'
+      title: 'question.en'
     },
     prepare({ title }) {
       return {
@@ -26,13 +26,13 @@ export const question = defineType({
     }),
     defineField({
       title: 'Answer 🇧🇻',
-      name: 'answerNo',
+      name: 'answer_no',
       type: 'richText',
       validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Answer 🇬🇧',
-      name: 'answerEn',
+      name: 'answer_en',
       type: 'richText',
       validation: (Rule) => Rule.required()
     })

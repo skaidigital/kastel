@@ -7,24 +7,24 @@ import {
   crossSellValidator,
   getCrossSellQuery
 } from '@/components/shared/Cart/CrossSell/hooks';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { env } from '@/env';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { getCart } from '@/lib/shopify';
 import { cookies } from 'next/headers';
 
-async function loadCrossSellProduct(market: MarketValues) {
-  const query = getCrossSellQuery(market);
+async function loadCrossSellProduct(lang: LangValues) {
+  const query = getCrossSellQuery(lang);
 
   return loadQuery<CrossSellPayload>(query, {}, { next: { tags: [CACHE_TAGS.MERCHANDISING] } });
 }
 
 interface Props {
-  market: MarketValues;
+  lang: LangValues;
 }
 
-export async function CrossSell({ market }: Props) {
+export async function CrossSell({ lang }: Props) {
   const cartId = cookies().get('cartId')?.value;
 
   let cart;
@@ -41,7 +41,7 @@ export async function CrossSell({ market }: Props) {
 
   const dict = await getDictionary();
   const dictionary = dict.cart_drawer.cross_sell;
-  const initial = await loadCrossSellProduct(market);
+  const initial = await loadCrossSellProduct(lang);
 
   if (!initial.data) {
     return null;

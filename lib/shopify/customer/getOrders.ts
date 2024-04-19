@@ -1,4 +1,4 @@
-import { PageInfo } from '@/app/[market]/[lang]/(site)/shopify/types';
+import { PageInfo } from '@/app/(site)/[market]/[lang]/shopify/types';
 import { ACCOUNT_PAGE_ORDERS_PAGE_SIZE } from '@/data/constants';
 import { customerAccountFetch } from '@/lib/shopify/customer';
 import { FulfillmentStatus, OrderFinancialStatus } from '@/lib/shopify/customer/types';

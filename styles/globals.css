@@ -9,6 +9,10 @@
   .link-animation {
     @apply transition-colors duration-100 ease-in-out;
   }
+  ,
+  .bottom-up-black-gradient {
+    @apply bg-gradient-to-t from-black/80 from-0% to-black/20 to-30%;
+  }
 }
 
 @layer utilities {
@@ -16,6 +20,9 @@
     --smooth-bezier: cubic-bezier(0.16, 1, 0.3, 1);
     --header-height: 44px;
     --announcement-bar-height: 44px;
+    --font-mono: 'Fira Code', monospace;
+    --font-nature-lab-body: 'Sono', sans-serif;
+    --font-nature-lab-heading: 'Merriweather', serif;
   }
 
   body {
@@ -42,6 +49,32 @@
   img[loading='lazy'] {
     clip-path: inset(0.6px);
   }
+}
+
+/* merriweather-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/merriweather-v30-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* sono-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Sono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/sono-v6-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* sono-500 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Sono';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../public/fonts/sono-v6-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 /* TODO see if this can be turned into tailwind/see how Shadcn does it */
@@ -133,4 +166,58 @@
 
 .NavigationMenuContent[data-state='closed'] .NavigationMenuItems {
   animation: fadeOut 300ms ease-in;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner,
+.flip-card:focus .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the back side */
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.heartbeat {
+  position: absolute;
+  width: fit-content;
+  background: black;
+  border-radius: 40px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.75;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }

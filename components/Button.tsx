@@ -1,38 +1,32 @@
-'use client';
-
-import LoadingDots from '@/components/LoadingDots';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'cva';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import { forwardRef } from 'react';
 
-const buttonProps = cva({
-  base: 'uppercase font-bold',
+export const buttonProps = cva({
+  base: 'inline-flex items-center justify-center whitespace-nowrap font-bold uppercase ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   variants: {
     variant: {
       primary: 'bg-brand-primary text-white',
-      secondary:
-        'bg-transparent text-brand-dark-grey border border-brand-border hover:border-brand-mid-grey focus:ring-brand-dark-grey',
-      ghost:
-        'bg-transparent text-brand-dark-grey hover:bg-black/10 border border-transparent focus:ring-brand-light-grey',
-      outline:
-        'bg-transparent text-brand-dark-grey hover:bg-black/10 border border-brand-dark-grey',
-      icon: 'border-0 p-1 flex items-center justify-center text-gray-600 hover:bg-black/[5%] pressed:bg-black/10 dark:text-zinc-400 dark:hover:bg-white/10 dark:pressed:bg-white/20 disabled:bg-transparent'
+      secondary: 'bg-white text-brand-dark-grey',
+      outline: 'border border-brand-light-grey bg-background hover:bg-brand-light-grey',
+      destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+      ghost: 'hover:bg-accent hover:text-accent-foreground',
+      link: 'text-primary underline-offset-4 hover:underline'
     },
     size: {
-      sm: 'py-4 px-6 text-text-sm',
-      default: 'px-8 h-11',
-      icon: 'h-11 w-11'
-    },
-    fullWidth: {
-      true: 'w-full'
+      default: 'px-6 py-4 text-[14px] leading-[14px] lg:text-lg',
+      sm: 'px-6 py-4 text-[14px] leading-[14px]',
+      md: 'px-6 py-4 text-lg',
+      lg: 'h-11 rounded-md px-8',
+      icon: 'h-10 w-10',
+      'icon-lg': 'p-4'
     }
   },
   defaultVariants: {
     variant: 'primary',
-    size: 'sm',
-    fullWidth: false
+    size: 'default'
   }
 });
 
@@ -43,35 +37,17 @@ export interface ButtonProps
   isLoading?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    { className, variant, size, asChild = false, isLoading, fullWidth, children, ...props },
-    ref
-  ) => {
+// TODO fix loading state
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
-      <Comp
-        className={cn(
-          buttonProps({ variant, size, fullWidth, className }),
-          'relative',
-          isLoading && 'bg-brand-mid-grey hover:bg-brand-mid-grey'
-        )}
-        ref={ref}
-        aria-disabled={isLoading}
-        disabled={isLoading}
-        {...props}
-      >
-        <>
-          {isLoading ? (
-            <LoadingDots size={size === 'icon' ? 'sm' : 'md'} className="bg-white" />
-          ) : (
-            children
-          )}
-        </>
+      <Comp className={cn(buttonProps({ variant, size, className }))} ref={ref} {...props}>
+        {children ? 'Loading...' : children}
       </Comp>
     );
   }
 );
 Button.displayName = 'Button';
 
-export { Button, buttonProps };
+export { Button, buttonProps as buttonVariants };

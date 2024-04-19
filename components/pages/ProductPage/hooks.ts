@@ -2,7 +2,7 @@ import {
   concatenatePageBuilderQueries,
   pageBuilderValidator
 } from '@/components/shared/PageBuilder/hooks';
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { galleryValidator, richTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -16,7 +16,6 @@ const sizeProductOptionValidator = z.object({
       title: z.string()
     })
   )
-  // featuredValues: z.array(z.string()).optional()
 });
 
 const stringProductOptionValidator = z.object({
@@ -29,21 +28,9 @@ const stringProductOptionValidator = z.object({
   )
 });
 
-// const colorProductOptionValidator = z.object({
-//   type: z.literal('color'),
-//   name: z.string(),
-//   values: z.array(
-//     z.object({
-//       title: z.string(),
-//       color: z.string()
-//     })
-//   )
-// });
-
 const productOptionValidator = z.discriminatedUnion('type', [
   sizeProductOptionValidator,
   stringProductOptionValidator
-  // colorProductOptionValidator
 ]);
 
 export type ProductOption = z.infer<typeof productOptionValidator>;
@@ -99,6 +86,7 @@ export const productValidator = z.object({
   accordions: z.array(accordionValidator).optional(),
   productType: z
     .object({
+      id: z.string(),
       title: z.string(),
       accordions: z
         .array(
@@ -121,49 +109,49 @@ export const productValidator = z.object({
 
 export type Product = z.infer<typeof productValidator>;
 
-export function getProductQuery(market: MarketValues) {
+export function getProductQuery({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = groq`
-  *[_type == "product" && slug_${market}.current == $slug && status_${market} == "ACTIVE" && defined(gid_${market})][0]{
-    "id": gid_${market},
-    "title": title_${market},
-    "slug": slug_${market}.current,
+  *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE" && defined(gid_${market})][0]{
+    "id": gid_${lang},
+    "title": title_${lang},
+    "slug": slug_${lang}.current,
     type,
-    "description": coalesce(description_${market}, productType->description_${market}),
+    "description": coalesce(description_${lang}, productType->description_${lang}),
     sku,
     ${fragments.getGallery(market)},
     "accordions": accordions[]->{
-        "title": title_${market},
-        "richText": ${fragments.getRichText({ market })},
+        "title": title_${lang},
+        "richText": ${fragments.getRichText({ lang })},
     },
     productType->{
-      "title": title.${market},
+      "id": _id,
+      "title": title.${lang},
       "accordions": accordions[]->{
-        "title": title_${market},
-        "richText": ${fragments.getRichText({ market })},
+        "title": title_${lang},
+        "richText": ${fragments.getRichText({ lang })},
       },
       ${fragments.getGallery(market)},
-      "products": *[_type == "product" && references(^._id) && status_${market} == "ACTIVE"]{
-        "title": title_${market},
-        "slug": slug_${market}.current,
+      "products": *[_type == "product" && references(^._id) && status_${lang} == "ACTIVE"]{
+        "title": title_${lang},
+        "slug": slug_${lang}.current,
         "isColor": isColor,
         "color": color->.color.value,
       },
       pageBuilder[]{
-        ${concatenatePageBuilderQueries(market)}
+        ${concatenatePageBuilderQueries({ market, lang })}
       },
     },
-    "price": price_${market},
-    "compareAtPrice": compareAtPrice_${market},
+    "price": price_${lang},
+    "compareAtPrice": compareAtPrice_${lang},
     options[]{
-      "name": optionType->.title_${market},
+      "name": optionType->.title_${lang},
       "type": optionType->.type,
       "values": options[]->{
-        "title": title_${market},
-        // "color": color->.color.value,
+        "title": title_${lang},
       },
-      "featuredValues": featuredOptions[]->.title_${market},
+      "featuredValues": featuredOptions[]->.title_${lang},
     },
-    "featuredOptions": featuredOptions_${market}[]->.title_${market},
+    "featuredOptions": featuredOptions_${lang}[]->.title_${lang},
     "priceRange": {
       "minVariantPrice": {
         "amount": coalesce(minPrice_${market}.amount, 0),
@@ -182,19 +170,16 @@ export function getProductQuery(market: MarketValues) {
         sku,
         "selectedOptions": [
         option1->{
-            "name": type->title_${market},
-            "value": title_${market},
-            // "hex": option1->color->.color.value,
+            "name": type->title_${lang},
+            "value": title_${lang},
         },
         option2->{
-            "name": type->title_${market},
-            "value": title_${market},
-            // "hex": option2->color->.color.value,
+            "name": type->title_${lang},
+            "value": title_${lang},
         },
         option3->{
-            "name": type->title_${market},
-            "value": title_${market},
-            // "hex": option3->color->.color.value,
+            "name": type->title_${lang},
+            "value": title_${lang},
         }
       ]},
       type == "SIMPLE" => [{
@@ -209,9 +194,9 @@ export function getProductQuery(market: MarketValues) {
       }]
     ),
     pageBuilder[]{
-      ${concatenatePageBuilderQueries(market)}
+      ${concatenatePageBuilderQueries({ market, lang })}
     },
-    "usp": *[_type == "usps"][0].${fragments.getRichText({ market, fieldName: 'productForm' })}
+    "usp": *[_type == "usps"][0].${fragments.getRichText({ lang, fieldName: 'productForm' })}
   }
   `;
 

@@ -1,4 +1,5 @@
 import PageBuilderModal from '@/components/sanity/PageBuilderModal';
+import { MARKETS } from '@/data/constants';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const alternativeText = defineType({
@@ -139,61 +140,56 @@ export const pageBuilder = defineType({
     // Hero
     defineArrayMember({
       title: 'Hero',
+      name: 'hero',
       type: 'hero'
     }),
     // Full width media section
     // USP + Shoe
     defineArrayMember({
-      title: 'USP explainer',
-      type: 'reference',
-      to: [{ type: 'uspExplainer' }],
-      name: 'uspExplainer'
+      title: 'USP Explainer section',
+      type: 'uspExplainerSection',
+      name: 'uspExplainerSection'
     }),
     // Shoe picker
     defineArrayMember({
-      title: 'Shoe picker',
-      type: 'reference',
-      to: [{ type: 'shoePicker' }],
+      title: 'Shoe picker section',
+      type: 'shoePickerSection',
       name: 'shoePicker'
     }),
     // Nature Lab explanation
     defineArrayMember({
       title: 'Nature Lab explainer',
-      type: 'reference',
-      to: [{ type: 'natureLabExplainer' }],
-      name: 'natureLabExplainer'
+      type: 'natureLabExplainerSection',
+      name: 'natureLabExplainerSection'
     }),
     // Shop our models
     defineArrayMember({
-      title: 'Shop our models',
-      type: 'reference',
-      to: [{ type: 'shopOurModels' }],
-      name: 'shopOurModels'
+      title: 'Shop Our Models section',
+      type: 'shopOurModelsSection',
+      name: 'shopOurModelsSection'
     }),
     // UGCs
     defineArrayMember({
       title: 'UGC section',
-      type: 'reference',
-      to: [{ type: 'UGCSection' }],
-      name: 'UGCSection'
+      type: 'ugcSection',
+      name: 'ugcSection'
     }),
     // Featured shoe
     defineArrayMember({
-      title: 'Featured shoe',
-      type: 'reference',
-      to: [{ type: 'featuredShoe' }],
-      name: 'featuredShoe'
+      title: 'Featured Shoe section',
+      type: 'featuredShoeSection',
+      name: 'featuredShoeSection'
     }),
     // Featured collection
     defineArrayMember({
       title: 'Featured collection',
-      type: 'featuredCollection'
+      name: 'featuredCollectionSection',
+      type: 'featuredCollectionSection'
     }),
     // Card section
     defineArrayMember({
       title: 'Card section',
-      type: 'reference',
-      to: [{ type: 'cardSection' }],
+      type: 'cardSection',
       name: 'cardSection'
     }),
     // Nature Lab Innovation item (only for productType and product)
@@ -204,14 +200,14 @@ export const pageBuilder = defineType({
     // Blog posts
     defineArrayMember({
       title: 'Blog posts',
-      type: 'blogPosts'
+      type: 'blogPostSection',
+      name: 'blogPostSection'
     }),
     // Kastel Club
     defineArrayMember({
-      title: 'Kastel Club',
-      type: 'reference',
-      to: [{ type: 'kastelClub' }],
-      name: 'kastelClub'
+      title: 'Kastel Club section',
+      type: 'kastelClubSection',
+      name: 'kastelClubSection'
     }),
     // Timeline
     defineArrayMember({
@@ -223,9 +219,8 @@ export const pageBuilder = defineType({
     // FAQ section
     defineArrayMember({
       title: 'FAQ section',
-      type: 'reference',
-      name: 'faqSection',
-      to: [{ type: 'faqSection' }]
+      type: 'faqSection',
+      name: 'faqSection'
     }),
     // Text section
     defineArrayMember({
@@ -242,5 +237,23 @@ export const pageBuilder = defineType({
       title: 'Email capture',
       type: 'emailCapture'
     })
+  ]
+});
+
+export const marketAvailability = defineType({
+  title: 'Disable / Hide this block from specific markets (optional)',
+  description: 'Select the markets where this section should be hidden',
+  name: 'marketAvailability',
+  type: 'array',
+  of: [
+    {
+      type: 'string',
+      options: {
+        list: MARKETS.map((market) => ({
+          title: market.name,
+          value: market.id
+        }))
+      }
+    }
   ]
 });

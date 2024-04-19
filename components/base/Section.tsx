@@ -14,10 +14,16 @@ export const sectionProps = cva({
     },
     noBottomPadding: {
       true: 'pb-0 md:pb-0 lg:pb-0'
+    },
+    hasBottomBorder: {
+      true: 'border-brand-light-grey border-b'
     }
   },
   defaultVariants: {
-    size: 'lg'
+    size: 'lg',
+    noTopPadding: false,
+    noBottomPadding: false,
+    hasBottomBorder: true
   }
 });
 
@@ -32,6 +38,7 @@ export const Section = ({
   size,
   noTopPadding,
   noBottomPadding,
+  hasBottomBorder,
   className,
   children,
   label,
@@ -41,7 +48,9 @@ export const Section = ({
   return (
     <div
       aria-labelledby={label}
-      className={cn(sectionProps({ size, noTopPadding, noBottomPadding, className }))}
+      className={cn(
+        sectionProps({ size, noTopPadding, noBottomPadding, hasBottomBorder, className })
+      )}
       {...props}
     >
       <h2 id={label} className="sr-only">

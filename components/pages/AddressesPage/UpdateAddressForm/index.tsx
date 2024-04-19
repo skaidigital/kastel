@@ -1,6 +1,6 @@
 'use client';
 
-import { UserError } from '@/app/[market]/[lang]/(site)/shopify/types';
+import { UserError } from '@/app/(site)/[market]/[lang]/shopify/types';
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { Checkbox } from '@/components/form/Checkbox';

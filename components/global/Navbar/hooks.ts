@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { headingAndLinksValidator, imageValidator, linkValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -25,32 +25,32 @@ export const navbarValidator = z.object({
 export type MeganavPayload = z.infer<typeof meganavValidator>;
 export type NavbarPayload = z.infer<typeof navbarValidator>;
 
-export function getNavbarQuery(market: MarketValues) {
+export function getNavbarQuery(lang: LangValues) {
   const query = groq`
   *[_type == "navbar"][0] {
-    "items": items_${market}[]{
+    "items": items_${lang}[]{
       _type == "meganav" => {
         "type": _type,
-        "title": title.${market},
+        "title": title.${lang},
         links[]{
-          "heading": heading.${market},
+          "heading": heading.${lang},
           links[]{
-            ${fragments.getLink(market)}
+            ${fragments.getLink(lang)}
           },
         },
         featuredProducts[]{
-          "title": title.${market},
+          "title": title.${lang},
           image{
-            ${fragments.getImageBase(market)}
+            ${fragments.getImageBase(lang)}
           },
           "type": _type,
           "link": link{
-            ${fragments.getLink(market)}
+            ${fragments.getLink(lang)}
           }
         },
       },
       _type == "link" => {
-        ${fragments.getLink(market)}
+        ${fragments.getLink(lang)}
       },
     }
   } 

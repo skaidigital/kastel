@@ -55,7 +55,7 @@ export const faqBlock = defineType({
           }
         })
       ],
-      validation: (Rule) => Rule.min(1).max(20)
+      validation: (Rule) => Rule.required().max(20)
     }),
     defineField({
       title: 'Badge (optional)',

@@ -24,7 +24,7 @@ export const retailersPage = defineType({
       validation: validateAllStringTranslations
     }),
     defineField({
-      title: 'Retailers (no)',
+      title: 'Retailers 🇧🇻',
       description: 'Select retailers to display on the retailers page for the Norwegian market.',
       name: 'retailers_no',
       type: 'array',

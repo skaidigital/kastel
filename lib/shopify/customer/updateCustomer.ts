@@ -1,4 +1,4 @@
-import { UserError } from '@/app/[market]/[lang]/(site)/shopify/types';
+import { UserError } from '@/app/(site)/[market]/[lang]/shopify/types';
 import { customerAccountFetch } from '@/lib/shopify/customer';
 
 type Input = {

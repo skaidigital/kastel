@@ -1,12 +1,13 @@
 'use client';
 
 import { Badge } from '@/components/Badge';
+import { CustomLink } from '@/components/CustomLink';
 import { Heading } from '@/components/base/Heading';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { ROUTES } from '@/data/constants';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
-import Link from 'next/link';
 import { useState } from 'react';
 
 interface Props extends ProductCardProps {
@@ -46,7 +47,7 @@ export function ProductCard({
       onMouseLeave={() => hasHoverImage && setIsHovered(false)}
       className={cn('group flex w-full shrink-0 flex-col', className)}
     >
-      <Link href={`/${slugPrefix}/${slug}`} className="space-y-4">
+      <CustomLink href={`${ROUTES.PRODUCTS}/${slug}`} className="space-y-4">
         <AspectRatio ratio={3 / 4} className="relative w-full overflow-hidden">
           {badges && (
             <div className="absolute right-2 top-3 z-10 flex flex-col gap-1 xl:flex-row">
@@ -72,7 +73,7 @@ export function ProductCard({
             {title}
           </Heading>
         </div>
-      </Link>
+      </CustomLink>
     </div>
   );
 }

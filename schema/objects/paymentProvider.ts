@@ -19,7 +19,7 @@ export const paymentProvider = defineType({
     prepare({ title }) {
       return {
         title: title ? title.charAt(0).toUpperCase() + title.substring(1) : 'Ikke valgt enda',
-        subtitle: 'Betalingsalternativ'
+        subtitle: 'Payment provider'
       };
     }
   },

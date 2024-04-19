@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   future: {
@@ -23,13 +24,20 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
-      serif: ['var(--font-iowan)']
+      serif: ['var(--font-iowan)'],
+      mono: ['var(--font-mono)'],
+      'nature-lab-body': ['var(--font-nature-lab-body)'],
+      'nature-lab-heading': ['var(--font-nature-lab-heading)']
     },
     keyframes: {
       blink: {
         '0%': { opacity: 0.2 },
         '20%': { opacity: 1 },
         '100% ': { opacity: 0.2 }
+      },
+      'hotspot-blink': {
+        '0%, 100%': { opacity: 0.2, transform: 'scale(2)' },
+        '50%': { opacity: 1 }
       },
       'fade-in-text': {
         from: { opacity: 0, transform: 'translateY(-10px)' },
@@ -147,6 +155,7 @@ module.exports = {
     },
     animation: {
       blink: 'blink 1.4s both infinite',
+      'hotspot-blink': 'hotspot-blink 2.5 cubic-bezier(0, 0, 0.2, 1) infinite',
       'fade-in-text': 'fade-in-text 500ms var(--animation-delay, 0ms) ease forwards',
       'fade-up-text': 'fade-up-text 500ms var(--animation-delay, 0ms) ease forwards',
       'modal-show': 'fade-in 1000ms var(--smooth-bezier)',
@@ -195,6 +204,9 @@ module.exports = {
         md: ['18px', { lineHeight: '24px' }],
         lg: ['24px', { lineHeight: '32px' }],
         xl: ['32px', { lineHeight: '40px' }],
+        'nature-lab-md': ['14px', { lineHeight: '18px' }],
+        'nature-lab-lg': ['18px', { lineHeight: '24px' }],
+        'nature-lab-heading-lg': ['32px', { lineHeight: '36px', letterSpacing: '0.4px' }],
         'overline-sm': ['10px', { lineHeight: '10px' }],
         'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
       },
@@ -203,7 +215,8 @@ module.exports = {
           primary: '#407F7F',
           'light-grey': '#E2E8F0',
           'mid-grey': '#666666',
-          'dark-grey': '#39454E'
+          'dark-grey': '#39454E',
+          beige: '#FDF5E6'
         },
         'nature-lab': {
           'dark-grey': '#151517',

@@ -1,10 +1,10 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { groq } from 'next-sanity';
 
 export const slug = groq`"slug": slug.current`;
 
-export function getSlug(market: MarketValues) {
-  return groq`"slug": slug_${market}.current`;
+export function getSlug(lang: LangValues) {
+  return groq`"slug": slug_${lang}.current`;
 }
 
 export const base = groq`
@@ -23,7 +23,7 @@ export const image = groq`
 
 export const video = 'videoMobile.asset->.playbackId';
 
-export function getImageBase(market: MarketValues) {
+export function getImageBase(lang: LangValues) {
   return groq`
   asset->{
     "_ref": _id,
@@ -31,7 +31,7 @@ export function getImageBase(market: MarketValues) {
       lqip
     }
   },
-  "altText": altText.${market},
+  "altText": altText.${lang},
   crop,
   hotspot
 `;
@@ -57,20 +57,20 @@ export function getGallery(market: MarketValues) {
 }
 
 export function getRichText({
-  market,
+  lang,
   fieldName = 'richText'
 }: {
-  market: MarketValues;
+  lang: LangValues;
   fieldName?: string;
 }) {
   return groq`
-  ${fieldName}_${market}[]{
+  ${fieldName}_${lang}[]{
     ...,
     markDefs[]{
       ...,
       _type == "inlineLink" => {
         link{
-          ${getLinkWithoutText(market)}
+          ${getLinkWithoutText(lang)}
         }
       }
     },
@@ -95,10 +95,10 @@ export const linkTo = groq`
   }
 `;
 
-export const getLinkTo = (market: MarketValues) => groq`
+export const getLinkTo = (lang: LangValues) => groq`
   "linkTo": linkTo->{
     "type": _type,
-    "slug": slug_${market}.current,
+    "slug": slug_${lang}.current,
   }
 `;
 
@@ -115,14 +115,14 @@ export const simpleLink = groq`
   }
 `;
 
-export function getLink(market: MarketValues) {
+export function getLink(lang: LangValues) {
   return groq`
   "type": _type,
   hasLink,
   "linkType": type,
-  "text": text.${market},
+  "text": text.${lang},
   type == "internal" => {
-    ${getLinkTo(market)}
+    ${getLinkTo(lang)}
   },
   type == "external" => {
     href,
@@ -132,13 +132,13 @@ export function getLink(market: MarketValues) {
 }
 
 // TODO its own object and expanded with hasLink. See to merge these later. Also uses i18n.string so _ is replaced with . for the text
-export function getLinkHero(market: MarketValues) {
+export function getLinkHero(lang: LangValues) {
   return groq`
   "linkType": type,
-  "text": text.${market},
+  "text": text.${lang},
   hasLink,
   type == "internal" => {
-    ${getLinkTo(market)}
+    ${getLinkTo(lang)}
   },
   type == "external" => {
     href,
@@ -147,12 +147,12 @@ export function getLinkHero(market: MarketValues) {
 `;
 }
 
-export function getLinkWithoutText(market: MarketValues) {
+export function getLinkWithoutText(lang: LangValues) {
   return groq`
   "type": _type,
   "linkType": type,
   href,
-  ${getLinkTo(market)}
+  ${getLinkTo(lang)}
 `;
 }
 
@@ -187,18 +187,18 @@ export const productLimited = groq`
 }
 `;
 
-export function getProductCard(market: MarketValues) {
+export function getProductCard(lang: LangValues) {
   return groq`
   "type": _type,
-  "title": title.${market},
-  ${getSlug(market)},
+  "title": title.${lang},
+  ${getSlug(lang)},
   mainImage{
-    ${getImageBase(market)}
+    ${getImageBase(lang)}
   },
   lifestyleImage{
-    ${getImageBase(market)}
+    ${getImageBase(lang)}
   },
-  "badges": badges[]->.title.${market}
+  "badges": badges[]->.title.${lang}
 `;
 }
 
@@ -219,19 +219,108 @@ export const collectionImage = groq`
   "image": ${image},
 `;
 
-export function getCard(market: MarketValues) {
+export function getCard(lang: LangValues) {
   return groq`
-  "title": title.${market}, 
-  "subtitle": subtitle.${market}, 
+  "title": title.${lang}, 
+  "subtitle": subtitle.${lang}, 
   link{
-    ${getLinkHero(market)}
+    ${getLinkHero(lang)}
   },
   textPositionMobile,
   textPositionDesktop,
   type,
   "video": video.asset->.playbackId,
   image{
-    ${getImageBase(market)}
+    ${getImageBase(lang)}
   },
 `;
 }
+
+export function getMedia(lang: LangValues) {
+  return groq`
+  type,
+  sameAssetForMobileAndDesktop,
+  image{
+    ${getImageBase(lang)}
+  },
+  'video': video.asset->.playbackId,
+  imageMobile{
+    ${getImageBase(lang)}
+  },
+  imageDesktop{
+    ${getImageBase(lang)}
+  },
+  'videoMobile': videoMobile.asset->.playbackId,
+  'videoDesktop': videoDesktop.asset->.playbackId
+`;
+}
+
+export const sectionSettings = groq`
+  padding,
+  hasTopPadding,
+  hasBottomPadding,
+  hasBottomBorder
+`;
+
+export const aspectRatioSettings = groq`
+  sameAspectRatio,
+  aspectRatio,
+  aspectRatioMobile,
+  aspectRatioDesktop
+`;
+
+export function getConditionalLink(lang: LangValues) {
+  return groq`
+    type,
+    hasLink,
+    "text": text.${lang},
+    type == "internal" => {
+      ${getLinkTo(lang)}
+    },
+    type == "external" => {
+       href
+    },
+    openInNewTab
+`;
+}
+
+export function getBlogPostCard(lang: LangValues) {
+  return groq`
+  "title": title.${lang},
+  "description": metadata.metaDescription.${lang},
+  "image": imageMobile{
+    ${getImageBase(lang)}
+  },
+  "slug": slug_${lang}.current,
+  "readLength": coalesce(round(length(pt::text(content + "_" + market)) / 5 / 180 ), 1)
+`;
+}
+
+export function getHotspotImage(lang: LangValues) {
+  return groq`
+  "type": _type,
+  image{
+    ${getImageBase(lang)}
+  },
+  hotspots[]{
+    ...select(
+      type == "text" => {
+        type,
+        "description": description.${lang},
+      },
+      type == "productCard" => {
+        "type": "product",
+        ...product->{
+          ${getProductCard(lang)}
+        },
+      },
+    ),
+    x,
+    y,
+  }
+  `;
+}
+
+export const buttonSettings = groq`
+  variant
+`;

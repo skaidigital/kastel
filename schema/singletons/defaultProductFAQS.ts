@@ -20,7 +20,7 @@ export const defaultProductFAQS = defineType({
       name: 'faqs',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'question' }] }],
-      validation: (Rule) => Rule.min(1).max(20)
+      validation: (Rule) => Rule.required().min(1).max(20)
     })
   ]
 });

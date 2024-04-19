@@ -59,14 +59,14 @@ export const blogPost = defineType({
     }),
     defineField({
       title: 'Content 🇧🇻',
-      name: 'contentNo',
+      name: 'content_no',
       type: 'richText',
       validation: (Rule) => Rule.required(),
       group: 'editorial'
     }),
     defineField({
       title: 'Content 🇬🇧',
-      name: 'contentEn',
+      name: 'content_en',
       type: 'richText',
       validation: (Rule) => Rule.required(),
       group: 'editorial'

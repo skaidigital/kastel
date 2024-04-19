@@ -1,6 +1,5 @@
-import { kastelClub } from '@/components/shared/PageBuilder/kastelClub';
-import { natureLabExplainer } from '@/components/shared/PageBuilder/natureLabExplainer';
-import { uspExplainer } from '@/components/shared/PageBuilder/uspExplainer';
+import { kastelClubBlock } from '@/components/shared/PageBuilder/kastelClubBlock';
+import { natureLabExplainerBlock } from '@/components/shared/PageBuilder/natureLabExplainerBlock';
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
 import { collection } from '@/schema/documents/collection';
@@ -34,6 +33,7 @@ import {
   figure,
   gallery,
   internalTitle,
+  marketAvailability,
   ogImage,
   padding,
   pageBuilder,
@@ -42,15 +42,23 @@ import {
 } from '@/schema/fields';
 import { address } from '@/schema/objects/address';
 import { aspectRatioSettings } from '@/schema/objects/aspectRatioSettings';
+import { buttonSettings } from '@/schema/objects/buttonSettings';
+import { card } from '@/schema/objects/card';
+import { cardBlock } from '@/schema/objects/cardBlock';
 import { collectionImage } from '@/schema/objects/collectionImage';
 import { collectionProduct } from '@/schema/objects/collectionProduct';
+import { conditionalLink } from '@/schema/objects/conditionalLink';
+import { featuredCollectionSection } from '@/schema/objects/featuredCollectionSection';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
+import { featuredShoeSection } from '@/schema/objects/featuredShoeSection';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
+import { kastelClubSection } from '@/schema/objects/kastelClubSection';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
+import { natureLabExplainerSection } from '@/schema/objects/natureLabExplainerSection';
 import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
 import { natureLabProductStatusItem } from '@/schema/objects/natureLabProductStatusItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
@@ -60,26 +68,32 @@ import { productVariant } from '@/schema/objects/productVariant';
 import { richText } from '@/schema/objects/richText';
 import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
+import { shoePickerSection } from '@/schema/objects/shoePickerSection';
+import { shopOurModelsSection } from '@/schema/objects/shopOurModelsSection';
 import { spot } from '@/schema/objects/spot';
 import { textBlock } from '@/schema/objects/textBlock';
 import { timelineItem } from '@/schema/objects/timelineItem';
+import { timelineSection } from '@/schema/objects/timelineSection';
+import { ugcSection } from '@/schema/objects/ugcSection';
 import { updateItem } from '@/schema/objects/updateItem';
-import { ugcs } from '@/schema/pageBuilderBlocks/UGCSection';
-import { blogPosts } from '@/schema/pageBuilderBlocks/blogPosts';
+import { uspExplainerSection } from '@/schema/objects/uspExplainerSection';
+import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
-import { featuredCollection } from '@/schema/pageBuilderBlocks/featuredCollection';
-import { featuredShoe } from '@/schema/pageBuilderBlocks/featuredShoe';
+import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollection';
+import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
-import { shoePicker } from '@/schema/pageBuilderBlocks/shoePicker';
-import { shopOurModels } from '@/schema/pageBuilderBlocks/shopOurModels';
+import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
+import { shopOurModelsBlock } from '@/schema/pageBuilderBlocks/shopOurModelsBlock';
 import { textSection } from '@/schema/pageBuilderBlocks/textSection';
-import { timelineSection } from '@/schema/pageBuilderBlocks/timelineSection';
+import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
+import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
+import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { cookieConsent } from '@/schema/singletons/cookieConsent';
@@ -92,7 +106,6 @@ import { popup } from '@/schema/singletons/popup';
 import { retailersPage } from '@/schema/singletons/retailersPage';
 import { settingsPaymentProviders } from '@/schema/singletons/settingsPaymentProviders';
 import { settingsSEOAndSocials } from '@/schema/singletons/settingsSEOAndSocials';
-import { storeLocator } from '@/schema/singletons/storeLocator';
 import { usps } from '@/schema/singletons/usps';
 import { featureOptionConfig } from './objects/featureOptionConfig';
 import { price } from './objects/price';
@@ -113,6 +126,7 @@ const schema = [
   alternativeText,
   ogImage,
   blogWidthSettings,
+  marketAvailability,
 
   // Objects
   address,
@@ -138,29 +152,42 @@ const schema = [
   sectionSettings,
   natureLabInnovationItem,
   natureLabProductStatusItem,
+  card,
+  conditionalLink,
+  buttonSettings,
 
   // Page builder blocks (objects)
-  hero,
   pageTitle,
   instagramFeed,
   contactForm,
   faqSection,
-  blogPosts,
-  featuredCollection,
+  blogPostSection,
+  featuredCollectionSection,
   emailCapture,
   natureLabInnovationSection,
+  cardSection,
+  shoePickerSection,
+  timelineSection,
+  ugcSection,
+  kastelClubSection,
+  natureLabExplainerSection,
+  shopOurModelsSection,
+  featuredShoeSection,
+  hero,
+  uspExplainerSection,
   // Page builder blocks (documents)
   textSection,
   faqBlock,
-  ugcs,
-  cardSection,
-  kastelClub,
-  shopOurModels,
-  natureLabExplainer,
-  shoePicker,
-  featuredShoe,
-  uspExplainer,
-  timelineSection,
+  ugcBlock,
+  kastelClubBlock,
+  shopOurModelsBlock,
+  natureLabExplainerBlock,
+  featuredCollectionBlock,
+  timelineBlock,
+  shoePickerBlock,
+  featuredShoeBlock,
+  uspExplainerBlock,
+  cardBlock,
 
   // Product
   productType,
@@ -208,7 +235,6 @@ const schema = [
   merchandising,
   settingsSEOAndSocials,
   settingsPaymentProviders,
-  storeLocator,
   pageNotFound,
   defaultProductFAQS,
   retailersPage

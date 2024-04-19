@@ -1,3 +1,5 @@
+import { AspectRatios } from '@/lib/sanity/types';
+
 // Routes
 export const ROUTES = {
   HOME: '/',
@@ -5,9 +7,12 @@ export const ROUTES = {
   WISHLIST: '/account/wishlist',
   ADDRESSES: '/account/addresses',
   CREATE_ADDRESS: '/account/addresses/create',
+  PRODUCTS: '/products',
   ORDERS: '/orders',
   ORDER_DETAILS: '/account/orders',
+  BLOG: '/blog',
   SHOP_ALL: '/shop/all',
+  KASTEL_CLUB: '/kastel-club',
   REGISTER_ACCOUNT: '/register-account',
   RESET_PASSWORD: '/reset-password',
   SHOP: '/shop',
@@ -58,7 +63,9 @@ export const COOKIE_NAMES = {
   REQUEST_COUNTRY: 'request_country',
   RECCOMMENDED_MARKET: 'reccommended_market',
   HAS_CHOSEN_MARKET: 'has_chosen_market',
-  MARKET: 'market'
+  MARKET: 'market',
+  PREVIEW_MARKET: 'previewMarket',
+  PREVIEW_LANG: 'previewLang'
 };
 
 export const TEMPLATES = {
@@ -100,29 +107,40 @@ export const HOME_SLUG = 'home';
 
 export const FALLBACK_LOCALE = 'eu';
 
-type Market = {
+export type Market = {
   id: MarketValues;
   name: string;
   flag: string;
 };
+export type Lang = {
+  id: LangValues;
+  name: string;
+  flag: string;
+};
 
-export type MarketValues = 'no' | 'eu';
+export type MarketValues = 'no' | 'sv';
 export type LangValues = 'en' | 'no';
 
 export const FALLBACK_MARKET: MarketValues = 'no';
+export const FALLBACK_LANG: LangValues = 'no';
 
 export const MARKET: Record<MarketValues, Market> = {
-  no: { id: 'no', name: 'Norge', flag: '🇧🇻' },
-  eu: { id: 'eu', name: 'Europa', flag: '🇪🇺' }
+  no: { id: 'no', name: 'Norway', flag: '🇧🇻' },
+  sv: { id: 'sv', name: 'Sweden', flag: '🇸🇪' }
 };
-
 export const MARKETS = Object.values(MARKET);
+
+export const LANG: Record<LangValues, Lang> = {
+  en: { id: 'en', name: 'English', flag: '🇬🇧' },
+  no: { id: 'no', name: 'Norsk', flag: '🇧🇻' }
+};
+export const LANGS = Object.values(LANG);
 
 export const DEFAULT_CURRENCY_CODE = 'NOK';
 
 export const SITE_URLS: Record<MarketValues, string> = {
-  no: 'https://abate.no',
-  eu: 'https://abate-store.com'
+  no: '/no/no/',
+  sv: '/sv/en/'
 };
 
 // type ProductType = Record<'SIMPLE', 'simple'> | Record<'VARIABLE', 'variable'>;
@@ -232,3 +250,10 @@ export const URL_STATE_KEYS = {
   page: 'page',
   search: 'q'
 };
+export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
+  { title: '16:9', value: '16:9' },
+  { title: '4:3', value: '4:3' },
+  { title: '21:9', value: '21:9' },
+  { title: '9:16', value: '9:16' },
+  { title: '3:4', value: '3:4' }
+];

@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { linkWithoutTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -21,13 +21,13 @@ export const announcementBannerValidator = z.discriminatedUnion('isShown', [
 
 export type AnnouncementBannerPayload = z.infer<typeof announcementBannerValidator>;
 
-export function getAnnouncementBannerQuery(market: MarketValues) {
+export function getAnnouncementBannerQuery(lang: LangValues) {
   const query = groq`
     *[_type == "announcementBanner"][0] {
       isShown,
-      "content": content[].content.${market},
+      "content": content[].content.${lang},
       "link": linkWithoutText{
-        ${fragments.getLinkWithoutText(market)}
+        ${fragments.getLinkWithoutText(lang)}
       },
     }
   `;

@@ -7,10 +7,10 @@ export const headingStyles = cva({
   variants: {
     size: {
       xs: 'text-heading-xs',
-      sm: 'text-[12px] leading-[24px] tracking-[2.4px] md:text-[16px] md:leading-[24px] md:tracking-[3.2px]',
+      sm: 'text-heading-sm',
       md: 'text-heading-md',
-      lg: 'text-[24px] leading-[28px]  md:text-[32px] tracking-[4px] lg:leading-[36px]',
-      xl: 'text-[24px] leading-[28px]  md:text-[60px] tracking-[4px] lg:leading-[64px]'
+      lg: 'text-heading-lg',
+      xl: 'text-heading-lg xl:text-heading-xl'
     }
   },
   defaultVariants: {

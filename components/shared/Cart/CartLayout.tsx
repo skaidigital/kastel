@@ -1,6 +1,6 @@
 'use client';
 
-import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
+import { formatPrice } from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Text } from '@/components/base/Text';
 import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCountdown';
@@ -114,8 +114,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                   <Text size="sm">{formattedTotal}</Text>
                 </div>
                 <Button
-                  className="mb-2"
-                  fullWidth
+                  className="mb-2 w-full"
                   isLoading={isPending}
                   onClick={() => {
                     startTransition(() => {
@@ -145,12 +144,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
   return (
     <Sheet isOpen={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger>
-        <Button
-          className="fixed bottom-0 w-full"
-          onClick={() => setIsOpen(true)}
-          variant="primary"
-          fullWidth
-        >
+        <Button className="fixed bottom-0 w-full" onClick={() => setIsOpen(true)} variant="primary">
           {dictionary.cart} ({cart?.totalQuantity})
         </Button>
       </SheetTrigger>
@@ -184,8 +178,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                 <Text size="sm">{formattedTotal}</Text>
               </div>
               <Button
-                className="mb-2"
-                fullWidth
+                className="mb-2 w-full"
                 isLoading={isPending}
                 onClick={() => {
                   startTransition(() => {

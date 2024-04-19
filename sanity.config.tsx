@@ -18,7 +18,6 @@ import { locate } from '@/lib/sanity/plugins/locate';
 import { productVariantBasedOnProduct } from '@/lib/sanity/templates';
 import { I18nFields } from 'sanity-plugin-i18n-fields';
 import { structureTool } from 'sanity/structure';
-import { SyncProductToShopify } from './lib/sanity/actions.client';
 import schema from './schema';
 import './styles/sanity.css';
 
@@ -32,8 +31,9 @@ const config = definePlugin({
     presentationTool({
       locate,
       previewUrl: {
-        draftMode: {
-          enable: '/api/draft'
+        previewMode: {
+          enable: '/api/draft',
+          disable: '/api/disable-draft'
         }
       }
     }),
@@ -45,7 +45,10 @@ const config = definePlugin({
       inputDateTimeFormat: 'dd.MM.yyyy HH:mm'
     }),
     visionTool({ defaultApiVersion: apiVersion }),
-    simplerColorInput(),
+    simplerColorInput({
+      defaultColorFormat: 'hex',
+      enableSearch: true
+    }),
     webhooks(),
     noteField(),
     vercelDeployTool(),
@@ -82,16 +85,16 @@ const config = definePlugin({
   },
   document: {
     actions: (prev, context) => {
-      if (context.schemaType === 'product') {
-        const productSyncActions = SyncProductToShopify(context);
-        const productSyncActionsFunctions = productSyncActions.map((action) => {
-          return () => action;
-        });
+      // if (context.schemaType === 'product') {
+      //   const productSyncActions = SyncProductToShopify(context);
+      //   const productSyncActionsFunctions = productSyncActions.map((action) => {
+      //     return () => action;
+      //   });
 
-        const documentActions = [...prev, ...productSyncActionsFunctions];
+      //   const documentActions = [...prev, ...productSyncActionsFunctions];
 
-        return documentActions;
-      }
+      //   return documentActions;
+      // }
       if (context.schemaType === 'productVariant') {
         const everythingExceptDuplicateAction = prev.filter(
           (action) => action.action !== 'duplicate'

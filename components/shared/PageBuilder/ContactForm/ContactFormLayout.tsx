@@ -58,7 +58,7 @@ export function ContactFormLayout({ data, dictionary }: Props) {
       noBottomPadding={!hasBottomPadding}
       label="page-title"
       srHeading="Page title"
-      className={hasBottomBorder ? 'border-b border-brand-border' : ''}
+      className={hasBottomBorder ? 'border-brand-border border-b' : ''}
     >
       <Container size="sm" className="flex flex-col items-center justify-center space-y-10">
         <Heading as="h2" size="md" className="text-center">
@@ -88,7 +88,7 @@ export function ContactFormLayout({ data, dictionary }: Props) {
             name="message"
             label={dictionary?.message || ''}
           />
-          <Button type="submit" fullWidth isLoading={isSubmitting}>
+          <Button type="submit" isLoading={isSubmitting}>
             {dictionary?.send || ''}
           </Button>
         </FormContainer>

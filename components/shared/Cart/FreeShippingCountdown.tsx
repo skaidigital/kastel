@@ -1,6 +1,6 @@
 'use client';
 
-import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
+import { formatPrice } from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { Dictionary } from '@/app/dictionaries-client';
 import { Text } from '@/components/base/Text';
 import * as Progress from '@radix-ui/react-progress';
@@ -52,7 +52,7 @@ export const FreeShippingCountdown = ({
         </Text>
       )}
       <Progress.Root
-        className="relative h-2 w-full overflow-hidden rounded-md border-b border-brand-border bg-brand-light-grey"
+        className="border-brand-border relative h-2 w-full overflow-hidden rounded-md border-b bg-brand-light-grey"
         style={{
           // Fix overflow clipping in Safari
           // https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0

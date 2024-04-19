@@ -2,7 +2,7 @@ import {
   formatPrice,
   getOrderFinancialStatusBadgeVariant,
   getOrderFullfillmentStatusBadgeVariant
-} from '@/app/[market]/[lang]/(site)/shopify/utils';
+} from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { getDictionary } from '@/app/dictionaries';
 import { BackButton } from '@/components/BackButton';
 import { Badge } from '@/components/Badge';
@@ -73,7 +73,7 @@ export async function OrderDetailsPage({ orderId }: Props) {
               <TH className="pr-0 text-right">{dictionary.price}</TH>
             </tr>
           </thead>
-          <tbody className="max-h-fit divide-y divide-brand-border">
+          <tbody className="divide-brand-border max-h-fit divide-y">
             {order.lineItems.edges.map((lineItem, index) => {
               const name = lineItem.node.name;
               const quantity = lineItem.node.quantity;

@@ -1,4 +1,3 @@
-import { HeroLinkProps } from '@/components/shared/PageBuilder/hooks';
 import { getSlug } from '@/lib/sanity/getSlug';
 import { LinkProps } from '@/lib/sanity/types';
 import Link from 'next/link';
@@ -28,36 +27,3 @@ export const SanityLink = ({ link, children, className, onClick }: Props) => {
     </Link>
   );
 };
-
-interface HeroSanityLinkProps {
-  link: HeroLinkProps;
-  children: ReactNode;
-  className?: string;
-  onClick?: () => void;
-}
-
-// TODO merge with regular link later
-export const SanityLinkHero = ({ link, children, className, onClick }: HeroSanityLinkProps) => {
-  if (!link || !link.hasLink) return null;
-
-  // TODO fix this janky ass code
-  const formattedLink = {
-    ...link,
-    type: 'link' as const
-  };
-  const slug = getSlug(formattedLink);
-  const openInNewTab = link.linkType === 'external' && link.openInNewTab === true;
-
-  return (
-    <Link
-      className={className || ''}
-      href={slug || '#'}
-      target={openInNewTab ? '_blank' : '_self'}
-      onClick={onClick}
-    >
-      {children}
-    </Link>
-  );
-};
-
-//

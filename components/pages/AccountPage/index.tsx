@@ -3,7 +3,7 @@ import {
   formatPrice,
   getOrderFinancialStatusBadgeVariant,
   getOrderFullfillmentStatusBadgeVariant
-} from '@/app/[market]/[lang]/(site)/shopify/utils';
+} from '@/app/(site)/[market]/[lang]/shopify/utils';
 import { getDictionary } from '@/app/dictionaries';
 import { Badge } from '@/components/Badge';
 import { Pagination } from '@/components/Pagination';
@@ -46,7 +46,7 @@ export async function AccountPage({ currentPage }: Props) {
               </tr>
             </thead>
             {hasOrders && (
-              <tbody className="divide-y divide-brand-border">
+              <tbody className="divide-brand-border divide-y">
                 {orders?.map((order, index) => (
                   <tr key={order.id}>
                     <TD className={cn('underline', index === 0 && 'pl-0')}>
@@ -83,7 +83,7 @@ export async function AccountPage({ currentPage }: Props) {
             />
           )}
           {!hasOrders && (
-            <div className="border-project mt-4 flex h-40 w-full items-center justify-center border border-brand-border">
+            <div className="border-project border-brand-border mt-4 flex h-40 w-full items-center justify-center border">
               <Heading as="h2" size="sm">
                 {dictionary.no_orders}
               </Heading>
