@@ -227,3 +227,9 @@ export const SMILE_DEEP_LINKS = {
 } as const;
 
 export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_LINKS];
+
+export const URL_STATE_KEYS = {
+  sort: 'sort',
+  view: 'view',
+  page: 'page'
+};

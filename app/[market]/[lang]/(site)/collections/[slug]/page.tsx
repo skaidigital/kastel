@@ -1,14 +1,16 @@
 import { CollectionPage } from '@/components/pages/CollectionPage';
 import {
   CollectionBasePayload,
+  CollectionProductPayload,
   CollectionProductsPayload,
   collectionBaseValidator,
   collectionProductsValidator,
   getCollectionBaseQuery,
-  getCollectionProductsQuery,
+  getCollectionProductData,
+  getProductIdsByOrder,
   mergeCollectionBaseAndProducts
 } from '@/components/pages/CollectionPage/hooks';
-import { MarketValues } from '@/data/constants';
+import { MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -33,18 +35,38 @@ function loadCollectionBase(slug: string, market: MarketValues) {
   );
 }
 
-function loadCollectionProducts(
+function loadCollectionProductsOrder(
   slug: string,
   market: MarketValues,
   pageIndex: number,
-  tagSlugs: string[] | null
+  tagSlugs: string[] | null,
+  sortKey?: string
 ) {
-  const query = getCollectionProductsQuery(market, pageIndex);
+  const query = getProductIdsByOrder(market, sortKey);
 
   return loadQuery<CollectionProductsPayload>(
     query,
     { slug, tagSlugs },
-    { next: { tags: [`collection:${slug}`, `tags:${tagSlugs?.join()}`] } }
+    {
+      next: { tags: [] },
+      cache: 'no-store'
+    }
+  );
+}
+
+function loadCollectionProductData(
+  market: MarketValues,
+  productIds: string[],
+  pageIndex: number,
+  slug: string,
+  sortKey?: string
+) {
+  const query = getCollectionProductData(market, pageIndex);
+
+  return loadQuery<CollectionProductPayload>(
+    query,
+    { ids: productIds },
+    { next: { tags: [`collection:${slug}`, `ids:${productIds?.join()}`, `${sortKey}`] } }
   );
 }
 
@@ -58,11 +80,12 @@ interface Props {
 
 export default async function SlugCollectionPage({ params, searchParams }: Props) {
   const { market, slug } = params;
-  const paramValues = formatSearchParams(searchParams);
-
+  const paramValues = formatSearchParamsValues(searchParams);
+  const sortKey = searchParams?.sort || 'default';
   const currentPage = Number(searchParams?.page) || 1;
 
   const initialBase = await loadCollectionBase(slug, market);
+
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
   const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
 
@@ -71,22 +94,29 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     notFound();
   }
 
-  const initialProducts = await loadCollectionProducts(
+  const initialProducts = await loadCollectionProductsOrder(
     slug,
     market,
     currentPage,
-    paramValues as string[] | null
+    paramValues,
+    sortKey
   );
 
-  const collectionProductsWithoutNullValues = nullToUndefined(initialProducts.data);
+  const productIds = initialProducts.data.products.map((product) => product._id);
 
-  const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
-    (product: any) => Object.keys(product).length > 1
+  const inititalProductsData = await loadCollectionProductData(
+    market,
+    productIds,
+    currentPage,
+    slug,
+    sortKey
   );
+
+  const cleanedProductData = cleanData(initialProducts, inititalProductsData);
 
   const validatedProducts = collectionProductsValidator.safeParse({
-    products: filteredCollectionProducts,
-    hasNextPage: collectionProductsWithoutNullValues.hasNextPage
+    products: cleanedProductData,
+    hasNextPage: true
   });
 
   if (!validatedProducts.success) {
@@ -98,14 +128,14 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 
   const mergedData = mergeCollectionBaseAndProducts(
     collectionBaseWithoutNullValues,
-    collectionProductsWithoutNullValues
+    validatedProducts.data
   );
 
   if (!initialBase.data) {
     notFound();
   }
 
-  return <CollectionPage data={mergedData} currentPage={currentPage} />;
+  return <CollectionPage data={mergedData} currentPage={currentPage} searchParams={searchParams} />;
 }
 
 export async function generateMetadata({
@@ -145,16 +175,40 @@ export async function generateMetadata({
   };
 }
 
-function formatSearchParams(search: Props['searchParams']) {
+function formatSearchParamsValues(search: Props['searchParams']) {
+  const exludeKeys = Object.values(URL_STATE_KEYS);
   const paramValues = search
     ? Object.entries(search)
-        .filter(([key]) => key !== 'page')
+        .filter(([key]) => !exludeKeys.includes(key))
         .flatMap(([_, value]) => value?.split(',') ?? [])
         .filter((value) => value !== undefined)
     : null;
 
-  if (paramValues?.length === 0) {
+  if (!paramValues || paramValues?.length === 0 || paramValues[0] === '') {
     return null;
   }
   return paramValues;
+}
+
+function cleanData(initialProducts: any, inititalProductsData: any): CollectionProductsPayload {
+  const mergedTestData = initialProducts.data.products.map((product: any) => {
+    const productData = inititalProductsData.data.find(
+      (productData: any) => productData._id === product._id
+    );
+
+    return {
+      ...product,
+      ...productData
+    };
+  });
+
+  const collectionProductsWithoutNullValues = nullToUndefined({
+    products: mergedTestData
+  });
+
+  const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
+    (product: any) => Object.keys(product).length > 1
+  );
+
+  return filteredCollectionProducts;
 }
