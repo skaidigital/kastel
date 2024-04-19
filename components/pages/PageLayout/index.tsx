@@ -12,7 +12,15 @@ export function PageLayout({ data, market, lang }: PageProps) {
   return (
     <>
       {data?.pageBuilder?.map((block, index: number) => (
-        <PageBuilder key={block.key} data={block} index={index} market={market} lang={lang} />
+        <PageBuilder
+          key={block.key}
+          data={block}
+          index={index}
+          market={market}
+          lang={lang}
+          pageId={data.id}
+          pageType={data.type}
+        />
       ))}
     </>
   );

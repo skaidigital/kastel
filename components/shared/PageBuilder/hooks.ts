@@ -409,7 +409,7 @@ export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
 export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>;
 export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>;
 export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
-export type HeroNewProps = z.infer<typeof heroValidator>;
+export type HeroProps = z.infer<typeof heroValidator>;
 export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
 
 // End new validator

@@ -5,11 +5,11 @@ import { Media } from '@/components/Media';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
-import { HeroNewProps } from '@/components/shared/PageBuilder/hooks';
+import { HeroProps } from '@/components/shared/PageBuilder/hooks';
 import { resolveHref } from '@/lib/sanity/resolveHref';
 import { cn } from '@/lib/utils';
 
-interface PropsWithExtra extends HeroNewProps {
+interface PropsWithExtra extends HeroProps {
   index: number;
   pageId: string;
   pageType: string;
@@ -100,7 +100,7 @@ export const Hero = ({ data }: Props) => {
               {description}
             </Text>
           )}
-          {link.hasLink && buttonSettings.variant && (
+          {link.hasLink && buttonSettings?.variant && (
             <Button
               asChild
               variant={buttonSettings.variant}

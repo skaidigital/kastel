@@ -6,6 +6,7 @@ import { CardSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { resolveHref } from '@/lib/sanity/resolveHref';
 import { cn } from '@/lib/utils';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
+import { createDataAttribute } from 'next-sanity';
 import Link from 'next/link';
 
 interface PropsWithExtra extends CardSectionProps {
@@ -29,6 +30,11 @@ export const CardSection = ({ data }: Props) => {
   const cardCount = cards?.length;
   const lgColCount = `lg:grid-cols-${cardCount}`;
 
+  const dataAttribute = createDataAttribute({
+    id: pageId,
+    type: pageType
+  });
+
   return (
     <Section
       label="cardSection"
@@ -44,6 +50,7 @@ export const CardSection = ({ data }: Props) => {
 
           return (
             <Wrapper
+              data-sanity={dataAttribute?.(['pageBuilder', index])}
               key={index}
               href={
                 link.hasLink && link.type === 'external'

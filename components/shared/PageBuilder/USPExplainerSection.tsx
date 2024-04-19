@@ -8,6 +8,7 @@ import { USPExplainerSectionProps } from '@/components/shared/PageBuilder/hooks'
 import { cn } from '@/lib/utils';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { useScroll, useTransform } from 'framer-motion';
+import { createDataAttribute } from 'next-sanity';
 import { useRef } from 'react';
 
 interface PropsWithExtra extends USPExplainerSectionProps {
@@ -25,15 +26,22 @@ export const USPExplainerSection = ({ data }: Props) => {
   const { index, pageId, pageType, content, sectionSettings } = data;
 
   return (
-    <div className="w-full">{content?.map((item) => <Slide key={item.title} item={item} />)}</div>
+    <div className="w-full">
+      {content?.map((item) => (
+        <Slide key={item.title} item={item} pageId={pageId} pageType={pageType} index={index} />
+      ))}
+    </div>
   );
 };
 
 interface SlideProps {
   item: USPExplainerSectionProps['content'][0];
+  pageId: string;
+  pageType: string;
+  index: number;
 }
 
-function Slide({ item }: SlideProps) {
+function Slide({ item, pageId, pageType, index }: SlideProps) {
   const container = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -41,6 +49,11 @@ function Slide({ item }: SlideProps) {
     offset: ['start end', 'start start']
   });
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+
+  const dataAttribute = createDataAttribute({
+    id: pageId,
+    type: pageType
+  });
 
   return (
     <div className="relative flex w-full flex-col bg-blue-50 lg:h-dvh lg:flex-row">
@@ -73,7 +86,10 @@ function Slide({ item }: SlideProps) {
         )}
       </Container>
       {/* Media container */}
-      <div className="relative bg-red-50 lg:basis-2/3">
+      <div
+        data-sanity={dataAttribute?.(['pageBuilder', index])}
+        className="relative bg-red-50 lg:basis-2/3"
+      >
         <div className="aspect-h-4 aspect-w-3 h-full w-full lg:aspect-none ">
           {item.media && <Media media={item.media} loading="lazy" />}
         </div>

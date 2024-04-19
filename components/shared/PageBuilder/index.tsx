@@ -50,12 +50,14 @@ interface Props {
   index: number;
   market: MarketValues;
   lang: LangValues;
+  pageId: string;
+  pageType: string;
 }
 
-export const PageBuilder = ({ data, index, market, lang }: Props) => {
+export const PageBuilder = ({ data, index, market, lang, pageId, pageType }: Props) => {
   const { type } = data;
 
   const BlockType = blockTypes[type] || (() => null);
 
-  return <BlockType data={{ ...data, index, market, lang }} />;
+  return <BlockType data={{ ...data, index, market, lang, pageId, pageType }} />;
 };

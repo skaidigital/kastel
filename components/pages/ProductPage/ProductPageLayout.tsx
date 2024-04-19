@@ -154,7 +154,15 @@ export function ProductPageLayout(props: Props) {
 
       {pageBuilder?.length > 0 &&
         pageBuilder.map((block: PageBuilderBlock, index: number) => (
-          <PageBuilder key={index} data={block} index={index} market={market} lang={lang} />
+          <PageBuilder
+            key={index}
+            data={block}
+            index={index}
+            market={market}
+            lang={lang}
+            pageId={productType?.id || ''}
+            pageType="productType"
+          />
         ))}
 
       <Suspense>

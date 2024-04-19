@@ -63,7 +63,9 @@ export const COOKIE_NAMES = {
   REQUEST_COUNTRY: 'request_country',
   RECCOMMENDED_MARKET: 'reccommended_market',
   HAS_CHOSEN_MARKET: 'has_chosen_market',
-  MARKET: 'market'
+  MARKET: 'market',
+  PREVIEW_MARKET: 'previewMarket',
+  PREVIEW_LANG: 'previewLang'
 };
 
 export const TEMPLATES = {
@@ -105,8 +107,13 @@ export const HOME_SLUG = 'home';
 
 export const FALLBACK_LOCALE = 'eu';
 
-type Market = {
+export type Market = {
   id: MarketValues;
+  name: string;
+  flag: string;
+};
+export type Lang = {
+  id: LangValues;
   name: string;
   flag: string;
 };
@@ -115,13 +122,19 @@ export type MarketValues = 'no' | 'sv';
 export type LangValues = 'en' | 'no';
 
 export const FALLBACK_MARKET: MarketValues = 'no';
+export const FALLBACK_LANG: LangValues = 'no';
 
 export const MARKET: Record<MarketValues, Market> = {
   no: { id: 'no', name: 'Norway', flag: '🇧🇻' },
   sv: { id: 'sv', name: 'Sweden', flag: '🇸🇪' }
 };
-
 export const MARKETS = Object.values(MARKET);
+
+export const LANG: Record<LangValues, Lang> = {
+  en: { id: 'en', name: 'English', flag: '🇬🇧' },
+  no: { id: 'no', name: 'Norsk', flag: '🇧🇻' }
+};
+export const LANGS = Object.values(LANG);
 
 export const DEFAULT_CURRENCY_CODE = 'NOK';
 

@@ -86,6 +86,7 @@ export const productValidator = z.object({
   accordions: z.array(accordionValidator).optional(),
   productType: z
     .object({
+      id: z.string(),
       title: z.string(),
       accordions: z
         .array(
@@ -123,6 +124,7 @@ export function getProductQuery({ market, lang }: { market: MarketValues; lang: 
         "richText": ${fragments.getRichText({ lang })},
     },
     productType->{
+      "id": _id,
       "title": title.${lang},
       "accordions": accordions[]->{
         "title": title_${lang},
