@@ -48,5 +48,6 @@ export async function GET(request: Request) {
   cookies().set(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN, exchangedToken);
   cookies().set(COOKIE_NAMES.SHOPIFY.EXPIRES_IN, expiresAt);
 
-  redirect('/account');
+  // TODO localize this
+  redirect('/no/no/account');
 }

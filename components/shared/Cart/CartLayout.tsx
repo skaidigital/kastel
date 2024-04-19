@@ -1,6 +1,6 @@
 'use client';
 
-import { formatPrice } from '@/app/(site)/[market]/[lang]/shopify/utils';
+import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Text } from '@/components/base/Text';
 import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCountdown';

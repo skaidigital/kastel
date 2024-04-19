@@ -61,6 +61,8 @@
     "my_account": "My account",
     "orders": "Orders",
     "addresses": "Addresses",
+    "wishlist": "Wishlist",
+    "customer_service": "Customer service",
     "log_out": "Log out"
   },
   "order_details_page": {

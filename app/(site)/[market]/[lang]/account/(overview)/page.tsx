@@ -4,23 +4,14 @@ import { logIn } from '@/lib/shopify/customer/actions';
 import { useUser } from '@/lib/useUser';
 import { Metadata } from 'next';
 
-export default async function Page({
-  searchParams
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+export default async function Page() {
   const { isLoggedIn } = useUser();
 
   if (!isLoggedIn) {
     await logIn();
   }
 
-  const currentPage = Number(searchParams?.page) || 1;
-
-  return <AccountPage currentPage={currentPage} />;
+  return <AccountPage />;
 }
 
 export const metadata: Metadata = {

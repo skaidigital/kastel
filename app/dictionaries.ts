@@ -72,6 +72,8 @@ export interface Dictionary {
     my_account: string;
     orders: string;
     addresses: string;
+    wishlist: string;
+    customer_service: string;
     log_out: string;
   };
   order_details_page: {

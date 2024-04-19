@@ -1,7 +1,6 @@
 'use client';
 
-import { useShopifyAnalytics } from '@/app/(site)/[market]/[lang]/shopify/hooks/useShopifyAnalytics';
-import { formatPrice } from '@/app/(site)/[market]/[lang]/shopify/utils';
+import { formatPrice } from '@/app/api/shopify/utils';
 import { Button } from '@/components/Button';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
@@ -10,6 +9,7 @@ import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
+import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { sendGTMEvent } from '@next/third-parties/google';

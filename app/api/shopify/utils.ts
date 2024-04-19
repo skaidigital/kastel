@@ -1,4 +1,4 @@
-import { ShopifyErrorLike } from '@/app/(site)/[market]/[lang]/shopify/types';
+import { ShopifyErrorLike } from '@/app/api/shopify/types';
 import { FulfillmentStatus, OrderFinancialStatus } from '@/lib/shopify/customer/types';
 import { Money } from '@/lib/shopify/types';
 

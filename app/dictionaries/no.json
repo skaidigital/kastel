@@ -61,6 +61,8 @@
     "my_account": "Min konto",
     "orders": "Bestillinger",
     "addresses": "Adresser",
+    "wishlist": "Ønskeliste",
+    "customer_service": "Kundeservice",
     "log_out": "Logg ut"
   },
   "order_details_page": {
