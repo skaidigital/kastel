@@ -125,53 +125,11 @@ export const blogPost = defineType({
       group: 'editorial'
     }),
     defineField({
-      title: 'Set reccommended blog posts?',
-      description: 'If you leave this unchecked we will get the 3 latest blog posts',
-      name: 'setReccommendedBlogPosts',
-      type: 'boolean',
-      initialValue: false,
-      group: 'editorial'
-    }),
-    defineField({
-      title: 'Reccommended blog posts',
+      title: 'Reccommendeded blog posts',
       name: 'reccommendedBlogPosts',
-      type: 'object',
-      group: 'editorial',
-      validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
-          if (context.parent.setReccommendedBlogPosts && !value.posts) {
-            return 'Please select 3 blog posts';
-          }
-          return true;
-        }),
-      hidden: ({ parent }) => !parent.setReccommendedBlogPosts,
-      fields: [
-        defineField({
-          title: 'Title',
-          name: 'title',
-          type: 'i18n.string',
-          validation: validateAllStringTranslations
-        }),
-        defineField({
-          title: 'Button text',
-          name: 'buttonText',
-          type: 'i18n.string',
-          validation: validateAllStringTranslations
-        }),
-        defineField({
-          title: 'Blog posts',
-          description: 'Select 3 blog posts',
-          name: 'posts',
-          type: 'array',
-          of: [
-            {
-              type: 'reference',
-              to: [{ type: 'blogPost' }]
-            }
-          ],
-          validation: (Rule) => Rule.min(3).max(3)
-        })
-      ]
+      type: 'reccommendedBlogPosts',
+      group: 'settings',
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Slug 🇧🇻',

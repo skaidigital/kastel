@@ -2,6 +2,8 @@ import {
   SEOAndSocialsValidator,
   aspectRatioSettingsValidator,
   aspectRatiosValidator,
+  authorValidator,
+  blogPostCardValidator,
   conditionalLinkValidator,
   galleryValidator,
   headingAndLinksValidator,
@@ -13,7 +15,8 @@ import {
   mediaValidator,
   pageTypes,
   productCardValidator,
-  richTextValidator
+  richTextValidator,
+  videoSettingsValidator
 } from '@/lib/sanity/validators';
 import { z } from 'zod';
 
@@ -48,3 +51,6 @@ export type AspectRatioSettingsProps = z.infer<typeof aspectRatioSettingsValidat
 export type ConditionalLinkProps = z.infer<typeof conditionalLinkValidator>;
 export type PageTypes = z.infer<typeof pageTypes>;
 export type HotspotImageProps = z.infer<typeof hotspotImageValidator>;
+export type VideoSettings = z.infer<typeof videoSettingsValidator>;
+export type BlogPostCardProps = z.infer<typeof blogPostCardValidator>;
+export type AuthorProps = z.infer<typeof authorValidator>;

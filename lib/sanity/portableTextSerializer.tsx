@@ -11,7 +11,7 @@ import Link from 'next/link';
 export const portableTextSerializer = {
   block: {
     normal: ({ children }: any) => (
-      <Text className="mt-6" as="p">
+      <Text className="mt-6" as="p" size="md">
         {children}
       </Text>
     ),
@@ -31,7 +31,7 @@ export const portableTextSerializer = {
       </Text>
     ),
     h2: ({ children }: any) => (
-      <Heading as="h2" size="md" className="mb-4 pt-8 md:pt-12 lg:pt-14">
+      <Heading as="h2" size="md" className="mt-7 pt-8 md:pt-12 lg:pt-14">
         {children}
       </Heading>
     ),

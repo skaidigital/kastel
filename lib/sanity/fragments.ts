@@ -324,3 +324,18 @@ export function getHotspotImage(lang: LangValues) {
 export const buttonSettings = groq`
   variant
 `;
+
+export const videoSettings = groq`
+  autoPlay
+`;
+
+export function getAuthor(lang: LangValues) {
+  return groq`
+  name,
+  "role": role.${lang},
+  "description": description.${lang},
+  "image": image{
+    ${getImageBase(lang)}
+  }
+`;
+}

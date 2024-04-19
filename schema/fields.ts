@@ -50,6 +50,21 @@ export const blogWidthSettings = defineType({
   validation: (Rule) => Rule.required()
 });
 
+export const videoSettings = defineType({
+  title: 'Video settings',
+  name: 'videoSettings',
+  type: 'object',
+  fields: [
+    defineField({
+      title: 'Autoplay',
+      name: 'autoPlay',
+      type: 'boolean',
+      initialValue: true
+    })
+  ],
+  validation: (Rule) => Rule.required()
+});
+
 export const figure = defineType({
   title: 'Image',
   name: 'figure',

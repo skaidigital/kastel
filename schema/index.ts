@@ -38,7 +38,8 @@ import {
   padding,
   pageBuilder,
   title,
-  topPadding
+  topPadding,
+  videoSettings
 } from '@/schema/fields';
 import { address } from '@/schema/objects/address';
 import { aspectRatioSettings } from '@/schema/objects/aspectRatioSettings';
@@ -65,6 +66,7 @@ import { paymentProvider } from '@/schema/objects/paymentProvider';
 import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
+import { reccommendedBlogPosts } from '@/schema/objects/reccommendedBlogPosts';
 import { richText } from '@/schema/objects/richText';
 import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
@@ -127,6 +129,7 @@ const schema = [
   ogImage,
   blogWidthSettings,
   marketAvailability,
+  videoSettings,
 
   // Objects
   address,
@@ -155,6 +158,7 @@ const schema = [
   card,
   conditionalLink,
   buttonSettings,
+  reccommendedBlogPosts,
 
   // Page builder blocks (objects)
   pageTitle,

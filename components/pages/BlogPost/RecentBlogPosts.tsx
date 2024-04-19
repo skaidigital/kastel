@@ -1,4 +1,3 @@
-import { getPagebuilderDictionary } from '@/app/dictionaries/pageBuilder';
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { Button } from '@/components/Button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
@@ -6,32 +5,18 @@ import { CustomLink } from '@/components/CustomLink';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
-import { BlogPostSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { LangValues, ROUTES } from '@/data/constants';
+import { BlogPostsProps } from '@/components/pages/BlogPost/hooks';
+import { ROUTES } from '@/data/constants';
 
-interface PropsWithExtra extends BlogPostSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
-  lang: LangValues;
-}
-
-interface Props {
-  data: PropsWithExtra;
-}
-
-export const BlogPostSection = async ({ data }: Props) => {
-  const { index, pageId, pageType, lang, title, buttonText, sectionSettings, posts } = data;
-  const dictionary = await getPagebuilderDictionary(lang);
+// TODO fix string for card
+export function RecentBlogPosts({ title, posts, buttonText }: BlogPostsProps) {
+  const dictionary = {
+    min_read: '5',
+    read_more: 'Read more'
+  };
 
   return (
-    <Section
-      label="blogPostSection"
-      srHeading={`Section of blog posts`}
-      noTopPadding={!sectionSettings?.hasTopPadding}
-      noBottomPadding={!sectionSettings?.hasBottomPadding}
-      hasBottomBorder={sectionSettings?.hasBottomBorder}
-    >
+    <Section label="blogPostSection" srHeading={`Section of blog posts`} noTopPadding>
       <div className="flex flex-col lg:hidden">
         <Container className="mb-6">{title && <Heading size="lg">{title}</Heading>}</Container>
         <Carousel className="mb-10 ml-4">
@@ -81,4 +66,4 @@ export const BlogPostSection = async ({ data }: Props) => {
       </Container>
     </Section>
   );
-};
+}
