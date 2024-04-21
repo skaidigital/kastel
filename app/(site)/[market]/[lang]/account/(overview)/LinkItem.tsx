@@ -1,6 +1,7 @@
 'use client';
 
 import { CustomLink } from '@/components/CustomLink';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -13,17 +14,19 @@ interface Props {
 
 export function LinkItem({ href, children, className }: Props) {
   const pathname = usePathname();
+  const { market, lang } = useBaseParams();
 
-  const isActive = href === pathname;
+  const hrefWithMarketAndLang = `/${market}/${lang}${href}`;
+  const isActive = hrefWithMarketAndLang === pathname;
 
   return (
     <CustomLink
       href={href}
       className={cn(
-        'border-brand-border !text-eyebrow transition-brand w-full rounded-project border px-5 py-2 uppercase',
+        'text-sm',
         isActive
-          ? 'bg-brand-dark-grey text-white hover:border-brand-dark-grey hover:bg-white hover:text-brand-dark-grey'
-          : 'bg-white text-brand-dark-grey hover:bg-brand-dark-grey hover:text-white',
+          ? 'font-sembibold'
+          : 'text-brand-mid-grey transition-all duration-100 ease-in-out hover:pl-1 hover:text-brand-dark-grey focus:pl-1 focus:text-brand-dark-grey',
         className
       )}
     >

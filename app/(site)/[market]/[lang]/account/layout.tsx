@@ -1,7 +1,6 @@
 import { LinkItem } from '@/app/(site)/[market]/[lang]/account/(overview)/LinkItem';
 import { getDictionary } from '@/app/dictionaries';
-import { Button } from '@/components/Button';
-import { Section } from '@/components/base/Section';
+import { Container } from '@/components/base/Container';
 import { ROUTES } from '@/data/constants';
 import { getExpiryTime } from '@/lib/getExpiryTime';
 import { logIn, logOut } from '@/lib/shopify/customer/actions';
@@ -17,36 +16,30 @@ export default async function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <aside className="flex min-h-[800px] flex-col lg:h-full lg:flex-row lg:overflow-hidden">
-      <div className="border-brand-border w-full flex-none border-r lg:w-64">
-        <Section
-          noBottomPadding
-          label="account-page-nav"
-          srHeading="Account pages nav"
-          className="hidden h-full shrink-0 flex-col justify-between lg:flex"
+    // TODO recheck these classes later on
+    <Container className="mt-8 min-h-dvh lg:mt-10 lg:grid lg:grid-cols-12 lg:gap-4">
+      <aside className="hidden lg:col-span-2 lg:col-start-2 lg:block">
+        <nav className="flex w-full flex-col gap-y-4">
+          <LinkItem href={ROUTES.ACCOUNT}>{dictionary.my_account}</LinkItem>
+          <LinkItem href={ROUTES.ORDERS}>{dictionary.orders}</LinkItem>
+          <LinkItem href={`${ROUTES.ADDRESSES}`}>{dictionary.addresses}</LinkItem>
+          <LinkItem href={`${ROUTES.WISHLIST}`}>{dictionary.wishlist}</LinkItem>
+          <LinkItem href={`${ROUTES.ACCOUNT_CUSTOMER_SERVICE}`}>
+            {dictionary.customer_service}
+          </LinkItem>
+        </nav>
+        <form
+          action={async () => {
+            'use server';
+            await logOut();
+          }}
         >
-          <nav className="flex w-full flex-col space-y-2 px-2">
-            <LinkItem href={ROUTES.ACCOUNT}>{dictionary.my_account}</LinkItem>
-            <LinkItem href={ROUTES.ORDERS}>{dictionary.orders}</LinkItem>
-            <LinkItem href={`${ROUTES.ADDRESSES}`}>{dictionary.addresses}</LinkItem>
-            <LinkItem href={`${ROUTES.WISHLIST}`}>{dictionary.wishlist}</LinkItem>
-            <LinkItem href={`${ROUTES.ACCOUNT_CUSTOMER_SERVICE}`}>
-              {dictionary.customer_service}
-            </LinkItem>
-          </nav>
-          <form
-            action={async () => {
-              'use server';
-              await logOut();
-            }}
-          >
-            <Button variant="secondary" className="border-x-0 border-b-0" type="submit">
-              {dictionary.log_out}
-            </Button>
-          </form>
-        </Section>
-      </div>
-      <div className="mt-8 flex-grow md:overflow-y-auto lg:mt-10">{children}</div>
-    </aside>
+          <button className="mt-4 text-sm text-brand-mid-grey" type="submit">
+            {dictionary.log_out}
+          </button>
+        </form>
+      </aside>
+      <div className="flex-grow md:overflow-y-auto">{children}</div>
+    </Container>
   );
 }
