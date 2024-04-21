@@ -1,4 +1,4 @@
-import { WishlistPage } from '@/components/pages/AccountCustomerServicePage';
+// import { WishlistPage } from '@/components/pages/AccountCustomerServicePage';
 import { LangValues, MarketValues } from '@/data/constants';
 import { Metadata } from 'next';
 
@@ -9,7 +9,8 @@ interface Props {
 export default async function Page({ params }: Props) {
   const lang = params.lang;
 
-  return <WishlistPage lang={lang} />;
+  // return <WishlistPage lang={lang} />;
+  return null;
 }
 
 export const metadata: Metadata = {
