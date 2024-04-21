@@ -8,6 +8,7 @@ export const ROUTES = {
   ACCOUNT_CUSTOMER_SERVICE: '/account/customer-service',
   ADDRESSES: '/account/addresses',
   CREATE_ADDRESS: '/account/addresses/create',
+  EDIT_ADDRESS: '/account/addresses/:id/edit',
   PRODUCTS: '/products',
   ORDERS: '/account/orders',
   ORDER_DETAILS: '/account/orders',
@@ -22,6 +23,8 @@ export const ROUTES = {
 
 export const CACHE_TAGS = {
   CART: 'cart',
+  WISHLIST_PRODUCTS: 'wishlist-products',
+  HELP_CENTER: 'help-center',
   CUSTOMER_ADDRESS: 'customer-address',
   ANNOUNCEMENT_BANNER: 'announcement-banner',
   USPS: 'unique-selling-points',

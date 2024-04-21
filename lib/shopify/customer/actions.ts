@@ -58,6 +58,7 @@ export async function getAccessToken(code: string, state: string) {
   });
 
   const data = await response.json();
+
   const error = data.error;
 
   if (error) {

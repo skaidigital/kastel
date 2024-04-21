@@ -1,25 +1,32 @@
 import { getDictionary } from '@/app/dictionaries';
-import { CreateAddressPage } from '@/components/pages/EditAddressPage';
+import { EditAddressPage } from '@/components/pages/CreateAddressPage';
 import { MarketValues } from '@/data/constants';
 import { Metadata } from 'next';
 
-export default async function Page() {
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Page({ params }: Props) {
+  // TODO get address and pass the default address to the page
+
   const { create_address_page: dictionary } = await getDictionary();
-  return <CreateAddressPage dictionary={dictionary} />;
+  return <EditAddressPage dictionary={dictionary} />;
 }
 
 export const metadata: Metadata = {
   title: getTitle()
 };
 
-// TODO get market from params
 function getTitle() {
   const market = 'no' as MarketValues;
 
   switch (market) {
     case 'no':
-      return 'Opprett adresse';
+      return 'Rediger adresse';
     case 'sv':
-      return 'Create address';
+      return 'Redigera adress';
   }
 }

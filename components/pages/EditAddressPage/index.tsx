@@ -21,7 +21,7 @@ interface Props {
   dictionary: Dictionary['create_address_page'];
 }
 
-export function EditAddressPage({ dictionary }: Props) {
+export function CreateAddressPage({ dictionary }: Props) {
   const [isPending, startTransition] = useTransition();
   const { market, lang } = useBaseParams();
   const router = useRouter();
@@ -64,6 +64,7 @@ export function EditAddressPage({ dictionary }: Props) {
 
   return (
     <div className="grid lg:col-span-3">
+      Edit address page
       <AccountPageHeader pageTitle={dictionary.create_address} />
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
         <FormInput

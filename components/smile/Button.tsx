@@ -4,10 +4,10 @@ import { SmileDeepLinks } from '@/data/constants';
 
 interface SmileButtonProps {
   deepLink: SmileDeepLinks;
-  label: string;
+  children: React.ReactNode;
 }
 
-export const SmileButton = ({ deepLink, label }: SmileButtonProps) => {
+export const SmileButton = ({ deepLink, children }: SmileButtonProps) => {
   return (
     <button
       onClick={() => {
@@ -21,7 +21,7 @@ export const SmileButton = ({ deepLink, label }: SmileButtonProps) => {
         }
       }}
     >
-      {label}
+      {children}
     </button>
   );
 };

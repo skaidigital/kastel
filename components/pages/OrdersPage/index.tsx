@@ -7,10 +7,9 @@ import {
 import { getDictionary } from '@/app/dictionaries';
 import { Badge } from '@/components/Badge';
 import { Pagination } from '@/components/Pagination';
+import { AccountPageHeader } from '@/components/account/AccountPageHeader';
 import { EmptyState } from '@/components/account/EmptyState';
-import { MobilePageHeader } from '@/components/account/MobilePageHeader';
 import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
 import { TD } from '@/components/shared/TD';
 import { TH } from '@/components/shared/TH';
 import { ROUTES } from '@/data/constants';
@@ -32,8 +31,8 @@ export async function OrdersPage({ currentPage }: Props) {
   const hasOrders = orders && orders.length > 0;
 
   return (
-    <Section label="my-account" srHeading="My account" className="py-0">
-      <MobilePageHeader pageTitle={dictionary.order} />
+    <div className="grid lg:col-span-6">
+      <AccountPageHeader pageTitle={dictionary.order} className="lg:hidden" />
       {hasOrders && (
         <>
           <Heading className="mb-10" size="md">
@@ -96,6 +95,6 @@ export async function OrdersPage({ currentPage }: Props) {
           href={ROUTES.HOME}
         />
       )}
-    </Section>
+    </div>
   );
 }

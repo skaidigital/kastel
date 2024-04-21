@@ -216,7 +216,8 @@ module.exports = {
           'light-grey': '#E2E8F0',
           'mid-grey': '#666666',
           'dark-grey': '#39454E',
-          beige: '#FDF5E6'
+          beige: '#FDF5E6',
+          sand: '#F5F5F4'
         },
         'nature-lab': {
           'dark-grey': '#151517',

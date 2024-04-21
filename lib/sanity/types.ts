@@ -3,6 +3,7 @@ import {
   aspectRatioSettingsValidator,
   aspectRatiosValidator,
   conditionalLinkValidator,
+  faqBlockValidator,
   galleryValidator,
   headingAndLinksValidator,
   hotspotImageValidator,
@@ -48,3 +49,4 @@ export type AspectRatioSettingsProps = z.infer<typeof aspectRatioSettingsValidat
 export type ConditionalLinkProps = z.infer<typeof conditionalLinkValidator>;
 export type PageTypes = z.infer<typeof pageTypes>;
 export type HotspotImageProps = z.infer<typeof hotspotImageValidator>;
+export type FAQBlockProps = z.infer<typeof faqBlockValidator>;

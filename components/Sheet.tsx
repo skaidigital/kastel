@@ -62,10 +62,12 @@ interface SheetHeaderProps {
 
 export function SheetHeader({ title, className }: SheetHeaderProps) {
   return (
-    <div className={cn('flex items-center justify-between', className)}>
-      <Heading as="h2" size="xs">
-        {title}
-      </Heading>
+    <div className={cn('mb-8 flex items-center justify-between', className)}>
+      <Drawer.Title asChild>
+        <Heading as="h2" size="xs">
+          {title}
+        </Heading>
+      </Drawer.Title>
       <Drawer.Close>
         <button>
           <TouchTarget>

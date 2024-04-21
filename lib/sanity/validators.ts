@@ -224,3 +224,15 @@ export const uspValidator = z.object({
   title: z.string(),
   image: imageValidator
 });
+
+export const faqBlockValidator = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  badge: z.string().optional(),
+  items: z.array(
+    z.object({
+      question: z.string(),
+      answer: portableTextValidator
+    })
+  )
+});

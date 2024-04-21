@@ -1,6 +1,5 @@
 import { Button } from '@/components/Button';
 import { CustomLink } from '@/components/CustomLink';
-import { Container } from '@/components/base/Container';
 
 interface Props {
   icon: React.ReactNode;
@@ -11,16 +10,16 @@ interface Props {
 
 export function EmptyState({ icon, heading, text, href }: Props) {
   return (
-    <Container>
-      <div className="flex w-full flex-col items-center justify-center bg-brand-light-grey py-10">
+    <>
+      <div className="flex w-full flex-col items-center justify-center rounded-[4px] border border-brand-light-grey bg-brand-sand py-10 lg:py-20">
         <div className="mb-2 rounded-full bg-white p-4">{icon}</div>
         <h2 className="mb-8 max-w-xs text-balance text-center text-heading-xs font-bold">
           {heading}
         </h2>
-        <Button asChild>
+        <Button asChild size="sm">
           <CustomLink href={href}>{text}</CustomLink>
         </Button>
       </div>
-    </Container>
+    </>
   );
 }

@@ -1,4 +1,7 @@
+import { TouchTarget } from '@/components/TouchTarget';
+import { Heading } from '@/components/base/Heading';
 import { cn } from '@/lib/utils';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ReactNode } from 'react';
 
@@ -50,7 +53,7 @@ export function ModalContent({
         aria-label={label}
         className={cn(
           'border-brand-border fixed left-[50%] top-[50%] z-30 w-full translate-x-[-50%] translate-y-[-50%] rounded-project  border bg-white transition-[transform,opacity] data-[state=closed]:animate-modal-hide data-[state=open]:animate-modal-show  focus:outline-none',
-          size === 'sm' && 'max-w-xl',
+          size === 'sm' && 'max-w-[420px]',
           size === 'md' && 'max-w-4xl',
           size === 'lg' && 'max-w-6xl',
           className
@@ -70,5 +73,26 @@ export function ModalTrigger({ children }: ModalTriggerProps) {
   return <Dialog.Trigger asChild>{children}</Dialog.Trigger>;
 }
 
-// Modal.Trigger = ModalTrigger;
-// Modal.Content = ModalContent;
+interface ModalHeaderProps {
+  title: string;
+  className?: string;
+}
+
+export function ModalHeader({ title, className }: ModalHeaderProps) {
+  return (
+    <div className={cn('mb-6 flex items-center justify-between', className)}>
+      <Dialog.Title asChild>
+        <Heading as="h2" size="xs">
+          {title}
+        </Heading>
+      </Dialog.Title>
+      <Dialog.Close>
+        <button>
+          <TouchTarget>
+            <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey focus:text-brand-dark-grey" />
+          </TouchTarget>
+        </button>
+      </Dialog.Close>
+    </div>
+  );
+}

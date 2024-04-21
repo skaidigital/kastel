@@ -9,6 +9,7 @@ interface Porps {
   customerId: string;
 }
 
+// TODO figure out how to lazy load this bad boy
 export default function SmileInit({ customerId }: Porps) {
   useEffect(() => {
     initializeSmileUI();

@@ -507,14 +507,7 @@ export const PAGE_BUILDER_TYPES: {
   faqSection: (lang) => groq`
     ${fragments.base},
     ...faqs->{
-    "title": title.${lang},
-    "description": description.${lang},
-    "badge": badge->title.${lang},
-    "items": items[]->{
-      "question": question.${lang},
-      "answer": answer_${lang}
-     },
-    },
+    ${fragments.getFAQBlock(lang)},
     sectionSettings{
      ${fragments.sectionSettings}
     }

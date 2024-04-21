@@ -3,7 +3,7 @@ import { ProductRating } from '@/components/lipscore/ProductScore';
 import { getLipscoreReviews } from '@/components/lipscore/hook';
 import { SmileButton } from '@/components/smile/Button';
 import { getSmilePoints } from '@/components/smile/hooks';
-import { SMILE_DEEP_LINKS } from '@/data/constants';
+import { COOKIE_NAMES, SMILE_DEEP_LINKS } from '@/data/constants';
 import { createCustomerAccessToken } from '@/lib/shopify';
 import {
   addItemToWishlist,
@@ -16,7 +16,7 @@ import { updateCustomerData } from '@/lib/shopify/metafields/updateCustomerData'
 import { cookies } from 'next/headers';
 
 export default async function Page() {
-  let accessToken = cookies().get('accessToken')?.value;
+  let accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
 
   if (!accessToken) {
     const token = await createCustomerAccessToken('petter@skaidigital.com', 'testtest');
@@ -115,10 +115,14 @@ export default async function Page() {
       <p>removeItemResponse: {removeItemResponse || 'Not ran now'}</p>
       <p>getPoints: {JSON.stringify(getPoints) || ''}</p>
       {/* <OpenSmileHome />  */}
-      <SmileButton deepLink={SMILE_DEEP_LINKS.home} label="Home" />
-      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules} label="Activity Rules" />
-      <SmileButton deepLink={SMILE_DEEP_LINKS.points_products} label="Points Product" />
-      <SmileButton deepLink={SMILE_DEEP_LINKS.referral_program_details} label="Referral" />
+      <SmileButton deepLink={SMILE_DEEP_LINKS.home}>home</SmileButton>
+      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules}>
+        Points Activity Rules
+      </SmileButton>
+      <SmileButton deepLink={SMILE_DEEP_LINKS.points_products}>Points Products</SmileButton>
+      <SmileButton deepLink={SMILE_DEEP_LINKS.referral_program_details}>
+        Referral Program Details
+      </SmileButton>
       <ProductRating sku={productSku} />
       {/* <OpenSmileHome />
       <OpenSmileActivityRules />

@@ -1,4 +1,4 @@
-import { METAFIELDS } from '@/data/constants';
+import { COOKIE_NAMES, METAFIELDS } from '@/data/constants';
 import { cookies } from 'next/headers';
 import { shopifyFetch } from '..';
 
@@ -9,7 +9,7 @@ export async function getWishlist(): Promise<string[]> {
 }
 
 export async function getWishlistForUser() {
-  const accessToken = cookies().get('accessToken')?.value;
+  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
 
   if (!accessToken) {
     throw new Error('No access token');
@@ -24,6 +24,8 @@ export async function getWishlistForUser() {
     },
     cache: 'no-store'
   });
+
+  console.log(wishlistResponse);
 
   return wishlistResponse.body.data?.customer?.metafield;
 }

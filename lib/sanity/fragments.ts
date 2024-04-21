@@ -324,3 +324,15 @@ export function getHotspotImage(lang: LangValues) {
 export const buttonSettings = groq`
   variant
 `;
+
+export function getFAQBlock(lang: LangValues) {
+  return groq`
+  "title": title.${lang},
+  "description": description.${lang},
+  "badge": badge->title.${lang},
+  "items": items[]->{
+    "question": question.${lang},
+    "answer": answer_${lang}
+  }
+  `;
+}
