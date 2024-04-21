@@ -12,7 +12,7 @@ export const searchResultValidator = z.object({
 
 export type SearchResult = z.infer<typeof searchResultValidator>;
 
-export function getSearchResultQuery(lang: LangValues, pageIndex: number = 1) {
+export function getSearchResultQuery(lang: LangValues, pageIndex: number = 1, sortKey?: string) {
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
@@ -20,20 +20,38 @@ export function getSearchResultQuery(lang: LangValues, pageIndex: number = 1) {
       {
       "products": *[_type == "product" && title.${lang} match $searchQuery]
       | score(title.${lang} match $searchQuery)
-      | order(_score desc)
       [${start}...${end}]{
         defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
-          ${fragments.getProductCard(lang)}
+          ${fragments.getProductCard(lang)},
+          _createdAt,
+          "minPrice" : minVariantPrice_no.amount,
+          "maxPrice": maxVariantPrice_no.amount
         },
         defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
         !defined($tagSlugs) => {
-          ${fragments.getProductCard(lang)}
+          ${fragments.getProductCard(lang)},
+          _createdAt,
+          "minPrice" : minVariantPrice_no.amount,
+          "maxPrice": maxVariantPrice_no.amount
         }
-      },
+      } | order(${getSortQuery(sortKey)}),
       "productCount": count(*[_type == "product" && title.${lang} match $searchQuery]),
       "hasNextPage": count(*[_type == "product" && title.${lang} match $searchQuery][${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
       }
     `;
 
   return query;
+}
+
+export function getSortQuery(sortKey: string | undefined) {
+  switch (sortKey) {
+    case 'price_lowest':
+      return 'minPrice asc';
+    case 'price_highest':
+      return 'maxPrice desc';
+    case 'newest':
+      return '_createdAt desc';
+    default:
+      return '_score desc';
+  }
 }

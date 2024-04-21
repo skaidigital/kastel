@@ -1,7 +1,8 @@
 'use client';
 
+import { Dictionary } from '@/app/dictionaries';
 import { Card } from '@/components/Card';
-import { Grid } from '@/components/base/Grid';
+import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
@@ -15,16 +16,21 @@ import {
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE } from '@/data/constants';
 import { cn } from '@/lib/utils';
+import { CollectionSettingsBar } from './filter/CollectionSettingsBar';
 
 interface Props {
   data: Collection;
   currentPage: number;
-  // market: MarketValues;
-  // lang: LangValues;
+  searchParams?: {
+    [key: string]: string | undefined;
+  };
+  dictionary: Dictionary['collection_page'];
 }
 
-export function CollectionLayout({ data, currentPage }: Props) {
-  const { products, moods, title, hasNextPage, productCount } = data;
+export function CollectionLayout({ data, currentPage, searchParams, dictionary }: Props) {
+  const { products, moods, title, hasNextPage, productCount, descriptionLong, descriptionShort } =
+    data;
+  const ProductsInView = searchParams?.view || '4';
 
   const collection = adjustProductsWithMoods({
     products,
@@ -37,17 +43,28 @@ export function CollectionLayout({ data, currentPage }: Props) {
   return (
     <>
       <Section size="sm" label="collection-hero" srHeading="Collection hero">
-        <div className="relative flex items-center justify-center">
-          <Heading as="h1" size="lg">
-            {title}
-            <Text size="lg" className="ml-1">
-              ({productCount})
-            </Text>
-          </Heading>
-        </div>
+        <Container className="flex justify-between">
+          {title && (
+            <Heading as="h1" size="xl" className="font-bold">
+              {title}
+            </Heading>
+          )}
+          {descriptionShort && (
+            <div className="max-w-80">
+              <Text as={'p'} size="md">
+                {descriptionShort}
+              </Text>
+            </div>
+          )}
+        </Container>
       </Section>
+      <CollectionSettingsBar
+        searchParams={searchParams}
+        numberOfProducts={productCount}
+        dictionary={dictionary}
+      />
       <Section label="collection-products" srHeading="Products" noTopPadding>
-        <Grid>
+        <CollectionGrid number={ProductsInView}>
           {collection?.map((item, index) => {
             if ('card' in item) {
               const size = item.size;
@@ -83,7 +100,7 @@ export function CollectionLayout({ data, currentPage }: Props) {
               />
             );
           })}
-        </Grid>
+        </CollectionGrid>
         <div className="mt-20 flex flex-col items-center justify-center space-y-8">
           <div className="flex gap-x-5">
             <PaginationButton type="previous">Forrige side</PaginationButton>
@@ -91,6 +108,20 @@ export function CollectionLayout({ data, currentPage }: Props) {
           </div>
           <PageCounter pageCount={pageCount} />
         </div>
+      </Section>
+      <Section label="description-long-products" srHeading="Description">
+        <Container className="grid gap-2 lg:grid-cols-12">
+          <div className="lg:col-span-6 lg:col-start-2">
+            <Heading as="h3" className="">
+              Description:
+            </Heading>
+            {descriptionLong && (
+              <Text as="p" size="md">
+                {descriptionLong}
+              </Text>
+            )}
+          </div>
+        </Container>
       </Section>
     </>
   );
@@ -146,4 +177,18 @@ export function adjustProductsWithMoods({
 
   // Trim the array if it's longer than the original products plus inserted moods
   return result.slice(0, products.length + Math.min(3, moods.length - baseIndex));
+}
+
+export function CollectionGrid({
+  number,
+  children
+}: {
+  number: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={cn(number === '3' ? 'grid lg:grid-cols-3' : 'grid lg:grid-cols-4')}>
+      {children}
+    </div>
+  );
 }

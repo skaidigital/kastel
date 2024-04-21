@@ -25,6 +25,9 @@ export interface Dictionary {
       error_description: string;
     };
   };
+  collection_page: {
+    number_of_products: string;
+  };
   product_page: {
     discount: string;
     add_to_cart: string;
