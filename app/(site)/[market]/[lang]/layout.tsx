@@ -15,7 +15,6 @@ import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
 import { PopupHandler } from '@/components/global/PopupHandler';
-import SmileInit from '@/components/smile/SmileInit';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -88,7 +87,7 @@ export default function IndexRoute({
             </Suspense>
             <ShopifyAnalytics hasConsent />
             {draftMode().isEnabled && <PreviewMarketSelector />}
-            <SmileInit customerId="7292377628922" />
+            {/* <SmileInit customerId="7292377628922" /> */}
           </Providers>
         </div>
       </body>
