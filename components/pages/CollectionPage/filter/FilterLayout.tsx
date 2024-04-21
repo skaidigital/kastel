@@ -29,15 +29,7 @@ export function FilterLayout({ filterGroupKeys, children }: FilterLayoutProps) {
     }
   }, [urlStates, debouncedRefresh, prevStates]);
 
-  return (
-    <div className="max-w-[350px] p-6">
-      <div className="flex justify-between border-b-[1px] border-stone-200">
-        <h3>Filter</h3>
-        <span>x</span>
-      </div>
-      <div className="mt-4 space-y-3">{children}</div>
-    </div>
-  );
+  return <>{children}</>;
 }
 
 function debounce<T extends (...args: any[]) => any>(

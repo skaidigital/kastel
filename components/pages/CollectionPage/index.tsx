@@ -1,7 +1,6 @@
 import { getDictionary } from '@/app/dictionaries';
 import { CollectionLayout } from '@/components/pages/CollectionPage/CollectionLayout';
 import { Collection } from '@/components/pages/CollectionPage/hooks';
-import { Filter } from './filter';
 
 export interface PageProps {
   data: Collection;
@@ -15,7 +14,6 @@ export async function CollectionPage({ data, currentPage, searchParams }: PagePr
   const { collection_page } = await getDictionary();
   return (
     <>
-      <Filter />
       <CollectionLayout
         data={data}
         currentPage={currentPage}

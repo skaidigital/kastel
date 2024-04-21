@@ -1,4 +1,5 @@
 'use client';
+import { Text } from '@/components/base/Text';
 import { cn } from '@/lib/utils';
 import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
 import { FilterItemSchema } from './hooks';
@@ -33,16 +34,20 @@ export function SizeFilter({ filter, parentKey }: SizeFilterProps) {
 
   return (
     <>
-      <div
+      <Text
+        size="sm"
         className={cn(
-          'border-[2px] bg-gray-100 p-1 text-brand-mid-grey',
-          state?.includes(filter.slug!) && 'bg-brand-primary text-white'
+          'rounded-[2px] border py-4',
+          state?.includes(filter.slug!)
+            ? 'bg-brand-primary text-white'
+            : 'border-brand-light-grey bg-brand-sand'
         )}
+        asChild
       >
         <button className="w-full text-center" onClick={() => handleOnClick()}>
           {filter.title}
         </button>
-      </div>
+      </Text>
     </>
   );
 }

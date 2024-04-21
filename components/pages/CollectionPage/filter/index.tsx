@@ -5,10 +5,9 @@ import { getMarket } from '@/lib/getMarket';
 import { loadQuery } from '@/lib/sanity/store';
 import { FilterGroupItem } from './FilterGroupItem';
 import { FilterLayout } from './FilterLayout';
-import { FilterGroupsValidator, getFilterQuery } from './hooks';
+import { filterGroupsValidator, getFilterQuery } from './hooks';
 
 // todo: find a filter tag that revalidates easily
-
 function loadFilter(market: MarketValues) {
   const query = getFilterQuery(market);
 
@@ -20,7 +19,7 @@ export async function Filter() {
   const initial = await loadFilter(market);
 
   const filterGroupResponse = initial?.data?.items;
-  const filterGroup = FilterGroupsValidator.parse(filterGroupResponse);
+  const filterGroup = filterGroupsValidator.parse(filterGroupResponse);
 
   const filterGroupKeys = filterGroup.map((item) => item.slug);
 

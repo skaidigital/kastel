@@ -261,3 +261,22 @@ export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
   { title: '9:16', value: '9:16' },
   { title: '3:4', value: '3:4' }
 ];
+
+export const SORT_OPTIONS = [
+  {
+    label: 'Recommended',
+    value: 'recommended'
+  },
+  {
+    label: 'Price (Low)',
+    value: 'price_lowest'
+  },
+  {
+    label: 'Price (High)',
+    value: 'price_highest'
+  },
+  {
+    label: 'Newest',
+    value: 'newest'
+  }
+];

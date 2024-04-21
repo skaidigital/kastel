@@ -1,6 +1,6 @@
 'use client';
 
-import { buttonProps } from '@/components/Button';
+import { Button } from '@/components/Button';
 import { cn, createPageURL } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -27,8 +27,10 @@ export function PaginationButton({ children, type, className }: Props) {
   });
 
   return (
-    <Link href={href} className={cn('', buttonProps({ variant: 'secondary' }), className)}>
-      {children}
-    </Link>
+    <Button asChild variant={type === 'previous' ? 'outline' : 'primary'} size="sm">
+      <Link href={href} className={cn(className)}>
+        {children}
+      </Link>
+    </Button>
   );
 }

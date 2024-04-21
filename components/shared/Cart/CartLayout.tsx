@@ -6,7 +6,7 @@ import { Text } from '@/components/base/Text';
 import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCountdown';
 
 import { Button } from '@/components/Button';
-import { Drawer } from '@/components/Drawer';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import { CartItem } from '@/components/shared/Cart/CartItem';
 import { EmptyState } from '@/components/shared/Cart/EmptyState';
@@ -55,7 +55,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
   if (isDesktop) {
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
-        <Drawer.Trigger
+        <DrawerTrigger
           className="relative flex h-11 w-11 items-center justify-center rounded-project text-brand-dark-grey transition-colors hover:bg-brand-light-grey"
           asChild
         >
@@ -67,14 +67,14 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
               </div>
             ) : null}
           </button>
-        </Drawer.Trigger>
-        <Drawer.Content className="flex max-h-dvh w-full flex-col lg:h-screen">
+        </DrawerTrigger>
+        <DrawerContent className="flex max-h-dvh w-full flex-col lg:h-screen">
           {hasCartItems && (
             <div className="flex flex-1 flex-col justify-between">
               <div className="flex grow flex-col">
-                <Drawer.Header>
+                <DrawerHeader>
                   {dictionary.cart} ({cart.totalQuantity})
-                </Drawer.Header>
+                </DrawerHeader>
                 {freeShippingAmount && currencyCode && (
                   <FreeShippingCountdown
                     freeShippingAmount={freeShippingAmount}
@@ -136,7 +136,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
               startShoppingText={dictionary.start_shopping}
             />
           )}
-        </Drawer.Content>
+        </DrawerContent>
       </Drawer>
     );
   }

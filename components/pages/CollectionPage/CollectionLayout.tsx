@@ -1,11 +1,10 @@
-'use client';
-
 import { Dictionary } from '@/app/dictionaries';
 import { Card } from '@/components/Card';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
+import { CollectionActionsBarMobile } from '@/components/pages/CollectionPage/CollectionActionsBarMobile';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import {
@@ -16,7 +15,7 @@ import {
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE } from '@/data/constants';
 import { cn } from '@/lib/utils';
-import { CollectionSettingsBar } from './filter/CollectionSettingsBar';
+import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 
 interface Props {
   data: Collection;
@@ -30,7 +29,7 @@ interface Props {
 export function CollectionLayout({ data, currentPage, searchParams, dictionary }: Props) {
   const { products, moods, title, hasNextPage, productCount, descriptionLong, descriptionShort } =
     data;
-  const ProductsInView = searchParams?.view || '4';
+  const productsPerRow = searchParams?.view || '4';
 
   const collection = adjustProductsWithMoods({
     products,
@@ -42,15 +41,22 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary }
 
   return (
     <>
-      <Section size="sm" label="collection-hero" srHeading="Collection hero">
+      <CollectionActionsBarMobile className="lg:hidden" />
+      <Section
+        size="sm"
+        label="collection-hero"
+        srHeading="Collection hero"
+        hasBottomBorder={false}
+        className="lg:pt-10"
+      >
         <Container className="flex justify-between">
           {title && (
-            <Heading as="h1" size="xl" className="font-bold">
+            <Heading as="h1" size="xl" className="max-w-lg font-bold">
               {title}
             </Heading>
           )}
           {descriptionShort && (
-            <div className="max-w-80">
+            <div className="max-w-sm">
               <Text as={'p'} size="md">
                 {descriptionShort}
               </Text>
@@ -58,13 +64,14 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary }
           )}
         </Container>
       </Section>
-      <CollectionSettingsBar
+      <CollectionSettingsBarDesktop
         searchParams={searchParams}
         numberOfProducts={productCount}
         dictionary={dictionary}
+        className="hidden lg:block"
       />
       <Section label="collection-products" srHeading="Products" noTopPadding>
-        <CollectionGrid number={ProductsInView}>
+        <CollectionGrid number={productsPerRow}>
           {collection?.map((item, index) => {
             if ('card' in item) {
               const size = item.size;
@@ -102,7 +109,7 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary }
           })}
         </CollectionGrid>
         <div className="mt-20 flex flex-col items-center justify-center space-y-8">
-          <div className="flex gap-x-5">
+          <div className="flex gap-x-2">
             <PaginationButton type="previous">Forrige side</PaginationButton>
             {hasNextPage && <PaginationButton type="next">Neste side</PaginationButton>}
           </div>
@@ -112,11 +119,11 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary }
       <Section label="description-long-products" srHeading="Description">
         <Container className="grid gap-2 lg:grid-cols-12">
           <div className="lg:col-span-6 lg:col-start-2">
-            <Heading as="h3" className="">
+            <h2 className="mb-4 text-overline-md font-medium uppercase text-brand-mid-grey">
               Description:
-            </Heading>
+            </h2>
             {descriptionLong && (
-              <Text as="p" size="md">
+              <Text as="p" className="text-md lg:text-lg">
                 {descriptionLong}
               </Text>
             )}

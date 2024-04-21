@@ -1,5 +1,11 @@
 import { Button } from '@/components/Button';
-import { Drawer } from '@/components/Drawer';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTrigger
+} from '@/components/Drawer';
 import { Combination } from '@/components/VariantSelector';
 import { SizeOptionButton } from '@/components/VariantSelector/SizeOptionButton';
 import { Text } from '@/components/base/Text';
@@ -90,15 +96,15 @@ export function SizeSelector({
           );
         })}
         <Drawer>
-          <Drawer.Trigger>
+          <DrawerTrigger>
             <button>
               <Text size="sm" className="text-left">
                 {showAllSizesText}
               </Text>
             </button>
-          </Drawer.Trigger>
-          <Drawer.Content>
-            <Drawer.Header>{selectedSize ? selectedSize : chooseSizeText}</Drawer.Header>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>{selectedSize ? selectedSize : chooseSizeText}</DrawerHeader>
             <div className="flex flex-1 flex-col gap-y-3 p-5">
               {option.values.map((value) => {
                 const optionNameLowerCase = option.name.toLowerCase();
@@ -137,10 +143,10 @@ export function SizeSelector({
                 );
               })}
             </div>
-            <Drawer.Close>
+            <DrawerClose>
               <Button>{closeText}</Button>
-            </Drawer.Close>
-          </Drawer.Content>
+            </DrawerClose>
+          </DrawerContent>
         </Drawer>
       </dd>
     </dl>
