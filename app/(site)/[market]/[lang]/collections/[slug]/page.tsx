@@ -97,7 +97,6 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   const currentPage = Number(searchParams?.page) || 1;
 
   const initialBase = await loadCollectionBase({ slug, market, lang });
-  console.log('initialBase', initialBase);
 
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
   const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
