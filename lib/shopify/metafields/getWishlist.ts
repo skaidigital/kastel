@@ -1,6 +1,6 @@
 import { COOKIE_NAMES, METAFIELDS } from '@/data/constants';
+import { customerAccountFetch } from '@/lib/shopify/customer';
 import { cookies } from 'next/headers';
-import { shopifyFetch } from '..';
 
 export async function getWishlist(): Promise<string[]> {
   const wishlistResponse = await getWishlistForUser();
@@ -15,7 +15,8 @@ export async function getWishlistForUser() {
     throw new Error('No access token');
   }
 
-  const wishlistResponse = await shopifyFetch<CustomerMetadata>({
+  // const wishlistResponse = await shopifyFetch<CustomerMetadata>({
+  const wishlistResponse = await customerAccountFetch<CustomerMetadata>({
     query: getWishlistQuery,
     variables: {
       token: accessToken,
