@@ -15,11 +15,11 @@ import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
 import { PopupHandler } from '@/components/global/PopupHandler';
-import SmileInit from '@/components/smile/SmileInit';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import Script from 'next/script';
 import '../../../../styles/globals.css';
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
@@ -39,9 +39,22 @@ export default function IndexRoute({
     <html lang="en">
       <GoogleTagManager gtmId={env.GTM_ID} />
       <head>
+        <script
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          data-cbid="4a61496c-631f-41e9-bf0e-88ecf2de8ad3"
+          type="text/javascript"
+          async
+        ></script>
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
+        <Script
+          id="CookieDeclaration"
+          src="https://consent.cookiebot.com/4a61496c-631f-41e9-bf0e-88ecf2de8ad3/cd.js"
+          type="text/javascript"
+          strategy="afterInteractive"
+        />
         <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
           <Providers>
             <div>
@@ -88,7 +101,7 @@ export default function IndexRoute({
             </Suspense>
             <ShopifyAnalytics hasConsent />
             {draftMode().isEnabled && <PreviewMarketSelector />}
-            <SmileInit customerId="7292377628922" />
+            {/* <SmileInit customerId="7292377628922" /> */}
           </Providers>
         </div>
       </body>

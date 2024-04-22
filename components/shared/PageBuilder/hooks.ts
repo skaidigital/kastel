@@ -712,6 +712,7 @@ export const PAGE_BUILDER_TYPES: {
     hasTopPadding,
     hasBottomPadding,
     hasBottomBorder
+  }
    `,
   productListing: (market) => `
    ${fragments.base},

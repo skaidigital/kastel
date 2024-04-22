@@ -13,7 +13,9 @@ export function ActiveFilterGroupItem({ parentKey }: Props) {
 
   function handleRemoveFilter(value: string) {
     if (!state) return;
-    setState(state.filter((filter) => filter !== value));
+    const newFilterState = state.filter((filter) => filter !== value);
+
+    setState(newFilterState.length ? newFilterState : null);
   }
 
   return (
