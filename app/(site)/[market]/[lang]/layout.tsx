@@ -19,6 +19,7 @@ import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import Script from 'next/script';
 import '../../../../styles/globals.css';
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL

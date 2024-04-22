@@ -79,12 +79,16 @@ export default async function Page({ searchParams, params }: Props) {
 
   const validProducts = searchResultWithoutNullValues.products.filter((product: any) => {
     const valided = productCardValidator.safeParse(product);
+
     if (valided.success) {
+      console.log(valided.data);
+
       return valided.data;
     }
   });
+
   const validatedSearchResult = searchResultValidator.parse({
-    products: validProducts,
+    products: validProducts.length > 0 ? validProducts : undefined,
     productCount: validProducts.length,
     hasNextPage: searchResultWithoutNullValues.hasNextPage
   });
