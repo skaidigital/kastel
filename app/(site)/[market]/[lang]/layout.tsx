@@ -19,6 +19,7 @@ import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import Script from 'next/script';
 import '../../../../styles/globals.css';
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
@@ -36,6 +37,12 @@ export default function IndexRoute({
 
   return (
     <html lang="en">
+      <Script
+        id="CookieDeclaration"
+        src="https://consent.cookiebot.com/4a61496c-631f-41e9-bf0e-88ecf2de8ad3/cd.js"
+        type="text/javascript"
+        strategy="afterInteractive"
+      />
       <GoogleTagManager gtmId={env.GTM_ID} />
       <head>
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
