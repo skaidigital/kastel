@@ -56,8 +56,15 @@ function loadCollectionProductsOrder(
     query,
     { slug, tagSlugs },
     {
-      next: { tags: [] },
-      cache: 'no-store'
+      next: {
+        tags: [
+          `collection:${slug}`,
+          `lang:${lang}`,
+          `pageIndex:${pageIndex}`,
+          `tagSlugs:${tagSlugs?.join()}`,
+          sortKey || 'default'
+        ]
+      }
     }
   );
 }
