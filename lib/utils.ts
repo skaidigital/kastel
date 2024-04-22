@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { MarketValues } from '@/data/constants';
+import { MarketValues, SITE_URLS } from '@/data/constants';
 import clsx, { ClassValue } from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
@@ -54,5 +54,16 @@ export function getMarketFlag(market: MarketValues) {
       return '🇸🇪';
     default:
       throw new Error(`Unknown market: ${market}`);
+  }
+}
+
+export function getMarketAndLang(country: string) {
+  switch (country) {
+    case 'NO':
+      return SITE_URLS.no;
+    case 'SV':
+      return SITE_URLS.sv;
+    default:
+      return SITE_URLS.no;
   }
 }
