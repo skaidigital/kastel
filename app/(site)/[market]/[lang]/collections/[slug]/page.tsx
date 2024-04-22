@@ -59,10 +59,7 @@ function loadCollectionProductsOrder(
       next: {
         tags: [
           `collection:${slug}`,
-          `lang:${lang}`,
-          `pageIndex:${pageIndex}`,
-          `tagSlugs:${tagSlugs?.join()}`,
-          sortKey || 'default'
+          `lang:${lang}+pageIndex:${pageIndex}+tagSlugs:${tagSlugs?.join()}+sortKey:${sortKey || 'default'}`
         ]
       }
     }
