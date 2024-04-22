@@ -1,6 +1,7 @@
 import { METAFIELDS } from '@/data/constants';
 import { customerAccountFetch } from '../customer';
 
+
 export async function getWishlist(): Promise<string[]> {
   const wishlistResponse = await getWishlistForUser();
 
