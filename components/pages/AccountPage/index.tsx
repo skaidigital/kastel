@@ -14,7 +14,7 @@ import { Suspense } from 'react';
 
 interface Props {}
 
-export function AccountPage({}: Props) {
+export async function AccountPage({}: Props) {
   return (
     <div className="flex flex-col lg:col-span-8 lg:grid">
       <div className="grid gap-6 lg:hidden">
