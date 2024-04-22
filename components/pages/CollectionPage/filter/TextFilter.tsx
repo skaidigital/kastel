@@ -36,7 +36,7 @@ export function TextFilter({ filter, parentKey }: TextFilterProps) {
   return (
     <button
       className={cn(
-        'flex items-center justify-center rounded-[2px] border px-3 py-2 font-medium',
+        'flex items-center justify-center rounded-[2px] border px-3 py-2 text-xs font-medium lg:text-sm',
         isActive
           ? 'border-brand-primary bg-brand-primary text-white'
           : 'border-brand-light-grey bg-brand-sand text-brand-mid-grey'

@@ -37,7 +37,7 @@ export function SizeFilter({ filter, parentKey }: SizeFilterProps) {
       <Text
         size="sm"
         className={cn(
-          'rounded-[2px] border py-4',
+          'rounded-[2px] border py-3 lg:py-4',
           state?.includes(filter.slug!)
             ? 'bg-brand-primary text-white'
             : 'border-brand-light-grey bg-brand-sand'

@@ -135,7 +135,14 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     notFound();
   }
 
-  return <CollectionPage data={mergedData} currentPage={currentPage} searchParams={searchParams} />;
+  return (
+    <CollectionPage
+      data={mergedData}
+      currentPage={currentPage}
+      searchParams={searchParams}
+      lang={lang}
+    />
+  );
 }
 
 export async function generateMetadata({

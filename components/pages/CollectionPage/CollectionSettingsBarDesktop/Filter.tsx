@@ -12,20 +12,23 @@ import {
   filterGroupsValidator,
   getFilterQuery
 } from '@/components/pages/CollectionPage/filter/hooks';
-import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { LangValues } from '@/data/constants';
 import { loadQuery } from '@/lib/sanity/store';
 import { PlusIcon } from '@radix-ui/react-icons';
 
-function loadFilter(market: MarketValues) {
-  const query = getFilterQuery(market);
+// TODO move into a separate file since it's used in multiple places
+export function loadFilter(lang: LangValues) {
+  const query = getFilterQuery(lang);
 
   return loadQuery<any>(query, {}, { next: { tags: ['filters'] } });
 }
 
-export async function Filter() {
-  const market = await getMarket();
-  const initial = await loadFilter(market);
+interface Props {
+  lang: LangValues;
+}
+
+export async function Filter({ lang }: Props) {
+  const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;
   const filterGroup = filterGroupsValidator.parse(filterGroupResponse);

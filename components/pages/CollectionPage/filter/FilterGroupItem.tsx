@@ -41,14 +41,14 @@ export async function FilterGroupItem({ item: filterGroup }: FilterItemProps) {
         </div>
       )}
       {filterGroup.type === 'color' && (
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-4 gap-x-2 gap-y-3 lg:grid-cols-5 lg:gap-4">
           {filterGroups.map((filter: FilterItemSchema) => (
             <ColorFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
           ))}
         </div>
       )}
       {filterGroup.type === 'size' && (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-1 lg:gap-4">
           {filterGroups.map((filter: FilterItemSchema) => (
             <SizeFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
           ))}

@@ -13,7 +13,7 @@ import {
   CollectionProductPayload
 } from '@/components/pages/CollectionPage/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 
@@ -24,9 +24,10 @@ interface Props {
     [key: string]: string | undefined;
   };
   dictionary: Dictionary['collection_page'];
+  lang: LangValues;
 }
 
-export function CollectionLayout({ data, currentPage, searchParams, dictionary }: Props) {
+export function CollectionLayout({ data, currentPage, searchParams, dictionary, lang }: Props) {
   const { products, moods, title, hasNextPage, productCount, descriptionLong, descriptionShort } =
     data;
   const productsPerRow = searchParams?.view || '4';
@@ -41,7 +42,7 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary }
 
   return (
     <>
-      <CollectionActionsBarMobile className="lg:hidden" />
+      <CollectionActionsBarMobile lang={lang} className="lg:hidden" />
       <Section
         size="sm"
         label="collection-hero"
@@ -49,7 +50,7 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary }
         hasBottomBorder={false}
         className="lg:pt-10"
       >
-        <Container className="flex justify-between">
+        <Container className="flex flex-col justify-between gap-y-3 lg:flex-row lg:gap-y-0">
           {title && (
             <Heading as="h1" size="xl" className="max-w-lg font-bold">
               {title}
@@ -68,6 +69,7 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary }
         searchParams={searchParams}
         numberOfProducts={productCount}
         dictionary={dictionary}
+        lang={lang}
         className="hidden lg:block"
       />
       <Section label="collection-products" srHeading="Products" noTopPadding>
@@ -194,7 +196,14 @@ export function CollectionGrid({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn(number === '3' ? 'grid lg:grid-cols-3' : 'grid lg:grid-cols-4')}>
+    <div
+      className={cn(
+        number === '1' && 'grid grid-cols-1 lg:grid-cols-4',
+        number === '2' && 'grid grid-cols-2 lg:grid-cols-4',
+        number === '3' && 'grid grid-cols-2 lg:grid-cols-3',
+        number === '4' && 'grid grid-cols-2 lg:grid-cols-4'
+      )}
+    >
       {children}
     </div>
   );

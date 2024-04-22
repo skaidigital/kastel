@@ -2,6 +2,7 @@
 
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
 import { Text } from '@/components/base/Text';
+import { LangValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { parseAsInteger, useQueryState } from 'nuqs';
@@ -11,7 +12,11 @@ const VIEW_OPTIONS = [
   { label: '2', value: '2' }
 ];
 
-export function Settings() {
+interface Props {
+  lang: LangValues;
+}
+
+export function Settings({ lang }: Props) {
   const router = useRouter();
 
   const [activeViewNumber, setActiveViewNumber] = useQueryState('view', parseAsInteger);
@@ -22,17 +27,20 @@ export function Settings() {
 
   const viewValue = activeViewNumber || VIEW_OPTIONS[0]?.value;
 
+  const settingsString = getSettingsString(lang);
+  const viewString = getViewString(lang);
+
   return (
     <Sheet>
       <Text size="sm" asChild className="font-medium">
         <SheetTrigger className="flex flex-1 items-center justify-center bg-white py-4">
-          Settings
+          {settingsString}
         </SheetTrigger>
       </Text>
       <SheetContent>
-        <SheetHeader title="Settings" />
+        <SheetHeader title={settingsString} />
         <div className="flex flex-col gap-y-3">
-          <h3 className="text-sm font-medium">View</h3>
+          <h3 className="text-sm font-medium">{viewString}</h3>
           <div className="flex gap-x-1">
             {VIEW_OPTIONS.map((option) => {
               const isActive = Number(option.value) === viewValue;
@@ -68,4 +76,26 @@ export function Settings() {
       </SheetContent>
     </Sheet>
   );
+}
+
+function getSettingsString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Settings';
+    case 'no':
+      return 'Innstillinger';
+    default:
+      return 'Settings';
+  }
+}
+
+function getViewString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'View';
+    case 'no':
+      return 'Vis';
+    default:
+      return 'View';
+  }
 }

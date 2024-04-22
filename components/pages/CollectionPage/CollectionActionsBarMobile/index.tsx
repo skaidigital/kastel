@@ -1,13 +1,15 @@
 import { Filter } from '@/components/pages/CollectionPage/CollectionActionsBarMobile/Filter';
 import { Settings } from '@/components/pages/CollectionPage/CollectionActionsBarMobile/Settings';
 import { Sort } from '@/components/pages/CollectionPage/CollectionActionsBarMobile/Sort';
+import { LangValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 
 interface Props {
+  lang: LangValues;
   className?: string;
 }
 
-export function CollectionActionsBarMobile({ className }: Props) {
+export function CollectionActionsBarMobile({ lang, className }: Props) {
   return (
     <div
       className={cn(
@@ -15,9 +17,9 @@ export function CollectionActionsBarMobile({ className }: Props) {
         className
       )}
     >
-      <Filter />
-      <Sort />
-      <Settings />
+      <Filter lang={lang} />
+      <Sort lang={lang} />
+      <Settings lang={lang} />
     </div>
   );
 }

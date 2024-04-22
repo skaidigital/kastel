@@ -1,14 +1,15 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
-export function getFilterQuery(market: MarketValues) {
+// TODO redo to to use lang and not market
+export function getFilterQuery(lang: LangValues) {
   const query = groq`
     *[_type == "filters"][0] {
         "items": items[]->{
             "id": _id,
-            "title": title.${market},
-            "slug": slug_${market}.current,
+            "title": title.${lang},
+            "slug": slug_${lang}.current,
             type,
         }
     }
