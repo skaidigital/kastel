@@ -5,16 +5,22 @@ import { Badge } from '@/components/Badge';
 import { Text } from '@/components/base/Text';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
-import { Money } from '@/lib/shopify/types';
 
 interface Props {
   productType: Product['type'];
   variants: ProductVariant[];
   currencyCode: string;
-  priceRange: Product['priceRange'];
+  minVariantPrice: Product['minVariantPrice'];
+  maxVariantPrice: Product['maxVariantPrice'];
 }
 
-export function ProductPrice({ currencyCode, productType, variants, priceRange }: Props) {
+export function ProductPrice({
+  currencyCode,
+  productType,
+  variants,
+  minVariantPrice,
+  maxVariantPrice
+}: Props) {
   const activeVariant = useActiveVariant({
     productType,
     variants
@@ -22,8 +28,6 @@ export function ProductPrice({ currencyCode, productType, variants, priceRange }
 
   const price = activeVariant?.price;
   const discountedPrice = activeVariant?.discountedPrice;
-  const minVariantPrice = priceRange.minVariantPrice as Money;
-  const maxVariantPrice = priceRange.maxVariantPrice as Money;
   const isOnSale = discountedPrice && price && price > discountedPrice;
   const discountPercentage = isOnSale ? Math.round(((price - discountedPrice) / price) * 100) : 0;
 

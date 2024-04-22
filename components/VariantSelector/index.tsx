@@ -56,7 +56,6 @@ export function VariantSelector({
           key={option.name}
           option={option}
           options={options}
-          featuredOptions={featuredOptions}
           combinations={combinations}
           showAllSizesText={dictionary.show_all_sizes}
           chooseSizeText={dictionary.choose_size}
