@@ -27,7 +27,6 @@ interface Props {
 export async function PopupHandler({ lang }: Props) {
   const cookiesStore = cookies();
   const hasChosenMarket = cookiesStore.get(COOKIE_NAMES.HAS_CHOSEN_MARKET)?.value;
-  const hasAccepted = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT);
   const requestCountry = cookiesStore.get(COOKIE_NAMES.REQUEST_COUNTRY)?.value;
   const reccommendedMarket = cookiesStore.get(COOKIE_NAMES.RECCOMMENDED_MARKET)?.value;
   const hasSeenCookieConsent = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT);
@@ -40,15 +39,6 @@ export async function PopupHandler({ lang }: Props) {
       </Suspense>
     );
   }
-
-  if (!hasAccepted) {
-    return (
-      <Suspense>
-        <CookieConsent lang={lang} />
-      </Suspense>
-    );
-  }
-
   if (!hasSeenCookieConsent || !hasSeenPopupInLastDay) {
     return (
       <Suspense>
