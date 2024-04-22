@@ -15,7 +15,9 @@
     }
   },
   "collection_page": {
-    "number_of_products": "produkter"
+    "number_of_products": "produkter",
+    "no_products": "Vi fant ingen produkter med de valgte filtrene",
+    "description": "Beskrivelse"
   },
   "product_page": {
     "discount": "Rabatt",

@@ -1,5 +1,5 @@
-import { cardValidator } from '@/components/shared/PageBuilder/hooks';
-import { COLLECTION_PAGE_SIZE, LangValues } from '@/data/constants';
+import { cardValidator, pageBuilderValidator } from '@/components/shared/PageBuilder/hooks';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -16,11 +16,13 @@ const collectionMoodValidator = z.object({
 });
 
 export const collectionBaseValidator = z.object({
+  id: z.string(),
   title: z.string(),
   productIds: z.array(z.string()),
   moods: z.array(collectionMoodValidator).optional(),
   descriptionShort: z.string().optional(),
-  descriptionLong: z.string().optional()
+  descriptionLong: z.string().optional(),
+  pageBuilder: pageBuilderValidator.optional()
 });
 
 export const collectionProductsValidator = z.object({
@@ -29,10 +31,12 @@ export const collectionProductsValidator = z.object({
 });
 
 export const collectionValidator = z.object({
+  id: z.string(),
   title: z.string(),
   products: z.array(collectionProductValidator),
   descriptionShort: z.string().optional(),
   descriptionLong: z.string().optional(),
+  pageBuilder: pageBuilderValidator.optional(),
   productCount: z.number(),
   hasNextPage: z.boolean(),
   moods: z.array(collectionMoodValidator).optional()
@@ -44,9 +48,16 @@ export type CollectionProductPayload = z.infer<typeof collectionProductValidator
 export type CollectionProductsPayload = z.infer<typeof collectionProductsValidator>;
 export type Collection = z.infer<typeof collectionValidator>;
 
-export function getCollectionBaseQuery(lang: LangValues) {
+export function getCollectionBaseQuery({
+  market,
+  lang
+}: {
+  market: MarketValues;
+  lang: LangValues;
+}) {
   const query = groq`
     *[_type == "collection" && slug_${lang}.current == $slug][0]{
+      "id": _id,
       "title": title.${lang},
       "productIds": products[].product._ref,
       "descriptionShort": descriptionShort.${lang},
@@ -55,13 +66,17 @@ export function getCollectionBaseQuery(lang: LangValues) {
         card->{
           ${fragments.getCard(lang)}
         },
-        size,
+        size
       },
     }
   `;
 
   return query;
 }
+
+// pageBuilder[]{
+//   ${concatenatePageBuilderQueries({ market, lang })}
+// }
 
 export function getProductIdsByOrder(market: LangValues, sortKey: string | undefined) {
   const query = groq`
@@ -147,10 +162,12 @@ export function mergeCollectionBaseAndProducts(
   products: CollectionProductsPayload
 ): Collection {
   return {
+    id: collection.id,
     title: collection.title,
     moods: collection.moods,
     descriptionShort: collection.descriptionShort,
     descriptionLong: collection.descriptionLong,
+    pageBuilder: collection.pageBuilder,
     products: products.products,
     productCount: products.products.length || 0,
     hasNextPage: products.hasNextPage

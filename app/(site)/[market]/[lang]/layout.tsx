@@ -33,28 +33,26 @@ export default function IndexRoute({
   children: ReactNode;
   params: { market: MarketValues; lang: LangValues };
 }) {
+  const isInProduction = env.NODE_ENV === 'production';
+
   // const hasConsent = cookies().get(COOKIE_NAMES.COOKIE_CONSENT)?.value === 'true';
 
   return (
     <html lang="en">
       <GoogleTagManager gtmId={env.GTM_ID} />
       <head>
-        <script
-          id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
-          data-cbid="4a61496c-631f-41e9-bf0e-88ecf2de8ad3"
-          type="text/javascript"
-          async
-        ></script>
+        {isInProduction && (
+          <Script
+            strategy="afterInteractive"
+            id="Cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid="4a61496c-631f-41e9-bf0e-88ecf2de8ad3"
+            type="text/javascript"
+          />
+        )}
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
-        <Script
-          id="CookieDeclaration"
-          src="https://consent.cookiebot.com/4a61496c-631f-41e9-bf0e-88ecf2de8ad3/cd.js"
-          type="text/javascript"
-          strategy="afterInteractive"
-        />
         <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
           <Providers>
             <div>

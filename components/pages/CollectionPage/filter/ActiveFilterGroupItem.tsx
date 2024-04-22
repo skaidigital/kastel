@@ -2,6 +2,7 @@
 
 import { Text } from '@/components/base/Text';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
 import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
 
 interface Props {
@@ -10,12 +11,13 @@ interface Props {
 
 export function ActiveFilterGroupItem({ parentKey }: Props) {
   const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString));
+  const router = useRouter();
 
   function handleRemoveFilter(value: string) {
     if (!state) return;
     const newFilterState = state.filter((filter) => filter !== value);
 
-    setState(newFilterState.length ? newFilterState : null);
+    setState(newFilterState.length ? newFilterState : null).then(() => router.refresh());
   }
 
   return (

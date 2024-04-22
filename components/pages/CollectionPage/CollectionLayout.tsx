@@ -7,13 +7,15 @@ import { Text } from '@/components/base/Text';
 import { CollectionActionsBarMobile } from '@/components/pages/CollectionPage/CollectionActionsBarMobile';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
+import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
 import {
   Collection,
   CollectionMood,
   CollectionProductPayload
 } from '@/components/pages/CollectionPage/hooks';
+import { PageBuilder } from '@/components/shared/PageBuilder';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE, LangValues } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 
@@ -24,12 +26,29 @@ interface Props {
     [key: string]: string | undefined;
   };
   dictionary: Dictionary['collection_page'];
+  market: MarketValues;
   lang: LangValues;
 }
 
-export function CollectionLayout({ data, currentPage, searchParams, dictionary, lang }: Props) {
-  const { products, moods, title, hasNextPage, productCount, descriptionLong, descriptionShort } =
-    data;
+export function CollectionLayout({
+  data,
+  currentPage,
+  searchParams,
+  dictionary,
+  market,
+  lang
+}: Props) {
+  const {
+    id,
+    products,
+    moods,
+    title,
+    hasNextPage,
+    productCount,
+    descriptionLong,
+    descriptionShort,
+    pageBuilder
+  } = data;
   const productsPerRow = searchParams?.view || '4';
 
   const collection = adjustProductsWithMoods({
@@ -39,6 +58,7 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary, 
   });
 
   const pageCount = Math.ceil(productCount / COLLECTION_PAGE_SIZE);
+  const hasProducts = productCount !== 0;
 
   return (
     <>
@@ -48,7 +68,7 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary, 
         label="collection-hero"
         srHeading="Collection hero"
         hasBottomBorder={false}
-        className="lg:pt-10"
+        className="pb-8 pt-10 lg:pt-10"
       >
         <Container className="flex flex-col justify-between gap-y-3 lg:flex-row lg:gap-y-0">
           {title && (
@@ -57,12 +77,11 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary, 
             </Heading>
           )}
           {descriptionShort && (
-            <div className="max-w-sm">
-              <Text as={'p'} size="md">
-                {descriptionShort}
-              </Text>
-            </div>
+            <Text as="p" className="max-w-sm text-brand-mid-grey">
+              {descriptionShort}
+            </Text>
           )}
+          <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
         </Container>
       </Section>
       <CollectionSettingsBarDesktop
@@ -110,19 +129,28 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary, 
             );
           })}
         </CollectionGrid>
-        <div className="mt-20 flex flex-col items-center justify-center space-y-8">
-          <div className="flex gap-x-2">
-            <PaginationButton type="previous">Forrige side</PaginationButton>
-            {hasNextPage && <PaginationButton type="next">Neste side</PaginationButton>}
+        {!hasProducts && (
+          <Container className="lg:mt-10">
+            <Text as="p" size="lg">
+              {dictionary.no_products}
+            </Text>
+          </Container>
+        )}
+        {hasProducts && (
+          <div className="mt-20 flex flex-col items-center justify-center space-y-8">
+            <div className="flex gap-x-2">
+              <PaginationButton type="previous">Forrige side</PaginationButton>
+              {hasNextPage && <PaginationButton type="next">Neste side</PaginationButton>}
+            </div>
+            <PageCounter pageCount={pageCount} />
           </div>
-          <PageCounter pageCount={pageCount} />
-        </div>
+        )}
       </Section>
       <Section label="description-long-products" srHeading="Description">
         <Container className="grid gap-2 lg:grid-cols-12">
           <div className="lg:col-span-6 lg:col-start-2">
             <h2 className="mb-4 text-overline-md font-medium uppercase text-brand-mid-grey">
-              Description:
+              {dictionary.description}:
             </h2>
             {descriptionLong && (
               <Text as="p" className="text-md lg:text-lg">
@@ -132,6 +160,17 @@ export function CollectionLayout({ data, currentPage, searchParams, dictionary, 
           </div>
         </Container>
       </Section>
+      {pageBuilder?.map((block, index: number) => (
+        <PageBuilder
+          key={block.key}
+          data={block}
+          index={index}
+          market={market}
+          lang={lang}
+          pageId={id}
+          pageType={'collection'}
+        />
+      ))}
     </>
   );
 }

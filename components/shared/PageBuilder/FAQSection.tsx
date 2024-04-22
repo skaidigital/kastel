@@ -26,6 +26,8 @@ interface Props {
 export const FAQSection = ({ data }: Props) => {
   const { index, pageId, pageType, title, description, badge, items, sectionSettings } = data;
 
+  console.log(data);
+
   return (
     <Section
       label="blogPostSection"

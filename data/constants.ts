@@ -253,7 +253,8 @@ export const URL_STATE_KEYS = {
   sort: 'sort',
   view: 'view',
   page: 'page',
-  search: 'q'
+  search: 'q',
+  onSale: 'on_sale'
 };
 export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
   { title: '16:9', value: '16:9' },

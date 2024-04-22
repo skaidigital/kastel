@@ -25,8 +25,16 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-function loadCollectionBase(slug: string, lang: LangValues) {
-  const query = getCollectionBaseQuery(lang);
+function loadCollectionBase({
+  slug,
+  market,
+  lang
+}: {
+  slug: string;
+  market: MarketValues;
+  lang: LangValues;
+}) {
+  const query = getCollectionBaseQuery({ market, lang });
 
   return loadQuery<CollectionBasePayload | null>(
     query,
@@ -79,12 +87,13 @@ interface Props {
 }
 
 export default async function SlugCollectionPage({ params, searchParams }: Props) {
-  const { lang, slug } = params;
+  const { market, lang, slug } = params;
   const paramValues = formatSearchParamsValues(searchParams);
   const sortKey = searchParams?.sort || 'default';
   const currentPage = Number(searchParams?.page) || 1;
 
-  const initialBase = await loadCollectionBase(slug, lang);
+  const initialBase = await loadCollectionBase({ slug, market, lang });
+  console.log('initialBase', initialBase);
 
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
   const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
@@ -140,6 +149,7 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
       data={mergedData}
       currentPage={currentPage}
       searchParams={searchParams}
+      market={market}
       lang={lang}
     />
   );

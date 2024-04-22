@@ -1,7 +1,7 @@
 import { getDictionary } from '@/app/dictionaries';
 import { CollectionLayout } from '@/components/pages/CollectionPage/CollectionLayout';
 import { Collection } from '@/components/pages/CollectionPage/hooks';
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 
 export interface PageProps {
   data: Collection;
@@ -9,10 +9,11 @@ export interface PageProps {
   searchParams?: {
     [key: string]: string | undefined;
   };
+  market: MarketValues;
   lang: LangValues;
 }
 
-export async function CollectionPage({ data, currentPage, searchParams, lang }: PageProps) {
+export async function CollectionPage({ data, currentPage, searchParams, market, lang }: PageProps) {
   const { collection_page } = await getDictionary();
   return (
     <>
@@ -20,6 +21,7 @@ export async function CollectionPage({ data, currentPage, searchParams, lang }: 
         data={data}
         currentPage={currentPage}
         searchParams={searchParams}
+        market={market}
         lang={lang}
         dictionary={collection_page}
       />
