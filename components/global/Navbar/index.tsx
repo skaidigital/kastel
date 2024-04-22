@@ -1,6 +1,7 @@
 import { NavbarLayout } from '@/components/global/Navbar/NavbarLayout';
 import { NavbarPayload, getNavbarQuery, navbarValidator } from '@/components/global/Navbar/hooks';
 import Cart from '@/components/shared/Cart';
+import { CrossSell } from '@/components/shared/Cart/CrossSell';
 import { CrossSellSkeleton } from '@/components/shared/Cart/CrossSell/CrossSellSkeleton';
 import OpenCart from '@/components/shared/Cart/open-cart';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
@@ -33,7 +34,9 @@ export async function Navbar({ market, lang }: Props) {
     <NavbarLayout data={validatedData.data}>
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
-          <Suspense fallback={<CrossSellSkeleton className="p-5" />}>{/* <CrossSell />*/}</Suspense>
+          <Suspense fallback={<CrossSellSkeleton className="px-6 py-4" />}>
+            <CrossSell lang={lang} className="px-6 py-4" />
+          </Suspense>
         </Cart>
       </Suspense>
     </NavbarLayout>

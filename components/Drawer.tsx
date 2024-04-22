@@ -81,11 +81,12 @@ export function DrawerClose({ children }: DrawerCloseProps) {
 
 interface DrawerHeaderProps {
   children: ReactNode;
+  className?: string;
 }
 
-export function DrawerHeader({ children }: DrawerHeaderProps) {
+export function DrawerHeader({ children, className }: DrawerHeaderProps) {
   return (
-    <div className="border-brand-border mb-8 border-b">
+    <div className={cn('border-brand-border mb-8 border-b', className)}>
       <div className="flex items-center justify-between px-6 py-4">
         <Dialog.Title asChild>
           <Heading as="h3" size="xs">

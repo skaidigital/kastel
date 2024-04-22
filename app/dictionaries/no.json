@@ -44,7 +44,7 @@
   },
   "search_page": {
     "search_results": "Søkeresultater",
-    "no_products_that_match": "Det er ingen produkter som samsvarer",
+    "no_products_that_match": "Vi fant ingen produkter som matcher søket ditt.",
     "showing": "Viser",
     "for": "for",
     "next_page": "Neste side",

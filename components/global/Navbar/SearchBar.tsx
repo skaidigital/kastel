@@ -4,11 +4,16 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { SearchClose } from '@/components/global/Navbar/SearchButton';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { createUrl } from '@/lib/utils';
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
 
-export const SearchBar = () => {
+interface Props {
+  onClose: () => void;
+}
+
+export const SearchBar = ({ onClose }: Props) => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const { market, lang } = useBaseParams();
@@ -46,6 +51,7 @@ export const SearchBar = () => {
       }
 
       router.push(createUrl(`/${market}/${lang}/search`, newParams));
+      onClose();
     });
   }
 

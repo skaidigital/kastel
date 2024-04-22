@@ -20,7 +20,7 @@ export const buttonProps = cva({
       sm: 'px-6 py-4 text-[14px] leading-[14px]',
       md: 'px-6 py-4 text-lg',
       lg: 'h-11 rounded-md px-8',
-      icon: 'h-10 w-10',
+      icon: 'size-10',
       'icon-lg': 'p-4'
     }
   },

@@ -70,7 +70,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
             .title('Products')
             .defaultOrdering([{ field: 'title.en', direction: 'asc' }])
             .apiVersion(SANITY_STUDIO_API_VERSION)
-            .filter(`_type == 'product' `)
+            .filter("_type == 'product'")
             .child((_id) =>
               S.list()
                 .title('Product')
