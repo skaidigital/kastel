@@ -8,6 +8,8 @@ export const freeShippingAmountValidator = z.number().optional();
 export type FreeShippingAmountPayload = z.infer<typeof freeShippingAmountValidator>;
 
 export function getFreeShippingAmountQuery(market: MarketValues) {
+  console.log({ market });
+
   const query = groq`
   *[_type == "merchandising"][0].freeShippingAmount.${market}
   `;

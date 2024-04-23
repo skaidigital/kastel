@@ -12,21 +12,22 @@ interface Props {
   children: React.ReactNode;
   title?: string;
   className?: string;
+  overlayClassName?: string;
 }
 
-export function SheetContent({ children, title, className }: Props) {
+export function SheetContent({ children, title, className, overlayClassName }: Props) {
   return (
     <Drawer.Portal>
-      <Drawer.Overlay className={overlayClasses} />
+      <Drawer.Overlay className={cn(overlayClasses, overlayClassName)} />
       <Drawer.Content
         forceMount
         className={cn(
-          'rounded-t-3 fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none',
+          'fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none',
           className
         )}
       >
         <div className="mx-auto mb-4 mt-1.5 h-1.5 w-12 rounded-full bg-brand-light-grey" />
-        <div className="p-4">
+        <div className="rounded-t-[12px] px-4 pb-4">
           {title && <SheetHeader title={title} className="mb-4" />}
           {children}
         </div>

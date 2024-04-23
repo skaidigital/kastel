@@ -41,7 +41,10 @@ export function Breadcrumb(props: AriaBreadcrumbProps) {
     <AriaBreadcrumb {...props}>
       <Link
         href={props.href}
-        className={cn('flex items-center gap-1 text-eyebrow uppercase', props.className)}
+        className={cn(
+          'text-eyebrow flex items-center gap-1 text-overline-md uppercase',
+          props.className
+        )}
       >
         {props.children}
         {props.href && <ChevronRightIcon className="h-3 w-3" />}

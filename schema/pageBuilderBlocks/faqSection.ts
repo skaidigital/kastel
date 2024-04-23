@@ -6,15 +6,14 @@ export const faqSection = defineType({
   name: 'faqSection',
   type: 'object',
   icon: List,
-  fieldsets: [{ name: 'paddingSettings', title: 'Padding settings', options: { columns: 2 } }],
   preview: {
     select: {
-      title: 'accordionBlock.internalTitle'
+      title: 'faqBlock.internalTitle'
     },
     prepare({ title }) {
       return {
         title: title || 'No title defined',
-        subtitle: 'Accordion section',
+        subtitle: 'FAQ section',
         icon: List
       };
     }
@@ -23,7 +22,7 @@ export const faqSection = defineType({
     defineField({
       title: 'FAQs',
       type: 'reference',
-      name: 'faqs',
+      name: 'faqBlock',
       to: [{ type: 'faqBlock' }],
       validation: (Rule) => Rule.required()
     }),

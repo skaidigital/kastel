@@ -10,7 +10,8 @@ export const buttonProps = cva({
     variant: {
       primary: 'bg-brand-primary text-white',
       secondary: 'bg-white text-brand-dark-grey',
-      outline: 'border border-brand-light-grey bg-background hover:bg-brand-light-grey',
+      outline:
+        'border border-brand-light-grey text-white hover:bg-white focus:bg-white hover:text-brand-dark-grey focus:text-brand-dark-grey',
       destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       ghost: 'hover:bg-accent hover:text-accent-foreground',
       link: 'text-primary underline-offset-4 hover:underline'
@@ -20,7 +21,7 @@ export const buttonProps = cva({
       sm: 'px-6 py-4 text-[14px] leading-[14px]',
       md: 'px-6 py-4 text-lg',
       lg: 'h-11 rounded-md px-8',
-      icon: 'h-10 w-10',
+      icon: 'size-10',
       'icon-lg': 'p-4'
     }
   },

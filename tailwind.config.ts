@@ -30,6 +30,10 @@ module.exports = {
       'nature-lab-heading': ['var(--font-nature-lab-heading)']
     },
     keyframes: {
+      spin: {
+        '0%': { transform: 'rotate(0deg)' },
+        '100%': { transform: 'rotate(360deg)' }
+      },
       blink: {
         '0%': { opacity: 0.2 },
         '20%': { opacity: 1 },
@@ -154,6 +158,7 @@ module.exports = {
       }
     },
     animation: {
+      spin: 'spin 1s var(--smooth-bezier) infinite',
       blink: 'blink 1.4s both infinite',
       'hotspot-blink': 'hotspot-blink 2.5 cubic-bezier(0, 0, 0.2, 1) infinite',
       'fade-in-text': 'fade-in-text 500ms var(--animation-delay, 0ms) ease forwards',

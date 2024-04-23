@@ -1,4 +1,5 @@
 'use client';
+import { Text } from '@/components/base/Text';
 import { cn } from '@/lib/utils';
 import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
 import { FilterItemSchema } from './hooks';
@@ -31,17 +32,18 @@ export function ColorFilter({ filter, parentKey }: ColorFilterProps) {
     setState(newState);
   }
 
+  const isActive = state?.includes(filter.slug!);
+
   return (
-    <>
+    <button
+      onClick={() => handleOnClick()}
+      className="flex flex-col items-center gap-y-1 rounded-[2px] "
+    >
       <div
-        className={cn('border-[2px] p-1', state?.includes(filter.slug!) && 'border-brand-primary')}
+        className={cn('h-10 w-full border', isActive ? 'border-black' : 'border-brand-light-grey')}
         style={{ backgroundColor: filter.color || 'black' }}
-      >
-        <button className="w-full text-left" onClick={() => handleOnClick()}>
-          {filter.title}
-        </button>
-      </div>
-      {filter.title}
-    </>
+      />
+      <Text size="xs">{filter.title}</Text>
+    </button>
   );
 }

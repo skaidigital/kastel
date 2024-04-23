@@ -15,7 +15,9 @@
     }
   },
   "collection_page": {
-    "number_of_products": "products"
+    "number_of_products": "products",
+    "no_products": "We found no products with the selected filters",
+    "description": "Description"
   },
   "product_page": {
     "discount": "Discount",
@@ -43,7 +45,7 @@
   },
   "search_page": {
     "search_results": "Search results",
-    "no_products_that_match": "There are no products that match",
+    "no_products_that_match": "There are no products that match your search",
     "showing": "Showing",
     "for": "for",
     "next_page": "Next page",

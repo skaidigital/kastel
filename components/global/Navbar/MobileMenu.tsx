@@ -1,11 +1,10 @@
 'use client';
 
-import { Drawer } from '@/components/Drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '@/components/Drawer';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
 import { LogoButton } from '@/components/global/Navbar/LogoButton';
-import { SearchBar } from '@/components/global/Navbar/SearchBar';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
 import { cn } from '@/lib/utils';
@@ -29,27 +28,27 @@ export function MobileMenu({ items }: Props) {
     <NavigationMenu.Root>
       <NavigationMenu.List>
         <Drawer isOpen={mainMenuIsOpen} onOpenChange={setMainMenuIsOpen}>
-          <Drawer.Trigger>
+          <DrawerTrigger>
             <button
               aria-label="Open main menu"
               className="relative flex h-11 w-11 items-center justify-center rounded-project text-brand-mid-grey transition-colors hover:bg-brand-light-grey"
             >
               <Bars2Icon className="transition-brand w-6" />
             </button>
-          </Drawer.Trigger>
-          <Drawer.Content
+          </DrawerTrigger>
+          <DrawerContent
             placement="left"
             className="flex h-dvh max-w-full flex-col space-y-7 overflow-y-auto bg-white/80 p-5 backdrop-blur-lg"
           >
             <div className="flex w-full items-center justify-between">
               <LogoButton />
-              <Drawer.Close>
+              <DrawerClose>
                 <button className="relative flex w-fit items-center justify-center rounded-project text-brand-dark-grey transition-colors hover:bg-brand-light-grey lg:h-11 lg:w-11">
                   <Cross1Icon className="transition-brand w-6 lg:w-4" />
                 </button>
-              </Drawer.Close>
+              </DrawerClose>
             </div>
-            <SearchBar />
+            {/* <SearchBar /> */}
             <ul className="space-y-7">
               {items?.map((item, index) => (
                 <NavigationMenu.Item key={index}>
@@ -76,7 +75,7 @@ export function MobileMenu({ items }: Props) {
                   ) : item.type === 'meganav' ? (
                     <NavigationMenu.Item>
                       <Drawer isOpen={secondaryMenuIsOpen} onOpenChange={setSecondaryMenuIsOpen}>
-                        <Drawer.Trigger>
+                        <DrawerTrigger>
                           <button
                             className={cn(
                               'text-text-md flex w-full translate-y-[-10px] animate-fade-in-text items-center justify-between font-medium opacity-0 outline-none transition-[opacity,transform]',
@@ -92,17 +91,17 @@ export function MobileMenu({ items }: Props) {
                             {item.title}
                             <ChevronRightIcon className="h-5 w-5 text-brand-dark-grey" />
                           </button>
-                        </Drawer.Trigger>
-                        <Drawer.Content
+                        </DrawerTrigger>
+                        <DrawerContent
                           placement="left"
                           className="flex max-h-dvh max-w-full flex-col overflow-y-auto bg-white/80 p-5 backdrop-blur-lg"
                         >
-                          <Drawer.Close>
+                          <DrawerClose>
                             <button className="flex w-fit items-center gap-x-2 outline-none focus:outline-1">
                               <ChevronLeftIcon className="h-5 w-5" />
-                              <span className="text-text-sm font-medium">{item.title}</span>
+                              <span className="text-sm font-medium">{item.title}</span>
                             </button>
-                          </Drawer.Close>
+                          </DrawerClose>
                           <NavigationMenu.Sub className="mt-10 flex grow flex-col gap-y-10 overflow-y-auto">
                             {item?.links?.map((subItem, index) => {
                               return (
@@ -168,14 +167,14 @@ export function MobileMenu({ items }: Props) {
                               </NavigationMenu.Link>
                             ))}
                           </div>
-                        </Drawer.Content>
+                        </DrawerContent>
                       </Drawer>
                     </NavigationMenu.Item>
                   ) : null}
                 </NavigationMenu.Item>
               ))}
             </ul>
-          </Drawer.Content>
+          </DrawerContent>
         </Drawer>
       </NavigationMenu.List>
     </NavigationMenu.Root>

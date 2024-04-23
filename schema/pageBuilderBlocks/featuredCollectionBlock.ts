@@ -6,7 +6,7 @@ import { defineField, defineType } from 'sanity';
 export const featuredCollectionBlock = defineType({
   title: 'Featured Collection block',
   name: 'featuredCollectionBlock',
-  type: 'object',
+  type: 'document',
   icon: Package,
   preview: {
     select: {
@@ -64,17 +64,6 @@ export const featuredCollectionBlock = defineType({
           return true;
         }),
       hidden: ({ parent }) => parent?.isManual === false
-    }),
-    defineField({
-      title: 'Section settings',
-      name: 'sectionSettings',
-      type: 'sectionSettings',
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      title: 'Disable / Hide this block in a market',
-      name: 'marketAvailability',
-      type: 'marketAvailability'
     })
   ]
 });

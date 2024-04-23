@@ -6,7 +6,6 @@ import {
   Calendar,
   Check,
   Coins,
-  Cookie,
   CreditCard,
   Crosshair,
   Faders,
@@ -26,7 +25,6 @@ import {
   PaintBucket,
   Placeholder,
   Question,
-  QuestionMark,
   Quotes,
   Recycle,
   Signpost,
@@ -70,7 +68,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
             .title('Products')
             .defaultOrdering([{ field: 'title.en', direction: 'asc' }])
             .apiVersion(SANITY_STUDIO_API_VERSION)
-            .filter(`_type == 'product' `)
+            .filter("_type == 'product'")
             .child((_id) =>
               S.list()
                 .title('Product')
@@ -116,7 +114,6 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, 'Announcement banner', 'announcementBanner', 'announcementBanner').icon(Info),
         singleton(S, 'Navbar', 'navbar', 'navbar').icon(ArrowLineUp),
         singleton(S, 'Footer', 'footer', 'footer').icon(SquareHalfBottom),
-        singleton(S, 'Cookie consent', 'cookieConsent', 'cookieConsent').icon(Cookie),
         singleton(S, 'Popup', 'popup', 'popup').icon(MegaphoneSimple),
         singleton(S, 'USPs', 'usps', 'usps').icon(Check),
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
@@ -141,6 +138,9 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Shop Our Models', schemaType: 'shopOurModelsBlock' }).icon(Slideshow),
         listNew({ S, title: 'UGC', schemaType: 'ugcBlock' }).icon(VideoCamera),
         listNew({ S, title: 'Featured Shoe', schemaType: 'featuredShoeBlock' }).icon(Star),
+        listNew({ S, title: 'Featured Collection', schemaType: 'featuredCollectionBlock' }).icon(
+          Star
+        ),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
       ]).icon(Recycle),
@@ -169,9 +169,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag),
         listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets),
         listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle),
-        singleton(S, 'Default Product FAQs', 'defaultProductFAQS', 'defaultProductFAQS').icon(
-          QuestionMark
-        )
+        singleton(S, 'Product settings', 'productSettings', 'productSettings').icon(Gear)
       ]).icon(Gear)
     ]);
 };

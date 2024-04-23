@@ -1,6 +1,5 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { FooterPayload } from '@/components/global/Footer/hooks';
 import { MarketSelector } from '@/components/shared/MarketSelector';
@@ -26,9 +25,9 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
     <footer className="bg-brand-primary text-white">
       <Container className="grid w-full grid-cols-2 flex-col gap-x-5 gap-y-20 px-6 py-12 md:grid-cols-4 md:flex-row md:gap-x-10 lg:grid-cols-6 lg:gap-x-20 ">
         <div className="col-span-2">
-          <Heading as="h3" size="sm">
+          {/* <Heading as="h3" size="sm">
             {dictionary.about} abate
-          </Heading>
+          </Heading> */}
           <div className="mb-3 mt-6 max-w-sm space-y-4 lg:mb-6 lg:mr-20">
             <Text>{footer.description}</Text>
           </div>

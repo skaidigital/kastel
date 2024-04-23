@@ -1,12 +1,12 @@
-import { SortDropdown } from './SortDrowpdown';
-import { ViewProductNumberLayout } from './ViewProductNumber';
+import { ProductsPerRowSelector } from './CollectionSettingsBarDesktop/ProductsPerRowSelector';
+import { Sort } from './CollectionSettingsBarDesktop/Sort';
 
 export function SortingGroup() {
   return (
     <div className="flex h-full flex-col justify-between space-y-2">
       <div className="flex space-x-10">
-        <ViewProductNumberLayout />
-        <SortDropdown />
+        <ProductsPerRowSelector />
+        <Sort />
       </div>
       <div className="flex justify-end">
         <p>25 products</p>

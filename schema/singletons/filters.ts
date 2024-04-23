@@ -1,3 +1,4 @@
+import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const filters = defineType({
@@ -21,7 +22,10 @@ export const filters = defineType({
           title: 'Filter group',
           name: 'filterGroup',
           type: 'reference',
-          to: [{ type: 'tagGroup' }]
+          to: [{ type: 'tagGroup' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
         })
       ],
       validation: (Rule) => Rule.min(1).max(6)

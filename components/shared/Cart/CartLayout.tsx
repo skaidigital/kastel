@@ -6,9 +6,10 @@ import { Text } from '@/components/base/Text';
 import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCountdown';
 
 import { Button } from '@/components/Button';
-import { Drawer } from '@/components/Drawer';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import { CartItem } from '@/components/shared/Cart/CartItem';
+import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
 import { EmptyState } from '@/components/shared/Cart/EmptyState';
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
@@ -55,11 +56,11 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
   if (isDesktop) {
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
-        <Drawer.Trigger
-          className="relative flex h-11 w-11 items-center justify-center rounded-project text-brand-dark-grey transition-colors hover:bg-brand-light-grey"
+        <DrawerTrigger
+          className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey"
           asChild
         >
-          <button aria-label="Open cart" className="text-text-sm text-brand-dark-grey">
+          <button aria-label="Open cart" className="text-sm">
             Cart
             {hasCartItems ? (
               <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded bg-brand-dark-grey text-[11px] font-medium text-white">
@@ -67,14 +68,14 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
               </div>
             ) : null}
           </button>
-        </Drawer.Trigger>
-        <Drawer.Content className="flex max-h-dvh w-full flex-col lg:h-screen">
-          {hasCartItems && (
-            <div className="flex flex-1 flex-col justify-between">
+        </DrawerTrigger>
+        <DrawerContent className="flex max-h-dvh w-full flex-col lg:h-screen">
+          {!hasCartItems && (
+            <div className="flex flex-1 flex-col justify-between bg-brand-sand">
               <div className="flex grow flex-col">
-                <Drawer.Header>
-                  {dictionary.cart} ({cart.totalQuantity})
-                </Drawer.Header>
+                <DrawerHeader className="bg-white">
+                  {dictionary.cart} ({cart?.totalQuantity})
+                </DrawerHeader>
                 {freeShippingAmount && currencyCode && (
                   <FreeShippingCountdown
                     freeShippingAmount={freeShippingAmount}
@@ -85,7 +86,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                 )}
                 <div className="flex h-0 flex-grow flex-col overflow-y-auto">
                   <div className="flex flex-col space-y-8 p-5 pb-10">
-                    {cart.lines?.map((line) => (
+                    {cart?.lines?.map((line) => (
                       <CartItem
                         key={line.id}
                         lineId={line.id}
@@ -102,19 +103,31 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                     ))}
                   </div>
                 </div>
-                {children}
               </div>
-              <div className="border-brand-border flex w-full flex-col items-center space-y-2 border-t p-5">
-                <div className="flex w-full items-center justify-between text-brand-mid-grey">
-                  <Text size="sm">{dictionary.shipping}</Text>
-                  <Text size="sm">{dictionary.calculated_at_checkout}</Text>
-                </div>
-                <div className="flex w-full items-center justify-between">
-                  <Text size="sm">{dictionary.total_incl_vat}</Text>
-                  <Text size="sm">{formattedTotal}</Text>
+              {children}
+              <DiscountCodeInput className="bg-white px-6 py-4" />
+              <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
+                <div className="flex w-full flex-col gap-y-2">
+                  <div className="flex w-full items-center justify-between text-brand-mid-grey">
+                    <Text size="sm" className="text-brand-mid-grey">
+                      {dictionary.shipping}
+                    </Text>
+                    <Text size="sm" className="font-medium">
+                      {dictionary.calculated_at_checkout}
+                    </Text>
+                  </div>
+                  <div className="flex w-full items-center justify-between">
+                    <Text size="sm" className="text-brand-mid-grey">
+                      {dictionary.total_incl_vat}
+                    </Text>
+                    <Text size="sm" className="font-medium">
+                      {formattedTotal || 0}
+                    </Text>
+                  </div>
                 </div>
                 <Button
-                  className="mb-2 w-full"
+                  size="sm"
+                  className="w-full"
                   isLoading={isPending}
                   onClick={() => {
                     startTransition(() => {
@@ -129,14 +142,14 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
               </div>
             </div>
           )}
-          {!hasCartItems && (
+          {hasCartItems && (
             <EmptyState
               cartText={dictionary.cart}
               cartIsEmptyText={dictionary.cart_is_empty}
               startShoppingText={dictionary.start_shopping}
             />
           )}
-        </Drawer.Content>
+        </DrawerContent>
       </Drawer>
     );
   }

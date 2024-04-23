@@ -1,23 +1,26 @@
+import { ActiveFilterGroupItem } from '@/components/pages/CollectionPage/filter/ActiveFilterGroupItem';
 import { URL_STATE_KEYS } from '@/data/constants';
-import { ActiveFilter } from './ActiveFilter';
+import { cn } from '@/lib/utils';
 
 interface Props {
   searchParams?: {
     [key: string]: string | undefined;
   };
+  className?: string;
 }
 
-export function ActiveFiltersCollectionPage({ searchParams }: Props) {
+export function ActiveFilters({ searchParams, className }: Props) {
   const keys = Object.keys(searchParams || {});
+
   // remove keys that are not filters
   const filteredKeys = keys.filter((key) => !Object.values(URL_STATE_KEYS).includes(key));
 
   return (
-    <div className="flex items-center gap-x-1 ">
+    <div className={cn('flex items-center gap-x-1', className)}>
       {filteredKeys &&
         filteredKeys.map((key) => {
           if (!searchParams || !searchParams[key]) return null;
-          return <ActiveFilter key={key} parentKey={key} />;
+          return <ActiveFilterGroupItem key={key} parentKey={key} />;
         })}
     </div>
   );

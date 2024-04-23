@@ -6,6 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/Carousel';
+import { CustomLink } from '@/components/CustomLink';
 import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
@@ -13,7 +14,6 @@ import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { FeaturedCollectionProps } from '@/components/shared/PageBuilder/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
-import Link from 'next/link';
 
 interface PropsWithExtra extends FeaturedCollectionProps {
   index: number;
@@ -25,7 +25,7 @@ interface Props {
   data: PropsWithExtra;
 }
 
-export const FeaturedCollection = ({ data }: Props) => {
+export const FeaturedCollectionSection = ({ data }: Props) => {
   const {
     index,
     pageId,
@@ -49,14 +49,19 @@ export const FeaturedCollection = ({ data }: Props) => {
     >
       <div className="flex flex-col gap-y-10 lg:hidden">
         <MediaContent title={title} description={description} media={media} />
-        <div className="ml-4">
-          <Carousel>
-            <CarouselContent>
+        <div className="">
+          <Carousel
+            opts={{
+              align: 'start'
+            }}
+          >
+            <CarouselContent className="-ml-0">
               {products.map((product) => (
                 <CarouselItem key={product.title} className="basis-[80%] pl-0">
                   <ProductCard
                     title={product.title}
-                    slugPrefix={'products'}
+                    gid={product.gid}
+                    sku={product.sku}
                     firstImage={'product'}
                     mainImage={product.mainImage}
                     lifestyleImage={product.lifestyleImage}
@@ -72,7 +77,7 @@ export const FeaturedCollection = ({ data }: Props) => {
         {buttonText && slug && (
           <Container>
             <Button asChild size="sm" className="w-full">
-              <Link href={slug}>{buttonText}</Link>
+              <CustomLink href={slug}>{buttonText}</CustomLink>
             </Button>
           </Container>
         )}
@@ -92,7 +97,7 @@ export const FeaturedCollection = ({ data }: Props) => {
               </div>
               {buttonText && (
                 <Button asChild size="md">
-                  <Link href={slug}>{buttonText}</Link>
+                  <CustomLink href={slug}>{buttonText}</CustomLink>
                 </Button>
               )}
             </div>
@@ -100,12 +105,13 @@ export const FeaturedCollection = ({ data }: Props) => {
           <div className="flex gap-x-10">
             <MediaContent title={title} description={description} media={media} />
             <div className="w-full grow">
-              <CarouselContent>
+              <CarouselContent className="-ml-0">
                 {products.map((product) => (
                   <CarouselItem key={product.title} className="pl-0 lg:basis-1/2">
                     <ProductCard
                       title={product.title}
-                      slugPrefix={'products'}
+                      gid={product.gid}
+                      sku={product.sku}
                       firstImage={'product'}
                       mainImage={product.mainImage}
                       lifestyleImage={product.lifestyleImage}

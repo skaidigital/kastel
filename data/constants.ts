@@ -253,7 +253,8 @@ export const URL_STATE_KEYS = {
   sort: 'sort',
   view: 'view',
   page: 'page',
-  search: 'q'
+  search: 'q',
+  onSale: 'on_sale'
 };
 export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
   { title: '16:9', value: '16:9' },
@@ -261,4 +262,23 @@ export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
   { title: '21:9', value: '21:9' },
   { title: '9:16', value: '9:16' },
   { title: '3:4', value: '3:4' }
+];
+
+export const SORT_OPTIONS = [
+  {
+    label: 'Recommended',
+    value: 'recommended'
+  },
+  {
+    label: 'Price (Low)',
+    value: 'price_lowest'
+  },
+  {
+    label: 'Price (High)',
+    value: 'price_highest'
+  },
+  {
+    label: 'Newest',
+    value: 'newest'
+  }
 ];

@@ -18,14 +18,14 @@ interface Props {
 
 export function DesktopMenu({ items, className }: Props) {
   return (
-    <NavigationMenu.Root className={cn('z-10 flex justify-center', className)}>
-      <NavigationMenu.List className="center m-0 flex list-none items-center bg-white">
+    <NavigationMenu.Root className={cn('z-50 flex justify-center', className)}>
+      <NavigationMenu.List className="center m-0 flex list-none items-center">
         {items?.map((item) => {
           if (item.type === 'link') {
             return (
               <NavigationMenu.Item key={item.text} className="pr-5">
                 <NavigationMenu.Link asChild>
-                  <Link className="text-text-sm" href={getSlug(item)}>
+                  <Link className="text-sm" href={getSlug(item)}>
                     {item.text}
                   </Link>
                 </NavigationMenu.Link>
@@ -34,11 +34,11 @@ export function DesktopMenu({ items, className }: Props) {
           }
           if (item.type === 'meganav') {
             return (
-              <NavigationMenu.Item key={item.title} className="text-text-sm pr-5">
-                <NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-[2px] rounded-project text-brand-dark-grey outline-none">
+              <NavigationMenu.Item key={item.title} className="pr-5 text-sm">
+                <NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-[2px] rounded-project outline-none">
                   {item.title}{' '}
                   <CaretDownIcon
-                    className="text-violet10 duration-250 relative top-[1px] transition-transform ease-in group-data-[state=open]:-rotate-180"
+                    className="duration-250 relative top-[1px] transition-transform ease-in group-data-[state=open]:-rotate-180"
                     aria-hidden
                   />
                 </NavigationMenu.Trigger>
@@ -49,7 +49,7 @@ export function DesktopMenu({ items, className }: Props) {
                         <div className="row-start-1 flex w-full flex-col" key={link.heading}>
                           <Heading
                             size="sm"
-                            className="mb-5 translate-y-[-10px] animate-fade-in-text text-left text-brand-dark-grey opacity-0 transition-[opacity] [--animation-delay:300ms]"
+                            className="mb-5 translate-y-[-10px] animate-fade-in-text text-left opacity-0 transition-[opacity] [--animation-delay:300ms]"
                           >
                             {link.heading}
                           </Heading>
@@ -60,7 +60,7 @@ export function DesktopMenu({ items, className }: Props) {
                                   <SanityLink
                                     link={link}
                                     className={cn(
-                                      'text-text-sm transition-brand w-fit translate-y-[-10px] animate-fade-in-text opacity-0 transition-[opacity,color] hover:duration-100 hover:ease-in-out',
+                                      'transition-brand w-fit translate-y-[-10px] animate-fade-in-text text-sm opacity-0 transition-[opacity,color] hover:duration-100 hover:ease-in-out',
                                       index === 0 && '[--animation-delay:600ms]',
                                       index === 1 && '[--animation-delay:700ms]',
                                       index === 2 && '[--animation-delay:800ms]',

@@ -4,7 +4,6 @@ import {
   CollectionProductPayload,
   CollectionProductsPayload,
   collectionBaseValidator,
-  collectionProductsValidator,
   getCollectionBaseQuery,
   getCollectionProductData,
   getProductIdsByOrder,
@@ -25,8 +24,16 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-function loadCollectionBase(slug: string, lang: LangValues) {
-  const query = getCollectionBaseQuery(lang);
+function loadCollectionBase({
+  slug,
+  market,
+  lang
+}: {
+  slug: string;
+  market: MarketValues;
+  lang: LangValues;
+}) {
+  const query = getCollectionBaseQuery({ market, lang });
 
   return loadQuery<CollectionBasePayload | null>(
     query,
@@ -48,8 +55,12 @@ function loadCollectionProductsOrder(
     query,
     { slug, tagSlugs },
     {
-      next: { tags: [] },
-      cache: 'no-store'
+      next: {
+        tags: [
+          `collection:${slug}`,
+          `lang:${lang}+pageIndex:${pageIndex}+tagSlugs:${tagSlugs?.join()}+sortKey:${sortKey || 'default'}`
+        ]
+      }
     }
   );
 }
@@ -79,12 +90,12 @@ interface Props {
 }
 
 export default async function SlugCollectionPage({ params, searchParams }: Props) {
-  const { lang, slug } = params;
+  const { market, lang, slug } = params;
   const paramValues = formatSearchParamsValues(searchParams);
   const sortKey = searchParams?.sort || 'default';
   const currentPage = Number(searchParams?.page) || 1;
 
-  const initialBase = await loadCollectionBase(slug, lang);
+  const initialBase = await loadCollectionBase({ slug, market, lang });
 
   const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
   const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
@@ -114,28 +125,36 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 
   const cleanedProductData = cleanData(initialProducts, inititalProductsData);
 
-  const validatedProducts = collectionProductsValidator.safeParse({
-    products: cleanedProductData,
-    hasNextPage: true
-  });
+  // const validatedProducts = collectionProductsValidator.safeParse({
+  //   products: cleanedProductData,
+  //   hasNextPage: true
+  // });
 
-  if (!validatedProducts.success) {
-    console.log('Error Thrown here');
+  // if (!validatedProducts.success) {
+  //   console.log('Error Thrown here');
 
-    console.error(validatedProducts.error);
-    notFound();
-  }
+  //   console.error(validatedProducts.error);
+  //   notFound();
+  // }
 
   const mergedData = mergeCollectionBaseAndProducts(
     collectionBaseWithoutNullValues,
-    validatedProducts.data
+    cleanedProductData
   );
 
   if (!initialBase.data) {
     notFound();
   }
 
-  return <CollectionPage data={mergedData} currentPage={currentPage} searchParams={searchParams} />;
+  return (
+    <CollectionPage
+      data={mergedData}
+      currentPage={currentPage}
+      searchParams={searchParams}
+      market={market}
+      lang={lang}
+    />
+  );
 }
 
 export async function generateMetadata({

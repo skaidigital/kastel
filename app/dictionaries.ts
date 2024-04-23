@@ -27,6 +27,8 @@ export interface Dictionary {
   };
   collection_page: {
     number_of_products: string;
+    no_products: string;
+    description: string;
   };
   product_page: {
     discount: string;

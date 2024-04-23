@@ -4,14 +4,13 @@ import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { parseAsInteger, useQueryState } from 'nuqs';
 
-export function ViewProductNumberLayout() {
+export function ProductsPerRowSelector() {
   const router = useRouter();
 
   const [active, setActive] = useQueryState('view', parseAsInteger);
 
   function handleOnClick(number: number) {
     setActive(number).then(() => router.refresh());
-    // router.refresh();
   }
 
   return (
@@ -38,43 +37,8 @@ function ViewProductNumber({ cols, active }: { cols: 3 | 4; active: number | nul
             'h-6 w-4 rounded-sm',
             cols === validatedActive ? 'bg-brand-primary' : 'bg-gray-100'
           )}
-        ></div>
+        />
       ))}
     </div>
   );
 }
-
-// function ViewProductNumber({ cols, active }: { cols: 3 | 4; active: number | null }) {
-//   const validatedActive = active ? Number(active) : 4;
-
-//   return (
-//     <div className="flex space-x-[2px]">
-//       <div
-//         className={cn(
-//           'h-6 w-4 rounded-sm',
-//           cols === validatedActive ? 'bg-brand-primary' : 'bg-gray-100'
-//         )}
-//       ></div>
-//       <div
-//         className={cn(
-//           'h-6 w-4 rounded-sm',
-//           cols === validatedActive ? 'bg-brand-primary' : 'bg-gray-100'
-//         )}
-//       ></div>
-//       <div
-//         className={cn(
-//           'h-6 w-4 rounded-sm',
-//           cols === validatedActive ? 'bg-brand-primary' : 'bg-gray-100'
-//         )}
-//       ></div>
-//       {cols === 4 && (
-//         <div
-//           className={cn(
-//             'h-6 w-4 rounded-sm',
-//             cols === validatedActive ? 'bg-brand-primary' : 'bg-gray-100'
-//           )}
-//         ></div>
-//       )}
-//     </div>
-//   );
-// }

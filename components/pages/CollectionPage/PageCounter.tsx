@@ -13,7 +13,7 @@ export function PageCounter({ pageCount }: Props) {
 
   return (
     <div className="flex">
-      <Text>
+      <Text size="sm">
         Page {currentPage} of {pageCount}
       </Text>
     </div>
