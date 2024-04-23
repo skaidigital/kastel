@@ -54,7 +54,12 @@ export function VariantSelector({
 
     if (isSize)
       return (
-        <SizeSelector key={option.name} option={option} chooseSizeText={dictionary.choose_size} />
+        <SizeSelector
+          key={option.name}
+          option={option}
+          chooseSizeText={dictionary.choose_size}
+          sizeGuideText={dictionary.size_guide}
+        />
       );
 
     return (

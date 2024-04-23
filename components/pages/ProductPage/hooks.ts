@@ -90,6 +90,7 @@ export const productValidator = z.object({
   options: z.array(productOptionValidator).optional(),
   faqs: z.array(
     z.object({
+      question: z.string(),
       answer: z.array(richTextValidator)
     })
   ),
@@ -178,6 +179,7 @@ export function getProductQuery({
       "descriptionShort": descriptionShort.no,
       "descriptionLongDetails": descriptionLongDetails.no,
       "faqs": faqs[]->{
+        "question": question.no,
         "answer": answer_no
       },
       "usps": usps[]->{

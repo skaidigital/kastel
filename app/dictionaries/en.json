@@ -27,6 +27,7 @@
     "reccommended": "Reccommended",
     "description": "Description",
     "expected_back_in_stock": "Expected back in stock",
+    "size_guide": "Size guide",
     "stock": {
       "out_of_stock": "Out of stock",
       "low_stock": "Only __AMOUNT__ left in stock",

@@ -2,14 +2,16 @@ import { Dictionary } from '@/app/dictionaries';
 import { ProductOption } from '@/components/pages/ProductPage/hooks';
 import { useQueryState } from 'nuqs';
 import { Text } from '../base/Text';
+import { SizeGuide } from './SizeGuide';
 
 interface Props {
   option: ProductOption;
   chooseSizeText: Dictionary['product_page']['choose_size'];
+  sizeGuideText: Dictionary['product_page']['size_guide'];
 }
 
 // TODO refactor to use just useQueryState if possible (logic inside the map)
-export function SizeSelector({ option, chooseSizeText }: Props) {
+export function SizeSelector({ option, chooseSizeText, sizeGuideText }: Props) {
   const optionType = option.type;
   const [selectedSize, setSelectedSize] = useQueryState(option.name.toLowerCase());
   if (optionType !== 'size') {
@@ -23,9 +25,7 @@ export function SizeSelector({ option, chooseSizeText }: Props) {
           <Text as="p" size="xs" className="text-brand-dark-grey">
             {option.name}: {selectedSize || chooseSizeText}
           </Text>
-          <Text as="p" size="xs" className="text-brand-dark-grey underline">
-            Size Guide
-          </Text>
+          <SizeGuide sizeGuideText={sizeGuideText} />
         </div>
       </dt>
       <dd className="grid grid-cols-6 gap-1">

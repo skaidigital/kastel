@@ -15,6 +15,7 @@ import { SearchParams } from '@/lib/types';
 import { Suspense } from 'react';
 import { ColorSelectLayout } from './ColorSelectLayout';
 import { DiscountPill } from './DiscountPill';
+import { FaqLayout } from './FaqLayout';
 import { KastelPoints } from './KastelPoints';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductPrice } from './ProductPrice';
@@ -74,9 +75,9 @@ export async function ProductPageLayout(props: Props) {
         noTopPadding
         label="product-hero"
         srHeading="Product Hero"
-        className="border-brand-border space-y-5 border-b bg-white lg:flex"
+        className="border-brand-border space-y-5 border-b bg-white lg:flex lg:py-0"
       >
-        <Container className="relative flex flex-1 flex-col gap-x-0 xl:flex-row">
+        <Container className="relative flex flex-1 flex-col gap-x-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
           <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
             <div className="relative">
               <div className="absolute right-0 top-0 z-10 p-4">
@@ -111,7 +112,7 @@ export async function ProductPageLayout(props: Props) {
               ))}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
-            <UspsMarquee usps={product.usps} />
+            <UspsMarquee usps={product.usps} size="sm" />
             <div className="px-[84px]">
               <div className="flex flex-col gap-y-3  pb-5">
                 <div className="flex justify-between">
@@ -153,6 +154,7 @@ export async function ProductPageLayout(props: Props) {
               </div>
               <PaymentIcons market={market} />
               <KastelPoints variants={variants} productType={product.type} />
+              <FaqLayout faqs={product.faqs} />
             </div>
 
             <div>
@@ -174,6 +176,7 @@ export async function ProductPageLayout(props: Props) {
           </div>
         </Container>
       </Section>
+      <UspsMarquee usps={product.usps} size="lg" />
       {/* 
       {pageBuilder?.length > 0 &&
         pageBuilder.map((block: PageBuilderBlock, index: number) => (
