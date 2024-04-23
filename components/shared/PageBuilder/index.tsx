@@ -6,6 +6,7 @@ import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedSho
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
 import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/NatureLabExplainerSection';
+import { NatureLabInnovationSection } from '@/components/shared/PageBuilder/NatureLabInnovationSection';
 import { ShoePickerSection } from '@/components/shared/PageBuilder/ShoePickerSection';
 import { ShopOurModelsSection } from '@/components/shared/PageBuilder/ShopOurModelsSection';
 import { UGCSection } from '@/components/shared/PageBuilder/UGCSection';
@@ -30,7 +31,8 @@ const blockTypes: BlockType = {
   shopOurModelsSection: ShopOurModelsSection,
   featuredShoeSection: FeaturedShoeSection,
   hero: Hero,
-  uspExplainerSection: USPExplainerSection
+  uspExplainerSection: USPExplainerSection,
+  natureLabInnovationSection: NatureLabInnovationSection
 };
 
 interface Props {

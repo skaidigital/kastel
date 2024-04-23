@@ -7,6 +7,7 @@ import { color } from '@/schema/documents/color';
 import { faqBlock } from '@/schema/documents/faqBlock';
 import { hotspotImage } from '@/schema/documents/hotspotImage';
 import { legalPage } from '@/schema/documents/legalPage';
+import { natureLabInnovationItem } from '@/schema/documents/natureLabInnovationItem';
 import { natureLabLandingPage } from '@/schema/documents/natureLabLandingPage';
 import { natureLabSettings } from '@/schema/documents/natureLabSettings';
 import { page } from '@/schema/documents/page';
@@ -59,7 +60,6 @@ import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
 import { natureLabExplainerSection } from '@/schema/objects/natureLabExplainerSection';
-import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
 import { natureLabProductStatusItem } from '@/schema/objects/natureLabProductStatusItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
 import { productDisplay } from '@/schema/objects/productDisplay';
@@ -151,7 +151,6 @@ const schema = [
   spot,
   aspectRatioSettings,
   sectionSettings,
-  natureLabInnovationItem,
   natureLabProductStatusItem,
   card,
   conditionalLink,
@@ -204,6 +203,7 @@ const schema = [
   phase1BlogPost,
   phase2Product,
   phase3BlogPost,
+  natureLabInnovationItem,
 
   // Documents
   page,

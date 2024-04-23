@@ -195,6 +195,7 @@ export const pageBuilder = defineType({
     // Nature Lab Innovation item (only for productType and product)
     defineArrayMember({
       title: '🚧 Nature Lab Innovations',
+      name: 'natureLabInnovationSection',
       type: 'natureLabInnovationSection'
     }),
     // Blog posts
