@@ -77,6 +77,7 @@ import { timelineSection } from '@/schema/objects/timelineSection';
 import { ugcSection } from '@/schema/objects/ugcSection';
 import { updateItem } from '@/schema/objects/updateItem';
 import { uspExplainerSection } from '@/schema/objects/uspExplainerSection';
+import { variableText } from '@/schema/objects/variableText';
 import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
@@ -129,6 +130,7 @@ const schema = [
 
   // Objects
   address,
+  variableText,
   richText,
   richTextNatureLab,
   updateItem,

@@ -99,7 +99,7 @@ export function MobileMenu({ items }: Props) {
                           <DrawerClose>
                             <button className="flex w-fit items-center gap-x-2 outline-none focus:outline-1">
                               <ChevronLeftIcon className="h-5 w-5" />
-                              <span className="text-text-sm font-medium">{item.title}</span>
+                              <span className="text-sm font-medium">{item.title}</span>
                             </button>
                           </DrawerClose>
                           <NavigationMenu.Sub className="mt-10 flex grow flex-col gap-y-10 overflow-y-auto">

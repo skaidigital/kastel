@@ -18,8 +18,9 @@ async function loadNavbar(lang: LangValues) {
 interface Props {
   market: MarketValues;
   lang: LangValues;
+  className?: string;
 }
-export async function Navbar({ market, lang }: Props) {
+export async function Navbar({ market, lang, className }: Props) {
   const initial = await loadNavbar(lang);
 
   const withoutNullValues = nullToUndefined(initial.data);
@@ -31,7 +32,7 @@ export async function Navbar({ market, lang }: Props) {
   // }
 
   return (
-    <NavbarLayout data={withoutNullValues}>
+    <NavbarLayout data={withoutNullValues} className={className}>
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
           <Suspense fallback={<CrossSellSkeleton className="px-6 py-4" />}>

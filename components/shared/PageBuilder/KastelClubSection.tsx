@@ -44,7 +44,7 @@ export const KastelClubSection = ({ data }: Props) => {
       noTopPadding={!sectionSettings?.hasTopPadding}
       noBottomPadding={!sectionSettings?.hasBottomPadding}
       hasBottomBorder={sectionSettings?.hasBottomBorder}
-      className="bg-brand-light-grey"
+      className="bg-brand-sand"
     >
       <div className="flex flex-col gap-y-4 lg:hidden">
         <Intro

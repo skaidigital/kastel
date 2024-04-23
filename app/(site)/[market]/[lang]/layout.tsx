@@ -10,10 +10,7 @@ import { draftMode } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
-import { Skeleton } from '@/components/Skeleton';
-import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
-import { Navbar } from '@/components/global/Navbar';
 import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -59,12 +56,12 @@ export default function IndexRoute({
               <Suspense>
                 <PopupHandler lang={lang} />
               </Suspense>
-              <Suspense fallback={<Skeleton className="h-11 w-full" />}>
+              {/* <Suspense fallback={<Skeleton className="h-11 w-full" />}>
                 <AnnouncementBanner lang={lang} />
               </Suspense>
               <Suspense>
                 <Navbar market={market} lang={lang} />
-              </Suspense>
+              </Suspense> */}
               <main>
                 {children}
                 {draftMode().isEnabled && (

@@ -57,10 +57,10 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger
-          className="relative flex h-11 w-11 items-center justify-center rounded-project text-brand-dark-grey transition-colors hover:bg-brand-light-grey"
+          className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey"
           asChild
         >
-          <button aria-label="Open cart" className="text-text-sm text-brand-dark-grey">
+          <button aria-label="Open cart" className="text-sm">
             Cart
             {hasCartItems ? (
               <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded bg-brand-dark-grey text-[11px] font-medium text-white">

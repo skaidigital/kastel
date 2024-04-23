@@ -19,10 +19,7 @@ export function SearchButton({ className }: Props) {
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger
         aria-label="Open search"
-        className={cn(
-          '!text-text-sm flex items-center justify-center text-brand-dark-grey',
-          className
-        )}
+        className={cn('flex items-center justify-center !text-sm ', className)}
       >
         Search
       </Dialog.Trigger>

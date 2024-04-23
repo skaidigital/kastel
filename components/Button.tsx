@@ -10,7 +10,8 @@ export const buttonProps = cva({
     variant: {
       primary: 'bg-brand-primary text-white',
       secondary: 'bg-white text-brand-dark-grey',
-      outline: 'border border-brand-light-grey bg-background hover:bg-brand-light-grey',
+      outline:
+        'border border-brand-light-grey text-white hover:bg-white focus:bg-white hover:text-brand-dark-grey focus:text-brand-dark-grey',
       destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       ghost: 'hover:bg-accent hover:text-accent-foreground',
       link: 'text-primary underline-offset-4 hover:underline'
