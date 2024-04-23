@@ -187,10 +187,13 @@ export const productLimited = groq`
 }
 `;
 
+// TODO should take both lang and market
 export function getProductCard(lang: LangValues) {
   return groq`
   "type": _type,
   "title": title.${lang},
+  "gid": gid_${lang},
+  sku,
   ${getSlug(lang)},
   mainImage{
     ${getImageBase(lang)}

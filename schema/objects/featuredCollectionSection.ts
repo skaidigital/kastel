@@ -1,11 +1,11 @@
-import { Sneaker } from '@phosphor-icons/react';
+import { Package } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const featuredCollectionSection = defineType({
   title: 'Featured Collection section',
   name: 'featuredCollectionSection',
   type: 'object',
-  icon: Sneaker,
+  icon: Package,
   preview: {
     select: {
       title: 'featuredCollectionBlock.internalTitle'
@@ -13,7 +13,7 @@ export const featuredCollectionSection = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Shoe Picker section'
+        subtitle: 'Featured Collection section'
       };
     }
   },

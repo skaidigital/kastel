@@ -31,6 +31,8 @@ export function HotspotImage({ image, hotspots }: HotspotImageProps) {
             <HoverCardContent side="top" className="w-[320px] border-none p-0">
               <ProductCard
                 title={hotspot.title}
+                gid={hotspot.gid}
+                sku={hotspot.sku}
                 mainImage={hotspot.mainImage}
                 lifestyleImage={hotspot.lifestyleImage}
                 badges={hotspot.badges}

@@ -85,13 +85,15 @@ export const ShoePickerSection = ({ data }: Props) => {
             <CarouselNext />
           </div>
         </Container>
-        <CarouselContent className="divide-x divide-brand-light-grey">
+        <CarouselContent className="-ml-0 divide-x divide-brand-light-grey">
           {activeType?.items.map((item, index) => {
             if (item.type === 'product') {
               return (
                 <CarouselItem key={item.title + index} className="basis-[80%] pl-0 lg:basis-[25%]">
                   <ProductCard
                     title={item.title}
+                    gid={item.gid}
+                    sku={item.sku}
                     firstImage={'product'}
                     mainImage={item.mainImage}
                     lifestyleImage={item.lifestyleImage}
@@ -102,7 +104,6 @@ export const ShoePickerSection = ({ data }: Props) => {
                 </CarouselItem>
               );
             }
-            // TODO find a better key
             return (
               <CarouselItem key={index} className="relative h-auto basis-[80%] pl-0 lg:basis-[25%]">
                 <Media media={item} loading="lazy" />j

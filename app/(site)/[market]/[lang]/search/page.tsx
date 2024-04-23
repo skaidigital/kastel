@@ -145,6 +145,8 @@ export default async function Page({ searchParams, params }: Props) {
             productCount?.map((product: ProductCardProps, index) => (
               <ProductCard
                 type={product.type}
+                gid={product.gid}
+                sku={product.sku}
                 key={product.slug}
                 slug={product.slug}
                 title={product.title}

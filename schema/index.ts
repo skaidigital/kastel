@@ -83,7 +83,7 @@ import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
-import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollection';
+import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollectionBlock';
 import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';

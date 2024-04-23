@@ -118,6 +118,8 @@ export function CollectionLayout({
             return (
               <ProductCard
                 key={index}
+                gid={item.gid}
+                sku={item.sku}
                 type={item.type}
                 title={item.title}
                 slug={item.slug}

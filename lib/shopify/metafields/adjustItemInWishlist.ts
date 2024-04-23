@@ -1,3 +1,5 @@
+'use server';
+
 import { METAFIELDS } from '@/data/constants';
 import { shopifyAdminQuery } from '../admin';
 import { getWishlist } from './getWishlist';

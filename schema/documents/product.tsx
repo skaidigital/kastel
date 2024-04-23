@@ -459,16 +459,6 @@ export const product = defineType({
       title: 'Title (Z-A)',
       by: [{ field: 'internalTitle', direction: 'desc' }]
     }
-    // {
-    //   name: 'priceDesc',
-    //   title: 'Price (Highest first)',
-    //   by: [{ field: 'minPrice_no.amount', direction: 'desc' }]
-    // },
-    // {
-    //   name: 'priceAsc',
-    //   title: 'Price (Lowest first)',
-    //   by: [{ field: 'minPrice_no.amount', direction: 'asc' }]
-    // }
   ],
   preview: {
     select: {

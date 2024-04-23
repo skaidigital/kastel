@@ -1,7 +1,7 @@
 import { BlogPostSection } from '@/components/shared/PageBuilder/BlogPostSection';
 import { CardSection } from '@/components/shared/PageBuilder/CardSection';
 import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
-import { FeaturedCollection } from '@/components/shared/PageBuilder/FeaturedCollection';
+import { FeaturedCollectionSection } from '@/components/shared/PageBuilder/FeaturedCollectionSection';
 import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedShoeSection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
@@ -19,7 +19,7 @@ type BlockType = {
 };
 
 const blockTypes: BlockType = {
-  featuredCollection: FeaturedCollection,
+  featuredCollectionSection: FeaturedCollectionSection,
   cardSection: CardSection,
   blogPostSection: BlogPostSection,
   faqSection: FAQSection,

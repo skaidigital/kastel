@@ -1,5 +1,3 @@
-// 'use client';
-
 import { formatPrice } from '@/app/api/shopify/utils';
 import { Badge } from '@/components/Badge';
 import { CustomLink } from '@/components/CustomLink';
@@ -8,7 +6,6 @@ import { ProductCardProvider } from '@/components/shared/ProductCard/Context';
 import { ProductCardImage } from '@/components/shared/ProductCard/Image';
 import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer';
 import { Rating, RatingFallback } from '@/components/shared/ProductCard/Rating';
-import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ROUTES } from '@/data/constants';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { Money } from '@/lib/shopify/types';
@@ -24,16 +21,13 @@ interface Props extends ProductCardProps {
 // TODO consider having a container for the badges and rating so that we can align them
 export function ProductCard({
   slug,
-  firstImage,
+  gid,
   mainImage,
   lifestyleImage,
   title,
   className,
-  badges,
-  priority
+  badges
 }: Props) {
-  // const [isHovered, setIsHovered] = useState<boolean>(false);
-
   const isOnSale = true;
   const discountPercentage = 20;
 
@@ -59,9 +53,9 @@ export function ProductCard({
       >
         <ImageContainer>
           <div className="absolute right-3 top-3 z-50 @[320px]:right-4 @[320px]:top-4">
-            <Suspense fallback={<WishlistFallback />}>
-              <Wishlist sku="123" />
-            </Suspense>
+            {/* <Suspense fallback={<WishlistFallback />}>
+              <Wishlist gid={gid} />
+            </Suspense> */}
           </div>
           {badges && (
             <div className="absolute right-2 top-3 z-10 flex flex-col gap-1 xl:flex-row">

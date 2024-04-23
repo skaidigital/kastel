@@ -25,7 +25,7 @@ export const sectionSettingsValidator = z.object({
 });
 
 const featuredCollectionValidator = z.object({
-  type: z.literal('featuredCollection'),
+  type: z.literal('featuredCollectionSection'),
   key: z.string(),
   title: z.string(),
   description: z.string(),
@@ -330,25 +330,27 @@ export const PAGE_BUILDER_TYPES: {
     textPositionMobile,
     textPositionDesktop
   `,
-  featuredCollection: (lang) => `
+  featuredCollectionSection: (lang) => `
     ${fragments.base},
-    ...collection->{
-      "title": title.${lang},
-      "description": descriptionShort.${lang},
-      "slug": "/collections/"+slug_${lang}.current
-    },
-    "products": select(
-      isManual == true => products[]->{
-        ${fragments.getProductCard(lang)}
+    ...featuredCollectionBlock->{
+      ...collection->{
+        "title": title.${lang},
+        "description": descriptionShort.${lang},
+        "slug": "/collections/"+slug_${lang}.current
       },
-      isManual == false => collection->.products[].product->{
-        ${fragments.getProductCard(lang)},
-      }
-    ),
-    media{
-     ${fragments.getMedia(lang)}
+      "products": select(
+        isManual == true => products[]->{
+          ${fragments.getProductCard(lang)}
+        },
+        isManual == false => collection->.products[].product->{
+          ${fragments.getProductCard(lang)}
+        }
+      ),
+      media{
+        ${fragments.getMedia(lang)}
+       },
+      "buttonText": buttonText.${lang},
     },
-    "buttonText": buttonText.${lang},
     sectionSettings{
       ${fragments.sectionSettings}
     }
