@@ -2,7 +2,7 @@ import {
   SearchResult,
   getSearchResultQuery,
   searchResultValidator
-} from '@/app/(site)/[market]/[lang]/search/hooks';
+} from '@/app/(site)/[market]/[lang]/(rest)/search/hooks';
 import { getDictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';

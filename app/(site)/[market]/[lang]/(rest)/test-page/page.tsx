@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import { ProductRating } from '@/components/lipscore/ProductScore';
-import { getLipscoreReviews } from '@/components/lipscore/hook';
+import { getProductRatingBySku } from '@/components/lipscore/hook';
 import { SmileButton } from '@/components/smile/Button';
 import { getSmilePoints } from '@/components/smile/hooks';
 import { COOKIE_NAMES, SMILE_DEEP_LINKS } from '@/data/constants';
@@ -58,7 +58,7 @@ export default async function Page() {
   // ----------------------------
   // Lipscore functions
   // --------------------------------
-  const getProductRating = await getLipscoreReviews(productSku);
+  const getProductRating = await getProductRatingBySku(productSku);
   console.log(getProductRating);
 
   // ----------------------------

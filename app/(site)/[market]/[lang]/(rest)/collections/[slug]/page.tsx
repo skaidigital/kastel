@@ -4,6 +4,7 @@ import {
   CollectionProductPayload,
   CollectionProductsPayload,
   collectionBaseValidator,
+  collectionProductsValidator,
   getCollectionBaseQuery,
   getCollectionProductData,
   getProductIdsByOrder,
@@ -125,22 +126,23 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 
   const cleanedProductData = cleanData(initialProducts, inititalProductsData);
 
-  // const validatedProducts = collectionProductsValidator.safeParse({
-  //   products: cleanedProductData,
-  //   hasNextPage: true
+  const validatedProducts = collectionProductsValidator.safeParse({
+    products: cleanedProductData,
+    hasNextPage: true
+  });
+
+  if (!validatedProducts.success) {
+    console.log('Error Thrown here');
+
+    console.error(validatedProducts.error);
+    notFound();
+  }
+
+  // const mergedData = mergeCollectionBaseAndProducts(collectionBaseWithoutNullValues, {
+  //   products: cleanedProductData.products,
+  //   hasNextPage: initialProducts.data.hasNextPage
   // });
-
-  // if (!validatedProducts.success) {
-  //   console.log('Error Thrown here');
-
-  //   console.error(validatedProducts.error);
-  //   notFound();
-  // }
-
-  const mergedData = mergeCollectionBaseAndProducts(
-    collectionBaseWithoutNullValues,
-    cleanedProductData
-  );
+  const mergedData = mergeCollectionBaseAndProducts(validatedBase.data, validatedProducts.data);
 
   if (!initialBase.data) {
     notFound();
