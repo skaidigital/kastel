@@ -18,7 +18,7 @@ interface Props {
 
 export function DesktopMenu({ items, className }: Props) {
   return (
-    <NavigationMenu.Root className={cn('z-10 flex justify-center', className)}>
+    <NavigationMenu.Root className={cn('z-50 flex justify-center', className)}>
       <NavigationMenu.List className="center m-0 flex list-none items-center bg-white">
         {items?.map((item) => {
           if (item.type === 'link') {

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function NavbarLayout({ data, children }: Props) {
-  const { items } = data;
+  const items = data?.items;
 
   if (!items) return null;
 

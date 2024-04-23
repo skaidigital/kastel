@@ -1,5 +1,5 @@
 import { NavbarLayout } from '@/components/global/Navbar/NavbarLayout';
-import { NavbarPayload, getNavbarQuery, navbarValidator } from '@/components/global/Navbar/hooks';
+import { NavbarPayload, getNavbarQuery } from '@/components/global/Navbar/hooks';
 import Cart from '@/components/shared/Cart';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
 import { CrossSellSkeleton } from '@/components/shared/Cart/CrossSell/CrossSellSkeleton';
@@ -23,15 +23,15 @@ export async function Navbar({ market, lang }: Props) {
   const initial = await loadNavbar(lang);
 
   const withoutNullValues = nullToUndefined(initial.data);
-  const validatedData = navbarValidator.safeParse(withoutNullValues);
+  // const validatedData = navbarValidator.safeParse(withoutNullValues);
 
-  if (!validatedData.success) {
-    console.error('Failed to validate navbar data', validatedData.error);
-    return null;
-  }
+  // if (!validatedData.success) {
+  //   console.error('Failed to validate navbar data', validatedData.error);
+  //   return null;
+  // }
 
   return (
-    <NavbarLayout data={validatedData.data}>
+    <NavbarLayout data={withoutNullValues}>
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
           <Suspense fallback={<CrossSellSkeleton className="px-6 py-4" />}>

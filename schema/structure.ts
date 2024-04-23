@@ -6,7 +6,6 @@ import {
   Calendar,
   Check,
   Coins,
-  Cookie,
   CreditCard,
   Crosshair,
   Faders,
@@ -116,7 +115,6 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, 'Announcement banner', 'announcementBanner', 'announcementBanner').icon(Info),
         singleton(S, 'Navbar', 'navbar', 'navbar').icon(ArrowLineUp),
         singleton(S, 'Footer', 'footer', 'footer').icon(SquareHalfBottom),
-        singleton(S, 'Cookie consent', 'cookieConsent', 'cookieConsent').icon(Cookie),
         singleton(S, 'Popup', 'popup', 'popup').icon(MegaphoneSimple),
         singleton(S, 'USPs', 'usps', 'usps').icon(Check),
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)

@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'cva';
 
 export const sectionProps = cva({
-  base: '',
+  base: 'bg-white',
   variants: {
     size: {
       sm: 'py-20',

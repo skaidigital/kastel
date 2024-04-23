@@ -13,7 +13,7 @@ export const ugcSection = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Shoe Picker section'
+        subtitle: 'UGC section'
       };
     }
   },

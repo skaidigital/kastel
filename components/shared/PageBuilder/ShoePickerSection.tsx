@@ -85,7 +85,7 @@ export const ShoePickerSection = ({ data }: Props) => {
             <CarouselNext />
           </div>
         </Container>
-        <CarouselContent>
+        <CarouselContent className="divide-x divide-brand-light-grey">
           {activeType?.items.map((item, index) => {
             if (item.type === 'product') {
               return (

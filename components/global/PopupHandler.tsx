@@ -9,12 +9,6 @@ const MarketPopup = dynamic(
     suspense: true
   }
 );
-const CookieConsent = dynamic(
-  () => import('@/components/global/CookieConsent').then((mod) => mod.CookieConsent),
-  {
-    suspense: true
-  }
-);
 
 const Popup = dynamic(() => import('@/components/global/Popup').then((mod) => mod.Popup), {
   suspense: true

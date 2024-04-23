@@ -194,7 +194,7 @@ export const pageBuilder = defineType({
     }),
     // Nature Lab Innovation item (only for productType and product)
     defineArrayMember({
-      title: 'Nature Lab Innovations',
+      title: '🚧 Nature Lab Innovations',
       type: 'natureLabInnovationSection'
     }),
     // Blog posts
@@ -211,7 +211,7 @@ export const pageBuilder = defineType({
     }),
     // Timeline
     defineArrayMember({
-      title: 'Timeline',
+      title: '🚧 Timeline',
       type: 'reference',
       to: [{ type: 'timelineSection' }],
       name: 'timelineSection'
@@ -222,19 +222,9 @@ export const pageBuilder = defineType({
       type: 'faqSection',
       name: 'faqSection'
     }),
-    // Text section
-    defineArrayMember({
-      title: 'Text section',
-      type: 'textSection'
-    }),
-    // Contact form
-    defineArrayMember({
-      title: 'Contact form',
-      type: 'contactForm'
-    }),
     // Email capture
     defineArrayMember({
-      title: 'Email capture',
+      title: '🚧 Email capture',
       type: 'emailCapture'
     })
   ]

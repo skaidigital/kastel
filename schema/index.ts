@@ -96,7 +96,6 @@ import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
-import { cookieConsent } from '@/schema/singletons/cookieConsent';
 import { defaultProductFAQS } from '@/schema/singletons/defaultProductFAQS';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
@@ -229,7 +228,6 @@ const schema = [
   accountPage,
   announcementBanner,
   popup,
-  cookieConsent,
   usps,
   helpCenter,
   merchandising,

@@ -81,7 +81,7 @@ export function ProductCard({
             <Rating sku="123" />
           </Suspense>
         </ImageContainer>
-        <div className="flex flex-col justify-center gap-y-2 bg-white p-3 @[320px]:p-4">
+        <div className="flex flex-col justify-center gap-y-2 border-y border-brand-light-grey bg-white p-3 @[320px]:p-4">
           <div className="mb-2 flex flex-col gap-y-1">
             <h3 className="truncate text-xs @[320px]:text-sm">{title}</h3>
             <div className="flex gap-x-3 text-xs text-brand-mid-grey @[320px]:gap-x-4 @[320px]:text-sm">

@@ -13,7 +13,7 @@ export function PageLayout({ data, market, lang }: PageProps) {
     <>
       {data?.pageBuilder?.map((block, index: number) => (
         <PageBuilder
-          key={block.key}
+          key={block.key + index}
           data={block}
           index={index}
           market={market}
