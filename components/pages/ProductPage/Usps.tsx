@@ -8,9 +8,7 @@ interface Props {
   usps: Product['usps'];
 }
 
-export function Usps({ usps }: Props) {
-  console.log(usps);
-
+export function UspsMarquee({ usps }: Props) {
   return (
     usps && (
       <div className="border-b border-t border-brand-light-grey py-6">
@@ -18,7 +16,7 @@ export function Usps({ usps }: Props) {
           {usps.map((usp) => {
             return (
               <div key={usp.icon.asset._ref} className="mr-24 flex items-center gap-2">
-                <SanityImage width={40} height={40} image={usp.icon} />
+                <SanityImage width={24} height={24} image={usp.icon} />
                 <Text as="p" size="sm" className="text-brand-dark-grey">
                   {usp.title}
                 </Text>

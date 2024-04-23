@@ -20,10 +20,6 @@ export function DiscountPill({ productType, variants }: Props) {
   const isOnSale = discountedPrice && price && price > discountedPrice;
   const discountPercentage = isOnSale ? Math.round(((price - discountedPrice) / price) * 100) : 0;
 
-  console.log(price);
-  console.log(discountedPrice);
-  console.log(isOnSale);
-
   return (
     isOnSale && (
       <div>

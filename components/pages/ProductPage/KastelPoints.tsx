@@ -43,6 +43,7 @@ export function KastelPoints({ productType, variants }: Props) {
   const lowestPrice = isOnSale ? discountedPrice : price;
 
   const kastelPointsEarned = getKastelPoints(lowestPrice || 0);
+  console.log(kastelPointsEarned);
 
   const data = [
     {
@@ -66,12 +67,12 @@ export function KastelPoints({ productType, variants }: Props) {
         className=""
         plugins={[
           Autoplay({
-            delay: 2000
+            delay: 3000
           })
         ]}
       >
         <CarouselContent className="-ml-2">
-          {data?.map((content, index) => (
+          {data?.map((content) => (
             <CarouselItem key={content.text} className="basis-[100%] pl-2">
               <div className="flex justify-between">
                 <Text as="p" size="xs" className="text-brand-dark-grey">

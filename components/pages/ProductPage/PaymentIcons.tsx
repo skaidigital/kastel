@@ -1,13 +1,17 @@
-export function PaymentIcons() {
+import { PaymentProviders } from '@/components/shared/PaymentProviders';
+import { MarketValues } from '@/data/constants';
+import { Suspense } from 'react';
+
+interface Props {
+  market: MarketValues;
+}
+
+export function PaymentIcons({ market }: Props) {
   return (
-    <div className="my-4 flex justify-center gap-1">
-      <span>(icon)</span>
-      <span>(icon)</span>
-      <span>(icon)</span>
-      <span>(icon)</span>
-      <span>(icon)</span>
-      <span>(icon)</span>
-      <span>(icon)</span>
+    <div className="my-4 flex justify-center">
+      <Suspense>
+        <PaymentProviders market={market} />
+      </Suspense>
     </div>
   );
 }

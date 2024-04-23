@@ -18,7 +18,7 @@ import { DiscountPill } from './DiscountPill';
 import { KastelPoints } from './KastelPoints';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductPrice } from './ProductPrice';
-import { Usps } from './Usps';
+import { UspsMarquee } from './Usps';
 
 interface Props {
   data: Product;
@@ -111,7 +111,7 @@ export async function ProductPageLayout(props: Props) {
               ))}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
-            <Usps usps={product.usps} />
+            <UspsMarquee usps={product.usps} />
             <div className="px-[84px]">
               <div className="flex flex-col gap-y-3  pb-5">
                 <div className="flex justify-between">
@@ -151,7 +151,7 @@ export async function ProductPageLayout(props: Props) {
                   <ProductForm productId={id} type={type} variants={variants} options={options} />
                 </Suspense>
               </div>
-              <PaymentIcons />
+              <PaymentIcons market={market} />
               <KastelPoints variants={variants} productType={product.type} />
             </div>
 

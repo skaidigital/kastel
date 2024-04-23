@@ -24,7 +24,7 @@ export function ColorSelect({ products }: Props) {
         Color: {activeProduct?.title}
       </Text>
       <Carousel className="" opts={{ align: 'start' }}>
-        <CarouselContent>
+        <CarouselContent className="-ml-1">
           {products.map((product) => (
             <CarouselItem key={product.title} className="basis-[20%] pl-1">
               <CustomLink key={product.mainImage.asset._ref} href={`/products/${product.slug}`}>
