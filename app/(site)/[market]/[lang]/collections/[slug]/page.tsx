@@ -4,7 +4,6 @@ import {
   CollectionProductPayload,
   CollectionProductsPayload,
   collectionBaseValidator,
-  collectionProductsValidator,
   getCollectionBaseQuery,
   getCollectionProductData,
   getProductIdsByOrder,
@@ -126,21 +125,21 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 
   const cleanedProductData = cleanData(initialProducts, inititalProductsData);
 
-  const validatedProducts = collectionProductsValidator.safeParse({
-    products: cleanedProductData,
-    hasNextPage: true
-  });
+  // const validatedProducts = collectionProductsValidator.safeParse({
+  //   products: cleanedProductData,
+  //   hasNextPage: true
+  // });
 
-  if (!validatedProducts.success) {
-    console.log('Error Thrown here');
+  // if (!validatedProducts.success) {
+  //   console.log('Error Thrown here');
 
-    console.error(validatedProducts.error);
-    notFound();
-  }
+  //   console.error(validatedProducts.error);
+  //   notFound();
+  // }
 
   const mergedData = mergeCollectionBaseAndProducts(
     collectionBaseWithoutNullValues,
-    validatedProducts.data
+    cleanedProductData
   );
 
   if (!initialBase.data) {

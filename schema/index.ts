@@ -97,12 +97,12 @@ import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
-import { defaultProductFAQS } from '@/schema/singletons/defaultProductFAQS';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
 import { popup } from '@/schema/singletons/popup';
+import { productSettings } from '@/schema/singletons/productSettings';
 import { retailersPage } from '@/schema/singletons/retailersPage';
 import { settingsPaymentProviders } from '@/schema/singletons/settingsPaymentProviders';
 import { settingsSEOAndSocials } from '@/schema/singletons/settingsSEOAndSocials';
@@ -236,7 +236,7 @@ const schema = [
   settingsSEOAndSocials,
   settingsPaymentProviders,
   pageNotFound,
-  defaultProductFAQS,
+  productSettings,
   retailersPage
 ];
 
