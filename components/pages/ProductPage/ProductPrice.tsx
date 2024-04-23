@@ -1,7 +1,6 @@
 'use client';
 
 import { formatPrice } from '@/app/api/shopify/utils';
-import { Badge } from '@/components/Badge';
 import { Text } from '@/components/base/Text';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
@@ -29,7 +28,6 @@ export function ProductPrice({
   const price = activeVariant?.price;
   const discountedPrice = activeVariant?.discountedPrice;
   const isOnSale = discountedPrice && price && price > discountedPrice;
-  const discountPercentage = isOnSale ? Math.round(((price - discountedPrice) / price) * 100) : 0;
 
   const formattedPrice = price
     ? formatPrice({
@@ -51,9 +49,11 @@ export function ProductPrice({
   return (
     <div className="flex">
       <Text>
-        {formattedDiscountedPrice && <span className="mr-3">{formattedDiscountedPrice}</span>}
+        {formattedDiscountedPrice && (
+          <span className="mr-3 text-brand-dark-grey">{formattedDiscountedPrice}</span>
+        )}
         {isOnSale ? (
-          <del className="line-through">{formattedPrice}</del>
+          <del className="text-brand-mid-grey line-through">{formattedPrice}</del>
         ) : (
           <span>{formattedPrice}</span>
         )}
@@ -62,13 +62,6 @@ export function ProductPrice({
         <Text>
           {formattedMinVariantPrice} &ndash; {formattedMaxVariantPrice}
         </Text>
-      )}
-      {isOnSale && discountPercentage && (
-        <div>
-          <Badge size="sm" variant="success" className="ml-3">
-            {discountPercentage}% OFF
-          </Badge>
-        </div>
       )}
     </div>
   );

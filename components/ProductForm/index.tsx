@@ -1,9 +1,9 @@
 import { getDictionary } from '@/app/dictionaries';
 import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
-import { StockHandler } from '@/components/ProductForm/StockHandler';
 import { VariantSelector } from '@/components/VariantSelector';
 import { OutOfStockNotificationForm } from '@/components/pages/ProductPage/OutOfStockNotificationForm/OutOfStockNotification';
 import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
+import { Text } from '../base/Text';
 import { ProductInventoryResponse } from './hooks';
 
 export type Combination = {
@@ -33,7 +33,7 @@ export async function ProductForm({ productId, type, options, variants }: Props)
   // if (!inventory) return null;
   const inventory: ProductInventoryResponse = {
     availableForSale: true,
-    totalInventory: 2,
+    totalInventory: 50,
     priceRange: {
       minVariantPrice: {
         amount: '200',
@@ -49,7 +49,7 @@ export async function ProductForm({ productId, type, options, variants }: Props)
         node: {
           id: variant.id,
           availableForSale: true,
-          quantityAvailable: 2
+          quantityAvailable: 50
         }
       }))
     }
@@ -66,20 +66,35 @@ export async function ProductForm({ productId, type, options, variants }: Props)
           dictionary={dictionary}
         />
       )}
-      <StockHandler
+      {/* <StockHandler
         productType={type}
         inventory={inventory}
         dictionary={dictionary}
         variants={variants}
-      />
-      <AddToCartButton
-        productId={productId}
-        productType={type}
-        variants={variants}
-        inventory={inventory}
-        addToCartText={dictionary.add_to_cart}
-        selectSizeText={dictionary.choose_size}
-      />
+      /> */}
+      <div className="w-full">
+        <AddToCartButton
+          productId={productId}
+          productType={type}
+          variants={variants}
+          inventory={inventory}
+          addToCartText={dictionary.add_to_cart}
+          selectSizeText={dictionary.choose_size}
+        />
+        <div className="my-2 flex justify-center">
+          <Text as="p" size="sm" className=" text-brand-dark-grey">
+            Eller
+          </Text>
+        </div>
+        <AddToCartButton
+          productId={productId}
+          productType={type}
+          variants={variants}
+          inventory={inventory}
+          addToCartText={dictionary.add_to_cart}
+          selectSizeText={dictionary.choose_size}
+        />
+      </div>
       <OutOfStockNotificationForm
         productType={type}
         variants={variants}

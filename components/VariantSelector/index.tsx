@@ -46,22 +46,15 @@ export function VariantSelector({
   // Filter out any option where there are not a corresponding variant
   const filteredOptions = filterOptions(variants, options, featuredOptions);
 
+  console.log(filteredOptions);
+
   return filteredOptions.map((option) => {
     const optionType = option.type;
     const isSize = optionType === 'size';
 
     if (isSize)
       return (
-        <SizeSelector
-          key={option.name}
-          option={option}
-          options={options}
-          combinations={combinations}
-          showAllSizesText={dictionary.show_all_sizes}
-          chooseSizeText={dictionary.choose_size}
-          closeText={dictionary.close}
-          reccommendedText={dictionary.reccommended}
-        />
+        <SizeSelector key={option.name} option={option} chooseSizeText={dictionary.choose_size} />
       );
 
     return (

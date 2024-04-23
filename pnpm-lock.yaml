@@ -143,6 +143,9 @@ dependencies:
   cva:
     specifier: 1.0.0-beta.1
     version: 1.0.0-beta.1(typescript@5.4.5)
+  embla-carousel-autoplay:
+    specifier: ^8.0.2
+    version: 8.0.2(embla-carousel@8.0.2)
   embla-carousel-react:
     specifier: ^8.0.2
     version: 8.0.2(react@18.2.0)
@@ -194,6 +197,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.2.0(react@18.2.0)
+  react-fast-marquee:
+    specifier: ^1.6.4
+    version: 1.6.4(react-dom@18.2.0)(react@18.2.0)
   react-hook-form:
     specifier: ^7.46.1
     version: 7.51.3(react@18.2.0)
@@ -9278,6 +9284,14 @@ packages:
     resolution: {integrity: sha512-nAGcF0yeKKfrP13LMFr5U1eghfFSvFLg302VUFzWlcjPOnUYd52yU5x6PBYrujhNbc4jYmZFrGZFK+xasaEzVA==}
     dev: false
 
+  /embla-carousel-autoplay@8.0.2(embla-carousel@8.0.2):
+    resolution: {integrity: sha512-31lBigAkHeI4k1767uYcr9Gm2y12mzLpVsi+QRxIWQT8J4AtRoHLOhd8YJFiXf22DbI/j78+IaeJK4lZRlFxUw==}
+    peerDependencies:
+      embla-carousel: 8.0.2
+    dependencies:
+      embla-carousel: 8.0.2
+    dev: false
+
   /embla-carousel-react@8.0.2(react@18.2.0):
     resolution: {integrity: sha512-RHe1GKLulOW8EDN+cJgbFbVVfRXcaLT2/89dyVw3ONGgVpZjD19wB87I1LUZ1aCzOSrTccx0PFSQanK4OOfGPA==}
     peerDependencies:
@@ -13217,6 +13231,16 @@ packages:
 
   /react-fast-compare@3.2.2:
     resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
+    dev: false
+
+  /react-fast-marquee@1.6.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-LAgvhRmHdqaUQ8R5jCUwzEGFUIjnCCt3T3W8X7j7wF6DWe0SATlpP0JX1V0pp2qX3DYUezmn1Iz5AtRFdL2EWQ==}
+    peerDependencies:
+      react: '>= 16.8.0 || 18.0.0'
+      react-dom: '>= 16.8.0 || 18.0.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-file-icon@1.4.0(react-dom@18.2.0)(react@18.2.0):

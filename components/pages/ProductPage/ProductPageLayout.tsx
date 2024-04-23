@@ -6,7 +6,6 @@ import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { ProductRating } from '@/components/lipscore/components';
-import { ActiveVariantDescription } from '@/components/pages/ProductPage/ActiveVariantDescription';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { MobileCarousel } from '@/components/shared/MobileCarousel';
@@ -14,7 +13,12 @@ import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
 import { SearchParams } from '@/lib/types';
 import { Suspense } from 'react';
+import { ColorSelectLayout } from './ColorSelectLayout';
+import { DiscountPill } from './DiscountPill';
+import { KastelPoints } from './KastelPoints';
+import { PaymentIcons } from './PaymentIcons';
 import { ProductPrice } from './ProductPrice';
+import { Usps } from './Usps';
 
 interface Props {
   data: Product;
@@ -32,7 +36,11 @@ export async function ProductPageLayout(props: Props) {
   // const { id, type, productType, description, title, variants, options, featuredOptions, usp } =
   //   product;
 
-  const { gallery, title, id, type, descriptionShort, subtitle, variants, options } = product;
+  const { gallery, title, id, type, descriptionShort, subtitle, variants, options, typeId } =
+    product;
+
+  console.log(product);
+
   const productSku = 'SOL002-002-021-40';
 
   // const productRating = await getLipscoreReviews(productSku);
@@ -103,22 +111,22 @@ export async function ProductPageLayout(props: Props) {
               ))}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
-            <p>USPS</p>
+            <Usps usps={product.usps} />
             <div className="px-[84px]">
               <div className="flex flex-col gap-y-3  pb-5">
                 <div className="flex justify-between">
-                  <div>
-                    <p>-30%</p>
+                  <div className="flex">
+                    <DiscountPill variants={variants} productType={product.type} />
                     <ProductRating sku={productSku} />
                   </div>
                   <p>(Hjerte)</p>
                 </div>
 
-                <Heading as="h1" size="xs" className="font-bold">
+                <Heading as="h1" size="xs" className="text-brand-dark-grey">
                   {title}
                 </Heading>
                 {subtitle && (
-                  <Text as="p" size="sm">
+                  <Text as="p" size="sm" className="text-brand-dark-grey">
                     {subtitle}
                   </Text>
                 )}
@@ -129,21 +137,22 @@ export async function ProductPageLayout(props: Props) {
                   minVariantPrice={product.minVariantPrice}
                   maxVariantPrice={product.maxVariantPrice}
                 />
-                <ActiveVariantDescription searchParams={searchParams} />
                 {descriptionShort && (
-                  <Text as="p" size="sm">
+                  <Text as="p" size="sm" className="my-4 text-brand-dark-grey">
                     {descriptionShort}
                   </Text>
                 )}
               </div>
               <div className="flex flex-col gap-y-8 lg:gap-y-6">
-                {/* {siblingProducts && (
-                <ColorSelector products={siblingProducts} colorText={dictionary.color} />
-              )} */}
+                <Suspense>
+                  <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
+                </Suspense>
                 <Suspense fallback={<ProductFormSkeleton />}>
                   <ProductForm productId={id} type={type} variants={variants} options={options} />
                 </Suspense>
               </div>
+              <PaymentIcons />
+              <KastelPoints variants={variants} productType={product.type} />
             </div>
 
             <div>

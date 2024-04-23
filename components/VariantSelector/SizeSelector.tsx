@@ -1,27 +1,15 @@
-import { Combination } from '@/components/VariantSelector';
+import { Dictionary } from '@/app/dictionaries';
 import { ProductOption } from '@/components/pages/ProductPage/hooks';
 import { useQueryState } from 'nuqs';
+import { Text } from '../base/Text';
 
 interface Props {
   option: ProductOption;
-  options: ProductOption[];
-  combinations: Combination[];
-  showAllSizesText: string;
-  chooseSizeText: string;
-  closeText: string;
-  reccommendedText: string;
+  chooseSizeText: Dictionary['product_page']['choose_size'];
 }
 
 // TODO refactor to use just useQueryState if possible (logic inside the map)
-export function SizeSelector({
-  option,
-  options,
-  combinations,
-  showAllSizesText,
-  chooseSizeText,
-  closeText,
-  reccommendedText
-}: Props) {
+export function SizeSelector({ option, chooseSizeText }: Props) {
   const optionType = option.type;
   const [selectedSize, setSelectedSize] = useQueryState(option.name.toLowerCase());
   if (optionType !== 'size') {
@@ -29,15 +17,25 @@ export function SizeSelector({
   }
 
   return (
-    <dl className="flex flex-col gap-y-3" key={option.name}>
-      <dd className="flex flex-wrap gap-1">
+    <dl className="" key={option.name}>
+      <dt className="mb-3">
+        <div className="flex justify-between">
+          <Text as="p" size="xs" className="text-brand-dark-grey">
+            {option.name}: {selectedSize || chooseSizeText}
+          </Text>
+          <Text as="p" size="xs" className="text-brand-dark-grey underline">
+            Size Guide
+          </Text>
+        </div>
+      </dt>
+      <dd className="grid grid-cols-6 gap-1">
         {option &&
           option.values.map((value) => {
             return (
               <button
                 key={value.title}
                 onClick={() => setSelectedSize(value.title)}
-                className={`rounded-sm border border-brand-light-grey px-6 py-[10px] ${selectedSize === value.title ? 'bg-brand-primary text-white' : ''}`}
+                className={`flex items-center justify-center rounded-sm border border-brand-light-grey py-[10px] ${selectedSize === value.title ? 'bg-brand-primary text-white' : ''}`}
               >
                 {value.title}
               </button>

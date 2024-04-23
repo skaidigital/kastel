@@ -1,6 +1,6 @@
 import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
-import { galleryValidator, richTextValidator } from '@/lib/sanity/validators';
+import { galleryValidator, imageValidator, richTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
@@ -93,47 +93,16 @@ export const productValidator = z.object({
       answer: z.array(richTextValidator)
     })
   ),
+  typeId: z.string(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
   variants: z.array(productVariantValidator),
   usps: z.array(
     z.object({
       title: z.string(),
-      icon: z.object({
-        _type: z.literal('figure'),
-        asset: z.object({
-          _ref: z.string()
-        })
-      })
+      icon: imageValidator
     })
   )
-
-  // description: z.array(richTextValidator).optional(),
-  // featuredOptions: z.array(z.string()).optional(),
-  // gallery: galleryValidator.optional(),
-  // pageBuilder: pageBuilderValidator.optional(),
-  // accordions: z.array(accordionValidator).optional(),
-  // productType: z
-  //   .object({
-  //     id: z.string(),
-  //     title: z.string(),
-  //     accordions: z
-  //       .array(
-  //         z.object({
-  //           title: z.string(),
-  //           richText: z.array(richTextValidator)
-  //         })
-  //       )
-  //       .optional(),
-  //     gallery: galleryValidator.optional(),
-  //     products: z.array(siblingProductValidator),
-  //     pageBuilder: pageBuilderValidator.optional()
-  //   })
-  //   .optional(),
-  // usp: z.array(richTextValidator),
-  // variants: z.array(productVariantValidator),
-  // options: z.array(productOptionValidator).optional(),
-  // priceRange: priceRangeValidator
 });
 
 export type Product = z.infer<typeof productValidator>;
@@ -205,6 +174,7 @@ export function getProductQuery({
     ),
     ${getGallerByGender({ market, gender })},
     ...productType->{
+      "typeId": _id,
       "descriptionShort": descriptionShort.no,
       "descriptionLongDetails": descriptionLongDetails.no,
       "faqs": faqs[]->{
@@ -212,100 +182,43 @@ export function getProductQuery({
       },
       "usps": usps[]->{
         "title": title.no,
-        icon
+        "icon": icon {
+          ${fragments.getImageBase(lang)}
+        }
       }
     }
   }
   `;
-  // const query = groq`
-  // *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE" && defined(gid_${market})][0]{
-  //   "id": gid_${lang},
-  //   "title": title_${lang},
-  //   "slug": slug_${lang}.current,
-  //   type,
-  //   sku,
-  //   ${fragments.getGallery(market)},
-  //   "accordions": accordions[]->{
-  //       "title": title_${lang},
-  //       "richText": ${fragments.getRichText({ lang })},
-  //   },
-  //   productType->{
-  //     "id": _id,
-  //     "title": title.${lang},
-  //     "accordions": accordions[]->{
-  //       "title": title_${lang},
-  //       "richText": ${fragments.getRichText({ lang })},
-  //     },
-  //     ${fragments.getGallery(market)},
-  //     "products": *[_type == "product" && references(^._id) && status_${lang} == "ACTIVE"]{
-  //       "title": title_${lang},
-  //       "slug": slug_${lang}.current,
-  //       "isColor": isColor,
-  //       "color": color->.color.value,
-  //     },
-  //     pageBuilder[]{
-  //       ${concatenatePageBuilderQueries({ market, lang })}
-  //     },
-  //   },
-  //   "price": price_${lang},
-  //   "compareAtPrice": compareAtPrice_${lang},
-  //   options[]{
-  //     "name": optionType->.title_${lang},
-  //     "type": optionType->.type,
-  //     "values": options[]->{
-  //       "title": title_${lang},
-  //     },
-  //     "featuredValues": featuredOptions[]->.title_${lang},
-  //   },
-  //   "featuredOptions": featuredOptions_${lang}[]->.title_${lang},
-  //   "priceRange": {
-  //     "minVariantPrice": {
-  //       "amount": coalesce(minPrice_${market}.amount, 0),
-  //       "currencyCode": coalesce(minPrice_${market}.currencyCode, "")
-  //     },
-  //     "maxVariantPrice": {
-  //       "amount": coalesce(maxPrice_${market}.amount, 0),
-  //       "currencyCode": coalesce(maxPrice_${market}.currencyCode, "")
-  //     }
-  //   },
-  // "variants": select(
-  //   type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${market} != true && defined(gid_${market})]{
-  //     "id": gid_${market},
-  //     "price": price_${market},
-  //     "discountedPrice": discountedPrice_${market},
-  //     sku,
-  //     "selectedOptions": [
-  //     option1->{
-  //         "name": type->title_${lang},
-  //         "value": title_${lang},
-  //     },
-  //     option2->{
-  //         "name": type->title_${lang},
-  //         "value": title_${lang},
-  //     },
-  //     option3->{
-  //         "name": type->title_${lang},
-  //         "value": title_${lang},
-  //     }
-  //   ]},
-  //   type == "SIMPLE" => [{
-  //     "id": variantGid_${market},
-  //     "price": price_${market},
-  //     "discountedPrice": compareAtPrice_${market},
-  //     sku,
-  //     "selectedOptions": [
-  //       "name": "Default",
-  //       "value": "Default",
-  //     ],
-  //   }]
-  // ),
-  //   pageBuilder[]{
-  //     ${concatenatePageBuilderQueries({ market, lang })}
-  //   },
-  //   "usp": *[_type == "usps"][0].${fragments.getRichText({ lang, fieldName: 'productForm' })}
 
-  // }
-  // `;
+  return query;
+}
+
+const productSiblingValidator = z.object({
+  title: z.string(),
+  mainImage: imageValidator,
+  slug: z.string()
+});
+
+export const productSiblingsValidator = z.array(productSiblingValidator);
+
+export type ProductSiblings = z.infer<typeof productSiblingsValidator>;
+
+export function getSibligProductsQuery({
+  market,
+  lang
+}: {
+  market: MarketValues;
+  lang: LangValues;
+}) {
+  const query = groq`
+  *[_type == "product" && references($typeId) && status_no == "ACTIVE" && defined(gid_${market})]{
+    "title": title.${lang},
+    "mainImage": mainImage {
+      ${fragments.getImageBase(lang)}
+    },
+    "slug": slug_${market}.current,
+     }
+  `;
 
   return query;
 }
