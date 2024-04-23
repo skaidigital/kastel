@@ -14,14 +14,13 @@ interface Props {
 export function ProductCardImage({ mainImage, lifestyleImage, firstImage }: Props) {
   const { isHovered, setIsHovered } = useProductCardContext();
 
-  const hasLifestyleImage = lifestyleImage ? true : false;
+  const hasLifestyleImage = !!lifestyleImage;
   const wantsLifestyleImageFirst = firstImage === 'lifestyle';
-  const preferredFirstImage = firstImage;
 
   const chosenFirstImage =
     hasLifestyleImage && wantsLifestyleImageFirst ? lifestyleImage : mainImage;
   const chosenHoverImage =
-    preferredFirstImage === 'lifestyle' && lifestyleImage ? lifestyleImage : mainImage;
+    firstImage === 'lifestyle' && lifestyleImage ? lifestyleImage : mainImage;
 
   const hasHoverImage = chosenHoverImage !== chosenFirstImage;
 
@@ -31,7 +30,6 @@ export function ProductCardImage({ mainImage, lifestyleImage, firstImage }: Prop
       onMouseLeave={() => hasHoverImage && setIsHovered(false)}
     >
       <SanityImage
-        // TODO fix type error
         image={isHovered && hasLifestyleImage ? chosenHoverImage : chosenFirstImage}
         className={cn('scale-100 rounded-project object-cover')}
         sizes="(min-width: 640px) 50vw, 25vw"

@@ -5,7 +5,6 @@ import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
 import { LogoButton } from '@/components/global/Navbar/LogoButton';
-import { SearchBar } from '@/components/global/Navbar/SearchBar';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
 import { cn } from '@/lib/utils';
@@ -49,7 +48,7 @@ export function MobileMenu({ items }: Props) {
                 </button>
               </DrawerClose>
             </div>
-            <SearchBar />
+            {/* <SearchBar /> */}
             <ul className="space-y-7">
               {items?.map((item, index) => (
                 <NavigationMenu.Item key={index}>

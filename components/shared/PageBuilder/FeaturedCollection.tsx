@@ -56,7 +56,6 @@ export const FeaturedCollection = ({ data }: Props) => {
                 <CarouselItem key={product.title} className="basis-[80%] pl-0">
                   <ProductCard
                     title={product.title}
-                    slugPrefix={'products'}
                     firstImage={'product'}
                     mainImage={product.mainImage}
                     lifestyleImage={product.lifestyleImage}
@@ -105,7 +104,6 @@ export const FeaturedCollection = ({ data }: Props) => {
                   <CarouselItem key={product.title} className="pl-0 lg:basis-1/2">
                     <ProductCard
                       title={product.title}
-                      slugPrefix={'products'}
                       firstImage={'product'}
                       mainImage={product.mainImage}
                       lifestyleImage={product.lifestyleImage}

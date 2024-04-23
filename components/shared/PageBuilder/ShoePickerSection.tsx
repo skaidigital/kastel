@@ -92,7 +92,6 @@ export const ShoePickerSection = ({ data }: Props) => {
                 <CarouselItem key={item.title + index} className="basis-[80%] pl-0 lg:basis-[25%]">
                   <ProductCard
                     title={item.title}
-                    slugPrefix={'products'}
                     firstImage={'product'}
                     mainImage={item.mainImage}
                     lifestyleImage={item.lifestyleImage}
