@@ -1,7 +1,7 @@
-import { cardValidator, pageBuilderValidator } from '@/components/shared/PageBuilder/hooks';
+import { pageBuilderValidator } from '@/components/shared/PageBuilder/hooks';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
-import { productCardValidator } from '@/lib/sanity/validators';
+import { mediaValidator, productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
@@ -10,10 +10,7 @@ const collectionProductValidator = productCardValidator.extend({
   _id: z.string()
 });
 
-const collectionMoodValidator = z.object({
-  card: cardValidator,
-  size: z.union([z.literal('small'), z.literal('large')])
-});
+const collectionMoodValidator = mediaValidator;
 
 export const collectionBaseValidator = z.object({
   id: z.string(),
@@ -63,10 +60,7 @@ export function getCollectionBaseQuery({
       "descriptionShort": descriptionShort.${lang},
       "descriptionLong": descriptionLong.${lang},
       moods[]{
-        card->{
-          ${fragments.getCard(lang)}
-        },
-        size
+        ${fragments.getMedia(lang)}
       },
     }
   `;
@@ -157,10 +151,11 @@ export function getCollectionProductsQuery(lang: LangValues, pageIndex: number =
   return query;
 }
 
-export function mergeCollectionBaseAndProducts(
-  collection: CollectionBasePayload,
-  products: CollectionProductsPayload
-): Collection {
+export function mergeCollectionBaseAndProducts(collection: any, products: any): Collection {
+  // export function mergeCollectionBaseAndProducts(
+  //   collection: CollectionBasePayload,
+  //   products: CollectionProductsPayload
+  // ): Collection {
   return {
     id: collection.id,
     title: collection.title,

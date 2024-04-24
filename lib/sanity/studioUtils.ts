@@ -42,9 +42,13 @@ export function resolveHref(documentType?: string, slug?: string): string | unde
     case 'home':
       return '/';
     case 'page':
-      return slug ? `/${slug}` : undefined;
+      return slug ? `/no/no/${slug}` : undefined;
     case 'project':
-      return slug ? `/projects/${slug}` : undefined;
+      return slug ? `/no/no/projects/${slug}` : undefined;
+    case 'collection':
+      return slug ? `/no/no/collections/${slug}` : undefined;
+    case 'product':
+      return slug ? `/no/no/products/${slug}` : undefined;
     default:
       console.warn('Invalid document type:', documentType);
       return undefined;

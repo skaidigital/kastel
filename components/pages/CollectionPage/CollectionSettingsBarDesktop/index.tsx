@@ -26,7 +26,7 @@ export function CollectionSettingsBarDesktop({
   className
 }: Props) {
   return (
-    <Container className={cn('flex flex-col space-y-2 pb-8 lg:pb-6', className)}>
+    <Container className={cn('flex flex-col space-y-2 pb-8 lg:pb-2', className)}>
       <Row className="items-end">
         <Filter lang={lang} />
         <div className="flex space-x-10">

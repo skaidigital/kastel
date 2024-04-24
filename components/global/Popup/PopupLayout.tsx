@@ -33,8 +33,6 @@ export function PopupLayout({ data }: Props) {
   }
   const { isDesktop } = useDeviceType();
 
-  console.log(type);
-
   if (isDesktop) {
     return (
       <Modal isOpen={isOpen} onOpenChange={setIsOpen}>

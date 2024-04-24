@@ -73,8 +73,9 @@ export const locate: DocumentLocationResolver = (params, context) => {
               locations: docs
                 ?.map((doc) => {
                   const href = resolveHref(doc._type, doc?.slug?.current);
+
                   return {
-                    title: doc?.title || 'Untitled',
+                    title: doc?.internalTitle || doc?.title || 'Untitled',
                     href: href!
                   };
                 })

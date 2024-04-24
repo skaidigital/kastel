@@ -1,5 +1,5 @@
 import { Dictionary } from '@/app/dictionaries';
-import { Card } from '@/components/Card';
+import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
@@ -51,11 +51,8 @@ export function CollectionLayout({
   } = data;
   const productsPerRow = searchParams?.view || '4';
 
-  const collection = adjustProductsWithMoods({
-    products,
-    moods,
-    currentPageIndex: currentPage
-  });
+  const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 3, moods);
+  const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods);
 
   const pageCount = Math.ceil(productCount / COLLECTION_PAGE_SIZE);
   const hasProducts = productCount !== 0;
@@ -77,7 +74,7 @@ export function CollectionLayout({
             </Heading>
           )}
           {descriptionShort && (
-            <Text as="p" className="max-w-sm text-brand-mid-grey">
+            <Text as="p" className="h-fit max-w-sm text-brand-mid-grey">
               {descriptionShort}
             </Text>
           )}
@@ -89,48 +86,75 @@ export function CollectionLayout({
         numberOfProducts={productCount}
         dictionary={dictionary}
         lang={lang}
-        className="hidden lg:block"
+        className="hidden min-h-32 lg:block"
       />
       <Section label="collection-products" srHeading="Products" noTopPadding>
-        <CollectionGrid number={productsPerRow}>
-          {collection?.map((item, index) => {
-            if ('card' in item) {
-              const size = item.size;
+        <div className="lg:hidden">
+          <CollectionGrid number={productsPerRow}>
+            {mobileItems?.map((item, index) => {
+              if (item.type === 'image' || item.type === 'video') {
+                return (
+                  <div
+                    key={index}
+                    className={cn(
+                      'aspect-h-3 aspect-w-2 !relative lg:aspect-none lg:h-auto lg:w-full'
+                    )}
+                  >
+                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} />
+                  </div>
+                );
+              }
+              const priorityIndices = [0, 1, 2];
               return (
-                <div
-                  key={item.card.title}
-                  className={cn(
-                    'aspect-h-3 aspect-w-2 !relative col-span-2 lg:aspect-none lg:h-auto lg:w-full',
-                    size === 'large' ? 'lg:col-span-2' : 'lg:col-span-1'
-                  )}
-                >
-                  <Card
-                    card={item.card}
-                    sizes={'(min-width: 1024px) 50vw, 100vw'}
-                    priority={index === 0}
-                  />
-                </div>
+                <ProductCard
+                  key={index}
+                  gid={item.gid}
+                  sku={item.sku}
+                  type={item.type}
+                  title={item.title}
+                  slug={item.slug}
+                  mainImage={item.mainImage}
+                  lifestyleImage={item.lifestyleImage}
+                  badges={item.badges}
+                  priority={priorityIndices.includes(index)}
+                />
               );
-            }
-
-            const priorityIndices = [0, 1, 2];
-
-            return (
-              <ProductCard
-                key={index}
-                gid={item.gid}
-                sku={item.sku}
-                type={item.type}
-                title={item.title}
-                slug={item.slug}
-                mainImage={item.mainImage}
-                lifestyleImage={item.lifestyleImage}
-                badges={item.badges}
-                priority={priorityIndices.includes(index)}
-              />
-            );
-          })}
-        </CollectionGrid>
+            })}
+          </CollectionGrid>
+        </div>
+        <div className="hidden lg:block">
+          <CollectionGrid number={productsPerRow}>
+            {desktopItems?.map((item, index) => {
+              if (item.type === 'image' || item.type === 'video') {
+                return (
+                  <div
+                    key={index}
+                    className={cn(
+                      'aspect-h-3 aspect-w-2 !relative lg:aspect-none lg:h-auto lg:w-full'
+                    )}
+                  >
+                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} />
+                  </div>
+                );
+              }
+              const priorityIndices = [0, 1, 2];
+              return (
+                <ProductCard
+                  key={index}
+                  gid={item.gid}
+                  sku={item.sku}
+                  type={item.type}
+                  title={item.title}
+                  slug={item.slug}
+                  mainImage={item.mainImage}
+                  lifestyleImage={item.lifestyleImage}
+                  badges={item.badges}
+                  priority={priorityIndices.includes(index)}
+                />
+              );
+            })}
+          </CollectionGrid>
+        </div>
         {!hasProducts && (
           <Container className="lg:mt-10">
             <Text as="p" size="lg">
@@ -177,64 +201,62 @@ export function CollectionLayout({
   );
 }
 
-export function adjustProductsWithMoods({
-  products,
-  moods,
-  currentPageIndex = 1
-}: {
-  products: CollectionProductPayload[];
-  moods?: CollectionMood[];
-  currentPageIndex: number;
-}) {
+type ProductOrMood = CollectionProductPayload | CollectionMood;
+
+function insertMoodsDesktop(
+  products: CollectionProductPayload[],
+  baseIndex: number,
+  moods?: CollectionMood[]
+): ProductOrMood[] {
   if (!moods || moods.length === 0) {
     return products;
   }
 
-  type ProductOrMood = CollectionProductPayload | CollectionMood;
-  const result: ProductOrMood[] = [];
+  const result: ProductOrMood[] = [...products];
+  const moodsToInsert = moods.slice(baseIndex, baseIndex + 3);
 
-  // Initialize result with products to ensure all indices exist
-  products.forEach((product) => result.push(product));
-
-  const baseIndex = (currentPageIndex - 1) * 3;
-
-  moods.slice(baseIndex, baseIndex + 3).forEach((mood, index) => {
-    let insertIndex: number;
-
-    // Check if the device is a desktop directly using matchMedia.
-    if (window.matchMedia('(min-width: 768px)').matches) {
-      // Desktop behavior here.
-      if (index === 0) {
-        insertIndex = 0;
-      } else if (index === 1) {
-        insertIndex = mood.size === 'large' ? 9 : 10;
-      } else {
-        // index === 2
-        insertIndex = 14;
-      }
-    } else {
-      // Mobile behavior here.
-
-      insertIndex = 4 + index * 5;
+  moodsToInsert.forEach((mood, index) => {
+    let insertIndex = 0;
+    if (index === 1) {
+      insertIndex = 9;
+    } else if (index === 2) {
+      insertIndex = 14;
     }
-
-    // Adjust insertIndex for the existing content
     insertIndex = Math.min(insertIndex, result.length);
-
-    // Insert mood at the calculated position
     result.splice(insertIndex, 0, mood);
   });
 
-  // Trim the array if it's longer than the original products plus inserted moods
-  return result.slice(0, products.length + Math.min(3, moods.length - baseIndex));
+  return result;
+}
+
+function insertMoodsMobile(
+  products: CollectionProductPayload[],
+  baseIndex: number,
+  moods?: CollectionMood[]
+): ProductOrMood[] {
+  if (!moods || moods.length === 0) {
+    return products;
+  }
+
+  const result: ProductOrMood[] = [...products];
+  const moodsToInsert = moods.slice(baseIndex, baseIndex + 3);
+
+  moodsToInsert.forEach((mood, index) => {
+    const insertIndex = Math.min(4 + index * 5, result.length);
+    result.splice(insertIndex, 0, mood);
+  });
+
+  return result;
 }
 
 export function CollectionGrid({
   number,
-  children
+  children,
+  className
 }: {
   number: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <div
@@ -243,7 +265,8 @@ export function CollectionGrid({
         number === '1' && 'grid grid-cols-1 lg:grid-cols-4',
         number === '2' && 'grid grid-cols-2 lg:grid-cols-4',
         number === '3' && 'grid grid-cols-2 lg:grid-cols-3',
-        number === '4' && 'grid grid-cols-2 lg:grid-cols-4'
+        number === '4' && 'grid grid-cols-2 lg:grid-cols-4',
+        className
       )}
     >
       {children}

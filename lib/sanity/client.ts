@@ -8,6 +8,7 @@ const excludedNestedFields = [
   'slug_en',
   'padding',
   'hasTopPadding',
+  'firstImage',
   'hasBottomPadding',
   'hasBottomBorder',
   'sameAspectRatio',

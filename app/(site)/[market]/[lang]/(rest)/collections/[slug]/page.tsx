@@ -17,6 +17,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
@@ -95,15 +96,19 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   const paramValues = formatSearchParamsValues(searchParams);
   const sortKey = searchParams?.sort || 'default';
   const currentPage = Number(searchParams?.page) || 1;
+  const isDraftMode = draftMode().isEnabled;
 
   const initialBase = await loadCollectionBase({ slug, market, lang });
+  let validatedBase;
 
-  const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
-  const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
+  if (!isDraftMode) {
+    const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
+    validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
 
-  if (!validatedBase.success) {
-    console.error(validatedBase.error);
-    notFound();
+    if (!validatedBase.success) {
+      console.error(validatedBase.error);
+      notFound();
+    }
   }
 
   const initialProducts = await loadCollectionProductsOrder(
@@ -125,28 +130,26 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   );
 
   const cleanedProductData = cleanData(initialProducts, inititalProductsData);
+  let validatedProducts;
 
-  const validatedProducts = collectionProductsValidator.safeParse({
-    products: cleanedProductData,
-    hasNextPage: true
-  });
+  if (!isDraftMode) {
+    validatedProducts = collectionProductsValidator.safeParse({
+      products: cleanedProductData,
+      hasNextPage: true
+    });
 
-  if (!validatedProducts.success) {
-    console.log('Error Thrown here');
-
-    console.error(validatedProducts.error);
-    notFound();
+    if (!validatedProducts.success) {
+      console.error(validatedProducts.error);
+      notFound();
+    }
   }
 
-  // const mergedData = mergeCollectionBaseAndProducts(collectionBaseWithoutNullValues, {
-  //   products: cleanedProductData.products,
-  //   hasNextPage: initialProducts.data.hasNextPage
-  // });
-  const mergedData = mergeCollectionBaseAndProducts(validatedBase.data, validatedProducts.data);
-
-  if (!initialBase.data) {
-    notFound();
-  }
+  const mergedData = isDraftMode
+    ? mergeCollectionBaseAndProducts(initialBase.data, {
+        products: cleanedProductData,
+        hasNextPage: true
+      })
+    : mergeCollectionBaseAndProducts(validatedBase?.data, validatedProducts?.data);
 
   return (
     <CollectionPage
