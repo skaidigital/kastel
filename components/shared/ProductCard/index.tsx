@@ -5,13 +5,10 @@ import { Colors } from '@/components/shared/ProductCard/Colors';
 import { ProductCardProvider } from '@/components/shared/ProductCard/Context';
 import { ProductCardImage } from '@/components/shared/ProductCard/Image';
 import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer';
-import { Rating, RatingFallback } from '@/components/shared/ProductCard/Rating';
-import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ROUTES } from '@/data/constants';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { Money } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
-import { Suspense } from 'react';
 
 interface Props extends ProductCardProps {
   firstImage?: 'product' | 'lifestyle';
@@ -57,9 +54,9 @@ export function ProductCard({
         >
           <ImageContainer>
             <div className="absolute right-3 top-3 z-50 @xs:right-4 @xs:top-4">
-              <Suspense fallback={<WishlistFallback />}>
+              {/* <Suspense fallback={<WishlistFallback />}>
                 <Wishlist gid={gid} />
-              </Suspense>
+              </Suspense> */}
             </div>
             {badges && (
               <div className="absolute right-2 top-3 z-10 flex flex-col gap-1 xl:flex-row">
@@ -78,7 +75,7 @@ export function ProductCard({
               <Badge className="">New</Badge>
             </div>
             <div className="absolute bottom-3 right-3 @xs:hidden">
-              <Suspense
+              {/* <Suspense
                 fallback={
                   <RatingFallback className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4" />
                 }
@@ -87,7 +84,7 @@ export function ProductCard({
                   sku="123"
                   className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
                 />
-              </Suspense>
+              </Suspense> */}
             </div>
           </ImageContainer>
           <div className="flex flex-col justify-center gap-y-2 border-y border-brand-light-grey bg-white p-3 @xs:flex-row @xs:justify-between @xs:p-4">
@@ -100,9 +97,9 @@ export function ProductCard({
             </div>
             <div className="flex flex-col @xs:items-end">
               <div className="mb-1 hidden @xs:block">
-                <Suspense fallback={<RatingFallback className="mb-1" />}>
+                {/* <Suspense fallback={<RatingFallback className="mb-1" />}>
                   <Rating sku="123" className="mb-1" />
-                </Suspense>
+                </Suspense> */}
               </div>
               <Colors />
             </div>

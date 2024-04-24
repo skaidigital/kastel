@@ -309,7 +309,7 @@ export function getHotspotImage(lang: LangValues) {
     ...select(
       type == "text" => {
         type,
-        "description": description.${lang},
+        "description": description_${lang},
       },
       type == "productCard" => {
         "type": "product",
