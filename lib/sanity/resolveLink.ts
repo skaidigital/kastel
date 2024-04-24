@@ -1,7 +1,7 @@
 import { resolveHref } from '@/lib/sanity/resolveHref';
-import { LinkProps } from '@/lib/sanity/types';
+import { LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types';
 
-export function resolveLink(link: LinkProps) {
+export function resolveLink(link: LinkProps | LinkWithoutTextProps) {
   const href =
     link.linkType === 'external'
       ? link.href

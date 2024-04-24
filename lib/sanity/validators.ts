@@ -28,12 +28,22 @@ export const linkValidator = z.discriminatedUnion('linkType', [
   linkInternalValidator
 ]);
 
-export const linkWithoutTextValidator = z.object({
+const linkWithoutTextInternalValidator = z.object({
   type: z.literal('linkWithoutText'),
-  linkType: z.enum(['internal', 'external']),
-  href: z.string().url().optional().nullable(),
-  linkTo: linkToValidator.nullable()
+  linkType: z.literal('internal'),
+  linkTo: linkToValidator
 });
+
+const linkWithoutTextExternalValidator = z.object({
+  type: z.literal('linkWithoutText'),
+  linkType: z.literal('external'),
+  href: z.string().url()
+});
+
+export const linkWithoutTextValidator = z.discriminatedUnion('linkType', [
+  linkWithoutTextInternalValidator,
+  linkWithoutTextExternalValidator
+]);
 
 export const imageValidator = z.object({
   asset: z.object({
