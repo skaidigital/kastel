@@ -13,10 +13,12 @@ import { MobileCarousel } from '@/components/shared/MobileCarousel';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
 import { SearchParams } from '@/lib/types';
+import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import { ColorSelectLayout } from './ColorSelectLayout';
 import { DiscountPill } from './DiscountPill';
 import { FaqLayout } from './FaqLayout';
+import { GenderImageButton } from './GenderImageButton';
 import { KastelPoints } from './KastelPoints';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
@@ -35,6 +37,8 @@ export async function ProductPageLayout(props: Props) {
   const { data: product, dictionary, searchParams, market, lang } = props;
 
   if (!product) return null;
+
+  const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
 
   // const { id, type, productType, description, title, variants, options, featuredOptions, usp } =
   //   product;
@@ -79,18 +83,7 @@ export async function ProductPageLayout(props: Props) {
       >
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
           <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
-            <div className="relative">
-              <div className="absolute right-0 top-0 z-10 p-4">
-                <div className="mb-4 flex justify-center space-x-4">
-                  <button className="flex-1 bg-gray-200 px-4 py-2 font-semibold text-black">
-                    Female
-                  </button>
-                  <button className="flex-1 bg-gray-200 px-4 py-2 font-semibold text-black">
-                    Male
-                  </button>
-                </div>
-              </div>
-            </div>
+            <GenderImageButton activeGender={activeGender} />
             {gallery &&
               gallery?.length > 0 &&
               gallery.map((image, index) => (

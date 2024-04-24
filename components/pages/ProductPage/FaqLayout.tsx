@@ -6,9 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/Accordion';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/Drawer';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
 import { Text } from '@/components/base/Text';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { PortableTextBlock } from '@portabletext/react';
@@ -35,21 +33,17 @@ export function FaqLayout({ faqs }: Props) {
           </button>
         </DrawerTrigger>
         <DrawerContent>
-          <Container className="my-8">
-            <Heading as="h1" size="xs" className="font-medium">
-              Frequently asked questions
-            </Heading>
-            <Accordion type="single" collapsible>
-              {faqs.map((faq) => (
-                <AccordionItem key={faq.question} value={faq.question}>
-                  <AccordionTrigger>{faq.question}</AccordionTrigger>
-                  <AccordionContent>
-                    <PortableTextRenderer value={faq.answer} />
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </Container>
+          <DrawerHeader>Frequently asked questions</DrawerHeader>
+          <Accordion type="single" collapsible className="px-6 py-4">
+            {faqs.map((faq) => (
+              <AccordionItem key={faq.question} value={faq.question}>
+                <AccordionTrigger>{faq.question}</AccordionTrigger>
+                <AccordionContent>
+                  <PortableTextRenderer value={faq.answer} />
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </DrawerContent>
       </Drawer>
     </div>
