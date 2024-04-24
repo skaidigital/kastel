@@ -27,18 +27,10 @@ export async function PopupHandler({ lang }: Props) {
   const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP);
 
   if (!hasChosenMarket && reccommendedMarket && requestCountry) {
-    return (
-      <Suspense>
-        <MarketPopup />
-      </Suspense>
-    );
+    return <Suspense>{/* <MarketPopup /> */}</Suspense>;
   }
   if (!hasSeenCookieConsent || !hasSeenPopupInLastDay) {
-    return (
-      <Suspense>
-        <Popup lang={lang} />
-      </Suspense>
-    );
+    return <Suspense>{/* <Popup lang={lang} /> */}</Suspense>;
   }
 
   return null;

@@ -29,6 +29,7 @@
     "reccommended": "Anbefalt",
     "description": "Beskrivelse",
     "expected_back_in_stock": "Forventet tilbake på lager",
+    "size_guide": "Størrelsesguide",
     "stock": {
       "out_of_stock": "Utsolgt",
       "low_stock": "Bare __AMOUNT__ igjen på lager",

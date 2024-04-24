@@ -56,6 +56,44 @@ export function getGallery(market: MarketValues) {
 `;
 }
 
+export function getGalleryMale(market: MarketValues) {
+  return groq`
+  "gallery": galleryMale[]{
+    asset->{
+      "_ref": _id,
+      crop,
+      hotspot,
+      metadata{
+        lqip
+      },
+    },
+    "altText": altText.${market},
+    crop,
+    hotspot,
+    width
+  }
+`;
+}
+
+export function getGalleryFemale(market: MarketValues) {
+  return groq`
+  "gallery": galleryFemale[]{
+    asset->{
+      "_ref": _id,
+      crop,
+      hotspot,
+      metadata{
+        lqip
+      },
+    },
+    "altText": altText.${market},
+    crop,
+    hotspot,
+    width
+  }
+`;
+}
+
 export function getRichText({
   lang,
   fieldName = 'richText'
