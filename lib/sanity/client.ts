@@ -30,7 +30,8 @@ const excludedNestedFields = [
   'size',
   'text',
   'textPlacement',
-  'currencyCode'
+  'currencyCode',
+  'type'
 ];
 
 export const client = createClient({
