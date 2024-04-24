@@ -30,6 +30,14 @@ export default function Layout({ children, params: { market, lang } }: Props) {
         />
       </Suspense>
       {children}
+      {/* {draftMode().isEnabled && (
+        <div>
+          <a className="block bg-blue-300 p-4" href="/api/disable-draft">
+            Disable preview mode
+          </a>
+        </div>
+      )}
+      {draftMode().isEnabled && <LiveVisualEditing />} */}
     </div>
   );
 }

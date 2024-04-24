@@ -269,7 +269,21 @@ export const cardValidator = z.discriminatedUnion('type', [
   cardBaseValidator.merge(videoCardValidator)
 ]);
 
-export type CardProps = z.infer<typeof cardValidator>;
+const natureLabInnovationItemValidator = z.object({
+  title: z.string(),
+  description: z.string(),
+  image: imageValidator,
+  link: linkValidator,
+  keyFeatures: z.array(z.string())
+});
+
+const natureLabInnovationSectionValidator = z.object({
+  type: z.literal('natureLabInnovationsSection'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  innovations: z.array(natureLabInnovationItemValidator)
+});
 
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
@@ -289,6 +303,7 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
 
 // Start new validators
+export type CardProps = z.infer<typeof cardValidator>;
 export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
 export type CardSectionProps = z.infer<typeof cardSectionValidator>;
 export type BlogPostProps = z.infer<typeof blogPostValidator>;
@@ -303,6 +318,7 @@ export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValid
 export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
 export type HeroProps = z.infer<typeof heroValidator>;
 export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
+export type NatureLabInnovationSectionProps = z.infer<typeof natureLabInnovationSectionValidator>;
 export type PageBuilder = z.infer<typeof pageBuilderValidator>;
 
 export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
@@ -562,6 +578,22 @@ export const PAGE_BUILDER_TYPES: {
     sectionSettings{
      ${fragments.sectionSettings}
     }
+  `,
+  natureLabInnovationSection: (lang) => groq`
+    ${fragments.base},
+    "title": title.${lang},
+    "description": description.${lang},
+    innovations[]->{
+      "title": title.${lang},
+      "description": description.${lang},
+      "image": image{
+        ${fragments.getImageBase(lang)}
+      },
+      "link": link{
+        ${fragments.getLink(lang)}
+      },
+      "keyFeatures": keyFeatures[].feature.${lang}
+    },
   `
 };
 

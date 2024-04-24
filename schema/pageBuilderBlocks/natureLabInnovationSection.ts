@@ -1,9 +1,23 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { Leaf } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const natureLabInnovationSection = defineType({
   title: 'Nature Lab Innnovation',
   name: 'natureLabInnovationSection',
+  icon: Leaf,
+  preview: {
+    select: {
+      title: 'title.en',
+      description: 'description.en'
+    },
+    prepare(selection) {
+      return {
+        title: selection.title,
+        subtitle: selection.description
+      };
+    }
+  },
   type: 'object',
   fields: [
     defineField({
@@ -26,8 +40,8 @@ export const natureLabInnovationSection = defineType({
       description: 'Choose 1-6 innovations from Nature Lab that this shoe uses',
       name: 'innovations',
       type: 'array',
-      of: [{ type: 'natureLabInnovationItem' }],
-      validation: (Rule) => Rule.min(1).max(6)
+      of: [{ type: 'reference', to: [{ type: 'natureLabInnovationItem' }] }],
+      validation: (Rule) => Rule.required().min(1).max(6)
     })
   ]
 });

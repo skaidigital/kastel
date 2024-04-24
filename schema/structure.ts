@@ -142,7 +142,10 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
           Star
         ),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
-        listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
+        listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair),
+        listNew({ S, title: 'Nature Lab Innovation', schemaType: 'natureLabInnovationItem' }).icon(
+          Crosshair
+        )
       ]).icon(Recycle),
       group(S, 'Retailers', [
         singleton(S, 'Retailers page', 'retailersPage', 'retailersPage').icon(File),

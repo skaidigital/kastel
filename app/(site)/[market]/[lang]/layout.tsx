@@ -5,7 +5,6 @@ import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
-import { VisualEditing } from 'next-sanity';
 import { draftMode } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 
@@ -15,6 +14,7 @@ import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
+import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import Script from 'next/script';
 import '../../../../styles/globals.css';
@@ -43,7 +43,7 @@ export default function IndexRoute({
             strategy="afterInteractive"
             id="Cookiebot"
             src="https://consent.cookiebot.com/uc.js"
-            data-cbid="4a61496c-631f-41e9-bf0e-88ecf2de8ad3"
+            data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
             type="text/javascript"
           />
         )}
@@ -56,12 +56,6 @@ export default function IndexRoute({
               <Suspense>
                 <PopupHandler lang={lang} />
               </Suspense>
-              {/* <Suspense fallback={<Skeleton className="h-11 w-full" />}>
-                <AnnouncementBanner lang={lang} />
-              </Suspense>
-              <Suspense>
-                <Navbar market={market} lang={lang} />
-              </Suspense> */}
               <main>
                 {children}
                 {draftMode().isEnabled && (

@@ -12,7 +12,6 @@ export default async function Page({ params }: Props) {
   // return <WishlistPage lang={lang} />;
   const test = await getWishlist();
   return <p>{test}</p>;
-
 }
 
 export const metadata: Metadata = {

@@ -33,13 +33,15 @@ const colorways = [
 export function Colors({ className }: Props) {
   const [activeColorway, setActiveColorway] = useState(colorways[0]);
 
+  const firstFourColors = colorways.slice(0, 4);
+
   return (
     <div className={cn('flex gap-x-1', className)}>
-      {colorways.map((colorway) => (
+      {firstFourColors?.map((colorway) => (
         <button
           onClick={() => setActiveColorway(colorway)}
           className={cn(
-            'size-6 rounded-[2px] border',
+            'size-6 rounded-[2px] border @xs:size-5',
             colorway.hex === activeColorway?.hex
               ? 'border border-black'
               : 'border-brand-light-grey '

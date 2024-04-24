@@ -1,19 +1,50 @@
+import { Text } from '@/components/base/Text';
+import { getProductRatingBySku } from '@/components/lipscore/hook';
+import { cn } from '@/lib/utils';
+import { StarFilledIcon } from '@radix-ui/react-icons';
+
 interface Props {
   sku: string;
+  className?: string;
 }
 
-export async function Rating({ sku }: Props) {
+function RatingWrapper({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <div className="flex items-center gap-x-1 text-xs @[320px]:text-sm">{children}</div>;
+}
+
+// TODO consider having the fallback be nothing to reduce layout shift
+export async function Rating({ sku, className }: Props) {
+  const response = await getProductRatingBySku(sku);
+
+  if (!response.rating || !response.votes) {
+    return null;
+  }
+
+  const formattedRating = Number(response.rating).toFixed(1);
+
   return (
-    <div className="@[320px]:botttom-4 absolute bottom-3 right-3 text-xs @[320px]:right-4 @[320px]:text-sm">
-      ✨4.0 (2466)
-    </div>
+    <RatingWrapper className={cn('', className)}>
+      <div className="flex items-center gap-x-0.5">
+        <StarFilledIcon className="h-[14.4px] w-[14.4px]" />
+        <Text size="sm">{formattedRating}</Text>
+      </div>
+      <Text size="sm">({response.votes})</Text>
+    </RatingWrapper>
   );
 }
 
-export function RatingFallback() {
+interface RatingFallbackProps {
+  className?: string;
+}
+
+export function RatingFallback({ className }: RatingFallbackProps) {
   return (
-    <div className="@[320px]:botttom-4 absolute bottom-3 right-3 text-xs @[320px]:right-4 @[320px]:text-sm">
-      ✨4.9 (2466)
-    </div>
+    <RatingWrapper className={cn(className)}>
+      <div className="flex items-center gap-x-0.5">
+        <StarFilledIcon className="h-[14.4px] w-[14.4px]" />
+        <Text size="sm">5.0</Text>
+      </div>
+      <Text size="sm">(0000)</Text>
+    </RatingWrapper>
   );
 }

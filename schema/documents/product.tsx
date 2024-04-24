@@ -88,10 +88,11 @@ export const product = defineType({
     }),
     defineField({
       title: 'Detail image (optional)',
-      description: 'Add an image with a hotspot that will be shown below the product form',
+      description: 'Add an image and then click on the image blow to place your hotspot(s)',
       name: 'detailImage',
       type: 'figure',
-      group: 'images'
+      group: 'images',
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Hotspots for detail image (optional)',
@@ -100,12 +101,13 @@ export const product = defineType({
       of: [{ type: 'spot' }],
       options: {
         imageHotspot: {
-          imagePath: `detailImage`,
-          descriptionPath: `details`,
+          imagePath: 'detailImage',
+          descriptionPath: `type`,
           tooltip: undefined
         }
       },
-      group: 'images'
+      group: 'images',
+      validation: (Rule) => Rule.min(1)
     }),
     defineField({
       title: 'Title',

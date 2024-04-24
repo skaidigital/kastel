@@ -25,6 +25,8 @@ interface Props {
   params: { slug: string; market: MarketValues; lang: LangValues };
 }
 
+// const PagePreview = dynamic(() => import('@/components/pages/PageLayout/PagePreview'));
+
 export default async function HomePage({ params: { market, lang } }: Props) {
   const initial = await loadHomePage({ market, lang });
 
@@ -36,6 +38,9 @@ export default async function HomePage({ params: { market, lang } }: Props) {
   // if (!validatedPage.success) {
   //   console.error('Failed to validate page', validatedPage.error);
   //   return notFound();
+  // }
+  // if (draftMode().isEnabled) {
+  //   return <PagePreview initial={initial} market={market} lang={lang} />;
   // }
 
   // return <PageLayout data={validatedPage.data} market={market} lang={lang} />;

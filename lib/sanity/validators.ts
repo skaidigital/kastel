@@ -107,7 +107,7 @@ export const productVariantValidator = z.object({
 export const productCardValidator = z.object({
   type: z.literal('product'),
   gid: z.string(),
-  sku: z.string(),
+  sku: z.string().optional(),
   title: z.string(),
   slug: z.string(),
   mainImage: imageValidator,

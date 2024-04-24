@@ -1,10 +1,22 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { Leaf } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const natureLabInnovationItem = defineType({
-  title: 'Innovation Item',
+  title: 'Nature Lab Innovation Item',
   name: 'natureLabInnovationItem',
-  type: 'object',
+  type: 'document',
+  icon: Leaf,
+  preview: {
+    select: {
+      title: 'title.en'
+    },
+    prepare(selection) {
+      return {
+        title: selection.title
+      };
+    }
+  },
   fields: [
     defineField({
       title: 'Title',
@@ -15,7 +27,10 @@ export const natureLabInnovationItem = defineType({
     defineField({
       title: 'Description (optional)',
       name: 'description',
-      type: 'i18n.text'
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      }
     }),
     defineField({
       title: 'Image',
@@ -27,14 +42,20 @@ export const natureLabInnovationItem = defineType({
       title: 'Key features',
       name: 'keyFeatures',
       type: 'array',
-      of: [{ type: 'i18n.string' }],
-      validation: (Rule) => Rule.min(1).max(5)
-    }),
-    defineField({
-      title: 'Button text',
-      name: 'buttonText',
-      type: 'i18n.string',
-      validation: validateAllStringTranslations
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              title: 'Feature',
+              name: 'feature',
+              type: 'i18n.string',
+              validation: validateAllStringTranslations
+            })
+          ]
+        }
+      ],
+      validation: (Rule) => Rule.required().min(1).max(5)
     }),
     defineField({
       title: 'Link to the innovation',
