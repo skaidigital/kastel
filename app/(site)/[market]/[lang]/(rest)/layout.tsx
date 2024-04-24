@@ -1,5 +1,6 @@
 import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
+import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
 import { LangValues, MarketValues } from '@/data/constants';
 import { ReactNode, Suspense } from 'react';
@@ -22,6 +23,7 @@ export default function Layout({ children, params: { market, lang } }: Props) {
         <Navbar market={market} lang={lang} />
       </Suspense>
       {children}
+      <Footer market={market} lang={lang} />
     </div>
   );
 }

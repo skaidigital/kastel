@@ -113,7 +113,7 @@ export default async function Page({ searchParams, params }: Props) {
         label="collection-hero"
         srHeading="Collection hero"
         hasBottomBorder={false}
-        className="pb-8 lg:pb-10"
+        className="pb-8 pt-10 lg:pt-10"
       >
         <Container className="flex items-end justify-between">
           <div className="flex flex-col gap-y-3 lg:gap-y-4">

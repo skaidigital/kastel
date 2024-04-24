@@ -1,5 +1,6 @@
 import { Dictionary } from '@/app/dictionaries';
 import { CustomLink } from '@/components/CustomLink';
+import { Logo } from '@/components/Logo';
 import { Container } from '@/components/base/Container';
 import { Text } from '@/components/base/Text';
 import { FooterItem } from '@/components/global/Footer/FooterItem';
@@ -9,7 +10,6 @@ import { MarketSelector } from '@/components/shared/MarketSelector';
 import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
 import { MarketValues } from '@/data/constants';
 import { getSlug } from '@/lib/sanity/getSlug';
-import Image from 'next/image';
 import { env } from 'process';
 
 interface Props {
@@ -19,7 +19,6 @@ interface Props {
   children?: React.ReactNode;
 }
 
-// TODO get the logo in white
 // TODO get text for the content under the newsletter signup input
 // TODO need something to open the CookieBot settings
 // TODO need something to open the market selector
@@ -31,14 +30,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
   return (
     <footer className="bg-brand-primary py-10 text-white lg:py-20">
       <Container className="flex flex-col gap-y-16 lg:hidden">
-        <Image
-          src="/images/logo.png"
-          width={120}
-          height={36.31}
-          alt="Kastel Shoes Logo"
-          className="text-white"
-        />
-
+        <Logo className="w-[120px]" />
         <div className="flex flex-col gap-y-6">
           <span className="max-w-lg text-balance text-[48px] font-bold uppercase leading-[56px]">
             RAISED BY WEATHER
@@ -78,15 +70,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
         <MadeBySkai />
       </Container>
       <Container className="hidden grid-cols-12 gap-x-4 gap-y-20 lg:grid">
-        <div className="col-span-2">
-          <Image
-            src="/images/logo.png"
-            width={120}
-            height={36.31}
-            alt="Kastel Shoes Logo"
-            className="text-white"
-          />
-        </div>
+        <Logo className="w-[120px]" />
         <span className="col-span-4 row-start-2 text-heading-xl font-bold uppercase">
           RAISED BY WEATHER
         </span>

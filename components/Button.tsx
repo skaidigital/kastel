@@ -17,7 +17,7 @@ export const buttonProps = cva({
       link: 'text-primary underline-offset-4 hover:underline'
     },
     size: {
-      default: 'px-6 py-4 text-[14px] leading-[14px] lg:text-lg',
+      default: 'px-6 py-4 text-[14px] leading-[14px] lg:text-[24px] lg:leading-[24px]',
       sm: 'px-6 py-4 text-[14px] leading-[14px]',
       md: 'px-6 py-4 text-lg',
       lg: 'h-11 rounded-md px-8',

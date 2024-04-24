@@ -18,7 +18,8 @@ import { Cart } from '@/lib/shopify/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
-import { ShoppingBagIcon } from '@heroicons/react/20/solid';
+import { ShoppingBagIcon as ShoppingBagIconFilled } from '@heroicons/react/20/solid';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
 
@@ -156,7 +157,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             {!hasCartItems && (
               <div className="flex w-full flex-col items-center justify-center gap-y-3">
                 <div className="rounded-full bg-brand-sand p-4">
-                  <ShoppingBagIcon className="size-8" />
+                  <ShoppingBagIconFilled className="size-8" />
                 </div>
                 <h2 className="mb-8 max-w-xs text-balance text-center text-md">
                   {dictionary.cart_is_empty}
@@ -176,10 +177,8 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
 
   return (
     <Sheet isOpen={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger>
-        <Button className="fixed bottom-0 w-full" onClick={() => setIsOpen(true)} variant="primary">
-          {dictionary.cart} ({cart?.totalQuantity})
-        </Button>
+      <SheetTrigger className="pr-4">
+        <ShoppingBagIcon className="size-6" />
       </SheetTrigger>
       <SheetContent className="">
         <div
@@ -189,7 +188,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
           )}
         >
           <>
-            <DrawerHeader title={dictionary.cart} className="bg-white">
+            <DrawerHeader title={dictionary.cart} className="bg-white p-0">
               {freeShippingAmount && currencyCode && (
                 <FreeShippingCountdown
                   freeShippingAmount={freeShippingAmount}
@@ -265,7 +264,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
           {!hasCartItems && (
             <div className="flex w-full flex-col items-center justify-center gap-y-3">
               <div className="rounded-full bg-brand-sand p-4">
-                <ShoppingBagIcon className="size-8" />
+                <ShoppingBagIconFilled className="size-8" />
               </div>
               <h2 className="mb-8 max-w-xs text-balance text-center text-md">
                 {dictionary.cart_is_empty}
@@ -273,7 +272,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             </div>
           )}
           {!hasCartItems && (
-            <Button asChild className="mx-6 my-4" size="sm">
+            <Button asChild size="sm">
               <CustomLink href={ROUTES.HOME}>{dictionary.start_shopping}</CustomLink>
             </Button>
           )}
