@@ -1,7 +1,7 @@
 'use client';
 
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { SearchClose } from '@/components/global/Navbar/SearchButton';
+import { SearchClose } from '@/components/global/Navbar/DesktopMenu/SearchButton';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { createUrl } from '@/lib/utils';
 import { XMarkIcon } from '@heroicons/react/24/outline';

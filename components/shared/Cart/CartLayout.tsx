@@ -11,9 +11,10 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import { CartItem } from '@/components/shared/Cart/CartItem';
 import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
-import { ANALTYICS_EVENT_NAME, ROUTES } from '@/data/constants';
+import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { Cart } from '@/lib/shopify/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
@@ -35,6 +36,7 @@ interface Props {
 export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippingAmount }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const quantityRef = useRef(cart?.totalQuantity);
+  const { lang } = useBaseParams();
 
   const { isDesktop } = useDeviceType();
 
@@ -56,16 +58,17 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
 
   const hasCartItems = cart && cart?.totalQuantity > 0;
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
+  const cartString = getCartString(lang);
 
   if (isDesktop) {
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger
-          className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey"
+          className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey lg:h-auto lg:w-auto"
           asChild
         >
           <button aria-label="Open cart" className="text-sm">
-            Cart
+            {cartString}
             {hasCartItems ? (
               <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded bg-brand-dark-grey text-[11px] font-medium text-white">
                 {cart.totalQuantity}
@@ -280,4 +283,15 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
       </SheetContent>
     </Sheet>
   );
+}
+
+function getCartString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Cart';
+    case 'no':
+      return 'Handlekurv';
+    default:
+      return 'Cart';
+  }
 }

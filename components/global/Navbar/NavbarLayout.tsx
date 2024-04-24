@@ -1,11 +1,11 @@
 import { CustomLink } from '@/components/CustomLink';
 import { Logo } from '@/components/Logo';
 import { Container } from '@/components/base/Container';
-import { AccountButton } from '@/components/global/Navbar/AccountButton';
 import { DesktopMenu } from '@/components/global/Navbar/DesktopMenu';
+import { SearchButton } from '@/components/global/Navbar/DesktopMenu/SearchButton';
+import { WishlistButton } from '@/components/global/Navbar/DesktopMenu/WishlistButton';
+import { AccountButton } from '@/components/global/Navbar/DesktopMenuAccountButton';
 import { MobileMenu } from '@/components/global/Navbar/MobileMenu';
-import { SearchButton } from '@/components/global/Navbar/SearchButton';
-import { WishlistButton } from '@/components/global/Navbar/WishlistButton';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { ROUTES } from '@/data/constants';
 import { cn } from '@/lib/utils';
