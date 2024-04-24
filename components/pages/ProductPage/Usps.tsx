@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { cn } from '@/lib/utils';
 import Marquee from 'react-fast-marquee';
@@ -12,8 +11,6 @@ interface Props {
 }
 
 export function UspsMarquee({ usps, size, className }: Props) {
-  console.log(className);
-
   return (
     usps && (
       <div
@@ -31,9 +28,9 @@ export function UspsMarquee({ usps, size, className }: Props) {
             return (
               <div key={usp.icon.asset._ref} className="mr-24 flex items-center gap-2">
                 <SanityImage width={iconSize} height={iconSize} image={usp.icon} />
-                <Text as="p" size={textSize} className="text-brand-dark-grey">
+                <span className={cn(size === 'sm' && 'text-sm', size === 'lg' && 'text-md')}>
                   {usp.title}
-                </Text>
+                </span>
               </div>
             );
           })}

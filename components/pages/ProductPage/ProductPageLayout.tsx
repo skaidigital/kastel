@@ -47,10 +47,6 @@ export async function ProductPageLayout(props: Props) {
 
   const productSku = 'SOL002-002-021-40';
 
-  // const productRating = await getLipscoreReviews(productSku);
-
-  // console.log(getProductRating);
-
   // const parentGallery = productType?.gallery;
   // const parentAccordions = productType?.accordions;
   // const parentPageBuilder = productType?.pageBuilder;
@@ -116,22 +112,22 @@ export async function ProductPageLayout(props: Props) {
               ))}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
-            <UspsMarquee usps={product.usps} size="sm" className="lg:black hidden" />
+            <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
             <div className="lg:px-[84px]">
-              <div className="flex flex-col gap-y-3  pb-5">
-                <div className="flex justify-between">
-                  <div className="flex">
+              <div className="flex flex-col">
+                <div className="mb-[10px] flex justify-between">
+                  <div className="flex gap-2">
                     <DiscountPill variants={variants} productType={product.type} />
                     <ProductRating sku={productSku} />
                   </div>
                   <p>(Hjerte)</p>
                 </div>
 
-                <Heading as="h1" size="xs" className="text-brand-dark-grey">
+                <Heading as="h1" size="xs" className="mb-1">
                   {title}
                 </Heading>
                 {subtitle && (
-                  <Text as="p" size="sm" className="text-brand-dark-grey">
+                  <Text as="p" size="sm">
                     {subtitle}
                   </Text>
                 )}
@@ -142,13 +138,13 @@ export async function ProductPageLayout(props: Props) {
                   minVariantPrice={product.minVariantPrice}
                   maxVariantPrice={product.maxVariantPrice}
                 />
+              </div>
+              <div className="my-4 flex flex-col gap-8">
                 {descriptionShort && (
-                  <Text as="p" size="sm" className="my-4 text-brand-dark-grey">
+                  <Text as="p" size="sm" className="">
                     {descriptionShort}
                   </Text>
                 )}
-              </div>
-              <div className="flex flex-col gap-y-8 lg:gap-y-6">
                 <Suspense>
                   <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
                 </Suspense>

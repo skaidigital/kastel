@@ -1,7 +1,6 @@
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
 
 interface Props {
   title: string;
@@ -10,15 +9,13 @@ interface Props {
 
 export function ProductDescriptionAndReviews({ title, description }: Props) {
   return (
-    <Section srHeading="Product Description" label="product-description">
+    <Section srHeading="Product Description" label="product-description" hasBottomBorder={false}>
       <Container size="md" className="">
-        <Heading as="h3" size="md" className="text-center font-bold text-brand-primary">
+        <Heading as="h2" size="sm" className="text-center font-bold text-brand-primary">
           {title}
         </Heading>
         <div className="mt-4 px-4 lg:px-16">
-          <Text as="p" size="md" className="mb-6 text-center text-brand-dark-grey">
-            {description}
-          </Text>
+          <p className="mb-6  text-center text-sm lg:text-md">{description}</p>
           <p>Kundeanmeldelser</p>
         </div>
       </Container>

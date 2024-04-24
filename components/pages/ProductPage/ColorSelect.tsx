@@ -19,8 +19,8 @@ export function ColorSelect({ products }: Props) {
   const activeProduct = products.find((product) => product.slug === urlSlug);
 
   return (
-    <>
-      <Text as="p" size="xs" className="">
+    <div>
+      <Text as="p" size="xs" className="mb-3">
         Color: {activeProduct?.title}
       </Text>
       <Carousel className="" opts={{ align: 'start' }}>
@@ -41,6 +41,6 @@ export function ColorSelect({ products }: Props) {
           ))}
         </CarouselContent>
       </Carousel>
-    </>
+    </div>
   );
 }

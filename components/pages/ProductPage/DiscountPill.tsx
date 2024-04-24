@@ -25,7 +25,7 @@ export function DiscountPill({ productType, variants }: Props) {
       <div>
         <Text
           size="sm"
-          className="rounded-[4px] bg-[#FDF5E6] px-[6px] py-[2px] text-brand-dark-grey"
+          className="rounded-[4px] bg-[#FDF5E6] px-[6px] py-[2px] font-medium text-brand-dark-grey"
         >
           -{discountPercentage}%
         </Text>
