@@ -23,14 +23,17 @@ export async function PopupHandler({ lang }: Props) {
   const hasChosenMarket = cookiesStore.get(COOKIE_NAMES.HAS_CHOSEN_MARKET)?.value;
   const requestCountry = cookiesStore.get(COOKIE_NAMES.REQUEST_COUNTRY)?.value;
   const reccommendedMarket = cookiesStore.get(COOKIE_NAMES.RECCOMMENDED_MARKET)?.value;
-  const hasSeenCookieConsent = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT);
   const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP);
 
   if (!hasChosenMarket && reccommendedMarket && requestCountry) {
     return <Suspense>{/* <MarketPopup /> */}</Suspense>;
   }
-  if (!hasSeenCookieConsent || !hasSeenPopupInLastDay) {
-    return <Suspense>{/* <Popup lang={lang} /> */}</Suspense>;
+  if (hasSeenPopupInLastDay?.value !== 'true') {
+    return (
+      <Suspense>
+        <Popup lang={lang} />
+      </Suspense>
+    );
   }
 
   return null;

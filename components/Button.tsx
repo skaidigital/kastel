@@ -18,7 +18,7 @@ export const buttonProps = cva({
     },
     size: {
       default: 'px-6 py-4 text-[14px] leading-[14px] lg:text-[24px] lg:leading-[24px]',
-      sm: 'px-6 py-4 text-[14px] leading-[14px]',
+      sm: 'text-[14px] leading-[14px] tracking-wide py-4',
       md: 'px-6 py-4 text-lg',
       lg: 'h-11 rounded-md px-8',
       icon: 'size-10',

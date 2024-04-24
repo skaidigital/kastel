@@ -12,6 +12,9 @@
   .bottom-up-black-gradient {
     @apply bg-gradient-to-t from-black/80 from-0% to-black/20 to-30%;
   }
+  .letter-spacing-2 {
+    letter-spacing: 20%;
+  }
 }
 
 @layer utilities {

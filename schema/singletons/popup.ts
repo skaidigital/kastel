@@ -109,39 +109,13 @@ export const popup = defineType({
       group: 'info'
     }),
     defineField({
-      title: 'Content 🇧🇻',
-      name: 'contentInfo_no',
-      type: 'richText',
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context?.parent?.isShown === false) {
-            return true;
-          }
-
-          if (context.parent.type === 'info' && !value) {
-            return 'Required';
-          }
-
-          return true;
-        }),
-      group: 'info'
-    }),
-    defineField({
-      title: 'Content 🇬🇧',
-      name: 'contentInfo_en',
-      type: 'richText',
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context?.parent?.isShown === false) {
-            return true;
-          }
-
-          if (context.parent.type === 'info' && !value) {
-            return 'Required';
-          }
-
-          return true;
-        }),
+      title: 'Content',
+      name: 'contentInfo',
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      },
+      validation: validateAllStringsIfTypeIs('info'),
       group: 'info'
     }),
     defineField({
@@ -178,6 +152,16 @@ export const popup = defineType({
 
           return true;
         }),
+      group: 'newsletter'
+    }),
+    defineField({
+      title: 'Content',
+      name: 'contentNewsletter',
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      },
+      validation: validateAllStringsIfTypeIs('newsLetter'),
       group: 'newsletter'
     }),
     defineField({
