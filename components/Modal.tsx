@@ -29,7 +29,7 @@ export function Modal({ children, isOpen, onOpenChange }: ModalRootProps) {
 interface ModalContentProps {
   children: ReactNode;
   label: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'none';
   onClose?: () => void;
   className?: string;
 }
@@ -55,7 +55,7 @@ export function ModalContent({
           'border-brand-border fixed left-[50%] top-[50%] z-30 w-full translate-x-[-50%] translate-y-[-50%] rounded-project  border bg-white transition-[transform,opacity] data-[state=closed]:animate-modal-hide data-[state=open]:animate-modal-show  focus:outline-none',
           size === 'sm' && 'max-w-[420px]',
           size === 'md' && 'max-w-4xl',
-          size === 'lg' && 'max-w-6xl',
+          size === 'lg' && '',
           className
         )}
       >
@@ -94,5 +94,13 @@ export function ModalHeader({ title, className }: ModalHeaderProps) {
         </button>
       </Dialog.Close>
     </div>
+  );
+}
+
+export function ModalClose({ children }: ModalTriggerProps) {
+  return (
+    <Dialog.Close asChild>
+      <button>{children}</button>
+    </Dialog.Close>
   );
 }

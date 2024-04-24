@@ -15,7 +15,7 @@ interface Props {
   className?: string;
 }
 
-export function MarketSelector({ market, className }: Props) {
+export function MarketSelectorDropdown({ market, className }: Props) {
   const marketValues = MARKETS.find((m) => m.id === market);
 
   return (

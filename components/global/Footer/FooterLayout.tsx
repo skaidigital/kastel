@@ -6,7 +6,7 @@ import { Text } from '@/components/base/Text';
 import { FooterItem } from '@/components/global/Footer/FooterItem';
 import { MadeBySkai } from '@/components/global/Footer/MadeBySkai';
 import { FooterPayload } from '@/components/global/Footer/hooks';
-import { MarketSelector } from '@/components/shared/MarketSelector';
+import { MarketSelectorDropdown } from '@/components/shared/MarketSelectorDropdown';
 import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
 import { MarketValues } from '@/data/constants';
 import { getSlug } from '@/lib/sanity/getSlug';
@@ -42,7 +42,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
           )}
         </div>
         <NewsletterSignup klaviyoId={klaviyoId} dictionary={dictionary.sign_up} />
-        <MarketSelector market={market} />
+        <MarketSelectorDropdown market={market} />
         <div className="grid grid-cols-2 gap-y-16">
           {footer?.items?.map((item, index) => (
             <div key={item.heading + index} className="flex flex-col gap-y-8">
@@ -101,7 +101,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
         </div>
         <div className="col-span-3 col-start-5 row-start-3">
           <div className="flex h-full flex-col justify-between">
-            <MarketSelector market={market} />
+            <MarketSelectorDropdown market={market} />
             <MadeBySkai />
           </div>
         </div>

@@ -3,8 +3,11 @@ import dynamic from 'next/dynamic';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 
-const MarketPopup = dynamic(
-  () => import('@/components/global/MarketPopup/index').then((mod) => mod.MarketPopup),
+const MarketSuggestionPopup = dynamic(
+  () =>
+    import('@/components/global/MarketSuggestionPopup/index').then(
+      (mod) => mod.MarketSuggestionPopup
+    ),
   {
     suspense: true
   }
@@ -23,12 +26,21 @@ export async function PopupHandler({ lang }: Props) {
   const hasChosenMarket = cookiesStore.get(COOKIE_NAMES.HAS_CHOSEN_MARKET)?.value;
   const requestCountry = cookiesStore.get(COOKIE_NAMES.REQUEST_COUNTRY)?.value;
   const reccommendedMarket = cookiesStore.get(COOKIE_NAMES.RECCOMMENDED_MARKET)?.value;
-  const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP);
+  const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP)?.value;
 
-  if (!hasChosenMarket && reccommendedMarket && requestCountry) {
-    return <Suspense>{/* <MarketPopup /> */}</Suspense>;
+  console.log({ hasChosenMarket });
+  console.log({ requestCountry });
+  console.log({ reccommendedMarket });
+
+  // if (!hasChosenMarket && reccommendedMarket && requestCountry) {
+  if (reccommendedMarket && requestCountry) {
+    return (
+      <Suspense>
+        <MarketSuggestionPopup />
+      </Suspense>
+    );
   }
-  if (hasSeenPopupInLastDay?.value !== 'true') {
+  if (!hasSeenPopupInLastDay) {
     return (
       <Suspense>
         <Popup lang={lang} />

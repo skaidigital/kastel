@@ -153,10 +153,7 @@
     }
   },
   "market_selector": {
-    "switch_location": "Switch store",
-    "stay": "Continue here",
-    "are_you_in": "Are you shopping from",
-    "based_on_your_location": "Based on your location, we reccommend you shop in the __URL__ store."
+    "select_your_location": "Select your location"
   },
   "reccommended_products": {
     "we_think_you_will_like": "We also recommend"

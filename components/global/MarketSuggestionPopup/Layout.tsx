@@ -9,11 +9,20 @@ import { useDeviceType } from '@/lib/useDeviceType';
 import { useState } from 'react';
 
 interface Props {
+  requestCountry: string;
+  reccommendedMarket: string;
   dictionary: Dictionary['market_selector'];
 }
 
 // TODO find better flag icons
-export function MarketLayout({ dictionary }: Props) {
+export function MarketSuggestionPopupLayout({
+  requestCountry,
+  reccommendedMarket,
+  dictionary
+}: Props) {
+  console.log({ requestCountry });
+  console.log({ reccommendedMarket });
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { isDesktop } = useDeviceType();

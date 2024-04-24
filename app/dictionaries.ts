@@ -164,10 +164,7 @@ export interface Dictionary {
     };
   };
   market_selector: {
-    switch_location: string;
-    stay: string;
-    are_you_in: string;
-    based_on_your_location: string;
+    select_your_location: string;
   };
   reccommended_products: ReccommendedProducts;
   page_builder: {

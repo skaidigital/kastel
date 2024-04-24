@@ -153,10 +153,7 @@
     }
   },
   "market_selector": {
-    "switch_location": "Bytt butikk",
-    "stay": "Fortsatt her",
-    "are_you_in": "Handler du fra",
-    "based_on_your_location": "Basert på plasseringen din, anbefaler vi at du handler i __URL__ butikken."
+    "select_your_location": "Velg din lokasjon"
   },
   "reccommended_products": {
     "we_think_you_will_like": "Vi anbefaler også"
