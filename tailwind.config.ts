@@ -117,11 +117,11 @@ module.exports = {
       },
       'menu-slide-down': {
         from: { height: 0 },
-        to: { height: '440px' }
+        to: { height: 'auto' }
       },
       'menu-slide-up': {
-        from: { height: '440px' },
-        to: { height: 0 }
+        from: { height: 100 },
+        to: { height: 'auto' }
       },
       // Menu testing
       enterFromRight: {
@@ -212,7 +212,7 @@ module.exports = {
         'nature-lab-md': ['14px', { lineHeight: '18px' }],
         'nature-lab-lg': ['18px', { lineHeight: '24px' }],
         'nature-lab-heading-lg': ['32px', { lineHeight: '36px', letterSpacing: '0.4px' }],
-        'overline-sm': ['10px', { lineHeight: '10px' }],
+        'overline-sm': ['10px', { lineHeight: '10px', letterSpacing: '0.4px' }],
         'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
       },
       colors: {

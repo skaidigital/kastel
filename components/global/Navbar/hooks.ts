@@ -35,7 +35,10 @@ export function getNavbarQuery(lang: LangValues) {
         links[]{
           "heading": heading.${lang},
           links[]{
-            ${fragments.getLink(lang)}
+            link{
+              ${fragments.getLink(lang)}
+            },
+            "badge": badge->title.${lang}
           },
         },
         featuredProducts[]{

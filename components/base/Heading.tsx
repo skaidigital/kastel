@@ -25,5 +25,5 @@ interface HeadingProps extends VariantProps<typeof headingStyles> {
 }
 
 export const Heading = ({ size, as: Component = 'h1', children, className }: HeadingProps) => {
-  return <Component className={cn(headingStyles({ size }), className)}>{children}</Component>;
+  return <Component className={cn(headingStyles({ size, className }))}>{children}</Component>;
 };

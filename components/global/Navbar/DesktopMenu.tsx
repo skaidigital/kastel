@@ -1,7 +1,7 @@
 'use client';
 
+import { Badge } from '@/components/Badge';
 import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
@@ -16,9 +16,10 @@ interface Props {
   className?: string;
 }
 
+// TODO animate height
 export function DesktopMenu({ items, className }: Props) {
   return (
-    <NavigationMenu.Root className={cn('z-50 flex justify-center', className)}>
+    <NavigationMenu.Root delayDuration={0} className={cn('z-50 flex justify-center', className)}>
       <NavigationMenu.List className="center m-0 flex list-none items-center">
         {items?.map((item) => {
           if (item.type === 'link') {
@@ -44,23 +45,20 @@ export function DesktopMenu({ items, className }: Props) {
                 </NavigationMenu.Trigger>
                 <NavigationMenu.Content className="sm:w-auto absolute left-0 top-0 w-screen data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft">
                   <Container>
-                    <NavigationMenu.Sub className="grid grid-cols-4 gap-4 p-8">
+                    <NavigationMenu.Sub className="grid grid-cols-4 gap-x-4 gap-y-8 p-8">
                       {item?.links?.map((link) => (
                         <div className="row-start-1 flex w-full flex-col" key={link.heading}>
-                          <Heading
-                            size="sm"
-                            className="mb-5 translate-y-[-10px] animate-fade-in-text text-left opacity-0 transition-[opacity] [--animation-delay:300ms]"
-                          >
+                          <h3 className="mb-6 translate-y-[-10px] animate-fade-in-text text-left text-overline-sm font-medium uppercase text-brand-mid-grey opacity-0 transition-[opacity] [--animation-delay:300ms]">
                             {link.heading}
-                          </Heading>
-                          <NavigationMenu.List className="flex flex-col space-y-5 text-left">
-                            {link?.links?.map((link, index) => (
-                              <NavigationMenu.Item key={link.text}>
-                                <NavigationMenu.Link asChild>
+                          </h3>
+                          <NavigationMenu.List className="flex flex-col gap-y-3 text-left text-sm">
+                            {link?.links?.map((item, index) => (
+                              <NavigationMenu.Item key={item?.link?.text}>
+                                <NavigationMenu.Link asChild className="flex items-center gap-x-2">
                                   <SanityLink
-                                    link={link}
+                                    link={item?.link}
                                     className={cn(
-                                      'transition-brand w-fit translate-y-[-10px] animate-fade-in-text text-sm opacity-0 transition-[opacity,color] hover:duration-100 hover:ease-in-out',
+                                      'transition-brand w-fit translate-y-[-10px] animate-fade-in-text text-sm opacity-0 transition-[opacity,color] hover:text-brand-mid-grey hover:duration-100 hover:ease-in-out focus:text-brand-mid-grey',
                                       index === 0 && '[--animation-delay:600ms]',
                                       index === 1 && '[--animation-delay:700ms]',
                                       index === 2 && '[--animation-delay:800ms]',
@@ -70,7 +68,8 @@ export function DesktopMenu({ items, className }: Props) {
                                       index === 6 && '[--animation-delay:1050ms]'
                                     )}
                                   >
-                                    {link.text}
+                                    {item.link?.text && item.link.text}
+                                    {item.badge && <Badge size="xs">{item.badge}</Badge>}
                                   </SanityLink>
                                 </NavigationMenu.Link>
                               </NavigationMenu.Item>
@@ -78,15 +77,15 @@ export function DesktopMenu({ items, className }: Props) {
                           </NavigationMenu.List>
                         </div>
                       ))}
-                      {item.featuredProducts?.map((product, index) => (
+                      {item.featuredProducts?.map((product) => (
                         <FeaturedItem
                           className={cn(
                             'row-start-2 shrink-0 translate-y-[-10px] animate-fade-in-text opacity-0 transition-[opacity] [--animation-delay:600ms]'
                           )}
-                          key={product.title}
-                          title={product.title}
-                          link={product.link}
-                          image={product.image}
+                          key={product.title && product.title}
+                          title={product.title && product.title}
+                          link={product.link && product.link}
+                          image={product.image && product.image}
                         />
                       ))}
                     </NavigationMenu.Sub>
@@ -101,8 +100,10 @@ export function DesktopMenu({ items, className }: Props) {
       </NavigationMenu.List>
 
       <div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
-        <NavigationMenu.Viewport className="sm:w-[var(--radix-navigation-menu-viewport-width)] border-brand-border relative mt-[1px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden border-b bg-white/80 backdrop-blur-lg transition-[width,_height] duration-300 data-[state=closed]:animate-menu-slide-up data-[state=open]:animate-menu-slide-down" />
+        <NavigationMenu.Viewport className="sm:w-[var(--radix-navigation-menu-viewport-width)] border-brand-border relative mt-[1px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden border-b bg-white/90 backdrop-blur-lg transition-[width,_height] duration-300 " />
       </div>
     </NavigationMenu.Root>
   );
 }
+
+// data-[state=closed]:animate-menu-slide-up data-[state=open]:animate-menu-slide-down

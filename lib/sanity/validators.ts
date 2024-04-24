@@ -75,7 +75,7 @@ export const portableTextValidator = z.array(z.any());
 
 export const headingAndLinksValidator = z.object({
   heading: z.string(),
-  links: z.array(linkValidator)
+  links: z.array(z.object({ link: linkValidator, badge: z.string().optional() }))
 });
 
 export const footerValidator = z.object({
