@@ -15,6 +15,7 @@ import PlausibleProvider from 'next-plausible';
 import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import Script from 'next/script';
+import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL

@@ -23,7 +23,7 @@ module.exports = {
       center: true
     },
     fontFamily: {
-      sans: ['Inter', 'sans-serif'],
+      sans: ['var(--font-sans)'],
       serif: ['var(--font-iowan)'],
       mono: ['var(--font-mono)'],
       'nature-lab-body': ['var(--font-nature-lab-body)'],

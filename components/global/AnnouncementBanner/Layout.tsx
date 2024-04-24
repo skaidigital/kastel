@@ -30,7 +30,7 @@ export function AnnouncementBannerLayout(props: Props) {
       <Marquee autoFill pauseOnHover>
         {content?.map((usp) => {
           return (
-            <span key={usp && usp} className="mr-10 lg:mr-32">
+            <span key={usp && usp} className="mr-10 font-bold lg:mr-32">
               {usp && usp}
             </span>
           );
