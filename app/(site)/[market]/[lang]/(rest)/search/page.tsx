@@ -44,7 +44,7 @@ async function loadSearchResults({ lang, searchQuery, page, tagSlugs, sortKey }:
   return loadQuery<SearchResult | null>(
     sanityQuery,
     { searchQuery: `*${searchQuery}*`, tagSlugs },
-    { next: { tags: [`search:${searchQuery}`, `tags:${tagSlugs?.join()}`, `sort:${sortKey}`] } }
+    { cache: 'no-store' }
   );
 }
 
