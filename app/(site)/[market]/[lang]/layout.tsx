@@ -14,6 +14,8 @@ import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
+import { VisualEditing } from 'next-sanity';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import Script from 'next/script';
 import '../../../../styles/globals.css';
 
@@ -56,7 +58,7 @@ export default function IndexRoute({
               </Suspense>
               <main>
                 {children}
-                {/* {draftMode().isEnabled && (
+                {draftMode().isEnabled && (
                   <VisualEditing
                     refresh={async (payload) => {
                       'use server';
@@ -79,7 +81,7 @@ export default function IndexRoute({
                       await revalidatePath('/', 'layout');
                     }}
                   />
-                )} */}
+                )}
                 <Analytics />
               </main>
             </div>

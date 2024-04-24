@@ -1,10 +1,8 @@
-import LiveVisualEditing from '@/components/LiveVisualEditing';
 import { ScrollContainer } from '@/components/ScrollContainer';
 import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Navbar } from '@/components/global/Navbar';
 import { LangValues, MarketValues } from '@/data/constants';
-import { draftMode } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 
 interface Props {
@@ -32,14 +30,14 @@ export default function Layout({ children, params: { market, lang } }: Props) {
         />
       </Suspense>
       {children}
-      {draftMode().isEnabled && (
+      {/* {draftMode().isEnabled && (
         <div>
           <a className="block bg-blue-300 p-4" href="/api/disable-draft">
             Disable preview mode
           </a>
         </div>
       )}
-      {draftMode().isEnabled && <LiveVisualEditing />}
+      {draftMode().isEnabled && <LiveVisualEditing />} */}
     </div>
   );
 }

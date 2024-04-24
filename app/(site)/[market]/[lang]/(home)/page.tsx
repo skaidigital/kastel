@@ -10,8 +10,6 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-import { draftMode } from 'next/headers';
 
 function loadHomePage({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = getPageQuery({ market, lang });
@@ -27,7 +25,7 @@ interface Props {
   params: { slug: string; market: MarketValues; lang: LangValues };
 }
 
-const PagePreview = dynamic(() => import('@/components/pages/PageLayout/PagePreview'));
+// const PagePreview = dynamic(() => import('@/components/pages/PageLayout/PagePreview'));
 
 export default async function HomePage({ params: { market, lang } }: Props) {
   const initial = await loadHomePage({ market, lang });
@@ -41,9 +39,9 @@ export default async function HomePage({ params: { market, lang } }: Props) {
   //   console.error('Failed to validate page', validatedPage.error);
   //   return notFound();
   // }
-  if (draftMode().isEnabled) {
-    return <PagePreview initial={initial} market={market} lang={lang} />;
-  }
+  // if (draftMode().isEnabled) {
+  //   return <PagePreview initial={initial} market={market} lang={lang} />;
+  // }
 
   // return <PageLayout data={validatedPage.data} market={market} lang={lang} />;
   return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
