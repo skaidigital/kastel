@@ -1,8 +1,8 @@
 import { Text } from '../base/Text';
-import { getLipscoreReviews } from './hook';
+import { getProductRatingBySku } from './hook';
 
 export async function ProductRating({ sku }: { sku: string }) {
-  const productRating = await getLipscoreReviews(sku);
+  const productRating = await getProductRatingBySku(sku);
 
   const roundedRating = Number(productRating.rating).toFixed(1);
   return (

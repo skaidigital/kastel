@@ -72,7 +72,6 @@ export async function CrossSell({ lang, className }: Props) {
   }
 
   const dataWithoutNullValues = nullToUndefined(initial.data);
-  console.log('dataWithoutNullValues', dataWithoutNullValues);
 
   // const validatedData = crossSellProductsValidator.safeParse(dataWithoutNullValues);
   // console.log('validatedData', validatedData);

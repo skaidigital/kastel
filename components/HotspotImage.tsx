@@ -1,18 +1,10 @@
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/HoverCard';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { HotspotImageProps, SanityImageProps } from '@/lib/sanity/types';
+import { HotspotImageProps } from '@/lib/sanity/types';
 
 // TODO improve type by omitting type
-interface Props {
-  image: SanityImageProps;
-  hotspots: {
-    x: number;
-    y: number;
-  }[];
-}
-// export function HotspotImage({ image, hotspots }: HotspotImageProps) {
-export function HotspotImage({ image, hotspots }: Props | HotspotImageProps) {
+export function HotspotImage({ image, hotspots }: HotspotImageProps) {
   return (
     <>
       <SanityImage image={image} fill className="absolute object-cover" />

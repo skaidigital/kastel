@@ -1,6 +1,11 @@
 import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
-import { galleryValidator, imageValidator, richTextValidator } from '@/lib/sanity/validators';
+import {
+  galleryValidator,
+  hotspotImageValidator,
+  imageValidator,
+  richTextValidator
+} from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
@@ -85,6 +90,7 @@ export const productValidator = z.object({
   subtitle: z.string().optional(),
   slug: z.string().optional(),
   descriptionShort: z.string(),
+  descriptionLongTitle: z.string(),
   descriptionLongDetails: z.string(),
   gallery: galleryValidator.optional(),
   options: z.array(productOptionValidator).optional(),
@@ -97,15 +103,7 @@ export const productValidator = z.object({
   typeId: z.string(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
-  hotspotImage: z.object({
-    image: imageValidator,
-    hotspots: z.array(
-      z.object({
-        x: z.number(),
-        y: z.number()
-      })
-    )
-  }),
+  hotspotImage: hotspotImageValidator,
   variants: z.array(productVariantValidator),
   usps: z.array(
     z.object({
@@ -158,7 +156,7 @@ export function getProductQuery({
         ...select(
           type == "text" => {
             type,
-            "description": description.${lang},
+            "description": description_${lang},
           },
           type == "productCard" => {
             "type": "product",
@@ -207,14 +205,15 @@ export function getProductQuery({
     ${getGallerByGender({ market, gender })},
     ...productType->{
       "typeId": _id,
-      "descriptionShort": descriptionShort.no,
-      "descriptionLongDetails": descriptionLongDetails.no,
+      "descriptionShort": descriptionShort.${lang},
+      "descriptionLongTitle": descriptionLongTitle.${lang},
+      "descriptionLongDetails": descriptionLongDetails.${lang},
       "faqs": faqs[]->{
-        "question": question.no,
-        "answer": answer_no
+        "question": question.${lang},
+        "answer": answer_${lang}
       },
       "usps": usps[]->{
-        "title": title.no,
+        "title": title.${lang},
         "icon": icon {
           ${fragments.getImageBase(lang)}
         }

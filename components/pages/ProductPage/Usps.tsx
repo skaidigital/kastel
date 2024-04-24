@@ -8,16 +8,20 @@ import { Product } from './hooks';
 interface Props {
   usps: Product['usps'];
   size: 'sm' | 'lg';
+  className?: string;
 }
 
-export function UspsMarquee({ usps, size }: Props) {
+export function UspsMarquee({ usps, size, className }: Props) {
+  console.log(className);
+
   return (
     usps && (
       <div
         className={cn(
           'border-b border-t border-brand-light-grey',
           size === 'sm' && 'py-6',
-          size === 'lg' && 'py-8'
+          size === 'lg' && 'py-[14px] lg:py-8',
+          className
         )}
       >
         <Marquee autoFill>

@@ -55,7 +55,7 @@ export function MobileCarousel({ images, className }: Props) {
         </div>
       ))}
       {loaded && instanceRef.current && (
-        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 justify-center  space-x-1.5">
+        <div className="absolute bottom-0 flex w-full space-x-1">
           {Array.from(Array(instanceRef.current.track.details.slides.length).keys()).map((idx) => {
             return (
               <button
@@ -64,8 +64,8 @@ export function MobileCarousel({ images, className }: Props) {
                   instanceRef.current?.moveToIdx(idx);
                 }}
                 className={cn(
-                  'w-8 cursor-pointer border border-none border-brand-mid-grey p-1',
-                  currentSlide === idx ? 'bg-brand-dark-grey' : 'bg-brand-light-grey'
+                  'h-2 w-full cursor-pointer border border-none p-1',
+                  currentSlide === idx ? 'bg-brand-primary' : 'bg-[#CCE5E5]'
                 )}
               />
             );

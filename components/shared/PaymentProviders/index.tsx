@@ -8,7 +8,6 @@ interface Props {
 
 export async function PaymentProviders({ market }: Props) {
   const paymentProviders = await loadPaymentProviders(market);
-  console.log(paymentProviders);
 
   if (!paymentProviders.data) return null;
 

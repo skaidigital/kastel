@@ -19,6 +19,7 @@ import { DiscountPill } from './DiscountPill';
 import { FaqLayout } from './FaqLayout';
 import { KastelPoints } from './KastelPoints';
 import { PaymentIcons } from './PaymentIcons';
+import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
 import { ProductPrice } from './ProductPrice';
 import { UspsMarquee } from './Usps';
 
@@ -42,6 +43,7 @@ export async function ProductPageLayout(props: Props) {
     product;
 
   console.log(product);
+  console.log(product.hotspotImage);
 
   const productSku = 'SOL002-002-021-40';
 
@@ -74,9 +76,10 @@ export async function ProductPageLayout(props: Props) {
       </div>
       <Section
         noTopPadding
+        noBottomPadding
         label="product-hero"
         srHeading="Product Hero"
-        className="border-brand-border space-y-5 border-b bg-white lg:flex lg:py-0"
+        className="border-brand-border space-y-5 border-b bg-white pb-9 lg:flex lg:pb-20"
       >
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
           <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
@@ -113,8 +116,8 @@ export async function ProductPageLayout(props: Props) {
               ))}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
-            <UspsMarquee usps={product.usps} size="sm" />
-            <div className="px-[84px]">
+            <UspsMarquee usps={product.usps} size="sm" className="lg:black hidden" />
+            <div className="lg:px-[84px]">
               <div className="flex flex-col gap-y-3  pb-5">
                 <div className="flex justify-between">
                   <div className="flex">
@@ -156,31 +159,23 @@ export async function ProductPageLayout(props: Props) {
               <PaymentIcons market={market} />
               <KastelPoints variants={variants} productType={product.type} />
               <FaqLayout faqs={product.faqs} />
-            </div>
-
-            <div>
-              {/* {accordions && (
-                <div className="divide-brand-border divide-y">
-                  <Accordion type="single" collapsible>
-                    {accordions.map((accordion, index) => (
-                      <AccordionItem key={index} value={accordion.title}>
-                        <AccordionTrigger>{accordion.title}</AccordionTrigger>
-                        <AccordionContent>
-                          <PortableTextRenderer value={accordion.richText} />
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </div>
-              )} */}
+              <p>Pairs well with component</p>
             </div>
           </div>
         </Container>
       </Section>
       <div className="aspect-h-9 aspect-w-16 relative h-0 w-full">
-        <HotspotImage image={product.hotspotImage.image} hotspots={product.hotspotImage.hotspots} />
+        <HotspotImage
+          type={product.hotspotImage.type}
+          image={product.hotspotImage.image}
+          hotspots={product.hotspotImage.hotspots}
+        />
       </div>
       <UspsMarquee usps={product.usps} size="lg" />
+      <ProductDescriptionAndReviews
+        description={product.descriptionLongDetails}
+        title={product.descriptionLongTitle}
+      />
       {/* 
       {pageBuilder?.length > 0 &&
         pageBuilder.map((block: PageBuilderBlock, index: number) => (
