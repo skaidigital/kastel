@@ -9,6 +9,7 @@ import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { SearchParams } from '@/lib/types';
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
@@ -46,9 +47,9 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
   const slug = params.slug;
   const market = params.market;
   const lang = params.lang;
-
+  const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
   try {
-    const initial = await loadProduct({ slug, market, lang });
+    const initial = await loadProduct({ slug, market, lang, gender: activeGender });
     const { product_page: dictionary } = await getDictionary();
 
     if (!initial.data) {

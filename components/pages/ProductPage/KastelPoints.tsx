@@ -43,7 +43,6 @@ export function KastelPoints({ productType, variants }: Props) {
   const lowestPrice = isOnSale ? discountedPrice : price;
 
   const kastelPointsEarned = getKastelPoints(lowestPrice || 0);
-  console.log(kastelPointsEarned);
 
   const data = [
     {

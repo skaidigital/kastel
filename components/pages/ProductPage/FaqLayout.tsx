@@ -1,6 +1,12 @@
 'use client';
 
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/Drawer';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/Accordion';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
 import { Text } from '@/components/base/Text';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { PortableTextBlock } from '@portabletext/react';
@@ -14,12 +20,12 @@ interface Props {
 
 export function FaqLayout({ faqs }: Props) {
   return (
-    <div className="my-4">
+    <div className="my-8 lg:my-6">
       <Drawer>
         <DrawerTrigger>
           <button className="w-full">
             <div className="flex w-full items-center justify-between py-[10px]">
-              <Text as="p" size="xs" className=" text-brand-dark-grey">
+              <Text as="p" size="xs" className="font-medium">
                 Frequently asked questions
               </Text>
               <span>+</span>
@@ -27,18 +33,17 @@ export function FaqLayout({ faqs }: Props) {
           </button>
         </DrawerTrigger>
         <DrawerContent>
-          <p>Frequently asked questions</p>
-          <div className="p-5">
+          <DrawerHeader>Frequently asked questions</DrawerHeader>
+          <Accordion type="single" collapsible className="px-6 py-4">
             {faqs.map((faq) => (
-              <div key={faq.question} className="">
-                <Text as="p" size="sm" className="text-brand-dark-grey">
-                  {faq.question}
-                </Text>
-
-                <PortableTextRenderer value={faq.answer} />
-              </div>
+              <AccordionItem key={faq.question} value={faq.question}>
+                <AccordionTrigger>{faq.question}</AccordionTrigger>
+                <AccordionContent>
+                  <PortableTextRenderer value={faq.answer} />
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </DrawerContent>
       </Drawer>
     </div>

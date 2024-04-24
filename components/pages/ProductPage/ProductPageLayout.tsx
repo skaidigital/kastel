@@ -13,10 +13,12 @@ import { MobileCarousel } from '@/components/shared/MobileCarousel';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
 import { SearchParams } from '@/lib/types';
+import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import { ColorSelectLayout } from './ColorSelectLayout';
 import { DiscountPill } from './DiscountPill';
 import { FaqLayout } from './FaqLayout';
+import { GenderImageButton } from './GenderImageButton';
 import { KastelPoints } from './KastelPoints';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
@@ -36,6 +38,8 @@ export async function ProductPageLayout(props: Props) {
 
   if (!product) return null;
 
+  const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
+
   // const { id, type, productType, description, title, variants, options, featuredOptions, usp } =
   //   product;
 
@@ -46,10 +50,6 @@ export async function ProductPageLayout(props: Props) {
   console.log(product.hotspotImage);
 
   const productSku = 'SOL002-002-021-40';
-
-  // const productRating = await getLipscoreReviews(productSku);
-
-  // console.log(getProductRating);
 
   // const parentGallery = productType?.gallery;
   // const parentAccordions = productType?.accordions;
@@ -83,18 +83,7 @@ export async function ProductPageLayout(props: Props) {
       >
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
           <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
-            <div className="relative">
-              <div className="absolute right-0 top-0 z-10 p-4">
-                <div className="mb-4 flex justify-center space-x-4">
-                  <button className="flex-1 bg-gray-200 px-4 py-2 font-semibold text-black">
-                    Female
-                  </button>
-                  <button className="flex-1 bg-gray-200 px-4 py-2 font-semibold text-black">
-                    Male
-                  </button>
-                </div>
-              </div>
-            </div>
+            <GenderImageButton activeGender={activeGender} />
             {gallery &&
               gallery?.length > 0 &&
               gallery.map((image, index) => (
@@ -116,22 +105,22 @@ export async function ProductPageLayout(props: Props) {
               ))}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
-            <UspsMarquee usps={product.usps} size="sm" className="lg:black hidden" />
+            <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
             <div className="lg:px-[84px]">
-              <div className="flex flex-col gap-y-3  pb-5">
-                <div className="flex justify-between">
-                  <div className="flex">
+              <div className="flex flex-col">
+                <div className="mb-[10px] flex justify-between">
+                  <div className="flex gap-2">
                     <DiscountPill variants={variants} productType={product.type} />
                     <ProductRating sku={productSku} />
                   </div>
                   <p>(Hjerte)</p>
                 </div>
 
-                <Heading as="h1" size="xs" className="text-brand-dark-grey">
+                <Heading as="h1" size="xs" className="mb-1">
                   {title}
                 </Heading>
                 {subtitle && (
-                  <Text as="p" size="sm" className="text-brand-dark-grey">
+                  <Text as="p" size="sm">
                     {subtitle}
                   </Text>
                 )}
@@ -142,13 +131,13 @@ export async function ProductPageLayout(props: Props) {
                   minVariantPrice={product.minVariantPrice}
                   maxVariantPrice={product.maxVariantPrice}
                 />
+              </div>
+              <div className="my-4 flex flex-col gap-8">
                 {descriptionShort && (
-                  <Text as="p" size="sm" className="my-4 text-brand-dark-grey">
+                  <Text as="p" size="sm" className="">
                     {descriptionShort}
                   </Text>
                 )}
-              </div>
-              <div className="flex flex-col gap-y-8 lg:gap-y-6">
                 <Suspense>
                   <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
                 </Suspense>

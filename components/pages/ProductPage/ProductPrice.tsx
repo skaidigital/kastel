@@ -47,17 +47,17 @@ export function ProductPrice({
   const formattedMaxVariantPrice = formatPrice(maxVariantPrice);
 
   return (
-    <div className="flex">
-      <Text>
+    <div className="my-4 flex">
+      <>
         {formattedDiscountedPrice && (
-          <span className="mr-3 text-brand-dark-grey">{formattedDiscountedPrice}</span>
+          <span className="mr-3 text-sm">{formattedDiscountedPrice}</span>
         )}
         {isOnSale ? (
-          <del className="text-brand-mid-grey line-through">{formattedPrice}</del>
+          <del className="text-sm text-brand-mid-grey line-through">{formattedPrice}</del>
         ) : (
           <span>{formattedPrice}</span>
         )}
-      </Text>
+      </>
       {productType === 'VARIABLE' && !activeVariant && (
         <Text>
           {formattedMinVariantPrice} &ndash; {formattedMaxVariantPrice}
