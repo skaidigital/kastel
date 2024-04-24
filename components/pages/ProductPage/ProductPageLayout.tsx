@@ -1,4 +1,5 @@
 import { Dictionary } from '@/app/dictionaries';
+import { HotspotImage } from '@/components/HotspotImage';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductFormSkeleton } from '@/components/ProductForm/ProductFormSkeleton';
 import { Container } from '@/components/base/Container';
@@ -176,6 +177,9 @@ export async function ProductPageLayout(props: Props) {
           </div>
         </Container>
       </Section>
+      <div className="aspect-h-9 aspect-w-16 relative h-0 w-full">
+        <HotspotImage image={product.hotspotImage.image} hotspots={product.hotspotImage.hotspots} />
+      </div>
       <UspsMarquee usps={product.usps} size="lg" />
       {/* 
       {pageBuilder?.length > 0 &&

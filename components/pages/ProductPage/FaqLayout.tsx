@@ -1,6 +1,6 @@
 'use client';
 
-import { Drawer } from '@/components/Drawer';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/Drawer';
 import { Text } from '@/components/base/Text';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { PortableTextBlock } from '@portabletext/react';
@@ -16,7 +16,7 @@ export function FaqLayout({ faqs }: Props) {
   return (
     <div className="my-4">
       <Drawer>
-        <Drawer.Trigger>
+        <DrawerTrigger>
           <button className="w-full">
             <div className="flex w-full items-center justify-between py-[10px]">
               <Text as="p" size="xs" className=" text-brand-dark-grey">
@@ -25,9 +25,9 @@ export function FaqLayout({ faqs }: Props) {
               <span>+</span>
             </div>
           </button>
-        </Drawer.Trigger>
-        <Drawer.Content>
-          <Drawer.Header>Frequently asked questions</Drawer.Header>
+        </DrawerTrigger>
+        <DrawerContent>
+          <p>Frequently asked questions</p>
           <div className="p-5">
             {faqs.map((faq) => (
               <div key={faq.question} className="">
@@ -39,7 +39,7 @@ export function FaqLayout({ faqs }: Props) {
               </div>
             ))}
           </div>
-        </Drawer.Content>
+        </DrawerContent>
       </Drawer>
     </div>
   );

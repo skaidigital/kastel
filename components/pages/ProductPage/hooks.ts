@@ -97,6 +97,15 @@ export const productValidator = z.object({
   typeId: z.string(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
+  hotspotImage: z.object({
+    image: imageValidator,
+    hotspots: z.array(
+      z.object({
+        x: z.number(),
+        y: z.number()
+      })
+    )
+  }),
   variants: z.array(productVariantValidator),
   usps: z.array(
     z.object({
@@ -139,6 +148,28 @@ export function getProductQuery({
     "maxVariantPrice": maxVariantPrice_${market} {
       "amount": coalesce(amount, 0),
       "currencyCode": currencyCode
+    },
+    "hotspotImage": {
+      "type": "hotspotImage",
+      "image": detailImage {
+        ${fragments.getImageBase(lang)}
+      },
+      hotspots[]{
+        ...select(
+          type == "text" => {
+            type,
+            "description": description.${lang},
+          },
+          type == "productCard" => {
+            "type": "product",
+            ...product->{
+              ${fragments.getProductCard(lang)}
+            },
+          },
+        ),
+        x,
+        y,
+      }
     },
     "variants": select(
       type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${market} != true && defined(gid_${market})]{
