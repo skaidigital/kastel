@@ -6,10 +6,9 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
-import { Footer } from '@/components/global/Footer';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -37,15 +36,15 @@ export default function IndexRoute({
     <html lang="en">
       <GoogleTagManager gtmId={env.GTM_ID} />
       <head>
-        {isInProduction && (
-          <Script
-            strategy="afterInteractive"
-            id="Cookiebot"
-            src="https://consent.cookiebot.com/uc.js"
-            data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
-            type="text/javascript"
-          />
-        )}
+        {/* {isInProduction && ( */}
+        <Script
+          strategy="afterInteractive"
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
+          type="text/javascript"
+        />
+        {/* // )} */}
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
@@ -84,9 +83,9 @@ export default function IndexRoute({
                 <Analytics />
               </main>
             </div>
-            <Suspense>
+            {/* <Suspense>
               <Footer market={market} lang={lang} />
-            </Suspense>
+            </Suspense> */}
             <ShopifyAnalytics hasConsent />
             {draftMode().isEnabled && <PreviewMarketSelector />}
             {/* <SmileInit customerId="7292377628922" /> */}

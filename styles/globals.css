@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply text-brand-dark-grey;
+    @apply text-brand-dark-grey placeholder:text-brand-dark-grey;
   }
   .link-animation {
     @apply transition-colors duration-100 ease-in-out;

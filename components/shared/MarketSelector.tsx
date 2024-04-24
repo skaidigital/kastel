@@ -1,9 +1,14 @@
 'use client';
 
-import { Select, SelectItem } from '@/components/form/Select';
-import { NorwegianFlagIcon } from '@/components/icons/NorwegianFlagIcon';
-import { SwedenFlagIcon } from '@/components/icons/SwedenFlagIcon';
-import { MarketValues, SITE_URLS } from '@/data/constants';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/form/RadixSelect';
+// import { Select, SelectItem } from '@/components/form/Select';
+import { MARKETS, MarketValues } from '@/data/constants';
 
 interface Props {
   market: MarketValues;
@@ -11,21 +16,18 @@ interface Props {
 }
 
 export function MarketSelector({ market, className }: Props) {
+  const marketValues = MARKETS.find((m) => m.id === market);
+
   return (
-    <Select
-      aria-label="Select market"
-      className={className}
-      defaultSelectedKey={market}
-      disabledKeys={market}
-    >
-      <SelectItem id="no" href={SITE_URLS.no}>
-        <NorwegianFlagIcon className="w-5 rounded-full" />
-        NO
-      </SelectItem>
-      <SelectItem id="sv" href={SITE_URLS.sv}>
-        <SwedenFlagIcon className="w-5 rounded-full" />
-        SV
-      </SelectItem>
+    <Select>
+      <SelectTrigger className="flex w-60 items-center justify-between rounded-[4px] bg-brand-primary-light px-5 py-4 font-medium text-brand-dark-grey placeholder:text-brand-dark-grey">
+        <SelectValue placeholder={`${marketValues?.name}`} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value={'SV'} className="flex items-center gap-x-2 text-sm">
+          Sweden
+        </SelectItem>
+      </SelectContent>
     </Select>
   );
 }

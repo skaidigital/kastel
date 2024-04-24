@@ -1,6 +1,7 @@
 import { ScrollContainer } from '@/components/ScrollContainer';
 import { Skeleton } from '@/components/Skeleton';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
+import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
 import { LangValues, MarketValues } from '@/data/constants';
 import { ReactNode, Suspense } from 'react';
@@ -30,14 +31,7 @@ export default function Layout({ children, params: { market, lang } }: Props) {
         />
       </Suspense>
       {children}
-      {/* {draftMode().isEnabled && (
-        <div>
-          <a className="block bg-blue-300 p-4" href="/api/disable-draft">
-            Disable preview mode
-          </a>
-        </div>
-      )}
-      {draftMode().isEnabled && <LiveVisualEditing />} */}
+      <Footer market={market} lang={lang} />
     </div>
   );
 }
