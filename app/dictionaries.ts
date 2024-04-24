@@ -40,6 +40,7 @@ export interface Dictionary {
     reccommended: string;
     description: string;
     expected_back_in_stock: string;
+    size_guide: string;
     stock: {
       out_of_stock: string;
       low_stock: string;

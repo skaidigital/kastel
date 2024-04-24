@@ -24,7 +24,7 @@ export function HotspotImage({ image, hotspots }: HotspotImageProps) {
               <span className="size-2 rounded-full bg-white" />
             </div>
           </HoverCardTrigger>
-          {hotspot.type === 'text' && (
+          {hotspot?.type === 'text' && (
             <HoverCardContent side="top">{hotspot.description}</HoverCardContent>
           )}
           {hotspot.type === 'product' && (

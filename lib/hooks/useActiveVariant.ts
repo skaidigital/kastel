@@ -29,7 +29,7 @@ export function useActiveVariant({ variants, productType }: Props) {
   }
 
   const activeVariant = variants.find((variant: ProductVariant) =>
-    variant.selectedOptions.every((option) => options.includes(option.value.toLowerCase()))
+    variant.selectedOptions.every((option) => options.includes(option?.value?.toLowerCase() || ''))
   );
 
   if (!activeVariant) return null;

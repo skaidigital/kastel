@@ -1,10 +1,11 @@
-import {
-  concatenatePageBuilderQueries,
-  pageBuilderValidator
-} from '@/components/shared/PageBuilder/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
-import { galleryValidator, richTextValidator } from '@/lib/sanity/validators';
+import {
+  galleryValidator,
+  hotspotImageValidator,
+  imageValidator,
+  richTextValidator
+} from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
@@ -35,10 +36,13 @@ const productOptionValidator = z.discriminatedUnion('type', [
 
 export type ProductOption = z.infer<typeof productOptionValidator>;
 
-const selectedOptionValidator = z.object({
-  name: z.string(),
-  value: z.string()
-});
+const selectedOptionValidator = z
+  .object({
+    name: z.string(),
+    value: z.string()
+  })
+  .optional()
+  .nullable();
 export type SelectedOption = z.infer<typeof selectedOptionValidator>;
 
 const priceRangeValidator = z.object({
@@ -74,92 +78,95 @@ const accordionValidator = z.object({
   richText: z.array(richTextValidator)
 });
 
+const PriceValidator = z.object({
+  amount: z.number().transform((val) => String(val)),
+  currencyCode: z.string()
+});
+
 export const productValidator = z.object({
   id: z.string(),
   type: z.union([z.literal('SIMPLE'), z.literal('VARIABLE')]),
   title: z.string(),
-  slug: z.string(),
-  description: z.array(richTextValidator).optional(),
-  featuredOptions: z.array(z.string()).optional(),
+  subtitle: z.string().optional(),
+  slug: z.string().optional(),
+  descriptionShort: z.string(),
+  descriptionLongTitle: z.string(),
+  descriptionLongDetails: z.string(),
   gallery: galleryValidator.optional(),
-  pageBuilder: pageBuilderValidator.optional(),
-  accordions: z.array(accordionValidator).optional(),
-  productType: z
-    .object({
-      id: z.string(),
-      title: z.string(),
-      accordions: z
-        .array(
-          z.object({
-            title: z.string(),
-            richText: z.array(richTextValidator)
-          })
-        )
-        .optional(),
-      gallery: galleryValidator.optional(),
-      products: z.array(siblingProductValidator),
-      pageBuilder: pageBuilderValidator.optional()
-    })
-    .optional(),
-  usp: z.array(richTextValidator),
-  variants: z.array(productVariantValidator),
   options: z.array(productOptionValidator).optional(),
-  priceRange: priceRangeValidator
+  faqs: z.array(
+    z.object({
+      question: z.string(),
+      answer: z.array(richTextValidator)
+    })
+  ),
+  typeId: z.string(),
+  minVariantPrice: PriceValidator,
+  maxVariantPrice: PriceValidator,
+  hotspotImage: hotspotImageValidator,
+  variants: z.array(productVariantValidator),
+  usps: z.array(
+    z.object({
+      title: z.string(),
+      icon: imageValidator
+    })
+  )
 });
 
 export type Product = z.infer<typeof productValidator>;
 
-export function getProductQuery({ market, lang }: { market: MarketValues; lang: LangValues }) {
+export function getProductQuery({
+  market,
+  lang,
+  gender
+}: {
+  market: MarketValues;
+  lang: LangValues;
+  gender: 'male' | 'female';
+}) {
   const query = groq`
-  *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE" && defined(gid_${market})][0]{
-    "id": gid_${lang},
-    "title": title_${lang},
-    "slug": slug_${lang}.current,
+  *[_type == "product" && slug_no.current == $slug && status_no == "ACTIVE" && defined(gid_no)][0]{
+    "id": gid_no,
+    "title": title.no,
+    "subtitle": subtitle.no,
+    "slug": slug_no.current,
     type,
-    "description": coalesce(description_${lang}, productType->description_${lang}),
-    sku,
-    ${fragments.getGallery(market)},
-    "accordions": accordions[]->{
-        "title": title_${lang},
-        "richText": ${fragments.getRichText({ lang })},
-    },
-    productType->{
-      "id": _id,
-      "title": title.${lang},
-      "accordions": accordions[]->{
-        "title": title_${lang},
-        "richText": ${fragments.getRichText({ lang })},
-      },
-      ${fragments.getGallery(market)},
-      "products": *[_type == "product" && references(^._id) && status_${lang} == "ACTIVE"]{
-        "title": title_${lang},
-        "slug": slug_${lang}.current,
-        "isColor": isColor,
-        "color": color->.color.value,
-      },
-      pageBuilder[]{
-        ${concatenatePageBuilderQueries({ market, lang })}
-      },
-    },
-    "price": price_${lang},
-    "compareAtPrice": compareAtPrice_${lang},
+    sku, 
     options[]{
-      "name": optionType->.title_${lang},
+      "name": optionType->.title.${lang},
       "type": optionType->.type,
       "values": options[]->{
-        "title": title_${lang},
-      },
-      "featuredValues": featuredOptions[]->.title_${lang},
+        "title": title.${lang},
+      }
     },
-    "featuredOptions": featuredOptions_${lang}[]->.title_${lang},
-    "priceRange": {
-      "minVariantPrice": {
-        "amount": coalesce(minPrice_${market}.amount, 0),
-        "currencyCode": coalesce(minPrice_${market}.currencyCode, "") 
+    "minVariantPrice": minVariantPrice_no{
+      "amount": coalesce(amount, 0),
+      "currencyCode": currencyCode
+    },
+    "maxVariantPrice": maxVariantPrice_${market} {
+      "amount": coalesce(amount, 0),
+      "currencyCode": currencyCode
+    },
+    "hotspotImage": {
+      "type": "hotspotImage",
+      "image": detailImage {
+        ${fragments.getImageBase(lang)}
       },
-      "maxVariantPrice": {
-        "amount": coalesce(maxPrice_${market}.amount, 0),
-        "currencyCode": coalesce(maxPrice_${market}.currencyCode, "") 
+      hotspots[]{
+        ...select(
+          type == "text" => {
+            type,
+            "description": description_${lang},
+          },
+          type == "productCard" => {
+            "type": "product",
+            ...product->{
+              ${fragments.getProductCard(lang)}
+            },
+          },
+        ),
+        x,
+        y,
       }
     },
     "variants": select(
@@ -170,35 +177,94 @@ export function getProductQuery({ market, lang }: { market: MarketValues; lang: 
         sku,
         "selectedOptions": [
         option1->{
-            "name": type->title_${lang},
-            "value": title_${lang},
+            "name": type->title.${lang},
+            "value": title.${lang},
         },
         option2->{
-            "name": type->title_${lang},
-            "value": title_${lang},
+            "name": type->title.${lang},
+            "value": title.${lang},
         },
         option3->{
-            "name": type->title_${lang},
-            "value": title_${lang},
+            "name": type->title.${lang},
+            "value": title.${lang},
         }
       ]},
       type == "SIMPLE" => [{
-        "id": variantGid_${market},    
+        "id": variantGid_${market},
         "price": price_${market},
         "discountedPrice": compareAtPrice_${market},
-        sku, 
+        sku,
         "selectedOptions": [
-          "name": "Default",
-          "value": "Default",
+          {
+            "name": "Default",
+            "value": "Default"
+          }
         ],
       }]
     ),
-    pageBuilder[]{
-      ${concatenatePageBuilderQueries({ market, lang })}
-    },
-    "usp": *[_type == "usps"][0].${fragments.getRichText({ lang, fieldName: 'productForm' })}
+    ${getGallerByGender({ market, gender })},
+    ...productType->{
+      "typeId": _id,
+      "descriptionShort": descriptionShort.${lang},
+      "descriptionLongTitle": descriptionLongTitle.${lang},
+      "descriptionLongDetails": descriptionLongDetails.${lang},
+      "faqs": faqs[]->{
+        "question": question.${lang},
+        "answer": answer_${lang}
+      },
+      "usps": usps[]->{
+        "title": title.${lang},
+        "icon": icon {
+          ${fragments.getImageBase(lang)}
+        }
+      }
+    }
   }
   `;
 
   return query;
+}
+
+const productSiblingValidator = z.object({
+  title: z.string(),
+  mainImage: imageValidator,
+  slug: z.string()
+});
+
+export const productSiblingsValidator = z.array(productSiblingValidator);
+
+export type ProductSiblings = z.infer<typeof productSiblingsValidator>;
+
+export function getSibligProductsQuery({
+  market,
+  lang
+}: {
+  market: MarketValues;
+  lang: LangValues;
+}) {
+  const query = groq`
+  *[_type == "product" && references($typeId) && status_no == "ACTIVE" && defined(gid_${market})]{
+    "title": title.${lang},
+    "mainImage": mainImage {
+      ${fragments.getImageBase(lang)}
+    },
+    "slug": slug_${market}.current,
+     }
+  `;
+
+  return query;
+}
+
+function getGallerByGender({
+  market,
+  gender
+}: {
+  market: MarketValues;
+  gender: 'male' | 'female';
+}) {
+  if (gender === 'male') {
+    return fragments.getGalleryMale(market);
+  }
+
+  return fragments.getGalleryFemale(market);
 }

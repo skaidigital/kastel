@@ -1,8 +1,10 @@
 import { getDictionary } from '@/app/dictionaries';
-import { Product, getProductQuery } from '@/components/pages/ProductPage/hooks';
+import { ProductPageLayout } from '@/components/pages/ProductPage/ProductPageLayout';
+import { Product, getProductQuery, productValidator } from '@/components/pages/ProductPage/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugsProducts } from '@/lib/sanity/loader/generateStaticSlugs';
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { SearchParams } from '@/lib/types';
@@ -18,13 +20,15 @@ export async function generateStaticParams() {
 function loadProduct({
   slug,
   market,
-  lang
+  lang,
+  gender = 'female'
 }: {
   slug: string;
   market: MarketValues;
   lang: LangValues;
+  gender?: 'male' | 'female';
 }) {
-  const query = getProductQuery({ market, lang });
+  const query = getProductQuery({ market, lang, gender });
 
   return loadQuery<Product | null>(
     query,
@@ -38,32 +42,36 @@ interface Props {
   searchParams?: SearchParams;
 }
 
-export default async function SlugProductPage({ params }: Props) {
+export default async function SlugProductPage({ params, searchParams }: Props) {
   const slug = params.slug;
   const market = params.market;
   const lang = params.lang;
 
-  const initial = await loadProduct({ slug, market, lang });
-  const { product_page: dictionary } = await getDictionary();
+  try {
+    const initial = await loadProduct({ slug, market, lang });
+    const { product_page: dictionary } = await getDictionary();
 
-  if (!initial.data) {
-    notFound();
+    if (!initial.data) {
+      notFound();
+    }
+
+    const productWithoutNullValues = nullToUndefined(initial.data);
+
+    const validatedProduct = productValidator.parse(productWithoutNullValues);
+
+    return (
+      <ProductPageLayout
+        data={validatedProduct}
+        dictionary={dictionary}
+        searchParams={searchParams}
+        market={market}
+        lang={lang}
+      />
+    );
+  } catch (error) {
+    console.error(error);
+    return notFound();
   }
-
-  // const productWithoutNullValues = nullToUndefined(initial.data);
-
-  // const validatedProduct = productValidator.parse(productWithoutNullValues);
-
-  // return (
-  //   <ProductPageLayout
-  //     data={validatedProduct}
-  //     dictionary={dictionary}
-  //     searchParams={searchParams}
-  // market={market}
-  // lang={lang}
-  //   />
-  // );
-  return <div>Product</div>;
 }
 
 export async function generateMetadata({

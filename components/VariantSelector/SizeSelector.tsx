@@ -1,154 +1,95 @@
-import { Button } from '@/components/Button';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTrigger
-} from '@/components/Drawer';
-import { Combination } from '@/components/VariantSelector';
-import { SizeOptionButton } from '@/components/VariantSelector/SizeOptionButton';
-import { Text } from '@/components/base/Text';
+import { Dictionary } from '@/app/dictionaries';
 import { ProductOption } from '@/components/pages/ProductPage/hooks';
-import { useSearchParams } from 'next/navigation';
 import { useQueryState } from 'nuqs';
+import { Text } from '../base/Text';
+import { SizeGuide } from './SizeGuide';
 
 interface Props {
   option: ProductOption;
-  options: ProductOption[];
-  featuredOptions: string[];
-  combinations: Combination[];
-  showAllSizesText: string;
-  chooseSizeText: string;
-  closeText: string;
-  reccommendedText: string;
+  chooseSizeText: Dictionary['product_page']['choose_size'];
+  sizeGuideText: Dictionary['product_page']['size_guide'];
 }
 
 // TODO refactor to use just useQueryState if possible (logic inside the map)
-export function SizeSelector({
-  option,
-  options,
-  featuredOptions,
-  combinations,
-  showAllSizesText,
-  chooseSizeText,
-  closeText,
-  reccommendedText
-}: Props) {
-  const searchParams = useSearchParams();
-
-  const optionName = option.name;
+export function SizeSelector({ option, chooseSizeText, sizeGuideText }: Props) {
   const optionType = option.type;
-
   const [selectedSize, setSelectedSize] = useQueryState(option.name.toLowerCase());
-
   if (optionType !== 'size') {
     return null;
   }
 
-  const selectedSizeNotInFeaturedValues = selectedSize && !featuredOptions?.includes(selectedSize);
-
-  const featuredValues = selectedSizeNotInFeaturedValues
-    ? [selectedSize, ...(featuredOptions || [])]
-    : featuredOptions;
-
   return (
-    <dl className="flex flex-col gap-y-3" key={option.name}>
-      <dt className="text-eyebrow uppercase">
-        {optionName}
-        {selectedSize && `: ${selectedSize}`}
+    <dl className="" key={option.name}>
+      <dt className="mb-3">
+        <div className="flex justify-between">
+          <Text as="p" size="xs" className="text-brand-dark-grey">
+            {option.name}: {selectedSize || chooseSizeText}
+          </Text>
+          <SizeGuide sizeGuideText={sizeGuideText} />
+        </div>
       </dt>
-      <dd className="flex flex-col gap-y-2">
-        {featuredValues?.map((value) => {
-          const featuredOptionInFeaturedValues =
-            value && featuredOptions?.includes(value) ? true : false;
-          const optionNameLowerCase = option.name.toLowerCase();
-
-          const optionSearchParams = new URLSearchParams(searchParams.toString());
-
-          optionSearchParams.set(optionNameLowerCase, value);
-
-          const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
-            options.find(
-              (option) =>
-                option.name.toLowerCase() === key && option.values.some((v) => v.title === value)
-            )
-          );
-          const isAvailableForSale = combinations.find((combination) =>
-            filtered.every(
-              ([key, value]) => combination[key] === value && combination.availableForSale
-            )
-          );
-
-          const isActive = selectedSize === value;
-
-          return (
-            <SizeOptionButton
-              key={value}
-              value={value}
-              optionName={option.name}
-              isAvailableForSale={!!isAvailableForSale}
-              isFeatured={featuredOptionInFeaturedValues}
-              reccommendedText={reccommendedText}
-              isActive={isActive}
-              setSelectedSize={setSelectedSize}
-            />
-          );
-        })}
-        <Drawer>
-          <DrawerTrigger>
-            <button>
-              <Text size="sm" className="text-left">
-                {showAllSizesText}
-              </Text>
-            </button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>{selectedSize ? selectedSize : chooseSizeText}</DrawerHeader>
-            <div className="flex flex-1 flex-col gap-y-3 p-5">
-              {option.values.map((value) => {
-                const optionNameLowerCase = option.name.toLowerCase();
-                const optionSearchParams = new URLSearchParams(searchParams.toString());
-
-                optionSearchParams.set(optionNameLowerCase, value.title);
-
-                const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
-                  options.find(
-                    (option) =>
-                      option.name.toLowerCase() === key &&
-                      option.values.some((v) => v.title === value)
-                  )
-                );
-                const isAvailableForSale = combinations.find((combination) =>
-                  filtered.every(
-                    ([key, value]) => combination[key] === value && combination.availableForSale
-                  )
-                );
-
-                const isActive = selectedSize === value.title;
-
-                const isFeatured = featuredOptions?.includes(value.title);
-
-                return (
-                  <SizeOptionButton
-                    key={value.title}
-                    value={value.title}
-                    optionName={option.name}
-                    isAvailableForSale={!!isAvailableForSale}
-                    isFeatured={isFeatured}
-                    reccommendedText={reccommendedText}
-                    isActive={isActive}
-                    setSelectedSize={setSelectedSize}
-                  />
-                );
-              })}
-            </div>
-            <DrawerClose>
-              <Button>{closeText}</Button>
-            </DrawerClose>
-          </DrawerContent>
-        </Drawer>
+      <dd className="grid grid-cols-6 gap-1">
+        {option &&
+          option.values.map((value) => {
+            return (
+              <button
+                key={value.title}
+                onClick={() => setSelectedSize(value.title)}
+                className={`flex items-center justify-center rounded-sm border border-brand-light-grey py-[10px] ${selectedSize === value.title ? 'bg-brand-primary text-white' : ''}`}
+              >
+                {value.title}
+              </button>
+            );
+          })}
       </dd>
     </dl>
   );
+
+  // return (
+  //   <dl className="flex flex-col gap-y-3" key={option.name}>
+  //     <dt className="text-eyebrow uppercase">
+  //       {optionName}
+  //       {selectedSize && `: ${selectedSize}`}
+  //     </dt>
+  //     <dd className="flex flex-col gap-y-2">
+  //       {options &&
+  //         options?.map((value) => {
+  //           const featuredOptionInFeaturedValues =
+  //             value && featuredOptions?.includes(value) ? true : false;
+  //           const optionNameLowerCase = option.name.toLowerCase();
+
+  //           const optionSearchParams = new URLSearchParams(searchParams.toString());
+
+  //           optionSearchParams.set(optionNameLowerCase, value);
+
+  //           const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
+  //             options.find(
+  //               (option) =>
+  //                 option.name.toLowerCase() === key && option.values.some((v) => v.title === value)
+  //             )
+  //           );
+  //           const isAvailableForSale = combinations.find((combination) =>
+  //             filtered.every(
+  //               ([key, value]) => combination[key] === value && combination.availableForSale
+  //             )
+  //           );
+
+  //           const isActive = selectedSize === value;
+
+  //           return (
+  //             <SizeOptionButton
+  //               key={value}
+  //               value={value}
+  //               optionName={option.name}
+  //               isAvailableForSale={!!isAvailableForSale}
+  //               isFeatured={featuredOptionInFeaturedValues}
+  //               reccommendedText={reccommendedText}
+  //               isActive={isActive}
+  //               setSelectedSize={setSelectedSize}
+  //             />
+  //           );
+  //         })}
+  //     </dd>
+  //   </dl>
+  // );
 }
