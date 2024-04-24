@@ -3,6 +3,8 @@
 import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries-client';
 import { Text } from '@/components/base/Text';
+import { cn } from '@/lib/utils';
+import { GiftIcon } from '@heroicons/react/20/solid';
 import * as Progress from '@radix-ui/react-progress';
 import { useEffect, useState } from 'react';
 
@@ -11,13 +13,15 @@ interface Props {
   totalAmount: number;
   currencyCode: string;
   dictionary: Dictionary['cart_drawer'];
+  className?: string;
 }
 
 export const FreeShippingCountdown = ({
   freeShippingAmount,
   totalAmount,
   dictionary,
-  currencyCode
+  currencyCode,
+  className
 }: Props) => {
   const [progress, setProgress] = useState(0);
 
@@ -42,17 +46,21 @@ export const FreeShippingCountdown = ({
   });
 
   return (
-    <div className="flex flex-col space-y-1 p-5">
-      {hasFreeShipping && <Text size="sm">{dictionary.you_get_free_shipping}</Text>}
-      {hasFreeShipping && <Text size="sm">Gratulerer, du får gratis frakt!</Text>}
-      {!hasFreeShipping && (
-        <Text size="sm">
-          {youAreAwayFromFreeShippingPartOne} {formattedAwayFromFreeShipping}{' '}
-          {youAreAwayFromFreeShippingPartTwo}
-        </Text>
-      )}
+    <div className={cn('flex flex-col gap-y-2', className)}>
+      <div className="flex items-center gap-x-2">
+        <GiftIcon className="size-6 shrink-0 rounded-full bg-nature-lab-beige p-1" />
+        <>
+          {hasFreeShipping && <Text size="xs">{dictionary.you_get_free_shipping}</Text>}
+          {!hasFreeShipping && (
+            <Text size="xs" className="text-brand-mid-grey">
+              {youAreAwayFromFreeShippingPartOne} {formattedAwayFromFreeShipping}{' '}
+              {youAreAwayFromFreeShippingPartTwo}
+            </Text>
+          )}
+        </>
+      </div>
       <Progress.Root
-        className="border-brand-border relative h-2 w-full overflow-hidden rounded-md border-b bg-brand-light-grey"
+        className="relative h-2 w-full overflow-hidden rounded-[2px] bg-brand-sand"
         style={{
           // Fix overflow clipping in Safari
           // https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0
@@ -61,7 +69,7 @@ export const FreeShippingCountdown = ({
         value={progress}
       >
         <Progress.Indicator
-          className="h-full w-full bg-black transition-transform"
+          className="h-full w-full bg-brand-primary transition-transform"
           style={{ transform: `translateX(-${100 - progress}%)` }}
         />
       </Progress.Root>

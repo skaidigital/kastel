@@ -33,7 +33,7 @@ export function FaqLayout({ faqs }: Props) {
           </button>
         </DrawerTrigger>
         <DrawerContent>
-          <DrawerHeader>Frequently asked questions</DrawerHeader>
+          <DrawerHeader title="Frequently Asked Questions" />
           <Accordion type="single" collapsible className="px-6 py-4">
             {faqs.map((faq) => (
               <AccordionItem key={faq.question} value={faq.question}>

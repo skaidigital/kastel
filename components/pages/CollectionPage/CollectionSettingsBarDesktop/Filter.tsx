@@ -52,7 +52,7 @@ export async function Filter({ lang }: Props) {
         </DrawerTrigger>
       </Text>
       <DrawerContent placement="left">
-        <DrawerHeader>Filter</DrawerHeader>
+        <DrawerHeader title={'Filter'} />
         <div className="flex flex-col gap-y-8 px-6">
           <FilterLayout filterGroupKeys={filterGroupKeys}>
             <Accordion
