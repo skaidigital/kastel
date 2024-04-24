@@ -82,8 +82,8 @@ export const validateAllStringTranslations = (Rule: any) =>
     return true;
   });
 
-export const readOnlyUnlessAdmin = (currentUser: any) =>
-  currentUser?.role === 'administrator' ? false : true;
+export const readOnlyUnlessDeveloper = (currentUser: any) =>
+  currentUser?.role === 'developer' ? false : true;
 
 interface Props {
   title: string;
@@ -128,7 +128,8 @@ export function i18nField({
       ...(type === 'text' && { rows }),
       initialValue,
       validation,
-      readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)
+      readOnly: ({ currentUser }) =>
+        readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
   );
 }
@@ -170,7 +171,8 @@ export function i18nString({
       hidden,
       initialValue,
       validation,
-      readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)
+      readOnly: ({ currentUser }) =>
+        readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
   );
 }
@@ -211,7 +213,8 @@ export function i18nNumber({
       hidden,
       initialValue,
       validation,
-      readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)
+      readOnly: ({ currentUser }) =>
+        readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
   );
 }

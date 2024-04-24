@@ -1,10 +1,10 @@
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
 import { Text } from '@/components/base/Text';
-import { OnSaleCheckbox } from '@/components/pages/CollectionPage/CollectionActionsBarMobile/OnSaleCheckbox';
 import { loadFilter } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop/Filter';
 import { FilterGroupItem } from '@/components/pages/CollectionPage/filter/FilterGroupItem';
 import { FilterLayout } from '@/components/pages/CollectionPage/filter/FilterLayout';
 import { filterGroupsValidator } from '@/components/pages/CollectionPage/filter/hooks';
+import { OnSaleCheckbox } from '@/components/shared/CollectionAndSearchActionsBarMobile/OnSaleCheckbox';
 import { LangValues } from '@/data/constants';
 import { PlusIcon } from '@radix-ui/react-icons';
 

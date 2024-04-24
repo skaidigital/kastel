@@ -45,7 +45,7 @@ export function getFilterItemQuery(market: MarketValues, type: filterType) {
 
 export function getTagTypeText(market: MarketValues) {
   const query = groq`
-    *[_type == "tag" && references($parentId)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current)] {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current
@@ -57,7 +57,7 @@ export function getTagTypeText(market: MarketValues) {
 
 export function getTagTypeColor(market: MarketValues) {
   const query = groq`
-    *[_type == "tag" && references($parentId)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(color)] {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current,
@@ -70,7 +70,7 @@ export function getTagTypeColor(market: MarketValues) {
 
 export function getTagTypeSize(market: MarketValues) {
   const query = groq`
-    *[_type == "tag" && references($parentId)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(size)] {
         "id": _id,
         "title": title.${market},
         "slug": size->slug_${market}.current,

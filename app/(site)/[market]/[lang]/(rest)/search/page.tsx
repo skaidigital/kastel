@@ -11,7 +11,9 @@ import { Text } from '@/components/base/Text';
 import { CollectionGrid } from '@/components/pages/CollectionPage/CollectionLayout';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
+import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
 import { SearchSettingsBar } from '@/components/pages/CollectionPage/filter/SearchSettingsBar';
+import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, URL_STATE_KEYS } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -79,10 +81,10 @@ export default async function Page({ searchParams, params }: Props) {
   const searchResultWithoutNullValues = nullToUndefined(searchResult.data);
 
   const validProducts = searchResultWithoutNullValues.products.filter((product: any) => {
-    const valided = productCardValidator.safeParse(product);
+    const validatedProduct = productCardValidator.safeParse(product);
 
-    if (valided.success) {
-      return valided.data;
+    if (validatedProduct.success) {
+      return validatedProduct.data;
     }
   });
 
@@ -92,8 +94,9 @@ export default async function Page({ searchParams, params }: Props) {
     hasNextPage: searchResultWithoutNullValues.hasNextPage
   });
 
-  const productCount = validatedSearchResult?.products;
-  const hasProducts = productCount && productCount?.length > 0;
+  const products = validatedSearchResult?.products;
+
+  const hasProducts = products && products?.length > 0;
 
   const pageCount =
     validatedSearchResult?.productCount &&
@@ -121,16 +124,24 @@ export default async function Page({ searchParams, params }: Props) {
             )}
             {hasProducts ? (
               <span className="text-sm text-brand-mid-grey lg:text-lg">
-                {productCount?.length} {dictionary.no_products_that_match}
+                {dictionary.we_found} {products?.length} {dictionary.products}
               </span>
             ) : (
               <span className="text-sm text-brand-mid-grey lg:text-lg">
                 {dictionary.search_results}
               </span>
             )}
+            <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
           </div>
-          {hasProducts && <SearchSettingsBar />}
+          {hasProducts && <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />}
         </Container>
+        {hasProducts && (
+          <SearchSettingsBar
+            searchParams={searchParams}
+            lang={lang}
+            className="hidden min-h-32 lg:block"
+          />
+        )}
       </Section>
       <Section label={dictionary.search_results} srHeading={dictionary.search_results} noTopPadding>
         {!hasProducts && (
@@ -141,8 +152,8 @@ export default async function Page({ searchParams, params }: Props) {
           </Container>
         )}
         <CollectionGrid number={ProductsInView}>
-          {productCount &&
-            productCount?.map((product: ProductCardProps, index) => (
+          {products &&
+            products?.map((product: ProductCardProps, index) => (
               <ProductCard
                 type={product.type}
                 gid={product.gid}

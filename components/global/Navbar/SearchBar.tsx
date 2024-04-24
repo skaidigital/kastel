@@ -42,7 +42,7 @@ export const SearchBar = ({ onClose }: Props) => {
 
       const val = e.target as HTMLFormElement;
       const search = val.search as HTMLInputElement;
-      const newParams = new URLSearchParams(searchParams.toString());
+      const newParams = new URLSearchParams();
 
       if (search.value) {
         newParams.set('q', search.value);

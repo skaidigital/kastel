@@ -1,6 +1,6 @@
-import { Filter } from '@/components/pages/CollectionPage/CollectionActionsBarMobile/Filter';
-import { Settings } from '@/components/pages/CollectionPage/CollectionActionsBarMobile/Settings';
-import { Sort } from '@/components/pages/CollectionPage/CollectionActionsBarMobile/Sort';
+import { Filter } from '@/components/shared/CollectionAndSearchActionsBarMobile/Filter';
+import { Settings } from '@/components/shared/CollectionAndSearchActionsBarMobile/Settings';
+import { Sort } from '@/components/shared/CollectionAndSearchActionsBarMobile/Sort';
 import { LangValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 
@@ -9,7 +9,7 @@ interface Props {
   className?: string;
 }
 
-export function CollectionActionsBarMobile({ lang, className }: Props) {
+export function CollectionAndSearchActionsBarMobile({ lang, className }: Props) {
   return (
     <div
       className={cn(

@@ -44,7 +44,9 @@
     }
   },
   "search_page": {
+    "we_found": "Vi fant",
     "search_results": "Søkeresultater",
+    "products": "produkter",
     "no_products_that_match": "Vi fant ingen produkter som matcher søket ditt.",
     "showing": "Viser",
     "for": "for",

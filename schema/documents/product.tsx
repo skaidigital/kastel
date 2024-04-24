@@ -91,8 +91,7 @@ export const product = defineType({
       description: 'Add an image and then click on the image blow to place your hotspot(s)',
       name: 'detailImage',
       type: 'figure',
-      group: 'images',
-      validation: (Rule) => Rule.required()
+      group: 'images'
     }),
     defineField({
       title: 'Hotspots for detail image (optional)',
@@ -438,16 +437,16 @@ export const product = defineType({
       name: `minVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
-      group: market.id,
-      readOnly: true
+      group: market.id
+      // readOnly: readOnlyUnlessDeveloper
     })),
     ...MARKETS.map((market) => ({
       title: 'Max price',
       name: `maxVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
-      group: market.id,
-      readOnly: true
+      group: market.id
+      // readOnly: readOnlyUnlessDeveloper
     }))
   ],
   orderings: [

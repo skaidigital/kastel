@@ -32,7 +32,6 @@ export function NavbarLayout({ data, children, className }: Props) {
             <SearchButton className="hidden lg:block" />
           </div>
           <DesktopMenu items={items} className="hidden lg:block lg:w-fit" />
-          {/* <LogoButton /> */}
           <div className="flex flex-1 justify-end space-x-2 lg:flex-auto">
             <div className="hidden items-center justify-center lg:flex lg:gap-x-4">
               <SearchButton />

@@ -44,7 +44,9 @@
     }
   },
   "search_page": {
+    "we_found": "We found",
     "search_results": "Search results",
+    "products": "products",
     "no_products_that_match": "There are no products that match your search",
     "showing": "Showing",
     "for": "for",

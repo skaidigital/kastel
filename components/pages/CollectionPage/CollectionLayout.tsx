@@ -4,7 +4,6 @@ import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
-import { CollectionActionsBarMobile } from '@/components/pages/CollectionPage/CollectionActionsBarMobile';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
@@ -13,6 +12,7 @@ import {
   CollectionMood,
   CollectionProductPayload
 } from '@/components/pages/CollectionPage/hooks';
+import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
@@ -59,7 +59,7 @@ export function CollectionLayout({
 
   return (
     <>
-      <CollectionActionsBarMobile lang={lang} className="lg:hidden" />
+      <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />
       <Section
         size="sm"
         label="collection-hero"

@@ -5,16 +5,26 @@ import { Colors } from '@/components/shared/ProductCard/Colors';
 import { ProductCardProvider } from '@/components/shared/ProductCard/Context';
 import { ProductCardImage } from '@/components/shared/ProductCard/Image';
 import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer';
+import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ROUTES } from '@/data/constants';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { Money } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
+import { Suspense } from 'react';
 
 interface Props extends ProductCardProps {
   firstImage?: 'product' | 'lifestyle';
   priority?: boolean;
   className?: string;
 }
+
+// "colorWays": *[_type == "product" && references(^._id) && defined(mainImage) && defined(slug_no.current)]{
+//   "image": mainImage{
+//     ${fragments.getImageBase(lang)}
+//   },
+//   "hexCode": color->color.value,
+//   "slug": slug_${lang}.current,
+// },
 
 // TODO consider having a container for the badges and rating so that we can align them
 export function ProductCard({
@@ -37,13 +47,10 @@ export function ProductCard({
   };
   const formattedPrice = formatPrice(price);
 
-  // TODO get colorways
+  // TODO get colorways (har logikk / alt det der i shopOurModels)
   // TODO get size range
-  // TODO get priceRange
-  // ? for rating set a variable product use any variant's sku to get the rating
-  // ? wishlist is the product gid
-
-  console.log(typeof window);
+  // TODO get priceRange to calculate price
+  // TODO get sku from the product || a variant if variable product
 
   return (
     <div className="@container">
@@ -54,9 +61,9 @@ export function ProductCard({
         >
           <ImageContainer>
             <div className="absolute right-3 top-3 z-50 @xs:right-4 @xs:top-4">
-              {/* <Suspense fallback={<WishlistFallback />}>
+              <Suspense fallback={<WishlistFallback />}>
                 <Wishlist gid={gid} />
-              </Suspense> */}
+              </Suspense>
             </div>
             {badges && (
               <div className="absolute right-2 top-3 z-10 flex flex-col gap-1 xl:flex-row">

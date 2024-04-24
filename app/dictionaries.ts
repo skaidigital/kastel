@@ -55,7 +55,9 @@ export interface Dictionary {
     };
   };
   search_page: {
+    we_found: string;
     search_results: string;
+    products: string;
     no_products_that_match: string;
     showing: string;
     for: string;
