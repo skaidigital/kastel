@@ -29,7 +29,7 @@ export default function IndexRoute({
   children: ReactNode;
   params: { market: MarketValues; lang: LangValues };
 }) {
-  const isInProduction = env.NODE_ENV === 'production';
+  const isInProduction = process.env.NODE_ENV === 'production';
 
   // const hasConsent = cookies().get(COOKIE_NAMES.COOKIE_CONSENT)?.value === 'true';
 
