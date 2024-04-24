@@ -92,9 +92,6 @@ dependencies:
   '@sanity/image-url':
     specifier: ^1.0.2
     version: 1.0.2
-  '@sanity/overlays':
-    specifier: ^2.3.30
-    version: 2.3.41(@sanity/client@6.15.20)(next@14.1.4)
   '@sanity/preview-url-secret':
     specifier: ^1.6.1
     version: 1.6.11(@sanity/client@6.15.20)
@@ -6233,20 +6230,6 @@ packages:
       - supports-color
     dev: false
 
-  /@sanity/overlays@2.3.41(@sanity/client@6.15.20)(next@14.1.4):
-    resolution: {integrity: sha512-i9s8bdmbM5xNqBL8rDLJatU8DfVr8BHM6qgKSZUOySHL+9R0blOBdurIcf76+9FegwBy3/DUhLeS0L67qPIHow==}
-    engines: {node: '>=16.14'}
-    deprecated: migrate to @sanity/visual-editing
-    dependencies:
-      '@sanity/visual-editing': 1.8.15(@sanity/client@6.15.20)(next@14.1.4)
-    transitivePeerDependencies:
-      - '@remix-run/react'
-      - '@sanity/client'
-      - '@sveltejs/kit'
-      - next
-      - svelte
-    dev: false
-
   /@sanity/portable-text-editor@3.39.0(react-dom@18.2.0)(react@18.2.0)(rxjs@7.8.1)(styled-components@6.1.8):
     resolution: {integrity: sha512-LB443HNOi9+6VRD12tD2puwEc9hAGOCEZSm7IpXbgScfJY2iKjZSyC76CyoB5aSgZusjlRAVK0ozwhG5GnBQpA==}
     engines: {node: '>=18'}
@@ -6331,7 +6314,7 @@ packages:
     peerDependencies:
       '@sanity/client': ^6.15.20
     dependencies:
-      '@sanity/client': 6.15.20(debug@4.3.4)
+      '@sanity/client': 6.15.20
       '@sanity/uuid': 3.0.2
     dev: false
 

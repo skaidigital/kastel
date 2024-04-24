@@ -11,11 +11,14 @@ import { ProductCardProps } from '@/lib/sanity/types';
 import { Money } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
 import { Suspense } from 'react';
+import { Rating, RatingFallback } from './Rating';
 
 interface Props extends ProductCardProps {
   firstImage?: 'product' | 'lifestyle';
   priority?: boolean;
   className?: string;
+  lowestSize?: string;
+  highestSize?: string;
 }
 
 // "colorWays": *[_type == "product" && references(^._id) && defined(mainImage) && defined(slug_no.current)]{
@@ -34,17 +37,33 @@ export function ProductCard({
   lifestyleImage,
   title,
   className,
-  badges
+  badges,
+  lowestSize,
+  highestSize,
+  minVariantPrice,
+  maxVariantPrice,
+  sku
 }: Props) {
+  console.log(sku);
+
   const isOnSale = true;
   const discountPercentage = 20;
 
-  const sizeRange = '34-42';
+  const sizeRange = `${lowestSize}-${highestSize}`;
 
   const price: Money = {
-    amount: '100.00',
-    currencyCode: 'USD'
+    amount: `${minVariantPrice.amount} - ${maxVariantPrice.amount}`,
+    currencyCode: minVariantPrice.currencyCode
   };
+
+  const formattedMinPrice = formatPrice({
+    amount: String(minVariantPrice.amount),
+    currencyCode: minVariantPrice.currencyCode
+  });
+  const formattedMaxPrice = formatPrice({
+    amount: String(maxVariantPrice.amount),
+    currencyCode: maxVariantPrice.currencyCode
+  });
   const formattedPrice = formatPrice(price);
 
   // TODO get colorways (har logikk / alt det der i shopOurModels)
@@ -81,32 +100,36 @@ export function ProductCard({
               {isOnSale && discountPercentage && <Badge className="">-{discountPercentage}%</Badge>}
               <Badge className="">New</Badge>
             </div>
-            <div className="absolute bottom-3 right-3 @xs:hidden">
-              {/* <Suspense
-                fallback={
-                  <RatingFallback className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4" />
-                }
-              >
-                <Rating
-                  sku="123"
-                  className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
-                />
-              </Suspense> */}
+            <div className="absolute bottom-3 right-3 border-2 @xs:hidden">
+              {sku && (
+                <Suspense
+                  fallback={
+                    <RatingFallback className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4" />
+                  }
+                >
+                  <Rating
+                    sku={sku}
+                    className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
+                  />
+                </Suspense>
+              )}
             </div>
           </ImageContainer>
           <div className="flex flex-col justify-center gap-y-2 border-y border-brand-light-grey bg-white p-3 @xs:flex-row @xs:justify-between @xs:p-4">
             <div className="mb-2 flex flex-col gap-y-1 truncate @xs:mb-0">
               <h3 className="truncate text-xs @xs:text-sm">{title}</h3>
               <div className="flex gap-x-3 text-xs text-brand-mid-grey @xs:gap-x-4 @xs:text-sm">
-                <span>{formattedPrice}</span>
+                <span>{formattedMinPrice}</span>
                 <span>{sizeRange}</span>
               </div>
             </div>
             <div className="flex flex-col @xs:items-end">
               <div className="mb-1 hidden @xs:block">
-                {/* <Suspense fallback={<RatingFallback className="mb-1" />}>
-                  <Rating sku="123" className="mb-1" />
-                </Suspense> */}
+                {sku && (
+                  <Suspense fallback={<RatingFallback className="mb-1" />}>
+                    <Rating sku={sku} className="mb-1" />
+                  </Suspense>
+                )}
               </div>
               <Colors />
             </div>

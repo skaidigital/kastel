@@ -1,4 +1,4 @@
-import { COLLECTION_PAGE_SIZE, LangValues } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -12,7 +12,12 @@ export const searchResultValidator = z.object({
 
 export type SearchResult = z.infer<typeof searchResultValidator>;
 
-export function getSearchResultQuery(lang: LangValues, pageIndex: number = 1, sortKey?: string) {
+export function getSearchResultQuery(
+  lang: LangValues,
+  market: MarketValues,
+  pageIndex: number = 1,
+  sortKey?: string
+) {
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
@@ -22,14 +27,14 @@ export function getSearchResultQuery(lang: LangValues, pageIndex: number = 1, so
       | score(title.${lang} match $searchQuery)
       [${start}...${end}]{
         defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
-          ${fragments.getProductCard(lang)},
+          ${fragments.getProductCard(lang, market)},
           _createdAt,
           "minPrice" : minVariantPrice_no.amount,
           "maxPrice": maxVariantPrice_no.amount
         },
         defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
         !defined($tagSlugs) => {
-          ${fragments.getProductCard(lang)},
+          ${fragments.getProductCard(lang, market)},
           _createdAt,
           "minPrice" : minVariantPrice_no.amount,
           "maxPrice": maxVariantPrice_no.amount

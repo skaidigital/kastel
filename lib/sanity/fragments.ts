@@ -226,12 +226,11 @@ export const productLimited = groq`
 `;
 
 // TODO should take both lang and market
-export function getProductCard(lang: LangValues) {
+export function getProductCard(lang: LangValues, market: MarketValues) {
   return groq`
   "type": _type,
   "title": title.${lang},
-  "gid": gid_${lang},
-  sku,
+  "gid": gid_${market},
   ${getSlug(lang)},
   mainImage{
     ${getImageBase(lang)}
@@ -239,8 +238,23 @@ export function getProductCard(lang: LangValues) {
   lifestyleImage{
     ${getImageBase(lang)}
   },
-  "badges": badges[]->.title.${lang}
-`;
+  "minVariantPrice": minVariantPrice_${market}{
+    "amount": coalesce(amount, 0),
+    "currencyCode": currencyCode
+  },
+  "maxVariantPrice": maxVariantPrice_${market} {
+    "amount": coalesce(amount, 0),
+    "currencyCode": currencyCode
+  },
+s
+  "badges": badges[]->.title.${lang},
+  "sizes": options[] {
+    "type": optionType->.type,
+    "options": options[]-> {
+      "title": title.no
+    } | order(title asc)
+  } 
+  `;
 }
 
 export const collectionProduct = groq`
@@ -337,7 +351,7 @@ export function getBlogPostCard(lang: LangValues) {
 `;
 }
 
-export function getHotspotImage(lang: LangValues) {
+export function getHotspotImage(lang: LangValues, market: MarketValues) {
   return groq`
   "type": _type,
   image{
@@ -352,7 +366,7 @@ export function getHotspotImage(lang: LangValues) {
       type == "productCard" => {
         "type": "product",
         ...product->{
-          ${getProductCard(lang)}
+          ${getProductCard(lang, market)}
         },
       },
     ),

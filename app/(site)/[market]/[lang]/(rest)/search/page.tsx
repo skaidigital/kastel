@@ -15,7 +15,7 @@ import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFi
 import { SearchSettingsBar } from '@/components/pages/CollectionPage/filter/SearchSettingsBar';
 import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE, LangValues, URL_STATE_KEYS } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { ProductCardProps } from '@/lib/sanity/types';
@@ -32,14 +32,22 @@ export const metadata = {
 
 interface LoadSearchProps {
   lang: LangValues;
+  market: MarketValues;
   searchQuery: string;
   page: number;
   tagSlugs: string[] | null;
   sortKey?: string;
 }
 
-async function loadSearchResults({ lang, searchQuery, page, tagSlugs, sortKey }: LoadSearchProps) {
-  const sanityQuery = getSearchResultQuery(lang, page, sortKey);
+async function loadSearchResults({
+  lang,
+  market,
+  searchQuery,
+  page,
+  tagSlugs,
+  sortKey
+}: LoadSearchProps) {
+  const sanityQuery = getSearchResultQuery(lang, market, page, sortKey);
 
   return loadQuery<SearchResult | null>(
     sanityQuery,
@@ -54,12 +62,12 @@ interface Props {
     q: string | undefined;
     [key: string]: string | undefined;
   };
-  params: { lang: LangValues };
+  params: { lang: LangValues; market: MarketValues };
 }
 
 // TODO reintroduce search params
 export default async function Page({ searchParams, params }: Props) {
-  const { lang } = params;
+  const { lang, market } = params;
   const page = searchParams?.page || '1';
   const searchValue = searchParams?.q || '';
   const currentPage = Number(page) || 1;
@@ -72,6 +80,7 @@ export default async function Page({ searchParams, params }: Props) {
 
   const searchResult = await loadSearchResults({
     lang,
+    market,
     searchQuery: searchValue || '',
     page: currentPage,
     tagSlugs,
@@ -153,20 +162,29 @@ export default async function Page({ searchParams, params }: Props) {
         )}
         <CollectionGrid number={ProductsInView}>
           {products &&
-            products?.map((product: ProductCardProps, index) => (
-              <ProductCard
-                type={product.type}
-                gid={product.gid}
-                sku={product.sku}
-                key={product.slug}
-                slug={product.slug}
-                title={product.title}
-                mainImage={product.mainImage}
-                lifestyleImage={product.lifestyleImage}
-                badges={product.badges}
-                priority={productIndicesToReceivePriorityProp.includes(index)}
-              />
-            ))}
+            products?.map((product: ProductCardProps, index) => {
+              const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
+              const lowestSize = hasSizeRange?.options[0];
+              const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
+              return (
+                <ProductCard
+                  type={product.type}
+                  gid={product.gid}
+                  sku={product.sku}
+                  key={product.slug}
+                  slug={product.slug}
+                  title={product.title}
+                  mainImage={product.mainImage}
+                  lifestyleImage={product.lifestyleImage}
+                  badges={product.badges}
+                  priority={productIndicesToReceivePriorityProp.includes(index)}
+                  lowestSize={lowestSize?.title}
+                  highestSize={highestSize?.title}
+                  minVariantPrice={product.minVariantPrice}
+                  maxVariantPrice={product.maxVariantPrice}
+                />
+              );
+            })}
         </CollectionGrid>
         <div className="mt-20 flex flex-col items-center justify-center space-y-8">
           <div className="flex gap-x-5">
