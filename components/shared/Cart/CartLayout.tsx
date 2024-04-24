@@ -32,7 +32,7 @@ interface Props {
 
 // TODO consider making the cart content into its own component if all the content is the same
 export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippingAmount }: Props) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const quantityRef = useRef(cart?.totalQuantity);
 
   const { isDesktop } = useDeviceType();
