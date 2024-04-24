@@ -43,7 +43,7 @@ export default function IndexRoute({
             strategy="afterInteractive"
             id="Cookiebot"
             src="https://consent.cookiebot.com/uc.js"
-            data-cbid="4a61496c-631f-41e9-bf0e-88ecf2de8ad3"
+            data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
             type="text/javascript"
           />
         )}
@@ -56,12 +56,6 @@ export default function IndexRoute({
               <Suspense>
                 <PopupHandler lang={lang} />
               </Suspense>
-              {/* <Suspense fallback={<Skeleton className="h-11 w-full" />}>
-                <AnnouncementBanner lang={lang} />
-              </Suspense>
-              <Suspense>
-                <Navbar market={market} lang={lang} />
-              </Suspense> */}
               <main>
                 {children}
                 {draftMode().isEnabled && (
