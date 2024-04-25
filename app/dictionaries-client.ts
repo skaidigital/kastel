@@ -15,6 +15,21 @@ export interface Dictionary {
     made_with: string;
     by: string;
     about: string;
+    sign_up: {
+      title: string;
+      description: string;
+      email: string;
+      button_text: string;
+      success_message: string;
+      success_description: string;
+      error_message: string;
+      error_description: string;
+    };
+  };
+  collection_page: {
+    number_of_products: string;
+    no_products: string;
+    description: string;
   };
   product_page: {
     discount: string;
@@ -26,6 +41,7 @@ export interface Dictionary {
     reccommended: string;
     description: string;
     expected_back_in_stock: string;
+    size_guide: string;
     stock: {
       out_of_stock: string;
       low_stock: string;
@@ -40,7 +56,9 @@ export interface Dictionary {
     };
   };
   search_page: {
+    we_found: string;
     search_results: string;
+    products: string;
     no_products_that_match: string;
     showing: string;
     for: string;
@@ -63,6 +81,8 @@ export interface Dictionary {
     my_account: string;
     orders: string;
     addresses: string;
+    wishlist: string;
+    customer_service: string;
     log_out: string;
   };
   order_details_page: {
@@ -119,6 +139,7 @@ export interface Dictionary {
     email: string;
     default_address: string;
     create_address: string;
+    edit_address: string;
     addresses: string;
   };
   cookie_consent: {
@@ -138,12 +159,20 @@ export interface Dictionary {
     quantity_short: string;
     cart_is_empty: string;
     start_shopping: string;
+    cross_sell: {
+      we_think_you_will_like: string;
+      add_to_cart: string;
+      choose_option: string;
+    };
   };
   market_selector: {
-    switch_location: string;
-    stay: string;
-    are_you_in: string;
-    based_on_your_location: string;
+    select_your_location: string;
+  };
+  market_suggestion_popup: {
+    looks_like_you_are_in: string;
+    would_you_like_to_change_location: string;
+    more_locations: string;
+    confirm_your_location: string;
   };
   reccommended_products: ReccommendedProducts;
   page_builder: {
@@ -159,6 +188,10 @@ export interface Dictionary {
   };
   not_found_page: {
     back_to_home: string;
+  };
+  product_layout: {
+    home: string;
+    products: string;
   };
 }
 
