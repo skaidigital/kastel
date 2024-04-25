@@ -92,6 +92,9 @@ export const ShoePickerSection = ({ data }: Props) => {
           <CarouselContent className="-ml-0 divide-x divide-brand-light-grey">
             {activeType?.items.map((item, index) => {
               if (item.type === 'product') {
+                const hasSizeRange = item?.sizes?.filter((size) => size.type === 'size')[0];
+                const lowestSize = hasSizeRange?.options[0];
+                const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
                 return (
                   <CarouselItem
                     key={item.title + index}
@@ -107,6 +110,10 @@ export const ShoePickerSection = ({ data }: Props) => {
                       badges={item.badges}
                       slug={item.slug}
                       type={item.type}
+                      lowestSize={lowestSize?.title}
+                      highestSize={highestSize?.title}
+                      minVariantPrice={item.minVariantPrice}
+                      maxVariantPrice={item.maxVariantPrice}
                     />
                   </CarouselItem>
                 );

@@ -23,6 +23,12 @@ export const image = groq`
 
 export const video = 'videoMobile.asset->.playbackId';
 
+export const productsInTag =
+  'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>';
+export const productsNotInTag =
+  'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null';
+export const productsWithoutTags = '!defined($tagSlugs) =>';
+
 export function getImageBase(lang: LangValues) {
   return groq`
   asset->{
@@ -226,12 +232,11 @@ export const productLimited = groq`
 `;
 
 // TODO should take both lang and market
-export function getProductCard(lang: LangValues) {
+export function getProductCard(lang: LangValues, market: MarketValues) {
   return groq`
   "type": _type,
   "title": title.${lang},
-  "gid": gid_${lang},
-  sku,
+  "gid": gid_${market},
   ${getSlug(lang)},
   mainImage{
     ${getImageBase(lang)}
@@ -239,8 +244,26 @@ export function getProductCard(lang: LangValues) {
   lifestyleImage{
     ${getImageBase(lang)}
   },
-  "badges": badges[]->.title.${lang}
-`;
+  "minVariantPrice": minVariantPrice_${market}{
+    "amount": coalesce(amount, 0),
+    "currencyCode": currencyCode
+  },
+  "maxVariantPrice": maxVariantPrice_${market} {
+    "amount": coalesce(amount, 0),
+    "currencyCode": currencyCode
+  },
+  "sku": select(
+    type == "SIMPLE" => sku,
+    type == "VARIABLE" => *[_type=="productVariant" && references(^._id) && defined(sku)][0].sku
+    ),
+  "badges": badges[]->.title.${lang},
+  "sizes": options[] {
+    "type": optionType->.type,
+    "options": options[]-> {
+      "title": title.no
+    } | order(title asc)
+  } 
+  `;
 }
 
 export const collectionProduct = groq`
@@ -337,7 +360,7 @@ export function getBlogPostCard(lang: LangValues) {
 `;
 }
 
-export function getHotspotImage(lang: LangValues) {
+export function getHotspotImage(lang: LangValues, market: MarketValues) {
   return groq`
   "type": _type,
   image{
@@ -352,7 +375,7 @@ export function getHotspotImage(lang: LangValues) {
       type == "productCard" => {
         "type": "product",
         ...product->{
-          ${getProductCard(lang)}
+          ${getProductCard(lang, market)}
         },
       },
     ),

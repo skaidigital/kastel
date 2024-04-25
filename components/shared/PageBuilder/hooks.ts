@@ -325,7 +325,7 @@ export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
 
 export const PAGE_BUILDER_TYPES: {
   // eslint-disable-next-line no-unused-vars
-  [key: string]: (lang: LangValues) => string;
+  [key: string]: (lang: LangValues, market: MarketValues) => string;
 } = {
   hero: (lang) => `
     ${fragments.base},
@@ -346,7 +346,7 @@ export const PAGE_BUILDER_TYPES: {
     textPositionMobile,
     textPositionDesktop
   `,
-  featuredCollectionSection: (lang) => `
+  featuredCollectionSection: (lang, market) => `
     ${fragments.base},
     ...featuredCollectionBlock->{
       ...collection->{
@@ -356,10 +356,10 @@ export const PAGE_BUILDER_TYPES: {
       },
       "products": select(
         isManual == true => products[]->{
-          ${fragments.getProductCard(lang)}
+          ${fragments.getProductCard(lang, market)}
         },
         isManual == false => collection->.products[].product->{
-          ${fragments.getProductCard(lang)}
+          ${fragments.getProductCard(lang, market)}
         }
       ),
       media{
@@ -421,7 +421,7 @@ export const PAGE_BUILDER_TYPES: {
      ${fragments.sectionSettings}
     }
   `,
-  shoePicker: (lang) => groq`
+  shoePicker: (lang, market) => groq`
     ${fragments.base},
     ...shoePickerBlock->{
       "title": title.${lang},
@@ -433,7 +433,7 @@ export const PAGE_BUILDER_TYPES: {
           },
           _type == "reference" => {
             ...@->{
-              ${fragments.getProductCard(lang)}
+              ${fragments.getProductCard(lang, market)}
             }
           },
         },
@@ -531,14 +531,14 @@ export const PAGE_BUILDER_TYPES: {
      ${fragments.sectionSettings}
     }
   `,
-  featuredShoeSection: (lang) => groq`
+  featuredShoeSection: (lang, market) => groq`
     ${fragments.base},
     ...featuredShoeBlock->{
       "title": title.${lang},
       "description": description.${lang},
       "badge": badge->title.${lang},
       "product": shoe->{
-        ${fragments.getProductCard(lang)}
+        ${fragments.getProductCard(lang, market)}
       },
       link{
         ${fragments.getLink(lang)}
@@ -549,7 +549,7 @@ export const PAGE_BUILDER_TYPES: {
         },
         _type == "reference" => {
           ...@->{
-            ${fragments.getHotspotImage(lang)}
+            ${fragments.getHotspotImage(lang, market)}
           }
         }
       },
@@ -611,7 +611,7 @@ export const concatenatePageBuilderQueries = ({
     if (typeof pageBuilderFunction === 'function') {
       return `
         _type == "${key}" && (!defined(marketAvailability) || !("${market}" in marketAvailability)) => {
-          ${pageBuilderFunction(lang)}
+          ${pageBuilderFunction(lang, market)}
         },
       `;
     }

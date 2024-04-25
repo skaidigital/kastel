@@ -122,7 +122,27 @@ export const productCardValidator = z.object({
   slug: z.string(),
   mainImage: imageValidator,
   lifestyleImage: imageValidator.optional(),
-  badges: z.array(z.string()).optional()
+  badges: z.array(z.string()).optional(),
+  minVariantPrice: z.object({
+    amount: z.number(),
+    currencyCode: z.string()
+  }),
+  maxVariantPrice: z.object({
+    amount: z.number(),
+    currencyCode: z.string()
+  }),
+  sizes: z
+    .array(
+      z.object({
+        type: z.string(),
+        options: z.array(
+          z.object({
+            title: z.string()
+          })
+        )
+      })
+    )
+    .optional()
 });
 
 export const SEOAndSocialsValidator = z.object({

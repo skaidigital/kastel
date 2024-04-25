@@ -131,7 +131,10 @@ export function getProductQuery({
     "subtitle": subtitle.no,
     "slug": slug_no.current,
     type,
-    sku, 
+    "sku": select(
+      type == "SIMPLE" => sku,
+      type == "VARIABLE" => *[_type=="productVariant" && references(^._id) && defined(sku)][0].sku
+      ), 
     options[]{
       "name": optionType->.title.${lang},
       "type": optionType->.type,
@@ -139,7 +142,7 @@ export function getProductQuery({
         "title": title.${lang},
       }
     },
-    "minVariantPrice": minVariantPrice_no{
+    "minVariantPrice": minVariantPrice_${market}{
       "amount": coalesce(amount, 0),
       "currencyCode": currencyCode
     },
@@ -161,7 +164,7 @@ export function getProductQuery({
           type == "productCard" => {
             "type": "product",
             ...product->{
-              ${fragments.getProductCard(lang)}
+              ${fragments.getProductCard(lang, market)}
             },
           },
         ),

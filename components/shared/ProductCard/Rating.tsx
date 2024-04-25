@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { StarFilledIcon } from '@radix-ui/react-icons';
 
 interface Props {
-  sku: string;
+  sku?: string;
   className?: string;
 }
 
@@ -14,6 +14,7 @@ function RatingWrapper({ children, className }: { children: React.ReactNode; cla
 
 // TODO consider having the fallback be nothing to reduce layout shift
 export async function Rating({ sku, className }: Props) {
+  if (!sku) return null;
   const response = await getProductRatingBySku(sku);
 
   if (!response.rating || !response.votes) {

@@ -78,14 +78,14 @@ export function getProductIdsByOrder(market: LangValues, sortKey: string | undef
       "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[] {
         firstImage,
         ...product->{
-          defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
+          ${fragments.productsInTag}{
             _id,
             _createdAt,
             "minPrice" : minVariantPrice_no.amount,
             "maxPrice": maxVariantPrice_no.amount
           },
-          defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
-          !defined($tagSlugs) => {
+          ${fragments.productsNotInTag},
+          ${fragments.productsWithoutTags} {
             _id,
             _createdAt,
             "minPrice" : minVariantPrice_no.amount,
@@ -112,21 +112,22 @@ export function getSortQuery(sortKey: string | undefined) {
   }
 }
 
-export function getCollectionProductData(market: LangValues, pageIndex: number = 1) {
-  const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
-  const end = pageIndex * COLLECTION_PAGE_SIZE;
-
+export function getCollectionProductData(lang: LangValues, market: MarketValues) {
   const query = groq`
-    *[_type == "product" && _id in $ids][${start}...${end}]{
+    *[_type == "product" && _id in $ids][]{
       _id,
-    ${fragments.getProductCard(market)}
+    ${fragments.getProductCard(lang, market)}
   }
   `;
 
   return query;
 }
 
-export function getCollectionProductsQuery(lang: LangValues, pageIndex: number = 1) {
+export function getCollectionProductsQuery(
+  lang: LangValues,
+  market: MarketValues,
+  pageIndex: number = 1
+) {
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
@@ -135,12 +136,12 @@ export function getCollectionProductsQuery(lang: LangValues, pageIndex: number =
     "products": *[_type == "collection" && slug_${lang}.current == $slug][0].products[${start}...${end}]{
       firstImage,
       ...product->{
-        defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
-          ${fragments.getProductCard(lang)}
+        ${fragments.productsInTag} => {
+          ${fragments.getProductCard(lang, market)}
         },
-        defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
-        !defined($tagSlugs) => {
-          ${fragments.getProductCard(lang)}
+        ${fragments.productsNotInTag} => null,
+        ${fragments.productsWithoutTags} => {
+          ${fragments.getProductCard(lang, market)}
         }
       }
     },
@@ -151,7 +152,11 @@ export function getCollectionProductsQuery(lang: LangValues, pageIndex: number =
   return query;
 }
 
-export function mergeCollectionBaseAndProducts(collection: any, products: any): Collection {
+export function mergeCollectionBaseAndProducts(
+  collection: any,
+  products: any,
+  productCount: number
+): Collection {
   // export function mergeCollectionBaseAndProducts(
   //   collection: CollectionBasePayload,
   //   products: CollectionProductsPayload
@@ -164,7 +169,7 @@ export function mergeCollectionBaseAndProducts(collection: any, products: any): 
     descriptionLong: collection.descriptionLong,
     pageBuilder: collection.pageBuilder,
     products: products.products,
-    productCount: products.products.length || 0,
+    productCount: productCount || 0,
     hasNextPage: products.hasNextPage
   };
 }
