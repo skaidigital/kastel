@@ -177,7 +177,7 @@ export async function ProductPageLayout(props: Props) {
         ))} */}
 
       <Suspense>
-        <ReccommendedProducts lang={lang} />
+        <ReccommendedProducts lang={lang} market={market} />
       </Suspense>
     </>
   );
