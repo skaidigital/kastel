@@ -117,7 +117,12 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
           {title && <Heading size="xl">{title}</Heading>}
           {description && <Text>{description}</Text>}
           {buttonText && (
-            <Button asChild variant="secondary" size="sm" className="lg:text-lg">
+            <Button
+              asChild
+              variant="secondary"
+              size="sm"
+              className="lg:py-6 lg:text-[24px] lg:leading-[24px]"
+            >
               <CustomLink href={ROUTES.KASTEL_CLUB}>{buttonText}</CustomLink>
             </Button>
           )}

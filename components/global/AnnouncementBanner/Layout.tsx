@@ -7,10 +7,11 @@ import Marquee from 'react-fast-marquee';
 
 interface Props {
   data: AnnouncementBannerPayload;
+  className?: string;
 }
 
 export function AnnouncementBannerLayout(props: Props) {
-  const { data: announcementBanner } = props;
+  const { data: announcementBanner, className } = props;
 
   if (!announcementBanner) return null;
 
@@ -22,10 +23,15 @@ export function AnnouncementBannerLayout(props: Props) {
 
   const Wrapper = hasLink ? CustomLink : 'div';
 
+  const normalClasses =
+    'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36';
+
   return (
     <Wrapper
       href={hasLink ? resolveLink(announcementBanner.link) : undefined}
-      className="flex h-8 w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36"
+      className={
+        'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36'
+      }
     >
       <Marquee autoFill pauseOnHover>
         {content?.map((usp) => {

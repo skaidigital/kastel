@@ -21,9 +21,10 @@ function loadAnnouncementBanner(lang: LangValues) {
 
 interface Props {
   lang: LangValues;
+  className?: string;
 }
 
-export async function AnnouncementBanner({ lang }: Props) {
+export async function AnnouncementBanner({ lang, className }: Props) {
   const initial = await loadAnnouncementBanner(lang);
   const isDraftMode = draftMode().isEnabled;
 
@@ -36,5 +37,5 @@ export async function AnnouncementBanner({ lang }: Props) {
 
   const footer = isDraftMode ? validatedData?.data : dataWithoutNullValues;
 
-  return <AnnouncementBannerLayout data={footer} />;
+  return <AnnouncementBannerLayout data={footer} className={className} />;
 }

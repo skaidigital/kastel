@@ -5,13 +5,15 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 export const buttonProps = cva({
-  base: 'inline-flex items-center justify-center whitespace-nowrap font-bold uppercase ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  base: 'inline-flex duration-100 ease-in-out items-center justify-center whitespace-nowrap font-bold uppercase ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   variants: {
     variant: {
-      primary: 'bg-brand-primary text-white',
-      secondary: 'bg-white text-brand-dark-grey',
+      primary:
+        'bg-brand-primary text-white hover:bg-brand-primary-light hover:text-brand-primary focus:bg-brand-primary-light focus:text-brand-primary',
+      secondary:
+        'bg-white text-brand-dark-grey hover:bg-brand-primary hover:text-white focus:bg-brand-primary focus:text-white',
       outline:
-        'border border-brand-light-grey text-white hover:bg-white focus:bg-white hover:text-brand-dark-grey focus:text-brand-dark-grey',
+        'border border-brand-light-grey text-white hover:bg-brand-primary-light focus:bg-white hover:text-brand-dark-grey focus:text-brand-dark-grey',
       destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       ghost: 'hover:bg-accent hover:text-accent-foreground',
       link: 'text-primary underline-offset-4 hover:underline'
@@ -19,8 +21,8 @@ export const buttonProps = cva({
     size: {
       default: 'px-6 py-4 text-[14px] leading-[14px] lg:text-[24px] lg:leading-[24px]',
       sm: 'text-[14px] leading-[14px] tracking-wide py-4',
-      md: 'px-6 py-4 text-lg',
-      lg: 'h-11 rounded-md px-8',
+      md: 'px-6 py-4 text-[24px] leading-[40px]',
+      lg: 'text-[32px] py-8 px-14 leading-[32px]',
       icon: 'size-10',
       'icon-lg': 'p-4'
     }
