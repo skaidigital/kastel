@@ -6,10 +6,11 @@ import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
-import { ProductRating } from '@/components/lipscore/components';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { MobileCarousel } from '@/components/shared/MobileCarousel';
+import { Rating } from '@/components/shared/ProductCard/Rating';
+import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
 import { SearchParams } from '@/lib/types';
@@ -45,9 +46,6 @@ export async function ProductPageLayout(props: Props) {
 
   const { gallery, title, id, type, descriptionShort, subtitle, variants, options, typeId } =
     product;
-
-  console.log(product);
-  console.log(product.hotspotImage);
 
   const productSku = 'SOL002-002-021-40';
 
@@ -100,22 +98,21 @@ export async function ProductPageLayout(props: Props) {
                     className="absolute h-auto w-full object-cover"
                   />
                 </div>
-
-                // </div>
               ))}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
             <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
             <div className="lg:px-[84px]">
               <div className="flex flex-col">
-                <div className="mb-[10px] flex justify-between">
+                <div className="mb-[10px] flex items-center justify-between">
                   <div className="flex gap-2">
                     <DiscountPill variants={variants} productType={product.type} />
-                    <ProductRating sku={productSku} />
+                    <Rating sku={productSku} />
                   </div>
-                  <p>(Hjerte)</p>
+                  <Suspense fallback={<WishlistFallback />}>
+                    <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
+                  </Suspense>
                 </div>
-
                 <Heading as="h1" size="xs" className="mb-1">
                   {title}
                 </Heading>
@@ -180,7 +177,7 @@ export async function ProductPageLayout(props: Props) {
         ))} */}
 
       <Suspense>
-        <ReccommendedProducts lang={lang} />
+        <ReccommendedProducts lang={lang} market={market} />
       </Suspense>
     </>
   );

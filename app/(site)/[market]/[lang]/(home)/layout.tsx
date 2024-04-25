@@ -1,4 +1,3 @@
-import { ScrollContainer } from '@/components/ScrollContainer';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
@@ -18,10 +17,7 @@ interface Props {
 export default function Layout({ children, params: { market, lang } }: Props) {
   return (
     <div>
-      <ScrollContainer>stuff</ScrollContainer>
-      {/* <Suspense fallback={<Skeleton className="h-[--announcement-bar-height] w-full" />}> */}
       <AnnouncementBanner lang={lang} />
-      {/* </Suspense> */}
       <Navbar
         market={market}
         lang={lang}

@@ -46,6 +46,10 @@ export const FeaturedShoeSection = ({ data }: Props) => {
 
   const href = resolveLink(link);
 
+  const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
+  const lowestSize = hasSizeRange?.options[0];
+  const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
+
   return (
     <Section
       label="featuredShoe"
@@ -107,6 +111,10 @@ export const FeaturedShoeSection = ({ data }: Props) => {
                     lifestyleImage={product.lifestyleImage}
                     badges={product.badges}
                     type="product"
+                    minVariantPrice={product.minVariantPrice}
+                    maxVariantPrice={product.maxVariantPrice}
+                    lowestSize={lowestSize?.title}
+                    highestSize={highestSize?.title}
                   />
                 )}
               </div>

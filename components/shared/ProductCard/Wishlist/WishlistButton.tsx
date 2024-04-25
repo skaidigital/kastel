@@ -1,10 +1,11 @@
 'use client';
 
-import { logIn } from '@/lib/shopify/customer/actions';
 import {
   addItemToWishlist,
   removeItemFromWishlist
 } from '@/lib/shopify/metafields/adjustItemInWishlist';
+import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   children: React.ReactNode;
@@ -12,37 +13,34 @@ interface Props {
   isLoggedIn: boolean;
   gid: string;
   className?: string;
+  disabled?: boolean;
 }
 
 // TODO get the actual customerGid
 // TODO fix graphql error when clicking the button
 export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, className }: Props) {
+  const router = useRouter();
   const customerGid = 'gid://shopify/Customer/7742157848805';
 
-  async function handleClick() {
-    console.log('Clicked');
-
-    if (!isLoggedIn) {
-      console.log('Not logged in');
-
-      await logIn();
-      return;
-    }
-
+  async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     if (itemIsInWislist) {
-      console.log('Item is in wishlist');
-
       // Remove from wishlist
-      const response = await removeItemFromWishlist(customerGid, gid);
-      console.log(response);
+      const response = await removeItemFromWishlist(customerGid, gid).then(() => router.refresh());
       return response;
     }
-    console.log('Item is not in wishlist');
 
-    const response = await addItemToWishlist(customerGid, gid);
-    console.log(response);
+    const response = await addItemToWishlist(customerGid, gid).then(() => router.refresh());
     return response;
   }
 
-  return <button onClick={handleClick}>{children}</button>;
+  return (
+    <button
+      disabled={!isLoggedIn}
+      onClick={(e) => handleClick(e)}
+      className={cn('z-10 rounded-full bg-white p-2', className)}
+      title={isLoggedIn ? 'Add to wishlist' : 'Log in to add to wishlist'}
+    >
+      {children}
+    </button>
+  );
 }
