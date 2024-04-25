@@ -28,7 +28,7 @@ interface ModalContentProps {
   children: ReactNode;
   label: string;
   size?: 'sm' | 'md' | 'lg' | 'none';
-  onClose?: (e) => void;
+  onClose?: (e: any) => void;
   className?: string;
 }
 
