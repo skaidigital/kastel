@@ -35,6 +35,7 @@ export const CACHE_TAGS = {
   NAVBAR: 'navbar',
   FOOTER: 'footer',
   POPUP: 'popup',
+  LAYOUT_USP_MARUQEE: 'layoutUSPMarquee',
   METADATA: 'settingsSEOAndSocials',
   COOKIE_CONSENT: 'cookieConsent'
 };

@@ -116,6 +116,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, 'Footer', 'footer', 'footer').icon(SquareHalfBottom),
         singleton(S, 'Popup', 'popup', 'popup').icon(MegaphoneSimple),
         singleton(S, 'USPs', 'usps', 'usps').icon(Check),
+        singleton(S, 'USP marquee', 'layoutUSPMarquee', 'layoutUSPMarquee').icon(Check),
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
       group(S, 'Reusable content blocks', [

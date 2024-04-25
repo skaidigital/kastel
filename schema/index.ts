@@ -99,6 +99,7 @@ import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
+import { layoutUspMarquee } from '@/schema/singletons/layoutUspMarquee';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
 import { popup } from '@/schema/singletons/popup';
@@ -235,6 +236,7 @@ const schema = [
   merchandising,
   settingsSEOAndSocials,
   settingsPaymentProviders,
+  layoutUspMarquee,
   pageNotFound,
   productSettings,
   retailersPage

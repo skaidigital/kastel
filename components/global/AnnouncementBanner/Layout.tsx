@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function AnnouncementBannerLayout(props: Props) {
-  const { data: announcementBanner, className } = props;
+  const { data: announcementBanner } = props;
 
   if (!announcementBanner) return null;
 
@@ -22,9 +22,6 @@ export function AnnouncementBannerLayout(props: Props) {
   const { content, hasLink } = announcementBanner;
 
   const Wrapper = hasLink ? CustomLink : 'div';
-
-  const normalClasses =
-    'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36';
 
   return (
     <Wrapper
