@@ -15,13 +15,13 @@ export const accountPage = defineType({
   fields: [
     defineField({
       title: 'Message from the team 🇧🇻',
-      name: 'messageFromTheTeamNo',
+      name: 'messageFromTheTeam_no',
       type: 'richText',
       validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Message from the team 🇬🇧',
-      name: 'messageFromTheTeamEn',
+      name: 'messageFromTheTeam_en',
       type: 'richText',
       validation: (Rule) => Rule.required()
     }),

@@ -1,4 +1,5 @@
 import { Heading } from '@/components/base/Heading';
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { cn } from '@/lib/utils';
 import { PortableTextBlock } from 'next-sanity';
 
@@ -21,7 +22,7 @@ export function WelcomeMessage({ name, welcomeBackString, content, className }: 
         {welcomeBackString}
         {name ? `, ${name}` : ''}!
       </Heading>
-      {/* <PortableTextRenderer value={content} type="normal" /> */}
+      <PortableTextRenderer value={content} type="normal" />
     </div>
   );
 }
