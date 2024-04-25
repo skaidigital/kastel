@@ -101,7 +101,7 @@ function BlogPostCard({ post, readTimeString, readMoreString }: BlogPostCardProp
 
   return (
     <article className="group">
-      <CustomLink href={`/${ROUTES.BLOG}/${slug}`} className="relative">
+      <CustomLink href={`${ROUTES.BLOG}/${slug}`} className="relative">
         <div className="aspect-h-4 aspect-w-3 relative mb-4 h-0 w-full bg-[pink]">
           {image && <SanityImage image={image} fill className="h-full w-full" />}
         </div>
