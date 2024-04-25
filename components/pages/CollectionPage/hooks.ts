@@ -78,14 +78,14 @@ export function getProductIdsByOrder(market: LangValues, sortKey: string | undef
       "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[] {
         firstImage,
         ...product->{
-          defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
+          ${fragments.productsInTag}{
             _id,
             _createdAt,
             "minPrice" : minVariantPrice_no.amount,
             "maxPrice": maxVariantPrice_no.amount
           },
-          defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
-          !defined($tagSlugs) => {
+          ${fragments.productsNotInTag},
+          ${fragments.productsWithoutTags} {
             _id,
             _createdAt,
             "minPrice" : minVariantPrice_no.amount,
@@ -136,11 +136,11 @@ export function getCollectionProductsQuery(
     "products": *[_type == "collection" && slug_${lang}.current == $slug][0].products[${start}...${end}]{
       firstImage,
       ...product->{
-        defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
+        ${fragments.productsInTag} => {
           ${fragments.getProductCard(lang, market)}
         },
-        defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
-        !defined($tagSlugs) => {
+        ${fragments.productsNotInTag} => null,
+        ${fragments.productsWithoutTags} => {
           ${fragments.getProductCard(lang, market)}
         }
       }

@@ -111,14 +111,13 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 
   const initialProducts = await loadCollectionProductsOrder(slug, lang, paramValues, sortKey);
 
+  const removeInvalidProducts = initialProducts.data.products.filter((product) => product._id);
   const currentStart = (currentPage - 1) * COLLECTION_PAGE_SIZE;
   const currentEnd = currentPage * COLLECTION_PAGE_SIZE;
-
-  const productCount = initialProducts.data.products.length;
-  const paginatedInitialProducts = initialProducts.data.products.slice(currentStart, currentEnd);
+  const productCount = removeInvalidProducts.length;
+  const paginatedInitialProducts = removeInvalidProducts.slice(currentStart, currentEnd);
   const paginatedProductIds = paginatedInitialProducts.map((product) => product._id);
-
-  const hasNextPage = initialProducts.data.products.length > currentEnd;
+  const hasNextPage = removeInvalidProducts.length > currentEnd;
 
   const inititalProductsData = await loadCollectionProductData(
     lang,

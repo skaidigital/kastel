@@ -26,14 +26,14 @@ export function getSearchResultQuery(
       "products": *[_type == "product" && title.${lang} match $searchQuery]
       | score(title.${lang} match $searchQuery)
       [${start}...${end}]{
-        defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
+        ${fragments.productsInTag} {
           ${fragments.getProductCard(lang, market)},
           _createdAt,
           "minPrice" : minVariantPrice_no.amount,
           "maxPrice": maxVariantPrice_no.amount
         },
-        defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
-        !defined($tagSlugs) => {
+        ${fragments.productsNotInTag},
+        ${fragments.productsWithoutTags} {
           ${fragments.getProductCard(lang, market)},
           _createdAt,
           "minPrice" : minVariantPrice_no.amount,
