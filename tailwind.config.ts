@@ -38,7 +38,7 @@ module.exports = {
       'heading-xl': ['60px', { lineHeight: '64px' }],
       'heading-2xl': ['80px', { lineHeight: '80px' }],
       xs: ['12px', '16px'],
-      sm: ['14px', { lineHeight: '20px' }],
+      sm: ['14px', '20px'],
       md: ['18px', '24px'],
       lg: ['24px', '32px'],
       xl: ['32px', { lineHeight: '40px' }],

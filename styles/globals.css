@@ -264,3 +264,14 @@
   background: var(--red);
   transform-origin: 0%;
 }
+
+/* Vipps logo classnames */
+.st0 {
+  fill: #ff5b24;
+}
+.st1 {
+  fill: #ffffff;
+}
+.st2 {
+  fill: none;
+}

@@ -1,6 +1,6 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Check } from '@phosphor-icons/react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 export const usps = defineType({
   title: 'USPs above footer',
@@ -15,21 +15,6 @@ export const usps = defineType({
     }
   },
   fields: [
-    defineField({
-      title: 'USPs above footer',
-      name: 'footer',
-      type: 'array',
-      validation: (Rule) => Rule.required().min(1).max(8),
-      of: [
-        defineArrayMember({
-          title: 'USP',
-          name: 'usp',
-          type: 'i18n.string',
-          icon: Check,
-          validation: validateAllStringTranslations
-        })
-      ]
-    }),
     defineField({
       title: 'USPs under add to cart button for regular products',
       description:

@@ -54,6 +54,7 @@ import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { featuredShoeSection } from '@/schema/objects/featuredShoeSection';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
 import { kastelClubSection } from '@/schema/objects/kastelClubSection';
+import { legalPageText } from '@/schema/objects/legalPageText';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
@@ -132,6 +133,7 @@ const schema = [
   // Objects
   address,
   variableText,
+  legalPageText,
   richText,
   richTextNatureLab,
   updateItem,

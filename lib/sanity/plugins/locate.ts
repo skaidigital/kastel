@@ -2,7 +2,7 @@ import { resolveHref } from '@/lib/sanity/studioUtils';
 import { Observable, map } from 'rxjs';
 import { DocumentLocationResolver, DocumentLocationsState } from 'sanity/presentation';
 
-const documentTypesWithPreview = ['page', 'product', 'collection', 'bundle', 'configurator'];
+const documentTypesWithPreview = ['page', 'product', 'collection', 'legalPage'];
 
 export const locate: DocumentLocationResolver = (params, context) => {
   const documentTypesUsedOnAllPages = ['footer', 'navbar'];
@@ -83,7 +83,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
               tone: 'positive',
               message: 'Open preview'
             } satisfies DocumentLocationsState;
-          case 'bundle':
+          case 'legalPage':
             return {
               locations: docs
                 ?.map((doc) => {

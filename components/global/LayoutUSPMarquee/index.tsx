@@ -1,8 +1,8 @@
-import { footerValidator } from '@/components/global/Footer/hooks';
 import { LayoutUSPMarqueeLayout } from '@/components/global/LayoutUSPMarquee/Layout';
 import {
   LayoutUSPMarqueePayload,
-  getLayoutUSPMarqueeQuery
+  getLayoutUSPMarqueeQuery,
+  layoutUSPMarqueeValidator
 } from '@/components/global/LayoutUSPMarquee/hooks';
 import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -31,7 +31,7 @@ export async function LayoutUSPMarquee({ lang }: Props) {
   let validatedMarquee;
 
   if (isDraftMode) {
-    validatedMarquee = footerValidator.safeParse(marqueeWithoutNullValues);
+    validatedMarquee = layoutUSPMarqueeValidator.safeParse(marqueeWithoutNullValues);
 
     if (!validatedMarquee.success) {
       console.error('Failed to validate footer data', validatedMarquee.error);

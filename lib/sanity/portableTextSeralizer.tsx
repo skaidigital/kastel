@@ -11,32 +11,32 @@ import Link from 'next/link';
 export const portableTextSerializer = {
   block: {
     normal: ({ children }: any) => (
-      <Text className="mt-6" as="p">
+      <Text className="mt-8" as="p">
         {children}
       </Text>
     ),
     default: ({ children }: any) => (
-      <Text className="mt-6" as="p">
+      <Text className="mt-8" as="p">
         {children}
       </Text>
     ),
     small: ({ children }: any) => (
-      <Text className="mt-6" as="p" size="sm">
+      <Text className="mt-8" as="p" size="sm">
         {children}
       </Text>
     ),
     large: ({ children }: any) => (
-      <Text className="mt-6" as="p" size="lg">
+      <Text className="mt-8" as="p" size="lg">
         {children}
       </Text>
     ),
     h2: ({ children }: any) => (
-      <Heading as="h2" size="md" className="mb-4 pt-8 md:pt-12 lg:pt-14">
+      <Heading as="h2" size="md" className="mt-12">
         {children}
       </Heading>
     ),
     h3: ({ children }: any) => (
-      <Heading as="h3" size="sm" className="mb-4 pt-6 md:pt-10 lg:pt-12">
+      <Heading as="h3" size="sm" className="mt-12">
         {children}
       </Heading>
     )
