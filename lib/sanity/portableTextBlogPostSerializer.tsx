@@ -1,15 +1,11 @@
 import { AspectRatio } from '@/components/AspectRatio';
-import { HotspotImage } from '@/components/HotspotImage';
-import { Media } from '@/components/Media';
 import VideoWithSettings from '@/components/VideoWithSettings';
 import { ListItem } from '@/components/base/ListItem';
 import { OL } from '@/components/base/OL';
 import { Text } from '@/components/base/Text';
 import { UL } from '@/components/base/UL';
 import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContainer';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { ProductCard } from '@/components/shared/ProductCard';
 import { getSlug } from '@/lib/sanity/getSlug';
 import Link from 'next/link';
 
@@ -196,61 +192,61 @@ export const portableTextBlogPostSerializer = {
           </div>
         </BlogWidthContainer>
       );
-    },
-    hotspotImage: ({ value }: any) => {
-      console.log('value for htospot image', value);
-
-      return (
-        <BlogWidthContainer width={value.width} className="mt-6">
-          {value.aspectRatioSettings && (
-            <AspectRatio settings={value.aspectRatioSettings} className="relative">
-              {value.image?.image?.asset?._ref && (
-                <HotspotImage
-                  image={value.image.image}
-                  hotspots={value.image.hotspots}
-                  type="hotspotImage"
-                />
-              )}
-            </AspectRatio>
-          )}
-        </BlogWidthContainer>
-      );
-    },
-    // TODO figure out how to remove mt only for the first child
-    standout: ({ value }: any) => {
-      return (
-        <div className="my-6 bg-blue-50 py-10 lg:my-10 lg:py-20">
-          <BlogWidthContainer width="wide" className="flex flex-col gap-x-10 lg:flex-row">
-            <div className="flex-1">
-              {value.content && <PortableTextRenderer value={value.content} type="blogPost" />}
-            </div>
-            <div className="flex-1">
-              {value.type === 'media' && value.media && value.aspectRatioSettings && (
-                <AspectRatio settings={value.aspectRatioSettings} className="relative">
-                  <Media media={value.media} loading="lazy" />
-                </AspectRatio>
-              )}
-              {value.type === 'product' && value.product && (
-                <ProductCard
-                  gid={value.product.gid}
-                  sku={value.product.sku}
-                  minVariantPrice={value.product.minVariantPrice}
-                  maxVariantPrice={value.product.maxVariantPrice}
-                  highestSize={value.product.highestSize}
-                  lowestSize={value.product.lowestSize}
-                  sizes={value.product.sizes}
-                  title={value.product.title}
-                  mainImage={value.product.mainImage}
-                  lifestyleImage={value.product.lifestyleImage}
-                  badges={value.product.badges}
-                  slug={value.product.slug}
-                  type="product"
-                />
-              )}
-            </div>
-          </BlogWidthContainer>
-        </div>
-      );
     }
+    // hotspotImage: ({ value }: any) => {
+    //   console.log('value for htospot image', value);
+
+    //   return (
+    //     <BlogWidthContainer width={value.width} className="mt-6">
+    //       {value.aspectRatioSettings && (
+    //         <AspectRatio settings={value.aspectRatioSettings} className="relative">
+    //           {value.image?.image?.asset?._ref && (
+    //             <HotspotImage
+    //               image={value.image.image}
+    //               hotspots={value.image.hotspots}
+    //               type="hotspotImage"
+    //             />
+    //           )}
+    //         </AspectRatio>
+    //       )}
+    //     </BlogWidthContainer>
+    //   );
+    // },
+    // TODO figure out how to remove mt only for the first child
+    // standout: ({ value }: any) => {
+    //   return (
+    //     <div className="my-6 bg-blue-50 py-10 lg:my-10 lg:py-20">
+    //       <BlogWidthContainer width="wide" className="flex flex-col gap-x-10 lg:flex-row">
+    //         <div className="flex-1">
+    //           {value.content && <PortableTextRenderer value={value.content} type="blogPost" />}
+    //         </div>
+    //         <div className="flex-1">
+    //           {value.type === 'media' && value.media && value.aspectRatioSettings && (
+    //             <AspectRatio settings={value.aspectRatioSettings} className="relative">
+    //               <Media media={value.media} loading="lazy" />
+    //             </AspectRatio>
+    //           )}
+    //           {value.type === 'product' && value.product && (
+    //             <ProductCard
+    //               gid={value.product.gid}
+    //               sku={value.product.sku}
+    //               minVariantPrice={value.product.minVariantPrice}
+    //               maxVariantPrice={value.product.maxVariantPrice}
+    //               highestSize={value.product.highestSize}
+    //               lowestSize={value.product.lowestSize}
+    //               sizes={value.product.sizes}
+    //               title={value.product.title}
+    //               mainImage={value.product.mainImage}
+    //               lifestyleImage={value.product.lifestyleImage}
+    //               badges={value.product.badges}
+    //               slug={value.product.slug}
+    //               type="product"
+    //             />
+    //           )}
+    //         </div>
+    //       </BlogWidthContainer>
+    //     </div>
+    //   );
+    // }
   }
 };

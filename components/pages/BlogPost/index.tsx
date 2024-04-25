@@ -4,7 +4,6 @@ import { BlogPostAuthor } from '@/components/pages/BlogPost/BlogPostAuthor';
 import { BlogPostHeader } from '@/components/pages/BlogPost/BlogPostHeader';
 import { RecentBlogPosts } from '@/components/pages/BlogPost/RecentBlogPosts';
 import { BlogPostPayload } from '@/components/pages/BlogPost/hooks';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { LangValues } from '@/data/constants';
 
 export interface Props {
@@ -40,7 +39,7 @@ export function BlogPost({ data, lang }: Props) {
           imageMobile={imageMobile}
           imageDesktop={imageDesktop}
         />
-        <PortableTextRenderer value={content} type="blogPost" />
+        {/* <PortableTextRenderer value={content} type="blogPost" /> */}
         {author && (
           <BlogPostAuthor
             name={author.name}

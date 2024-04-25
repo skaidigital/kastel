@@ -1,4 +1,3 @@
-import { getPagebuilderDictionary } from '@/app/dictionaries/pageBuilder';
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { Button } from '@/components/Button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
@@ -20,9 +19,8 @@ interface Props {
   data: PropsWithExtra;
 }
 
-export const BlogPostSection = async ({ data }: Props) => {
+export const BlogPostSection = ({ data }: Props) => {
   const { index, pageId, pageType, lang, title, buttonText, sectionSettings, posts } = data;
-  const dictionary = await getPagebuilderDictionary(lang);
 
   return (
     <Section
@@ -38,11 +36,7 @@ export const BlogPostSection = async ({ data }: Props) => {
           <CarouselContent className="-ml-3">
             {posts?.map((post) => (
               <CarouselItem key={post.title} className="basis-[80%] pl-3">
-                <BlogPostCard
-                  post={post}
-                  readTimeString={dictionary.min_read}
-                  readMoreString={dictionary.read_more}
-                />
+                <BlogPostCard post={post} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -69,14 +63,7 @@ export const BlogPostSection = async ({ data }: Props) => {
           )}
         </div>
         <div className="grid grid-cols-3 gap-x-4">
-          {posts?.map((post) => (
-            <BlogPostCard
-              key={post.title}
-              post={post}
-              readTimeString={dictionary.min_read}
-              readMoreString={dictionary.read_more}
-            />
-          ))}
+          {posts?.map((post) => <BlogPostCard key={post.title} post={post} />)}
         </div>
       </Container>
     </Section>
