@@ -94,16 +94,18 @@ export const productValidator = z.object({
   descriptionLongDetails: z.string(),
   gallery: galleryValidator.optional(),
   options: z.array(productOptionValidator).optional(),
-  faqs: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.array(richTextValidator)
-    })
-  ),
+  faqs: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.array(richTextValidator)
+      })
+    )
+    .optional(),
   typeId: z.string(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
-  hotspotImage: hotspotImageValidator,
+  hotspotImage: hotspotImageValidator.optional(),
   variants: z.array(productVariantValidator),
   usps: z.array(
     z.object({

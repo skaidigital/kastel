@@ -79,7 +79,7 @@ export async function ProductPageLayout(props: Props) {
         srHeading="Product Hero"
         className="border-brand-border space-y-5 border-b bg-white pb-9 lg:flex lg:pb-20"
       >
-        <Container className="relative flex flex-1 flex-col gap-x-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
+        <Container className="relative flex flex-1 flex-col gap-x-0 lg:mt-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
           <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
             <GenderImageButton activeGender={activeGender} />
             {gallery &&
@@ -144,19 +144,21 @@ export async function ProductPageLayout(props: Props) {
               </div>
               <PaymentIcons market={market} />
               <KastelPoints variants={variants} productType={product.type} />
-              <FaqLayout faqs={product.faqs} />
+              {product.faqs && <FaqLayout faqs={product.faqs} />}
               <p>Pairs well with component</p>
             </div>
           </div>
         </Container>
       </Section>
-      <div className="aspect-h-9 aspect-w-16 relative h-0 w-full">
-        <HotspotImage
-          type={product.hotspotImage.type}
-          image={product.hotspotImage.image}
-          hotspots={product.hotspotImage.hotspots}
-        />
-      </div>
+      {product.hotspotImage && product.hotspotImage.hotspots && (
+        <div className="aspect-h-9 aspect-w-16 relative h-0 w-full">
+          <HotspotImage
+            type={product.hotspotImage.type}
+            image={product.hotspotImage.image}
+            hotspots={product.hotspotImage.hotspots}
+          />
+        </div>
+      )}
       <UspsMarquee usps={product.usps} size="lg" />
       <ProductDescriptionAndReviews
         description={product.descriptionLongDetails}
