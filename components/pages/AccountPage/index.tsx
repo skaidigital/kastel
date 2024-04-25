@@ -4,6 +4,7 @@ import { MyInfoCard } from '@/components/pages/AccountPage/MyInfoCard';
 import { ProductDisplay } from '@/components/pages/AccountPage/ProductDisplay';
 import { WelcomeMessage } from '@/components/pages/AccountPage/WelcomeMessage';
 import { ROUTES } from '@/data/constants';
+import { getCustomerData } from '@/lib/shopify/metafields/getCustomerData';
 import {
   HeartIcon,
   MapPinIcon,
@@ -15,6 +16,8 @@ import { Suspense } from 'react';
 interface Props {}
 
 export async function AccountPage({}: Props) {
+  const customerData = await getCustomerData();
+  console.log(customerData);
   return (
     <div className="flex flex-col lg:col-span-8 lg:grid">
       <div className="grid gap-6 lg:hidden">
@@ -44,7 +47,7 @@ export async function AccountPage({}: Props) {
         <Suspense fallback={null}>
           <KastelClubCard />
         </Suspense>
-        <MyInfoCard />
+        <MyInfoCard customerData={customerData} />
         <ProductDisplay title="Recently viewed" products={[]} />
       </div>
       <div className="hidden lg:block">
@@ -61,7 +64,7 @@ export async function AccountPage({}: Props) {
           </div>
           <div className="col-span-3 grid gap-y-4">
             <KastelClubCard />
-            <MyInfoCard />
+            <MyInfoCard customerData={customerData} />
           </div>
         </div>
       </div>

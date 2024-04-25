@@ -1,36 +1,49 @@
-import { METAFIELDS } from '@/data/constants';
+import { COOKIE_NAMES, METAFIELDS } from '@/data/constants';
 import { cookies } from 'next/headers';
-import { shopifyFetch } from '..';
+import { customerAccountFetch } from '../customer';
+
+export interface CustomerData {
+  firstName: string;
+  lastName: string;
+  metafield: {
+    isPrompted: boolean;
+    footLength?: string;
+    style?: string;
+    color?: string;
+  };
+}
 
 export async function getCustomerData() {
   const customerDataResponse = await getCustomDataForUser();
 
-  return (customerDataResponse && JSON.parse(customerDataResponse?.value)) || {};
+  return customerDataResponse;
 }
 
 async function getCustomDataForUser() {
-  const accessToken = cookies().get('accessToken')?.value;
+  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
 
   if (!accessToken) {
     throw new Error('No access token');
   }
 
-  const wishlistResponse = await shopifyFetch<CustomerMetadata>({
+  const wishlistResponse = await customerAccountFetch<CustomerMetadata>({
     query: getWishlistQuery,
     variables: {
-      token: accessToken,
       key: METAFIELDS.customer.customer_data.key,
       namespace: METAFIELDS.customer.customer_data.namespace
     },
     cache: 'no-store'
   });
 
-  return wishlistResponse.body.data?.customer?.metafield;
+  return wishlistResponse.body.data?.customer;
 }
 
-type CustomerMetadata = {
+export type CustomerMetadata = {
   data: {
     customer: {
+      id: string;
+      firstName: string;
+      lastName: string;
       metafield: {
         id: string;
         key: string;
@@ -39,15 +52,17 @@ type CustomerMetadata = {
     };
   };
   variables: {
-    token: string;
     key: string;
     namespace: string;
   };
 };
 
 const getWishlistQuery = /* GraphQL */ `
-  query getWishlist($token: String!, $key: String!, $namespace: String!) {
-    customer(customerAccessToken: $token) {
+  query getWishlist($key: String!, $namespace: String!) {
+    customer {
+      id
+      firstName
+      lastName
       metafield(key: $key, namespace: $namespace) {
         id
         key

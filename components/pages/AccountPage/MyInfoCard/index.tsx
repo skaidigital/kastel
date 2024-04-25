@@ -11,20 +11,29 @@ import {
   MyInfoFormProps,
   myInfoFormValidator
 } from '@/components/pages/AccountPage/MyInfoCard/hooks';
+import { CustomerMetadata } from '@/lib/shopify/metafields/getCustomerData';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState, useTransition } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-interface Props {}
+interface Props {
+  customerData: CustomerMetadata['data']['customer'];
+}
 
-export function MyInfoCard({}: Props) {
+export function MyInfoCard({ customerData }: Props) {
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { isDesktop } = useDeviceType();
 
+  const customerDataValueJSON = customerData.metafield.value;
+  const parsedData = customerDataValueJSON && JSON.parse(customerDataValueJSON);
+
+  console.log(parsedData);
+
   const {
+    getValues,
     handleSubmit,
     control,
     reset,
@@ -33,17 +42,19 @@ export function MyInfoCard({}: Props) {
     resolver: zodResolver(myInfoFormValidator),
     mode: 'onSubmit',
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      footLength: '',
-      style: '',
-      colorPreference: ''
+      firstName: customerData.firstName ?? '',
+      lastName: customerData.lastName ?? '',
+      footLength: parsedData?.footLength ?? '',
+      style: parsedData?.style ?? '',
+      color: parsedData?.color ?? ''
     }
   });
 
   const onSubmit: SubmitHandler<MyInfoFormProps> = async (data) => {
     startTransition(async () => {
-      const response = await sendMyInfoForm(data);
+      console.log(data);
+
+      const response = await sendMyInfoForm(data, customerData.id);
 
       if (!response.success) {
         setIsOpen(false);
@@ -54,7 +65,7 @@ export function MyInfoCard({}: Props) {
       }
       if (response.success) {
         setIsOpen(false);
-        reset();
+        // reset();
         toast('We have received your inquiry!', {
           description: 'We will respond as soon as possible.'
         });
@@ -67,8 +78,12 @@ export function MyInfoCard({}: Props) {
       <CardContent>
         <CardTitle>My info</CardTitle>
         <div className="flex flex-col gap-y-2">
-          <Text size="sm">Luisa Arango</Text>
-          <Text size="sm">Foot length: 26cm</Text>
+          <Text size="sm">
+            {getValues('firstName')} {getValues('lastName')}
+          </Text>
+          <Text size="sm">Foot length: {getValues('footLength')}</Text>
+          <Text size="sm">Style: {getValues('style')}</Text>
+          <Text size="sm">Color preference: {getValues('color')}</Text>
         </div>
       </CardContent>
       {!isDesktop && (
@@ -110,7 +125,7 @@ export function MyInfoCard({}: Props) {
               <FormInput
                 control={control}
                 disabled={isSubmitting}
-                name="colorPreference"
+                name="color"
                 label="Color preference"
                 description="Measure from the base of your foot to something something or another something"
               />
@@ -160,7 +175,7 @@ export function MyInfoCard({}: Props) {
               <FormInput
                 control={control}
                 disabled={isSubmitting}
-                name="colorPreference"
+                name="color"
                 label="Color preference"
                 description="Measure from the base of your foot to something something or another something"
               />

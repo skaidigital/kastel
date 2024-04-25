@@ -1,7 +1,6 @@
 import { METAFIELDS } from '@/data/constants';
-import { cookies } from 'next/headers';
-import { shopifyFetch } from '..';
 import { shopifyAdminQuery } from '../admin';
+import { customerAccountFetch } from '../customer';
 import { metafieldsSetMutation } from './query';
 
 interface CustomerData {
@@ -36,7 +35,7 @@ export async function updateCustomerData({ customerGid, data }: CustomerData) {
   const updateCustomerNameResponse = await updateCustomerName(data.firstName, data.lastName);
 
   if (!updateCustomerNameResponse) {
-    console.log('Error updating customer name', updateCustomerNameResponse);
+    console.error('Error updating customer name', updateCustomerNameResponse);
     success = false;
   }
 
@@ -66,20 +65,13 @@ export async function updateCustomerData({ customerGid, data }: CustomerData) {
 }
 
 async function updateCustomerName(fistName: string, lastName: string) {
-  const accessToken = cookies().get('accessToken')?.value;
-
-  if (!accessToken) {
-    throw new Error('No access token');
-  }
-
-  const res = await shopifyFetch<CustomerUpdateData>({
+  const res = await customerAccountFetch<CustomerUpdateData>({
     query: updateCustomerInformation,
     variables: {
       customer: {
         firstName: fistName,
         lastName: lastName
-      },
-      customerAccessToken: accessToken
+      }
     },
     cache: 'no-store'
   });
@@ -88,17 +80,12 @@ async function updateCustomerName(fistName: string, lastName: string) {
 }
 
 const updateCustomerInformation = /* GraphQL */ `
-  mutation customerUpdate($customer: CustomerUpdateInput!, $customerAccessToken: String!) {
-    customerUpdate(customer: $customer, customerAccessToken: $customerAccessToken) {
+  mutation customerUpdate($customer: CustomerUpdateInput!) {
+    customerUpdate(input: $customer) {
       customer {
         id
         firstName
         lastName
-      }
-      customerUserErrors {
-        code
-        field
-        message
       }
       userErrors {
         field
@@ -128,6 +115,5 @@ type CustomerUpdateData = {
       firstName: string;
       lastName: string;
     };
-    customerAccessToken: string;
   };
 };

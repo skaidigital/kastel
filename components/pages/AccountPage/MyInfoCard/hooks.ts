@@ -5,7 +5,7 @@ export const myInfoFormValidator = z.object({
   lastName: z.string().min(2, 'You have to enter your last name'),
   footLength: z.string().min(2, 'You have to enter your foot length'),
   style: z.string().min(2, 'You have to enter your style'),
-  colorPreference: z.string().min(2, 'You have to enter your color preference')
+  color: z.string().min(2, 'You have to enter your color preference')
 });
 
 export type MyInfoFormProps = z.infer<typeof myInfoFormValidator>;
