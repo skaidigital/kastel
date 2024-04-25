@@ -166,6 +166,12 @@ export interface Dictionary {
   market_selector: {
     select_your_location: string;
   };
+  market_suggestion_popup: {
+    looks_like_you_are_in: string;
+    would_you_like_to_change_location: string;
+    more_locations: string;
+    confirm_your_location: string;
+  };
   reccommended_products: ReccommendedProducts;
   page_builder: {
     contact_form: {

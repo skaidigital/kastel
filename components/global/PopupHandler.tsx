@@ -28,18 +28,14 @@ export async function PopupHandler({ lang }: Props) {
   const reccommendedMarket = cookiesStore.get(COOKIE_NAMES.RECCOMMENDED_MARKET)?.value;
   const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP)?.value;
 
-  console.log({ hasChosenMarket });
-  console.log({ requestCountry });
-  console.log({ reccommendedMarket });
-
-  // if (!hasChosenMarket && reccommendedMarket && requestCountry) {
-  if (reccommendedMarket && requestCountry) {
+  if (!hasChosenMarket && requestCountry && reccommendedMarket) {
     return (
       <Suspense>
         <MarketSuggestionPopup />
       </Suspense>
     );
   }
+
   if (!hasSeenPopupInLastDay) {
     return (
       <Suspense>

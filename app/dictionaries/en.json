@@ -155,6 +155,12 @@
   "market_selector": {
     "select_your_location": "Select your location"
   },
+  "market_suggestion_popup": {
+    "looks_like_you_are_in": "Looks like you are in",
+    "would_you_like_to_change_location": "Would you like to change location?",
+    "more_locations": "More locations",
+    "confirm_your_location": "Confirm your location"
+  },
   "reccommended_products": {
     "we_think_you_will_like": "We also recommend"
   },

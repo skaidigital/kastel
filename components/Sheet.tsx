@@ -37,7 +37,6 @@ export function SheetContent({ children, title, className, overlayClassName }: P
 
 interface SheetRootProps {
   isOpen?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onOpenChange?: (open: boolean) => void;
   children: ReactNode;
 }
@@ -58,23 +57,27 @@ export function Sheet({ children, isOpen, onOpenChange }: SheetRootProps) {
 interface SheetHeaderProps {
   title: string;
   className?: string;
+  children?: ReactNode;
 }
 
-export function SheetHeader({ title, className }: SheetHeaderProps) {
+export function SheetHeader({ title, className, children }: SheetHeaderProps) {
   return (
-    <div className={cn('mb-8 flex items-center justify-between', className)}>
-      <Drawer.Title asChild>
-        <Heading as="h2" size="xs">
-          {title}
-        </Heading>
-      </Drawer.Title>
-      <Drawer.Close>
-        <button>
-          <TouchTarget>
-            <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey" />
-          </TouchTarget>
-        </button>
-      </Drawer.Close>
+    <div className={cn('mb-8 ', className)}>
+      <div className="flex items-center justify-between">
+        <Drawer.Title asChild>
+          <Heading as="h2" size="xs">
+            {title}
+          </Heading>
+        </Drawer.Title>
+        <Drawer.Close>
+          <button>
+            <TouchTarget>
+              <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey" />
+            </TouchTarget>
+          </button>
+        </Drawer.Close>
+      </div>
+      {children}
     </div>
   );
 }

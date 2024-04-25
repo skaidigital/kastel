@@ -8,11 +8,9 @@ import { ReactNode } from 'react';
 interface ModalRootProps {
   children: ReactNode;
   isOpen?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onOpenChange?: (open: boolean) => void;
 }
 
-// TODO get back Modal.Trigger etc. once the RSC bundler is fixed
 export function Modal({ children, isOpen, onOpenChange }: ModalRootProps) {
   const isControlled = isOpen !== undefined;
 
@@ -30,7 +28,7 @@ interface ModalContentProps {
   children: ReactNode;
   label: string;
   size?: 'sm' | 'md' | 'lg' | 'none';
-  onClose?: () => void;
+  onClose?: (e) => void;
   className?: string;
 }
 
@@ -49,6 +47,7 @@ export function ModalContent({
       />
       <Dialog.Content
         onInteractOutside={onClose}
+        onEscapeKeyDown={onClose}
         forceMount
         aria-label={label}
         className={cn(
@@ -76,23 +75,28 @@ export function ModalTrigger({ children }: ModalTriggerProps) {
 interface ModalHeaderProps {
   title: string;
   className?: string;
+  children?: ReactNode;
+  onClose?: (e: any) => void;
 }
 
-export function ModalHeader({ title, className }: ModalHeaderProps) {
+export function ModalHeader({ title, className, children, onClose }: ModalHeaderProps) {
   return (
-    <div className={cn('mb-6 flex items-center justify-between', className)}>
-      <Dialog.Title asChild>
-        <Heading as="h2" size="xs">
-          {title}
-        </Heading>
-      </Dialog.Title>
-      <Dialog.Close>
-        <button>
-          <TouchTarget>
-            <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey focus:text-brand-dark-grey" />
-          </TouchTarget>
-        </button>
-      </Dialog.Close>
+    <div className={cn('items-between mb-6 flex flex-col justify-center gap-y-4', className)}>
+      <div className="flex items-center justify-between">
+        <Dialog.Title asChild>
+          <Heading as="h2" size="xs">
+            {title}
+          </Heading>
+        </Dialog.Title>
+        <Dialog.Close onClick={onClose}>
+          <button>
+            <TouchTarget>
+              <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey focus:text-brand-dark-grey" />
+            </TouchTarget>
+          </button>
+        </Dialog.Close>
+      </div>
+      {children}
     </div>
   );
 }

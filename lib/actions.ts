@@ -19,3 +19,7 @@ export async function trackEvent({ eventName, options }: TrackEvent) {
 
   track(eventName, options);
 }
+
+export async function handleHasChosenMarket() {
+  cookies().set(COOKIE_NAMES.HAS_CHOSEN_MARKET, 'true');
+}

@@ -155,6 +155,12 @@
   "market_selector": {
     "select_your_location": "Velg din lokasjon"
   },
+  "market_suggestion_popup": {
+    "looks_like_you_are_in": "Ser ut som du er i",
+    "would_you_like_to_change_location": "Vil du endre lokasjon?",
+    "more_locations": "Flere lokasjoner",
+    "confirm_your_location": "Bekreft din lokasjon"
+  },
   "reccommended_products": {
     "we_think_you_will_like": "Vi anbefaler også"
   },

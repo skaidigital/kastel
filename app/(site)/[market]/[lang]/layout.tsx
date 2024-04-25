@@ -9,6 +9,7 @@ import { draftMode } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
+import { MarketPopup } from '@/components/global/MarketPopup';
 import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -85,10 +86,8 @@ export default function IndexRoute({
                 <Analytics />
               </main>
             </div>
-            {/* <Suspense>
-              <Footer market={market} lang={lang} />
-            </Suspense> */}
             <ShopifyAnalytics hasConsent />
+            <MarketPopup />
             {draftMode().isEnabled && <PreviewMarketSelector />}
             {/* <SmileInit customerId="7292377628922" /> */}
           </Providers>
