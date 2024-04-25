@@ -10,7 +10,7 @@ import {
   getProductIdsByOrder,
   mergeCollectionBaseAndProducts
 } from '@/components/pages/CollectionPage/hooks';
-import { LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -47,7 +47,6 @@ function loadCollectionBase({
 function loadCollectionProductsOrder(
   slug: string,
   lang: LangValues,
-  pageIndex: number,
   tagSlugs: string[] | null,
   sortKey?: string
 ) {
@@ -55,15 +54,13 @@ function loadCollectionProductsOrder(
 
   return loadQuery<CollectionProductsPayload>(
     query,
-    { slug, tagSlugs },
-    {
-      next: {
-        tags: [
-          `collection:${slug}`,
-          `lang:${lang}+pageIndex:${pageIndex}+tagSlugs:${tagSlugs?.join()}+sortKey:${sortKey || 'default'}`
-        ]
-      }
-    }
+    { slug, tagSlugs }
+    // { cache: 'no-cache' }
+    // {
+    //   next: {
+    //     tags: [`collection:${slug}`]
+    //   }
+    // }
   );
 }
 
@@ -75,12 +72,12 @@ function loadCollectionProductData(
   slug: string,
   sortKey?: string
 ) {
-  const query = getCollectionProductData(lang, market, pageIndex);
+  const query = getCollectionProductData(lang, market);
 
   return loadQuery<CollectionProductPayload>(
     query,
     { ids: productIds },
-    { next: { tags: [`collection:${slug}`, `ids:${productIds?.join()}`, `${sortKey}`] } }
+    { next: { tags: [`collection:${slug}`, `pageIndex:${pageIndex}`, `${sortKey}`] } }
   );
 }
 
@@ -112,32 +109,33 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     }
   }
 
-  const initialProducts = await loadCollectionProductsOrder(
-    slug,
-    lang,
-    currentPage,
-    paramValues,
-    sortKey
-  );
+  const initialProducts = await loadCollectionProductsOrder(slug, lang, paramValues, sortKey);
 
-  const productIds = initialProducts.data.products.map((product) => product._id);
+  const currentStart = (currentPage - 1) * COLLECTION_PAGE_SIZE;
+  const currentEnd = currentPage * COLLECTION_PAGE_SIZE;
+
+  const productCount = initialProducts.data.products.length;
+  const paginatedInitialProducts = initialProducts.data.products.slice(currentStart, currentEnd);
+  const paginatedProductIds = paginatedInitialProducts.map((product) => product._id);
+
+  const hasNextPage = initialProducts.data.products.length > currentEnd;
 
   const inititalProductsData = await loadCollectionProductData(
     lang,
     market,
-    productIds,
+    paginatedProductIds,
     currentPage,
     slug,
     sortKey
   );
 
-  const cleanedProductData = cleanData(initialProducts, inititalProductsData);
+  const cleanedProductData = cleanData(paginatedInitialProducts, inititalProductsData, hasNextPage);
   let validatedProducts;
 
   if (!isDraftMode) {
     validatedProducts = collectionProductsValidator.safeParse({
       products: cleanedProductData,
-      hasNextPage: true
+      hasNextPage: hasNextPage
     });
 
     if (!validatedProducts.success) {
@@ -147,11 +145,15 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   }
 
   const mergedData = isDraftMode
-    ? mergeCollectionBaseAndProducts(initialBase.data, {
-        products: cleanedProductData,
-        hasNextPage: true
-      })
-    : mergeCollectionBaseAndProducts(validatedBase?.data, validatedProducts?.data);
+    ? mergeCollectionBaseAndProducts(
+        initialBase.data,
+        {
+          products: cleanedProductData,
+          hasNextPage: hasNextPage
+        },
+        productCount
+      )
+    : mergeCollectionBaseAndProducts(validatedBase?.data, validatedProducts?.data, productCount);
 
   return (
     <CollectionPage
@@ -216,15 +218,20 @@ function formatSearchParamsValues(search: Props['searchParams']) {
   return paramValues;
 }
 
-function cleanData(initialProducts: any, inititalProductsData: any): CollectionProductsPayload {
-  const mergedTestData = initialProducts.data.products.map((product: any) => {
+function cleanData(
+  initialProducts: any,
+  inititalProductsData: any,
+  hasNextPage: boolean
+): CollectionProductsPayload {
+  const mergedTestData = initialProducts.map((product: any) => {
     const productData = inititalProductsData.data.find(
       (productData: any) => productData._id === product._id
     );
 
     return {
       ...product,
-      ...productData
+      ...productData,
+      hasNextPage: hasNextPage
     };
   });
 

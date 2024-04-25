@@ -12,8 +12,6 @@ interface Props {
 
 export async function Wishlist({ gid, className }: Props) {
   const { isLoggedIn } = useUser();
-  console.log(isLoggedIn);
-
   let isInWishlist = false;
 
   if (isLoggedIn) {
@@ -25,7 +23,6 @@ export async function Wishlist({ gid, className }: Props) {
       gid={gid}
       isLoggedIn={isLoggedIn}
       itemIsInWislist={isInWishlist}
-      disabled={!isLoggedIn}
       className={cn('z-50 flex items-center justify-center ', className)}
     >
       {isInWishlist ? (

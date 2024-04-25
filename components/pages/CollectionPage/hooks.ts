@@ -112,16 +112,9 @@ export function getSortQuery(sortKey: string | undefined) {
   }
 }
 
-export function getCollectionProductData(
-  lang: LangValues,
-  market: MarketValues,
-  pageIndex: number = 1
-) {
-  const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
-  const end = pageIndex * COLLECTION_PAGE_SIZE;
-
+export function getCollectionProductData(lang: LangValues, market: MarketValues) {
   const query = groq`
-    *[_type == "product" && _id in $ids][${start}...${end}]{
+    *[_type == "product" && _id in $ids][]{
       _id,
     ${fragments.getProductCard(lang, market)}
   }
@@ -159,7 +152,11 @@ export function getCollectionProductsQuery(
   return query;
 }
 
-export function mergeCollectionBaseAndProducts(collection: any, products: any): Collection {
+export function mergeCollectionBaseAndProducts(
+  collection: any,
+  products: any,
+  productCount: number
+): Collection {
   // export function mergeCollectionBaseAndProducts(
   //   collection: CollectionBasePayload,
   //   products: CollectionProductsPayload
@@ -172,7 +169,7 @@ export function mergeCollectionBaseAndProducts(collection: any, products: any): 
     descriptionLong: collection.descriptionLong,
     pageBuilder: collection.pageBuilder,
     products: products.products,
-    productCount: products.products.length || 0,
+    productCount: productCount || 0,
     hasNextPage: products.hasNextPage
   };
 }

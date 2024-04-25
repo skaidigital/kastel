@@ -44,8 +44,6 @@ export function ProductCard({
   maxVariantPrice,
   sku
 }: Props) {
-  console.log(sku);
-
   const isOnSale = true;
   const discountPercentage = 20;
 
@@ -72,18 +70,18 @@ export function ProductCard({
   // TODO get sku from the product || a variant if variable product
 
   return (
-    <div className="@container">
+    <div className="relative @container">
       <ProductCardProvider>
+        <div className="absolute right-3 top-3 z-50 @xs:right-4 @xs:top-4">
+          <Suspense fallback={<WishlistFallback />}>
+            <Wishlist gid={gid} />
+          </Suspense>
+        </div>
         <CustomLink
           className={cn('group border-b border-brand-light-grey', className)}
           href={`${ROUTES.PRODUCTS}/${slug}`}
         >
           <ImageContainer>
-            <div className="absolute right-3 top-3 z-50 @xs:right-4 @xs:top-4">
-              <Suspense fallback={<WishlistFallback />}>
-                <Wishlist gid={gid} />
-              </Suspense>
-            </div>
             {badges && (
               <div className="absolute right-2 top-3 z-10 flex flex-col gap-1 xl:flex-row">
                 {badges.map((badge) => (
@@ -123,15 +121,15 @@ export function ProductCard({
                 <span>{sizeRange}</span>
               </div>
             </div>
-            <div className="flex flex-col @xs:items-end">
-              <div className="mb-1 hidden @xs:block">
+            <div className="flex flex-col-reverse @xs:items-end">
+              <Colors />
+              <div className="mt-1 hidden @xs:block">
                 {sku && (
                   <Suspense fallback={<RatingFallback className="mb-1" />}>
                     <Rating sku={sku} className="mb-1" />
                   </Suspense>
                 )}
               </div>
-              <Colors />
             </div>
           </div>
         </CustomLink>

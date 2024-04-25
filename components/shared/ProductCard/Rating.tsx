@@ -14,19 +14,14 @@ function RatingWrapper({ children, className }: { children: React.ReactNode; cla
 
 // TODO consider having the fallback be nothing to reduce layout shift
 export async function Rating({ sku, className }: Props) {
-  console.log(sku);
-
   if (!sku) return null;
   const response = await getProductRatingBySku(sku);
-
-  console.log(response);
 
   if (!response.rating || !response.votes) {
     return null;
   }
 
   const formattedRating = Number(response.rating).toFixed(1);
-  console.log(formattedRating);
 
   return (
     <RatingWrapper className={cn('', className)}>

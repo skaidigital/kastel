@@ -49,6 +49,7 @@ export function CollectionLayout({
     descriptionShort,
     pageBuilder
   } = data;
+
   const productsPerRow = searchParams?.view || '4';
 
   const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 3, moods);

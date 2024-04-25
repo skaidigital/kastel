@@ -5,8 +5,6 @@ import { HotspotImageProps } from '@/lib/sanity/types';
 
 // TODO improve type by omitting type
 export function HotspotImage({ image, hotspots }: HotspotImageProps) {
-  console.log(hotspots);
-
   return (
     <>
       <SanityImage image={image} fill className="absolute object-cover" />
