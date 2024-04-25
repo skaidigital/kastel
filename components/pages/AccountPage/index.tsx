@@ -59,7 +59,6 @@ export async function AccountPage({ data }: Props) {
         <MyInfoCard customerData={customerData} />
         {data.productDisplay && (
           <ProductDisplay
-            // productDisplay={data?.productDisplay}
             title={data.productDisplay.title}
             products={data.productDisplay.products}
           />
@@ -80,7 +79,6 @@ export async function AccountPage({ data }: Props) {
           <div className="col-span-5">
             {data.productDisplay && (
               <ProductDisplay
-                // productDisplay={data?.productDisplay}
                 title={data.productDisplay.title}
                 products={data.productDisplay.products}
               />

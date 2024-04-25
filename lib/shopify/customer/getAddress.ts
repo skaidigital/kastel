@@ -42,5 +42,13 @@ export async function getAddresses(id: string) {
     tags: [`${CACHE_TAGS.CUSTOMER_ADDRESS}:${id}`]
   });
 
-  return res.body.data.customer.addresses.nodes;
+  const addresses = res.body.data.customer.addresses.nodes;
+
+  const activeAddress = addresses.find((address) => address.id === addAddressGid(id));
+
+  return activeAddress;
+}
+
+function addAddressGid(id: string) {
+  return `gid://shopify/CustomerAddress/${id}`;
 }

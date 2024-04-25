@@ -11,6 +11,7 @@ import {
 } from '@/components/pages/CreateAddressPage/hooks';
 import { ROUTES } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
+import { Address } from '@/lib/shopify/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
@@ -19,9 +20,10 @@ import { toast } from 'sonner';
 
 interface Props {
   dictionary: Dictionary['create_address_page'];
+  data: Address;
 }
 
-export function EditAddressPage({ dictionary }: Props) {
+export function EditAddressPage({ dictionary, data }: Props) {
   const [isPending, startTransition] = useTransition();
   const { market, lang } = useBaseParams();
   const router = useRouter();
@@ -30,14 +32,14 @@ export function EditAddressPage({ dictionary }: Props) {
     resolver: zodResolver(createAddressFormInputValidator),
     mode: 'onSubmit',
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      address1: '',
-      address2: '',
-      zip: '',
-      city: '',
-      territoryCode: '',
+      firstName: data.firstName || '',
+      lastName: data.lastName || '',
+      phoneNumber: data.phoneNumber || '',
+      address1: data.address1 || '',
+      address2: data.address2 || '',
+      zip: data.zip || '',
+      city: data.city || '',
+      territoryCode: data.territoryCode || '',
       defaultAddress: false
     }
   });
@@ -64,7 +66,7 @@ export function EditAddressPage({ dictionary }: Props) {
 
   return (
     <div className="grid lg:col-span-3">
-      <AccountPageHeader pageTitle={dictionary.create_address} />
+      <AccountPageHeader pageTitle={dictionary.edit_address} />
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
         <FormInput
           label={dictionary.first_name}
@@ -97,7 +99,7 @@ export function EditAddressPage({ dictionary }: Props) {
         /> */}
 
         <Button size="sm" type="submit" isLoading={isPending}>
-          {dictionary.create_address}
+          {dictionary.edit_address}
         </Button>
       </form>
     </div>

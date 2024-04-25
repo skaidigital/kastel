@@ -127,6 +127,7 @@
     "email": "Email",
     "default_address": "Default address",
     "create_address": "Create address",
+    "edit_address": "Edit address",
     "addresses": "Addresses"
   },
   "cookie_consent": {
