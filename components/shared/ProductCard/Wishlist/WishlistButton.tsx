@@ -30,7 +30,9 @@ export function WishlistButton({
   const router = useRouter();
   const customerGid = 'gid://shopify/Customer/7742157848805';
 
-  async function handleClick() {
+  async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    console.log('clicked');
+
     if (!isLoggedIn) {
       await logIn();
       return;

@@ -68,13 +68,14 @@ function loadCollectionProductsOrder(
 }
 
 function loadCollectionProductData(
-  market: LangValues,
+  lang: LangValues,
+  market: MarketValues,
   productIds: string[],
   pageIndex: number,
   slug: string,
   sortKey?: string
 ) {
-  const query = getCollectionProductData(market, pageIndex);
+  const query = getCollectionProductData(lang, market, pageIndex);
 
   return loadQuery<CollectionProductPayload>(
     query,
@@ -123,6 +124,7 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 
   const inititalProductsData = await loadCollectionProductData(
     lang,
+    market,
     productIds,
     currentPage,
     slug,

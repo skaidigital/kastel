@@ -12,6 +12,7 @@ interface Props {
 
 export async function Wishlist({ gid, className }: Props) {
   const { isLoggedIn } = useUser();
+  console.log(isLoggedIn);
 
   let isInWishlist = false;
 

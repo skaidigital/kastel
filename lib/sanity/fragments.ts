@@ -246,7 +246,10 @@ export function getProductCard(lang: LangValues, market: MarketValues) {
     "amount": coalesce(amount, 0),
     "currencyCode": currencyCode
   },
-s
+  "sku": select(
+    type == "SIMPLE" => sku,
+    type == "VARIABLE" => *[_type=="productVariant" && references(^._id) && defined(sku)][0].sku
+    ),
   "badges": badges[]->.title.${lang},
   "sizes": options[] {
     "type": optionType->.type,

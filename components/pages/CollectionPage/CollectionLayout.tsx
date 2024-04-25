@@ -117,6 +117,8 @@ export function CollectionLayout({
                   lifestyleImage={item.lifestyleImage}
                   badges={item.badges}
                   priority={priorityIndices.includes(index)}
+                  minVariantPrice={item.minVariantPrice}
+                  maxVariantPrice={item.maxVariantPrice}
                 />
               );
             })}
@@ -137,6 +139,10 @@ export function CollectionLayout({
                   </div>
                 );
               }
+
+              const hasSizeRange = item?.sizes?.filter((size) => size.type === 'size')[0];
+              const lowestSize = hasSizeRange?.options[0];
+              const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
               const priorityIndices = [0, 1, 2];
               return (
                 <ProductCard
@@ -150,6 +156,10 @@ export function CollectionLayout({
                   lifestyleImage={item.lifestyleImage}
                   badges={item.badges}
                   priority={priorityIndices.includes(index)}
+                  lowestSize={lowestSize?.title}
+                  highestSize={highestSize?.title}
+                  minVariantPrice={item.minVariantPrice}
+                  maxVariantPrice={item.maxVariantPrice}
                 />
               );
             })}

@@ -112,21 +112,29 @@ export function getSortQuery(sortKey: string | undefined) {
   }
 }
 
-export function getCollectionProductData(market: LangValues, pageIndex: number = 1) {
+export function getCollectionProductData(
+  lang: LangValues,
+  market: MarketValues,
+  pageIndex: number = 1
+) {
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
   const query = groq`
     *[_type == "product" && _id in $ids][${start}...${end}]{
       _id,
-    ${fragments.getProductCard(market)}
+    ${fragments.getProductCard(lang, market)}
   }
   `;
 
   return query;
 }
 
-export function getCollectionProductsQuery(lang: LangValues, pageIndex: number = 1) {
+export function getCollectionProductsQuery(
+  lang: LangValues,
+  market: MarketValues,
+  pageIndex: number = 1
+) {
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
@@ -136,11 +144,11 @@ export function getCollectionProductsQuery(lang: LangValues, pageIndex: number =
       firstImage,
       ...product->{
         defined($tagSlugs) && count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs) => {
-          ${fragments.getProductCard(lang)}
+          ${fragments.getProductCard(lang, market)}
         },
         defined($tagSlugs) && !count((tags[]->slug_no.current)[@ in $tagSlugs]) == count($tagSlugs)=> null,
         !defined($tagSlugs) => {
-          ${fragments.getProductCard(lang)}
+          ${fragments.getProductCard(lang, market)}
         }
       }
     },
