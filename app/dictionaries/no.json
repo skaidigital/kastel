@@ -56,7 +56,7 @@
     "results": "resultater"
   },
   "account_page": {
-    "recent_orders": "Nylige bestillinger",
+    "recent_orders": "Bestillinger",
     "order": "Bestilling",
     "date": "Dato",
     "status_payment": "Betalingsstatus",

@@ -42,33 +42,33 @@ export function extractGid(id: string) {
 export function getOrderFinancialStatusBadgeVariant(status: OrderFinancialStatus) {
   switch (status) {
     case 'AUTHORIZED':
-      return 'neutral';
+      return 'orderPending';
     case 'PAID':
-      return 'success';
+      return 'orderSuccess';
     case 'PARTIALLY_PAID':
-      return 'warning';
+      return 'orderDanger';
     case 'PENDING':
-      return 'neutral';
+      return 'orderPending';
     case 'REFUNDED':
-      return 'success';
+      return 'orderSuccess';
     case 'VOIDED':
-      return 'warning';
+      return 'orderDanger';
     default:
-      return 'neutral';
+      return 'orderPending';
   }
 }
 
 export function getOrderFullfillmentStatusBadgeVariant(status?: FulfillmentStatus) {
   switch (status) {
     case 'CANCELLED':
-      return 'neutral';
+      return 'orderPending';
     case 'ERROR':
-      return 'danger';
+      return 'orderDanger';
     case 'FAILURE':
-      return 'danger';
+      return 'orderDanger';
     case 'SUCCESS':
-      return 'success';
+      return 'orderSuccess';
     default:
-      return 'neutral';
+      return 'orderPending';
   }
 }
