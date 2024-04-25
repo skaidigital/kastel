@@ -8,11 +8,13 @@ export const hotspotImage = defineType({
   icon: Crosshair,
   preview: {
     select: {
-      title: 'internalTitle'
+      title: 'internalTitle',
+      media: 'image'
     },
-    prepare: ({ title }) => ({
+    prepare: ({ title, media }) => ({
       title: title || 'Untitled',
-      subtitle: 'Hotspot image'
+      subtitle: 'Hotspot image',
+      media: media || undefined
     })
   },
   validation: (Rule) => Rule.required(),

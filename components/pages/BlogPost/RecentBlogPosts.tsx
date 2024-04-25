@@ -8,13 +8,7 @@ import { Section } from '@/components/base/Section';
 import { BlogPostsProps } from '@/components/pages/BlogPost/hooks';
 import { ROUTES } from '@/data/constants';
 
-// TODO fix string for card
 export function RecentBlogPosts({ title, posts, buttonText }: BlogPostsProps) {
-  const dictionary = {
-    min_read: '5',
-    read_more: 'Read more'
-  };
-
   return (
     <Section label="blogPostSection" srHeading={`Section of blog posts`} noTopPadding>
       <div className="flex flex-col lg:hidden">
@@ -23,11 +17,7 @@ export function RecentBlogPosts({ title, posts, buttonText }: BlogPostsProps) {
           <CarouselContent className="-ml-3">
             {posts?.map((post) => (
               <CarouselItem key={post.title} className="basis-[80%] pl-3">
-                <BlogPostCard
-                  post={post}
-                  readTimeString={dictionary.min_read}
-                  readMoreString={dictionary.read_more}
-                />
+                <BlogPostCard post={post} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -43,9 +33,7 @@ export function RecentBlogPosts({ title, posts, buttonText }: BlogPostsProps) {
       <Container className="hidden flex-col gap-y-10 lg:flex">
         <div className="flex items-end justify-between">
           {title && (
-            <Heading size="xl" className="max-w-lg text-balance">
-              {title}
-            </Heading>
+            <h2 className="max-w-lg text-balance text-heading-xl font-bold uppercase">{title}</h2>
           )}
           {buttonText && (
             <Button asChild size="md">
@@ -54,14 +42,7 @@ export function RecentBlogPosts({ title, posts, buttonText }: BlogPostsProps) {
           )}
         </div>
         <div className="grid grid-cols-3 gap-x-4">
-          {posts?.map((post) => (
-            <BlogPostCard
-              key={post.title}
-              post={post}
-              readTimeString={dictionary.min_read}
-              readMoreString={dictionary.read_more}
-            />
-          ))}
+          {posts?.map((post) => <BlogPostCard key={post.title} post={post} />)}
         </div>
       </Container>
     </Section>

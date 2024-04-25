@@ -2,7 +2,7 @@ import { resolveHref } from '@/lib/sanity/studioUtils';
 import { Observable, map } from 'rxjs';
 import { DocumentLocationResolver, DocumentLocationsState } from 'sanity/presentation';
 
-const documentTypesWithPreview = ['page', 'product', 'collection', 'legalPage'];
+const documentTypesWithPreview = ['page', 'product', 'collection', 'legalPage', 'blogPost'];
 
 export const locate: DocumentLocationResolver = (params, context) => {
   const documentTypesUsedOnAllPages = ['footer', 'navbar'];
@@ -97,17 +97,21 @@ export const locate: DocumentLocationResolver = (params, context) => {
               tone: 'positive',
               message: 'Open preview'
             } satisfies DocumentLocationsState;
-          case 'configurator':
+          case 'blogPost':
             return {
-              locations: [
-                {
-                  title: 'Configurator',
-                  href: '/configurator'
-                }
-              ],
+              locations: docs
+                ?.map((doc) => {
+                  const href = resolveHref(doc._type, doc?.slug?.current);
+                  return {
+                    title: doc?.title || 'Untitled',
+                    href: href!
+                  };
+                })
+                .filter((doc) => doc.href !== undefined),
               tone: 'positive',
               message: 'Open preview'
             } satisfies DocumentLocationsState;
+
           default:
             return {
               message: 'Unable to map document type to locations',

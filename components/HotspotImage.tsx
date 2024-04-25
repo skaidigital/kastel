@@ -7,7 +7,7 @@ import { HotspotImageProps } from '@/lib/sanity/types';
 export function HotspotImage({ image, hotspots }: HotspotImageProps) {
   return (
     <>
-      <SanityImage image={image} fill className="absolute object-cover" />
+      <SanityImage image={image} fill className="-z-1 absolute" />
       {hotspots.map((hotspot) => {
         const hasSizeRange =
           hotspot.type === 'product' && hotspot?.sizes?.filter((size) => size.type === 'size')[0];

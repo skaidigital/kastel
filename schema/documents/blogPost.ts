@@ -1,3 +1,4 @@
+import { ASPECT_RATIOS } from '@/data/constants';
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
@@ -60,14 +61,14 @@ export const blogPost = defineType({
     defineField({
       title: 'Content 🇧🇻',
       name: 'content_no',
-      type: 'richText',
+      type: 'blogPostText',
       validation: (Rule) => Rule.required(),
       group: 'editorial'
     }),
     defineField({
       title: 'Content 🇬🇧',
       name: 'content_en',
-      type: 'richText',
+      type: 'blogPostText',
       validation: (Rule) => Rule.required(),
       group: 'editorial'
     }),
@@ -91,10 +92,7 @@ export const blogPost = defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
       options: {
-        list: [
-          { title: '9:16', value: '9:16' },
-          { title: '3:4', value: '3:4' }
-        ]
+        list: ASPECT_RATIOS
       },
       initialValue: '9:16',
       fieldset: 'aspectRatio',
@@ -106,11 +104,7 @@ export const blogPost = defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
       options: {
-        list: [
-          { title: '16:9', value: '16:9' },
-          { title: '4:3', value: '4:3' },
-          { title: '21:9', value: '21:9' }
-        ]
+        list: ASPECT_RATIOS
       },
       initialValue: '16:9',
       fieldset: 'aspectRatio',

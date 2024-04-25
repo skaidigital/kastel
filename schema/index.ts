@@ -44,6 +44,7 @@ import {
 } from '@/schema/fields';
 import { address } from '@/schema/objects/address';
 import { aspectRatioSettings } from '@/schema/objects/aspectRatioSettings';
+import { blogPostText } from '@/schema/objects/blogPostText';
 import { buttonSettings } from '@/schema/objects/buttonSettings';
 import { card } from '@/schema/objects/card';
 import { cardBlock } from '@/schema/objects/cardBlock';
@@ -137,6 +138,7 @@ const schema = [
   address,
   variableText,
   legalPageText,
+  blogPostText,
   richText,
   richTextNatureLab,
   updateItem,

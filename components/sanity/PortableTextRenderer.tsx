@@ -1,9 +1,10 @@
 import { legalPageTextSerializer } from '@/lib/sanity/legalPageTextSerializer';
+import { portableTextBlogPostSerializer } from '@/lib/sanity/portableTextBlogPostSerializer';
 import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer';
 import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
 import { PortableText, PortableTextBlock } from '@portabletext/react';
 
-type SerializerType = 'normal' | 'natureLab' | 'legalPage';
+type SerializerType = 'normal' | 'natureLab' | 'legalPage' | 'blogPost';
 
 interface Props {
   value: PortableTextBlock[];
@@ -26,6 +27,8 @@ function getSerializer(type: SerializerType) {
       return portableTextNatureLabSerializer;
     case 'legalPage':
       return legalPageTextSerializer;
+    case 'blogPost':
+      return portableTextBlogPostSerializer;
     default:
       return portableTextSerializer;
   }

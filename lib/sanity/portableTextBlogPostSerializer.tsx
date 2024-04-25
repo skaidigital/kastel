@@ -1,8 +1,7 @@
 import { AspectRatio } from '@/components/AspectRatio';
 import { HotspotImage } from '@/components/HotspotImage';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/HoverCard';
+import { Media } from '@/components/Media';
 import VideoWithSettings from '@/components/VideoWithSettings';
-import { Heading } from '@/components/base/Heading';
 import { ListItem } from '@/components/base/ListItem';
 import { OL } from '@/components/base/OL';
 import { Text } from '@/components/base/Text';
@@ -17,29 +16,37 @@ import Link from 'next/link';
 export const portableTextBlogPostSerializer = {
   block: {
     'text-sm': ({ children }: any) => (
-      <Text className="mx-auto mt-6 max-w-[--blog-post-container-md]" as="p" size="sm">
+      <Text
+        className="mx-auto mt-6 max-w-[--blog-post-container-md] text-brand-mid-grey"
+        as="p"
+        size="sm"
+      >
         {children}
       </Text>
     ),
     normal: ({ children }: any) => (
-      <Text className="mx-auto mt-6 max-w-[--blog-post-container-md]" as="p">
+      <Text className="mx-auto mt-6 max-w-[--blog-post-container-md] text-brand-mid-grey" as="p">
         {children}
       </Text>
     ),
     'text-lg': ({ children }: any) => (
-      <Text className="mx-auto mt-6 max-w-[--blog-post-container-md]" as="p" size="lg">
+      <Text
+        className="mx-auto mt-6 max-w-[--blog-post-container-md] text-brand-mid-grey"
+        as="p"
+        size="lg"
+      >
         {children}
       </Text>
     ),
     h2: ({ children }: any) => (
-      <Heading as="h2" size="sm" className="mt-12">
+      <h2 className="mx-auto mt-12 max-w-[--blog-post-container-md] text-heading-sm font-bold">
         {children}
-      </Heading>
+      </h2>
     ),
     h3: ({ children }: any) => (
-      <Heading as="h3" size="xs" className="mt-8">
+      <h3 className="mx-auto mt-8 max-w-[--blog-post-container-md] text-heading-xs font-bold">
         {children}
-      </Heading>
+      </h3>
     )
   },
   list: {
@@ -47,7 +54,10 @@ export const portableTextBlogPostSerializer = {
       const { level } = value;
 
       return (
-        <UL level={level} className="mx-auto mt-3 max-w-[--blog-post-container-md]">
+        <UL
+          level={level}
+          className="mx-auto mt-5 flex max-w-[--blog-post-container-md] flex-col gap-y-2"
+        >
           {children}
         </UL>
       );
@@ -56,7 +66,10 @@ export const portableTextBlogPostSerializer = {
       const { level } = value;
 
       return (
-        <OL level={level} className="mx-auto mt-3 max-w-[--blog-post-container-md]">
+        <OL
+          level={level}
+          className="mx-auto mt-5 flex max-w-[--blog-post-container-md] flex-col gap-y-2"
+        >
           {children}
         </OL>
       );
@@ -66,7 +79,7 @@ export const portableTextBlogPostSerializer = {
     bullet: ({ children, value }: any) => {
       const { level } = value;
       return (
-        <ListItem level={level}>
+        <ListItem level={level} className="pt-0 text-md text-brand-mid-grey md:text-md lg:text-md">
           <Text>{children}</Text>
         </ListItem>
       );
@@ -74,7 +87,7 @@ export const portableTextBlogPostSerializer = {
     number: ({ children, value }: any) => {
       const { level } = value;
       return (
-        <ListItem level={level}>
+        <ListItem level={level} className="pt-0 text-md text-brand-mid-grey md:text-md lg:text-md">
           <Text>{children}</Text>
         </ListItem>
       );
@@ -86,6 +99,8 @@ export const portableTextBlogPostSerializer = {
     em: ({ children }: any) => <em>{children}</em>,
     muted: ({ children }: any) => <Text>{children}</Text>,
     inlineLink: ({ children, value }: any) => {
+      console.log('inside inlineLink', value);
+
       const href = getSlug(value.link);
 
       return (
@@ -95,25 +110,35 @@ export const portableTextBlogPostSerializer = {
       );
     },
     productLink: ({ children, value }: any) => {
-      return (
-        <HoverCard>
-          <HoverCardTrigger className="cursor-pointer bg-brand-primary px-1 text-md font-medium text-white">
-            {children}
-          </HoverCardTrigger>
-          <HoverCardContent side="top" className="relative w-[320px] border-none p-0">
-            {value.product && (
-              <ProductCard
-                title={value.product.title}
-                mainImage={value.product.image}
-                lifestyleImage={value.product.image}
-                badges={value.product.badges}
-                slug={value.product.slug}
-                type="product"
-              />
-            )}
-          </HoverCardContent>
-        </HoverCard>
-      );
+      console.log('inside productLink', value);
+
+      return <div>prodc link</div>;
+      // return (
+      //   <HoverCard>
+      //     <HoverCardTrigger className="cursor-pointer bg-brand-primary px-1 text-md font-medium text-white">
+      //       {children}
+      //     </HoverCardTrigger>
+      //     <HoverCardContent side="top" className="relative w-[320px] border-none p-0">
+      //       {value.product && (
+      //         <ProductCard
+      //           gid={value.product.gid}
+      //           sku={value.product.sku}
+      //           minVariantPrice={value.product.minVariantPrice}
+      //           maxVariantPrice={value.product.maxVariantPrice}
+      //           highestSize={value.product.highestSize}
+      //           lowestSize={value.product.lowestSize}
+      //           sizes={value.product.sizes}
+      //           title={value.product.title}
+      //           mainImage={value.product.image}
+      //           lifestyleImage={value.product.image}
+      //           badges={value.product.badges}
+      //           slug={value.product.slug}
+      //           type="product"
+      //         />
+      //       )}
+      //     </HoverCardContent>
+      //   </HoverCard>
+      // );
     }
   },
 
@@ -150,9 +175,7 @@ export const portableTextBlogPostSerializer = {
               settings={image?.aspectRatioSettings}
               className="relative flex flex-col justify-start"
             >
-              {image?.asset?._ref && (
-                <SanityImage image={image} className="absolute object-cover" />
-              )}
+              {image?.asset?._ref && <SanityImage image={image} fill className="absolute" />}
             </AspectRatio>
           ))}
         </BlogWidthContainer>
@@ -175,32 +198,47 @@ export const portableTextBlogPostSerializer = {
       );
     },
     hotspotImage: ({ value }: any) => {
+      console.log('value for htospot image', value);
+
       return (
         <BlogWidthContainer width={value.width} className="mt-6">
-          <div className="aspect-h-4 aspect-w-3 relative">
-            {value.image?.asset?._ref && (
-              <HotspotImage image={value.image} hotspots={value.hotspots} type="hotspotImage" />
-            )}
-          </div>
+          {value.aspectRatioSettings && (
+            <AspectRatio settings={value.aspectRatioSettings} className="relative">
+              {value.image?.image?.asset?._ref && (
+                <HotspotImage
+                  image={value.image.image}
+                  hotspots={value.image.hotspots}
+                  type="hotspotImage"
+                />
+              )}
+            </AspectRatio>
+          )}
         </BlogWidthContainer>
       );
     },
     // TODO figure out how to remove mt only for the first child
     standout: ({ value }: any) => {
       return (
-        <div className="my-6 bg-blue-50 py-10 lg:py-20">
-          <BlogWidthContainer width="wide" className="flex flex-col gap-10 lg:flex-row">
-            <div className="flex-1 *:mt-0">
+        <div className="my-6 bg-blue-50 py-10 lg:my-10 lg:py-20">
+          <BlogWidthContainer width="wide" className="flex flex-col gap-x-10 lg:flex-row">
+            <div className="flex-1">
               {value.content && <PortableTextRenderer value={value.content} type="blogPost" />}
             </div>
             <div className="flex-1">
-              {value.type === 'media' && (
-                <AspectRatio settings={value.aspectRatioSettings}>
-                  <SanityImage image={value.media.image} fill />
+              {value.type === 'media' && value.media && value.aspectRatioSettings && (
+                <AspectRatio settings={value.aspectRatioSettings} className="relative">
+                  <Media media={value.media} loading="lazy" />
                 </AspectRatio>
               )}
-              {value.type === 'product' && (
+              {value.type === 'product' && value.product && (
                 <ProductCard
+                  gid={value.product.gid}
+                  sku={value.product.sku}
+                  minVariantPrice={value.product.minVariantPrice}
+                  maxVariantPrice={value.product.maxVariantPrice}
+                  highestSize={value.product.highestSize}
+                  lowestSize={value.product.lowestSize}
+                  sizes={value.product.sizes}
                   title={value.product.title}
                   mainImage={value.product.mainImage}
                   lifestyleImage={value.product.lifestyleImage}

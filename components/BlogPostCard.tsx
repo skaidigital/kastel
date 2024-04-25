@@ -1,20 +1,25 @@
+'use client';
+
 import { Badge } from '@/components/Badge';
 import { CustomLink } from '@/components/CustomLink';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { ROUTES } from '@/data/constants';
+import { LangValues, ROUTES } from '@/data/constants';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { BlogPostCardProps } from '@/lib/sanity/types';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
 
 export interface Props {
   post: BlogPostCardProps;
-  readTimeString: string;
-  readMoreString: string;
 }
 
-export function BlogPostCard({ post, readTimeString, readMoreString }: Props) {
+export function BlogPostCard({ post }: Props) {
   const { title, description, readLength, image, slug } = post;
+  const { lang } = useBaseParams();
+
+  const readMoreString = getReadMoreString(lang);
+  const readTimeString = getReadTimeString(lang);
 
   if (!title || !image || !slug) {
     return null;
@@ -28,15 +33,11 @@ export function BlogPostCard({ post, readTimeString, readMoreString }: Props) {
         </div>
         <div className="flex flex-col pr-5">
           {readLength && (
-            <Badge className="mb-1">
+            <Badge className="mb-2">
               {readLength} {readTimeString}
             </Badge>
           )}
-          {title && (
-            <Heading size="sm" className="mb-3">
-              {title}
-            </Heading>
-          )}
+          {title && <Heading className="mb-3 text-heading-xs">{title}</Heading>}
           {description && (
             <Text className="mb-6 font-medium text-brand-mid-grey">{description}</Text>
           )}
@@ -50,4 +51,26 @@ export function BlogPostCard({ post, readTimeString, readMoreString }: Props) {
       </CustomLink>
     </article>
   );
+}
+
+function getReadTimeString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'min read';
+    case 'no':
+      return 'min lesetid';
+    default:
+      return 'min read';
+  }
+}
+
+function getReadMoreString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Read more';
+    case 'no':
+      return 'Les mer';
+    default:
+      return 'Read more';
+  }
 }

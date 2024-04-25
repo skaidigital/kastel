@@ -1,4 +1,4 @@
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import {
   aspectRatioSettings,
   getAuthor,
@@ -11,8 +11,10 @@ import {
   videoSettings
 } from '@/lib/sanity/fragments';
 import {
+  aspectRatiosValidator,
   authorValidator,
   blogPostCardValidator,
+  imageValidator,
   portableTextValidator
 } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -28,8 +30,14 @@ const blogPostsValidator = z.object({
 export const blogPostValidator = z.object({
   id: z.string(),
   type: z.literal('blogPost'),
-  blogPosts: blogPostsValidator,
+  title: z.string(),
+  readTime: z.string(),
   author: authorValidator,
+  aspectRatioMobile: aspectRatiosValidator,
+  aspectRatioDesktop: aspectRatiosValidator,
+  imageMobile: imageValidator,
+  imageDesktop: imageValidator,
+  blogPosts: blogPostsValidator,
   content: portableTextValidator
 });
 
@@ -37,13 +45,23 @@ export type BlogWidth = z.infer<typeof blogWidthValidator>;
 export type BlogPostsProps = z.infer<typeof blogPostsValidator>;
 export type BlogPostPayload = z.infer<typeof blogPostValidator>;
 
-export function getBlogPostQuery({ lang }: { lang: LangValues }) {
+export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: MarketValues }) {
   const query = groq`
     *[_type == "blogPost" && slug_${lang}.current == $slug][0] {
       "id": _id,
       "type": _type,
+      "title": title.${lang},
+      "readTime": coalesce(round(length(pt::text(content + "_" + market)) / 5 / 180 ), 1),
       "author": author->{
         ${getAuthor(lang)}
+      },
+      aspectRatioMobile,
+      aspectRatioDesktop,
+      imageMobile{
+        ${getImageBase(lang)}
+      },
+      imageDesktop{
+        ${getImageBase(lang)}
       },
       "blogPosts": reccommendedBlogPosts{
         "title": title.${lang},
@@ -67,7 +85,7 @@ export function getBlogPostQuery({ lang }: { lang: LangValues }) {
             },
             _type == "productLink" => {
               product->{
-                ${getProductCard(lang)}
+                ${getProductCard(lang, market)}
               }
             }
           },
@@ -94,9 +112,12 @@ export function getBlogPostQuery({ lang }: { lang: LangValues }) {
             width
           },
           _type == "hotspotImage" => {
-            ...@->{
-              ${getHotspotImage(lang)}
-            }
+            "image": image->{
+              ${getHotspotImage(lang, market)}
+            },
+            aspectRatioSettings{
+              ${aspectRatioSettings}
+            },
           },
           _type == "standout" => {
             type,
@@ -111,7 +132,7 @@ export function getBlogPostQuery({ lang }: { lang: LangValues }) {
             },
             type == "product" => {
               product->{
-                ${getProductCard(lang)}
+                ${getProductCard(lang, market)}
               }
             }
           }

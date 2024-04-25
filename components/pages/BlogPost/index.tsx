@@ -1,3 +1,4 @@
+import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { BlogPostAuthor } from '@/components/pages/BlogPost/BlogPostAuthor';
 import { BlogPostHeader } from '@/components/pages/BlogPost/BlogPostHeader';
@@ -11,31 +12,52 @@ export interface Props {
   lang: LangValues;
 }
 
+// TODO get description for blog posts
 export function BlogPost({ data, lang }: Props) {
-  const { content, blogPosts, author } = data;
+  if (!data) return null;
 
-  console.log(author);
+  const {
+    title,
+    content,
+    readTime,
+    author,
+    aspectRatioMobile,
+    aspectRatioDesktop,
+    imageMobile,
+    imageDesktop,
+    blogPosts
+  } = data;
 
   return (
     <Section label="blogPostContent" srHeading="Blog post content">
-      <BlogPostHeader title="Title" readTime="5" />
-      <PortableTextRenderer value={content} type="blogPost" />
-      {author && (
-        <BlogPostAuthor
-          name={author.name}
-          role={author.role}
-          image={author.image}
-          description={author.description}
-          className="mb-20 mt-12 lg:mx-auto lg:mb-40 lg:max-w-[--blog-post-container-md]"
+      <Container>
+        <BlogPostHeader
+          title={title}
+          readTime={readTime}
+          lang={lang}
+          aspectRatioMobile={aspectRatioMobile}
+          aspectRatioDesktop={aspectRatioDesktop}
+          imageMobile={imageMobile}
+          imageDesktop={imageDesktop}
         />
-      )}
-      {blogPosts && (
-        <RecentBlogPosts
-          title={blogPosts.title}
-          posts={blogPosts.posts}
-          buttonText={blogPosts.buttonText}
-        />
-      )}
+        <PortableTextRenderer value={content} type="blogPost" />
+        {author && (
+          <BlogPostAuthor
+            name={author.name}
+            role={author.role}
+            image={author.image}
+            description={author.description}
+            className="mb-20 mt-12 lg:mx-auto lg:mb-40 lg:max-w-[--blog-post-container-md]"
+          />
+        )}
+        {blogPosts && (
+          <RecentBlogPosts
+            title={blogPosts.title}
+            posts={blogPosts.posts}
+            buttonText={blogPosts.buttonText}
+          />
+        )}
+      </Container>
     </Section>
   );
 }
