@@ -6,7 +6,6 @@ import {
   Calendar,
   Check,
   Coins,
-  Cookie,
   CreditCard,
   Crosshair,
   Faders,
@@ -26,7 +25,6 @@ import {
   PaintBucket,
   Placeholder,
   Question,
-  QuestionMark,
   Quotes,
   Recycle,
   Signpost,
@@ -58,8 +56,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      listNew({ S, schemaType: 'blogPost', title: '🚧 Blog posts' }).icon(Article),
-      listNew({ S, schemaType: 'legalPage', title: '🚧 Legal pages' }).icon(Gavel),
+      listNew({ S, schemaType: 'blogPost', title: '🚧  Blog posts' }).icon(Article),
+      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       S.divider(),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
@@ -70,7 +68,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
             .title('Products')
             .defaultOrdering([{ field: 'title.en', direction: 'asc' }])
             .apiVersion(SANITY_STUDIO_API_VERSION)
-            .filter(`_type == 'product' `)
+            .filter("_type == 'product'")
             .child((_id) =>
               S.list()
                 .title('Product')
@@ -101,7 +99,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         .icon(Sneaker),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
       S.divider(),
-      group(S, 'Nature Lab', [
+      group(S, '🚧 Nature Lab', [
         listNew({ S, title: 'Landing page', schemaType: 'natureLabLandingPage' }).icon(File),
         listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
         listNew({ S, title: 'Phase 2 products', schemaType: 'phase2Product' }).icon(Sneaker),
@@ -116,9 +114,9 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, 'Announcement banner', 'announcementBanner', 'announcementBanner').icon(Info),
         singleton(S, 'Navbar', 'navbar', 'navbar').icon(ArrowLineUp),
         singleton(S, 'Footer', 'footer', 'footer').icon(SquareHalfBottom),
-        singleton(S, 'Cookie consent', 'cookieConsent', 'cookieConsent').icon(Cookie),
         singleton(S, 'Popup', 'popup', 'popup').icon(MegaphoneSimple),
         singleton(S, 'USPs', 'usps', 'usps').icon(Check),
+        singleton(S, 'USP marquee', 'layoutUSPMarquee', 'layoutUSPMarquee').icon(Check),
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
       group(S, 'Reusable content blocks', [
@@ -141,8 +139,14 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Shop Our Models', schemaType: 'shopOurModelsBlock' }).icon(Slideshow),
         listNew({ S, title: 'UGC', schemaType: 'ugcBlock' }).icon(VideoCamera),
         listNew({ S, title: 'Featured Shoe', schemaType: 'featuredShoeBlock' }).icon(Star),
+        listNew({ S, title: 'Featured Collection', schemaType: 'featuredCollectionBlock' }).icon(
+          Star
+        ),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
-        listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair)
+        listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair),
+        listNew({ S, title: 'Nature Lab Innovation', schemaType: 'natureLabInnovationItem' }).icon(
+          Crosshair
+        )
       ]).icon(Recycle),
       group(S, 'Retailers', [
         singleton(S, 'Retailers page', 'retailersPage', 'retailersPage').icon(File),
@@ -169,9 +173,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag),
         listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets),
         listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle),
-        singleton(S, 'Default Product FAQs', 'defaultProductFAQS', 'defaultProductFAQS').icon(
-          QuestionMark
-        )
+        singleton(S, 'Product settings', 'productSettings', 'productSettings').icon(Gear)
       ]).icon(Gear)
     ]);
 };

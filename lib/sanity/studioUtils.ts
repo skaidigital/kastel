@@ -42,9 +42,15 @@ export function resolveHref(documentType?: string, slug?: string): string | unde
     case 'home':
       return '/';
     case 'page':
-      return slug ? `/${slug}` : undefined;
+      return slug ? `/no/no/${slug}` : undefined;
     case 'project':
-      return slug ? `/projects/${slug}` : undefined;
+      return slug ? `/no/no/projects/${slug}` : undefined;
+    case 'collection':
+      return slug ? `/no/no/collections/${slug}` : undefined;
+    case 'legalPage':
+      return slug ? `/no/no/legal/${slug}` : undefined;
+    case 'product':
+      return slug ? `/no/no/products/${slug}` : undefined;
     default:
       console.warn('Invalid document type:', documentType);
       return undefined;
@@ -78,8 +84,8 @@ export const validateAllStringTranslations = (Rule: any) =>
     return true;
   });
 
-export const readOnlyUnlessAdmin = (currentUser: any) =>
-  currentUser?.role === 'administrator' ? false : true;
+export const readOnlyUnlessDeveloper = (currentUser: any) =>
+  currentUser?.role === 'developer' ? false : true;
 
 interface Props {
   title: string;
@@ -124,7 +130,8 @@ export function i18nField({
       ...(type === 'text' && { rows }),
       initialValue,
       validation,
-      readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)
+      readOnly: ({ currentUser }) =>
+        readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
   );
 }
@@ -166,7 +173,8 @@ export function i18nString({
       hidden,
       initialValue,
       validation,
-      readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)
+      readOnly: ({ currentUser }) =>
+        readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
   );
 }
@@ -207,7 +215,8 @@ export function i18nNumber({
       hidden,
       initialValue,
       validation,
-      readOnly: ({ currentUser }) => (readOnly && readOnlyUnlessAdmin(currentUser) ? true : false)
+      readOnly: ({ currentUser }) =>
+        readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
   );
 }

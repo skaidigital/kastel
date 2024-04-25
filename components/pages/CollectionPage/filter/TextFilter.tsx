@@ -31,18 +31,19 @@ export function TextFilter({ filter, parentKey }: TextFilterProps) {
     setState(newState);
   }
 
+  const isActive = state?.includes(filter.slug!);
+
   return (
-    <>
-      <div
-        className={cn(
-          'border-[2px] bg-gray-100 p-1 text-brand-mid-grey',
-          state?.includes(filter.slug!) && 'bg-brand-primary text-white'
-        )}
-      >
-        <button className="w-full text-center" onClick={() => handleOnClick()}>
-          {filter.title}
-        </button>
-      </div>
-    </>
+    <button
+      className={cn(
+        'flex items-center justify-center rounded-[2px] border px-3 py-2 text-xs font-medium lg:text-sm',
+        isActive
+          ? 'border-brand-primary bg-brand-primary text-white'
+          : 'border-brand-light-grey bg-brand-sand text-brand-mid-grey'
+      )}
+      onClick={() => handleOnClick()}
+    >
+      {filter.title}
+    </button>
   );
 }

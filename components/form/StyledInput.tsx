@@ -19,7 +19,7 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
           name={name}
           {...otherProps}
           className={cn(
-            'w-full rounded-project border border-brand-border bg-white px-3 py-1.5 text-paragraph-sm outline-none placeholder:text-paragraph-sm focus:border-brand-dark-grey disabled:cursor-not-allowed disabled:bg-gray-50',
+            'w-full rounded-[2px] border border-brand-light-grey bg-white p-3 text-xs outline-none placeholder:text-xs focus:border-brand-dark-grey disabled:cursor-not-allowed disabled:bg-gray-50',
             error
               ? 'border-red-300 text-red-900 placeholder:text-red-300 focus:border-red-500'
               : '',
@@ -27,7 +27,7 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
           )}
         />
         {error && (
-          <p className="mt-2 text-paragraph-sm text-red-500" id="email-error">
+          <p className="mt-2 text-xs text-red-500" id="email-error">
             {error.message}
           </p>
         )}

@@ -19,9 +19,12 @@ export function getFooterQuery(lang: LangValues) {
     "description": description.${lang},
     "items": items_${lang}[]{
       "heading": heading.${lang},
-      links[]{
-        ${getLink(lang)}
-      },
+        links[]{
+          link{
+            ${getLink(lang)}
+          },
+          "badge": badge->title.${lang}
+        },
     },
   }
   `;

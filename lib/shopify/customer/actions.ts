@@ -27,7 +27,10 @@ export async function logIn() {
   );
   authorizationRequestUrl.searchParams.append('client_id', clientId);
   authorizationRequestUrl.searchParams.append('response_type', 'code');
-  authorizationRequestUrl.searchParams.append('redirect_uri', `${callbackURIRoot}/shopify/auth`);
+  authorizationRequestUrl.searchParams.append(
+    'redirect_uri',
+    `${callbackURIRoot}/api/shopify/auth`
+  );
   authorizationRequestUrl.searchParams.append('state', await generateState());
   authorizationRequestUrl.searchParams.append('nonce', await generateNonce(10));
 
@@ -39,7 +42,7 @@ export async function getAccessToken(code: string, state: string) {
 
   body.append('grant_type', 'authorization_code');
   body.append('client_id', clientId);
-  body.append('redirect_uri', `${callbackURIRoot}/shopify/auth`);
+  body.append('redirect_uri', `${callbackURIRoot}/api/shopify/auth`);
   body.append('code', code);
   body.append('state', state);
 
@@ -55,6 +58,7 @@ export async function getAccessToken(code: string, state: string) {
   });
 
   const data = await response.json();
+
   const error = data.error;
 
   if (error) {

@@ -28,12 +28,22 @@ export const linkValidator = z.discriminatedUnion('linkType', [
   linkInternalValidator
 ]);
 
-export const linkWithoutTextValidator = z.object({
+const linkWithoutTextInternalValidator = z.object({
   type: z.literal('linkWithoutText'),
-  linkType: z.enum(['internal', 'external']),
-  href: z.string().url().optional().nullable(),
-  linkTo: linkToValidator.nullable()
+  linkType: z.literal('internal'),
+  linkTo: linkToValidator
 });
+
+const linkWithoutTextExternalValidator = z.object({
+  type: z.literal('linkWithoutText'),
+  linkType: z.literal('external'),
+  href: z.string().url()
+});
+
+export const linkWithoutTextValidator = z.discriminatedUnion('linkType', [
+  linkWithoutTextInternalValidator,
+  linkWithoutTextExternalValidator
+]);
 
 export const imageValidator = z.object({
   asset: z.object({
@@ -75,7 +85,7 @@ export const portableTextValidator = z.array(z.any());
 
 export const headingAndLinksValidator = z.object({
   heading: z.string(),
-  links: z.array(linkValidator)
+  links: z.array(z.object({ link: linkValidator, badge: z.string().optional() }))
 });
 
 export const footerValidator = z.object({
@@ -106,11 +116,33 @@ export const productVariantValidator = z.object({
 
 export const productCardValidator = z.object({
   type: z.literal('product'),
+  gid: z.string(),
+  sku: z.string().optional(),
   title: z.string(),
   slug: z.string(),
   mainImage: imageValidator,
   lifestyleImage: imageValidator.optional(),
-  badges: z.array(z.string()).optional()
+  badges: z.array(z.string()).optional(),
+  minVariantPrice: z.object({
+    amount: z.number(),
+    currencyCode: z.string()
+  }),
+  maxVariantPrice: z.object({
+    amount: z.number(),
+    currencyCode: z.string()
+  }),
+  sizes: z
+    .array(
+      z.object({
+        type: z.string(),
+        options: z.array(
+          z.object({
+            title: z.string()
+          })
+        )
+      })
+    )
+    .optional()
 });
 
 export const SEOAndSocialsValidator = z.object({
@@ -242,4 +274,16 @@ export const authorValidator = z.object({
   role: z.string(),
   description: z.string().optional(),
   image: imageValidator
+});
+
+export const faqBlockValidator = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  badge: z.string().optional(),
+  items: z.array(
+    z.object({
+      question: z.string(),
+      answer: portableTextValidator
+    })
+  )
 });

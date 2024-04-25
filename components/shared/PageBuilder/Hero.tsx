@@ -85,7 +85,7 @@ export const Hero = ({ data }: Props) => {
             <Heading
               as={index === 0 ? 'h1' : 'h2'}
               className={cn(
-                'mb-4 translate-y-[10px] animate-fade-up-text text-pretty text-[48px] leading-[40px] opacity-0 transition-[opacity,color] [--animation-delay:600ms] lg:mb-6 lg:max-w-3xl lg:text-heading-2xl'
+                'mb-4 translate-y-[10px] animate-fade-up-text text-pretty text-[48px] italic leading-[40px] opacity-0 transition-[opacity,color] [--animation-delay:600ms] lg:mb-6 lg:max-w-3xl lg:text-heading-2xl'
               )}
             >
               {title}

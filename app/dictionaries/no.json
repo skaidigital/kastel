@@ -14,6 +14,11 @@
       "error_description": "Vennligst prøv igjen senere."
     }
   },
+  "collection_page": {
+    "number_of_products": "produkter",
+    "no_products": "Vi fant ingen produkter med de valgte filtrene",
+    "description": "Beskrivelse"
+  },
   "product_page": {
     "discount": "Rabatt",
     "add_to_cart": "Legg i handlekurv",
@@ -24,6 +29,7 @@
     "reccommended": "Anbefalt",
     "description": "Beskrivelse",
     "expected_back_in_stock": "Forventet tilbake på lager",
+    "size_guide": "Størrelsesguide",
     "stock": {
       "out_of_stock": "Utsolgt",
       "low_stock": "Bare __AMOUNT__ igjen på lager",
@@ -38,8 +44,10 @@
     }
   },
   "search_page": {
+    "we_found": "Vi fant",
     "search_results": "Søkeresultater",
-    "no_products_that_match": "Det er ingen produkter som samsvarer",
+    "products": "produkter",
+    "no_products_that_match": "Vi fant ingen produkter som matcher søket ditt.",
     "showing": "Viser",
     "for": "for",
     "next_page": "Neste side",
@@ -61,6 +69,8 @@
     "my_account": "Min konto",
     "orders": "Bestillinger",
     "addresses": "Adresser",
+    "wishlist": "Ønskeliste",
+    "customer_service": "Kundeservice",
     "log_out": "Logg ut"
   },
   "order_details_page": {
@@ -134,7 +144,7 @@
     "close_cart": "Lukk handlekurv",
     "checkout": "Sjekk ut",
     "quantity_short": "Ant",
-    "cart_is_empty": "Handlekurven din er tom.",
+    "cart_is_empty": "Handlekurven din er tom",
     "start_shopping": "Start handelen",
     "cross_sell": {
       "we_think_you_will_like": "Kanskje du vil like",
@@ -143,10 +153,13 @@
     }
   },
   "market_selector": {
-    "switch_location": "Bytt butikk",
-    "stay": "Fortsatt her",
-    "are_you_in": "Handler du fra",
-    "based_on_your_location": "Basert på plasseringen din, anbefaler vi at du handler i __URL__ butikken."
+    "select_your_location": "Velg din lokasjon"
+  },
+  "market_suggestion_popup": {
+    "looks_like_you_are_in": "Ser ut som du er i",
+    "would_you_like_to_change_location": "Vil du endre lokasjon?",
+    "more_locations": "Flere lokasjoner",
+    "confirm_your_location": "Bekreft din lokasjon"
   },
   "reccommended_products": {
     "we_think_you_will_like": "Vi anbefaler også"

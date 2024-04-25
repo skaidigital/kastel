@@ -22,7 +22,7 @@ export function OptionGroup({ option, options, combinations }: Props) {
 
   return (
     <dl key={option.name}>
-      <dt className="mb-4 text-eyebrow uppercase">
+      <dt className="text-eyebrow mb-4 uppercase">
         {option.name}
         {selectedOption && `: ${selectedOption}`}
       </dt>
@@ -57,10 +57,10 @@ export function OptionGroup({ option, options, combinations }: Props) {
               }}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={cn(
-                'flex min-w-[48px] items-center justify-center rounded-project border border-brand-border px-2 py-1 text-eyebrow uppercase',
+                'border-brand-border text-eyebrow flex min-w-[48px] items-center justify-center rounded-project border px-2 py-1 uppercase',
                 isActive && 'cursor-default border-brand-dark-grey',
                 !isAvailableForSale &&
-                  'relative z-10 overflow-hidden bg-neutral-100 !text-eyebrow text-brand-mid-grey before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform'
+                  '!text-eyebrow relative z-10 overflow-hidden bg-neutral-100 text-brand-mid-grey before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform'
                 // isColor && 'h-6'
               )}
             >

@@ -17,14 +17,14 @@ export const navbar = defineType({
       name: 'items_no',
       type: 'array',
       of: [defineArrayMember({ type: 'meganav' }), defineArrayMember({ type: 'link' })],
-      validation: (Rule) => Rule.min(1).max(6)
+      validation: (Rule) => Rule.required().min(1).max(6)
     }),
     defineField({
       title: 'Items (Swedish market)',
       name: 'items_sv',
       type: 'array',
       of: [defineArrayMember({ type: 'meganav' }), defineArrayMember({ type: 'link' })],
-      validation: (Rule) => Rule.min(1).max(6)
+      validation: (Rule) => Rule.required().min(1).max(6)
     })
   ]
 });

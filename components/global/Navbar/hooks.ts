@@ -19,7 +19,8 @@ export const meganavValidator = z.object({
 
 // TODO fix. It should be discriminated union but then it is not a zod object and it fails
 export const navbarValidator = z.object({
-  items: z.array(z.union([linkValidator, meganavValidator]))
+  items: z.array(z.union([linkValidator, meganavValidator])),
+  hasAnnouncementBanner: z.boolean()
 });
 
 export type MeganavPayload = z.infer<typeof meganavValidator>;
@@ -28,6 +29,7 @@ export type NavbarPayload = z.infer<typeof navbarValidator>;
 export function getNavbarQuery(lang: LangValues) {
   const query = groq`
   *[_type == "navbar"][0] {
+    "hasAnnouncementBanner": count(*[_type == "announcementBanner"]) > 0,
     "items": items_${lang}[]{
       _type == "meganav" => {
         "type": _type,
@@ -35,7 +37,10 @@ export function getNavbarQuery(lang: LangValues) {
         links[]{
           "heading": heading.${lang},
           links[]{
-            ${fragments.getLink(lang)}
+            link{
+              ${fragments.getLink(lang)}
+            },
+            "badge": badge->title.${lang}
           },
         },
         featuredProducts[]{

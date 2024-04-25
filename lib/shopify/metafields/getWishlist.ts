@@ -1,31 +1,25 @@
 import { METAFIELDS } from '@/data/constants';
-import { cookies } from 'next/headers';
-import { shopifyFetch } from '..';
+import { customerAccountFetch } from '../customer';
 
 export async function getWishlist(): Promise<string[]> {
   const wishlistResponse = await getWishlistForUser();
+
+  if (!wishlistResponse?.value) return [];
 
   return JSON.parse(wishlistResponse?.value) || [];
 }
 
 export async function getWishlistForUser() {
-  const accessToken = cookies().get('accessToken')?.value;
-
-  if (!accessToken) {
-    throw new Error('No access token');
-  }
-
-  const wishlistResponse = await shopifyFetch<CustomerMetadata>({
+  const wishlistResponse = await customerAccountFetch<CustomerMetadata>({
     query: getWishlistQuery,
     variables: {
-      token: accessToken,
       key: METAFIELDS.customer.wishlist.key,
       namespace: METAFIELDS.customer.wishlist.namespace
     },
     cache: 'no-store'
   });
 
-  return wishlistResponse.body.data?.customer?.metafield;
+  return wishlistResponse.body?.data?.customer?.metafield;
 }
 
 type CustomerMetadata = {
@@ -39,15 +33,14 @@ type CustomerMetadata = {
     };
   };
   variables: {
-    token: string;
     key: string;
     namespace: string;
   };
 };
 
 const getWishlistQuery = /* GraphQL */ `
-  query getWishlist($token: String!, $key: String!, $namespace: String!) {
-    customer(customerAccessToken: $token) {
+  query getWishlist($key: String!, $namespace: String!) {
+    customer {
       metafield(key: $key, namespace: $namespace) {
         id
         key

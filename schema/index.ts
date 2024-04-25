@@ -7,6 +7,7 @@ import { color } from '@/schema/documents/color';
 import { faqBlock } from '@/schema/documents/faqBlock';
 import { hotspotImage } from '@/schema/documents/hotspotImage';
 import { legalPage } from '@/schema/documents/legalPage';
+import { natureLabInnovationItem } from '@/schema/documents/natureLabInnovationItem';
 import { natureLabLandingPage } from '@/schema/documents/natureLabLandingPage';
 import { natureLabSettings } from '@/schema/documents/natureLabSettings';
 import { page } from '@/schema/documents/page';
@@ -54,13 +55,13 @@ import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { featuredShoeSection } from '@/schema/objects/featuredShoeSection';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
 import { kastelClubSection } from '@/schema/objects/kastelClubSection';
+import { legalPageText } from '@/schema/objects/legalPageText';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
 import { meganav } from '@/schema/objects/meganav';
 import { metadata } from '@/schema/objects/metadata';
 import { natureLabExplainerSection } from '@/schema/objects/natureLabExplainerSection';
-import { natureLabInnovationItem } from '@/schema/objects/natureLabInnovationItem';
 import { natureLabProductStatusItem } from '@/schema/objects/natureLabProductStatusItem';
 import { paymentProvider } from '@/schema/objects/paymentProvider';
 import { productDisplay } from '@/schema/objects/productDisplay';
@@ -79,12 +80,13 @@ import { timelineSection } from '@/schema/objects/timelineSection';
 import { ugcSection } from '@/schema/objects/ugcSection';
 import { updateItem } from '@/schema/objects/updateItem';
 import { uspExplainerSection } from '@/schema/objects/uspExplainerSection';
+import { variableText } from '@/schema/objects/variableText';
 import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
-import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollection';
+import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollectionBlock';
 import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
 import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
@@ -98,13 +100,13 @@ import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
-import { cookieConsent } from '@/schema/singletons/cookieConsent';
-import { defaultProductFAQS } from '@/schema/singletons/defaultProductFAQS';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
+import { layoutUspMarquee } from '@/schema/singletons/layoutUspMarquee';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
 import { popup } from '@/schema/singletons/popup';
+import { productSettings } from '@/schema/singletons/productSettings';
 import { retailersPage } from '@/schema/singletons/retailersPage';
 import { settingsPaymentProviders } from '@/schema/singletons/settingsPaymentProviders';
 import { settingsSEOAndSocials } from '@/schema/singletons/settingsSEOAndSocials';
@@ -133,6 +135,8 @@ const schema = [
 
   // Objects
   address,
+  variableText,
+  legalPageText,
   richText,
   richTextNatureLab,
   updateItem,
@@ -153,7 +157,6 @@ const schema = [
   spot,
   aspectRatioSettings,
   sectionSettings,
-  natureLabInnovationItem,
   natureLabProductStatusItem,
   card,
   conditionalLink,
@@ -207,6 +210,7 @@ const schema = [
   phase1BlogPost,
   phase2Product,
   phase3BlogPost,
+  natureLabInnovationItem,
 
   // Documents
   page,
@@ -233,14 +237,14 @@ const schema = [
   accountPage,
   announcementBanner,
   popup,
-  cookieConsent,
   usps,
   helpCenter,
   merchandising,
   settingsSEOAndSocials,
   settingsPaymentProviders,
+  layoutUspMarquee,
   pageNotFound,
-  defaultProductFAQS,
+  productSettings,
   retailersPage
 ];
 

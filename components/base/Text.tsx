@@ -5,6 +5,7 @@ const textProps = cva({
   base: '',
   variants: {
     size: {
+      xs: 'text-xs placeholder:text-xs',
       sm: 'text-sm placeholder:text-sm',
       md: 'text-md placeholder:text-md',
       lg: 'text-lg placeholder:text-lg',

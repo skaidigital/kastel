@@ -5,6 +5,7 @@ import {
   authorValidator,
   blogPostCardValidator,
   conditionalLinkValidator,
+  faqBlockValidator,
   galleryValidator,
   headingAndLinksValidator,
   hotspotImageValidator,
@@ -54,3 +55,4 @@ export type HotspotImageProps = z.infer<typeof hotspotImageValidator>;
 export type VideoSettings = z.infer<typeof videoSettingsValidator>;
 export type BlogPostCardProps = z.infer<typeof blogPostCardValidator>;
 export type AuthorProps = z.infer<typeof authorValidator>;
+export type FAQBlockProps = z.infer<typeof faqBlockValidator>;

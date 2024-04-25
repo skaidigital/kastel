@@ -2,7 +2,7 @@ import { resolveHref } from '@/lib/sanity/studioUtils';
 import { Observable, map } from 'rxjs';
 import { DocumentLocationResolver, DocumentLocationsState } from 'sanity/presentation';
 
-const documentTypesWithPreview = ['page', 'product', 'collection', 'bundle', 'configurator'];
+const documentTypesWithPreview = ['page', 'product', 'collection', 'legalPage'];
 
 export const locate: DocumentLocationResolver = (params, context) => {
   const documentTypesUsedOnAllPages = ['footer', 'navbar'];
@@ -73,8 +73,9 @@ export const locate: DocumentLocationResolver = (params, context) => {
               locations: docs
                 ?.map((doc) => {
                   const href = resolveHref(doc._type, doc?.slug?.current);
+
                   return {
-                    title: doc?.title || 'Untitled',
+                    title: doc?.internalTitle || doc?.title || 'Untitled',
                     href: href!
                   };
                 })
@@ -82,7 +83,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
               tone: 'positive',
               message: 'Open preview'
             } satisfies DocumentLocationsState;
-          case 'bundle':
+          case 'legalPage':
             return {
               locations: docs
                 ?.map((doc) => {

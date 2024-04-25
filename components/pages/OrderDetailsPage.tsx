@@ -2,7 +2,7 @@ import {
   formatPrice,
   getOrderFinancialStatusBadgeVariant,
   getOrderFullfillmentStatusBadgeVariant
-} from '@/app/(site)/[market]/[lang]/shopify/utils';
+} from '@/app/api/shopify/utils';
 import { getDictionary } from '@/app/dictionaries';
 import { BackButton } from '@/components/BackButton';
 import { Badge } from '@/components/Badge';

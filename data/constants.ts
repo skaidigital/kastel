@@ -5,10 +5,12 @@ export const ROUTES = {
   HOME: '/',
   ACCOUNT: '/account',
   WISHLIST: '/account/wishlist',
+  ACCOUNT_CUSTOMER_SERVICE: '/account/customer-service',
   ADDRESSES: '/account/addresses',
   CREATE_ADDRESS: '/account/addresses/create',
+  EDIT_ADDRESS: '/account/addresses/:id/edit',
   PRODUCTS: '/products',
-  ORDERS: '/orders',
+  ORDERS: '/account/orders',
   ORDER_DETAILS: '/account/orders',
   BLOG: '/blog',
   SHOP_ALL: '/shop/all',
@@ -21,6 +23,8 @@ export const ROUTES = {
 
 export const CACHE_TAGS = {
   CART: 'cart',
+  WISHLIST_PRODUCTS: 'wishlist-products',
+  HELP_CENTER: 'help-center',
   CUSTOMER_ADDRESS: 'customer-address',
   ANNOUNCEMENT_BANNER: 'announcement-banner',
   USPS: 'unique-selling-points',
@@ -31,6 +35,7 @@ export const CACHE_TAGS = {
   NAVBAR: 'navbar',
   FOOTER: 'footer',
   POPUP: 'popup',
+  LAYOUT_USP_MARUQEE: 'layoutUSPMarquee',
   METADATA: 'settingsSEOAndSocials',
   COOKIE_CONSENT: 'cookieConsent'
 };
@@ -56,7 +61,8 @@ export const COOKIE_NAMES = {
     ACCESS_TOKEN: 'shopify_access_token',
     REFRESH_TOKEN: 'shopify_refresh_token',
     EXPIRES_IN: 'shopify_expires_in',
-    ID_TOKEN: 'shopify_id_token'
+    ID_TOKEN: 'shopify_id_token',
+    EMAIL: 'shopify_email'
   },
   COOKIE_CONSENT: 'has_seen_cookie_consent',
   POPUP: 'has_seen_popup',
@@ -65,7 +71,8 @@ export const COOKIE_NAMES = {
   HAS_CHOSEN_MARKET: 'has_chosen_market',
   MARKET: 'market',
   PREVIEW_MARKET: 'previewMarket',
-  PREVIEW_LANG: 'previewLang'
+  PREVIEW_LANG: 'previewLang',
+  SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name'
 };
 
 export const TEMPLATES = {
@@ -158,9 +165,7 @@ export const SITE_URLS: Record<MarketValues, string> = {
 
 // Product type
 
-// export const COLLECTION_PAGE_SIZE = 20;
-//! Fix this
-export const COLLECTION_PAGE_SIZE = 5;
+export const COLLECTION_PAGE_SIZE = 20;
 
 export const ACCOUNT_PAGE_ORDERS_PAGE_SIZE = 10;
 
@@ -246,10 +251,36 @@ export const SMILE_DEEP_LINKS = {
 
 export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_LINKS];
 
+export const URL_STATE_KEYS = {
+  sort: 'sort',
+  view: 'view',
+  page: 'page',
+  search: 'q',
+  onSale: 'on_sale'
+};
 export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
   { title: '16:9', value: '16:9' },
   { title: '4:3', value: '4:3' },
   { title: '21:9', value: '21:9' },
   { title: '9:16', value: '9:16' },
   { title: '3:4', value: '3:4' }
+];
+
+export const SORT_OPTIONS = [
+  {
+    label: 'Recommended',
+    value: 'recommended'
+  },
+  {
+    label: 'Price (Low)',
+    value: 'price_lowest'
+  },
+  {
+    label: 'Price (High)',
+    value: 'price_highest'
+  },
+  {
+    label: 'Newest',
+    value: 'newest'
+  }
 ];

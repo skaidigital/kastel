@@ -15,7 +15,7 @@ export async function PaymentProviders({ market }: Props) {
     <div className="flex gap-x-2">
       {paymentProviders.data.map((provider, index) => (
         <div className="inline-block" key={index}>
-          <Icon viewBox="0 0 70 48" className="h-auto w-8" name={provider} id={provider} />
+          <Icon viewBox="0 0 70 48" className="h-auto w-12" name={provider} id={provider} />
         </div>
       ))}
     </div>

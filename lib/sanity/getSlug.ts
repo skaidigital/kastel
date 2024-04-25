@@ -1,5 +1,3 @@
-'use client';
-
 import { SCHEMA_NAMES } from '@/data/constants';
 import { LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types';
 

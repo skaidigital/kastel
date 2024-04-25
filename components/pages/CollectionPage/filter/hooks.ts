@@ -1,14 +1,15 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
-export function getFilterQuery(market: MarketValues) {
+// TODO redo to to use lang and not market
+export function getFilterQuery(lang: LangValues) {
   const query = groq`
     *[_type == "filters"][0] {
         "items": items[]->{
             "id": _id,
-            "title": title.${market},
-            "slug": slug_${market}.current,
+            "title": title.${lang},
+            "slug": slug_${lang}.current,
             type,
         }
     }
@@ -24,7 +25,7 @@ const FilterGroupValidator = z.object({
   type: z.string()
 });
 
-export const FilterGroupsValidator = z.array(FilterGroupValidator);
+export const filterGroupsValidator = z.array(FilterGroupValidator);
 export type FilterGroupSchema = z.infer<typeof FilterGroupValidator>;
 
 type filterType = 'text' | 'color' | 'size';
@@ -44,7 +45,7 @@ export function getFilterItemQuery(market: MarketValues, type: filterType) {
 
 export function getTagTypeText(market: MarketValues) {
   const query = groq`
-    *[_type == "tag" && references($parentId)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current)] {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current
@@ -56,7 +57,7 @@ export function getTagTypeText(market: MarketValues) {
 
 export function getTagTypeColor(market: MarketValues) {
   const query = groq`
-    *[_type == "tag" && references($parentId)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(color)] {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current,
@@ -69,7 +70,7 @@ export function getTagTypeColor(market: MarketValues) {
 
 export function getTagTypeSize(market: MarketValues) {
   const query = groq`
-    *[_type == "tag" && references($parentId)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(size)] {
         "id": _id,
         "title": title.${market},
         "slug": size->slug_${market}.current,

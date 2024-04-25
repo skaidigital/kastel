@@ -1,9 +1,9 @@
+import { ColorFilter } from '@/components/pages/CollectionPage/filter/ColorFilter';
+import { SizeFilter } from '@/components/pages/CollectionPage/filter/SizeFilter';
+import { TextFilter } from '@/components/pages/CollectionPage/filter/TextFilter';
 import { MarketValues } from '@/data/constants';
 import { getMarket } from '@/lib/getMarket';
 import { loadQuery } from '@/lib/sanity/store';
-import { ColorFilter } from './ColorFilter';
-import { SizeFilter } from './SizeFilter';
-import { TextFilter } from './TextFilter';
 import {
   FilterGroupSchema,
   FilterItemSchema,
@@ -21,10 +21,9 @@ function loadFilterItem(market: MarketValues, type: filterType, parentId: string
 
 interface FilterItemProps {
   item: FilterGroupSchema;
-  open: boolean;
 }
 
-export async function FilterGroupItem({ item: filterGroup, open }: FilterItemProps) {
+export async function FilterGroupItem({ item: filterGroup }: FilterItemProps) {
   const market = await getMarket();
   const initial = await loadFilterItem(market, filterGroup.type as filterType, filterGroup.id);
 
@@ -34,19 +33,27 @@ export async function FilterGroupItem({ item: filterGroup, open }: FilterItemPro
 
   return (
     <>
-      <p>{filterGroup.title}</p>
-      {filterGroup.type === 'text' &&
-        filterGroups.map((filter: FilterItemSchema) => (
-          <TextFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
-        ))}
-      {filterGroup.type === 'color' &&
-        filterGroups.map((filter: FilterItemSchema) => (
-          <ColorFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
-        ))}
-      {filterGroup.type === 'size' &&
-        filterGroups.map((filter: FilterItemSchema) => (
-          <SizeFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
-        ))}
+      {filterGroup.type === 'text' && (
+        <div className="flex flex-wrap gap-2">
+          {filterGroups.map((filter: FilterItemSchema) => (
+            <TextFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
+          ))}
+        </div>
+      )}
+      {filterGroup.type === 'color' && (
+        <div className="grid grid-cols-4 gap-x-2 gap-y-3 lg:grid-cols-5 lg:gap-4">
+          {filterGroups.map((filter: FilterItemSchema) => (
+            <ColorFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
+          ))}
+        </div>
+      )}
+      {filterGroup.type === 'size' && (
+        <div className="grid grid-cols-4 gap-1 lg:gap-4">
+          {filterGroups.map((filter: FilterItemSchema) => (
+            <SizeFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
+          ))}
+        </div>
+      )}
     </>
   );
 }

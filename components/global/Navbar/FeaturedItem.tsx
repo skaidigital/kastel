@@ -1,4 +1,4 @@
-import { Text } from '@/components/base/Text';
+import { Heading } from '@/components/base/Heading';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { getSlug } from '@/lib/sanity/getSlug';
 import { LinkProps, SanityImageProps } from '@/lib/sanity/types';
@@ -20,17 +20,16 @@ export const FeaturedItem = ({ title, image, link, className, onClick }: Feature
       onClick={onClick}
       className={cn('sm:text-sm group relative flex flex-col items-center gap-y-4', className)}
     >
-      <div className="aspect-h-1 aspect-w-1 relative h-full w-full overflow-hidden rounded-project">
+      <div className="aspect-h-1 aspect-w-1 relative h-full w-full overflow-hidden rounded-[4px]">
         <SanityImage
           image={image}
           fill
-          className="absolute left-0 top-0 h-full w-full rounded-project object-cover  transition-transform duration-300 group-hover:scale-[110%]"
+          className="absolute left-0 top-0 h-full w-full rounded-project object-cover transition-transform duration-300 group-hover:scale-[110%]"
         />
       </div>
-      <Text size="eyebrow">
-        <span className="absolute inset-0 z-10" aria-hidden="true" />
-        {title}
-      </Text>
+      <p className="absolute bottom-0 left-0 px-2 pb-1 text-white">
+        <Heading size="md">{title}</Heading>
+      </p>
     </Link>
   );
 };

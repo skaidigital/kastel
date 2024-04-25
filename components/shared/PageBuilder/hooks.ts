@@ -11,7 +11,6 @@ import {
   mediaValidator,
   portableTextValidator,
   productCardValidator,
-  richTextValidator,
   uspValidator
 } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -26,10 +25,8 @@ export const sectionSettingsValidator = z.object({
   hasBottomBorder: z.boolean()
 });
 
-// New validators start
-
 const featuredCollectionValidator = z.object({
-  type: z.literal('featuredCollection'),
+  type: z.literal('featuredCollectionSection'),
   key: z.string(),
   title: z.string(),
   description: z.string(),
@@ -222,101 +219,6 @@ const uspExplainerSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
-// New validators end
-
-const textAndImageValidator = z.object({
-  type: z.literal('textAndImage'),
-  key: z.string(),
-  richText: z.array(richTextValidator),
-  image: imageValidator,
-  imageLeftOrRight: z.union([z.literal('left'), z.literal('right')]),
-  size: z.union([z.literal('fullWidth'), z.literal('contained')]),
-  textPlacement: z.union([z.literal('top'), z.literal('center'), z.literal('bottom')]),
-  hasBottomBorder: z.boolean(),
-  padding: paddingValidator,
-  hasTopPadding: z.boolean(),
-  hasBottomPadding: z.boolean()
-});
-
-const pageTitleValidator = z.object({
-  type: z.literal('pageTitle'),
-  key: z.string(),
-  title: z.string(),
-  subtitle: z.string().optional()
-});
-
-const textSectionValidator = z.object({
-  type: z.literal('textSection'),
-  key: z.string(),
-  richText: z.array(richTextValidator),
-  padding: paddingValidator,
-  hasTopPadding: z.boolean(),
-  hasBottomPadding: z.boolean(),
-  hasBottomBorder: z.boolean()
-});
-
-const accordionSectionValidator = z.object({
-  type: z.literal('accordionSection'),
-  key: z.string(),
-  title: z.string(),
-  items: z.array(
-    z.object({
-      title: z.string(),
-      richText: portableTextValidator
-    })
-  ),
-  padding: paddingValidator,
-  hasTopPadding: z.boolean(),
-  hasBottomPadding: z.boolean(),
-  hasBottomBorder: z.boolean()
-});
-
-const contactFormValidator = z.object({
-  type: z.literal('contactForm'),
-  key: z.string(),
-  padding: paddingValidator,
-  hasTopPadding: z.boolean(),
-  hasBottomPadding: z.boolean(),
-  hasBottomBorder: z.boolean(),
-  market: z.union([z.literal('no'), z.literal('sv')]).optional()
-});
-
-const instagramFeedValidator = z.object({
-  type: z.literal('instagramFeed'),
-  key: z.string()
-});
-
-const productListingValidator = z.object({
-  type: z.literal('productListing'),
-  key: z.string(),
-  title: z.string(),
-  products: z.array(productCardValidator),
-  padding: paddingValidator,
-  hasTopPadding: z.boolean(),
-  hasBottomPadding: z.boolean(),
-  hasBottomBorder: z.boolean()
-});
-
-const collectionListingValidator = z.object({
-  type: z.literal('collectionListing'),
-  key: z.string(),
-  title: z.string(),
-  collections: z.array(
-    z.object({
-      image: imageValidator,
-      collection: z.object({
-        type: z.literal('collection'),
-        slug: z.string(),
-        title: z.string()
-      })
-    })
-  ),
-  padding: paddingValidator,
-  hasTopPadding: z.boolean(),
-  hasBottomPadding: z.boolean(),
-  hasBottomBorder: z.boolean()
-});
-
 const cardBaseValidator = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
@@ -360,10 +262,23 @@ export const cardValidator = z.discriminatedUnion('type', [
   cardBaseValidator.merge(videoCardValidator)
 ]);
 
-export type CardProps = z.infer<typeof cardValidator>;
+const natureLabInnovationItemValidator = z.object({
+  title: z.string(),
+  description: z.string(),
+  image: imageValidator,
+  link: linkValidator,
+  keyFeatures: z.array(z.string())
+});
+
+const natureLabInnovationSectionValidator = z.object({
+  type: z.literal('natureLabInnovationsSection'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  innovations: z.array(natureLabInnovationItemValidator)
+});
 
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
-  // New blocks start
   featuredCollectionValidator,
   cardSectionValidator,
   blogPostSectionValidator,
@@ -375,21 +290,13 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   shopOurModelsSectionValidator,
   featuredShoeSectionValidator,
   heroValidator,
-  uspExplainerSectionValidator,
-  // New blocks end
-  textAndImageValidator,
-  pageTitleValidator,
-  textSectionValidator,
-  accordionSectionValidator,
-  productListingValidator,
-  collectionListingValidator,
-  contactFormValidator,
-  instagramFeedValidator
+  uspExplainerSectionValidator
 ]);
 
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
 
 // Start new validators
+export type CardProps = z.infer<typeof cardValidator>;
 export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
 export type CardSectionProps = z.infer<typeof cardSectionValidator>;
 export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
@@ -403,21 +310,14 @@ export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValid
 export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
 export type HeroProps = z.infer<typeof heroValidator>;
 export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
-
-// End new validator
-export type TextAndImageProps = z.infer<typeof textAndImageValidator>;
-export type PageTitleProps = z.infer<typeof pageTitleValidator>;
-export type TextSectionProps = z.infer<typeof textSectionValidator>;
-export type ProductListingProps = z.infer<typeof productListingValidator>;
-export type CollectionListingProps = z.infer<typeof collectionListingValidator>;
-export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
+export type NatureLabInnovationSectionProps = z.infer<typeof natureLabInnovationSectionValidator>;
 export type PageBuilder = z.infer<typeof pageBuilderValidator>;
-export type AccordionSectionProps = z.infer<typeof accordionSectionValidator>;
-export type ContactFormProps = z.infer<typeof contactFormValidator>;
+
+export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
 
 export const PAGE_BUILDER_TYPES: {
   // eslint-disable-next-line no-unused-vars
-  [key: string]: (lang: LangValues) => string;
+  [key: string]: (lang: LangValues, market: MarketValues) => string;
 } = {
   hero: (lang) => `
     ${fragments.base},
@@ -438,25 +338,27 @@ export const PAGE_BUILDER_TYPES: {
     textPositionMobile,
     textPositionDesktop
   `,
-  featuredCollection: (lang) => `
+  featuredCollectionSection: (lang, market) => `
     ${fragments.base},
-    ...collection->{
-      "title": title.${lang},
-      "description": descriptionShort.${lang},
-      "slug": "/collections/"+slug_${lang}.current
-    },
-    "products": select(
-      isManual == true => products[]->{
-        ${fragments.getProductCard(lang)}
+    ...featuredCollectionBlock->{
+      ...collection->{
+        "title": title.${lang},
+        "description": descriptionShort.${lang},
+        "slug": "/collections/"+slug_${lang}.current
       },
-      isManual == false => collection->.products[].product->{
-        ${fragments.getProductCard(lang)},
-      }
-    ),
-    media{
-     ${fragments.getMedia(lang)}
+      "products": select(
+        isManual == true => products[]->{
+          ${fragments.getProductCard(lang, market)}
+        },
+        isManual == false => collection->.products[].product->{
+          ${fragments.getProductCard(lang, market)}
+        }
+      ),
+      media{
+        ${fragments.getMedia(lang)}
+       },
+      "buttonText": buttonText.${lang},
     },
-    "buttonText": buttonText.${lang},
     sectionSettings{
       ${fragments.sectionSettings}
     }
@@ -498,20 +400,20 @@ export const PAGE_BUILDER_TYPES: {
   `,
   faqSection: (lang) => groq`
     ${fragments.base},
-    ...faqs->{
-    "title": title.${lang},
-    "description": description.${lang},
-    "badge": badge->title.${lang},
-    "items": items[]->{
-      "question": question.${lang},
-      "answer": answer_${lang}
-     },
+    ...faqBlock->{
+      "title": title.${lang},
+      "description": description.${lang},
+      "badge": badge->title.${lang},
+      "items": items[]->{
+        "question": question.${lang},
+        "answer": answer_${lang}
+      },
     },
     sectionSettings{
      ${fragments.sectionSettings}
     }
   `,
-  shoePicker: (lang) => groq`
+  shoePicker: (lang, market) => groq`
     ${fragments.base},
     ...shoePickerBlock->{
       "title": title.${lang},
@@ -523,7 +425,7 @@ export const PAGE_BUILDER_TYPES: {
           },
           _type == "reference" => {
             ...@->{
-              ${fragments.getProductCard(lang)}
+              ${fragments.getProductCard(lang, market)}
             }
           },
         },
@@ -621,14 +523,14 @@ export const PAGE_BUILDER_TYPES: {
      ${fragments.sectionSettings}
     }
   `,
-  featuredShoeSection: (lang) => groq`
+  featuredShoeSection: (lang, market) => groq`
     ${fragments.base},
     ...featuredShoeBlock->{
       "title": title.${lang},
       "description": description.${lang},
       "badge": badge->title.${lang},
       "product": shoe->{
-        ${fragments.getProductCard(lang)}
+        ${fragments.getProductCard(lang, market)}
       },
       link{
         ${fragments.getLink(lang)}
@@ -639,7 +541,7 @@ export const PAGE_BUILDER_TYPES: {
         },
         _type == "reference" => {
           ...@->{
-            ${fragments.getHotspotImage(lang)}
+            ${fragments.getHotspotImage(lang, market)}
           }
         }
       },
@@ -669,88 +571,22 @@ export const PAGE_BUILDER_TYPES: {
      ${fragments.sectionSettings}
     }
   `,
-  pageTitle: (market) => `
+  natureLabInnovationSection: (lang) => groq`
     ${fragments.base},
-    "title": title.${market},
-    "subtitle": subtitle.${market}
-  `,
-  textSection: (market) => `
-    ${fragments.base},
-    "richText": textBlock->.${fragments.getRichText({ lang: market })},
-    padding,
-    hasTopPadding,
-    hasBottomPadding,
-    hasBottomBorder
-  `,
-  textAndImage: (market) => `
-    ${fragments.base},
-    ...@->{
-      "richText": ${fragments.getRichText({ lang: market })},
-      image{
-        ${fragments.getImageBase(market)}
+    "title": title.${lang},
+    "description": description.${lang},
+    innovations[]->{
+      "title": title.${lang},
+      "description": description.${lang},
+      "image": image{
+        ${fragments.getImageBase(lang)}
       },
-      imageLeftOrRight,
-      size,
-      textPlacement,
-      hasBottomBorder,
-      padding,
-      hasTopPadding,
-      hasBottomPadding
-    }
-  `,
-  accordionSection: (market) => `
-   ${fragments.base},
-   ...accordionBlock->{
-    "title": title_${market},
-    items[]->{
-      "title": title_${market},
-      "richText": ${fragments.getRichText({ lang: market })}
-     },
-    },
-    padding,
-    hasTopPadding,
-    hasBottomPadding,
-    hasBottomBorder
-   `,
-  productListing: (market) => `
-   ${fragments.base},
-    "title": title.${market},
-    "products": products[]->{
-      ${fragments.getProductCard(market)},
-    },
-    padding,
-    hasTopPadding,
-    hasBottomPadding,
-    hasBottomBorder
-  `,
-  collectionListing: (market) => `
-  ${fragments.base},
-   "title": title.${market},
-   "collections": collections[]{
-      image{
-        ${fragments.getImageBase(market)}
+      "link": link{
+        ${fragments.getLink(lang)}
       },
-      "collection": collection->{
-        "type": _type,
-        "title": title_${market},
-        ${fragments.getSlug(market)},
-      }
-   },
-   padding,
-   hasTopPadding,
-   hasBottomPadding,
-   hasBottomBorder
- `,
-  contactForm: () => `
-    ${fragments.base},
-    padding,
-    hasTopPadding,
-    hasBottomPadding,
-    hasBottomBorder
-  `,
-  instagramFeed: () => `
-  ${fragments.base},
-`
+      "keyFeatures": keyFeatures[].feature.${lang}
+    },
+  `
 };
 
 export const concatenatePageBuilderQueries = ({
@@ -767,7 +603,7 @@ export const concatenatePageBuilderQueries = ({
     if (typeof pageBuilderFunction === 'function') {
       return `
         _type == "${key}" && (!defined(marketAvailability) || !("${market}" in marketAvailability)) => {
-          ${pageBuilderFunction(lang)}
+          ${pageBuilderFunction(lang, market)}
         },
       `;
     }

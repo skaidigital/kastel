@@ -3,8 +3,19 @@
 import { newsletterFormSchema } from '@/components/shared/NewsletterSignup/hooks';
 import { env } from '@/env';
 
-export async function subscribeToNewsletter(klaviyoId: string, prevState: any, formData: FormData) {
-  const result = newsletterFormSchema.safeParse(Object.fromEntries(formData));
+interface Props {
+  email: string;
+  klaviyoId: string;
+}
+
+export async function subscribeToNewsletter({ email, klaviyoId }: Props) {
+  if (!klaviyoId) {
+    return {
+      success: false
+    };
+  }
+
+  const result = newsletterFormSchema.safeParse({ email });
 
   if (!result.success) {
     return {
@@ -12,8 +23,6 @@ export async function subscribeToNewsletter(klaviyoId: string, prevState: any, f
       errors: result.error.flatten().fieldErrors
     };
   }
-
-  const email = result.data.email;
 
   const listId = env.KLAVIYO_NEWSLETTER_LIST_ID;
   const apiKey = env.KLAVIYO_API_KEY;

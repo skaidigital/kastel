@@ -7,6 +7,7 @@ import {
 import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
+import { draftMode } from 'next/headers';
 
 function loadAnnouncementBanner(lang: LangValues) {
   const query = getAnnouncementBannerQuery(lang);
@@ -20,17 +21,21 @@ function loadAnnouncementBanner(lang: LangValues) {
 
 interface Props {
   lang: LangValues;
+  className?: string;
 }
 
-export async function AnnouncementBanner({ lang }: Props) {
+export async function AnnouncementBanner({ lang, className }: Props) {
   const initial = await loadAnnouncementBanner(lang);
+  const isDraftMode = draftMode().isEnabled;
 
   const dataWithoutNullValues = nullToUndefined(initial.data);
-  const validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
+  let validatedData;
 
-  if (!validatedData.success) {
-    return null;
+  if (isDraftMode) {
+    validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
   }
 
-  return <AnnouncementBannerLayout data={validatedData.data} />;
+  const footer = isDraftMode ? validatedData?.data : dataWithoutNullValues;
+
+  return <AnnouncementBannerLayout data={footer} className={className} />;
 }

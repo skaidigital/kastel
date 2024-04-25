@@ -29,6 +29,11 @@ export const announcementBanner = defineType({
       of: [
         {
           type: 'object',
+          preview: {
+            select: {
+              title: 'content.en'
+            }
+          },
           fields: [
             defineField({
               title: 'Content',
@@ -38,12 +43,37 @@ export const announcementBanner = defineType({
             })
           ]
         }
-      ]
+      ],
+      validation: (Rule) =>
+        Rule.custom((field: any, context: any) => {
+          if (context?.parent?.isShown && (field?.length < 1 || field === undefined)) {
+            return 'Please add at least item to the content array';
+          }
+          if (context?.parent?.isShown && (field?.length > 4 || field === undefined)) {
+            return 'Max 4 items allowed';
+          }
+          return true;
+        })
+    }),
+    defineField({
+      title: 'Link to something?',
+      name: 'hasLink',
+      type: 'boolean',
+      initialValue: true,
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Link',
-      name: 'linkWithoutText',
-      type: 'linkWithoutText'
+      name: 'link',
+      type: 'linkWithoutText',
+      validation: (Rule) =>
+        Rule.custom((field, context: any) => {
+          if (context?.parent?.hasLink && !field) {
+            return 'Link is required';
+          }
+          return true;
+        }),
+      hidden: ({ parent }) => !parent?.hasLink
     })
   ]
 });

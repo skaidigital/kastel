@@ -29,7 +29,36 @@ export const headingAndLinks = defineType({
       title: 'Links',
       name: 'links',
       type: 'array',
-      of: [{ type: 'link' }],
+      of: [
+        {
+          type: 'object',
+          preview: {
+            select: {
+              title: 'link.text.en'
+            },
+            prepare(value) {
+              const { title } = value;
+              return {
+                title: title || 'No title'
+              };
+            }
+          },
+          fields: [
+            defineField({
+              title: 'Likn',
+              name: 'link',
+              type: 'link',
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              title: 'Badge (optional)',
+              name: 'badge',
+              type: 'reference',
+              to: [{ type: 'badge' }]
+            })
+          ]
+        }
+      ],
       validation: (Rule) => Rule.required().min(1)
     })
   ]

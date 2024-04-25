@@ -91,7 +91,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
     >
       <Container className="flex flex-col gap-y-6 lg:hidden">
         <div className="flex flex-col">
-          {badge && <Badge className="case">{badge}</Badge>}
+          {badge && <Badge className="mb-2">{badge}</Badge>}
           {activeShoe?.title && (
             <Select value={activeShoeTitle} onValueChange={setActiveShoeTitle}>
               <SelectTrigger className="h-fit w-fit gap-4 border-0 pl-0 [&>svg]:size-8">
@@ -174,7 +174,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
       <Container className="hidden grid-cols-12 gap-4 lg:grid">
         <Carousel className="col-span-5 col-start-2 flex flex-col gap-y-14">
           <div className="flex max-w-md flex-col">
-            {badge && <Badge>{badge}</Badge>}
+            {badge && <Badge className="mb-2">{badge}</Badge>}
             {activeShoe?.title && (
               <Heading size="lg" className="mb-4">
                 {activeShoe?.title}

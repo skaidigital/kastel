@@ -88,7 +88,7 @@ export const product = defineType({
     }),
     defineField({
       title: 'Detail image (optional)',
-      description: 'Add an image with a hotspot that will be shown below the product form',
+      description: 'Add an image and then click on the image blow to place your hotspot(s)',
       name: 'detailImage',
       type: 'figure',
       group: 'images'
@@ -100,12 +100,13 @@ export const product = defineType({
       of: [{ type: 'spot' }],
       options: {
         imageHotspot: {
-          imagePath: `detailImage`,
-          descriptionPath: `details`,
+          imagePath: 'detailImage',
+          descriptionPath: `type`,
           tooltip: undefined
         }
       },
-      group: 'images'
+      group: 'images',
+      validation: (Rule) => Rule.min(1)
     }),
     defineField({
       title: 'Title',
@@ -436,16 +437,16 @@ export const product = defineType({
       name: `minVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
-      group: market.id,
-      readOnly: true
+      group: market.id
+      // readOnly: readOnlyUnlessDeveloper
     })),
     ...MARKETS.map((market) => ({
       title: 'Max price',
       name: `maxVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
-      group: market.id,
-      readOnly: true
+      group: market.id
+      // readOnly: readOnlyUnlessDeveloper
     }))
   ],
   orderings: [
@@ -458,16 +459,6 @@ export const product = defineType({
       name: 'titleDesc',
       title: 'Title (Z-A)',
       by: [{ field: 'internalTitle', direction: 'desc' }]
-    },
-    {
-      name: 'priceDesc',
-      title: 'Price (Highest first)',
-      by: [{ field: 'minPrice_no.amount', direction: 'desc' }]
-    },
-    {
-      name: 'priceAsc',
-      title: 'Price (Lowest first)',
-      by: [{ field: 'minPrice_no.amount', direction: 'asc' }]
     }
   ],
   preview: {

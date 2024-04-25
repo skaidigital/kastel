@@ -12,6 +12,7 @@ const badgeProps = cva({
       brand: 'text-brand-dark-grey bg-brand-beige'
     },
     size: {
+      xs: 'text-xs font-medium py-0.5 px-1.5',
       sm: 'text-sm font-medium py-0.5 px-1.5',
       md: 'text-eyebrow'
     }

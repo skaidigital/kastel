@@ -7,9 +7,10 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   control: Control<any>;
   name: string;
   label: string;
+  description?: string;
 }
 
-export const FormInput = ({ control, name, label, ...rest }: InputProps) => {
+export const FormInput = ({ control, name, label, description, ...rest }: InputProps) => {
   const {
     field: { value, onChange },
     fieldState: { error }
@@ -20,7 +21,9 @@ export const FormInput = ({ control, name, label, ...rest }: InputProps) => {
 
   return (
     <div className="space-y-1">
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <FormLabel htmlFor={name} description={description}>
+        {label}
+      </FormLabel>
       <StyledInput {...rest} name={name} value={value} onChange={onChange} error={error} />
     </div>
   );

@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@/components/Button';
 import {
   Carousel,
@@ -47,6 +45,10 @@ export const FeaturedShoeSection = ({ data }: Props) => {
   const restContentItems = content?.slice(1);
 
   const href = resolveLink(link);
+
+  const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
+  const lowestSize = hasSizeRange?.options[0];
+  const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
 
   return (
     <Section
@@ -102,11 +104,17 @@ export const FeaturedShoeSection = ({ data }: Props) => {
                 {product && (
                   <ProductCard
                     title={product.title}
+                    gid={product.gid}
+                    sku={product.sku}
                     slug={product.slug}
                     mainImage={product.mainImage}
                     lifestyleImage={product.lifestyleImage}
                     badges={product.badges}
                     type="product"
+                    minVariantPrice={product.minVariantPrice}
+                    maxVariantPrice={product.maxVariantPrice}
+                    lowestSize={lowestSize?.title}
+                    highestSize={highestSize?.title}
                   />
                 )}
               </div>

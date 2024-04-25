@@ -39,7 +39,7 @@ export function getPopupQuery(lang: LangValues) {
       type == "info" => {
         "badge": badgeInfo->title.${lang},
         "title": titleInfo.${lang},
-        "content": contentInfo_${lang},
+        "content": contentInfo.${lang},
         "image": imageInfo{
           ${fragments.getImageBase(lang)}
         },
@@ -50,7 +50,7 @@ export function getPopupQuery(lang: LangValues) {
       type == "newsletter" => {
         "badge": badgeNewsletter->title.${lang},
         "title": titleNewsletter.${lang},
-        "content": contentNewsletter_${lang},
+        "content": contentNewsletter.${lang},
         "image": imageNewsletter{
           ${fragments.getImageBase(lang)}
         },

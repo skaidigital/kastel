@@ -44,7 +44,7 @@ export const KastelClubSection = ({ data }: Props) => {
       noTopPadding={!sectionSettings?.hasTopPadding}
       noBottomPadding={!sectionSettings?.hasBottomPadding}
       hasBottomBorder={sectionSettings?.hasBottomBorder}
-      className="bg-brand-light-grey"
+      className="bg-brand-sand"
     >
       <div className="flex flex-col gap-y-4 lg:hidden">
         <Intro
@@ -117,7 +117,12 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
           {title && <Heading size="xl">{title}</Heading>}
           {description && <Text>{description}</Text>}
           {buttonText && (
-            <Button asChild variant="secondary" size="sm" className="lg:text-lg">
+            <Button
+              asChild
+              variant="secondary"
+              size="sm"
+              className="lg:py-6 lg:text-[24px] lg:leading-[24px]"
+            >
               <CustomLink href={ROUTES.KASTEL_CLUB}>{buttonText}</CustomLink>
             </Button>
           )}

@@ -1,16 +1,15 @@
 'use client';
 
 import { Dictionary } from '@/app/dictionaries';
-import { BackButton } from '@/components/BackButton';
-import { buttonProps } from '@/components/Button';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
+import { CustomLink } from '@/components/CustomLink';
+import { AccountPageHeader } from '@/components/account/AccountPageHeader';
+import { EmptyState } from '@/components/account/EmptyState';
 import { Text } from '@/components/base/Text';
 import { AddressCard } from '@/components/pages/AddressesPage/AddressCard';
 import { ROUTES } from '@/data/constants';
 import { Address } from '@/lib/shopify/types';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+import { MapPinIcon } from '@heroicons/react/20/solid';
+import { PlusIcon } from '@radix-ui/react-icons';
 
 interface Props {
   addresses: Address[];
@@ -22,23 +21,16 @@ export function AddressesPage({ addresses, defaultAddress, dictionary }: Props) 
   const hasAnAddress = addresses.length > 0 || defaultAddress;
 
   return (
-    <Section
-      label={dictionary.address_info}
-      srHeading={dictionary.address_info}
-      className="px-6 md:px-12 lg:px-20"
-    >
-      <BackButton href={ROUTES.ACCOUNT} className="mb-5">
-        {dictionary.orders}
-      </BackButton>
-      <div className="mb-10 flex items-center space-x-3">
-        <Heading size="md">{dictionary.addresses}</Heading>
-        <Link href={ROUTES.CREATE_ADDRESS} className="flex items-center space-x-1">
-          <PlusIcon className="w-4" />
+    <div className="grid lg:col-span-6">
+      <div className="flex items-center justify-between">
+        <AccountPageHeader pageTitle={dictionary.addresses} />
+        <CustomLink href={ROUTES.CREATE_ADDRESS} className="flex shrink-0 items-center space-x-1">
+          <PlusIcon className="size-4" />
           <Text>{dictionary.add_address}</Text>
-        </Link>
+        </CustomLink>
       </div>
       {hasAnAddress && (
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2">
           <AddressCard address={defaultAddress} dictionary={dictionary} isPrimary />
           {addresses.map((address) => (
             <AddressCard key={address.id} address={address} dictionary={dictionary} />
@@ -46,15 +38,13 @@ export function AddressesPage({ addresses, defaultAddress, dictionary }: Props) 
         </div>
       )}
       {!hasAnAddress && (
-        <div className="aspect-h-9 aspect-w-16 flex h-full w-full rounded-project border border-brand-border ">
-          <div className="flex flex-col items-center justify-center gap-y-5">
-            <Heading size="xs">{dictionary.no_addresses}</Heading>
-            <Link href={ROUTES.CREATE_ADDRESS} className={buttonProps({ variant: 'primary' })}>
-              {dictionary.add_address}
-            </Link>
-          </div>
-        </div>
+        <EmptyState
+          icon={<MapPinIcon className="size-4" />}
+          heading={dictionary.no_addresses}
+          text={dictionary.add_address}
+          href={ROUTES.CREATE_ADDRESS}
+        />
       )}
-    </Section>
+    </div>
   );
 }

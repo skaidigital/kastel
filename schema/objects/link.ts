@@ -32,7 +32,7 @@ export const link = defineType({
         list: [
           { title: 'To a page made in Sanity', value: 'internal' },
           { title: 'To an external page', value: 'external' },
-          { title: 'To Smile Lancher', value: 'smile' }
+          { title: 'Smile deep link', value: 'smile' }
         ]
       },
       validation: (Rule) => Rule.required().error('Link type is required')

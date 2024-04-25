@@ -1,4 +1,7 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import {
+  filterAlreadyAddedReferences,
+  validateAllStringTranslations
+} from '@/lib/sanity/studioUtils';
 import { Question } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
@@ -47,7 +50,10 @@ export const helpCenter = defineType({
       of: [
         defineArrayMember({
           type: 'reference',
-          to: [{ type: 'faqBlock' }]
+          to: [{ type: 'faqBlock' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
         })
       ],
       validation: (Rule) => Rule.min(1)

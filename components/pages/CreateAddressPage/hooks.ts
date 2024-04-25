@@ -9,16 +9,7 @@ export const createAddressFormInputValidator = z.object({
   zip: z.string().min(2),
   city: z.string().min(2),
   territoryCode: z.string().min(2),
-  defaultAddress: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (val === undefined) {
-        return false;
-      }
-
-      return val.toLowerCase() === 'true' ? true : false;
-    })
+  defaultAddress: z.boolean()
 });
 
 export type CreateAddressFormInput = z.infer<typeof createAddressFormInputValidator>;

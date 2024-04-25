@@ -1,11 +1,11 @@
-import { getLipscoreReviews } from './hook';
+import { getProductRatingBySku } from './hook';
 
 interface Props {
   sku: string;
 }
 
 export async function ProductRating({ sku }: Props) {
-  const { rating, votes } = await getLipscoreReviews(sku);
+  const { rating, votes } = await getProductRatingBySku(sku);
   const roundedRating = parseFloat(rating).toFixed(1);
   return (
     <>

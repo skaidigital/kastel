@@ -5,17 +5,19 @@ import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
-import { VisualEditing } from 'next-sanity';
 import { draftMode } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
-import { Skeleton } from '@/components/Skeleton';
-import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
+import { MarketPopup } from '@/components/global/MarketPopup';
+import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
+import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import Script from 'next/script';
+import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
@@ -29,23 +31,32 @@ export default function IndexRoute({
   children: ReactNode;
   params: { market: MarketValues; lang: LangValues };
 }) {
+  const isInProduction = process.env.NODE_ENV === 'production';
+
   // const hasConsent = cookies().get(COOKIE_NAMES.COOKIE_CONSENT)?.value === 'true';
 
   return (
     <html lang="en">
       <GoogleTagManager gtmId={env.GTM_ID} />
       <head>
+        {isInProduction && (
+          <Script
+            strategy="afterInteractive"
+            id="Cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
+            type="text/javascript"
+          />
+        )}
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
-        <div className="fixed bottom-0 top-0 w-full overflow-x-auto">
+        <div className="fixed bottom-0 top-0 w-full overflow-x-auto bg-white">
           <Providers>
             <div>
-              <Suspense>{/* <PopupHandler market={market} /> */}</Suspense>
-              <Suspense fallback={<Skeleton className="h-11 w-full" />}>
-                <AnnouncementBanner lang={lang} />
+              <Suspense>
+                <PopupHandler lang={lang} />
               </Suspense>
-              <Suspense>{/* <Navbar market={market} /> */}</Suspense>
               <main>
                 {children}
                 {draftMode().isEnabled && (
@@ -75,12 +86,10 @@ export default function IndexRoute({
                 <Analytics />
               </main>
             </div>
-            {/* <Suspense>
-              <USP />
-            </Suspense> */}
-            <Suspense>{/* <Footer market={market} lang={lang} /> */}</Suspense>
             <ShopifyAnalytics hasConsent />
+            <MarketPopup />
             {draftMode().isEnabled && <PreviewMarketSelector />}
+            {/* <SmileInit customerId="7292377628922" /> */}
           </Providers>
         </div>
       </body>

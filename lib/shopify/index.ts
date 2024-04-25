@@ -1,4 +1,4 @@
-import { isShopifyError } from '@/app/(site)/[market]/[lang]/shopify/utils';
+import { isShopifyError } from '@/app/api/shopify/utils';
 import { env } from '@/env';
 import { ensureStartsWith } from '@/lib/utils';
 import { cookies } from 'next/headers';
@@ -54,7 +54,7 @@ export async function shopifyFetch<T>({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': key,
+        'Shopify-Storefront-Private-Token': key,
         ...headers
       },
       body: JSON.stringify({
@@ -76,6 +76,9 @@ export async function shopifyFetch<T>({
       body
     };
   } catch (e) {
+    console.log('Shopify fetch error:');
+    console.log(e);
+
     console.error('Shopify fetch error:');
     console.error(JSON.stringify(e));
 

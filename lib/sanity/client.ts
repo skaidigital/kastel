@@ -8,6 +8,7 @@ const excludedNestedFields = [
   'slug_en',
   'padding',
   'hasTopPadding',
+  'firstImage',
   'hasBottomPadding',
   'hasBottomBorder',
   'sameAspectRatio',
@@ -29,7 +30,8 @@ const excludedNestedFields = [
   'size',
   'text',
   'textPlacement',
-  'currencyCode'
+  'currencyCode',
+  'type'
 ];
 
 export const client = createClient({

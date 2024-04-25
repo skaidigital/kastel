@@ -1,96 +1,70 @@
-import {
-  extractGid,
-  formatPrice,
-  getOrderFinancialStatusBadgeVariant,
-  getOrderFullfillmentStatusBadgeVariant
-} from '@/app/(site)/[market]/[lang]/shopify/utils';
-import { getDictionary } from '@/app/dictionaries';
-import { Badge } from '@/components/Badge';
-import { Pagination } from '@/components/Pagination';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { TD } from '@/components/shared/TD';
-import { TH } from '@/components/shared/TH';
+import { KastelClubCard } from '@/components/pages/AccountPage/KastelClubCard';
+import { LinkButton } from '@/components/pages/AccountPage/LinkButton';
+import { MyInfoCard } from '@/components/pages/AccountPage/MyInfoCard';
+import { ProductDisplay } from '@/components/pages/AccountPage/ProductDisplay';
+import { WelcomeMessage } from '@/components/pages/AccountPage/WelcomeMessage';
 import { ROUTES } from '@/data/constants';
-import { getOrderCursors } from '@/lib/shopify/customer/getOrderCursors';
-import { getOrders } from '@/lib/shopify/customer/getOrders';
-import { cn, formatDate } from '@/lib/utils';
-import Link from 'next/link';
+import {
+  HeartIcon,
+  MapPinIcon,
+  QuestionMarkCircleIcon,
+  ShoppingBagIcon
+} from '@heroicons/react/20/solid';
+import { Suspense } from 'react';
 
-interface Props {
-  currentPage: number;
-}
+interface Props {}
 
-export async function AccountPage({ currentPage }: Props) {
-  const lastCursor = await getOrderCursors(currentPage);
-  const correctCursor = currentPage === 1 ? undefined : lastCursor;
-  const { account_page: dictionary } = await getDictionary();
-  const { orders, pageInfo } = await getOrders(correctCursor);
-  const hasOrders = orders && orders.length > 0;
-
+export async function AccountPage({}: Props) {
   return (
-    <Section label="my-account" srHeading="My account" className="pl-6 md:px-12 lg:px-20">
-      <Heading className="mb-10" size="md">
-        {dictionary.recent_orders}
-      </Heading>
-      <div className="flex flex-col space-y-10 lg:flex-row lg:space-x-10 lg:space-y-0 ">
-        <div className="overflow-x-auto lg:grow ">
-          <table className="lg:w-full">
-            <thead>
-              <tr>
-                <TH className="pl-0">{dictionary.order}</TH>
-                <TH>{dictionary.date}</TH>
-                <TH>{dictionary.status_payment}</TH>
-                <TH>{dictionary.status_shipping}</TH>
-                <TH className="pr-0 text-right">{dictionary.total}</TH>
-              </tr>
-            </thead>
-            {hasOrders && (
-              <tbody className="divide-brand-border divide-y">
-                {orders?.map((order, index) => (
-                  <tr key={order.id}>
-                    <TD className={cn('underline', index === 0 && 'pl-0')}>
-                      <Link href={`${ROUTES.ORDER_DETAILS}/${extractGid(order.id)}`}>
-                        {order.name}
-                      </Link>
-                    </TD>
-                    <TD>{formatDate(order.createdAt)}</TD>
-                    <TD>
-                      <Badge variant={getOrderFinancialStatusBadgeVariant(order.financialStatus)}>
-                        {order.financialStatus}
-                      </Badge>
-                    </TD>
-                    <TD>
-                      <Badge
-                        variant={getOrderFullfillmentStatusBadgeVariant(
-                          order.fulfillments?.nodes[0]?.status
-                        )}
-                      >
-                        {order.fulfillments?.nodes[0]?.status || dictionary.order_not_shipped}
-                      </Badge>
-                    </TD>
-                    <TD className="pr-0 text-right">{formatPrice(order.totalPrice)}</TD>
-                  </tr>
-                ))}
-              </tbody>
-            )}
-          </table>
-          {hasOrders && (
-            <Pagination
-              hasNextPage={pageInfo?.hasNextPage}
-              hasPreviousPage={pageInfo?.hasPreviousPage}
-              className="mt-10 flex justify-center"
-            />
-          )}
-          {!hasOrders && (
-            <div className="border-project border-brand-border mt-4 flex h-40 w-full items-center justify-center border">
-              <Heading as="h2" size="sm">
-                {dictionary.no_orders}
-              </Heading>
-            </div>
-          )}
+    <div className="flex flex-col lg:col-span-8 lg:grid">
+      <div className="grid gap-6 lg:hidden">
+        <WelcomeMessage name="Ragnsan" welcomeBackString="Velkommen tilbake" content={[]} />
+        <div className="grid grid-cols-2 gap-2">
+          <LinkButton
+            icon={<ShoppingBagIcon className="size-4" />}
+            title="Orders"
+            href={ROUTES.ORDERS}
+          />
+          <LinkButton
+            icon={<MapPinIcon className="size-4" />}
+            title="Addresses"
+            href={ROUTES.ADDRESSES}
+          />
+          <LinkButton
+            icon={<HeartIcon className="size-4" />}
+            title="Wishlist"
+            href={ROUTES.WISHLIST}
+          />
+          <LinkButton
+            icon={<QuestionMarkCircleIcon className="size-4" />}
+            title="Customer service"
+            href={ROUTES.ACCOUNT_CUSTOMER_SERVICE}
+          />
+        </div>
+        <Suspense fallback={null}>
+          <KastelClubCard />
+        </Suspense>
+        <MyInfoCard />
+        <ProductDisplay title="Recently viewed" products={[]} />
+      </div>
+      <div className="hidden lg:block">
+        <div className="grid gap-4 lg:grid-cols-8">
+          <WelcomeMessage
+            name="Ragnsan"
+            welcomeBackString="Velkommen tilbake"
+            content={[]}
+            className="col-span-5"
+          />
+          <div className="col-span-3 bg-blue-100">imag</div>
+          <div className="col-span-5">
+            <ProductDisplay title="Recently viewed" products={[]} />
+          </div>
+          <div className="col-span-3 grid gap-y-4">
+            <KastelClubCard />
+            <MyInfoCard />
+          </div>
         </div>
       </div>
-    </Section>
+    </div>
   );
 }
