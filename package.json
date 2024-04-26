@@ -70,6 +70,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-url-secret": "^1.6.1",
     "@sanity/react-loader": "^1.9.5",
+    "@sanity/table": "^1.1.2",
     "@sanity/types": "^3.35.2",
     "@sanity/ui": "^2.0.12",
     "@sanity/vision": "^3.35.2",

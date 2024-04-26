@@ -133,6 +133,15 @@ export const productType = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'Size guide (optional)',
+      description:
+        'The size guide that will be shown in the product drawer. If you have set a size chart on a product, this size guide not be shown for that product',
+      name: 'sizeGuide',
+      type: 'reference',
+      to: [{ type: 'sizeChart' }],
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Tags (optional)',
       description: 'Tags that will be used for filtering and search',
       name: 'tags',

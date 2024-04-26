@@ -3,7 +3,6 @@
 import { Dictionary } from '@/app/dictionaries';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { OptionGroup } from '@/components/VariantSelector/OptionGroup';
-import { SizeSelector } from '@/components/VariantSelector/SizeSelector';
 import { ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
 
 export type Combination = {
@@ -20,6 +19,7 @@ interface Props {
   dictionary: Dictionary['product_page'];
 }
 
+// TODO inventory?
 export function VariantSelector({
   inventory,
   options,
@@ -27,47 +27,21 @@ export function VariantSelector({
   variants,
   dictionary
 }: Props) {
-  const combinations: Combination[] = variants.map((variant) => ({
-    id: variant.id,
-    availableForSale:
-      inventory.variants.edges.find((edge) => edge.node.id === variant.id)?.node
-        ?.availableForSale || false,
-    ...variant.selectedOptions
-      ?.filter((option): option is { value: string; name: string } => option !== undefined)
-      .reduce(
-        (accumulator, option) => ({
-          ...accumulator,
-          [option.name.toLowerCase()]: option.value
-        }),
-        {} as Record<string, string>
-      )
-  }));
-
   // Filter out any option where there are not a corresponding variant
   const filteredOptions = filterOptions(variants, options, featuredOptions);
-
-  console.log(filteredOptions);
 
   return filteredOptions.map((option) => {
     const optionType = option.type;
     const isSize = optionType === 'size';
 
-    if (isSize)
-      return (
-        <SizeSelector
-          key={option.name}
-          option={option}
-          chooseSizeText={dictionary.choose_size}
-          sizeGuideText={dictionary.size_guide}
-        />
-      );
+    console.log(optionType, isSize);
 
     return (
       <OptionGroup
         key={option.name}
         option={option}
-        options={options}
-        combinations={combinations}
+        chooseSizeText={dictionary.choose_size}
+        sizeGuideText={dictionary.size_guide}
       />
     );
   });

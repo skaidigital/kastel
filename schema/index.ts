@@ -23,6 +23,7 @@ import { question } from '@/schema/documents/question';
 import { quote } from '@/schema/documents/quote';
 import { redirect } from '@/schema/documents/redirect';
 import { retailer } from '@/schema/documents/retailer';
+import { sizeChart } from '@/schema/documents/sizeChart';
 import { tag } from '@/schema/documents/tag';
 import { tagGroup } from '@/schema/documents/tagGroup';
 import { usp } from '@/schema/documents/usp';
@@ -215,6 +216,7 @@ const schema = [
   natureLabInnovationItem,
 
   // Documents
+  sizeChart,
   page,
   legalPage,
   color,

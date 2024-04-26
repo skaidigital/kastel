@@ -1,6 +1,6 @@
 'use client';
 
-import { Text } from '@/components/base/Text';
+import { Badge } from '@/components/Badge';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { Product, ProductVariant } from './hooks';
 
@@ -20,16 +20,5 @@ export function DiscountPill({ productType, variants }: Props) {
   const isOnSale = discountedPrice && price && price > discountedPrice;
   const discountPercentage = isOnSale ? Math.round(((price - discountedPrice) / price) * 100) : 0;
 
-  return (
-    isOnSale && (
-      <div>
-        <Text
-          size="sm"
-          className="rounded-[4px] bg-[#FDF5E6] px-[6px] py-[2px] font-medium text-brand-dark-grey"
-        >
-          -{discountPercentage}%
-        </Text>
-      </div>
-    )
-  );
+  return isOnSale && <Badge>-{discountPercentage}%</Badge>;
 }

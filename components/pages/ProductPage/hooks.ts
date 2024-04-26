@@ -95,6 +95,17 @@ export const productGalleryValidator = z.array(
   z.discriminatedUnion('type', [imageInGalleryValidator, videoInGalleryValidator])
 );
 
+export const sizeGuideValidator = z.object({
+  description: z.string(),
+  chart: z.object({
+    rows: z.array(
+      z.object({
+        cells: z.array(z.string())
+      })
+    )
+  })
+});
+
 export const productValidator = z.object({
   id: z.string(),
   type: z.union([z.literal('SIMPLE'), z.literal('VARIABLE')]),
@@ -128,7 +139,8 @@ export const productValidator = z.object({
         icon: imageValidator
       })
     )
-    .optional()
+    .optional(),
+  sizeGuide: sizeGuideValidator.optional()
 });
 
 export type Product = z.infer<typeof productValidator>;
@@ -143,10 +155,10 @@ export function getProductQuery({
   gender: 'male' | 'female';
 }) {
   const query = groq`
-  *[_type == "product" && slug_${lang}.current == $slug && status_no == "ACTIVE" && defined(gid_no)][0]{
-    "id": gid_no,
-    "title": title.no,
-    "subtitle": subtitle.no,
+  *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE" && defined(gid_${market})][0]{
+    "id": gid_${market},
+    "title": title.${lang},
+    "subtitle": subtitle.${lang},
     "slug": slug_${lang}.current,
     type,
     "sku": select(
@@ -279,7 +291,16 @@ export function getProductQuery({
         }
       }
     ),
-    "typeId": productType->_id
+    "typeId": productType->_id,
+    "sizeGuide": coalesce(
+      sizeGuide{
+        ${fragments.getSizeGuide(lang)}
+      },
+      productType->sizeGuide{
+        ${fragments.getSizeGuide(lang)}
+      },
+      null
+    ),
   }
   `;
 
@@ -304,7 +325,7 @@ export function getSibligProductsQuery({
   lang: LangValues;
 }) {
   const query = groq`
-  *[_type == "product" && references($typeId) && status_no == "ACTIVE" && defined(gid_${market})]{
+  *[_type == "product" && references($typeId) && status_${market} == "ACTIVE" && defined(gid_${market})]{
     "title": title.${lang},
     "mainImage": mainImage {
       ${fragments.getImageBase(lang)}

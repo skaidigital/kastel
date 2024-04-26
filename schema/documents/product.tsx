@@ -462,6 +462,15 @@ export const product = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'Size guide (optional)',
+      description:
+        'The size guide that will be shown in the product drawer. If you have set a size chart on the model, this will be shown instead',
+      name: 'sizeGuide',
+      type: 'reference',
+      to: [{ type: 'sizeChart' }],
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Track stock',
       name: 'trackStock',
       type: 'boolean',

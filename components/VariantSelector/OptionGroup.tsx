@@ -1,73 +1,46 @@
-'use client';
-
-import { Combination } from '@/components/VariantSelector';
+import { Dictionary } from '@/app/dictionaries';
 import { ProductOption } from '@/components/pages/ProductPage/hooks';
-import { cn } from '@/lib/utils';
-import { useSearchParams } from 'next/navigation';
 import { useQueryState } from 'nuqs';
+import { Text } from '../base/Text';
+import { SizeGuide } from './SizeGuide';
 
 interface Props {
   option: ProductOption;
-  options: ProductOption[];
-  combinations: Combination[];
+  chooseSizeText: Dictionary['product_page']['choose_size'];
+  sizeGuideText: Dictionary['product_page']['size_guide'];
 }
 
-export function OptionGroup({ option, options, combinations }: Props) {
-  // const optionType = option.type;
-  // const isColor = optionType === 'color';
-
-  const searchParams = useSearchParams();
-
-  const [selectedOption, setSelectedOption] = useQueryState(option.name.toLowerCase());
+// TODO refactor to use just useQueryState if possible (logic inside the map)
+export function OptionGroup({ option, chooseSizeText, sizeGuideText }: Props) {
+  const optionType = option.type;
+  const [selectedSize, setSelectedSize] = useQueryState(option.name.toLowerCase());
+  if (optionType !== 'size') {
+    return null;
+  }
 
   return (
-    <dl key={option.name}>
-      <dt className="text-eyebrow mb-4 uppercase">
-        {option.name}
-        {selectedOption && `: ${selectedOption}`}
+    <dl className="" key={option.name}>
+      <dt className="mb-3">
+        <div className="flex justify-between">
+          <Text as="p" size="xs" className="text-brand-dark-grey">
+            {option.name}: {selectedSize || chooseSizeText}
+          </Text>
+          <SizeGuide sizeGuideText={sizeGuideText} />
+        </div>
       </dt>
-      <dd className="flex flex-wrap gap-3">
-        {option.values.map((value) => {
-          const optionNameLowerCase = option.name.toLowerCase();
-
-          const optionSearchParams = new URLSearchParams(searchParams.toString());
-
-          optionSearchParams.set(optionNameLowerCase, value.title);
-
-          const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
-            options.find(
-              (option) =>
-                option.name.toLowerCase() === key && option.values.some((v) => v.title === value)
-            )
-          );
-
-          const isAvailableForSale = combinations.find((combination) =>
-            filtered.every(
-              ([key, value]) => combination[key] === value && combination.availableForSale
-            )
-          );
-
-          const isActive = selectedOption === value.title;
-
-          return (
-            <button
-              key={value.title}
-              onClick={() => {
-                setSelectedOption(value.title.toLowerCase());
-              }}
-              title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
-              className={cn(
-                'border-brand-border text-eyebrow flex min-w-[48px] items-center justify-center rounded-project border px-2 py-1 uppercase',
-                isActive && 'cursor-default border-brand-dark-grey',
-                !isAvailableForSale &&
-                  '!text-eyebrow relative z-10 overflow-hidden bg-neutral-100 text-brand-mid-grey before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform'
-                // isColor && 'h-6'
-              )}
-            >
-              {/* {!isColor && value.title} */}
-            </button>
-          );
-        })}
+      <dd className="grid grid-cols-6 gap-1">
+        {option &&
+          option.values.map((value) => {
+            return (
+              <button
+                key={value.title}
+                onClick={() => setSelectedSize(value.title)}
+                className={`flex items-center justify-center rounded-sm border border-brand-light-grey py-[10px] ${selectedSize === value.title ? 'bg-brand-primary text-white' : ''}`}
+              >
+                {value.title}
+              </button>
+            );
+          })}
       </dd>
     </dl>
   );

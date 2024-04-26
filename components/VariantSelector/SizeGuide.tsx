@@ -1,7 +1,7 @@
 'use client';
 
 import { Dictionary } from '@/app/dictionaries';
-import { Drawer, DrawerContent, DrawerTrigger } from '../Drawer';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '../Drawer';
 import { Text } from '../base/Text';
 
 interface Props {
@@ -19,8 +19,8 @@ export function SizeGuide({ sizeGuideText }: Props) {
         </button>
       </DrawerTrigger>
       <DrawerContent>
-        <p>{sizeGuideText}</p>
-        <div className="p-5">
+        <DrawerHeader title={sizeGuideText} />
+        <div className="px-4">
           <Text as="p" size="sm" className="text-brand-dark-grey">
             Size guide content
           </Text>

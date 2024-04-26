@@ -429,3 +429,14 @@ export const productsInTag =
 export const productsNotInTag =
   'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null';
 export const productsWithoutTags = '!defined($tagSlugs) =>';
+
+export function getSizeGuide(lang: LangValues) {
+  return groq`
+  "description": description.${lang},
+  "chart": chart_${lang}{
+    rows[]{
+      cells
+    }
+  } 
+  `;
+}
