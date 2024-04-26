@@ -1,18 +1,27 @@
 import { LinkItem } from '@/app/(site)/[market]/[lang]/(rest)/account/(overview)/LinkItem';
 import { getDictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
-import { ROUTES } from '@/data/constants';
+import { COOKIE_NAMES, ROUTES } from '@/data/constants';
 import { getExpiryTime } from '@/lib/getExpiryTime';
+import { getRefreshToken } from '@/lib/getRefreshToken';
 import { logIn, logOut } from '@/lib/shopify/customer/actions';
+import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const expiredCoockie = await getExpiryTime();
+  const refreshToken = cookies().get(COOKIE_NAMES.SHOPIFY.REFRESH_TOKEN)?.value;
   const { account_layout: dictionary } = await getDictionary();
 
-  if (!expiredCoockie) {
+  if (!expiredCoockie && refreshToken) {
+    const updatedToken = await getRefreshToken();
+    if (!updatedToken) {
+      await logIn();
+    }
+  }
+
+  if (!expiredCoockie && !refreshToken) {
     await logIn();
-  } else {
   }
 
   return (
@@ -45,3 +54,5 @@ export default async function Layout({ children }: { children: ReactNode }) {
     </Container>
   );
 }
+
+function handleLogInState() {}
