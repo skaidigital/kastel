@@ -11,6 +11,7 @@ import { ReactNode, Suspense } from 'react';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { MarketPopup } from '@/components/global/MarketPopup';
 import { PopupHandler } from '@/components/global/PopupHandler';
+import { SmileLayout } from '@/components/smile/SmileLayout';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -90,6 +91,9 @@ export default function IndexRoute({
             <MarketPopup />
             {draftMode().isEnabled && <PreviewMarketSelector />}
             {/* <SmileInit customerId="7292377628922" /> */}
+            <Suspense>
+              <SmileLayout />
+            </Suspense>
           </Providers>
         </div>
       </body>

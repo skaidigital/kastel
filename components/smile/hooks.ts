@@ -39,6 +39,18 @@ export async function getCustomerEmail() {
   return customerEmail;
 }
 
+export async function getCustomerId() {
+  const customerEmailResponse = await customerAccountFetch<CustomerEmail>({
+    query: getCustomerEmailQuery
+  });
+
+  const customerId = customerEmailResponse?.body?.data?.customer?.id || undefined;
+
+  console.log(customerId);
+
+  return customerId;
+}
+
 type CustomerEmail = {
   data: {
     customer: {
