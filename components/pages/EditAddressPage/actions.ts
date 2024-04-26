@@ -1,17 +1,23 @@
 'use server';
 
 import {
-  CreateAddressFormInput,
-  CustomerAddressCreateResponse,
-  createAddressFormInputValidator,
-  customerAddressCreateMutation
-} from '@/components/pages/CreateAddressPage/hooks';
+  CustomerAddressUpdateResponse,
+  UpdateAddressFormProps,
+  customerAddressUpdateMutation,
+  updateAddressFormValidator
+} from '@/components/pages/EditAddressPage/hooks';
 import { CACHE_TAGS } from '@/data/constants';
 import { customerAccountFetch } from '@/lib/shopify/customer';
 import { revalidateTag } from 'next/cache';
 
-export async function createAddress(data: CreateAddressFormInput) {
-  const result = createAddressFormInputValidator.safeParse(data);
+export async function updateAddress({
+  data,
+  addressId
+}: {
+  data: UpdateAddressFormProps;
+  addressId: string;
+}) {
+  const result = updateAddressFormValidator.safeParse(data);
 
   if (!result.success) {
     return {
@@ -27,20 +33,23 @@ export async function createAddress(data: CreateAddressFormInput) {
     territoryCode: rest.territoryCode.toUpperCase()
   };
 
-  const res = await customerAccountFetch<CustomerAddressCreateResponse>({
-    query: customerAddressCreateMutation,
+  const formattedAddressId = `gid://shopify/CustomerAddress/${addressId}`;
+
+  const res = await customerAccountFetch<CustomerAddressUpdateResponse>({
+    query: customerAddressUpdateMutation,
     variables: {
+      addressId: formattedAddressId,
       address,
-      defaultAddress
+      defaultAddress: defaultAddress || false
     },
     cache: 'no-store',
     tags: [CACHE_TAGS.CUSTOMER_ADDRESS]
   });
 
-  if (res.body.data.customerAddressCreate.userErrors.length > 0) {
+  if (res.body.data.customerAddressUpdate.userErrors?.length > 0) {
     return {
       success: false,
-      userErrors: res.body.data.customerAddressCreate.userErrors
+      userErrors: res.body.data.customerAddressUpdate.userErrors
     };
   }
 

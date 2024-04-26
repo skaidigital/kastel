@@ -6,6 +6,7 @@ import {
 } from '@/components/Accordion';
 import { Badge } from '@/components/Badge';
 import { AccountPageHeader } from '@/components/account/AccountPageHeader';
+import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
@@ -49,40 +50,42 @@ export async function AccountCustomerServicePage({ lang }: Props) {
   const page = validatedData.data;
 
   return (
-    <div className="grid lg:col-span-9">
-      <AccountPageHeader pageTitle={page.title} description={page.description} />
-      <Section
-        label="faqBlocks"
-        srHeading="FAQs"
-        size="sm"
-        hasBottomBorder={false}
-        className="grid gap-y-20"
-      >
-        {page.faqBlocks.map((block) => (
-          <div
-            key={block.title}
-            className="flex flex-col gap-y-3 lg:grid lg:grid-cols-12 lg:justify-between lg:gap-y-0"
-          >
-            <Header
-              title={block.title}
-              description={block.description}
-              badge={block.badge}
-              className="lg:col-span-5"
-            />
-            <Accordion collapsible type="single" className="lg:col-span-5 lg:col-start-7">
-              {block.items?.map((item) => (
-                <AccordionItem value={item.question} key={item.question}>
-                  <AccordionTrigger>{item.question}</AccordionTrigger>
-                  <AccordionContent>
-                    <PortableTextRenderer value={item.answer} />
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        ))}
-      </Section>
-    </div>
+    <Container className="mb-20 mt-6 lg:mt-10 lg:grid lg:grid-cols-12">
+      <div className="lg:col-span-10 lg:col-start-2">
+        <AccountPageHeader lang={lang} pageTitle={page.title} description={page.description} />
+        <Section
+          label="faqBlocks"
+          srHeading="FAQs"
+          size="sm"
+          hasBottomBorder={false}
+          className="grid gap-y-20"
+        >
+          {page.faqBlocks.map((block) => (
+            <div
+              key={block.title}
+              className="flex flex-col gap-y-3 lg:grid lg:grid-cols-12 lg:justify-between lg:gap-y-0"
+            >
+              <Header
+                title={block.title}
+                description={block.description}
+                badge={block.badge}
+                className="lg:col-span-5"
+              />
+              <Accordion collapsible type="single" className="lg:col-span-5 lg:col-start-7">
+                {block.items?.map((item) => (
+                  <AccordionItem value={item.question} key={item.question}>
+                    <AccordionTrigger>{item.question}</AccordionTrigger>
+                    <AccordionContent>
+                      <PortableTextRenderer value={item.answer} />
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          ))}
+        </Section>
+      </div>
+    </Container>
   );
 }
 

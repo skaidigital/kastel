@@ -3,14 +3,14 @@ import { cookies } from 'next/headers';
 import { customerAccountFetch } from '../customer';
 
 export interface CustomerData {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   metafield: {
     isPrompted: boolean;
     footLength?: string;
     style?: string;
     color?: string;
-  };
+  } | null;
 }
 
 export async function getCustomerData() {

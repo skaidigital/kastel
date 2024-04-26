@@ -26,7 +26,7 @@ export const accountPage = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
-      title: 'Products display',
+      title: 'Products display (optional)',
       name: 'productDisplay',
       type: 'productDisplay'
     }),

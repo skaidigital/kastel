@@ -3,13 +3,7 @@
 import { getDictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext } from '@/components/Carousel';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/form/RadixSelect';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProducts, getCrossSellQuery } from '@/components/shared/Cart/CrossSell/hooks';
 import { CACHE_TAGS, LangValues } from '@/data/constants';

@@ -1,9 +1,6 @@
-'use server';
-
 import { UserError } from '@/app/api/shopify/types';
 import { CACHE_TAGS } from '@/data/constants';
 import { customerAccountFetch } from '@/lib/shopify/customer';
-import { revalidateTag } from 'next/cache';
 
 type ShopifyResponse = {
   data: {
@@ -31,22 +28,29 @@ const customerAddressDeleteMutation = /* GraphQL */ `
 
 // Function to execute the mutation
 export async function deleteAddress(addressId: string) {
+  const formattedAddressId = `gid://shopify/CustomerAddress/${addressId}`;
+
   const res = await customerAccountFetch<ShopifyResponse>({
     query: customerAddressDeleteMutation,
     variables: {
-      addressId
+      addressId: formattedAddressId
     },
     cache: 'no-store',
     tags: [CACHE_TAGS.CUSTOMER_ADDRESS]
   });
 
+  console.log('res in deleteAddress', res);
+
   const errors = res.body.data.customerAddressDelete.userErrors;
 
   if (errors.length) {
-    return errors;
+    return {
+      success: false,
+      userErrors: errors
+    };
   }
 
-  revalidateTag(CACHE_TAGS.CUSTOMER_ADDRESS);
-
-  return res.body.data.customerAddressDelete.deletedAddressId || null;
+  return {
+    success: true
+  };
 }

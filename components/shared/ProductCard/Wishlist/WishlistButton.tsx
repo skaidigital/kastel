@@ -26,10 +26,14 @@ export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, cla
     if (itemIsInWislist) {
       // Remove from wishlist
       const response = await removeItemFromWishlist(customerGid, gid).then(() => router.refresh());
+      console.log('Response from removeItemFromWishlist:', response);
+
       return response;
     }
 
     const response = await addItemToWishlist(customerGid, gid).then(() => router.refresh());
+    console.log('Response from addItemToWishlist:', response);
+
     return response;
   }
 

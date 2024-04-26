@@ -13,7 +13,7 @@ import { EmptyState } from '@/components/account/EmptyState';
 import { Text } from '@/components/base/Text';
 import { TD } from '@/components/shared/TD';
 import { TH } from '@/components/shared/TH';
-import { ROUTES } from '@/data/constants';
+import { LangValues, ROUTES } from '@/data/constants';
 import { getOrderCursors } from '@/lib/shopify/customer/getOrderCursors';
 import { getOrders } from '@/lib/shopify/customer/getOrders';
 import { cn, formatDate } from '@/lib/utils';
@@ -23,9 +23,10 @@ import Link from 'next/link';
 
 interface Props {
   currentPage: number;
+  lang: LangValues;
 }
 
-export async function OrdersPage({ currentPage }: Props) {
+export async function OrdersPage({ currentPage, lang }: Props) {
   const lastCursor = await getOrderCursors(currentPage);
   const correctCursor = currentPage === 1 ? undefined : lastCursor;
   const { account_page: dictionary } = await getDictionary();
@@ -34,7 +35,7 @@ export async function OrdersPage({ currentPage }: Props) {
 
   return (
     <>
-      <AccountPageHeader pageTitle={dictionary.order} className="lg:hidden" />
+      <AccountPageHeader lang={lang} pageTitle={dictionary.order} className="lg:hidden" />
       {hasOrders && (
         <div className="grid lg:col-span-7">
           <CustomLink href={ROUTES.ACCOUNT} className="mb-1 flex items-center gap-x-2">

@@ -22,11 +22,11 @@ export function UspsMarquee({ usps, size, className }: Props) {
         )}
       >
         <Marquee autoFill>
-          {usps.map((usp) => {
+          {usps.map((usp, index) => {
             const textSize = size === 'sm' ? 'sm' : 'md';
             const iconSize = size === 'sm' ? 24 : 32;
             return (
-              <div key={usp.icon.asset._ref} className="mr-24 flex items-center gap-2">
+              <div key={usp.icon.asset._ref + index} className="mr-24 flex items-center gap-2">
                 <SanityImage width={iconSize} height={iconSize} image={usp.icon} />
                 <span className={cn(size === 'sm' && 'text-sm', size === 'lg' && 'text-md')}>
                   {usp.title}

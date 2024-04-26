@@ -3,16 +3,10 @@
 import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Combination } from '@/components/VariantSelector';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/form/RadixSelect';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
 import { addItem } from '@/components/shared/Cart/actions';

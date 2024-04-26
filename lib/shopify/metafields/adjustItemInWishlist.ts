@@ -5,6 +5,7 @@ import { shopifyAdminQuery } from '../admin';
 import { getWishlist } from './getWishlist';
 import { metafieldsSetMutation } from './query';
 
+// TODO cache this shit
 export async function addItemToWishlist(customerGid: string, itemGid: string) {
   const wishlist = await getWishlist();
 

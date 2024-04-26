@@ -1,53 +1,31 @@
 'use client';
 
-import React from 'react';
-import {
-  Popover as AriaPopover,
-  PopoverProps as AriaPopoverProps,
-  OverlayArrow,
-  composeRenderProps
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
+import * as React from 'react';
 
-export interface PopoverProps extends Omit<AriaPopoverProps, 'children'> {
-  showArrow?: boolean;
-  children: React.ReactNode;
-}
+import { cn } from '@/lib/utils';
 
-const styles = tv({
-  base: 'bg-white dark:bg-zinc-900/70 dark:backdrop-blur-2xl dark:backdrop-saturate-200 forced-colors:bg-[Canvas] shadow-2xl rounded-project bg-clip-padding border border-black/10 dark:border-white/[15%] text-slate-700 dark:text-zinc-300',
-  variants: {
-    isEntering: {
-      true: 'animate-in fade-in placement-bottom:slide-in-from-top-1 placement-top:slide-in-from-bottom-1 placement-left:slide-in-from-right-1 placement-right:slide-in-from-left-1 ease-out duration-200'
-    },
-    isExiting: {
-      true: 'animate-out fade-out placement-bottom:slide-out-to-top-1 placement-top:slide-out-to-bottom-1 placement-left:slide-out-to-right-1 placement-right:slide-out-to-left-1 ease-in duration-150'
-    }
-  }
-});
+const Popover = PopoverPrimitive.Root;
 
-export function Popover({ children, showArrow, className, ...props }: PopoverProps) {
-  return (
-    <AriaPopover
-      offset={showArrow ? 12 : 8}
+const PopoverTrigger = PopoverPrimitive.Trigger;
+
+const PopoverContent = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+>(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
+  <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Content
+      ref={ref}
+      align={align}
+      sideOffset={sideOffset}
+      className={cn(
+        'bg-popover text-popover-foreground z-50 w-72 rounded-md border p-4 shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        className
+      )}
       {...props}
-      className={composeRenderProps(className, (className, renderProps) =>
-        styles({ ...renderProps, className })
-      )}
-    >
-      {showArrow && (
-        <OverlayArrow className="group">
-          <svg
-            width={12}
-            height={12}
-            viewBox="0 0 12 12"
-            className="block fill-white stroke-black/10 stroke-1 group-placement-left:-rotate-90 group-placement-right:rotate-90 group-placement-bottom:rotate-180 dark:fill-[#1f1f21] dark:stroke-zinc-600 forced-colors:fill-[Canvas] forced-colors:stroke-[ButtonBorder]"
-          >
-            <path d="M0 0 L6 6 L12 0" />
-          </svg>
-        </OverlayArrow>
-      )}
-      {children}
-    </AriaPopover>
-  );
-}
+    />
+  </PopoverPrimitive.Portal>
+));
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+
+export { Popover, PopoverContent, PopoverTrigger };

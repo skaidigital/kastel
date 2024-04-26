@@ -30,7 +30,7 @@ export default async function Page({ params }: Props) {
 
   const validatedData = AccountPageValidator.parse(nonNullData);
 
-  return <AccountPage data={validatedData} />;
+  return <AccountPage data={validatedData} lang={lang} />;
 }
 
 export const metadata: Metadata = {

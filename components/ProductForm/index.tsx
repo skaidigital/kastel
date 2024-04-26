@@ -1,7 +1,6 @@
 import { getDictionary } from '@/app/dictionaries';
 import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
 import { VariantSelector } from '@/components/VariantSelector';
-import { OutOfStockNotificationForm } from '@/components/pages/ProductPage/OutOfStockNotificationForm/OutOfStockNotification';
 import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { SizeGuideProps } from '@/lib/sanity/types';
 import { ProductInventoryResponse } from './hooks';
@@ -97,13 +96,6 @@ export async function ProductForm({ productId, type, sizeGuide, options, variant
           selectSizeText={dictionary.choose_size}
         /> */}
       </div>
-      <OutOfStockNotificationForm
-        productType={type}
-        variants={variants}
-        inventory={inventory}
-        dictionary={dictionary.back_in_stock_notification}
-        className="border-brand-border border p-5"
-      />
     </>
   );
 }

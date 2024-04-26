@@ -10,17 +10,11 @@ import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Carousel } from '@/components/Carousel';
 import { CustomLink } from '@/components/CustomLink';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/form/RadixSelect';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { ShopOurModelsSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { ROUTES } from '@/data/constants';

@@ -4,6 +4,7 @@ import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { AccountPageHeader } from '@/components/account/AccountPageHeader';
 import { FormInput } from '@/components/form/FormInput';
+import { FormSwitch } from '@/components/form/FormSwitch';
 import { createAddress } from '@/components/pages/CreateAddressPage/actions';
 import {
   CreateAddressFormInput,
@@ -11,7 +12,6 @@ import {
 } from '@/components/pages/CreateAddressPage/hooks';
 import { ROUTES } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { Address } from '@/lib/shopify/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
@@ -20,10 +20,9 @@ import { toast } from 'sonner';
 
 interface Props {
   dictionary: Dictionary['create_address_page'];
-  data: Address;
 }
 
-export function EditAddressPage({ dictionary, data }: Props) {
+export function CreateAddressPage({ dictionary }: Props) {
   const [isPending, startTransition] = useTransition();
   const { market, lang } = useBaseParams();
   const router = useRouter();
@@ -32,14 +31,14 @@ export function EditAddressPage({ dictionary, data }: Props) {
     resolver: zodResolver(createAddressFormInputValidator),
     mode: 'onSubmit',
     defaultValues: {
-      firstName: data.firstName || '',
-      lastName: data.lastName || '',
-      phoneNumber: data.phoneNumber || '',
-      address1: data.address1 || '',
-      address2: data.address2 || '',
-      zip: data.zip || '',
-      city: data.city || '',
-      territoryCode: data.territoryCode || '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      address1: '',
+      address2: '',
+      zip: '',
+      city: '',
+      territoryCode: '',
       defaultAddress: false
     }
   });
@@ -66,7 +65,7 @@ export function EditAddressPage({ dictionary, data }: Props) {
 
   return (
     <div className="grid lg:col-span-3">
-      <AccountPageHeader pageTitle={dictionary.edit_address} />
+      <AccountPageHeader lang={lang} pageTitle={dictionary.create_address} />
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
         <FormInput
           label={dictionary.first_name}
@@ -91,15 +90,10 @@ export function EditAddressPage({ dictionary, data }: Props) {
         <FormInput label={dictionary.zip} name="zip" control={control} />
         <FormInput label={dictionary.city} name="city" control={control} />
         <FormInput label={dictionary.country} name="territoryCode" control={control} />
-        {/* <FormChec
-          label={dictionary.default_address}
-          name="defaultAddress"
-          type="checkbox"
-          control={control}
-        /> */}
+        <FormSwitch control={control} label={dictionary.default_address} name="defaultAddress" />
 
         <Button size="sm" type="submit" isLoading={isPending}>
-          {dictionary.edit_address}
+          {dictionary.create_address}
         </Button>
       </form>
     </div>

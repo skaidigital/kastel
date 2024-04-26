@@ -1,11 +1,11 @@
-import { AccountPageSchema } from '@/app/(site)/[market]/[lang]/(rest)/account/(overview)/hooks';
+import { AccountPageSchema } from '@/app/(site)/[market]/[lang]/(rest)/account/(has-sidebar)/hooks';
 import { KastelClubCard } from '@/components/pages/AccountPage/KastelClubCard';
 import { LinkButton } from '@/components/pages/AccountPage/LinkButton';
 import { MyInfoCard } from '@/components/pages/AccountPage/MyInfoCard';
 import { ProductDisplay } from '@/components/pages/AccountPage/ProductDisplay';
 import { WelcomeMessage } from '@/components/pages/AccountPage/WelcomeMessage';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { ROUTES } from '@/data/constants';
+import { LangValues, ROUTES } from '@/data/constants';
 import { getCustomerData } from '@/lib/shopify/metafields/getCustomerData';
 import {
   HeartIcon,
@@ -17,18 +17,20 @@ import { Suspense } from 'react';
 
 interface Props {
   data: AccountPageSchema;
+  lang: LangValues;
 }
 
-export async function AccountPage({ data }: Props) {
-  console.log(data);
-
+export async function AccountPage({ data, lang }: Props) {
   const customerData = await getCustomerData();
+
+  const welcomeBackString = getWelcomeBackString(lang);
+
   return (
     <div className="flex flex-col lg:col-span-8 lg:grid">
-      <div className="grid gap-6 lg:hidden">
+      <div className="mb-20 grid gap-6 lg:hidden">
         <WelcomeMessage
           name={customerData.firstName || ''}
-          welcomeBackString="Velkommen tilbake"
+          welcomeBackString={welcomeBackString}
           content={data.messageFromTheTeam}
         />
         <div className="grid grid-cols-2 gap-2">
@@ -54,7 +56,7 @@ export async function AccountPage({ data }: Props) {
           />
         </div>
         <Suspense fallback={null}>
-          <KastelClubCard />
+          <KastelClubCard lang={lang} />
         </Suspense>
         <MyInfoCard customerData={customerData} />
         {data.productDisplay && (
@@ -75,7 +77,6 @@ export async function AccountPage({ data }: Props) {
           <div className="relative col-span-3 bg-blue-100">
             <SanityImage image={data.image} fill />
           </div>
-          {/* {data.productDisplay && ( */}
           <div className="col-span-5">
             {data.productDisplay && (
               <ProductDisplay
@@ -84,13 +85,23 @@ export async function AccountPage({ data }: Props) {
               />
             )}
           </div>
-          {/* // )} */}
           <div className="col-span-3 grid gap-y-4">
-            <KastelClubCard />
+            <KastelClubCard lang={lang} />
             <MyInfoCard customerData={customerData} />
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function getWelcomeBackString(lang: LangValues) {
+  switch (lang) {
+    case 'no':
+      return 'Velkommen tilbake';
+    case 'en':
+      return 'Welcome back';
+    default:
+      return 'Welcome back';
+  }
 }
