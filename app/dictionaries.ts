@@ -138,6 +138,7 @@ export interface Dictionary {
     email: string;
     default_address: string;
     create_address: string;
+    edit_address: string;
     addresses: string;
   };
   cookie_consent: {

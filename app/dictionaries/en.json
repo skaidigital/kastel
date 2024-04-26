@@ -56,7 +56,7 @@
     "results": "results"
   },
   "account_page": {
-    "recent_orders": "Recent orders",
+    "recent_orders": "Orders",
     "order": "Order",
     "date": "Date",
     "status_payment": "Payment status",
@@ -127,6 +127,7 @@
     "email": "Email",
     "default_address": "Default address",
     "create_address": "Create address",
+    "edit_address": "Edit address",
     "addresses": "Addresses"
   },
   "cookie_consent": {

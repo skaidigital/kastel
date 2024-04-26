@@ -1,17 +1,36 @@
 import { AccountPage } from '@/components/pages/AccountPage';
-import { MarketValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
+import { loadQuery } from '@/lib/sanity/store';
 import { logIn } from '@/lib/shopify/customer/actions';
 import { useUser } from '@/lib/useUser';
 import { Metadata } from 'next';
+import { AccountPageValidator, getAccountQuery } from './hooks';
 
-export default async function Page() {
+function loadAccountPage({ lang, market }: { lang: LangValues; market: MarketValues }) {
+  const query = getAccountQuery({ lang, market });
+
+  return loadQuery<any | null>(query, {}, { next: { tags: [`${CACHE_TAGS.PRODUCT}`] } });
+}
+
+interface Props {
+  params: { market: MarketValues; lang: LangValues };
+}
+
+export default async function Page({ params }: Props) {
+  const { lang, market } = params;
   const { isLoggedIn } = useUser();
 
   if (!isLoggedIn) {
     await logIn();
   }
+  const inital = await loadAccountPage({ lang, market });
 
-  return <AccountPage />;
+  const nonNullData = nullToUndefined(inital.data);
+
+  const validatedData = AccountPageValidator.parse(nonNullData);
+
+  return <AccountPage data={validatedData} />;
 }
 
 export const metadata: Metadata = {

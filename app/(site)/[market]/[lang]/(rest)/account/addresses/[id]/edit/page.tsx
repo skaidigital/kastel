@@ -1,6 +1,7 @@
 import { getDictionary } from '@/app/dictionaries';
 import { EditAddressPage } from '@/components/pages/CreateAddressPage';
 import { MarketValues } from '@/data/constants';
+import { getAddresses } from '@/lib/shopify/customer/getAddress';
 import { Metadata } from 'next';
 
 interface Props {
@@ -11,9 +12,20 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   // TODO get address and pass the default address to the page
+  console.log({ params });
+  const { id } = params;
 
   const { create_address_page: dictionary } = await getDictionary();
-  return <EditAddressPage dictionary={dictionary} />;
+
+  const addressData = await getAddresses(id);
+
+  console.log({ addressData });
+
+  if (!addressData) {
+    return null;
+  }
+
+  return <EditAddressPage dictionary={dictionary} data={addressData} />;
 }
 
 export const metadata: Metadata = {
