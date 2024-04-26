@@ -41,10 +41,10 @@ export default async function Page() {
 
   if (isInWishlist) {
     // console.log('Item is in wishlist');
-    removeItemResponse = await removeItemFromWishlist(customerGid, gid);
+    removeItemResponse = await removeItemFromWishlist(gid);
   } else {
     // console.log('Item is not in wishlist');
-    addItemResponse = await addItemToWishlist(customerGid, gid);
+    addItemResponse = await addItemToWishlist(gid);
   }
 
   // ----------------------------
