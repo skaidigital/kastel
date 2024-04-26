@@ -22,7 +22,7 @@ export function SheetContent({ children, title, className, overlayClassName }: P
       <Drawer.Content
         forceMount
         className={cn(
-          'fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none'
+          'fixed bottom-0 left-0 z-30 flex max-h-[90vh] w-full flex-col rounded-project bg-white  transition-[transform,opacity] will-change-[transform,opacity] focus:outline-none'
         )}
       >
         <div className="mx-auto mb-4 mt-1.5 h-1.5 w-12 rounded-full bg-brand-light-grey" />
