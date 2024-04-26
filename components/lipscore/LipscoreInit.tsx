@@ -32,16 +32,8 @@ export default function LipscoreInit() {
             console.log('Lipscore initialized after script load');
           }
         };
-      } else {
-        console.log('Lipscore initialized without needing to load script');
       }
     }
-    // Depending on your application, you may decide to add a cleanup function here.
-    return () => {
-      // Cleanup script if necessary
-      // let script = document.querySelector('script[src="//static.lipscore.com/assets/no/lipscore-v1.js"]');
-      // if (script) document.head.removeChild(script);
-    };
   }, []);
 
   return null;
