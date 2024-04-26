@@ -10,7 +10,6 @@ import { CustomLink } from '@/components/CustomLink';
 import { Pagination } from '@/components/Pagination';
 import { AccountPageHeader } from '@/components/account/AccountPageHeader';
 import { EmptyState } from '@/components/account/EmptyState';
-import { Text } from '@/components/base/Text';
 import { TD } from '@/components/shared/TD';
 import { TH } from '@/components/shared/TH';
 import { LangValues, ROUTES } from '@/data/constants';
@@ -18,8 +17,7 @@ import { getOrderCursors } from '@/lib/shopify/customer/getOrderCursors';
 import { getOrders } from '@/lib/shopify/customer/getOrders';
 import { cn, formatDate } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/20/solid';
-import { CheckIcon, ChevronLeftIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+import { CheckIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface Props {
   currentPage: number;
@@ -31,6 +29,8 @@ export async function OrdersPage({ currentPage, lang }: Props) {
   const correctCursor = currentPage === 1 ? undefined : lastCursor;
   const { account_page: dictionary } = await getDictionary();
   const { orders, pageInfo } = await getOrders(correctCursor);
+  console.log({ orders });
+
   const hasOrders = orders && orders.length > 0;
 
   return (
@@ -38,39 +38,40 @@ export async function OrdersPage({ currentPage, lang }: Props) {
       <AccountPageHeader lang={lang} pageTitle={dictionary.order} className="lg:hidden" />
       {hasOrders && (
         <div className="grid lg:col-span-7">
-          <CustomLink href={ROUTES.ACCOUNT} className="mb-1 flex items-center gap-x-2">
-            <ChevronLeftIcon className="size-4" />
-            <Text size="sm" className="text-brand-mid-grey">
-              Account
-            </Text>
-          </CustomLink>
-          <h1 className="mb-8 text-heading-md font-bold">{dictionary.recent_orders}</h1>
+          <AccountPageHeader
+            lang={lang}
+            pageTitle={dictionary.order}
+            className="col-span-7 hidden lg:block"
+          />
           <div className="flex flex-col space-y-10 lg:flex-row lg:space-x-10 lg:space-y-0 ">
             <div className="overflow-x-auto lg:grow ">
               <table className="lg:w-full">
                 <thead className="border bg-brand-sand">
                   <tr>
-                    <TH className="py-3 pl-6 text-xs font-medium">{dictionary.order}</TH>
-                    <TH className="py-3 pl-6 text-xs font-medium">{dictionary.date}</TH>
-                    <TH className="py-3 pl-6 text-xs font-medium">{dictionary.status_payment}</TH>
-                    <TH className="py-3 pl-6 text-xs font-medium">{dictionary.status_shipping}</TH>
-                    <TH className="py-3 pr-6 text-right text-xs font-medium">{dictionary.total}</TH>
+                    <TH>{dictionary.order}</TH>
+                    <TH>{dictionary.date}</TH>
+                    <TH>{dictionary.status_payment}</TH>
+                    <TH>{dictionary.status_shipping}</TH>
+                    <TH className="text-right">{dictionary.total}</TH>
                   </tr>
                 </thead>
                 <tbody className="divide-brand-border divide-y">
                   {orders?.map((order, index) => (
                     <tr key={order.id} className="border-b border-brand-light-grey">
                       <TD className={cn('py-3', index === 0 && 'pl-6')}>
-                        <Link href={`${ROUTES.ORDER_DETAILS}/${extractGid(order.id)}`}>
+                        <CustomLink
+                          href={`${ROUTES.ORDER_DETAILS}/${extractGid(order.id)}`}
+                          className="underline"
+                        >
                           {order.name}
-                        </Link>
+                        </CustomLink>
                       </TD>
                       <TD className="py-3 pl-6">{formatDate(order.createdAt)}</TD>
                       <TD className="py-3 pl-6">
                         <Badge
                           size="xs"
                           variant={getOrderFinancialStatusBadgeVariant(order.financialStatus)}
-                          className="flex items-start gap-1 py-0.5"
+                          className="flex items-center gap-x-1"
                         >
                           {getOrderIcon(getOrderFinancialStatusBadgeVariant(order.financialStatus))}
                           {capitalizeFirstLetter(order.financialStatus)}
@@ -82,7 +83,7 @@ export async function OrdersPage({ currentPage, lang }: Props) {
                           variant={getOrderFullfillmentStatusBadgeVariant(
                             order.fulfillments?.nodes[0]?.status
                           )}
-                          className="flex items-start gap-1 py-0.5"
+                          className="flex items-center gap-x-1"
                         >
                           {getOrderIcon(
                             getOrderFullfillmentStatusBadgeVariant(

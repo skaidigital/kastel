@@ -23,7 +23,7 @@ export function AccountPageHeader({ lang, pageTitle, description, className }: P
           {accountString}
         </Text>
       </CustomLink>
-      <Heading as="h1" size="md">
+      <Heading as="h1" size="md" className="lg:mt-2">
         {pageTitle}
       </Heading>
       {description && <Text className="mt-3 max-w-xl text-balance">{description}</Text>}
