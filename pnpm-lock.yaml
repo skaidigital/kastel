@@ -301,6 +301,9 @@ devDependencies:
   '@types/jsonwebtoken':
     specifier: ^9.0.6
     version: 9.0.6
+  '@types/negotiator':
+    specifier: ^0.6.3
+    version: 0.6.3
   '@types/react':
     specifier: ^18.2.55
     version: 18.2.79
@@ -7029,6 +7032,10 @@ packages:
 
   /@types/minimist@1.2.5:
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
+
+  /@types/negotiator@0.6.3:
+    resolution: {integrity: sha512-JkXTOdKs5MF086b/pt8C3+yVp3iDUwG635L7oCH6HvJvvr6lSUU5oe/gLXnPEfYRROHjJIPgCV6cuAg8gGkntQ==}
+    dev: true
 
   /@types/node@20.4.4:
     resolution: {integrity: sha512-CukZhumInROvLq3+b5gLev+vgpsIqC2D0deQr/yS1WnxvmYLlJXZpaQrQiseMY+6xusl79E04UjWoqyr+t1/Ew==}
