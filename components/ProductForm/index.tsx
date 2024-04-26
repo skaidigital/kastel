@@ -3,6 +3,7 @@ import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
 import { VariantSelector } from '@/components/VariantSelector';
 import { OutOfStockNotificationForm } from '@/components/pages/ProductPage/OutOfStockNotificationForm/OutOfStockNotification';
 import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
+import { SizeGuideProps } from '@/lib/sanity/types';
 import { ProductInventoryResponse } from './hooks';
 
 export type Combination = {
@@ -14,11 +15,12 @@ export type Combination = {
 interface Props {
   productId: string;
   type: Product['type'];
-  options?: ProductOption[];
   variants: ProductVariant[];
+  sizeGuide?: SizeGuideProps;
+  options?: ProductOption[];
 }
 
-export async function ProductForm({ productId, type, options, variants }: Props) {
+export async function ProductForm({ productId, type, sizeGuide, options, variants }: Props) {
   if (!variants || !productId) return null;
   const dictionaryResponse = await getDictionary();
 
@@ -60,6 +62,7 @@ export async function ProductForm({ productId, type, options, variants }: Props)
         <VariantSelector
           inventory={inventory}
           options={options}
+          sizeGuide={sizeGuide}
           featuredOptions={[]}
           variants={variants}
           dictionary={dictionary}

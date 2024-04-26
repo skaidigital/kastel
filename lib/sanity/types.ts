@@ -1,4 +1,4 @@
-import { productGalleryValidator } from '@/components/pages/ProductPage/hooks';
+import { productGalleryValidator, sizeGuideValidator } from '@/components/pages/ProductPage/hooks';
 import {
   SEOAndSocialsValidator,
   aspectRatioSettingsValidator,
@@ -58,3 +58,4 @@ export type VideoSettings = z.infer<typeof videoSettingsValidator>;
 export type BlogPostCardProps = z.infer<typeof blogPostCardValidator>;
 export type AuthorProps = z.infer<typeof authorValidator>;
 export type FAQBlockProps = z.infer<typeof faqBlockValidator>;
+export type SizeGuideProps = z.infer<typeof sizeGuideValidator>;

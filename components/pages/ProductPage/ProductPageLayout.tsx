@@ -187,7 +187,13 @@ export async function ProductPageLayout(props: Props) {
                   <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
                 </Suspense>
                 <Suspense fallback={<ProductFormSkeleton />}>
-                  <ProductForm productId={id} type={type} variants={variants} options={options} />
+                  <ProductForm
+                    productId={id}
+                    type={type}
+                    variants={variants}
+                    options={options}
+                    sizeGuide={product.sizeGuide}
+                  />
                 </Suspense>
               </div>
               <PaymentIcons market={market} />

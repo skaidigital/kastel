@@ -4,6 +4,7 @@ import { Dictionary } from '@/app/dictionaries';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { OptionGroup } from '@/components/VariantSelector/OptionGroup';
 import { ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
+import { SizeGuideProps } from '@/lib/sanity/types';
 
 export type Combination = {
   id: string;
@@ -17,6 +18,7 @@ interface Props {
   featuredOptions: string[];
   variants: ProductVariant[];
   dictionary: Dictionary['product_page'];
+  sizeGuide?: SizeGuideProps;
 }
 
 // TODO inventory?
@@ -25,6 +27,7 @@ export function VariantSelector({
   options,
   featuredOptions,
   variants,
+  sizeGuide,
   dictionary
 }: Props) {
   // Filter out any option where there are not a corresponding variant
@@ -34,12 +37,11 @@ export function VariantSelector({
     const optionType = option.type;
     const isSize = optionType === 'size';
 
-    console.log(optionType, isSize);
-
     return (
       <OptionGroup
         key={option.name}
         option={option}
+        sizeGuide={sizeGuide}
         chooseSizeText={dictionary.choose_size}
         sizeGuideText={dictionary.size_guide}
       />

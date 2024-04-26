@@ -1,5 +1,6 @@
 import { Dictionary } from '@/app/dictionaries';
 import { ProductOption } from '@/components/pages/ProductPage/hooks';
+import { SizeGuideProps } from '@/lib/sanity/types';
 import { useQueryState } from 'nuqs';
 import { Text } from '../base/Text';
 import { SizeGuide } from './SizeGuide';
@@ -8,10 +9,11 @@ interface Props {
   option: ProductOption;
   chooseSizeText: Dictionary['product_page']['choose_size'];
   sizeGuideText: Dictionary['product_page']['size_guide'];
+  sizeGuide?: SizeGuideProps;
 }
 
 // TODO refactor to use just useQueryState if possible (logic inside the map)
-export function OptionGroup({ option, chooseSizeText, sizeGuideText }: Props) {
+export function OptionGroup({ option, sizeGuide, chooseSizeText, sizeGuideText }: Props) {
   const optionType = option.type;
   const [selectedSize, setSelectedSize] = useQueryState(option.name.toLowerCase());
   if (optionType !== 'size') {
@@ -25,7 +27,9 @@ export function OptionGroup({ option, chooseSizeText, sizeGuideText }: Props) {
           <Text as="p" size="xs" className="text-brand-dark-grey">
             {option.name}: {selectedSize || chooseSizeText}
           </Text>
-          <SizeGuide sizeGuideText={sizeGuideText} />
+          {sizeGuide && sizeGuideText && (
+            <SizeGuide sizeGuide={sizeGuide} sizeGuideText={sizeGuideText} />
+          )}
         </div>
       </dt>
       <dd className="grid grid-cols-6 gap-1">
