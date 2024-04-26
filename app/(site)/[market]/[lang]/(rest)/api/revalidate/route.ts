@@ -6,6 +6,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 const revalidateSecret = env.SANITY_REVALIDATE_SECRET;
 
+// TODO see if we can extend this one
 export async function POST(req: NextRequest) {
   try {
     const { body, isValidSignature } = await parseBody<{

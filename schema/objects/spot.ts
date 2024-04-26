@@ -93,7 +93,7 @@ export const spot = defineType({
   preview: {
     select: {
       type: 'type',
-      details: 'details.en',
+      details: 'description_en',
       product: 'product.title.en',
       x: 'x',
       y: 'y'

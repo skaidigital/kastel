@@ -56,8 +56,8 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      listNew({ S, schemaType: 'blogPost', title: '🚧 Blog posts' }).icon(Article),
-      listNew({ S, schemaType: 'legalPage', title: '🚧 Legal pages' }).icon(Gavel),
+      listNew({ S, schemaType: 'blogPost', title: '🚧  Blog posts' }).icon(Article),
+      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       S.divider(),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
@@ -99,7 +99,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         .icon(Sneaker),
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
       S.divider(),
-      group(S, 'Nature Lab', [
+      group(S, '🚧 Nature Lab', [
         listNew({ S, title: 'Landing page', schemaType: 'natureLabLandingPage' }).icon(File),
         listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
         listNew({ S, title: 'Phase 2 products', schemaType: 'phase2Product' }).icon(Sneaker),
@@ -116,6 +116,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, 'Footer', 'footer', 'footer').icon(SquareHalfBottom),
         singleton(S, 'Popup', 'popup', 'popup').icon(MegaphoneSimple),
         singleton(S, 'USPs', 'usps', 'usps').icon(Check),
+        singleton(S, 'USP marquee', 'layoutUSPMarquee', 'layoutUSPMarquee').icon(Check),
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
       group(S, 'Reusable content blocks', [

@@ -70,7 +70,7 @@ export function ProductCard({
   // TODO get sku from the product || a variant if variable product
 
   return (
-    <div className="relative @container">
+    <div className="relative border border-brand-light-grey @container">
       <ProductCardProvider>
         <div className="absolute right-3 top-3 z-50 @xs:right-4 @xs:top-4">
           <Suspense fallback={<WishlistFallback />}>
@@ -113,7 +113,7 @@ export function ProductCard({
               )}
             </div>
           </ImageContainer>
-          <div className="flex flex-col justify-center gap-y-2 border-y border-brand-light-grey bg-white p-3 @xs:flex-row @xs:justify-between @xs:p-4">
+          <div className="flex flex-col justify-center gap-y-2 border-t border-brand-light-grey bg-white p-3 @xs:flex-row @xs:justify-between @xs:p-4">
             <div className="mb-2 flex flex-col gap-y-1 truncate @xs:mb-0">
               <h3 className="truncate text-xs @xs:text-sm">{title}</h3>
               <div className="flex gap-x-3 text-xs text-brand-mid-grey @xs:gap-x-4 @xs:text-sm">

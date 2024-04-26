@@ -1,7 +1,7 @@
 'use client';
 
 import { formatPrice } from '@/app/api/shopify/utils';
-import { Dictionary } from '@/app/dictionaries-client';
+import { Dictionary } from '@/app/dictionaries';
 import { Text } from '@/components/base/Text';
 import { cn } from '@/lib/utils';
 import { GiftIcon } from '@heroicons/react/20/solid';

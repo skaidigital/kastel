@@ -29,6 +29,25 @@ module.exports = {
       'nature-lab-body': ['var(--font-nature-lab-body)'],
       'nature-lab-heading': ['var(--font-nature-lab-heading)']
     },
+    fontSize: {
+      'heading-2xs': ['16px', { lineHeight: '20px' }],
+      'heading-xs': ['20px', { lineHeight: '28px' }],
+      'heading-sm': ['28px', { lineHeight: '32px' }],
+      'heading-md': ['32px', { lineHeight: '40px' }],
+      'heading-lg': ['40px', { lineHeight: '48px' }],
+      'heading-xl': ['60px', { lineHeight: '64px' }],
+      'heading-2xl': ['80px', { lineHeight: '80px' }],
+      xs: ['12px', '16px'],
+      sm: ['14px', '20px'],
+      md: ['18px', '24px'],
+      lg: ['24px', '32px'],
+      xl: ['32px', { lineHeight: '40px' }],
+      'nature-lab-md': ['14px', { lineHeight: '18px' }],
+      'nature-lab-lg': ['18px', { lineHeight: '24px' }],
+      'nature-lab-heading-lg': ['32px', { lineHeight: '36px', letterSpacing: '0.4px' }],
+      'overline-sm': ['10px', { lineHeight: '10px', letterSpacing: '0.4px' }],
+      'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
+    },
     keyframes: {
       spin: {
         '0%': { transform: 'rotate(0deg)' },
@@ -196,25 +215,6 @@ module.exports = {
       exitToRight: 'exitToRight 250ms ease'
     },
     extend: {
-      fontSize: {
-        'heading-2xs': ['16px', { lineHeight: '20px' }],
-        'heading-xs': ['20px', { lineHeight: '28px' }],
-        'heading-sm': ['28px', { lineHeight: '32px' }],
-        'heading-md': ['32px', { lineHeight: '40px' }],
-        'heading-lg': ['40px', { lineHeight: '48px' }],
-        'heading-xl': ['60px', { lineHeight: '64px' }],
-        'heading-2xl': ['80px', { lineHeight: '80px' }],
-        xs: ['12px', { lineHeight: '16px' }],
-        sm: ['14px', { lineHeight: '20px' }],
-        md: ['18px', { lineHeight: '24px' }],
-        lg: ['24px', { lineHeight: '32px' }],
-        xl: ['32px', { lineHeight: '40px' }],
-        'nature-lab-md': ['14px', { lineHeight: '18px' }],
-        'nature-lab-lg': ['18px', { lineHeight: '24px' }],
-        'nature-lab-heading-lg': ['32px', { lineHeight: '36px', letterSpacing: '0.4px' }],
-        'overline-sm': ['10px', { lineHeight: '10px', letterSpacing: '0.4px' }],
-        'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
-      },
       colors: {
         brand: {
           primary: '#407F7F',

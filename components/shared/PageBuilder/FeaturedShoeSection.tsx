@@ -99,7 +99,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
                 )
               ) : null}
             </CarouselItem>
-            <CarouselItem className="basis-[80%] lg:basis-1/3 relative border-x border-t border-brand-light-grey pl-2 lg:pl-4">
+            <CarouselItem className="basis-[80%] lg:basis-1/3 relative pl-2 lg:pl-4">
               <div className="w-full">
                 {product && (
                   <ProductCard

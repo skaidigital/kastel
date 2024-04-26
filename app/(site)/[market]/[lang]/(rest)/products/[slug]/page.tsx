@@ -48,6 +48,7 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
   const market = params.market;
   const lang = params.lang;
   const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
+
   try {
     const initial = await loadProduct({ slug, market, lang, gender: activeGender });
     const { product_page: dictionary } = await getDictionary();

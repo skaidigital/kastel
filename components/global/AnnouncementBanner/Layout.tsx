@@ -7,6 +7,7 @@ import Marquee from 'react-fast-marquee';
 
 interface Props {
   data: AnnouncementBannerPayload;
+  className?: string;
 }
 
 export function AnnouncementBannerLayout(props: Props) {
@@ -25,7 +26,9 @@ export function AnnouncementBannerLayout(props: Props) {
   return (
     <Wrapper
       href={hasLink ? resolveLink(announcementBanner.link) : undefined}
-      className="flex h-8 w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36"
+      className={
+        'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36'
+      }
     >
       <Marquee autoFill pauseOnHover>
         {content?.map((usp) => {

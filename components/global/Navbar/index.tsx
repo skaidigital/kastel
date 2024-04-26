@@ -7,13 +7,18 @@ import OpenCart from '@/components/shared/Cart/open-cart';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
+import { cn } from '@/lib/utils';
 import { draftMode } from 'next/headers';
 import { Suspense } from 'react';
 
 async function loadNavbar(lang: LangValues) {
   const query = getNavbarQuery(lang);
 
-  return loadQuery<NavbarPayload>(query, {}, { next: { tags: [CACHE_TAGS.NAVBAR] } });
+  return loadQuery<NavbarPayload>(
+    query,
+    {},
+    { next: { tags: [CACHE_TAGS.NAVBAR, CACHE_TAGS.ANNOUNCEMENT_BANNER] } }
+  );
 }
 
 interface Props {
@@ -35,7 +40,10 @@ export async function Navbar({ market, lang, className }: Props) {
   const navbar = isDraftMode ? validatedData?.data : withoutNullValues;
 
   return (
-    <NavbarLayout data={navbar} className={className}>
+    <NavbarLayout
+      data={navbar}
+      className={cn(navbar?.hasAnnouncementBanner && 'mt-[--announcement-bar-height] ', className)}
+    >
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
           <Suspense fallback={<CrossSellSkeleton className="px-6 py-4" />}>

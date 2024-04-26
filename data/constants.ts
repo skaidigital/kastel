@@ -35,6 +35,7 @@ export const CACHE_TAGS = {
   NAVBAR: 'navbar',
   FOOTER: 'footer',
   POPUP: 'popup',
+  LAYOUT_USP_MARUQEE: 'layoutUSPMarquee',
   METADATA: 'settingsSEOAndSocials',
   COOKIE_CONSENT: 'cookieConsent'
 };
@@ -70,7 +71,8 @@ export const COOKIE_NAMES = {
   HAS_CHOSEN_MARKET: 'has_chosen_market',
   MARKET: 'market',
   PREVIEW_MARKET: 'previewMarket',
-  PREVIEW_LANG: 'previewLang'
+  PREVIEW_LANG: 'previewLang',
+  SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name'
 };
 
 export const TEMPLATES = {

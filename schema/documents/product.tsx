@@ -106,7 +106,14 @@ export const product = defineType({
         }
       },
       group: 'images',
-      validation: (Rule) => Rule.min(1)
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context.parent.detailImage && !value) {
+            return 'You have to set this field';
+          }
+
+          return true;
+        })
     }),
     defineField({
       title: 'Title',

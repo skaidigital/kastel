@@ -389,6 +389,21 @@ export const buttonSettings = groq`
   variant
 `;
 
+export const videoSettings = groq`
+  autoPlay
+`;
+
+export function getAuthor(lang: LangValues) {
+  return groq`
+  name,
+  "role": role.${lang},
+  "description": description.${lang},
+  "image": image{
+    ${getImageBase(lang)}
+  }
+`;
+}
+
 export function getFAQBlock(lang: LangValues) {
   return groq`
   "title": title.${lang},

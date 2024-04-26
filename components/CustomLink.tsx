@@ -13,6 +13,8 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
 export function CustomLink({ href, children, ...restLink }: Props) {
   const { market, lang } = useBaseParams();
 
+  if (!href || !children) return null;
+
   return (
     <Link href={`/${market}/${lang}${href}`} {...restLink}>
       {children}

@@ -130,12 +130,7 @@ export function CollectionLayout({
             {desktopItems?.map((item, index) => {
               if (item.type === 'image' || item.type === 'video') {
                 return (
-                  <div
-                    key={index}
-                    className={cn(
-                      'aspect-h-3 aspect-w-2 !relative lg:aspect-none lg:h-auto lg:w-full'
-                    )}
-                  >
+                  <div key={index} className={cn('!relative h-full w-full')}>
                     <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} />
                   </div>
                 );
@@ -272,7 +267,7 @@ export function CollectionGrid({
   return (
     <div
       className={cn(
-        'divide-x divide-brand-light-grey',
+        '',
         number === '1' && 'grid grid-cols-1 lg:grid-cols-4',
         number === '2' && 'grid grid-cols-2 lg:grid-cols-4',
         number === '3' && 'grid grid-cols-2 lg:grid-cols-3',

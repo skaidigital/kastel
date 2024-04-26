@@ -32,7 +32,7 @@ export const footer = defineType({
           type: 'headingAndLinks'
         })
       ],
-      validation: (Rule) => Rule.min(1).max(4)
+      validation: (Rule) => Rule.required().min(1).max(4)
     }),
     defineField({
       title: 'Items (Swedish market)',
@@ -43,7 +43,7 @@ export const footer = defineType({
           type: 'headingAndLinks'
         })
       ],
-      validation: (Rule) => Rule.min(1).max(4)
+      validation: (Rule) => Rule.required().min(1).max(4)
     })
   ]
 });

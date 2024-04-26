@@ -22,18 +22,23 @@ export type FooterDictionary = z.infer<typeof footerDictionaryValidator>;
 type DictionaryLoader = () => Promise<FooterDictionary>;
 
 const dictionaries: Record<string, DictionaryLoader> = {
-  eu: () => import('./en.json').then((module) => module.default),
+  en: () => import('./en.json').then((module) => module.default),
   no: () => import('./no.json').then((module) => module.default)
 };
 
 export const getFooterDictionary = async (lang: LangValues) => {
+  console.log(lang);
+
   if (!lang && lang !== 'no' && lang !== 'en') {
     throw new Error('Not supported language');
   }
 
   const loader = dictionaries[lang];
+  console.log(loader);
 
   if (!loader) {
+    console.log(loader);
+
     throw new Error(`Error in dictionary`);
   }
   return loader();

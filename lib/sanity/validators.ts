@@ -257,6 +257,25 @@ export const uspValidator = z.object({
   image: imageValidator
 });
 
+export const videoSettingsValidator = z.object({
+  autoPlay: z.boolean()
+});
+
+export const blogPostCardValidator = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  slug: z.string(),
+  readLength: z.number(),
+  image: imageValidator
+});
+
+export const authorValidator = z.object({
+  name: z.string(),
+  role: z.string(),
+  description: z.string().optional(),
+  image: imageValidator
+});
+
 export const faqBlockValidator = z.object({
   title: z.string(),
   description: z.string().optional(),

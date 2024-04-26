@@ -68,7 +68,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
           asChild
         >
           <button aria-label="Open cart" className="text-sm">
-            {cartString}
+            <span className="ml-2 mr-4">{cartString}</span>
             {hasCartItems ? (
               <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded bg-brand-dark-grey text-[11px] font-medium text-white">
                 {cart.totalQuantity}

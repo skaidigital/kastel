@@ -21,11 +21,13 @@
   :root {
     --smooth-bezier: cubic-bezier(0.16, 1, 0.3, 1);
     --header-height: 44px;
-    --announcement-bar-height: 44px;
+    --announcement-bar-height: 32px;
     --font-mono: 'Fira Code', monospace;
     --font-sans: 'Helvetica Neue', sans-serif;
     --font-nature-lab-body: 'Sono', sans-serif;
     --font-nature-lab-heading: 'Merriweather', serif;
+    --blog-post-container-md: 720px;
+    --blog-post-container-lg: 960px;
   }
 
   body {
@@ -86,6 +88,7 @@
   font-family: 'Helvetica Neue';
   font-style: normal;
   font-weight: 400;
+  descent-override: 0%;
   src: url('../public/fonts/helvetica-neue-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
@@ -95,6 +98,7 @@
   font-family: 'Helvetica Neue';
   font-style: normal;
   font-weight: 500;
+  descent-override: 0%;
   src: url('../public/fonts/helvetica-neue-medium.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
@@ -104,6 +108,7 @@
   font-family: 'Helvetica Neue';
   font-style: normal;
   font-weight: 700;
+  descent-override: 0%;
   src: url('../public/fonts/helvetica-neue-bold.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
@@ -260,4 +265,15 @@
   height: 10px;
   background: var(--red);
   transform-origin: 0%;
+}
+
+/* Vipps logo classnames */
+.st0 {
+  fill: #ff5b24;
+}
+.st1 {
+  fill: #ffffff;
+}
+.st2 {
+  fill: none;
 }

@@ -3,7 +3,6 @@ import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
 import { VariantSelector } from '@/components/VariantSelector';
 import { OutOfStockNotificationForm } from '@/components/pages/ProductPage/OutOfStockNotificationForm/OutOfStockNotification';
 import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
-import { Text } from '../base/Text';
 import { ProductInventoryResponse } from './hooks';
 
 export type Combination = {
@@ -81,7 +80,7 @@ export async function ProductForm({ productId, type, options, variants }: Props)
           addToCartText={dictionary.add_to_cart}
           selectSizeText={dictionary.choose_size}
         />
-        <div className="my-2 flex justify-center">
+        {/* <div className="my-2 flex justify-center">
           <Text as="p" size="sm" className=" text-brand-dark-grey">
             Eller
           </Text>
@@ -93,7 +92,7 @@ export async function ProductForm({ productId, type, options, variants }: Props)
           inventory={inventory}
           addToCartText={dictionary.add_to_cart}
           selectSizeText={dictionary.choose_size}
-        />
+        /> */}
       </div>
       <OutOfStockNotificationForm
         productType={type}

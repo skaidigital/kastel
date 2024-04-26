@@ -65,6 +65,7 @@ export const AddToCartButton = ({
     <Button
       title={title}
       disabled={!availableForSale || !id || !isInStock}
+      size="sm"
       isLoading={isPending}
       onClick={() => {
         // Safeguard in case someone messes with `disabled` in devtools.

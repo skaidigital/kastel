@@ -2,6 +2,7 @@ import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import {
   aspectRatioSettingsValidator,
+  blogPostCardValidator,
   buttonSettingsValidator,
   conditionalLinkValidator,
   hotspotImageValidator,
@@ -49,20 +50,12 @@ const cardSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
-const blogPostValidator = z.object({
-  title: z.string(),
-  description: z.string().optional(),
-  slug: z.string(),
-  readLength: z.number(),
-  image: imageValidator
-});
-
 const blogPostSectionValidator = z.object({
   type: z.literal('blogPostSection'),
   key: z.string(),
   title: z.string(),
   buttonText: z.string(),
-  posts: z.array(blogPostValidator),
+  posts: z.array(blogPostCardValidator),
   sectionSettings: sectionSettingsValidator
 });
 
@@ -306,7 +299,6 @@ export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
 export type CardProps = z.infer<typeof cardValidator>;
 export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
 export type CardSectionProps = z.infer<typeof cardSectionValidator>;
-export type BlogPostProps = z.infer<typeof blogPostValidator>;
 export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
 export type FAQSectionProps = z.infer<typeof FAQSectionValidator>;
 export type ShoePickerProps = z.infer<typeof shoePickerValidator>;

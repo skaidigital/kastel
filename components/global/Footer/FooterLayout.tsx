@@ -20,8 +20,6 @@ interface Props {
 }
 
 // TODO get text for the content under the newsletter signup input
-// TODO need something to open the CookieBot settings
-// TODO need something to open the market selector
 export function FooterLayout({ data: footer, dictionary, market, children }: Props) {
   if (!footer) return null;
 

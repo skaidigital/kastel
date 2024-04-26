@@ -39,10 +39,12 @@ import {
   padding,
   pageBuilder,
   title,
-  topPadding
+  topPadding,
+  videoSettings
 } from '@/schema/fields';
 import { address } from '@/schema/objects/address';
 import { aspectRatioSettings } from '@/schema/objects/aspectRatioSettings';
+import { blogPostText } from '@/schema/objects/blogPostText';
 import { buttonSettings } from '@/schema/objects/buttonSettings';
 import { card } from '@/schema/objects/card';
 import { cardBlock } from '@/schema/objects/cardBlock';
@@ -54,6 +56,7 @@ import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { featuredShoeSection } from '@/schema/objects/featuredShoeSection';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
 import { kastelClubSection } from '@/schema/objects/kastelClubSection';
+import { legalPageText } from '@/schema/objects/legalPageText';
 import { link } from '@/schema/objects/link';
 import { linkWithoutText } from '@/schema/objects/linkWithoutText';
 import { media } from '@/schema/objects/media';
@@ -65,6 +68,7 @@ import { paymentProvider } from '@/schema/objects/paymentProvider';
 import { productDisplay } from '@/schema/objects/productDisplay';
 import { productOptionConfig } from '@/schema/objects/productOptionConfig';
 import { productVariant } from '@/schema/objects/productVariant';
+import { reccommendedBlogPosts } from '@/schema/objects/reccommendedBlogPosts';
 import { richText } from '@/schema/objects/richText';
 import { richTextNatureLab } from '@/schema/objects/richTextNatureLab';
 import { sectionSettings } from '@/schema/objects/sectionSettings';
@@ -99,6 +103,7 @@ import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
+import { layoutUspMarquee } from '@/schema/singletons/layoutUspMarquee';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
 import { popup } from '@/schema/singletons/popup';
@@ -127,10 +132,13 @@ const schema = [
   ogImage,
   blogWidthSettings,
   marketAvailability,
+  videoSettings,
 
   // Objects
   address,
   variableText,
+  legalPageText,
+  blogPostText,
   richText,
   richTextNatureLab,
   updateItem,
@@ -155,6 +163,7 @@ const schema = [
   card,
   conditionalLink,
   buttonSettings,
+  reccommendedBlogPosts,
 
   // Page builder blocks (objects)
   pageTitle,
@@ -235,6 +244,7 @@ const schema = [
   merchandising,
   settingsSEOAndSocials,
   settingsPaymentProviders,
+  layoutUspMarquee,
   pageNotFound,
   productSettings,
   retailersPage
