@@ -1,19 +1,24 @@
 import { AccountPageHeader } from '@/components/account/AccountPageHeader';
 import { EmptyState } from '@/components/account/EmptyState';
 import { Container } from '@/components/base/Container';
+import { WishlistProductsProps } from '@/components/pages/WishlistPage/hooks';
+import { ProductCard } from '@/components/shared/ProductCard';
 import { LangValues, ROUTES } from '@/data/constants';
 import HeartIcon from '@heroicons/react/20/solid/HeartIcon';
 
 interface Props {
   lang: LangValues;
+  products?: WishlistProductsProps;
 }
 
-export function WishlistPage({ lang }: Props) {
-  const hasWishlistItems = false;
+export function WishlistPage({ lang, products }: Props) {
+  const hasWishlistItems = products && products?.length > 0;
 
   const wishlistString = getWishlistString(lang);
   const youHaveNoItemsInYourWishlistString = getYouHaveNoItemsInYourWishlist(lang);
   const startShoppingString = getStartShopping(lang);
+
+  const priorityIndexes = [0, 1, 2, 3];
 
   return (
     <div className="flex flex-col">
@@ -30,7 +35,26 @@ export function WishlistPage({ lang }: Props) {
           />
         </Container>
       )}
-      {hasWishlistItems && <div>has items here</div>}
+      {hasWishlistItems && (
+        <div className="mb-20 grid grid-cols-2 lg:mb-40 lg:grid-cols-4">
+          {products.map((product, index) => (
+            <ProductCard
+              type="product"
+              key={product.gid}
+              title={product.title}
+              slug={product.slug}
+              mainImage={product.mainImage}
+              lifestyleImage={product.lifestyleImage}
+              gid={product.gid}
+              maxVariantPrice={product.maxVariantPrice}
+              minVariantPrice={product.minVariantPrice}
+              badges={product.badges}
+              priority={priorityIndexes.includes(index) ? true : false}
+              sizes={product.sizes}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

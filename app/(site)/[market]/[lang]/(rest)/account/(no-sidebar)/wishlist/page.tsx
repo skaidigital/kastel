@@ -1,18 +1,26 @@
 import { WishlistPage } from '@/components/pages/WishlistPage';
+import { loadWishlistProducts } from '@/components/pages/WishlistPage/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import { getWishlist } from '@/lib/shopify/metafields/getWishlist';
 import { Metadata } from 'next';
 
 interface Props {
-  params: { lang: LangValues };
+  params: { market: MarketValues; lang: LangValues };
 }
 
-export default async function Page({ params: { lang } }: Props) {
-  const wishlist = await getWishlist();
+export default async function Page({ params: { market, lang } }: Props) {
+  const wishlistProductGids = await getWishlist();
 
-  console.log({ wishlist });
+  const wishlistProducts = await loadWishlistProducts({
+    market,
+    lang,
+    productGids: wishlistProductGids
+  });
 
-  return <WishlistPage lang={lang} />;
+  const hasAnyProducts = wishlistProducts.length > 0;
+  const products = hasAnyProducts ? wishlistProducts : undefined;
+
+  return <WishlistPage lang={lang} products={products} />;
 }
 
 export const metadata: Metadata = {

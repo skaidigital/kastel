@@ -37,7 +37,6 @@ export function MyInfoCard({ customerData }: Props) {
     getValues,
     handleSubmit,
     control,
-    reset,
     formState: { isSubmitting }
   } = useForm<MyInfoFormProps>({
     resolver: zodResolver(myInfoFormValidator),
@@ -53,23 +52,17 @@ export function MyInfoCard({ customerData }: Props) {
 
   const onSubmit: SubmitHandler<MyInfoFormProps> = async (data) => {
     startTransition(async () => {
-      console.log(data);
-
       const response = await sendMyInfoForm(data, customerData.id);
 
       if (!response.success) {
         setIsOpen(false);
-        reset();
         toast.error('Something went wrong', {
           description: 'Please try again later'
         });
       }
       if (response.success) {
         setIsOpen(false);
-        // reset();
-        toast('We have received your inquiry!', {
-          description: 'We will respond as soon as possible.'
-        });
+        toast('We have updated your info!');
       }
     });
   };
