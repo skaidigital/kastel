@@ -1,16 +1,18 @@
 'use client';
 
 import { Dictionary } from '@/app/dictionaries';
-import { Heading } from '@/components/base/Heading';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Text } from '@/components/base/Text';
-import { Form } from '@/components/form/Form';
-import { SubmitButton } from '@/components/form/SubmitButton';
-import { TextField } from '@/components/form/TextField';
 import { subscribeToNewsletter } from '@/components/shared/NewsletterSignup/actions';
-import { NewsletterFormSchema } from '@/components/shared/NewsletterSignup/hooks';
+import {
+  NewsletterFormSchema,
+  newsletterFormSchema
+} from '@/components/shared/NewsletterSignup/hooks';
 import { cn } from '@/lib/utils';
-import { useEffect } from 'react';
-import { useFormState } from 'react-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ArrowRightIcon } from '@radix-ui/react-icons';
+import { useTransition } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 interface Props {
@@ -20,36 +22,52 @@ interface Props {
 }
 
 export const NewsletterSignup = ({ klaviyoId, className, dictionary }: Props) => {
-  const defaultValues: NewsletterFormSchema = { email: '' };
-  const subscribeToNewsletterWithKlaviyoId = subscribeToNewsletter.bind(defaultValues, klaviyoId);
+  const [isPending, startTransition] = useTransition();
 
-  const [formState, formAction] = useFormState(subscribeToNewsletterWithKlaviyoId, null);
+  const { handleSubmit, register, reset } = useForm<NewsletterFormSchema>({
+    resolver: zodResolver(newsletterFormSchema),
+    mode: 'onSubmit',
+    defaultValues: {
+      email: ''
+    }
+  });
 
-  useEffect(() => {
-    if (formState?.success === true) {
-      toast.success(dictionary.success_message, {
-        description: dictionary.success_description
-      });
-    }
-    if (formState?.success === false) {
-      toast.error(dictionary.error_message, {
-        description: dictionary.error_description
-      });
-    }
-  }, [formState?.success]);
+  async function onSubmit(data: NewsletterFormSchema) {
+    startTransition(async () => {
+      const response = await subscribeToNewsletter({ email: data.email, klaviyoId });
+
+      if (response.success) {
+        toast.success('You have successfully subscribed to our newsletter');
+        reset();
+        return;
+      }
+      toast.error('Something went wrong. Please try again later');
+      reset();
+    });
+  }
 
   return (
-    <div className={cn('', className)}>
-      <Heading as="h2" size="sm">
-        {dictionary.title}
-      </Heading>
-      <Text as="p" className="pt-6">
-        {dictionary.description}
+    <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-y-4', className)}>
+      <div className="flex flex-col gap-y-3">
+        <Text size="sm">Want to get 10% off your next purchase?</Text>
+        <div className="relative h-12 w-60 rounded-[4px] bg-brand-primary-light ">
+          <input
+            {...register('email')}
+            placeholder="Email"
+            className="placeholder:tex-sm absolute left-0 top-0 h-full w-full bg-transparent px-4 text-sm font-medium text-brand-dark-grey placeholder:text-brand-dark-grey"
+          />
+          <button
+            type="submit"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-dark-grey"
+          >
+            {isPending ? <LoadingSpinner /> : <ArrowRightIcon className="size-5 " />}
+          </button>
+        </div>
+      </div>
+      <Text size="sm" className="max-w-lg text-balance text-brand-light-grey">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non tincidunt erat. Morbi sit
+        amet mollis ante, vitae.
       </Text>
-      <Form action={formAction} validationErrors={formState?.errors} className="mt-5">
-        <TextField name="email" label={dictionary.email} autoComplete="email" isRequired />
-        <SubmitButton>{dictionary.button_text}</SubmitButton>
-      </Form>
-    </div>
+    </form>
   );
 };

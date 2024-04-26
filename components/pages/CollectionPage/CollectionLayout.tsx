@@ -1,147 +1,281 @@
-'use client';
-
-import { Card } from '@/components/Card';
-import { Grid } from '@/components/base/Grid';
+import { Dictionary } from '@/app/dictionaries';
+import { Media } from '@/components/Media';
+import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
+import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
 import {
   Collection,
   CollectionMood,
   CollectionProductPayload
 } from '@/components/pages/CollectionPage/hooks';
+import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
+import { PageBuilder } from '@/components/shared/PageBuilder';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
+import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 
 interface Props {
   data: Collection;
   currentPage: number;
+  searchParams?: {
+    [key: string]: string | undefined;
+  };
+  dictionary: Dictionary['collection_page'];
+  market: MarketValues;
+  lang: LangValues;
 }
 
-export function CollectionLayout({ data, currentPage }: Props) {
-  const { products, moods, title, hasNextPage, productCount } = data;
-
-  const collection = adjustProductsWithMoods({
+export function CollectionLayout({
+  data,
+  currentPage,
+  searchParams,
+  dictionary,
+  market,
+  lang
+}: Props) {
+  const {
+    id,
     products,
     moods,
-    currentPageIndex: currentPage
-  });
+    title,
+    hasNextPage,
+    productCount,
+    descriptionLong,
+    descriptionShort,
+    pageBuilder
+  } = data;
+
+  const productsPerRow = searchParams?.view || '4';
+
+  const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 3, moods);
+  const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods);
 
   const pageCount = Math.ceil(productCount / COLLECTION_PAGE_SIZE);
+  const hasProducts = productCount !== 0;
 
   return (
     <>
-      <Section size="sm" label="collection-hero" srHeading="Collection hero">
-        <div className="relative flex items-center justify-center">
-          <Heading as="h1" size="lg">
-            {title}
-            <Text size="lg" className="ml-1">
-              ({productCount})
+      <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />
+      <Section
+        size="sm"
+        label="collection-hero"
+        srHeading="Collection hero"
+        hasBottomBorder={false}
+        className="pb-8 pt-10 lg:pt-10"
+      >
+        <Container className="flex flex-col justify-between gap-y-3 lg:flex-row lg:gap-y-0">
+          {title && (
+            <Heading as="h1" size="xl" className="max-w-lg font-bold">
+              {title}
+            </Heading>
+          )}
+          {descriptionShort && (
+            <Text as="p" className="h-fit max-w-sm text-brand-mid-grey">
+              {descriptionShort}
             </Text>
-          </Heading>
-        </div>
+          )}
+          <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
+        </Container>
       </Section>
+      <CollectionSettingsBarDesktop
+        searchParams={searchParams}
+        numberOfProducts={productCount}
+        dictionary={dictionary}
+        lang={lang}
+        className="hidden min-h-32 lg:block"
+      />
       <Section label="collection-products" srHeading="Products" noTopPadding>
-        <Grid>
-          {collection?.map((item, index) => {
-            if ('card' in item) {
-              const size = item.size;
+        <div className="lg:hidden">
+          <CollectionGrid number={productsPerRow}>
+            {mobileItems?.map((item, index) => {
+              if (item.type === 'image' || item.type === 'video') {
+                return (
+                  <div
+                    key={index}
+                    className={cn(
+                      'aspect-h-3 aspect-w-2 !relative lg:aspect-none lg:h-auto lg:w-full'
+                    )}
+                  >
+                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} />
+                  </div>
+                );
+              }
+              const priorityIndices = [0, 1, 2];
               return (
-                <div
-                  key={item.card.title}
-                  className={cn(
-                    'aspect-h-3 aspect-w-2 !relative col-span-2 lg:aspect-none lg:h-auto lg:w-full',
-                    size === 'large' ? 'lg:col-span-2' : 'lg:col-span-1'
-                  )}
-                >
-                  <Card
-                    card={item.card}
-                    sizes={'(min-width: 1024px) 50vw, 100vw'}
-                    priority={index === 0}
-                  />
-                </div>
+                <ProductCard
+                  key={index}
+                  gid={item.gid}
+                  sku={item.sku}
+                  type={item.type}
+                  title={item.title}
+                  slug={item.slug}
+                  mainImage={item.mainImage}
+                  lifestyleImage={item.lifestyleImage}
+                  badges={item.badges}
+                  priority={priorityIndices.includes(index)}
+                  minVariantPrice={item.minVariantPrice}
+                  maxVariantPrice={item.maxVariantPrice}
+                />
               );
-            }
-
-            const priorityIndices = [0, 1, 2];
-
-            return (
-              <ProductCard
-                key={index}
-                type={item.type}
-                title={item.title}
-                slug={item.slug}
-                mainImage={item.mainImage}
-                lifestyleImage={item.lifestyleImage}
-                badges={item.badges}
-                priority={priorityIndices.includes(index)}
-              />
-            );
-          })}
-        </Grid>
-        <div className="mt-20 flex flex-col items-center justify-center space-y-8">
-          <div className="flex gap-x-5">
-            <PaginationButton type="previous">Forrige side</PaginationButton>
-            {hasNextPage && <PaginationButton type="next">Neste side</PaginationButton>}
-          </div>
-          <PageCounter pageCount={pageCount} />
+            })}
+          </CollectionGrid>
         </div>
+        <div className="hidden lg:block">
+          <CollectionGrid number={productsPerRow}>
+            {desktopItems?.map((item, index) => {
+              if (item.type === 'image' || item.type === 'video') {
+                return (
+                  <div key={index} className={cn('!relative h-full w-full')}>
+                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} />
+                  </div>
+                );
+              }
+
+              const hasSizeRange = item?.sizes?.filter((size) => size.type === 'size')[0];
+              const lowestSize = hasSizeRange?.options[0];
+              const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
+              const priorityIndices = [0, 1, 2];
+              return (
+                <ProductCard
+                  key={index}
+                  gid={item.gid}
+                  sku={item.sku}
+                  type={item.type}
+                  title={item.title}
+                  slug={item.slug}
+                  mainImage={item.mainImage}
+                  lifestyleImage={item.lifestyleImage}
+                  badges={item.badges}
+                  priority={priorityIndices.includes(index)}
+                  lowestSize={lowestSize?.title}
+                  highestSize={highestSize?.title}
+                  minVariantPrice={item.minVariantPrice}
+                  maxVariantPrice={item.maxVariantPrice}
+                />
+              );
+            })}
+          </CollectionGrid>
+        </div>
+        {!hasProducts && (
+          <Container className="lg:mt-10">
+            <Text as="p" size="lg">
+              {dictionary.no_products}
+            </Text>
+          </Container>
+        )}
+        {hasProducts && (
+          <div className="mt-20 flex flex-col items-center justify-center space-y-8">
+            <div className="flex gap-x-2">
+              <PaginationButton type="previous">Forrige side</PaginationButton>
+              {hasNextPage && <PaginationButton type="next">Neste side</PaginationButton>}
+            </div>
+            <PageCounter pageCount={pageCount} />
+          </div>
+        )}
       </Section>
+      <Section label="description-long-products" srHeading="Description">
+        <Container className="grid gap-2 lg:grid-cols-12">
+          <div className="lg:col-span-6 lg:col-start-2">
+            <h2 className="mb-4 text-overline-md font-medium uppercase text-brand-mid-grey">
+              {dictionary.description}:
+            </h2>
+            {descriptionLong && (
+              <Text as="p" className="text-md lg:text-lg">
+                {descriptionLong}
+              </Text>
+            )}
+          </div>
+        </Container>
+      </Section>
+      {pageBuilder?.map((block, index: number) => (
+        <PageBuilder
+          key={block.key}
+          data={block}
+          index={index}
+          market={market}
+          lang={lang}
+          pageId={id}
+          pageType={'collection'}
+        />
+      ))}
     </>
   );
 }
 
-export function adjustProductsWithMoods({
-  products,
-  moods,
-  currentPageIndex = 1
-}: {
-  products: CollectionProductPayload[];
-  moods?: CollectionMood[];
-  currentPageIndex: number;
-}) {
+type ProductOrMood = CollectionProductPayload | CollectionMood;
+
+function insertMoodsDesktop(
+  products: CollectionProductPayload[],
+  baseIndex: number,
+  moods?: CollectionMood[]
+): ProductOrMood[] {
   if (!moods || moods.length === 0) {
     return products;
   }
 
-  type ProductOrMood = CollectionProductPayload | CollectionMood;
-  const result: ProductOrMood[] = [];
+  const result: ProductOrMood[] = [...products];
+  const moodsToInsert = moods.slice(baseIndex, baseIndex + 3);
 
-  // Initialize result with products to ensure all indices exist
-  products.forEach((product) => result.push(product));
-
-  const baseIndex = (currentPageIndex - 1) * 3;
-
-  moods.slice(baseIndex, baseIndex + 3).forEach((mood, index) => {
-    let insertIndex: number;
-
-    // Check if the device is a desktop directly using matchMedia.
-    if (window.matchMedia('(min-width: 768px)').matches) {
-      // Desktop behavior here.
-      if (index === 0) {
-        insertIndex = 0;
-      } else if (index === 1) {
-        insertIndex = mood.size === 'large' ? 9 : 10;
-      } else {
-        // index === 2
-        insertIndex = 14;
-      }
-    } else {
-      // Mobile behavior here.
-
-      insertIndex = 4 + index * 5;
+  moodsToInsert.forEach((mood, index) => {
+    let insertIndex = 0;
+    if (index === 1) {
+      insertIndex = 9;
+    } else if (index === 2) {
+      insertIndex = 14;
     }
-
-    // Adjust insertIndex for the existing content
     insertIndex = Math.min(insertIndex, result.length);
-
-    // Insert mood at the calculated position
     result.splice(insertIndex, 0, mood);
   });
 
-  // Trim the array if it's longer than the original products plus inserted moods
-  return result.slice(0, products.length + Math.min(3, moods.length - baseIndex));
+  return result;
+}
+
+function insertMoodsMobile(
+  products: CollectionProductPayload[],
+  baseIndex: number,
+  moods?: CollectionMood[]
+): ProductOrMood[] {
+  if (!moods || moods.length === 0) {
+    return products;
+  }
+
+  const result: ProductOrMood[] = [...products];
+  const moodsToInsert = moods.slice(baseIndex, baseIndex + 3);
+
+  moodsToInsert.forEach((mood, index) => {
+    const insertIndex = Math.min(4 + index * 5, result.length);
+    result.splice(insertIndex, 0, mood);
+  });
+
+  return result;
+}
+
+export function CollectionGrid({
+  number,
+  children,
+  className
+}: {
+  number: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        '',
+        number === '1' && 'grid grid-cols-1 lg:grid-cols-4',
+        number === '2' && 'grid grid-cols-2 lg:grid-cols-4',
+        number === '3' && 'grid grid-cols-2 lg:grid-cols-3',
+        number === '4' && 'grid grid-cols-2 lg:grid-cols-4',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 }

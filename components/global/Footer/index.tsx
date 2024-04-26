@@ -5,9 +5,10 @@ import { PaymentProviders } from '@/components/shared/PaymentProviders';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
+import { draftMode } from 'next/headers';
 
-function loadFooter(market: MarketValues) {
-  const query = getFooterQuery(market);
+function loadFooter(lang: LangValues) {
+  const query = getFooterQuery(lang);
 
   return loadQuery<FooterPayload>(query, {}, { next: { tags: [CACHE_TAGS.FOOTER, 'home'] } });
 }
@@ -18,19 +19,26 @@ interface Props {
 }
 
 export async function Footer({ market, lang }: Props) {
-  const initial = await loadFooter(market);
+  const initial = await loadFooter(lang);
   const dictionary = await getFooterDictionary(lang);
+  const isDraftMode = draftMode().isEnabled;
 
   const footerWithoutNullValues = nullToUndefined(initial.data);
-  const validatedFooter = footerValidator.safeParse(footerWithoutNullValues);
+  let validatedFooter;
 
-  if (!validatedFooter.success) {
-    console.error('Failed to validate footer data', validatedFooter.error);
-    return null;
+  if (isDraftMode) {
+    validatedFooter = footerValidator.safeParse(footerWithoutNullValues);
+
+    if (!validatedFooter.success) {
+      console.error('Failed to validate footer data', validatedFooter.error);
+      return null;
+    }
   }
 
+  const footer = isDraftMode ? validatedFooter?.data : footerWithoutNullValues;
+
   return (
-    <FooterLayout data={validatedFooter.data} dictionary={dictionary} market={market}>
+    <FooterLayout data={footer} dictionary={dictionary} market={market}>
       <PaymentProviders market={market} />
     </FooterLayout>
   );

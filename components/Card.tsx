@@ -1,13 +1,14 @@
 'use client';
 
-import { buttonProps } from '@/components/Button';
+import { Button, buttonProps } from '@/components/Button';
 import { LazyLoadedVideo } from '@/components/LazyLoadedVideo';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityLinkHero } from '@/components/sanity/SanityLink';
 import { CardProps } from '@/components/shared/PageBuilder/hooks';
+import { resolveConditionalLink } from '@/lib/sanity/resolveConditionalLink';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 interface Props {
   card: CardProps;
@@ -22,15 +23,13 @@ export function Card({ card, sizes, className, priority }: Props) {
   const video = type === 'video' ? card.video : null;
   const image = type === 'image' ? card.image : null;
 
-  // A variable for the conditional component
-  // const Wrapper = link?.hasLink ? Link : 'div';
+  const href = resolveConditionalLink(card.link);
 
-  // If it's a Link, we need to pass the href
-  // const wrapperProps = link?.hasLink ? { href: getSlug({ ...link, type: 'link' }) || '#' } : {};
+  const Wrapper = link?.hasLink ? Link : 'div';
 
   return (
-    <div
-      // data-sanity={encodeDataAttribute?.(['cardGrid', 1, 'image'])}
+    <Wrapper
+      href={link?.hasLink ? href : '#'}
       title={title}
       className={cn('h-full w-full rounded-project', className)}
     >
@@ -69,11 +68,11 @@ export function Card({ card, sizes, className, priority }: Props) {
           </Text>
         )}
         {link?.hasLink && (
-          <div className="mt-3 lg:mt-5">
-            <SanityLinkHero link={link} className={buttonProps()}>
+          <Button className="mt-3 lg:mt-5">
+            <Link href={href} className={buttonProps()}>
               {link.text}
-            </SanityLinkHero>
-          </div>
+            </Link>
+          </Button>
         )}
       </div>
       {(image || video) && (title || subtitle) && (
@@ -88,6 +87,6 @@ export function Card({ card, sizes, className, priority }: Props) {
         />
       )}
       {video && <LazyLoadedVideo playbackId={video} loading="lazy" resolution="HD" />}
-    </div>
+    </Wrapper>
   );
 }

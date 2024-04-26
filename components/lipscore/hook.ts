@@ -28,7 +28,7 @@ interface LipscoreReview {
  *   { rating: '4.5', votes: 100 }
  */
 
-export async function getLipscoreReviews(sku: string): Promise<LipscoreReview> {
+export async function getProductRatingBySku(sku: string): Promise<LipscoreReview> {
   const url = `https://api.lipscore.com/products?fields=rating,votes&api_key=${env.LIPSCORE_API_KEY}`;
   const response = await fetch(url, {
     method: 'GET',

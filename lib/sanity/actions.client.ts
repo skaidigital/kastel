@@ -62,10 +62,10 @@ export function SyncProductToShopify(context: DocumentActionsContext) {
       }
     },
     {
-      label: `Sync to ${MARKET.eu.name} ${MARKET.eu.flag}`,
+      label: `Sync to ${MARKET.sv.name} ${MARKET.sv.flag}`,
       icon: UploadIcon,
       onHandle: async () => {
-        await sendData(MARKET.eu.id);
+        await sendData(MARKET.sv.id);
       }
     }
   ];

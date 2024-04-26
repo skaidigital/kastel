@@ -6,8 +6,8 @@ export async function getCurrencyCode() {
   switch (market) {
     case 'no':
       return 'NOK';
-    case 'eu':
-      return 'EUR';
+    case 'sv':
+      return 'SEK';
     default:
       throw new Error(`Unknown market: ${market}`);
   }

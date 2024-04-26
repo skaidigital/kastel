@@ -1,3 +1,4 @@
+import { ASPECT_RATIOS } from '@/data/constants';
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
@@ -59,15 +60,15 @@ export const blogPost = defineType({
     }),
     defineField({
       title: 'Content 🇧🇻',
-      name: 'contentNo',
-      type: 'richText',
+      name: 'content_no',
+      type: 'blogPostText',
       validation: (Rule) => Rule.required(),
       group: 'editorial'
     }),
     defineField({
       title: 'Content 🇬🇧',
-      name: 'contentEn',
-      type: 'richText',
+      name: 'content_en',
+      type: 'blogPostText',
       validation: (Rule) => Rule.required(),
       group: 'editorial'
     }),
@@ -91,10 +92,7 @@ export const blogPost = defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
       options: {
-        list: [
-          { title: '9:16', value: '9:16' },
-          { title: '3:4', value: '3:4' }
-        ]
+        list: ASPECT_RATIOS
       },
       initialValue: '9:16',
       fieldset: 'aspectRatio',
@@ -106,11 +104,7 @@ export const blogPost = defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
       options: {
-        list: [
-          { title: '16:9', value: '16:9' },
-          { title: '4:3', value: '4:3' },
-          { title: '21:9', value: '21:9' }
-        ]
+        list: ASPECT_RATIOS
       },
       initialValue: '16:9',
       fieldset: 'aspectRatio',
@@ -125,53 +119,11 @@ export const blogPost = defineType({
       group: 'editorial'
     }),
     defineField({
-      title: 'Set reccommended blog posts?',
-      description: 'If you leave this unchecked we will get the 3 latest blog posts',
-      name: 'setReccommendedBlogPosts',
-      type: 'boolean',
-      initialValue: false,
-      group: 'editorial'
-    }),
-    defineField({
-      title: 'Reccommended blog posts',
+      title: 'Reccommendeded blog posts',
       name: 'reccommendedBlogPosts',
-      type: 'object',
-      group: 'editorial',
-      validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
-          if (context.parent.setReccommendedBlogPosts && !value.posts) {
-            return 'Please select 3 blog posts';
-          }
-          return true;
-        }),
-      hidden: ({ parent }) => !parent.setReccommendedBlogPosts,
-      fields: [
-        defineField({
-          title: 'Title',
-          name: 'title',
-          type: 'i18n.string',
-          validation: validateAllStringTranslations
-        }),
-        defineField({
-          title: 'Button text',
-          name: 'buttonText',
-          type: 'i18n.string',
-          validation: validateAllStringTranslations
-        }),
-        defineField({
-          title: 'Blog posts',
-          description: 'Select 3 blog posts',
-          name: 'posts',
-          type: 'array',
-          of: [
-            {
-              type: 'reference',
-              to: [{ type: 'blogPost' }]
-            }
-          ],
-          validation: (Rule) => Rule.min(3).max(3)
-        })
-      ]
+      type: 'reccommendedBlogPosts',
+      group: 'settings',
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Slug 🇧🇻',

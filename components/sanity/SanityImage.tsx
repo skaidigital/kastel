@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const SanityImage = ({ image, className, sizes, fill, priority, width, height }: Props) => {
-  if (!image) return null;
+  if (!image?.asset?._ref) return null;
 
   const altText = image.altText || '';
   const dimensions = getImageDimensions(image);

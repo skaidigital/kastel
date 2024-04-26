@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
 // # Simple types
+export const pageTypes = z.enum(['home', 'page', 'product', 'collection', 'retailersPage']);
+
 export const linkToValidator = z.object({
-  type: z.enum(['page', 'product', 'collection', 'storeLocator']),
+  type: pageTypes,
   slug: z.string()
 });
 
@@ -26,12 +28,22 @@ export const linkValidator = z.discriminatedUnion('linkType', [
   linkInternalValidator
 ]);
 
-export const linkWithoutTextValidator = z.object({
+const linkWithoutTextInternalValidator = z.object({
   type: z.literal('linkWithoutText'),
-  linkType: z.enum(['internal', 'external']),
-  href: z.string().url().optional().nullable(),
-  linkTo: linkToValidator.nullable()
+  linkType: z.literal('internal'),
+  linkTo: linkToValidator
 });
+
+const linkWithoutTextExternalValidator = z.object({
+  type: z.literal('linkWithoutText'),
+  linkType: z.literal('external'),
+  href: z.string().url()
+});
+
+export const linkWithoutTextValidator = z.discriminatedUnion('linkType', [
+  linkWithoutTextInternalValidator,
+  linkWithoutTextExternalValidator
+]);
 
 export const imageValidator = z.object({
   asset: z.object({
@@ -59,6 +71,8 @@ export const imageValidator = z.object({
     .optional()
 });
 
+export const videoValidator = z.string();
+
 export const galleryValidator = z.array(
   imageValidator.extend({
     width: z.union([z.literal('1-COL'), z.literal('2-COL')]).optional()
@@ -71,7 +85,7 @@ export const portableTextValidator = z.array(z.any());
 
 export const headingAndLinksValidator = z.object({
   heading: z.string(),
-  links: z.array(linkValidator)
+  links: z.array(z.object({ link: linkValidator, badge: z.string().optional() }))
 });
 
 export const footerValidator = z.object({
@@ -102,19 +116,174 @@ export const productVariantValidator = z.object({
 
 export const productCardValidator = z.object({
   type: z.literal('product'),
+  gid: z.string(),
+  sku: z.string().optional(),
   title: z.string(),
   slug: z.string(),
   mainImage: imageValidator,
   lifestyleImage: imageValidator.optional(),
-  badges: z.array(z.string()).optional()
+  badges: z.array(z.string()).optional(),
+  minVariantPrice: z.object({
+    amount: z.number(),
+    currencyCode: z.string()
+  }),
+  maxVariantPrice: z.object({
+    amount: z.number(),
+    currencyCode: z.string()
+  }),
+  sizes: z
+    .array(
+      z.object({
+        type: z.string(),
+        options: z.array(
+          z.object({
+            title: z.string()
+          })
+        )
+      })
+    )
+    .optional()
 });
 
 export const SEOAndSocialsValidator = z.object({
   seo: metadataValidator
 });
 
-// # Pages
-export const loginFormValidator = z.object({
-  email: z.string().email(),
-  password: z.string()
+const sameAssetImageValidator = z.object({
+  type: z.literal('image'),
+  sameAssetForMobileAndDesktop: z.literal(true),
+  image: imageValidator
+});
+
+const differentAssetImageValidator = z.object({
+  type: z.literal('image'),
+  sameAssetForMobileAndDesktop: z.literal(false),
+  imageMobile: imageValidator,
+  imageDesktop: imageValidator
+});
+
+const sameAssetVideoValidator = z.object({
+  type: z.literal('video'),
+  sameAssetForMobileAndDesktop: z.literal(true),
+  video: videoValidator
+});
+
+const differentAssetVideoValidator = z.object({
+  type: z.literal('video'),
+  sameAssetForMobileAndDesktop: z.literal(false),
+  videoMobile: videoValidator,
+  videoDesktop: videoValidator
+});
+
+export const mediaValidator = z.union([
+  sameAssetImageValidator,
+  differentAssetImageValidator,
+  sameAssetVideoValidator,
+  differentAssetVideoValidator
+]);
+
+export const aspectRatiosValidator = z.enum(['16:9', '4:3', '21:9', '9:16', '3:4']);
+
+const sameAspectRatioSettingsValidator = z.object({
+  sameAspectRatio: z.literal(true),
+  aspectRatio: aspectRatiosValidator
+});
+
+const differentAspectRatioSettingsValidator = z.object({
+  sameAspectRatio: z.literal(false),
+  aspectRatioMobile: aspectRatiosValidator,
+  aspectRatioDesktop: aspectRatiosValidator
+});
+
+export const aspectRatioSettingsValidator = z.union([
+  sameAspectRatioSettingsValidator,
+  differentAspectRatioSettingsValidator
+]);
+
+const internalLinkValidator = z.object({
+  type: z.literal('internal'),
+  text: z.string(),
+  linkTo: linkToValidator
+});
+
+const externalLinkValidator = z.object({
+  type: z.literal('external'),
+  text: z.string(),
+  href: z.string().url()
+});
+
+const hasLinkValidator = z.union([
+  internalLinkValidator.extend({
+    hasLink: z.literal(true)
+  }),
+  externalLinkValidator.extend({
+    hasLink: z.literal(true)
+  })
+]);
+
+const noLinkValidator = z.object({
+  hasLink: z.literal(false)
+});
+
+export const conditionalLinkValidator = z.union([hasLinkValidator, noLinkValidator]);
+
+const textHotspotsValidator = z.object({
+  type: z.literal('text'),
+  description: z.string(),
+  x: z.number(),
+  y: z.number()
+});
+
+const productCardHotspotsValidator = productCardValidator.extend({
+  type: z.literal('product'),
+  x: z.number(),
+  y: z.number()
+});
+
+export const hotspotImageValidator = z.object({
+  type: z.literal('hotspotImage'),
+  image: imageValidator,
+  hotspots: z.array(
+    z.discriminatedUnion('type', [textHotspotsValidator, productCardHotspotsValidator])
+  )
+});
+
+export const buttonSettingsValidator = z.object({
+  variant: z.enum(['primary', 'secondary', 'outline'])
+});
+
+export const uspValidator = z.object({
+  title: z.string(),
+  image: imageValidator
+});
+
+export const videoSettingsValidator = z.object({
+  autoPlay: z.boolean()
+});
+
+export const blogPostCardValidator = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  slug: z.string(),
+  readLength: z.number(),
+  image: imageValidator
+});
+
+export const authorValidator = z.object({
+  name: z.string(),
+  role: z.string(),
+  description: z.string().optional(),
+  image: imageValidator
+});
+
+export const faqBlockValidator = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  badge: z.string().optional(),
+  items: z.array(
+    z.object({
+      question: z.string(),
+      answer: portableTextValidator
+    })
+  )
 });

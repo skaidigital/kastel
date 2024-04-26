@@ -1,5 +1,14 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Image, Images, Link, Quotes, Sneaker, TextColumns, Video } from '@phosphor-icons/react';
+import {
+  Crosshair,
+  Image,
+  Images,
+  Link,
+  Quotes,
+  Sneaker,
+  TextColumns,
+  Video
+} from '@phosphor-icons/react';
 import { defineArrayMember, defineField } from 'sanity';
 
 export const richText = defineField({
@@ -61,10 +70,6 @@ export const richText = defineField({
       },
       styles: [
         {
-          title: 'Text (Normal)',
-          value: 'text-md'
-        },
-        {
           title: 'H2',
           value: 'h2'
         },
@@ -100,9 +105,16 @@ export const richText = defineField({
           validation: (Rule) => Rule.required()
         }),
         defineField({
+          title: 'Video settings',
+          name: 'videoSettings',
+          type: 'videoSettings',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
           title: 'Width',
           name: 'width',
-          type: 'blogWidthSettings'
+          type: 'blogWidthSettings',
+          validation: (Rule) => Rule.required()
         })
       ]
     },
@@ -188,10 +200,57 @@ export const richText = defineField({
           validation: (Rule) => Rule.required()
         }),
         defineField({
+          title: 'Type',
+          name: 'type',
+          type: 'string',
+          options: {
+            list: [
+              { title: 'Image/Video', value: 'media' },
+              { title: 'Product', value: 'product' }
+            ]
+          },
+          initialValue: 'media',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
           title: 'Media',
           name: 'media',
           type: 'media',
-          validation: (Rule) => Rule.required()
+          validation: (Rule) =>
+            Rule.custom((value, context: any) => {
+              if (context.parent?.type === 'media' && !value) {
+                return 'Media is required';
+              }
+              return true;
+            }),
+          hidden: ({ parent }) => parent?.type !== 'media'
+        }),
+        defineField({
+          title: 'Aspect ratio settings',
+          name: 'aspectRatioSettings',
+          type: 'aspectRatioSettings',
+          validation: (Rule) =>
+            Rule.custom((value, context: any) => {
+              if (context.parent?.type === 'media' && !value) {
+                return 'Aspect ratio settings are required';
+              }
+              return true;
+            }),
+          hidden: ({ parent }) => parent?.type !== 'media'
+        }),
+        defineField({
+          title: 'Product',
+          name: 'product',
+          type: 'reference',
+          to: [{ type: 'product' }],
+          validation: (Rule) =>
+            Rule.custom((value, context: any) => {
+              if (context.parent?.type === 'product' && !value) {
+                return 'Product is required';
+              }
+              return true;
+            }),
+          hidden: ({ parent }) => parent?.type !== 'product'
         })
       ]
     },
@@ -222,6 +281,16 @@ export const richText = defineField({
               type: 'image',
               fields: [
                 defineField({
+                  title: 'Descriptive text for screen readers and search engines',
+                  type: 'altText',
+                  name: 'altText'
+                }),
+                defineField({
+                  title: 'Caption (optional)',
+                  name: 'caption',
+                  type: 'i18n.string'
+                }),
+                defineField({
                   title: 'Aspect ratio settings',
                   name: 'aspectRatioSettings',
                   type: 'aspectRatioSettings'
@@ -230,8 +299,21 @@ export const richText = defineField({
             }
           ],
           validation: (Rule) => Rule.min(2).max(3)
+        }),
+        defineField({
+          title: 'Width',
+          name: 'width',
+          type: 'blogWidthSettings',
+          validation: (Rule) => Rule.required()
         })
       ]
+    },
+    {
+      title: 'Hotspot image',
+      name: 'hotspotImage',
+      type: 'reference',
+      to: [{ type: 'hotspotImage' }],
+      icon: Crosshair
     }
   ]
 });

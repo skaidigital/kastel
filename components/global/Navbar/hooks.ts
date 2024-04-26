@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { headingAndLinksValidator, imageValidator, linkValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -19,38 +19,43 @@ export const meganavValidator = z.object({
 
 // TODO fix. It should be discriminated union but then it is not a zod object and it fails
 export const navbarValidator = z.object({
-  items: z.array(z.union([linkValidator, meganavValidator]))
+  items: z.array(z.union([linkValidator, meganavValidator])),
+  hasAnnouncementBanner: z.boolean()
 });
 
 export type MeganavPayload = z.infer<typeof meganavValidator>;
 export type NavbarPayload = z.infer<typeof navbarValidator>;
 
-export function getNavbarQuery(market: MarketValues) {
+export function getNavbarQuery(lang: LangValues) {
   const query = groq`
   *[_type == "navbar"][0] {
-    "items": items_${market}[]{
+    "hasAnnouncementBanner": count(*[_type == "announcementBanner"]) > 0,
+    "items": items_${lang}[]{
       _type == "meganav" => {
         "type": _type,
-        "title": title.${market},
+        "title": title.${lang},
         links[]{
-          "heading": heading.${market},
+          "heading": heading.${lang},
           links[]{
-            ${fragments.getLink(market)}
+            link{
+              ${fragments.getLink(lang)}
+            },
+            "badge": badge->title.${lang}
           },
         },
         featuredProducts[]{
-          "title": title.${market},
+          "title": title.${lang},
           image{
-            ${fragments.getImageBase(market)}
+            ${fragments.getImageBase(lang)}
           },
           "type": _type,
           "link": link{
-            ${fragments.getLink(market)}
+            ${fragments.getLink(lang)}
           }
         },
       },
       _type == "link" => {
-        ${fragments.getLink(market)}
+        ${fragments.getLink(lang)}
       },
     }
   } 

@@ -2,15 +2,15 @@ import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const productDisplay = defineType({
-  title: 'Product display',
+  title: 'Product display (Optional)',
   name: 'productDisplay',
   type: 'object',
   fields: [
     defineField({
       title: 'Title',
       name: 'title',
-      type: 'i18n.string',
-      validation: validateAllStringTranslations
+      type: 'i18n.string'
+      // validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Products',
@@ -47,8 +47,8 @@ export const productDisplay = defineType({
             })
           ]
         }
-      ],
-      validation: (Rule) => Rule.min(1).max(4)
+      ]
+      // validation: (Rule) => Rule.min(1).max(4)
     })
   ]
 });

@@ -1,7 +1,7 @@
 import { Heading } from '@/components/base/Heading';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { cn } from '@/lib/utils';
-import { PortableTextBlock } from 'sanity';
+import { PortableTextBlock } from 'next-sanity';
 
 interface Props {
   heading: string;

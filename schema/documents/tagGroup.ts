@@ -13,7 +13,7 @@ export const tagGroup = defineType({
   icon: Folders,
   preview: {
     select: {
-      title: 'title.no'
+      title: 'title.en'
     },
     prepare({ title }) {
       return {

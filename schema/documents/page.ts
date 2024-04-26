@@ -63,7 +63,7 @@ export const page = defineType({
       type: 'pageBuilder',
       validation: (Rule) =>
         Rule.custom((value: any, context: any) => {
-          if (!value.length) {
+          if (!value?.length) {
             return 'You need to add at least one section';
           }
 

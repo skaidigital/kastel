@@ -41,21 +41,15 @@ export const legalPage = defineType({
       }
     }),
     defineField({
-      title: 'Badge (optional)',
-      name: 'badge',
-      type: 'reference',
-      to: [{ type: 'badge' }]
-    }),
-    defineField({
       title: 'Content 🇧🇻',
-      name: 'contentNo',
-      type: 'richText',
+      name: 'content_no',
+      type: 'legalPageText',
       validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Content 🇬🇧',
-      name: 'contentEn',
-      type: 'richText',
+      name: 'content_en',
+      type: 'legalPageText',
       validation: (Rule) => Rule.required()
     }),
     defineField({

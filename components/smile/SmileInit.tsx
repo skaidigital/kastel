@@ -9,13 +9,14 @@ interface Porps {
   customerId: string;
 }
 
+// TODO figure out how to lazy load this bad boy
 export default function SmileInit({ customerId }: Porps) {
   useEffect(() => {
     initializeSmileUI();
 
     async function initializeSmileUI() {
       if (window.SmileUI) {
-        console.log('SmileUI is already loaded and initialized.');
+        console.log('SmileUI is already loaded');
         return;
       }
 
@@ -29,6 +30,8 @@ export default function SmileInit({ customerId }: Porps) {
       });
 
       const { token: customer_identity_jwt } = await response.json();
+
+      console.log(customer_identity_jwt);
 
       if (window.SmileUI) {
         window.SmileUI.init({

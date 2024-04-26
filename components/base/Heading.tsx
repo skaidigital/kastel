@@ -7,9 +7,10 @@ export const headingStyles = cva({
   variants: {
     size: {
       xs: 'text-heading-xs',
-      sm: 'text-[12px] leading-[24px] tracking-[2.4px] md:text-[16px] md:leading-[24px] md:tracking-[3.2px]',
+      sm: 'text-heading-sm',
       md: 'text-heading-md',
-      lg: 'text-[24px] leading-[28px]  md:text-[32px] tracking-[4px] lg:leading-[36px]'
+      lg: 'text-heading-lg',
+      xl: 'text-heading-lg xl:text-heading-xl'
     }
   },
   defaultVariants: {
@@ -24,5 +25,5 @@ interface HeadingProps extends VariantProps<typeof headingStyles> {
 }
 
 export const Heading = ({ size, as: Component = 'h1', children, className }: HeadingProps) => {
-  return <Component className={cn(headingStyles({ size }), className)}>{children}</Component>;
+  return <Component className={cn(headingStyles({ size, className }))}>{children}</Component>;
 };

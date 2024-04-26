@@ -4,12 +4,11 @@ import {
   ReccommendedProductPayload,
   getReccommendedProductsQuery
 } from '@/components/shared/ReccommendedProducts/hooks';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { loadQuery } from '@/lib/sanity/store';
 
-function loadReccommendedProducts(market: MarketValues) {
-  const query = getReccommendedProductsQuery(market);
+function loadReccommendedProducts(lang: LangValues, market: MarketValues) {
+  const query = getReccommendedProductsQuery(lang, market);
 
   return loadQuery<ReccommendedProductPayload>(
     query,
@@ -18,13 +17,17 @@ function loadReccommendedProducts(market: MarketValues) {
   );
 }
 
-export async function ReccommendedProducts() {
+interface Props {
+  lang: LangValues;
+  market: MarketValues;
+}
+
+export async function ReccommendedProducts({ lang, market }: Props) {
   const { reccommended_products: dictionary } = await getDictionary();
-  const market = await getMarket();
 
   reccommendedProductsValidator.parse(dictionary);
 
-  const initial = await loadReccommendedProducts(market);
+  const initial = await loadReccommendedProducts(lang, market);
 
   return <ReccommendedProductsLayout data={initial.data} dictionary={dictionary} />;
 }

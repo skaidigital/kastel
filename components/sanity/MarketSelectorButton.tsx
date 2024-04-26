@@ -1,32 +1,68 @@
 'use client';
 
-import { MARKETS } from '@/data/constants';
-import { setPreviewMarket } from '@/lib/sanity/actions';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/form/RadixSelect';
+import { LANGS, Lang, LangValues, MarketValues } from '@/data/constants';
+import { cn } from '@/lib/utils';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface Props {
-  currentMarket: string;
+  currentMarket: MarketValues;
+  currentLang: LangValues;
+  className?: string;
 }
 
-export const MarketSelectorButton = ({ currentMarket }: Props) => {
-  function handleSelectPreviewMarket(market: string) {
-    setPreviewMarket(market);
+export const MarketSelectorButton = ({ currentMarket, currentLang, className }: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const splitPathname = pathname.split('/');
+
+  const firstRouteSegment = splitPathname[1];
+  const secondRouteSegment = splitPathname[2];
+  const restOfPathname = splitPathname.slice(3).join('/');
+
+  function handlePreviewLangChange(lang: LangValues) {
+    const newUrl = `/${firstRouteSegment}/${lang}/${restOfPathname}`;
+    router.push(newUrl);
   }
+
+  // const selectedMarket = MARKETS.find((market) => market.id === currentMarket);
+  // const selectedLang = LANGS.find((lang) => lang.id === currentLang);
+  const selectedLang = LANGS.find((lang) => lang.id === secondRouteSegment);
+
   return (
-    <div className="relative">
-      <select
-        onChange={(e) => handleSelectPreviewMarket(e.target.value)}
-        value={currentMarket}
-        className="block w-fit appearance-none rounded border border-gray-300 bg-white px-4 py-2 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+    <div className={cn('something', className)}>
+      <Select
+        onValueChange={(e: LangValues) => {
+          handlePreviewLangChange(e);
+        }}
+        // onValueChange={(e: MarketValues) => {
+        //   handleSelectPreviewMarket(e);
+        // }}
       >
-        {MARKETS.map((market) => (
-          <option key={market.id} value={market.id}>
-            {market.flag} {market.name}
-          </option>
-        ))}
-      </select>
+        <SelectTrigger>
+          {/* <SelectValue placeholder={`${selectedMarket?.name} ${selectedMarket?.flag}`} /> */}
+          <SelectValue placeholder={`${selectedLang?.name} ${selectedLang?.flag}`} />
+        </SelectTrigger>
+        <SelectContent>
+          {/* {MARKETS.map((market: Market) => (
+            <SelectItem key={market.id} value={market.id}>
+              {market.flag} {market.name}
+            </SelectItem>
+          ))} */}
+          {LANGS.map((lang: Lang) => (
+            <SelectItem key={lang.id} value={lang.id}>
+              {lang.flag} {lang.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };
-
-//   return <button onClick={() => handleSelectPreviewMarket('no')}>No</button>;
-// };

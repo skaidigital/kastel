@@ -1,6 +1,6 @@
 'use client';
 
-import { useShopifyAnalytics } from '@/app/[market]/[lang]/(site)/shopify/hooks/useShopifyAnalytics';
+import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { AnalyticsEventName } from '@shopify/hydrogen-react';
 import { useEffect } from 'react';
 

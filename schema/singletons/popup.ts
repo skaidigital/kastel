@@ -1,6 +1,26 @@
-import { validateAllStringsIfTypeIs } from '@/lib/sanity/studioUtils';
 import { MegaphoneSimple } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
+
+export const validateAllStringsIfTypeIs = (type: string) => (Rule: any) =>
+  Rule.custom((value: any, context: any) => {
+    if (context?.parent?.isShown === false) {
+      return true;
+    }
+
+    if (context?.parent?.type === type) {
+      const hasNo = value?.no;
+      const hasEn = value?.en;
+
+      if (!hasNo || !hasEn) {
+        return [
+          !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
+          !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
+        ].filter(Boolean);
+      }
+    }
+
+    return true;
+  });
 
 export const popup = defineType({
   title: 'Popup',
@@ -76,6 +96,10 @@ export const popup = defineType({
       type: 'figure',
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
+          if (context?.parent?.isShown === false) {
+            return true;
+          }
+
           if (context.parent.type === 'info' && !value) {
             return 'Required';
           }
@@ -85,31 +109,13 @@ export const popup = defineType({
       group: 'info'
     }),
     defineField({
-      title: 'Content 🇧🇻',
-      name: 'contentInfo_no',
-      type: 'richText',
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.parent.type === 'info' && !value) {
-            return 'Required';
-          }
-
-          return true;
-        }),
-      group: 'info'
-    }),
-    defineField({
-      title: 'Content 🇬🇧',
-      name: 'contentInfo_en',
-      type: 'richText',
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.parent.type === 'info' && !value) {
-            return 'Required';
-          }
-
-          return true;
-        }),
+      title: 'Content',
+      name: 'contentInfo',
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      },
+      validation: validateAllStringsIfTypeIs('info'),
       group: 'info'
     }),
     defineField({
@@ -118,6 +124,10 @@ export const popup = defineType({
       type: 'link',
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
+          if (context?.parent?.isShown === false) {
+            return true;
+          }
+
           if (context.parent.type === 'info' && !value) {
             return 'Required';
           }
@@ -132,12 +142,26 @@ export const popup = defineType({
       type: 'figure',
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
+          if (context?.parent?.isShown === false) {
+            return true;
+          }
+
           if (context.parent.type === 'newsletter' && !value) {
             return 'Required';
           }
 
           return true;
         }),
+      group: 'newsletter'
+    }),
+    defineField({
+      title: 'Content',
+      name: 'contentNewsletter',
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      },
+      validation: validateAllStringsIfTypeIs('newsLetter'),
       group: 'newsletter'
     }),
     defineField({

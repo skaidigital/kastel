@@ -1,15 +1,20 @@
 import { apiVersion, dataset, projectId, studioUrl } from '@/lib/sanity/api';
-import { createClient } from '@sanity/client/stega';
+import { createClient } from 'next-sanity';
 
-const excludedFields = ['slug_eu', 'slug_no', 'video'];
+const excludedFields = ['slug_en', 'slug_no', 'slug', 'video'];
 
 const excludedNestedFields = [
+  'slug_no',
+  'slug_en',
   'padding',
   'hasTopPadding',
+  'firstImage',
   'hasBottomPadding',
   'hasBottomBorder',
-  'aspectRatioDesktop',
+  'sameAspectRatio',
+  'aspectRatio',
   'aspectRatioMobile',
+  'aspectRatioDesktop',
   'textPositionMobile',
   'imageOrVideo',
   'image',
@@ -25,7 +30,8 @@ const excludedNestedFields = [
   'size',
   'text',
   'textPlacement',
-  'currencyCode'
+  'currencyCode',
+  'type'
 ];
 
 export const client = createClient({

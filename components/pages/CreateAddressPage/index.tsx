@@ -1,87 +1,107 @@
 'use client';
 
-import { UserError } from '@/app/[market]/[lang]/(site)/shopify/types';
 import { Dictionary } from '@/app/dictionaries';
-import { BackButton } from '@/components/BackButton';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Checkbox } from '@/components/form/Checkbox';
-import { ComboBox, ComboBoxItem } from '@/components/form/Combobox';
-import { Form } from '@/components/form/Form';
-import { FormError } from '@/components/form/FormError';
-import { SubmitButton } from '@/components/form/SubmitButton';
-import { TextField } from '@/components/form/TextField';
+import { Button } from '@/components/Button';
+import { AccountPageHeader } from '@/components/account/AccountPageHeader';
+import { FormInput } from '@/components/form/FormInput';
 import { createAddress } from '@/components/pages/CreateAddressPage/actions';
+import {
+  CreateAddressFormInput,
+  createAddressFormInputValidator
+} from '@/components/pages/CreateAddressPage/hooks';
 import { ROUTES } from '@/data/constants';
-import countries from '@/data/countries';
-import { useFormState } from 'react-dom';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
+import { Address } from '@/lib/shopify/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 interface Props {
   dictionary: Dictionary['create_address_page'];
+  data: Address;
 }
 
-export function CreateAddressPage({ dictionary }: Props) {
-  const [formState, formAction] = useFormState(createAddress, null);
+export function EditAddressPage({ dictionary, data }: Props) {
+  const [isPending, startTransition] = useTransition();
+  const { market, lang } = useBaseParams();
+  const router = useRouter();
+
+  const { handleSubmit, control, reset } = useForm<CreateAddressFormInput>({
+    resolver: zodResolver(createAddressFormInputValidator),
+    mode: 'onSubmit',
+    defaultValues: {
+      firstName: data.firstName || '',
+      lastName: data.lastName || '',
+      phoneNumber: data.phoneNumber || '',
+      address1: data.address1 || '',
+      address2: data.address2 || '',
+      zip: data.zip || '',
+      city: data.city || '',
+      territoryCode: data.territoryCode || '',
+      defaultAddress: false
+    }
+  });
+
+  const onSubmit: SubmitHandler<CreateAddressFormInput> = async (data) => {
+    startTransition(async () => {
+      const response = await createAddress(data);
+
+      if (!response.success) {
+        reset();
+        toast.error('Something went wrong', {
+          description: response.userErrors && response.userErrors[0]?.message
+        });
+      }
+      if (response.success) {
+        reset();
+        toast('Success!', {
+          description: 'Your new address has been created.'
+        });
+        router.push(`/${market}/${lang}/${ROUTES.ADDRESSES}`);
+      }
+    });
+  };
 
   return (
-    <Section srHeading="Create address" label="Create address" className="md:px-12 lg:px-20">
-      <Container size="sm">
-        <Form action={formAction} validationErrors={formState?.errors}>
-          <BackButton href={ROUTES.ADDRESSES}>{dictionary.addresses}</BackButton>
-          <Heading size="md">{dictionary.new_address}</Heading>
-          <TextField
-            name="firstName"
-            label={dictionary.first_name}
-            autoComplete="given-name"
-            isRequired
-          />
-          <TextField
-            name="lastName"
-            label={dictionary.last_name}
-            autoComplete="family-name"
-            isRequired
-          />
-          <TextField
-            name="address1"
-            label={dictionary.address1}
-            autoComplete="address-line1"
-            isRequired
-          />
-          <TextField
-            name={dictionary.address2}
-            label="Adresselinje 2"
-            autoComplete="address-line2"
-          />
-          <TextField name="zip" label={dictionary.zip} autoComplete="postal-code" isRequired />
-          <TextField name="city" label={dictionary.city} autoComplete="address-level2" isRequired />
-          <ComboBox name="territoryCode" label={dictionary.country} isRequired>
-            {countries.map((country) => (
-              <ComboBoxItem key={country.value} id={country.value.toUpperCase()}>
-                {country.label}
-              </ComboBoxItem>
-            ))}
-          </ComboBox>
-          <TextField
-            name="phoneNumber"
-            label={dictionary.phone_number}
-            autoComplete="tel"
-            isRequired
-          />
-          <TextField name="email" label={dictionary.email} autoComplete="email" isRequired />
-          <Checkbox name="defaultAddress" value="true">
-            {dictionary.default_address}
-          </Checkbox>
-          <SubmitButton>{dictionary.create_address}</SubmitButton>
-          {formState?.userErrors && (
-            <div className="flex flex-col gap-y-2">
-              {formState.userErrors.map((error: UserError) => (
-                <FormError key={error.message} error={error.message} />
-              ))}
-            </div>
-          )}
-        </Form>
-      </Container>
-    </Section>
+    <div className="grid lg:col-span-3">
+      <AccountPageHeader pageTitle={dictionary.edit_address} />
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+        <FormInput
+          label={dictionary.first_name}
+          name="firstName"
+          autoComplete="given-name"
+          control={control}
+        />
+        <FormInput
+          label={dictionary.last_name}
+          name="lastName"
+          autoComplete="family-name"
+          control={control}
+        />
+        <FormInput
+          label={dictionary.phone_number}
+          name="phoneNumber"
+          autoComplete="tel"
+          control={control}
+        />
+        <FormInput label={dictionary.address1} name="address1" control={control} />
+        <FormInput label={dictionary.address2} name="address2" control={control} />
+        <FormInput label={dictionary.zip} name="zip" control={control} />
+        <FormInput label={dictionary.city} name="city" control={control} />
+        <FormInput label={dictionary.country} name="territoryCode" control={control} />
+        {/* <FormChec
+          label={dictionary.default_address}
+          name="defaultAddress"
+          type="checkbox"
+          control={control}
+        /> */}
+
+        <Button size="sm" type="submit" isLoading={isPending}>
+          {dictionary.edit_address}
+        </Button>
+      </form>
+    </div>
   );
 }

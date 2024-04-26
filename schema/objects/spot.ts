@@ -25,31 +25,33 @@ export const spot = defineType({
       hidden: true
     }),
     defineField({
-      title: 'Description',
-      name: 'description',
-      type: 'i18n.text',
-      options: {
-        rows: 2
-      },
+      title: 'Description 🇧🇻',
+      name: 'description_no',
+      type: 'text',
       validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
-          if (context?.parent && context?.parent?.type && context?.parent?.type === 'productCard') {
-            return true; // Immediately return true if the parent's type is 'productCard'
+        Rule.custom((value, context: any) => {
+          if (context?.parent?.type === 'text' && !value) {
+            return 'Description is required';
           }
 
-          const hasNo = value && value?.no;
-          const hasEn = value && value?.en;
-
-          if (!hasNo || !hasEn) {
-            let errorMessage = 'You must provide:';
-            if (!hasNo) errorMessage += ' a Norwegian translation';
-            if (!hasNo && !hasEn) errorMessage += ' and';
-            if (!hasEn) errorMessage += ' an English translation';
-            return errorMessage; // Construct and return a single error message string
-          }
-
-          return true; // Validation successful
+          return true;
         }),
+      rows: 3,
+      hidden: ({ parent }) => parent?.type && parent?.type !== 'text'
+    }),
+    defineField({
+      title: 'Description 🇬🇧',
+      name: 'description_en',
+      type: 'text',
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (context?.parent?.type === 'text' && !value) {
+            return 'Description is required';
+          }
+
+          return true;
+        }),
+      rows: 3,
       hidden: ({ parent }) => parent?.type && parent?.type !== 'text'
     }),
     defineField({
@@ -91,7 +93,7 @@ export const spot = defineType({
   preview: {
     select: {
       type: 'type',
-      details: 'details.en',
+      details: 'description_en',
       product: 'product.title.en',
       x: 'x',
       y: 'y'

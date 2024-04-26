@@ -14,6 +14,11 @@
       "error_description": "Please try again later."
     }
   },
+  "collection_page": {
+    "number_of_products": "products",
+    "no_products": "We found no products with the selected filters",
+    "description": "Description"
+  },
   "product_page": {
     "discount": "Discount",
     "add_to_cart": "Add to Cart",
@@ -24,6 +29,7 @@
     "reccommended": "Reccommended",
     "description": "Description",
     "expected_back_in_stock": "Expected back in stock",
+    "size_guide": "Size guide",
     "stock": {
       "out_of_stock": "Out of stock",
       "low_stock": "Only __AMOUNT__ left in stock",
@@ -38,8 +44,10 @@
     }
   },
   "search_page": {
+    "we_found": "We found",
     "search_results": "Search results",
-    "no_products_that_match": "There are no products that match",
+    "products": "products",
+    "no_products_that_match": "There are no products that match your search",
     "showing": "Showing",
     "for": "for",
     "next_page": "Next page",
@@ -48,7 +56,7 @@
     "results": "results"
   },
   "account_page": {
-    "recent_orders": "Recent orders",
+    "recent_orders": "Orders",
     "order": "Order",
     "date": "Date",
     "status_payment": "Payment status",
@@ -61,6 +69,8 @@
     "my_account": "My account",
     "orders": "Orders",
     "addresses": "Addresses",
+    "wishlist": "Wishlist",
+    "customer_service": "Customer service",
     "log_out": "Log out"
   },
   "order_details_page": {
@@ -117,6 +127,7 @@
     "email": "Email",
     "default_address": "Default address",
     "create_address": "Create address",
+    "edit_address": "Edit address",
     "addresses": "Addresses"
   },
   "cookie_consent": {
@@ -134,7 +145,7 @@
     "close_cart": "Close cart",
     "checkout": "Checkout",
     "quantity_short": "Qty",
-    "cart_is_empty": "Your cart is empty.",
+    "cart_is_empty": "Your cart is empty",
     "start_shopping": "Start shopping",
     "cross_sell": {
       "we_think_you_will_like": "Perhaps you would like",
@@ -143,10 +154,13 @@
     }
   },
   "market_selector": {
-    "switch_location": "Switch store",
-    "stay": "Continue here",
-    "are_you_in": "Are you shopping from",
-    "based_on_your_location": "Based on your location, we reccommend you shop in the __URL__ store."
+    "select_your_location": "Select your location"
+  },
+  "market_suggestion_popup": {
+    "looks_like_you_are_in": "Looks like you are in",
+    "would_you_like_to_change_location": "Would you like to change location?",
+    "more_locations": "More locations",
+    "confirm_your_location": "Confirm your location"
   },
   "reccommended_products": {
     "we_think_you_will_like": "We also recommend"

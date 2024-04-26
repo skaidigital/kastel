@@ -12,8 +12,8 @@ export const tag = defineType({
   icon: Tag,
   preview: {
     select: {
-      title: 'title.no',
-      group: 'group.title.no'
+      title: 'title.en',
+      group: 'group.title.en'
     },
     prepare: ({ title, group }) => {
       return {

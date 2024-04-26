@@ -28,34 +28,28 @@ export function Pagination({ hasPreviousPage, hasNextPage, className }: Props) {
   };
 
   return (
-    <div className={cn('flex space-x-5 text-eyebrow uppercase', className)}>
+    <div className={cn('text-eyebrow flex space-x-1 uppercase', className)}>
       <Link
         href={hasPreviousPage ? createPageURL(currentPage - 1) : '#'}
         className={cn(
-          'flex items-center gap-1',
+          'text-brand-dark flex h-8 w-8 items-center gap-1 border border-brand-light-grey p-2.5 text-brand-dark-grey',
           !hasPreviousPage && 'cursor-not-allowed opacity-50'
         )}
         aria-disabled={!hasPreviousPage}
       >
-        <ChevronLeftIcon className="mt-0.5 h-3 w-3" />
-        Previous
+        <ChevronLeftIcon className="mt-0.5 h-3 w-3  text-brand-dark-grey" />
       </Link>
-      <div className="flex">
-        {hasPreviousPage && (
-          <PageButton pageNumber={currentPage - 1} href={createPageURL(currentPage - 1)} />
-        )}
-        <PageButton pageNumber={currentPage} href="#" isCurrent />
-        {hasNextPage && (
-          <PageButton pageNumber={currentPage + 1} href={createPageURL(currentPage + 1)} />
-        )}
-      </div>
+      <PageButton pageNumber={currentPage} href="#" isCurrent />
+
       <Link
         href={hasNextPage ? createPageURL(currentPage + 1) : '#'}
         aria-disabled={!hasNextPage}
-        className={cn('flex items-center gap-1', !hasNextPage && 'cursor-not-allowed opacity-50')}
+        className={cn(
+          'flex h-8 w-8 items-center gap-1 border border-brand-light-grey p-2.5  text-brand-dark-grey',
+          !hasNextPage && 'cursor-not-allowed opacity-50'
+        )}
       >
-        Next
-        <ChevronRightIcon className="mt-0.5 h-3 w-3" />
+        <ChevronRightIcon className="mt-0.5 h-3 w-3 text-brand-dark-grey" />
       </Link>
     </div>
   );
@@ -67,13 +61,26 @@ interface PageButtonProps {
   isCurrent?: boolean;
 }
 
+// function PageButton({ pageNumber, href, isCurrent }: PageButtonProps) {
+//   return (
+//     <Link
+//       href={href}
+//       className={cn(
+//         'text-eyebrow flex h-8 w-8 items-center justify-center rounded-project border p-2.5 text-center hover:bg-brand-light-grey focus:bg-brand-light-grey',
+//         isCurrent ? 'border-brand-light-grey' : 'border-transparent '
+//       )}
+//     >
+//       {pageNumber}
+//     </Link>
+//   );
+// }
 function PageButton({ pageNumber, href, isCurrent }: PageButtonProps) {
   return (
     <Link
       href={href}
       className={cn(
-        'flex h-8 w-8 items-center justify-center rounded-project border p-1 text-center text-eyebrow hover:bg-brand-light-grey focus:bg-brand-light-grey',
-        isCurrent ? 'border-brand-light-grey' : 'border-transparent '
+        'flex h-8 w-8 items-center justify-center rounded-project border p-2.5 text-center hover:bg-brand-light-grey focus:bg-brand-light-grey',
+        isCurrent ? 'border-brand-light-grey' : 'border-transparent'
       )}
     >
       {pageNumber}

@@ -1,7 +1,6 @@
 import { apiVersion, projectId } from '@/lib/sanity/api';
 import { defaultDocumentNodeResolver } from '@/schema/defaultDocumentNodeResolver';
 import { structure } from '@/schema/structure';
-import { scheduledPublishing } from '@sanity/scheduled-publishing';
 import { visionTool } from '@sanity/vision';
 import { defineConfig, definePlugin } from 'sanity';
 import { imageHotspotArrayPlugin } from 'sanity-plugin-hotspot-array';
@@ -18,7 +17,6 @@ import { locate } from '@/lib/sanity/plugins/locate';
 import { productVariantBasedOnProduct } from '@/lib/sanity/templates';
 import { I18nFields } from 'sanity-plugin-i18n-fields';
 import { structureTool } from 'sanity/structure';
-import { SyncProductToShopify } from './lib/sanity/actions.client';
 import schema from './schema';
 import './styles/sanity.css';
 
@@ -32,8 +30,9 @@ const config = definePlugin({
     presentationTool({
       locate,
       previewUrl: {
-        draftMode: {
-          enable: '/api/draft'
+        previewMode: {
+          enable: '/api/draft',
+          disable: '/api/disable-draft'
         }
       }
     }),
@@ -41,11 +40,11 @@ const config = definePlugin({
     muxInput({
       mp4_support: 'standard'
     }),
-    scheduledPublishing({
-      inputDateTimeFormat: 'dd.MM.yyyy HH:mm'
-    }),
     visionTool({ defaultApiVersion: apiVersion }),
-    simplerColorInput(),
+    simplerColorInput({
+      defaultColorFormat: 'hex',
+      enableSearch: true
+    }),
     webhooks(),
     noteField(),
     vercelDeployTool(),
@@ -58,7 +57,7 @@ const config = definePlugin({
     imageHotspotArrayPlugin()
   ],
   tools: (prev, { currentUser }) => {
-    const isAdmin = currentUser?.roles?.some((role) => role.name === 'administrator');
+    const isAdmin = currentUser?.roles?.some((role) => role.name === 'developer');
 
     if (isAdmin) {
       return prev;
@@ -82,16 +81,16 @@ const config = definePlugin({
   },
   document: {
     actions: (prev, context) => {
-      if (context.schemaType === 'product') {
-        const productSyncActions = SyncProductToShopify(context);
-        const productSyncActionsFunctions = productSyncActions.map((action) => {
-          return () => action;
-        });
+      // if (context.schemaType === 'product') {
+      //   const productSyncActions = SyncProductToShopify(context);
+      //   const productSyncActionsFunctions = productSyncActions.map((action) => {
+      //     return () => action;
+      //   });
 
-        const documentActions = [...prev, ...productSyncActionsFunctions];
+      //   const documentActions = [...prev, ...productSyncActionsFunctions];
 
-        return documentActions;
-      }
+      //   return documentActions;
+      // }
       if (context.schemaType === 'productVariant') {
         const everythingExceptDuplicateAction = prev.filter(
           (action) => action.action !== 'duplicate'
@@ -111,5 +110,9 @@ export default defineConfig({
   name: 'studio',
   projectId,
   dataset: env.NEXT_PUBLIC_SANITY_DATASET,
-  plugins: [config()]
+  plugins: [config()],
+  scheduledPublishing: {
+    enabled: true,
+    inputDateTimeFormat: 'dd.MM.yyyy HH:mm'
+  }
 });

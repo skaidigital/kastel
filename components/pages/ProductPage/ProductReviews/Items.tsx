@@ -26,7 +26,7 @@ export const Items = ({ data, onClick }: Props) => {
       {data?.map((review, index) => {
         return <ReviewItem {...review} key={index} />;
       })}
-      <Button type="button" onClick={onClick} fullWidth>
+      <Button type="button" onClick={onClick}>
         Hent flere anmeldelser
       </Button>
     </>
@@ -66,7 +66,7 @@ const ReviewItem = ({
       variants={accordionItemAnimation}
       initial="hide"
       animate="show"
-      className="border-b border-brand-border"
+      className="border-brand-border border-b"
     >
       <div className="my-32 flex pb-24">
         <div className="flex-[1] flex-col gap-y-8">

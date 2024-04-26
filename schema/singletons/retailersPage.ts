@@ -24,8 +24,9 @@ export const retailersPage = defineType({
       validation: validateAllStringTranslations
     }),
     defineField({
-      title: 'Retailers',
-      name: 'retailers',
+      title: 'Retailers 🇧🇻',
+      description: 'Select retailers to display on the retailers page for the Norwegian market.',
+      name: 'retailers_no',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'retailer' }] }],
       validation: (Rule) => Rule.required()

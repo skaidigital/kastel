@@ -22,13 +22,10 @@ export default async function Cart({ children, market }: Props) {
   const cartId = cookies().get('cartId')?.value;
 
   let cart;
-  let freeShippingAmount = null;
+  const freeShippingAmount = await loadFreeShippingAmount(market);
 
   if (cartId) {
     cart = await getCart(cartId);
-    if (cart && cart?.lines?.length > 0) {
-      freeShippingAmount = await loadFreeShippingAmount(market);
-    }
   }
 
   return (

@@ -1,20 +1,19 @@
 'use client';
 
-import { useShopifyAnalytics } from '@/app/[market]/[lang]/(site)/shopify/hooks/useShopifyAnalytics';
-import { formatPrice } from '@/app/[market]/[lang]/(site)/shopify/utils';
 import { Button } from '@/components/Button';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
-import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
+import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import { Text } from '../base/Text';
 
 interface Props {
   productId: string;
@@ -64,9 +63,9 @@ export const AddToCartButton = ({
 
   return (
     <Button
-      fullWidth
       title={title}
       disabled={!availableForSale || !id || !isInStock}
+      size="sm"
       isLoading={isPending}
       onClick={() => {
         // Safeguard in case someone messes with `disabled` in devtools.
@@ -101,7 +100,7 @@ export const AddToCartButton = ({
         });
       }}
       className={cn(
-        '',
+        'w-full',
         'cursor-not-allowed opacity-60 hover:opacity-60' && (!availableForSale || !id),
         'cursor-not-allowed' && isPending
       )}
@@ -109,12 +108,9 @@ export const AddToCartButton = ({
       <>
         {id ? (
           <>
-            {addToCartText}
-            <span className="mx-4">·</span>
-            {formatPrice({
-              amount: String(bestPrice),
-              currencyCode: env.NEXT_PUBLIC_SHOPIFY_CURRENCY
-            })}
+            <Text as="p" size="md" className="font-bold">
+              {addToCartText}
+            </Text>
           </>
         ) : (
           <>{selectSizeText}</>

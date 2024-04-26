@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'cva';
 import { HTMLAttributes } from 'react';
 
 const container = cva({
-  base: 'px-4 lg:px-8 mx-auto',
+  base: 'px-4 lg:px-8 w-full mx-auto',
   variants: {
     size: {
       sm: 'max-w-[500px]',

@@ -5,14 +5,18 @@ const textProps = cva({
   base: '',
   variants: {
     size: {
+      xs: 'text-xs placeholder:text-xs',
       sm: 'text-sm placeholder:text-sm',
+      md: 'text-md placeholder:text-md',
       lg: 'text-lg placeholder:text-lg',
       eyebrow: 'text-eyebrow uppercase placeholder:text-eyebrow',
-      default: 'text-paragraph-sm lg:text-paragraph-lg placeholder:text-sm lg:placeholder:text-lg'
+      'overline-sm': 'text-overline-sm placeholder:text-overline-sm',
+      'overline-md': 'text-overline-md placeholder:text-overline-md',
+      default: 'text-sm lg:text-md placeholder:text-sm lg:placeholder:text-md'
     }
   },
   defaultVariants: {
-    size: 'lg'
+    size: 'default'
   }
 });
 

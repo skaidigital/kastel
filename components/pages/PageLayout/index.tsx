@@ -1,24 +1,25 @@
 import { PagePayload } from '@/components/pages/PageLayout/hooks';
 import { PageBuilder } from '@/components/shared/PageBuilder';
-import { MarketValues } from '@/data/constants';
-import { EncodeDataAttributeCallback } from '@sanity/react-loader';
+import { LangValues, MarketValues } from '@/data/constants';
 
 export interface PageProps {
   data: PagePayload;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
   market: MarketValues;
+  lang: LangValues;
 }
 
-export function PageLayout({ data, encodeDataAttribute, market }: PageProps) {
+export function PageLayout({ data, market, lang }: PageProps) {
   return (
     <>
       {data?.pageBuilder?.map((block, index: number) => (
         <PageBuilder
-          key={block.key}
+          key={block.key + index}
           data={block}
           index={index}
-          encodeDataAttribute={encodeDataAttribute}
           market={market}
+          lang={lang}
+          pageId={data.id}
+          pageType={data.type}
         />
       ))}
     </>

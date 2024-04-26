@@ -1,15 +1,16 @@
+import { TouchTarget } from '@/components/TouchTarget';
+import { Heading } from '@/components/base/Heading';
 import { cn } from '@/lib/utils';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ReactNode } from 'react';
 
 interface ModalRootProps {
   children: ReactNode;
   isOpen?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onOpenChange?: (open: boolean) => void;
 }
 
-// TODO get back Modal.Trigger etc. once the RSC bundler is fixed
 export function Modal({ children, isOpen, onOpenChange }: ModalRootProps) {
   const isControlled = isOpen !== undefined;
 
@@ -26,8 +27,8 @@ export function Modal({ children, isOpen, onOpenChange }: ModalRootProps) {
 interface ModalContentProps {
   children: ReactNode;
   label: string;
-  size?: 'sm' | 'md' | 'lg';
-  onClose?: () => void;
+  size?: 'sm' | 'md' | 'lg' | 'none';
+  onClose?: (e: any) => void;
   className?: string;
 }
 
@@ -46,13 +47,14 @@ export function ModalContent({
       />
       <Dialog.Content
         onInteractOutside={onClose}
+        onEscapeKeyDown={onClose}
         forceMount
         aria-label={label}
         className={cn(
           'border-brand-border fixed left-[50%] top-[50%] z-30 w-full translate-x-[-50%] translate-y-[-50%] rounded-project  border bg-white transition-[transform,opacity] data-[state=closed]:animate-modal-hide data-[state=open]:animate-modal-show  focus:outline-none',
-          size === 'sm' && 'max-w-xl',
+          size === 'sm' && 'max-w-[420px]',
           size === 'md' && 'max-w-4xl',
-          size === 'lg' && 'max-w-6xl',
+          size === 'lg' && '',
           className
         )}
       >
@@ -70,5 +72,39 @@ export function ModalTrigger({ children }: ModalTriggerProps) {
   return <Dialog.Trigger asChild>{children}</Dialog.Trigger>;
 }
 
-// Modal.Trigger = ModalTrigger;
-// Modal.Content = ModalContent;
+interface ModalHeaderProps {
+  title: string;
+  className?: string;
+  children?: ReactNode;
+  onClose?: (e: any) => void;
+}
+
+export function ModalHeader({ title, className, children, onClose }: ModalHeaderProps) {
+  return (
+    <div className={cn('items-between mb-6 flex flex-col justify-center gap-y-4', className)}>
+      <div className="flex items-center justify-between">
+        <Dialog.Title asChild>
+          <Heading as="h2" size="xs">
+            {title}
+          </Heading>
+        </Dialog.Title>
+        <Dialog.Close onClick={onClose}>
+          <button>
+            <TouchTarget>
+              <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey focus:text-brand-dark-grey" />
+            </TouchTarget>
+          </button>
+        </Dialog.Close>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export function ModalClose({ children }: ModalTriggerProps) {
+  return (
+    <Dialog.Close asChild>
+      <button>{children}</button>
+    </Dialog.Close>
+  );
+}

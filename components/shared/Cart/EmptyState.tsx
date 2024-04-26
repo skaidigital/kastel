@@ -1,5 +1,5 @@
 import { Button } from '@/components/Button';
-import { Drawer } from '@/components/Drawer';
+import { DrawerClose, DrawerHeader } from '@/components/Drawer';
 import { Heading } from '@/components/base/Heading';
 
 interface Props {
@@ -11,14 +11,16 @@ interface Props {
 export function EmptyState({ cartText, cartIsEmptyText, startShoppingText }: Props) {
   return (
     <div className="flex grow flex-col">
-      <Drawer.Header>{cartText}</Drawer.Header>
+      <DrawerHeader title={cartText} />
       <div className="flex h-full grow flex-col  items-center justify-center space-y-5 lg:space-y-10">
-        <Heading as="h2" size="sm">
+        <Heading as="h2" size="xs">
           {cartIsEmptyText}
         </Heading>
-        <Drawer.Close>
-          <Button variant="secondary">{startShoppingText}</Button>
-        </Drawer.Close>
+        <DrawerClose>
+          <Button variant="outline" size="sm">
+            {startShoppingText}
+          </Button>
+        </DrawerClose>
       </div>
     </div>
   );

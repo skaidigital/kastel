@@ -1,6 +1,6 @@
 'use server';
 
-import { UserError } from '@/app/[market]/[lang]/(site)/shopify/types';
+import { UserError } from '@/app/api/shopify/types';
 import { CACHE_TAGS } from '@/data/constants';
 import { customerAccountFetch } from '@/lib/shopify/customer';
 import { revalidateTag } from 'next/cache';

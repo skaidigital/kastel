@@ -1,6 +1,6 @@
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Check } from '@phosphor-icons/react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 export const usps = defineType({
   title: 'USPs above footer',
@@ -16,26 +16,12 @@ export const usps = defineType({
   },
   fields: [
     defineField({
-      title: 'USPs above footer',
-      name: 'footer',
-      type: 'array',
-      validation: (Rule) => Rule.required().min(1).max(8),
-      of: [
-        defineArrayMember({
-          title: 'USP',
-          name: 'usp',
-          type: 'i18n.string',
-          validation: validateAllStringTranslations
-        })
-      ]
-    }),
-    defineField({
       title: 'USPs under add to cart button for regular products',
       description:
         "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
       name: 'productForm',
       type: 'array',
-      of: [{ type: 'i18n.string', validation: validateAllStringTranslations }],
+      of: [{ type: 'i18n.string', validation: validateAllStringTranslations, icon: Check }],
       validation: (Rule) => Rule.min(1).max(4)
     }),
     defineField({
@@ -44,7 +30,7 @@ export const usps = defineType({
         "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
       name: 'productFormNatureLab',
       type: 'array',
-      of: [{ type: 'i18n.string', validation: validateAllStringTranslations }],
+      of: [{ type: 'i18n.string', validation: validateAllStringTranslations, icon: Check }],
       validation: (Rule) => Rule.min(1).max(4)
     })
   ]

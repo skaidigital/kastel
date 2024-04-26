@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   future: {
@@ -22,14 +23,44 @@ module.exports = {
       center: true
     },
     fontFamily: {
-      sans: ['Inter', 'sans-serif'],
-      serif: ['var(--font-iowan)']
+      sans: ['var(--font-sans)'],
+      serif: ['var(--font-iowan)'],
+      mono: ['var(--font-mono)'],
+      'nature-lab-body': ['var(--font-nature-lab-body)'],
+      'nature-lab-heading': ['var(--font-nature-lab-heading)']
+    },
+    fontSize: {
+      'heading-2xs': ['16px', { lineHeight: '20px' }],
+      'heading-xs': ['20px', { lineHeight: '28px' }],
+      'heading-sm': ['28px', { lineHeight: '32px' }],
+      'heading-md': ['32px', { lineHeight: '40px' }],
+      'heading-lg': ['40px', { lineHeight: '48px' }],
+      'heading-xl': ['60px', { lineHeight: '64px' }],
+      'heading-2xl': ['80px', { lineHeight: '80px' }],
+      xs: ['12px', '16px'],
+      sm: ['14px', '20px'],
+      md: ['18px', '24px'],
+      lg: ['24px', '32px'],
+      xl: ['32px', { lineHeight: '40px' }],
+      'nature-lab-md': ['14px', { lineHeight: '18px' }],
+      'nature-lab-lg': ['18px', { lineHeight: '24px' }],
+      'nature-lab-heading-lg': ['32px', { lineHeight: '36px', letterSpacing: '0.4px' }],
+      'overline-sm': ['10px', { lineHeight: '10px', letterSpacing: '0.4px' }],
+      'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
     },
     keyframes: {
+      spin: {
+        '0%': { transform: 'rotate(0deg)' },
+        '100%': { transform: 'rotate(360deg)' }
+      },
       blink: {
         '0%': { opacity: 0.2 },
         '20%': { opacity: 1 },
         '100% ': { opacity: 0.2 }
+      },
+      'hotspot-blink': {
+        '0%, 100%': { opacity: 0.2, transform: 'scale(2)' },
+        '50%': { opacity: 1 }
       },
       'fade-in-text': {
         from: { opacity: 0, transform: 'translateY(-10px)' },
@@ -105,11 +136,11 @@ module.exports = {
       },
       'menu-slide-down': {
         from: { height: 0 },
-        to: { height: '440px' }
+        to: { height: 'auto' }
       },
       'menu-slide-up': {
-        from: { height: '440px' },
-        to: { height: 0 }
+        from: { height: 100 },
+        to: { height: 'auto' }
       },
       // Menu testing
       enterFromRight: {
@@ -146,7 +177,9 @@ module.exports = {
       }
     },
     animation: {
+      spin: 'spin 1s var(--smooth-bezier) infinite',
       blink: 'blink 1.4s both infinite',
+      'hotspot-blink': 'hotspot-blink 2.5 cubic-bezier(0, 0, 0.2, 1) infinite',
       'fade-in-text': 'fade-in-text 500ms var(--animation-delay, 0ms) ease forwards',
       'fade-up-text': 'fade-up-text 500ms var(--animation-delay, 0ms) ease forwards',
       'modal-show': 'fade-in 1000ms var(--smooth-bezier)',
@@ -182,28 +215,15 @@ module.exports = {
       exitToRight: 'exitToRight 250ms ease'
     },
     extend: {
-      fontSize: {
-        'heading-2xs': ['16px', { lineHeight: '20px' }],
-        'heading-xs': ['20px', { lineHeight: '28px' }],
-        'heading-sm': ['28px', { lineHeight: '32px' }],
-        'heading-md': ['32px', { lineHeight: '40px' }],
-        'heading-lg': ['40px', { lineHeight: '48px' }],
-        'heading-xl': ['60px', { lineHeight: '64px' }],
-        'heading-2xl': ['80px', { lineHeight: '80px' }],
-        xs: ['12px', { lineHeight: '16px' }],
-        sm: ['14px', { lineHeight: '20px' }],
-        md: ['18px', { lineHeight: '24px' }],
-        lg: ['24px', { lineHeight: '32px' }],
-        xl: ['32px', { lineHeight: '40px' }],
-        'overline-sm': ['10px', { lineHeight: '10px' }],
-        'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
-      },
       colors: {
         brand: {
           primary: '#407F7F',
+          'primary-light': '#CCE5E5',
           'light-grey': '#E2E8F0',
           'mid-grey': '#666666',
-          'dark-grey': '#39454E'
+          'dark-grey': '#39454E',
+          beige: '#FDF5E6',
+          sand: '#F5F5F4'
         },
         'nature-lab': {
           'dark-grey': '#151517',

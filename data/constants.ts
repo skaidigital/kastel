@@ -1,13 +1,20 @@
+import { AspectRatios } from '@/lib/sanity/types';
+
 // Routes
 export const ROUTES = {
   HOME: '/',
   ACCOUNT: '/account',
   WISHLIST: '/account/wishlist',
+  ACCOUNT_CUSTOMER_SERVICE: '/account/customer-service',
   ADDRESSES: '/account/addresses',
   CREATE_ADDRESS: '/account/addresses/create',
-  ORDERS: '/orders',
+  EDIT_ADDRESS: '/account/addresses/:id/edit',
+  PRODUCTS: '/products',
+  ORDERS: '/account/orders',
   ORDER_DETAILS: '/account/orders',
+  BLOG: '/blog',
   SHOP_ALL: '/shop/all',
+  KASTEL_CLUB: '/kastel-club',
   REGISTER_ACCOUNT: '/register-account',
   RESET_PASSWORD: '/reset-password',
   SHOP: '/shop',
@@ -16,6 +23,8 @@ export const ROUTES = {
 
 export const CACHE_TAGS = {
   CART: 'cart',
+  WISHLIST_PRODUCTS: 'wishlist-products',
+  HELP_CENTER: 'help-center',
   CUSTOMER_ADDRESS: 'customer-address',
   ANNOUNCEMENT_BANNER: 'announcement-banner',
   USPS: 'unique-selling-points',
@@ -26,6 +35,7 @@ export const CACHE_TAGS = {
   NAVBAR: 'navbar',
   FOOTER: 'footer',
   POPUP: 'popup',
+  LAYOUT_USP_MARUQEE: 'layoutUSPMarquee',
   METADATA: 'settingsSEOAndSocials',
   COOKIE_CONSENT: 'cookieConsent'
 };
@@ -51,14 +61,18 @@ export const COOKIE_NAMES = {
     ACCESS_TOKEN: 'shopify_access_token',
     REFRESH_TOKEN: 'shopify_refresh_token',
     EXPIRES_IN: 'shopify_expires_in',
-    ID_TOKEN: 'shopify_id_token'
+    ID_TOKEN: 'shopify_id_token',
+    EMAIL: 'shopify_email'
   },
   COOKIE_CONSENT: 'has_seen_cookie_consent',
   POPUP: 'has_seen_popup',
   REQUEST_COUNTRY: 'request_country',
   RECCOMMENDED_MARKET: 'reccommended_market',
   HAS_CHOSEN_MARKET: 'has_chosen_market',
-  MARKET: 'market'
+  MARKET: 'market',
+  PREVIEW_MARKET: 'previewMarket',
+  PREVIEW_LANG: 'previewLang',
+  SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name'
 };
 
 export const TEMPLATES = {
@@ -100,29 +114,40 @@ export const HOME_SLUG = 'home';
 
 export const FALLBACK_LOCALE = 'eu';
 
-type Market = {
+export type Market = {
   id: MarketValues;
   name: string;
   flag: string;
 };
+export type Lang = {
+  id: LangValues;
+  name: string;
+  flag: string;
+};
 
-export type MarketValues = 'no' | 'eu';
+export type MarketValues = 'no' | 'sv';
 export type LangValues = 'en' | 'no';
 
 export const FALLBACK_MARKET: MarketValues = 'no';
+export const FALLBACK_LANG: LangValues = 'no';
 
 export const MARKET: Record<MarketValues, Market> = {
-  no: { id: 'no', name: 'Norge', flag: '🇧🇻' },
-  eu: { id: 'eu', name: 'Europa', flag: '🇪🇺' }
+  no: { id: 'no', name: 'Norway', flag: '🇧🇻' },
+  sv: { id: 'sv', name: 'Sweden', flag: '🇸🇪' }
 };
-
 export const MARKETS = Object.values(MARKET);
+
+export const LANG: Record<LangValues, Lang> = {
+  en: { id: 'en', name: 'English', flag: '🇬🇧' },
+  no: { id: 'no', name: 'Norsk', flag: '🇧🇻' }
+};
+export const LANGS = Object.values(LANG);
 
 export const DEFAULT_CURRENCY_CODE = 'NOK';
 
 export const SITE_URLS: Record<MarketValues, string> = {
-  no: 'https://abate.no',
-  eu: 'https://abate-store.com'
+  no: '/no/no/',
+  sv: '/sv/en/'
 };
 
 // type ProductType = Record<'SIMPLE', 'simple'> | Record<'VARIABLE', 'variable'>;
@@ -141,6 +166,7 @@ export const SITE_URLS: Record<MarketValues, string> = {
 // Product type
 
 export const COLLECTION_PAGE_SIZE = 20;
+
 export const ACCOUNT_PAGE_ORDERS_PAGE_SIZE = 10;
 
 type ProductTypeName = 'simple' | 'variable';
@@ -224,3 +250,37 @@ export const SMILE_DEEP_LINKS = {
 } as const;
 
 export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_LINKS];
+
+export const URL_STATE_KEYS = {
+  sort: 'sort',
+  view: 'view',
+  page: 'page',
+  search: 'q',
+  onSale: 'on_sale'
+};
+export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
+  { title: '16:9', value: '16:9' },
+  { title: '4:3', value: '4:3' },
+  { title: '21:9', value: '21:9' },
+  { title: '9:16', value: '9:16' },
+  { title: '3:4', value: '3:4' }
+];
+
+export const SORT_OPTIONS = [
+  {
+    label: 'Recommended',
+    value: 'recommended'
+  },
+  {
+    label: 'Price (Low)',
+    value: 'price_lowest'
+  },
+  {
+    label: 'Price (High)',
+    value: 'price_highest'
+  },
+  {
+    label: 'Newest',
+    value: 'newest'
+  }
+];

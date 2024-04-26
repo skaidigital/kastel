@@ -1,54 +1,64 @@
 'use client';
 
 import { Dictionary } from '@/app/dictionaries';
-import { Modal, ModalContent } from '@/components/Modal';
+import { Modal, ModalContent, ModalHeader } from '@/components/Modal';
 import { Sheet, SheetContent } from '@/components/Sheet';
-import countries from '@/data/countries';
+import { NorwegianFlagIcon } from '@/components/icons/NorwegianFlagIcon';
+import { MarketItem } from '@/components/shared/MarketItem';
+import { handleHasChosenMarket } from '@/lib/actions';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useDeviceType } from '@/lib/useDeviceType';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { parseAsBoolean, useQueryState } from 'nuqs';
 
 interface Props {
-  requestCountry: string;
-  reccommendedMarket: string;
   dictionary: Dictionary['market_selector'];
-  country: string;
 }
 
-export function MarketLayout({ dictionary, country, reccommendedMarket, requestCountry }: Props) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+export function MarketLayout({ dictionary }: Props) {
+  const [isOpen, setIsOpen] = useQueryState('market_popup', parseAsBoolean);
+  const { market, lang } = useBaseParams();
+  const router = useRouter();
+
+  const onClose = (e: any) => {
+    e.preventDefault();
+    setIsOpen(null);
+  };
+
+  async function handleClick(href: string) {
+    await handleHasChosenMarket();
+    setIsOpen(null).then(() => router.push(href));
+  }
 
   const { isDesktop } = useDeviceType();
 
-  const basedOnLocation = dictionary.based_on_your_location;
-  const firstPart = basedOnLocation.split('__URL__')[0];
-  const secondPart = basedOnLocation.split('__URL__')[1];
-
-  const countryName = countries.find((c) => c.value === country)?.label;
-  const reccommendedMarketName =
-    reccommendedMarket === 'EU'
-      ? 'European'
-      : countries.find((country) => country.value === reccommendedMarket)?.label;
-  const reccommendedMarketUrl = getReccommendedMarketUrl(reccommendedMarket);
-
   if (isDesktop) {
     return (
-      <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
-        <ModalContent label="Select your preferred market" className="w-[420px] rounded-[4px] p-8">
-          <div className="flex w-full flex-col justify-between gap-5 lg:flex-row">
-            <div className="flex flex-col space-y-1">
-              <h2 className="text-paragraph-lg">
-                {dictionary.are_you_in} {countryName}?
-              </h2>
-              <p className="text-paragraph-lg text-brand-mid-grey">
-                {firstPart} {reccommendedMarketName} {secondPart}
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 lg:flex-row">
-              {/* <RedirectButton reccommenedMarketUrl={reccommendedMarketUrl}>
-                {dictionary.switch_location}
-              </RedirectButton>
-              <StayInMarketButton>{dictionary.stay}</StayInMarketButton> */}
-            </div>
+      <Modal isOpen={isOpen || undefined} onOpenChange={setIsOpen}>
+        <ModalContent
+          label="Select your preferred market"
+          className="flex w-fit flex-col gap-y-8 rounded-[4px] p-8"
+          size="none"
+          onClose={onClose}
+        >
+          <ModalHeader title={dictionary.select_your_location} onClose={onClose} />
+          <div className="grid grid-cols-3 gap-4">
+            <MarketItem
+              flag={<NorwegianFlagIcon />}
+              market="Norway"
+              language="Norwegian"
+              href="/no/no"
+              isSelected={market === 'no' && lang === 'no'}
+              onClick={() => handleClick('/no/no')}
+            />
+            <MarketItem
+              flag={<NorwegianFlagIcon />}
+              market="Norway"
+              language="English"
+              href="/no/en"
+              isSelected={market === 'no' && lang === 'en'}
+              onClick={() => handleClick('/no/en')}
+            />
           </div>
         </ModalContent>
       </Modal>
@@ -56,33 +66,30 @@ export function MarketLayout({ dictionary, country, reccommendedMarket, requestC
   }
 
   return (
-    <Sheet isOpen={isOpen} onOpenChange={setIsOpen}>
-      <SheetContent>
-        <div className="flex w-full flex-col justify-between gap-5 lg:flex-row">
-          <div className="flex flex-col space-y-1">
-            <h2 className="text-paragraph-lg">
-              {dictionary.are_you_in} {countryName}?
-            </h2>
-            <p className="text-paragraph-lg text-brand-mid-grey">
-              {firstPart} {reccommendedMarketName} {secondPart}
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 lg:flex-row">
-            {/* <RedirectButton reccommenedMarketUrl={reccommendedMarketUrl}>
-              {dictionary.switch_location}
-            </RedirectButton>
-            <StayInMarketButton>{dictionary.stay}</StayInMarketButton> */}
-          </div>
+    <Sheet isOpen={isOpen || undefined} onOpenChange={setIsOpen}>
+      <SheetContent className="flex flex-col gap-y-8">
+        <h2 className="text-center text-heading-xs font-bold uppercase">
+          {dictionary.select_your_location}
+        </h2>
+        <div className="grid grid-cols-2 gap-3">
+          <MarketItem
+            flag={<NorwegianFlagIcon />}
+            market="Norway"
+            language="Norwegian"
+            href="/no/no"
+            isSelected={market === 'no' && lang === 'no'}
+            onClick={() => handleClick('/no/no')}
+          />
+          <MarketItem
+            flag={<NorwegianFlagIcon />}
+            market="Norway"
+            language="English"
+            href="/no/en"
+            isSelected={market === 'no' && lang === 'en'}
+            onClick={() => handleClick('/no/en')}
+          />
         </div>
       </SheetContent>
     </Sheet>
   );
-}
-function getReccommendedMarketUrl(country: string) {
-  switch (country) {
-    case 'NO':
-      return 'https://abate-b2c-no.vercel.app';
-    default:
-      return 'https://abate-b2c-eu.vercel.app';
-  }
 }

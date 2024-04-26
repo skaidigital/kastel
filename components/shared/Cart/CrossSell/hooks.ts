@@ -1,5 +1,5 @@
-import { MarketValues } from '@/data/constants';
-import * as fragments from '@/lib/sanity/fragments';
+import { LangValues } from '@/data/constants';
+import { getImageBase } from '@/lib/sanity/fragments';
 import { imageValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
@@ -28,52 +28,48 @@ const crossSellProductValidator = z.object({
   )
 });
 
+export const crossSellProductsValidator = z.array(crossSellProductValidator).optional();
+
 export type CrossSellProduct = z.infer<typeof crossSellProductValidator>;
+export type CrossSellProducts = z.infer<typeof crossSellProductsValidator>;
 
-export const crossSellValidator = z.object({
-  product: crossSellProductValidator
-});
-export type CrossSellPayload = z.infer<typeof crossSellValidator>;
-
-export function getCrossSellQuery(market: MarketValues) {
+export function getCrossSellQuery(lang: LangValues) {
   const query = groq`
-    *[_type == "merchandising"][0]{
-        "product": cartCrossSell->{
-        "id": id_${market},
-        "title": title_${market},
-        "image": gallery[0]{
-          ${fragments.getImageBase(market)}
+    *[_type == "merchandising"][0].cartCrossSellProducts[]->{
+    "id": gid_${lang},
+    "title": title.${lang},
+    "image": mainImage{
+      ${getImageBase(lang)}
+    },
+    "options": select(
+        type == "VARIABLE" => options[].options[]->.title_eu,
+    ),
+    "variants": select(
+      type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${lang} != true && defined(gid_${lang})]{
+        "id": gid_${lang},
+        "price": price_${lang},
+        "discountedPrice": discountedPrice_${lang},
+        "selectedOptions": [
+        option1->{
+            "name": type->title.${lang},
+            "value": title.${lang}
         },
-        "options": select(
-            type == "VARIABLE" => options[].options[]->.title_eu,
-        ),
-        "variants": select(
-          type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${market} != true && defined(gid_${market})]{
-            "id": gid_${market},
-            "price": price_${market},
-            "discountedPrice": discountedPrice_${market},
-            "selectedOptions": [
-            option1->{
-                "name": type->title_${market},
-                "value": title_${market}
-            },
-            option2->{
-                "name": type->title_${market},
-                "value": title_${market}
-            },
-            option3->{
-                "name": type->title_${market},
-                "value": title_${market}
-            }
-          ]},
-          type == "SIMPLE" => [{
-            "id": gid_${market},    
-            "price": price_${market},
-            "discountedPrice": compareAtPrice_${market},
-          }]
-        )
-     },
-    }
+        option2->{
+            "name": type->title.${lang},
+            "value": title.${lang}
+        },
+        option3->{
+            "name": type->title.${lang},
+            "value": title.${lang}
+        }
+      ]},
+      type == "SIMPLE" => [{
+        "id": gid_${lang},    
+        "price": price_${lang},
+        "discountedPrice": compareAtPrice_${lang},
+      }]
+    )
+}
     `;
 
   return query;

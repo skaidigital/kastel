@@ -4,13 +4,13 @@ import {
   announcementBannerValidator,
   getAnnouncementBannerQuery
 } from '@/components/global/AnnouncementBanner/hooks';
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
+import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
+import { draftMode } from 'next/headers';
 
-function loadAnnouncementBanner(market: MarketValues) {
-  const query = getAnnouncementBannerQuery(market);
+function loadAnnouncementBanner(lang: LangValues) {
+  const query = getAnnouncementBannerQuery(lang);
 
   return loadQuery<AnnouncementBannerPayload>(
     query,
@@ -19,16 +19,23 @@ function loadAnnouncementBanner(market: MarketValues) {
   );
 }
 
-export async function AnnouncementBanner() {
-  const market = await getMarket();
-  const initial = await loadAnnouncementBanner(market);
+interface Props {
+  lang: LangValues;
+  className?: string;
+}
+
+export async function AnnouncementBanner({ lang, className }: Props) {
+  const initial = await loadAnnouncementBanner(lang);
+  const isDraftMode = draftMode().isEnabled;
 
   const dataWithoutNullValues = nullToUndefined(initial.data);
-  const validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
+  let validatedData;
 
-  if (!validatedData.success) {
-    return null;
+  if (isDraftMode) {
+    validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
   }
 
-  return <AnnouncementBannerLayout data={validatedData.data} />;
+  const footer = isDraftMode ? validatedData?.data : dataWithoutNullValues;
+
+  return <AnnouncementBannerLayout data={footer} className={className} />;
 }

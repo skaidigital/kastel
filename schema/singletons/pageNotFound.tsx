@@ -1,3 +1,4 @@
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Check } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -17,20 +18,20 @@ export const pageNotFound = defineType({
     defineField({
       title: 'Title',
       name: 'title',
-      type: 'i18n.string'
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Content',
       name: 'content',
-      type: 'i18n.string'
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Image',
       name: 'image',
       type: 'figure',
-      options: {
-        hotspot: true
-      }
+      validation: (Rule) => Rule.required()
     })
   ]
 });

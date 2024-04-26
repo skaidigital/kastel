@@ -21,6 +21,8 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
             <ProductCard
               key={`${product.title}-${index}`}
               title={product.title}
+                                  gid={product.gid}
+                    sku={product.sku}
               slug={product.slug}
               image={product.image}
               className={`keen-slider__slide number-slide-${index} max-w-[300px]`}

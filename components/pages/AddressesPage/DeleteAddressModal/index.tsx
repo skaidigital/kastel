@@ -20,7 +20,7 @@ export function DeleteAddressModal({ addressId, isPrimary, dictionary }: Props) 
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <Button variant="secondary" fullWidth disabled={isPrimary}>
+        <Button variant="secondary" disabled={isPrimary}>
           {dictionary.delete_address}
         </Button>
       </AlertDialog.Trigger>
@@ -29,7 +29,7 @@ export function DeleteAddressModal({ addressId, isPrimary, dictionary }: Props) 
           <Backdrop type="blur" />
         </AlertDialog.Overlay>
         <AlertDialog.Content asChild>
-          <div className="fixed left-1/2 top-1/2 z-50 flex w-full max-w-md -translate-x-1/2 -translate-y-1/2 flex-col space-y-5 rounded-project border border-brand-border bg-white p-10">
+          <div className="border-brand-border fixed left-1/2 top-1/2 z-50 flex w-full max-w-md -translate-x-1/2 -translate-y-1/2 flex-col space-y-5 rounded-project border bg-white p-10">
             <Heading as="h3" size="xs">
               {dictionary.are_you_sure}
             </Heading>

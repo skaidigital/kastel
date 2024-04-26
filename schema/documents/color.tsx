@@ -10,7 +10,7 @@ export const color = defineType({
   type: 'document',
   preview: {
     select: {
-      title: 'title.no',
+      title: 'title.en',
       color: 'color.value'
     },
     prepare({ title, color }) {
@@ -31,6 +31,9 @@ export const color = defineType({
       title: 'Farge',
       name: 'color',
       type: 'simplerColor',
+      options: {
+        colorFormat: 'hex'
+      },
       validation: (Rule) => Rule.required()
     }),
     defineField({
