@@ -20,16 +20,15 @@ interface Props {
 // TODO fix graphql error when clicking the button
 export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, className }: Props) {
   const router = useRouter();
-  const customerGid = 'gid://shopify/Customer/7742157848805';
 
   async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     if (itemIsInWislist) {
       // Remove from wishlist
-      const response = await removeItemFromWishlist(customerGid, gid).then(() => router.refresh());
+      const response = await removeItemFromWishlist(gid).then(() => router.refresh());
       return response;
     }
 
-    const response = await addItemToWishlist(customerGid, gid).then(() => router.refresh());
+    const response = await addItemToWishlist(gid).then(() => router.refresh());
     return response;
   }
 

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
-  const { customer_id } = await request.json(); // This should be dynamically determined based on the logged-in user
+  const { customer_id } = await request.json();
 
   const private_key = env.SMILE_API_KEY;
 

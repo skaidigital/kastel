@@ -1,11 +1,12 @@
 'use server';
 
+import { getCustomerId } from '@/components/smile/hooks';
 import { METAFIELDS } from '@/data/constants';
 import { shopifyAdminQuery } from '../admin';
 import { getWishlist } from './getWishlist';
 import { metafieldsSetMutation } from './query';
 
-export async function addItemToWishlist(customerGid: string, itemGid: string) {
+export async function addItemToWishlist(itemGid: string) {
   const wishlist = await getWishlist();
 
   if (wishlist.includes(itemGid)) {
@@ -13,16 +14,27 @@ export async function addItemToWishlist(customerGid: string, itemGid: string) {
   }
   wishlist.push(itemGid);
 
+  const customerGid = await getCustomerId();
+
+  if (!customerGid) {
+    return 'No customer found';
+  }
+
   await adjustItemsInWishlistForUser({ customerGid, wishlist });
 
   return 'Item added to wishlist';
 }
 
-export async function removeItemFromWishlist(customerGid: string, itemGid: string) {
+export async function removeItemFromWishlist(itemGid: string) {
   const wishlist = await getWishlist();
 
   if (!wishlist.includes(itemGid)) {
     return 'Item not in wishlist';
+  }
+  const customerGid = await getCustomerId();
+
+  if (!customerGid) {
+    return 'No customer found';
   }
 
   const newWishlist = wishlist.filter((item) => item !== itemGid);

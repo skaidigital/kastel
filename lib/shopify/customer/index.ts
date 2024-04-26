@@ -5,6 +5,7 @@ import { isShopifyError } from '@/app/api/shopify/utils';
 import { COOKIE_NAMES } from '@/data/constants';
 import { env } from '@/env';
 import { cookies } from 'next/headers';
+import { logIn } from './actions';
 
 const shopId = env.SHOPIFY_CUSTOMER_SHOP_ID;
 const endpoint = `https://shopify.com/${shopId}/account/customer/api/unstable/graphql`;
@@ -50,7 +51,10 @@ export async function customerAccountFetch<T>({
       status: result.status,
       body
     };
-  } catch (e) {
+  } catch (e: any) {
+    if (e.message === 'Not a valid access token') {
+      await logIn();
+    }
     if (isShopifyError(e)) {
       throw {
         cause: e.cause?.toString() || 'unknown',

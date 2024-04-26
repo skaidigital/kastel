@@ -8,8 +8,7 @@ interface Props {}
 
 // TODO make it work with a real email
 export async function KastelClubCard({}: Props) {
-  const email = 'petter@skaidigital.com';
-  const smilePoints = await getSmilePoints(email);
+  const smilePoints = await getSmilePoints();
 
   const hasPoints = smilePoints && smilePoints.length > 0;
 
