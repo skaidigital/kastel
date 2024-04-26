@@ -2,6 +2,7 @@ import 'server-only';
 
 import { groq } from 'next-sanity';
 
+import { LangValues, MarketValues } from '@/data/constants';
 import { env } from '@/env';
 import { client } from '@/lib/sanity/client';
 
@@ -22,8 +23,8 @@ export function generateStaticSlugs(type: string) {
     );
 }
 
-export function generateStaticSlugsProducts() {
-  const market = 'no';
+export async function generateStaticSlugsProducts(lang: LangValues, market: MarketValues) {
+  // const market = 'no';
 
   // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
   return client
@@ -34,7 +35,7 @@ export function generateStaticSlugsProducts() {
       stega: false
     })
     .fetch<{ slug: string }[]>(
-      groq`*[_type == $type && defined(slug_${market}.current) && status_${market} == "ACTIVE"]{"slug": slug_${market}.current}`,
+      groq`*[_type == $type && defined(slug_${lang}.current) && status_${market} == "ACTIVE"]{"slug": slug_${lang}.current}`,
       { type: 'product' }
     );
 }

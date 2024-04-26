@@ -13,9 +13,12 @@ import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
-  const slugs = await generateStaticSlugsProducts();
+  const [slugs_no, slugs_en] = await Promise.all([
+    generateStaticSlugsProducts('no', 'no'),
+    generateStaticSlugsProducts('en', 'no')
+  ]);
 
-  return slugs;
+  return [...(slugs_no || []), ...(slugs_en || [])];
 }
 
 function loadProduct({
