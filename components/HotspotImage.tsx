@@ -3,11 +3,15 @@ import { SanityImage } from '@/components/sanity/SanityImage';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { HotspotImageProps } from '@/lib/sanity/types';
 
+interface Props extends HotspotImageProps {
+  sizes?: string;
+}
+
 // TODO improve type by omitting type
-export function HotspotImage({ image, hotspots }: HotspotImageProps) {
+export function HotspotImage({ image, hotspots, sizes }: Props) {
   return (
     <>
-      <SanityImage image={image} fill className="-z-1 absolute" />
+      <SanityImage image={image} fill sizes={sizes} className="-z-1 absolute" />
       {hotspots.map((hotspot) => {
         const hasSizeRange =
           hotspot.type === 'product' && hotspot?.sizes?.filter((size) => size.type === 'size')[0];

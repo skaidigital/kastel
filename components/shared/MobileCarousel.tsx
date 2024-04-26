@@ -1,7 +1,8 @@
 'use client';
 
+import Video from '@/components/Video';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { GalleryProps } from '@/lib/sanity/types';
+import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
 import 'keen-slider/keen-slider.min.css';
@@ -9,11 +10,13 @@ import { useKeenSlider } from 'keen-slider/react';
 import { useEffect, useState } from 'react';
 
 interface Props {
-  images: GalleryProps;
+  mainImage: SanityImageProps;
+  items: ProductGalleryProps;
+  lifestyleImage?: SanityImageProps;
   className?: string;
 }
 
-export function MobileCarousel({ images, className }: Props) {
+export function MobileCarousel({ mainImage, items, lifestyleImage, className }: Props) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [loaded, setLoaded] = useState<boolean>(false);
 
@@ -40,20 +43,45 @@ export function MobileCarousel({ images, className }: Props) {
 
   return (
     <div ref={ref} className={cn('keen-slider relative w-full', className)}>
-      {images.map((image, index) => (
+      {mainImage && (
         <div
-          key={index}
-          className={`keen-slider__slide number-slide-${index} aspect-h-4 aspect-w-3 w-full min-w-full max-w-full transform-gpu `}
+          className={`keen-slider__slide number-slide-0 aspect-h-4 aspect-w-3 h-0 w-full min-w-full max-w-full transform-gpu`}
         >
-          <SanityImage
-            priority={index === 0}
-            key={index}
-            image={image}
-            className="absolute h-auto w-full object-cover"
-            sizes="100vw"
-          />
+          <SanityImage image={mainImage} priority fill className="absolute" sizes="100vw" />
         </div>
-      ))}
+      )}
+      {lifestyleImage && (
+        <div
+          className={`keen-slider__slide number-slide-1 aspect-h-4 aspect-w-3 h-0 w-full min-w-full max-w-full transform-gpu`}
+        >
+          <SanityImage image={lifestyleImage} priority fill className="absolute" sizes="100vw" />
+        </div>
+      )}
+      {items.map((item, index) => {
+        const correctedIndex = lifestyleImage ? index + 1 : index;
+
+        if (item.type === 'figure') {
+          return (
+            <div
+              key={index}
+              className={`keen-slider__slide number-slide-${correctedIndex} aspect-h-4 aspect-w-3 h-0 w-full min-w-full max-w-full transform-gpu`}
+            >
+              <SanityImage key={index} image={item} fill className="absolute" sizes="100vw" />
+            </div>
+          );
+        }
+        if (item.type === 'mux.video') {
+          return (
+            <div
+              key={index}
+              className={`keen-slider__slide number-slide-${correctedIndex} aspect-h-4 aspect-w-3 h-0 w-full min-w-full max-w-full transform-gpu `}
+            >
+              <Video playbackId={item.videoUrl} resolution="HD" loading="lazy" />
+            </div>
+          );
+        }
+        return null;
+      })}
       {loaded && instanceRef.current && (
         <div className="absolute bottom-0 flex w-full space-x-1">
           {Array.from(Array(instanceRef.current.track.details.slides.length).keys()).map((idx) => {

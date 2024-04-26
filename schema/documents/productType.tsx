@@ -141,7 +141,7 @@ export const productType = defineType({
       group: 'settings'
     }),
     defineField({
-      title: 'USPs',
+      title: 'USPs (optional)',
       description:
         'The USPs that will displayed in the marquee on the top and below the product hero',
       name: 'usps',

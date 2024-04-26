@@ -1,7 +1,7 @@
 import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import {
-  galleryValidator,
+  // galleryValidator,
   hotspotImageValidator,
   imageValidator,
   richTextValidator
@@ -83,6 +83,18 @@ const PriceValidator = z.object({
   currencyCode: z.string()
 });
 
+const imageInGalleryValidator = imageValidator.extend({
+  type: z.literal('figure')
+});
+const videoInGalleryValidator = z.object({
+  type: z.literal('mux.video'),
+  videoUrl: z.string()
+});
+
+export const productGalleryValidator = z.array(
+  z.discriminatedUnion('type', [imageInGalleryValidator, videoInGalleryValidator])
+);
+
 export const productValidator = z.object({
   id: z.string(),
   type: z.union([z.literal('SIMPLE'), z.literal('VARIABLE')]),
@@ -92,7 +104,7 @@ export const productValidator = z.object({
   descriptionShort: z.string(),
   descriptionLongTitle: z.string(),
   descriptionLongDetails: z.string(),
-  gallery: galleryValidator.optional(),
+  gallery: productGalleryValidator.optional(),
   options: z.array(productOptionValidator).optional(),
   faqs: z
     .array(
@@ -105,14 +117,18 @@ export const productValidator = z.object({
   typeId: z.string(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
+  mainImage: imageValidator,
+  lifestyleImage: imageValidator.optional(),
   hotspotImage: hotspotImageValidator.optional(),
   variants: z.array(productVariantValidator),
-  usps: z.array(
-    z.object({
-      title: z.string(),
-      icon: imageValidator
-    })
-  )
+  usps: z
+    .array(
+      z.object({
+        title: z.string(),
+        icon: imageValidator
+      })
+    )
+    .optional()
 });
 
 export type Product = z.infer<typeof productValidator>;
@@ -152,28 +168,38 @@ export function getProductQuery({
       "amount": coalesce(amount, 0),
       "currencyCode": currencyCode
     },
-    "hotspotImage": {
-      "type": "hotspotImage",
-      "image": detailImage {
-        ${fragments.getImageBase(lang)}
-      },
-      hotspots[]{
-        ...select(
-          type == "text" => {
-            type,
-            "description": description_${lang},
-          },
-          type == "productCard" => {
-            "type": "product",
-            ...product->{
-              ${fragments.getProductCard(lang, market)}
-            },
-          },
-        ),
-        x,
-        y,
-      }
+    mainImage{
+      ${fragments.getImageBase(lang)}
     },
+    lifestyleImage{
+      ${fragments.getImageBase(lang)}
+    },
+    ...select(
+      detailImage.asset._ref != null && hotspots != null => {
+        "hotspotImage": {
+        "type": "hotspotImage",
+        "image": detailImage {
+          ${fragments.getImageBase(lang)}
+        },
+        hotspots[]{
+          ...select(
+            type == "text" => {
+              type,
+              "description": description_${lang},
+            },
+            type == "productCard" => {
+              "type": "product",
+              ...product->{
+                ${fragments.getProductCard(lang, market)}
+              },
+            },
+          ),
+          x,
+          y,
+        }
+      },
+      },
+    ),
     "variants": select(
       type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${market} != true && defined(gid_${market})]{
         "id": gid_${market},
@@ -208,22 +234,52 @@ export function getProductQuery({
       }]
     ),
     ${getGallerByGender({ market, gender })},
-    ...productType->{
-      "typeId": _id,
-      "descriptionShort": descriptionShort.${lang},
-      "descriptionLongTitle": descriptionLongTitle.${lang},
-      "descriptionLongDetails": descriptionLongDetails.${lang},
-      "faqs": faqs[]->{
+    "descriptionShort": coalesce(descriptionShort.${lang}, productType->descriptionShort.${lang}),
+    "descriptionLongTitle": coalesce(descriptionLongTitle.${lang}, productType->descriptionLongTitle.${lang}),
+    "descriptionLongDetails": coalesce(descriptionLongDetails.${lang}, productType->descriptionLongDetails.${lang}),
+    "faqs": coalesce(
+      ((faqs[]->{
+        "question": question.${lang},
+        "answer": answer_${lang}
+      }) + (productType->faqs[]->{
+        "question": question.${lang},
+        "answer": answer_${lang}
+      })),
+      faqs[]->{
         "question": question.${lang},
         "answer": answer_${lang}
       },
-      "usps": usps[]->{
+      productType->faqs[]->{
+        "question": question.${lang},
+        "answer": answer_${lang}
+      }
+    ),
+    "usps": coalesce(
+      ((usps[]->{
         "title": title.${lang},
-        "icon": icon {
+        "icon": icon{
+          ${fragments.getImageBase(lang)}
+        }
+      }) + (productType->usps[]->{
+        "title": title.${lang},
+        "icon": icon{
+          ${fragments.getImageBase(lang)}
+        }
+      })),
+      usps[]->{
+        "title": title.${lang},
+        "icon": icon{
+          ${fragments.getImageBase(lang)}
+        }
+      },
+      productType->usps[]->{
+        "title": title.${lang},
+        "icon": icon{
           ${fragments.getImageBase(lang)}
         }
       }
-    }
+    ),
+    "typeId": productType->_id
   }
   `;
 

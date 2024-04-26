@@ -59,7 +59,9 @@ export function getGallery(market: MarketValues) {
 export function getGalleryMale(market: MarketValues) {
   return groq`
   "gallery": galleryMale[]{
-    asset->{
+    _type == "figure" => {
+      "type": _type,
+      asset->{
       "_ref": _id,
       crop,
       hotspot,
@@ -71,25 +73,37 @@ export function getGalleryMale(market: MarketValues) {
     crop,
     hotspot,
     width
+  },
+  _type == "mux.video" => {
+    "type": _type,
+    "videoUrl": asset->.playbackId,
   }
+}
 `;
 }
 
 export function getGalleryFemale(market: MarketValues) {
   return groq`
   "gallery": galleryFemale[]{
-    asset->{
-      "_ref": _id,
+      _type == "figure" => {
+        "type": _type,
+        asset->{
+        "_ref": _id,
+        crop,
+        hotspot,
+        metadata{
+          lqip
+        },
+      },
+      "altText": altText.${market},
       crop,
       hotspot,
-      metadata{
-        lqip
-      },
+      width
     },
-    "altText": altText.${market},
-    crop,
-    hotspot,
-    width
+    _type == "mux.video" => {
+      "type": _type,
+      "videoUrl": asset->.playbackId,
+    }
   }
 `;
 }

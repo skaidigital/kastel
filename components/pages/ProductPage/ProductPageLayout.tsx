@@ -2,6 +2,7 @@ import { Dictionary } from '@/app/dictionaries';
 import { HotspotImage } from '@/components/HotspotImage';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductFormSkeleton } from '@/components/ProductForm/ProductFormSkeleton';
+import Video from '@/components/Video';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
@@ -34,32 +35,29 @@ interface Props {
   lang: LangValues;
 }
 
+// TODO add back prodctJsonLd
 export async function ProductPageLayout(props: Props) {
-  const { data: product, dictionary, searchParams, market, lang } = props;
+  const { data: product, market, lang } = props;
 
   if (!product) return null;
 
   const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
 
-  // const { id, type, productType, description, title, variants, options, featuredOptions, usp } =
-  //   product;
-
-  const { gallery, title, id, type, descriptionShort, subtitle, variants, options, typeId } =
-    product;
+  const {
+    gallery,
+    mainImage,
+    lifestyleImage,
+    title,
+    id,
+    type,
+    descriptionShort,
+    subtitle,
+    variants,
+    options,
+    typeId
+  } = product;
 
   const productSku = 'SOL002-002-021-40';
-
-  // const parentGallery = productType?.gallery;
-  // const parentAccordions = productType?.accordions;
-  // const parentPageBuilder = productType?.pageBuilder;
-
-  // const featuredImage = product.gallery?.[0] || product.productType?.gallery?.[0];
-
-  // const gallery = [...(product.gallery || []), ...(parentGallery || [])];
-  // const pageBuilder = [...(product.pageBuilder || []), ...(parentPageBuilder || [])];
-  // const accordions = [...(product.accordions || []), ...(parentAccordions || [])];
-
-  // const siblingProducts = productType?.products;
 
   return (
     <>
@@ -70,7 +68,9 @@ export async function ProductPageLayout(props: Props) {
         image={featuredImage ? urlForImage(featuredImage).url() : undefined}
       /> */}
       <div className="aspect-[3/4] lg:hidden">
-        {gallery && gallery?.length > 0 && <MobileCarousel images={gallery} />}
+        {gallery && gallery.length > 0 && (
+          <MobileCarousel mainImage={mainImage} lifestyleImage={lifestyleImage} items={gallery} />
+        )}
       </div>
       <Section
         noTopPadding
@@ -82,23 +82,68 @@ export async function ProductPageLayout(props: Props) {
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:mt-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
           <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
             <GenderImageButton activeGender={activeGender} />
+            {mainImage && (
+              <div className="aspect-h-4 aspect-w-3 relative mb-10 h-full w-full">
+                <SanityImage
+                  priority
+                  image={mainImage}
+                  sizes={'70vw'}
+                  fill
+                  className="absolute h-auto w-full object-cover"
+                />
+              </div>
+            )}
+            {lifestyleImage && (
+              <div className="aspect-h-4 aspect-w-3 relative mb-10 h-full w-full">
+                <SanityImage
+                  priority
+                  image={lifestyleImage}
+                  sizes={'70vw'}
+                  fill
+                  className="absolute h-auto w-full object-cover"
+                />
+              </div>
+            )}
             {gallery &&
-              gallery?.length > 0 &&
-              gallery.map((image, index) => (
-                <div
-                  key={image.asset._ref}
-                  className="aspect-h-4 aspect-w-3 relative mb-10 h-full w-full"
-                >
-                  <SanityImage
-                    priority={index === 0 || index === 1}
-                    key={index}
-                    image={image}
-                    sizes={'900px'}
-                    fill
-                    className="absolute h-auto w-full object-cover"
-                  />
-                </div>
-              ))}
+              gallery.length > 0 &&
+              gallery.map((item, index) => {
+                if (item.type === 'figure') {
+                  return (
+                    <div
+                      key={item.asset._ref && item.asset._ref}
+                      className="aspect-h-4 aspect-w-3 relative mb-10 h-full w-full"
+                    >
+                      {item.asset._ref && (
+                        <SanityImage
+                          priority={index === 0 || index === 1}
+                          key={index}
+                          image={item}
+                          sizes={'70vw'}
+                          fill
+                          className="absolute h-auto w-full object-cover"
+                        />
+                      )}
+                    </div>
+                  );
+                }
+                if (item.type === 'mux.video') {
+                  return (
+                    <div
+                      key={item.videoUrl && item.videoUrl}
+                      className="aspect-h-4 aspect-w-3 relative mb-10 h-full w-full"
+                    >
+                      {item.videoUrl && (
+                        <Video
+                          playbackId={item.videoUrl}
+                          resolution="HD"
+                          loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
+                        />
+                      )}
+                    </div>
+                  );
+                }
+                return null;
+              })}
           </div>
           <div className="no-flex-grow sticky top-0 h-fit max-w-[560px] space-y-10">
             <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
@@ -156,6 +201,7 @@ export async function ProductPageLayout(props: Props) {
             type={product.hotspotImage.type}
             image={product.hotspotImage.image}
             hotspots={product.hotspotImage.hotspots}
+            sizes="100vw"
           />
         </div>
       )}
