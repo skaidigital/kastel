@@ -3,9 +3,8 @@ import {
   filterAlreadyAddedReferences,
   i18nField,
   i18nNumber,
-  i18nSlug,
   i18nString,
-  isActiveProductValidation,
+  slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
 import { Gear, Image, PaintBrush, Sneaker } from '@phosphor-icons/react';
@@ -414,12 +413,40 @@ export const product = defineType({
       ],
       validation: (Rule) => Rule.max(3)
     }),
-    ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
-    // ...i18nField({
-    //   title: 'Metadata',
-    //   name: 'metadata',
-    //   type: 'metadata'
-    // }),
+    defineField({
+      title: 'Slug 🇧🇻',
+      name: 'slug_no',
+      type: 'slug',
+      options: {
+        source: 'title.no',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'product',
+            lang: 'no',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Slug 🇬🇧',
+      name: 'slug_en',
+      type: 'slug',
+      options: {
+        source: 'title.en',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'product',
+            lang: 'en',
+            context
+          })
+      },
+      validation: (Rule) => Rule.required(),
+      group: 'settings'
+    }),
     ...i18nField({
       title: 'Created at',
       name: 'createdAt',

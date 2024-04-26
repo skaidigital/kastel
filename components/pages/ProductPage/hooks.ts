@@ -127,11 +127,11 @@ export function getProductQuery({
   gender: 'male' | 'female';
 }) {
   const query = groq`
-  *[_type == "product" && slug_no.current == $slug && status_no == "ACTIVE" && defined(gid_no)][0]{
+  *[_type == "product" && slug_${lang}.current == $slug && status_no == "ACTIVE" && defined(gid_no)][0]{
     "id": gid_no,
     "title": title.no,
     "subtitle": subtitle.no,
-    "slug": slug_no.current,
+    "slug": slug_${lang}.current,
     type,
     "sku": select(
       type == "SIMPLE" => sku,
@@ -253,7 +253,7 @@ export function getSibligProductsQuery({
     "mainImage": mainImage {
       ${fragments.getImageBase(lang)}
     },
-    "slug": slug_${market}.current,
+    "slug": slug_${lang}.current,
      }
   `;
 

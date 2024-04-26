@@ -23,12 +23,6 @@ export const image = groq`
 
 export const video = 'videoMobile.asset->.playbackId';
 
-export const productsInTag =
-  'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>';
-export const productsNotInTag =
-  'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null';
-export const productsWithoutTags = '!defined($tagSlugs) =>';
-
 export function getImageBase(lang: LangValues) {
   return groq`
   asset->{
@@ -415,3 +409,9 @@ export function getFAQBlock(lang: LangValues) {
   }
   `;
 }
+
+export const productsInTag =
+  'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>';
+export const productsNotInTag =
+  'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null';
+export const productsWithoutTags = '!defined($tagSlugs) =>';
