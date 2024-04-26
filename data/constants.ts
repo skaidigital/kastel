@@ -64,7 +64,7 @@ export const COOKIE_NAMES = {
     ID_TOKEN: 'shopify_id_token',
     EMAIL: 'shopify_email'
   },
-  COOKIE_CONSENT: 'has_seen_cookie_consent',
+  COOKIE_CONSENT: 'CookieConsent',
   POPUP: 'has_seen_popup',
   REQUEST_COUNTRY: 'request_country',
   RECCOMMENDED_MARKET: 'reccommended_market',
