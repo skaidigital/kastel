@@ -11,7 +11,6 @@ export default async function Page({ params }: Props) {
 
   // return <WishlistPage lang={lang} />;
   const test = await getWishlist();
-  console.log(test);
 
   return <p>{test}</p>;
 }

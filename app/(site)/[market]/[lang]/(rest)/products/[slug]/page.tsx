@@ -52,7 +52,6 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
   try {
     const initial = await loadProduct({ slug, market, lang, gender: activeGender });
     const { product_page: dictionary } = await getDictionary();
-    console.log('test herjekla, ', initial.data?.sizeGuide);
 
     if (!initial.data) {
       notFound();

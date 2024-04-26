@@ -59,8 +59,6 @@ export async function ProductPageLayout(props: Props) {
 
   const productSku = 'SOL002-002-021-40';
 
-  console.log('sizeguide', product.sizeGuide);
-
   return (
     <>
       {/* <ProductJsonLd
@@ -82,7 +80,6 @@ export async function ProductPageLayout(props: Props) {
         className="border-brand-border space-y-5 border-b bg-white pb-9 lg:flex lg:pb-20"
       >
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:mt-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
-          {JSON.stringify(product.sizeGuide)}
           <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
             <GenderImageButton activeGender={activeGender} />
             {mainImage && (

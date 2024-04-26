@@ -293,10 +293,10 @@ export function getProductQuery({
     ),
     "typeId": productType->_id,
     "sizeGuide": coalesce(
-      sizeGuide{
+      sizeGuide->{
         ${fragments.getSizeGuide(lang)}
       },
-      productType->sizeGuide{
+      productType->sizeGuide->{
         ${fragments.getSizeGuide(lang)}
       },
       null

@@ -12,14 +12,11 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   // TODO get address and pass the default address to the page
-  console.log({ params });
   const { id } = params;
 
   const { create_address_page: dictionary } = await getDictionary();
 
   const addressData = await getAddresses(id);
-
-  console.log({ addressData });
 
   if (!addressData) {
     return null;
