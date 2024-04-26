@@ -72,7 +72,8 @@ export const COOKIE_NAMES = {
   MARKET: 'market',
   PREVIEW_MARKET: 'previewMarket',
   PREVIEW_LANG: 'previewLang',
-  SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name'
+  SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name',
+  CUSTOMER_EMAIL: 'customer_email'
 };
 
 export const TEMPLATES = {

@@ -26,7 +26,6 @@ export default async function Page() {
 
   // Constants for testing
   // Same as smile init const customerId = '7292377628922';
-  const email = 'olgaterese@gmail.com';
   const customerGid = 'gid://shopify/Customer/7742157848805';
   const gid = 'gid://shopify/Product/8618931388645';
   const productSku = 'SOL002-002-021-40';
@@ -52,7 +51,7 @@ export default async function Page() {
   // Smile functions
   // ----------------------------
 
-  const getPoints = await getSmilePoints(email);
+  const getPoints = await getSmilePoints();
   console.log(getPoints);
 
   // ----------------------------
