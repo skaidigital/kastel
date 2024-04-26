@@ -8,19 +8,14 @@ interface Props {
   lang: LangValues;
 }
 
-// TODO make it work with a real email
-// TODO figure out why lang is set and then is undefined
 export async function KastelClubCard({ lang }: Props) {
-  const email = 'petter@skaidigital.com';
-  const smilePoints = await getSmilePoints(email);
+  const smilePoints = await getSmilePoints();
 
   const hasPoints = smilePoints && smilePoints.length > 0;
 
   const learnMoreString = getLearnMoreString(lang);
   const youHaveString = getYouHaveString(lang);
   const joinString = getJoinString(lang);
-
-  console.log('lang in KastelClubCard:', lang);
 
   return (
     <Card>
