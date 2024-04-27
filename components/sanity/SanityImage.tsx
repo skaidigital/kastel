@@ -12,9 +12,19 @@ interface Props {
   width?: number;
   height?: number;
   priority?: boolean;
+  noPlaceholder?: boolean;
 }
 
-export const SanityImage = ({ image, className, sizes, fill, priority, width, height }: Props) => {
+export const SanityImage = ({
+  image,
+  className,
+  sizes,
+  fill,
+  priority,
+  width,
+  height,
+  noPlaceholder
+}: Props) => {
   if (!image?.asset?._ref) return null;
 
   const altText = image.altText || '';
@@ -22,6 +32,8 @@ export const SanityImage = ({ image, className, sizes, fill, priority, width, he
 
   const widthProp = width ?? dimensions.width;
   const heightProp = height ?? dimensions.height;
+
+  console.log({ width, height });
 
   return (
     <>
@@ -33,8 +45,8 @@ export const SanityImage = ({ image, className, sizes, fill, priority, width, he
           alt={altText}
           width={!fill ? widthProp : undefined}
           height={!fill ? heightProp : undefined}
-          placeholder="blur"
-          blurDataURL={image.asset.metadata.lqip}
+          placeholder={noPlaceholder ? 'empty' : 'blur'}
+          blurDataURL={noPlaceholder ? '' : image.asset.metadata.lqip}
           className={cn('', fill && 'object-cover', className)}
           sizes={sizes ?? '(max-width: 768px) 100vw,(max-width: 1200px) 50vw,40vw'}
           fill={fill}

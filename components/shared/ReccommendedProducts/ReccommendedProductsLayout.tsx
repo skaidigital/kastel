@@ -39,8 +39,11 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
             </div>
           </div>
           <CarouselContent className="-ml-0">
-            {data?.map((product) => (
-              <CarouselItem key={product.title} className="-pl-0 basis-[80%] lg:basis-[25%]">
+            {data?.map((product, index) => (
+              <CarouselItem
+                key={product.title + index}
+                className="-pl-0 basis-[80%] lg:basis-[25%]"
+              >
                 <ProductCard product={product} />
               </CarouselItem>
             ))}

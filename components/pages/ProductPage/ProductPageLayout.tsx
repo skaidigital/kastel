@@ -184,9 +184,7 @@ export async function ProductPageLayout(props: Props) {
                     {descriptionShort}
                   </Text>
                 )}
-                <Suspense>
-                  <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
-                </Suspense>
+                <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
                 <Suspense fallback={<ProductFormSkeleton />}>
                   <ProductForm
                     productId={id}
@@ -236,9 +234,7 @@ export async function ProductPageLayout(props: Props) {
           />
         ))} */}
 
-      <Suspense>
-        <ReccommendedProducts lang={lang} market={market} />
-      </Suspense>
+      <ReccommendedProducts lang={lang} market={market} />
     </>
   );
 }

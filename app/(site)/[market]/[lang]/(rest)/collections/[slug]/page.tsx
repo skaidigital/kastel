@@ -12,20 +12,20 @@ import {
 } from '@/components/pages/CollectionPage/hooks';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
-import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
-export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
-  const slugs = await generateStaticSlugs(lang, 'collection');
+export const dynamic = 'force-dynamic';
 
-  return slugs;
-}
+// export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
+//   const slugs = await generateStaticSlugs(lang, 'collection');
+
+//   return slugs;
+// }
 
 function loadCollectionBase({
   slug,
@@ -53,16 +53,7 @@ function loadCollectionProductsOrder(
 ) {
   const query = getProductIdsByOrder(lang, sortKey);
 
-  return loadQuery<CollectionProductsPayload>(
-    query,
-    { slug, tagSlugs }
-    // { cache: 'no-cache' }
-    // {
-    //   next: {
-    //     tags: [`collection:${slug}`]
-    //   }
-    // }
-  );
+  return loadQuery<CollectionProductsPayload>(query, { slug, tagSlugs });
 }
 
 function loadCollectionProductData(
@@ -157,15 +148,13 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     : mergeCollectionBaseAndProducts(validatedBase?.data, validatedProducts?.data, productCount);
 
   return (
-    <Suspense fallback={<p>Loading</p>}>
-      <CollectionPage
-        data={mergedData}
-        currentPage={currentPage}
-        searchParams={searchParams}
-        market={market}
-        lang={lang}
-      />
-    </Suspense>
+    <CollectionPage
+      data={mergedData}
+      currentPage={currentPage}
+      searchParams={searchParams}
+      market={market}
+      lang={lang}
+    />
   );
 }
 
@@ -226,9 +215,6 @@ function cleanData(
   inititalProductsData: any,
   hasNextPage: boolean
 ): CollectionProductsPayload {
-  console.log('initialProducts', initialProducts);
-  console.log('inititalProductsData', inititalProductsData);
-
   const mergedTestData = initialProducts.map((product: any) => {
     const productData = inititalProductsData.data.find(
       (productData: any) => productData._id === product._id
@@ -241,11 +227,7 @@ function cleanData(
     };
   });
 
-  console.log(mergedTestData);
-
   const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
-
-  console.log(collectionProductsWithoutNullValues);
 
   // console.log('collectionProductsWithoutNullValues', collectionProductsWithoutNullValues);
 

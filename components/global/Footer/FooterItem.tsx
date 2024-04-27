@@ -21,7 +21,11 @@ export function FooterItem({ item, className }: Props) {
       <div className="flex flex-col gap-y-2">
         {item.links &&
           item.links.map((link) => (
-            <CustomLink href={getSlug(link.link)} className="text-sm" key={item.heading}>
+            <CustomLink
+              href={getSlug(link.link)}
+              className="text-sm"
+              key={item.heading + link.link.text}
+            >
               {link.link.text}
             </CustomLink>
           ))}

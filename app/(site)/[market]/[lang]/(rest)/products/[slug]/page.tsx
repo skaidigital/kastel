@@ -3,7 +3,6 @@ import { ProductPageLayout } from '@/components/pages/ProductPage/ProductPageLay
 import { Product, getProductQuery, productValidator } from '@/components/pages/ProductPage/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
-import { generateStaticSlugsProducts } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
@@ -12,15 +11,17 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams({
-  params: { lang, market }
-}: {
-  params: { lang: LangValues; market: MarketValues };
-}) {
-  const slugs = await generateStaticSlugsProducts(lang, market);
+export const dynamic = 'force-dynamic';
 
-  return slugs;
-}
+// export async function generateStaticParams({
+//   params: { lang, market }
+// }: {
+//   params: { lang: LangValues; market: MarketValues };
+// }) {
+//   const slugs = await generateStaticSlugsProducts(lang, market);
+
+//   return slugs;
+// }
 
 function loadProduct({
   slug,

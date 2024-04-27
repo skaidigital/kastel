@@ -81,8 +81,8 @@ export async function CrossSell({ market, lang, className }: Props) {
           </div>
         </div>
         <CarouselContent className="-ml-4">
-          {initial?.data?.map((item) => (
-            <CarouselItem key={item.title} className="basis-[90%] bg-white pl-4">
+          {initial?.data?.map((item, index) => (
+            <CarouselItem key={item.title + index} className="basis-[90%] bg-white pl-4">
               <CrossSellItem
                 product={item}
                 currencyCode={currencyCode}

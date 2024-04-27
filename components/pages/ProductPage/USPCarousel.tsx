@@ -46,7 +46,7 @@ export function USPCarousel({ productType, variants }: Props) {
 
   const data = [
     {
-      text: 'Hepp hepp'
+      text: 'Kjepp kjepp'
     },
     {
       text: 'Hepp hepp'
