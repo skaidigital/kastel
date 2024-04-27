@@ -19,8 +19,6 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
 // export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
 //   const slugs = await generateStaticSlugs(lang, 'collection');
 

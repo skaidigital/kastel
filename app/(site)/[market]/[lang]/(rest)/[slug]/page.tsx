@@ -11,8 +11,6 @@ import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-
 // export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
 //   const slugs = await generateStaticSlugs(lang, 'page');
 

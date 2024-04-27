@@ -33,8 +33,6 @@ export const SanityImage = ({
   const widthProp = width ?? dimensions.width;
   const heightProp = height ?? dimensions.height;
 
-  console.log({ width, height });
-
   return (
     <>
       {image?.asset && (
