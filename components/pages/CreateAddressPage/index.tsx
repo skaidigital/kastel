@@ -3,6 +3,7 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { AccountPageHeader } from '@/components/account/AccountPageHeader';
+import { FormCombobox } from '@/components/form/FormCombobox';
 import { FormInput } from '@/components/form/FormInput';
 import { FormSwitch } from '@/components/form/FormSwitch';
 import { createAddress } from '@/components/pages/CreateAddressPage/actions';
@@ -11,6 +12,7 @@ import {
   createAddressFormInputValidator
 } from '@/components/pages/CreateAddressPage/hooks';
 import { ROUTES } from '@/data/constants';
+import countries from '@/data/countries';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -27,7 +29,7 @@ export function CreateAddressPage({ dictionary }: Props) {
   const { market, lang } = useBaseParams();
   const router = useRouter();
 
-  const { handleSubmit, control, reset } = useForm<CreateAddressFormInput>({
+  const { handleSubmit, control, reset, getValues } = useForm<CreateAddressFormInput>({
     resolver: zodResolver(createAddressFormInputValidator),
     mode: 'onSubmit',
     defaultValues: {
@@ -38,7 +40,7 @@ export function CreateAddressPage({ dictionary }: Props) {
       address2: '',
       zip: '',
       city: '',
-      territoryCode: '',
+      territoryCode: 'NO',
       defaultAddress: false
     }
   });
@@ -62,6 +64,8 @@ export function CreateAddressPage({ dictionary }: Props) {
       }
     });
   };
+
+  console.log('values', getValues());
 
   return (
     <div className="grid lg:col-span-3">
@@ -89,7 +93,12 @@ export function CreateAddressPage({ dictionary }: Props) {
         <FormInput label={dictionary.address2} name="address2" control={control} />
         <FormInput label={dictionary.zip} name="zip" control={control} />
         <FormInput label={dictionary.city} name="city" control={control} />
-        <FormInput label={dictionary.country} name="territoryCode" control={control} />
+        <FormCombobox
+          items={countries}
+          label={dictionary.country}
+          name="territoryCode"
+          control={control}
+        />
         <FormSwitch control={control} label={dictionary.default_address} name="defaultAddress" />
 
         <Button size="sm" type="submit" isLoading={isPending}>

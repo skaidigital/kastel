@@ -3,6 +3,7 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { AccountPageHeader } from '@/components/account/AccountPageHeader';
+import { FormCombobox } from '@/components/form/FormCombobox';
 import { FormInput } from '@/components/form/FormInput';
 import { FormSwitch } from '@/components/form/FormSwitch';
 import { DeleteAddressButton } from '@/components/pages/EditAddressPage/DeleteAddressButton';
@@ -12,6 +13,7 @@ import {
   updateAddressFormValidator
 } from '@/components/pages/EditAddressPage/hooks';
 import { ROUTES } from '@/data/constants';
+import countries from '@/data/countries';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { Address } from '@/lib/shopify/types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -96,7 +98,12 @@ export function EditAddressPage({ dictionary, data, addressId, isDefaultAddress 
         <FormInput label={dictionary.address2} name="address2" control={control} />
         <FormInput label={dictionary.zip} name="zip" control={control} />
         <FormInput label={dictionary.city} name="city" control={control} />
-        {/* <FormCombobox /> */}
+        <FormCombobox
+          items={countries}
+          label={dictionary.country}
+          name="territoryCode"
+          control={control}
+        />
         <FormSwitch control={control} label={dictionary.default_address} name="defaultAddress" />
         <div>
           <Button size="sm" type="submit" isLoading={isPending} className="w-full">

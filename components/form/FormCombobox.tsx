@@ -1,89 +1,87 @@
-'use client';
-
-// import { Check, ChevronsUpDown } from 'lucide-react';
-import * as React from 'react';
-
-import { Button } from '@/components/Button';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem
-} from '@/components/Command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/Popover';
-import { cn } from '@/lib/utils';
+import { FormLabel } from '@/components/form/FormLabel';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
-import { CheckboxIcon } from '@radix-ui/react-icons';
+import { useCombobox } from 'downshift';
+import { useState } from 'react';
+import { useController } from 'react-hook-form';
 
-const frameworks = [
-  {
-    value: 'next.js',
-    label: 'Next.js'
-  },
-  {
-    value: 'sveltekit',
-    label: 'SvelteKit'
-  },
-  {
-    value: 'nuxt.js',
-    label: 'Nuxt.js'
-  },
-  {
-    value: 'remix',
-    label: 'Remix'
-  },
-  {
-    value: 'astro',
-    label: 'Astro'
-  }
-];
+interface Item {
+  label: string;
+  value: string;
+}
 
-export function FormCombobox() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
+interface FormComboboxProps {
+  control: any;
+  name: string;
+  items: Item[];
+  label: string;
+}
+
+// TODO style it more to be on brand
+export const FormCombobox = ({ control, name, items, label }: FormComboboxProps) => {
+  const {
+    field: { onChange, value, ref },
+    fieldState: { error }
+  } = useController({
+    name,
+    control
+  });
+
+  const [inputItems, setInputItems] = useState(items);
+
+  const {
+    isOpen,
+    getMenuProps,
+    getInputProps,
+    getToggleButtonProps,
+    getItemProps,
+    highlightedIndex
+  } = useCombobox<Item>({
+    items: inputItems,
+    itemToString: (item) => (item ? item.label : ''),
+    onSelectedItemChange: ({ selectedItem }) => onChange(selectedItem ? selectedItem.value : ''),
+    selectedItem: items.find((item) => item.value === value) ?? null,
+    onInputValueChange: ({ inputValue }) => {
+      setInputItems(
+        items.filter((item) => item.label.toLowerCase().includes(inputValue?.toLowerCase() ?? ''))
+      );
+    }
+  });
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : 'Select framework...'}
-          <ChevronUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
-          <CommandGroup>
-            {frameworks.map((framework) => (
-              <CommandItem
-                key={framework.value}
-                value={framework.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? '' : currentValue);
-                  setOpen(false);
-                }}
-              >
-                <CheckboxIcon
-                  className={cn(
-                    'mr-2 h-4 w-4',
-                    value === framework.value ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
-                {framework.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <div className="relative flex flex-col gap-y-1 text-sm">
+      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <div className="flex rounded-[2px] border border-brand-light-grey">
+        <input
+          {...getInputProps({
+            ref,
+            placeholder: label,
+            className: 'w-full p-3 placeholder:text-brand-dark-grey'
+          })}
+        />
+        <button aria-label="toggle menu" className="px-3" type="button" {...getToggleButtonProps()}>
+          <ChevronUpDownIcon className="h-5 w-5" />
+        </button>
+      </div>
+      <ul
+        {...getMenuProps()}
+        className={`absolute z-10 mt-1 max-h-80 w-full overflow-auto bg-white shadow-md ${
+          !(isOpen && inputItems.length) && 'hidden'
+        }`}
+      >
+        {isOpen &&
+          inputItems.map((item, index) => (
+            <li
+              className={`flex flex-col px-3 py-2 ${
+                highlightedIndex === index ? 'bg-blue-300' : ''
+              }`}
+              key={item.value}
+              {...getItemProps({ item, index })}
+            >
+              {item.label}
+            </li>
+          ))}
+      </ul>
+      {error && <p className="mt-1 text-xs text-red-500">{error.message}</p>}
+    </div>
   );
-}
+};
