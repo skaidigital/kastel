@@ -15,9 +15,8 @@ import { TH } from '@/components/shared/TH';
 import { LangValues, ROUTES } from '@/data/constants';
 import { getOrderCursors } from '@/lib/shopify/customer/getOrderCursors';
 import { getOrders } from '@/lib/shopify/customer/getOrders';
-import { cn, formatDate } from '@/lib/utils';
+import { capitalizeFirstLetter, cn, formatDate, getOrderIcon } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/20/solid';
-import { CheckIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface Props {
   currentPage: number;
@@ -119,25 +118,4 @@ export async function OrdersPage({ currentPage, lang }: Props) {
       )}
     </>
   );
-}
-
-function getOrderIcon(variant: string) {
-  switch (variant) {
-    case 'orderDanger':
-      return <XMarkIcon className="h-3 w-3" />;
-    case 'orderPending':
-      return <ClockIcon className="h-3 w-3" />;
-    case 'orderSuccess':
-      return <CheckIcon className="h-3 w-3" />;
-    default:
-      return <ClockIcon className="h-3 w-3" />;
-  }
-}
-
-function capitalizeFirstLetter(string: string) {
-  const loweCased = string.toLowerCase();
-  const firstLetter = loweCased.charAt(0).toUpperCase();
-  const rest = loweCased.slice(1);
-
-  return firstLetter + rest;
 }

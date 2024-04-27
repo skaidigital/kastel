@@ -32,6 +32,7 @@ type ShopifyResponse = {
             id: string;
             sku: string;
             name: string;
+            variantTitle: string;
             title: string;
             quantity: number;
             image: {
@@ -88,6 +89,7 @@ const customerOrderQuery = /* GraphQL */ `
             id
             sku
             name
+            variantTitle
             title
             quantity
             image {

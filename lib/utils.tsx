@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { MarketValues, SITE_URLS } from '@/data/constants';
 import { AspectRatios } from '@/lib/sanity/types';
+import { CheckIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx, { ClassValue } from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
@@ -100,5 +101,27 @@ export function getMarketAndLang(country: string) {
       return SITE_URLS.sv;
     default:
       return SITE_URLS.no;
+  }
+}
+
+export function capitalizeFirstLetter(string: string) {
+  const loweCased = string.toLowerCase();
+  const firstLetter = loweCased.charAt(0).toUpperCase();
+  const rest = loweCased.slice(1);
+
+  return firstLetter + rest;
+}
+
+// ! Should probably just be a part of the badge
+export function getOrderIcon(variant: string) {
+  switch (variant) {
+    case 'orderDanger':
+      return <XMarkIcon className="h-3 w-3" />;
+    case 'orderPending':
+      return <ClockIcon className="h-3 w-3" />;
+    case 'orderSuccess':
+      return <CheckIcon className="h-3 w-3" />;
+    default:
+      return <ClockIcon className="h-3 w-3" />;
   }
 }
