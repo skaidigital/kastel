@@ -64,8 +64,7 @@ export const addItem = async (variantId: string | undefined): Promise<AddItemRes
   }
 
   try {
-    const response = await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
-    console.log('response in add item', response);
+    await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
 
     revalidateTag(CACHE_TAGS.CART);
 

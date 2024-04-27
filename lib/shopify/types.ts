@@ -31,7 +31,6 @@ export type CartItem = {
   cost: {
     totalAmount: Money;
   };
-
   merchandise: {
     id: string;
     title: string;
@@ -129,7 +128,7 @@ export type ShopifyCart = {
   };
   lines: Connection<CartItem>;
   totalQuantity: number;
-  discountCodes: string[];
+  discountCodes: { code: string }[];
 };
 
 export type ShopifyCollection = {

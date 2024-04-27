@@ -34,7 +34,11 @@ export function ColorSelect({ products }: Props) {
                     urlSlug === product.slug ? ' border-brand-primary' : ' border-brand-light-grey'
                   )}
                 >
-                  <SanityImage image={product.mainImage} fill className="absolute" />
+                  <SanityImage
+                    image={product.mainImage}
+                    fill
+                    className="absolute object-cover object-top"
+                  />
                 </div>
               </CustomLink>
             </CarouselItem>

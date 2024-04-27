@@ -33,22 +33,22 @@ export const crossSellProductsValidator = z.array(crossSellProductValidator).opt
 export type CrossSellProduct = z.infer<typeof crossSellProductValidator>;
 export type CrossSellProducts = z.infer<typeof crossSellProductsValidator>;
 
-export function getCrossSellQuery(lang: LangValues) {
+export function getCrossSellQuery({ market, lang }: { market: string; lang: LangValues }) {
   const query = groq`
     *[_type == "merchandising"][0].cartCrossSellProducts[]->{
-    "id": gid_${lang},
+    "id": gid_${market},
     "title": title.${lang},
     "image": mainImage{
       ${getImageBase(lang)}
     },
     "options": select(
-        type == "VARIABLE" => options[].options[]->.title_eu,
+        type == "VARIABLE" => options[].options[]->.title_${lang},
     ),
     "variants": select(
-      type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${lang} != true && defined(gid_${lang})]{
-        "id": gid_${lang},
-        "price": price_${lang},
-        "discountedPrice": discountedPrice_${lang},
+      type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${market} != true && defined(gid_${market})]{
+        "id": gid_${market},
+        "price": price_${market},
+        "discountedPrice": discountedPrice_${market},
         "selectedOptions": [
         option1->{
             "name": type->title.${lang},
@@ -64,9 +64,9 @@ export function getCrossSellQuery(lang: LangValues) {
         }
       ]},
       type == "SIMPLE" => [{
-        "id": gid_${lang},    
-        "price": price_${lang},
-        "discountedPrice": compareAtPrice_${lang},
+        "id": gid_${market},    
+        "price": price_${market},
+        "discountedPrice": compareAtPrice_${market},
       }]
     )
 }

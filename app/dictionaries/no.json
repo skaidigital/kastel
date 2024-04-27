@@ -148,7 +148,7 @@
     "cart_is_empty": "Handlekurven din er tom",
     "start_shopping": "Start handelen",
     "cross_sell": {
-      "we_think_you_will_like": "Kanskje du vil like",
+      "we_think_you_will_like": "Vi anbefaler",
       "add_to_cart": "Legg i handlekurv",
       "choose_option": "Velg alternativ"
     }
@@ -163,7 +163,7 @@
     "confirm_your_location": "Bekreft din lokasjon"
   },
   "reccommended_products": {
-    "we_think_you_will_like": "Vi anbefaler også"
+    "we_think_you_will_like": "Vi anbefaler"
   },
   "page_builder": {
     "contact_form": {

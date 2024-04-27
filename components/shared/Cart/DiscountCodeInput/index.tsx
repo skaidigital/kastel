@@ -1,14 +1,17 @@
 'use client';
 
+import { Badge } from '@/components/Badge';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { addDiscount } from '@/components/shared/Cart/DiscountCodeInput/actions';
+import { Cart } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { useRef, useTransition } from 'react';
 import { toast } from 'sonner';
 
 interface Props {
-  discountCodes?: { code: string }[];
+  // discountCodes?: { code: string }[];
+  discountCodes?: Cart['discountCodes'];
   className?: string;
 }
 
@@ -51,16 +54,15 @@ export function DiscountCodeInput({ discountCodes, className }: Props) {
           {isPending ? <LoadingSpinner /> : 'Apply'}
         </button>
       </div>
-      {JSON.stringify(discountCodes)}
-      {/* {discountCodes && discountCodes.length > 0 && (
-        <div className="mt-1 flex gap-x-1">
+      {discountCodes && discountCodes.length > 0 && (
+        <div className="mt-2 flex gap-x-1">
           {discountCodes.map((item) => (
             <Badge size="xs" key={item.code}>
               Code: {item.code}
             </Badge>
           ))}
         </div>
-      )} */}
+      )}
     </form>
   );
 }

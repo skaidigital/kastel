@@ -13,7 +13,7 @@ interface Props {
   variants: ProductVariant[];
 }
 
-export function KastelPoints({ productType, variants }: Props) {
+export function USPCarousel({ productType, variants }: Props) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -101,9 +101,9 @@ function ScrollDots({
       {Array.from({ length: count }, (_, index) => (
         <div
           key={index}
-          className={cn('h-3 w-3', {
+          className={cn('size-2', {
             'bg-brand-primary': current === index + 1,
-            'bg-brand-light-grey': current !== index + 1
+            'bg-brand-primary-light': current !== index + 1
           })}
         />
       ))}

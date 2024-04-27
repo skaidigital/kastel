@@ -29,5 +29,7 @@ export async function ReccommendedProducts({ lang, market }: Props) {
 
   const initial = await loadReccommendedProducts(lang, market);
 
+  if (!initial.data) return null;
+
   return <ReccommendedProductsLayout data={initial.data} dictionary={dictionary} />;
 }

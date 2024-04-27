@@ -28,8 +28,6 @@ export default async function Cart({ children, market }: Props) {
     cart = await getCart(cartId);
   }
 
-  console.log('cart in Cart', cart);
-
   return (
     <CartLayout
       cart={cart}

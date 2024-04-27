@@ -1,7 +1,6 @@
 'use client';
 
 import { formatPrice } from '@/app/api/shopify/utils';
-import { Text } from '@/components/base/Text';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 
@@ -47,21 +46,19 @@ export function ProductPrice({
   const formattedMaxVariantPrice = formatPrice(maxVariantPrice);
 
   return (
-    <div className="my-4 flex">
+    <div className="my-4 flex text-sm">
       <>
-        {formattedDiscountedPrice && (
-          <span className="mr-3 text-sm">{formattedDiscountedPrice}</span>
-        )}
+        {formattedDiscountedPrice && <span className="mr-3 ">{formattedDiscountedPrice}</span>}
         {isOnSale ? (
-          <del className="text-sm text-brand-mid-grey line-through">{formattedPrice}</del>
+          <del className="text-brand-mid-grey line-through">{formattedPrice}</del>
         ) : (
           <span>{formattedPrice}</span>
         )}
       </>
       {productType === 'VARIABLE' && !activeVariant && (
-        <Text>
+        <span>
           {formattedMinVariantPrice} &ndash; {formattedMaxVariantPrice}
-        </Text>
+        </span>
       )}
     </div>
   );

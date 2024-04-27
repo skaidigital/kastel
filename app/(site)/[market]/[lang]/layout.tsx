@@ -42,7 +42,7 @@ export default function IndexRoute({
       <head>
         {isInProduction && (
           <Script
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             id="Cookiebot"
             src="https://consent.cookiebot.com/uc.js"
             data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}

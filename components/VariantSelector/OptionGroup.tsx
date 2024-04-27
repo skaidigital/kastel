@@ -1,6 +1,7 @@
 import { Dictionary } from '@/app/dictionaries';
 import { ProductOption } from '@/components/pages/ProductPage/hooks';
 import { SizeGuideProps } from '@/lib/sanity/types';
+import { cn } from '@/lib/utils';
 import { useQueryState } from 'nuqs';
 import { Text } from '../base/Text';
 import { SizeGuide } from './SizeGuide';
@@ -39,7 +40,12 @@ export function OptionGroup({ option, sizeGuide, chooseSizeText, sizeGuideText }
               <button
                 key={value.title}
                 onClick={() => setSelectedSize(value.title)}
-                className={`flex items-center justify-center rounded-sm border border-brand-light-grey py-[10px] ${selectedSize === value.title ? 'bg-brand-primary text-white' : ''}`}
+                className={cn(
+                  'flex items-center justify-center rounded-[2px] border border-brand-light-grey py-2.5 text-sm',
+                  selectedSize === value.title
+                    ? 'bg-brand-primary text-white '
+                    : 'hover:border-brand-primary hover:bg-brand-primary hover:text-white focus:border-brand-primary focus:bg-brand-primary focus:text-white'
+                )}
               >
                 {value.title}
               </button>

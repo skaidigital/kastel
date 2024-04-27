@@ -250,21 +250,34 @@ export function getProductQuery({
     "descriptionLongTitle": coalesce(descriptionLongTitle.${lang}, productType->descriptionLongTitle.${lang}),
     "descriptionLongDetails": coalesce(descriptionLongDetails.${lang}, productType->descriptionLongDetails.${lang}),
     "faqs": coalesce(
+    (
+      // Combining FAQs from the main document, productType, and productSettings
       ((faqs[]->{
         "question": question.${lang},
         "answer": answer_${lang}
       }) + (productType->faqs[]->{
         "question": question.${lang},
         "answer": answer_${lang}
-      })),
-      faqs[]->{
+      }) + (*[_type == "productSettings"][0].faqs[]->{
         "question": question.${lang},
         "answer": answer_${lang}
-      },
-      productType->faqs[]->{
-        "question": question.${lang},
-        "answer": answer_${lang}
-      }
+      }))
+    ),
+    // Defaulting to main document FAQs if the above is not available
+    faqs[]->{
+      "question": question.${lang},
+      "answer": answer_${lang}
+    },
+    // Defaulting to productType FAQs if the main document FAQs are not available
+    productType->faqs[]->{
+      "question": question.${lang},
+      "answer": answer_${lang}
+    },
+    // Defaulting to productSettings FAQs if none of the above are available
+    (*[_type == "productSettings"].faqs[]->{
+      "question": question.${lang},
+      "answer": answer_${lang}
+    })
     ),
     "usps": coalesce(
       ((usps[]->{
@@ -325,8 +338,8 @@ export function getSibligProductsQuery({
   lang: LangValues;
 }) {
   const query = groq`
-  *[_type == "product" && references($typeId) && status_${market} == "ACTIVE" && defined(gid_${market})]{
-    "title": title.${lang},
+  *[_type == "product" && references($typeId) && status_${market} == "ACTIVE" && defined(gid_${market}) && defined(color)]{
+    "title": color->title.${lang},
     "mainImage": mainImage {
       ${fragments.getImageBase(lang)}
     },

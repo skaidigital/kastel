@@ -15,8 +15,8 @@ export function UspsMarquee({ usps, size, className }: Props) {
     usps && (
       <div
         className={cn(
-          'border-b border-t border-brand-light-grey',
-          size === 'sm' && 'py-6',
+          'border-b border-brand-light-grey',
+          size === 'sm' && 'py-5',
           size === 'lg' && 'py-[14px] lg:py-8',
           className
         )}
