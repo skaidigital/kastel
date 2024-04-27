@@ -11,7 +11,6 @@ import { loadQuery } from '@/lib/sanity/store';
 
 function loadReccommendedProducts(lang: LangValues, market: MarketValues) {
   const query = getReccommendedProductsQuery(lang, market);
-  console.log('query', query);
 
   return loadQuery<ReccommendedProductPayload>(
     query,

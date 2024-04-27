@@ -226,9 +226,6 @@ function cleanData(
   inititalProductsData: any,
   hasNextPage: boolean
 ): CollectionProductsPayload {
-  console.log('initialProducts', initialProducts);
-  console.log('inititalProductsData', inititalProductsData);
-
   const mergedTestData = initialProducts.map((product: any) => {
     const productData = inititalProductsData.data.find(
       (productData: any) => productData._id === product._id
@@ -241,11 +238,7 @@ function cleanData(
     };
   });
 
-  console.log(mergedTestData);
-
   const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
-
-  console.log(collectionProductsWithoutNullValues);
 
   // console.log('collectionProductsWithoutNullValues', collectionProductsWithoutNullValues);
 

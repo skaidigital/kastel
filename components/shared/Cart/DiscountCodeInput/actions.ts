@@ -14,11 +14,14 @@ export const addDiscount = async (discountCode: string) => {
   }
   try {
     await applyDiscountToCart(cartId, [discountCode]);
+    console.log('success');
 
     return {
       success: true
     };
   } catch (e) {
+    console.log('error applying discount', e);
+
     return {
       success: false,
       userErrors: [{ field: 'discountCode', message: e }]
