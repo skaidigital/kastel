@@ -42,20 +42,7 @@ export function HotspotImage({ image, hotspots, sizes }: Props) {
               )}
               {hotspot.type === 'product' && (
                 <HoverCardContent side="top" className="w-[320px] border-none p-0">
-                  <ProductCard
-                    title={hotspot.title}
-                    gid={hotspot.gid}
-                    sku={hotspot.sku}
-                    mainImage={hotspot.mainImage}
-                    lifestyleImage={hotspot.lifestyleImage}
-                    badges={hotspot.badges}
-                    slug={hotspot.slug}
-                    type="product"
-                    lowestSize={lowestSize?.title}
-                    highestSize={highestSize?.title}
-                    minVariantPrice={hotspot.minVariantPrice}
-                    maxVariantPrice={hotspot.maxVariantPrice}
-                  />
+                  <ProductCard product={hotspot} />
                 </HoverCardContent>
               )}
             </HoverCard>

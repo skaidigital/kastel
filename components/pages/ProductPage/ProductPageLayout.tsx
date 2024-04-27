@@ -149,7 +149,7 @@ export async function ProductPageLayout(props: Props) {
           </div>
           <div className="no-flex-grow sticky top-0 h-fit gap-y-10 lg:max-w-[560px]">
             <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
-            <div className="lg:mt-10 lg:px-[84px]">
+            <div className="mt-6 lg:mt-10 lg:px-[84px]">
               <div className="flex flex-col">
                 <div className="mb-[10px] flex items-center justify-between">
                   <div className="flex gap-2">

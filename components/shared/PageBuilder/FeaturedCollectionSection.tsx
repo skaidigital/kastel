@@ -57,26 +57,9 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
           >
             <CarouselContent className="-ml-0">
               {products.map((product) => {
-                const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
-                const lowestSize = hasSizeRange?.options[0];
-                const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
                 return (
                   <CarouselItem key={product.title} className="basis-[80%] pl-0">
-                    <ProductCard
-                      title={product.title}
-                      gid={product.gid}
-                      sku={product.sku}
-                      firstImage={'product'}
-                      mainImage={product.mainImage}
-                      lifestyleImage={product.lifestyleImage}
-                      badges={product.badges}
-                      slug={product.slug}
-                      type={product.type}
-                      lowestSize={lowestSize?.title}
-                      highestSize={highestSize?.title}
-                      maxVariantPrice={product.maxVariantPrice}
-                      minVariantPrice={product.minVariantPrice}
-                    />
+                    <ProductCard product={product} firstImage={'product'} />
                   </CarouselItem>
                 );
               })}
@@ -116,26 +99,9 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
             <div className="w-full grow">
               <CarouselContent className="-ml-0">
                 {products.map((product) => {
-                  const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
-                  const lowestSize = hasSizeRange?.options[0];
-                  const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
                   return (
                     <CarouselItem key={product.title} className="pl-0 lg:basis-1/2">
-                      <ProductCard
-                        title={product.title}
-                        gid={product.gid}
-                        sku={product.sku}
-                        firstImage={'product'}
-                        mainImage={product.mainImage}
-                        lifestyleImage={product.lifestyleImage}
-                        badges={product.badges}
-                        slug={product.slug}
-                        type={product.type}
-                        lowestSize={lowestSize?.title}
-                        highestSize={highestSize?.title}
-                        maxVariantPrice={product.maxVariantPrice}
-                        minVariantPrice={product.minVariantPrice}
-                      />
+                      <ProductCard product={product} firstImage={'product'} />
                     </CarouselItem>
                   );
                 })}

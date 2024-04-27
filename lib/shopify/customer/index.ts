@@ -28,8 +28,6 @@ export async function customerAccountFetch<T>({
   const expiredCoockie = await getExpiryTime();
 
   if (!expiredCoockie) {
-    console.log('updated token');
-
     const udpatedToken = await getRefreshToken();
     if (!udpatedToken) {
       throw new Error('Not a valid access token');

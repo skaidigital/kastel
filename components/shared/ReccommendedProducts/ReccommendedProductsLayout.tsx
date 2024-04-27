@@ -31,7 +31,7 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
         >
           <div className="mb-10 flex justify-between">
             <h2 className="text-heading-md font-bold uppercase lg:text-heading-xl">
-              We reccommend
+              {dictionary.we_think_you_will_like}
             </h2>
             <div className="hidden gap-x-2 lg:flex">
               <CarouselPrevious />
@@ -41,19 +41,7 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
           <CarouselContent className="-ml-0">
             {data?.map((product) => (
               <CarouselItem key={product.title} className="basis-[80%] pl-0 lg:basis-[25%]">
-                <ProductCard
-                  type="product"
-                  title={product.title}
-                  gid={product.gid}
-                  sku={product.sku}
-                  slug={product.slug}
-                  mainImage={product.mainImage}
-                  lifestyleImage={product.lifestyleImage}
-                  maxVariantPrice={product.maxVariantPrice}
-                  minVariantPrice={product.minVariantPrice}
-                  badges={product.badges}
-                  sizes={product.sizes}
-                />
+                <ProductCard product={product} />
               </CarouselItem>
             ))}
           </CarouselContent>

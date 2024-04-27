@@ -67,12 +67,6 @@ export async function ProductForm({ productId, type, sizeGuide, options, variant
           dictionary={dictionary}
         />
       )}
-      {/* <StockHandler
-        productType={type}
-        inventory={inventory}
-        dictionary={dictionary}
-        variants={variants}
-      /> */}
       <div className="w-full">
         <AddToCartButton
           productId={productId}

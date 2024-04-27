@@ -23,7 +23,7 @@ export function getSearchResultQuery(
 
   const query = groq`
       {
-      "products": *[_type == "product" && title.${lang} match $searchQuery]
+      "products": *[_type == "product" && title.${lang} && defined(slug_${market}.current) && status_${market} == "ACTIVE" && match $searchQuery]
       | score(title.${lang} match $searchQuery)
       [${start}...${end}]{
         ${fragments.productsInTag} {

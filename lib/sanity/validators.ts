@@ -114,6 +114,20 @@ export const productVariantValidator = z.object({
   isActive: z.boolean()
 });
 
+const colorWayValidator = z.object({
+  title: z.string(),
+  image: imageValidator,
+  hexCode: z.string(),
+  slug: z.string(),
+  badges: z.array(z.string()).optional(),
+  minVariantPrice: z.object({
+    amount: z.number(),
+    currencyCode: z.string()
+  })
+});
+
+export type colorWaySchema = z.infer<typeof colorWayValidator>;
+
 export const productCardValidator = z.object({
   type: z.literal('product'),
   gid: z.string(),
@@ -131,6 +145,7 @@ export const productCardValidator = z.object({
     amount: z.number(),
     currencyCode: z.string()
   }),
+  colorways: z.array(colorWayValidator).optional(),
   sizes: z
     .array(
       z.object({

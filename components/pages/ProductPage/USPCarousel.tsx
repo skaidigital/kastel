@@ -46,7 +46,7 @@ export function USPCarousel({ productType, variants }: Props) {
 
   const data = [
     {
-      text: 'Earn 1234 Kastel points'
+      text: 'Hepp hepp'
     },
     {
       text: 'Hepp hepp'
@@ -57,13 +57,13 @@ export function USPCarousel({ productType, variants }: Props) {
   ];
 
   return (
-    <div className="flex items-center border border-brand-light-grey bg-brand-sand p-6">
+    <div className="flex items-center justify-between border border-brand-light-grey bg-brand-sand p-6">
       <Carousel
         setApi={setApi}
         opts={{
           align: 'start'
         }}
-        className=""
+        className="grow"
         plugins={[
           Autoplay({
             delay: 3000
@@ -71,6 +71,15 @@ export function USPCarousel({ productType, variants }: Props) {
         ]}
       >
         <CarouselContent className="-ml-2">
+          {/* {kastelPointsEarned && (
+            <CarouselItem className="basis-[100%] pl-2">
+              <div className="flex justify-between">
+                <Text as="p" size="xs" className="text-brand-dark-grey">
+                  Earn {kastelPointsEarned} Kastel points
+                </Text>
+              </div>
+            </CarouselItem>
+          )} */}
           {data?.map((content) => (
             <CarouselItem key={content.text} className="basis-[100%] pl-2">
               <div className="flex justify-between">
@@ -111,7 +120,10 @@ function ScrollDots({
   );
 }
 
-function getKastelPoints(price: number) {
-  // Add rules here
-  return price * 12;
+function getKastelPoints(price: number, type?: 'normal' | 'naturelLab') {
+  if (type === 'naturelLab') {
+    return price * 12;
+  }
+
+  return price * 6;
 }
