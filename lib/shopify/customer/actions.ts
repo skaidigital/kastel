@@ -107,11 +107,11 @@ export async function refreshAccessToken(refreshToken: string): Promise<AccessTo
   body.append('client_id', clientId);
   body.append('refresh_token', refreshToken);
 
-  const response = await fetch(`https://shopify.com/<shop_id>/auth/oauth/token`, {
+  const response = await fetch(`https://shopify.com/${shopId}/auth/oauth/token`, {
     method: 'POST',
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      Authorization: 'Basic `<credentials>`'
+      Authorization: `Basic ${credentials}`
     },
     body
   });

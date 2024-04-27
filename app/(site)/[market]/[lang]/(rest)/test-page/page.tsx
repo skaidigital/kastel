@@ -1,128 +1,21 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
-import { ProductRating } from '@/components/lipscore/ProductScore';
-import { getProductRatingBySku } from '@/components/lipscore/hook';
-import { SmileButton } from '@/components/smile/Button';
-import { getSmilePoints } from '@/components/smile/hooks';
-import { COOKIE_NAMES, SMILE_DEEP_LINKS } from '@/data/constants';
-import { createCustomerAccessToken } from '@/lib/shopify';
-import {
-  addItemToWishlist,
-  removeItemFromWishlist
-} from '@/lib/shopify/metafields/adjustItemInWishlist';
-import { getCustomerData } from '@/lib/shopify/metafields/getCustomerData';
-import { getWishlist } from '@/lib/shopify/metafields/getWishlist';
-import { isItemInWishlist } from '@/lib/shopify/metafields/isItemInWishlist';
-import { updateCustomerData } from '@/lib/shopify/metafields/updateCustomerData';
-import { cookies } from 'next/headers';
 
 export default async function Page() {
-  let accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+  // let accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
 
-  if (!accessToken) {
-    const token = await createCustomerAccessToken('petter@skaidigital.com', 'testtest');
-    accessToken = token.accessToken;
-    console.log(token);
-  }
+  // if (!accessToken) {
+  //   const token = await createCustomerAccessToken('petter@skaidigital.com', 'testtest');
+  //   accessToken = token.accessToken;
+  //   console.log(token);
+  // }
 
-  // Constants for testing
-  // Same as smile init const customerId = '7292377628922';
-  const customerGid = 'gid://shopify/Customer/7742157848805';
-  const gid = 'gid://shopify/Product/8618931388645';
-  const productSku = 'SOL002-002-021-40';
-
-  // ----------------------------
-  // Testing wishlist functions
-  // ----------------------------
-  const data = await getWishlist();
-  let removeItemResponse;
-  let addItemResponse;
-
-  const isInWishlist = await isItemInWishlist(gid);
-
-  if (isInWishlist) {
-    // console.log('Item is in wishlist');
-    removeItemResponse = await removeItemFromWishlist(gid);
-  } else {
-    // console.log('Item is not in wishlist');
-    addItemResponse = await addItemToWishlist(gid);
-  }
-
-  // ----------------------------
-  // Smile functions
-  // ----------------------------
-
-  const getPoints = await getSmilePoints();
-  console.log(getPoints);
-
-  // ----------------------------
-  // Lipscore functions
-  // --------------------------------
-  const getProductRating = await getProductRatingBySku(productSku);
-  console.log(getProductRating);
-
-  // ----------------------------
-  // Saving cusotmer data
-  // ----------------------------
-  const productForm = {
-    firstName: 'Petter',
-    lastName: 'Elgheim.',
-    isPrompted: true,
-    footLength: '43.5',
-    style: 'Modern',
-    color: 'Black'
-  };
-
-  const natureLabData = {
-    name: 'Petter',
-    email: 'petter@skaidigital.com',
-    natureLabTitle: 'Phase 1',
-    questionResponse: [
-      {
-        question: 'Hva er din favorittfarge?',
-        answer: 'Grå'
-      },
-      {
-        question: 'Hva er din favorittfarge?',
-        answer: 'Grå'
-      },
-      {
-        question: 'Hva er din favorittfarge?',
-        answer: 'Grå'
-      }
-    ]
-  };
-
-  // await sendNatureLabEmail(natureLabData);
-
-  const getCustomerDataResponse = await getCustomerData();
-  const updateInformationResponse = await updateCustomerData({ customerGid, data: productForm });
-
-  console.log(getCustomerDataResponse);
-  console.log(updateInformationResponse);
-
-  // console.log(data);
-
-  //! This one deletes the wishlist
-  // await deleteWishlist();
-
+  // const slugs = await generateStaticParams();
+  // console.log('slugs', slugs);
+  //
   return (
     <div className="flex flex-col">
       <SheetTest />
-      <p> Wishlist: {data}</p>
-      <p>isItemInWishlistResponse: {String(isInWishlist)}</p>
-      <p>addItemResponse: {addItemResponse || 'Not ran now'}</p>
-      <p>removeItemResponse: {removeItemResponse || 'Not ran now'}</p>
-      <p>getPoints: {JSON.stringify(getPoints) || ''}</p>
-      {/* <OpenSmileHome />  */}
-      <SmileButton deepLink={SMILE_DEEP_LINKS.home}>home</SmileButton>
-      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules}>
-        Points Activity Rules
-      </SmileButton>
-      <SmileButton deepLink={SMILE_DEEP_LINKS.points_products}>Points Products</SmileButton>
-      <SmileButton deepLink={SMILE_DEEP_LINKS.referral_program_details}>
-        Referral Program Details
-      </SmileButton>
-      <ProductRating sku={productSku} />
+      <p>hei</p>
       {/* <OpenSmileHome />
       <OpenSmileActivityRules />
       <OpenSmilePointsProduct />

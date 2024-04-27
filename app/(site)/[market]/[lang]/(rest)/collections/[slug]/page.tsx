@@ -20,8 +20,8 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams() {
-  const slugs = await generateStaticSlugs('collection');
+export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
+  const slugs = await generateStaticSlugs(lang, 'collection');
 
   return slugs;
 }
