@@ -5,7 +5,6 @@ import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Combination } from '@/components/VariantSelector';
-import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
@@ -82,38 +81,38 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
     });
   }
 
-  console.log('selectedCombination', selectedCombination);
-
   return (
-    <div className="flex gap-x-3 lg:p-3">
-      <div className="relative h-20 w-20 rounded-[2px] bg-gray-50">
-        <SanityImage image={image} fill className="absolute object-cover" />
+    <div className={cn('flex gap-x-3 lg:p-3', className)}>
+      <div className="w-20">
+        <div className="aspect-h-4 aspect-w-3 relative rounded-[2px] border border-brand-light-grey">
+          <SanityImage image={image} fill className="absolute object-cover" />
+        </div>
       </div>
-      <div className="flex flex-col justify-between">
-        <h4 className="text-balance text-sm font-medium">{title}</h4>
-        {activeVariant &&
-          (activeVariant.discountedPrice ? (
-            <div className="flex gap-x-2">
-              <Text size="sm">
-                {formatPrice({ amount: String(activeVariant.discountedPrice), currencyCode })}
-              </Text>
-              <Text size="sm" className="line-through">
-                {formatPrice({ amount: String(activeVariant.price), currencyCode })}
-              </Text>
-            </div>
-          ) : (
-            <Text size="sm">
-              {formatPrice({ amount: String(activeVariant.price), currencyCode })}
-            </Text>
-          ))}
-        <div className="flex gap-x-1">
+      <div className="flex w-full flex-col justify-between ">
+        <div className="flex flex-col gap-y-2">
+          <h4 className="text-balance text-sm font-medium">{title}</h4>
+          {activeVariant &&
+            (activeVariant.discountedPrice ? (
+              <div className="mb-1 flex gap-x-2 text-xs">
+                <span>
+                  {formatPrice({ amount: String(activeVariant.discountedPrice), currencyCode })}
+                </span>
+                <span className="text-brand-mid-grey line-through">
+                  {formatPrice({ amount: String(activeVariant.price), currencyCode })}
+                </span>
+              </div>
+            ) : (
+              <span>{formatPrice({ amount: String(activeVariant.price), currencyCode })}</span>
+            ))}
+        </div>
+        <div className="flex gap-x-1 ">
           {isVariableProduct && combinationStrings && (
             <Select
               onValueChange={(e) => {
                 setSelectedCombination(e);
               }}
             >
-              <SelectTrigger className="text-xs text-brand-mid-grey placeholder:text-brand-mid-grey">
+              <SelectTrigger className="w-full grow text-xs text-brand-mid-grey placeholder:text-brand-mid-grey">
                 <SelectValue placeholder={dictionary.choose_option} />
               </SelectTrigger>
               <SelectContent>
@@ -138,7 +137,7 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
             )}
           >
             {isSimpleProduct && dictionary.add_to_cart}
-            <ShoppingBagIcon className="h-4 w-4 text-black" />
+            <ShoppingBagIcon className="h-4 w-4" />
           </Button>
         </div>
       </div>

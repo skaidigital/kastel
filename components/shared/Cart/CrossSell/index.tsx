@@ -1,7 +1,11 @@
 'use server';
 
 import { getDictionary } from '@/app/dictionaries';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext } from '@/components/Carousel';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
+import {
+  CarouselNext,
+  CarouselPrevious
+} from '@/components/shared/Cart/CrossSell/CrossSellCarouselButton';
 import { CrossSellItem } from '@/components/shared/Cart/CrossSell/CrossSellItem';
 import { CrossSellProducts, getCrossSellQuery } from '@/components/shared/Cart/CrossSell/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
@@ -61,26 +65,33 @@ export async function CrossSell({ market, lang, className }: Props) {
   const pairsWellWithString = getPairsWellWithString(lang);
 
   return (
-    <div className={cn('flex flex-col gap-y-3', className)}>
-      <h3 className="text-sm font-medium">{pairsWellWithString}</h3>
+    <div className={cn(className)}>
       <Carousel
         opts={{
           align: 'start',
           loop: true
         }}
-        className="relative"
+        className="relative flex flex-col gap-y-3 lg:gap-y-4"
       >
-        <CarouselContent className="-ml-2">
+        <div className="flex justify-between">
+          <h3 className="text-sm font-medium">{pairsWellWithString}</h3>
+          <div className="flex gap-x-1">
+            <CarouselPrevious />
+            <CarouselNext />
+          </div>
+        </div>
+        <CarouselContent className="-ml-4">
           {initial?.data?.map((item) => (
-            <CarouselItem key={item.title} className="basis-[80%] bg-white pl-2">
-              <CrossSellItem product={item} currencyCode={currencyCode} dictionary={dictionary} />
+            <CarouselItem key={item.title} className="basis-[90%] bg-white pl-4">
+              <CrossSellItem
+                product={item}
+                currencyCode={currencyCode}
+                dictionary={dictionary}
+                className="p-0 lg:p-0"
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselNext
-          size="icon"
-          className="absolute right-6 top-1/2 z-30 hidden -translate-y-1/2 items-center bg-white lg:block"
-        />
       </Carousel>
     </div>
   );
