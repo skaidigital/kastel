@@ -1,4 +1,4 @@
-import { ROUTES } from '@/data/constants';
+import { LANG, ROUTES } from '@/data/constants';
 import { env } from '@/env';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { MetadataRoute } from 'next/types';
@@ -7,9 +7,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = env.BASE_URL;
 
   const [pageSlugs, collectionSlugs, productSlugs] = await Promise.all([
-    generateStaticSlugs('page'),
-    generateStaticSlugs('collection'),
-    generateStaticSlugs('product')
+    generateStaticSlugs(LANG.no.id, 'page'),
+    generateStaticSlugs(LANG.en.id, 'page'),
+    generateStaticSlugs(LANG.no.id, 'collection'),
+    generateStaticSlugs(LANG.en.id, 'collection'),
+    generateStaticSlugs(LANG.no.id, 'product'),
+    generateStaticSlugs(LANG.en.id, 'product')
   ]);
 
   const pageSlugsWithoutHome = pageSlugs.filter((slug) => slug.slug !== 'home');
