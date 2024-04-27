@@ -252,6 +252,7 @@ export function getProductCard(lang: LangValues, market: MarketValues) {
   lifestyleImage{
     ${getImageBase(lang)}
   },
+  ${getColorWays(lang, market)},
   "minVariantPrice": minVariantPrice_${market}{
     "amount": coalesce(amount, 0),
     "currencyCode": currencyCode
@@ -264,7 +265,7 @@ export function getProductCard(lang: LangValues, market: MarketValues) {
     type == "SIMPLE" => sku,
     type == "VARIABLE" => *[_type=="productVariant" && references(^._id) && defined(sku)][0].sku
     ),
-  "badges": badges[]->.title.${lang},
+  "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
   "sizes": options[] {
     "type": optionType->.type,
     "options": options[]-> {
@@ -438,5 +439,23 @@ export function getSizeGuide(lang: LangValues) {
       cells
     }
   } 
+  `;
+}
+
+export function getColorWays(lang: LangValues, market: MarketValues) {
+  return groq`
+  "colorways": *[_type == "product" && references(^.productType._ref) && defined(mainImage) && defined(slug_no.current)]{
+    "title": title.no,
+    "image": mainImage{
+      ${getImageBase(lang)}
+    },
+    "hexCode": color->color.value, 
+    "slug": slug_no.current,
+    "minVariantPrice": minVariantPrice_${market}{
+      "amount": coalesce(amount, 0),
+      "currencyCode": currencyCode
+    },
+    "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
+  }
   `;
 }

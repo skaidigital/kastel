@@ -1,13 +1,16 @@
 'use client';
 
+import { colorWaySchema } from '@/lib/sanity/validators';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useProductCardContext } from './Context';
 
 interface Props {
   className?: string;
+  colorways: colorWaySchema[] | undefined;
+  productSlug: string;
 }
 
-const colorways = [
+const colorways2 = [
   {
     name: 'Black',
     hex: '000000'
@@ -30,10 +33,19 @@ const colorways = [
   }
 ];
 
-export function Colors({ className }: Props) {
-  const [activeColorway, setActiveColorway] = useState(colorways[0]);
+export function Colors({ className, colorways, productSlug }: Props) {
+  const { activeColorway, setActiveColorway } = useProductCardContext();
+
+  console.log('activeColorway', activeColorway);
+
+  const defaultColor = colorways && colorways[0];
+  // const [activeColorway, setActiveColorway] = useState(defaultColor);
+  if (!colorways) {
+    return null;
+  }
 
   const firstFourColors = colorways.slice(0, 4);
+  const colorBySlug = colorways.find((colorway) => colorway.slug === productSlug);
 
   return (
     <div className={cn('flex gap-x-1', className)}>
@@ -42,12 +54,12 @@ export function Colors({ className }: Props) {
           onClick={() => setActiveColorway(colorway)}
           className={cn(
             'size-6 rounded-[2px] border @xs:size-5',
-            colorway.hex === activeColorway?.hex
+            colorway.hexCode === (activeColorway?.hexCode || colorBySlug?.hexCode)
               ? 'border border-black'
               : 'border-brand-light-grey '
           )}
-          key={colorway.hex}
-          style={{ background: `#${colorway.hex}` }}
+          key={colorway.hexCode}
+          style={{ background: `${colorway.hexCode}` }}
         />
       ))}
     </div>
