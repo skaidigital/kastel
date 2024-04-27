@@ -12,13 +12,14 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams() {
-  const [slugs_no, slugs_en] = await Promise.all([
-    generateStaticSlugsProducts('no', 'no'),
-    generateStaticSlugsProducts('en', 'no')
-  ]);
+export async function generateStaticParams({
+  params: { lang, market }
+}: {
+  params: { lang: LangValues; market: MarketValues };
+}) {
+  const slugs = await generateStaticSlugsProducts(lang, market);
 
-  return [...(slugs_no || []), ...(slugs_en || [])];
+  return slugs;
 }
 
 function loadProduct({

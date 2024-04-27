@@ -1,21 +1,17 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
-import { COOKIE_NAMES } from '@/data/constants';
-import { createCustomerAccessToken } from '@/lib/shopify';
-import { cookies } from 'next/headers';
-import { generateStaticParams } from '../products/[slug]/page';
 
 export default async function Page() {
-  let accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+  // let accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
 
-  if (!accessToken) {
-    const token = await createCustomerAccessToken('petter@skaidigital.com', 'testtest');
-    accessToken = token.accessToken;
-    console.log(token);
-  }
+  // if (!accessToken) {
+  //   const token = await createCustomerAccessToken('petter@skaidigital.com', 'testtest');
+  //   accessToken = token.accessToken;
+  //   console.log(token);
+  // }
 
-  const slugs = await generateStaticParams();
-  console.log('slugs', slugs);
-
+  // const slugs = await generateStaticParams();
+  // console.log('slugs', slugs);
+  //
   return (
     <div className="flex flex-col">
       <SheetTest />
