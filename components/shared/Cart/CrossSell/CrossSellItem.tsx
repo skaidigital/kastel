@@ -1,9 +1,11 @@
 'use client';
 
+import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Combination } from '@/components/VariantSelector';
+import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
@@ -19,6 +21,10 @@ interface Props {
   className?: string;
 }
 
+// TODO grey out if it's not in stock
+// TODO show price
+// TODO show selected variant's options
+// TODO test with simple product
 export function CrossSellItem({ product, currencyCode, className, dictionary }: Props) {
   const { title, image } = product;
   const [isPending, startTransition] = useTransition();
@@ -76,6 +82,8 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
     });
   }
 
+  console.log('selectedCombination', selectedCombination);
+
   return (
     <div className="flex gap-x-3 lg:p-3">
       <div className="relative h-20 w-20 rounded-[2px] bg-gray-50">
@@ -83,6 +91,21 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
       </div>
       <div className="flex flex-col justify-between">
         <h4 className="text-balance text-sm font-medium">{title}</h4>
+        {activeVariant &&
+          (activeVariant.discountedPrice ? (
+            <div className="flex gap-x-2">
+              <Text size="sm">
+                {formatPrice({ amount: String(activeVariant.discountedPrice), currencyCode })}
+              </Text>
+              <Text size="sm" className="line-through">
+                {formatPrice({ amount: String(activeVariant.price), currencyCode })}
+              </Text>
+            </div>
+          ) : (
+            <Text size="sm">
+              {formatPrice({ amount: String(activeVariant.price), currencyCode })}
+            </Text>
+          ))}
         <div className="flex gap-x-1">
           {isVariableProduct && combinationStrings && (
             <Select
