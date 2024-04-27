@@ -19,6 +19,7 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 export async function generateStaticParams() {
   const slugs = await generateStaticSlugs('collection');
@@ -129,6 +130,7 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   );
 
   const cleanedProductData = cleanData(paginatedInitialProducts, inititalProductsData, hasNextPage);
+
   let validatedProducts;
 
   if (!isDraftMode) {
@@ -155,13 +157,15 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
     : mergeCollectionBaseAndProducts(validatedBase?.data, validatedProducts?.data, productCount);
 
   return (
-    <CollectionPage
-      data={mergedData}
-      currentPage={currentPage}
-      searchParams={searchParams}
-      market={market}
-      lang={lang}
-    />
+    <Suspense fallback={<p>Loading</p>}>
+      <CollectionPage
+        data={mergedData}
+        currentPage={currentPage}
+        searchParams={searchParams}
+        market={market}
+        lang={lang}
+      />
+    </Suspense>
   );
 }
 
@@ -222,6 +226,9 @@ function cleanData(
   inititalProductsData: any,
   hasNextPage: boolean
 ): CollectionProductsPayload {
+  console.log('initialProducts', initialProducts);
+  console.log('inititalProductsData', inititalProductsData);
+
   const mergedTestData = initialProducts.map((product: any) => {
     const productData = inititalProductsData.data.find(
       (productData: any) => productData._id === product._id
@@ -234,13 +241,19 @@ function cleanData(
     };
   });
 
-  const collectionProductsWithoutNullValues = nullToUndefined({
-    products: mergedTestData
-  });
+  console.log(mergedTestData);
 
-  const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
-    (product: any) => Object.keys(product).length > 1
-  );
+  const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
 
-  return filteredCollectionProducts;
+  console.log(collectionProductsWithoutNullValues);
+
+  // console.log('collectionProductsWithoutNullValues', collectionProductsWithoutNullValues);
+
+  // const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
+  //   (product: any) => Object.keys(product).length > 1
+  // );
+
+  // console.log('filteredCollectionProducts', filteredCollectionProducts);
+
+  return collectionProductsWithoutNullValues;
 }

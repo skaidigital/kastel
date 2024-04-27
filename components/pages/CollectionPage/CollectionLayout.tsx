@@ -109,17 +109,8 @@ export function CollectionLayout({
               return (
                 <ProductCard
                   key={index}
-                  gid={item.gid}
-                  sku={item.sku}
-                  type={item.type}
-                  title={item.title}
-                  slug={item.slug}
-                  mainImage={item.mainImage}
-                  lifestyleImage={item.lifestyleImage}
-                  badges={item.badges}
                   priority={priorityIndices.includes(index)}
-                  minVariantPrice={item.minVariantPrice}
-                  maxVariantPrice={item.maxVariantPrice}
+                  product={item}
                 />
               );
             })}
@@ -136,26 +127,12 @@ export function CollectionLayout({
                 );
               }
 
-              const hasSizeRange = item?.sizes?.filter((size) => size.type === 'size')[0];
-              const lowestSize = hasSizeRange?.options[0];
-              const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
               const priorityIndices = [0, 1, 2];
               return (
                 <ProductCard
                   key={index}
-                  gid={item.gid}
-                  sku={item.sku}
-                  type={item.type}
-                  title={item.title}
-                  slug={item.slug}
-                  mainImage={item.mainImage}
-                  lifestyleImage={item.lifestyleImage}
-                  badges={item.badges}
                   priority={priorityIndices.includes(index)}
-                  lowestSize={lowestSize?.title}
-                  highestSize={highestSize?.title}
-                  minVariantPrice={item.minVariantPrice}
-                  maxVariantPrice={item.maxVariantPrice}
+                  product={item}
                 />
               );
             })}

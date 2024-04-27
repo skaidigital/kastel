@@ -163,25 +163,11 @@ export default async function Page({ searchParams, params }: Props) {
         <CollectionGrid number={ProductsInView}>
           {products &&
             products?.map((product: ProductCardProps, index) => {
-              const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
-              const lowestSize = hasSizeRange?.options[0];
-              const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
               return (
                 <ProductCard
-                  type={product.type}
-                  gid={product.gid}
-                  sku={product.sku}
                   key={product.slug}
-                  slug={product.slug}
-                  title={product.title}
-                  mainImage={product.mainImage}
-                  lifestyleImage={product.lifestyleImage}
-                  badges={product.badges}
                   priority={productIndicesToReceivePriorityProp.includes(index)}
-                  lowestSize={lowestSize?.title}
-                  highestSize={highestSize?.title}
-                  minVariantPrice={product.minVariantPrice}
-                  maxVariantPrice={product.maxVariantPrice}
+                  product={product}
                 />
               );
             })}
