@@ -27,10 +27,10 @@ const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
 
 export default function IndexRoute({
   children,
-  params: { market, lang }
+  params: { lang }
 }: {
   children: ReactNode;
-  params: { market: MarketValues; lang: LangValues };
+  params: { lang: LangValues };
 }) {
   const isInProduction = process.env.NODE_ENV === 'production';
 
