@@ -143,15 +143,13 @@ export default async function Page({ searchParams, params }: Props) {
             )}
             <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
           </div>
-          {hasProducts && <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />}
+          <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />
         </Container>
-        {hasProducts && (
-          <SearchSettingsBar
-            searchParams={searchParams}
-            lang={lang}
-            className="hidden min-h-32 lg:block"
-          />
-        )}
+        <SearchSettingsBar
+          searchParams={searchParams}
+          lang={lang}
+          className="hidden min-h-32 lg:block"
+        />
       </Section>
       <Section label={dictionary.search_results} srHeading={dictionary.search_results} noTopPadding>
         {!hasProducts && (
@@ -175,12 +173,14 @@ export default async function Page({ searchParams, params }: Props) {
         </CollectionGrid>
         <div className="mt-20 flex flex-col items-center justify-center space-y-8">
           <div className="flex gap-x-5">
-            <Suspense>
-              <PaginationButton type="previous">{dictionary.next_page}</PaginationButton>
-            </Suspense>
+            {currentPage > 1 && (
+              <Suspense>
+                <PaginationButton type="previous">{dictionary.previous_page}</PaginationButton>
+              </Suspense>
+            )}
             {hasNextPage && (
               <Suspense>
-                <PaginationButton type="next">{dictionary.previous_page}</PaginationButton>
+                <PaginationButton type="next">{dictionary.next_page}</PaginationButton>
               </Suspense>
             )}
           </div>

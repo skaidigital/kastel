@@ -30,7 +30,10 @@ export function Colors({ className, colorways, productSlug }: Props) {
     <div className={cn('flex gap-x-1', className)}>
       {firstFourColors?.map((colorway) => (
         <button
-          onClick={() => setActiveColorway(colorway)}
+          onClick={(e) => {
+            e.preventDefault();
+            setActiveColorway(colorway);
+          }}
           className={cn(
             'size-6 rounded-[2px] border @xs:size-5',
             colorway.hexCode === (activeColorway?.hexCode || colorBySlug?.hexCode)
