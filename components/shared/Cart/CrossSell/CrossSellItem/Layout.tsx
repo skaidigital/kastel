@@ -3,7 +3,7 @@
 import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
+import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Combination } from '@/components/VariantSelector';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
@@ -15,6 +15,7 @@ import { useState, useTransition } from 'react';
 
 interface Props {
   product: CrossSellProduct;
+  inventory: ProductInventoryResponse;
   currencyCode: string;
   dictionary: Dictionary['cart_drawer']['cross_sell'];
   className?: string;
@@ -24,7 +25,13 @@ interface Props {
 // TODO show price
 // TODO show selected variant's options
 // TODO test with simple product
-export function CrossSellItem({ product, currencyCode, className, dictionary }: Props) {
+export function CrossSellItemLayout({
+  product,
+  inventory,
+  currencyCode,
+  className,
+  dictionary
+}: Props) {
   const { title, image } = product;
   const [isPending, startTransition] = useTransition();
   const [selectedCombination, setSelectedCombination] = useState<string | undefined>();
@@ -53,12 +60,18 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
 
   const combinations: Combination[] = product.variants.map((variant) => ({
     id: variant.id,
-    availableForSale: true,
-    ...variant.selectedOptions?.reduce(
-      (accumulator, option) =>
-        option ? { ...accumulator, [option.name.toLowerCase()]: option.value } : accumulator,
-      {}
-    )
+    availableForSale:
+      inventory.variants.edges.find((edge) => edge.node.id === variant.id)?.node
+        ?.availableForSale || false,
+    ...variant.selectedOptions
+      ?.filter((option): option is { value: string; name: string } => option !== undefined)
+      .reduce(
+        (accumulator, option) => ({
+          ...accumulator,
+          ...(option && option.name && { [option.name.toLowerCase()]: option.value })
+        }),
+        {} as Record<string, string>
+      )
   }));
 
   const combinationStrings = combinations?.map((combination) =>
@@ -106,7 +119,7 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
             ))}
         </div>
         <div className="flex gap-x-1 ">
-          {isVariableProduct && combinationStrings && (
+          {/* {isVariableProduct && combinationStrings && (
             <Select
               onValueChange={(e) => {
                 setSelectedCombination(e);
@@ -123,7 +136,7 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
                 ))}
               </SelectContent>
             </Select>
-          )}
+          )} */}
           <Button
             variant="primary"
             onClick={handleAddToCart}

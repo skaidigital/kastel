@@ -10,7 +10,7 @@ export function PaymentIcons({ market }: Props) {
   return (
     <div className="my-4 flex justify-center">
       <Suspense>
-        <PaymentProviders market={market} />
+        <PaymentProviders market={market} size="sm" />
       </Suspense>
     </div>
   );

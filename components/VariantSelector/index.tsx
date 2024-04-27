@@ -61,7 +61,7 @@ export function VariantSelector({
   });
 }
 
-function filterOptions(
+export function filterOptions(
   variants: ProductVariant[],
   options: ProductOption[],
   featuredOptions: string[]

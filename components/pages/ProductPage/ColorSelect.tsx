@@ -4,6 +4,8 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
 import { CustomLink } from '@/components/CustomLink';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { LangValues } from '@/data/constants';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { ProductSiblings } from './hooks';
@@ -14,19 +16,22 @@ interface Props {
 
 export function ColorSelect({ products }: Props) {
   const pathname = usePathname();
+  const { lang } = useBaseParams();
   const urlSlug = pathname.split('/').pop();
 
   const activeProduct = products.find((product) => product.slug === urlSlug);
 
+  const colorString = getColorString(lang);
+
   return (
     <div>
       <Text as="p" size="xs" className="mb-3">
-        Color: {activeProduct?.title}
+        {colorString}: {activeProduct?.title}
       </Text>
       <Carousel className="" opts={{ align: 'start' }}>
         <CarouselContent className="-ml-1">
           {products.map((product) => (
-            <CarouselItem key={product.title} className="basis-[20%] pl-1">
+            <CarouselItem key={product.title} className="basis-[22%] pl-1">
               <CustomLink key={product.mainImage.asset._ref} href={`/products/${product.slug}`}>
                 <div
                   className={cn(
@@ -47,4 +52,15 @@ export function ColorSelect({ products }: Props) {
       </Carousel>
     </div>
   );
+}
+
+function getColorString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Color';
+    case 'no':
+      return 'Farge';
+    default:
+      return 'Color';
+  }
 }

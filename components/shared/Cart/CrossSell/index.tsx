@@ -75,7 +75,7 @@ export async function CrossSell({ market, lang, className }: Props) {
       >
         <div className="flex justify-between">
           <h3 className="text-sm font-medium">{pairsWellWithString}</h3>
-          <div className="flex gap-x-1">
+          <div className="hidden gap-x-1 lg:flex">
             <CarouselPrevious />
             <CarouselNext />
           </div>

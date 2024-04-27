@@ -71,7 +71,7 @@ export function USPCarousel({ productType, variants }: Props) {
         ]}
       >
         <CarouselContent className="-ml-2">
-          {/* {kastelPointsEarned && (
+          {kastelPointsEarned && (
             <CarouselItem className="basis-[100%] pl-2">
               <div className="flex justify-between">
                 <Text as="p" size="xs" className="text-brand-dark-grey">
@@ -79,7 +79,7 @@ export function USPCarousel({ productType, variants }: Props) {
                 </Text>
               </div>
             </CarouselItem>
-          )} */}
+          )}
           {data?.map((content) => (
             <CarouselItem key={content.text} className="basis-[100%] pl-2">
               <div className="flex justify-between">
