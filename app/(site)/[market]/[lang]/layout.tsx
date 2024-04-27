@@ -90,7 +90,6 @@ export default function IndexRoute({
             <ShopifyAnalytics hasConsent />
             <MarketPopup />
             {draftMode().isEnabled && <PreviewMarketSelector />}
-            {/* <SmileInit customerId="7292377628922" /> */}
             <Suspense>
               <SmileLayout />
             </Suspense>

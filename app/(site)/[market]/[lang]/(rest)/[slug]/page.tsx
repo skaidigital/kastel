@@ -10,6 +10,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 // export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
 //   const slugs = await generateStaticSlugs(lang, 'page');
@@ -38,6 +39,10 @@ interface Props {
 export default async function PageSlugRoute({ params }: Props) {
   const { slug, market, lang } = params;
   const initial = await loadPage({ slug, market, lang });
+
+  if (!initial.data) {
+    return notFound();
+  }
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
   const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
