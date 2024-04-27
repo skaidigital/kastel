@@ -10,7 +10,6 @@ import { CustomLink } from '@/components/CustomLink';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import { CartItem } from '@/components/shared/Cart/CartItem';
-import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
 import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
@@ -116,10 +115,10 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                   </div>
                 </div>
                 {children}
-                <DiscountCodeInput
+                {/* <DiscountCodeInput
                   discountCodes={cart.discountCodes}
                   className="bg-white px-6 py-4"
-                />
+                /> */}
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
                     <div className="flex w-full items-center justify-between text-brand-mid-grey">
@@ -251,10 +250,10 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             {hasCartItems && (
               <>
                 {children}
-                <DiscountCodeInput
+                {/* <DiscountCodeInput
                   discountCodes={cart.discountCodes}
                   className="bg-white px-4 py-4"
-                />
+                /> */}
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
                     <div className="flex w-full items-center justify-between text-brand-mid-grey">

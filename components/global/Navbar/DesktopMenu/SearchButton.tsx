@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import * as Dialog from '@radix-ui/react-dialog';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 interface Props {
   className?: string;
@@ -34,7 +34,9 @@ export function SearchButton({ className }: Props) {
           <Dialog.Overlay className="fixed inset-0 z-20 bg-gray-100 bg-opacity-10 backdrop-blur" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full -translate-x-1/2 px-4 lg:px-0">
             <div className="border-brand-border mx-auto w-full max-w-md rounded-project border bg-white p-6 lg:p-8">
-              <SearchBar onClose={onClose} />
+              <Suspense>
+                <SearchBar onClose={onClose} />
+              </Suspense>
             </div>
           </Dialog.Content>
         </Dialog.Portal>

@@ -20,6 +20,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { productCardValidator } from '@/lib/sanity/validators';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Search',
@@ -188,12 +189,20 @@ export default async function Page({ searchParams, params }: Props) {
         </CollectionGrid>
         <div className="mt-20 flex flex-col items-center justify-center space-y-8">
           <div className="flex gap-x-5">
-            <PaginationButton type="previous">{dictionary.next_page}</PaginationButton>
+            <Suspense>
+              <PaginationButton type="previous">{dictionary.next_page}</PaginationButton>
+            </Suspense>
             {hasNextPage && (
-              <PaginationButton type="next">{dictionary.previous_page}</PaginationButton>
+              <Suspense>
+                <PaginationButton type="next">{dictionary.previous_page}</PaginationButton>
+              </Suspense>
             )}
           </div>
-          {pageCount ? <PageCounter pageCount={pageCount} /> : null}
+          {pageCount ? (
+            <Suspense>
+              <PageCounter pageCount={pageCount} />
+            </Suspense>
+          ) : null}
         </div>
       </Section>
     </>

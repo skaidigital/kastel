@@ -17,6 +17,7 @@ import { PageBuilder } from '@/components/shared/PageBuilder';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
+import { Suspense } from 'react';
 import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 
 interface Props {
@@ -171,10 +172,18 @@ export function CollectionLayout({
         {hasProducts && (
           <div className="mt-20 flex flex-col items-center justify-center space-y-8">
             <div className="flex gap-x-2">
-              <PaginationButton type="previous">Forrige side</PaginationButton>
-              {hasNextPage && <PaginationButton type="next">Neste side</PaginationButton>}
+              <Suspense>
+                <PaginationButton type="previous">Forrige side</PaginationButton>
+              </Suspense>
+              {hasNextPage && (
+                <Suspense>
+                  <PaginationButton type="next">Neste side</PaginationButton>
+                </Suspense>
+              )}
             </div>
-            <PageCounter pageCount={pageCount} />
+            <Suspense>
+              <PageCounter pageCount={pageCount} />
+            </Suspense>
           </div>
         )}
       </Section>

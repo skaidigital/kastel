@@ -17,6 +17,7 @@ import { getOrderCursors } from '@/lib/shopify/customer/getOrderCursors';
 import { getOrders } from '@/lib/shopify/customer/getOrders';
 import { capitalizeFirstLetter, cn, formatDate, getOrderIcon } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/20/solid';
+import { Suspense } from 'react';
 
 interface Props {
   currentPage: number;
@@ -97,11 +98,13 @@ export async function OrdersPage({ currentPage, lang }: Props) {
                   ))}
                 </tbody>
               </table>
-              <Pagination
-                hasNextPage={pageInfo?.hasNextPage}
-                hasPreviousPage={pageInfo?.hasPreviousPage}
-                className="mt-7 flex "
-              />
+              <Suspense>
+                <Pagination
+                  hasNextPage={pageInfo?.hasNextPage}
+                  hasPreviousPage={pageInfo?.hasPreviousPage}
+                  className="mt-7 flex "
+                />
+              </Suspense>
             </div>
           </div>
         </div>

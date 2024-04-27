@@ -59,7 +59,7 @@ export default function IndexRoute({
                 <PopupHandler lang={lang} />
               </Suspense>
               <main>
-                {children}
+                <Suspense>{children}</Suspense>
                 {draftMode().isEnabled && (
                   <VisualEditing
                     refresh={async (payload) => {
