@@ -8,8 +8,8 @@ import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 
-export async function generateStaticParams() {
-  const slugs = await generateStaticSlugs('blogPost');
+export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
+  const slugs = await generateStaticSlugs(lang, 'blogPost');
 
   return slugs;
 }

@@ -12,8 +12,12 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams() {
-  const slugs = await generateStaticSlugsProducts();
+export async function generateStaticParams({
+  params: { lang, market }
+}: {
+  params: { lang: LangValues; market: MarketValues };
+}) {
+  const slugs = await generateStaticSlugsProducts(lang, market);
 
   return slugs;
 }

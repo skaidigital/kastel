@@ -2,12 +2,11 @@ import 'server-only';
 
 import { groq } from 'next-sanity';
 
+import { LangValues, MarketValues } from '@/data/constants';
 import { env } from '@/env';
 import { client } from '@/lib/sanity/client';
 
-export function generateStaticSlugs(type: string) {
-  const market = 'no';
-
+export function generateStaticSlugs(lang: LangValues, type: string) {
   // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
   return client
     .withConfig({
@@ -17,14 +16,12 @@ export function generateStaticSlugs(type: string) {
       stega: false
     })
     .fetch<{ slug: string }[]>(
-      groq`*[_type == $type && defined(slug_${market}.current)]{"slug": slug_${market}.current}`,
+      groq`*[_type == $type && defined(slug_${lang}.current)]{"slug": slug_${lang}.current}`,
       { type }
     );
 }
 
-export function generateStaticSlugsProducts() {
-  const market = 'no';
-
+export async function generateStaticSlugsProducts(lang: LangValues, market: MarketValues) {
   // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
   return client
     .withConfig({
@@ -34,7 +31,7 @@ export function generateStaticSlugsProducts() {
       stega: false
     })
     .fetch<{ slug: string }[]>(
-      groq`*[_type == $type && defined(slug_${market}.current) && status_${market} == "ACTIVE"]{"slug": slug_${market}.current}`,
+      groq`*[_type == $type && defined(slug_${lang}.current) && status_${market} == "ACTIVE"]{"slug": slug_${lang}.current}`,
       { type: 'product' }
     );
 }
