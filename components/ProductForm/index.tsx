@@ -21,7 +21,6 @@ interface Props {
 
 export async function ProductForm({ productId, type, sizeGuide, options, variants }: Props) {
   if (!variants || !productId) return null;
-  // const dictionaryResponse = await getDictionary();
 
   const [inventory, dictionaryResponse] = await Promise.all([
     getProductInventory(productId),
@@ -31,29 +30,6 @@ export async function ProductForm({ productId, type, sizeGuide, options, variant
   const dictionary = dictionaryResponse.product_page;
 
   if (!inventory) return null;
-  // const inventory: ProductInventoryResponse = {
-  //   availableForSale: true,
-  //   totalInventory: 50,
-  //   priceRange: {
-  //     minVariantPrice: {
-  //       amount: '200',
-  //       currencyCode: 'NOK'
-  //     },
-  //     maxVariantPrice: {
-  //       amount: '400',
-  //       currencyCode: 'NOK'
-  //     }
-  //   },
-  //   variants: {
-  //     edges: variants.map((variant) => ({
-  //       node: {
-  //         id: variant.id,
-  //         availableForSale: true,
-  //         quantityAvailable: 50
-  //       }
-  //     }))
-  //   }
-  // };
 
   return (
     <>

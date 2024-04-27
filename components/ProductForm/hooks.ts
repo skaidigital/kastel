@@ -91,13 +91,17 @@ export const getProductVariantInventoryQuery = /* GraphQL */ `
 `;
 
 export async function getProductInventory(productId: string) {
+  console.log('productId in getProductInventory', productId);
+
   if (!productId) return undefined;
+  console.log('we have productId');
 
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductInventoryQuery,
     variables: { id: productId },
     cache: 'no-store'
   });
+  console.log('res in getProductInventory', res);
 
   return res.body?.data?.product || undefined;
 }

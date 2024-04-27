@@ -43,7 +43,7 @@ export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, cla
           <TooltipTrigger title={addToWishlistString} className="cursor-not-allowed">
             {children}
           </TooltipTrigger>
-          <TooltipContent>{youHaveToBeLoggedInString}</TooltipContent>
+          <TooltipContent className="bg-white">{youHaveToBeLoggedInString}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     );
