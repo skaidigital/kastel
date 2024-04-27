@@ -4,6 +4,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { applyDiscountCode } from '@/components/shared/Cart/DiscountCodeInput/actions';
 import { cn } from '@/lib/utils';
 import { useTransition } from 'react';
+import { toast } from 'sonner';
 
 interface Props {
   className?: string;
@@ -25,7 +26,11 @@ export function DiscountCodeInput({ className }: Props) {
           startTransition(async () => {
             const response = await applyDiscountCode();
             if (response.success) {
-              console.log();
+              toast.success('Discount code applied');
+              return;
+            }
+            if (!response.success) {
+              toast.error('Invalid discount code');
             }
 
             // router.refresh();

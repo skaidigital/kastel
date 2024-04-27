@@ -46,8 +46,11 @@ export async function Navbar({ market, lang, className }: Props) {
     >
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
-          <Suspense fallback={<CrossSellSkeleton className="px-6 py-4" />}>
-            <CrossSell lang={lang} className="px-6 py-4" />
+          <Suspense fallback={<CrossSellSkeleton className="px-4 lg:px-6 lg:py-4" />}>
+            <CrossSell
+              lang={lang}
+              className="border-t border-brand-light-grey px-4 pt-2 lg:px-6 lg:py-4"
+            />
           </Suspense>
         </Cart>
       </Suspense>

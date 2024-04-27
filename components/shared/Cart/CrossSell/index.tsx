@@ -89,7 +89,7 @@ export async function CrossSell({ lang, className }: Props) {
         <CarouselContent className="-ml-2">
           {initial?.data?.map((item) => (
             <CarouselItem key={item.title} className="basis-[80%] bg-white pl-2">
-              <div className="flex gap-x-3 p-3">
+              <div className="flex gap-x-3 lg:p-3">
                 <div className="relative h-20 w-20 rounded-[2px] bg-gray-50">
                   <SanityImage image={item.image} fill className="absolute object-cover" />
                 </div>

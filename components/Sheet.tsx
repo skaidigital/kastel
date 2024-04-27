@@ -13,9 +13,10 @@ interface Props {
   title?: string;
   className?: string;
   overlayClassName?: string;
+  noPadding?: boolean;
 }
 
-export function SheetContent({ children, title, className, overlayClassName }: Props) {
+export function SheetContent({ children, title, className, overlayClassName, noPadding }: Props) {
   return (
     <Drawer.Portal>
       <Drawer.Overlay className={cn(overlayClasses, overlayClassName)} />
@@ -26,7 +27,7 @@ export function SheetContent({ children, title, className, overlayClassName }: P
         )}
       >
         <div className="mx-auto mb-4 mt-1.5 h-1.5 w-12 rounded-full bg-brand-light-grey" />
-        <div className="rounded-t-[12px] px-4 pb-4">
+        <div className={cn('rounded-t-[12px]', !noPadding && 'px-4 pb-4')}>
           {title && <SheetHeader title={title} className="mb-4" />}
           <div className={cn('max-h-[90vh]', className)}>{children}</div>
         </div>

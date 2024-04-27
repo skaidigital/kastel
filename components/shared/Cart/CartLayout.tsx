@@ -33,6 +33,7 @@ interface Props {
 }
 
 // TODO consider making the cart content into its own component if all the content is the same
+// TODO fix layout shift on loading dots
 export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippingAmount }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const quantityRef = useRef(cart?.totalQuantity);
@@ -64,16 +65,11 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger
-          className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey lg:h-auto lg:w-auto"
+          className="lg:hover-bg-none relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey lg:h-auto lg:w-auto"
           asChild
         >
           <button aria-label="Open cart" className="text-sm">
             <span className="ml-2 mr-4">{cartString}</span>
-            {hasCartItems ? (
-              <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded bg-brand-dark-grey text-[11px] font-medium text-white">
-                {cart.totalQuantity}
-              </div>
-            ) : null}
           </button>
         </DrawerTrigger>
         <DrawerContent className="flex max-h-dvh w-full flex-col lg:h-screen">
@@ -84,7 +80,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             )}
           >
             <>
-              <DrawerHeader title={dictionary.cart} className="bg-white">
+              <DrawerHeader title={dictionary.cart} className="mb-0 bg-white">
                 {freeShippingAmount && currencyCode && (
                   <FreeShippingCountdown
                     freeShippingAmount={freeShippingAmount}
@@ -100,7 +96,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
               <>
                 <div className="flex grow flex-col">
                   <div className="flex h-0 flex-grow flex-col overflow-y-auto">
-                    <div className="flex flex-col space-y-8 p-5 pb-10">
+                    <div className="flex flex-col pb-10">
                       {cart?.lines?.map((line) => (
                         <CartItem
                           key={line.id}
@@ -183,15 +179,15 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
       <SheetTrigger className="pr-4">
         <ShoppingBagIcon className="size-6" />
       </SheetTrigger>
-      <SheetContent className="h-[calc(90dvh-32px)]">
+      <SheetContent className="h-[calc(95dvh-32px)]" noPadding>
         <div
           className={cn(
-            'flex h-full flex-col overflow-hidden',
-            hasCartItems ? 'bg-brand-sand' : 'bg-white'
+            'flex h-full flex-col overflow-hidden'
+            // hasCartItems ? 'bg-brand-sand' : 'bg-white'
           )}
         >
           {/* Header */}
-          <DrawerHeader title={dictionary.cart} className="h-fit p-0">
+          <DrawerHeader title={dictionary.cart} className="h-fit px-4">
             {freeShippingAmount && currencyCode && (
               <FreeShippingCountdown
                 freeShippingAmount={freeShippingAmount}
@@ -218,9 +214,9 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             )}
             {hasCartItems && (
               <div>
-                <div className="flex grow flex-col">
-                  <div className="flex h-0 flex-grow flex-col overflow-y-auto">
-                    <div className="flex flex-col space-y-8 p-5 pb-10">
+                <div className="flex grow flex-col bg-black">
+                  <div className="flex h-0 flex-grow flex-col ">
+                    <div className="flex flex-col">
                       {cart?.lines?.map((line) => (
                         <CartItem
                           key={line.id}
@@ -239,7 +235,6 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                     </div>
                   </div>
                 </div>
-                {children}
               </div>
             )}
           </div>
@@ -252,7 +247,8 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             )}
             {hasCartItems && (
               <>
-                <DiscountCodeInput className="bg-white px-6 py-4" />
+                {children}
+                <DiscountCodeInput className="bg-white px-4 py-4" />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
                     <div className="flex w-full items-center justify-between text-brand-mid-grey">
