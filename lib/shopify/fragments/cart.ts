@@ -46,6 +46,9 @@ const cartFragment = /* GraphQL */ `
       }
     }
     totalQuantity
+    discountCodes {
+      code
+    }
   }
   ${productFragment}
 `;

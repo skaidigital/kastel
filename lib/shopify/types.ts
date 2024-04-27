@@ -129,6 +129,7 @@ export type ShopifyCart = {
   };
   lines: Connection<CartItem>;
   totalQuantity: number;
+  discountCodes: string[];
 };
 
 export type ShopifyCollection = {

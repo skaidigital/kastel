@@ -116,7 +116,10 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                   </div>
                 </div>
                 {children}
-                <DiscountCodeInput className="bg-white px-6 py-4" />
+                <DiscountCodeInput
+                  discountCodes={cart.discountCodes}
+                  className="bg-white px-6 py-4"
+                />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
                     <div className="flex w-full items-center justify-between text-brand-mid-grey">
@@ -248,7 +251,10 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             {hasCartItems && (
               <>
                 {children}
-                <DiscountCodeInput className="bg-white px-4 py-4" />
+                <DiscountCodeInput
+                  discountCodes={cart.discountCodes}
+                  className="bg-white px-4 py-4"
+                />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
                     <div className="flex w-full items-center justify-between text-brand-mid-grey">
