@@ -1,4 +1,3 @@
-import { getMarket } from '@/lib/getMarket';
 import { z } from 'zod';
 
 type DictionaryLoader = () => Promise<Dictionary>;
@@ -200,7 +199,8 @@ const dictionaries: Record<string, DictionaryLoader> = {
 };
 
 export const getDictionary = async () => {
-  const market = await getMarket();
+  // const market = await getMarket();
+  const market = 'no';
   const loader = dictionaries[market];
 
   if (!loader) {

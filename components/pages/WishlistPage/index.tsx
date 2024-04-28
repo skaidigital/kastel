@@ -38,7 +38,11 @@ export function WishlistPage({ lang, products }: Props) {
       {hasWishlistItems && (
         <div className="mb-20 grid grid-cols-2 lg:mb-40 lg:grid-cols-4">
           {products.map((product, index) => (
-            <ProductCard key={product.gid} product={product} />
+            <ProductCard
+              key={product.title}
+              product={product}
+              priority={priorityIndexes.includes(index) ? true : false}
+            />
           ))}
         </div>
       )}

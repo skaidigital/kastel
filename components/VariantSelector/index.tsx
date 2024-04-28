@@ -21,7 +21,6 @@ interface Props {
   sizeGuide?: SizeGuideProps;
 }
 
-// TODO inventory?
 export function VariantSelector({
   inventory,
   options,
@@ -30,13 +29,25 @@ export function VariantSelector({
   sizeGuide,
   dictionary
 }: Props) {
-  // Filter out any option where there are not a corresponding variant
+  const combinations: Combination[] = variants.map((variant) => ({
+    id: variant.id,
+    availableForSale:
+      inventory.variants.edges.find((edge) => edge.node.id === variant.id)?.node
+        ?.availableForSale || false,
+    ...variant.selectedOptions
+      ?.filter((option): option is { value: string; name: string } => option !== undefined)
+      .reduce(
+        (accumulator, option) => ({
+          ...accumulator,
+          [option.name.toLowerCase()]: option.value
+        }),
+        {} as Record<string, string>
+      )
+  }));
+
   const filteredOptions = filterOptions(variants, options, featuredOptions);
 
   return filteredOptions.map((option) => {
-    const optionType = option.type;
-    const isSize = optionType === 'size';
-
     return (
       <OptionGroup
         key={option.name}
@@ -44,12 +55,13 @@ export function VariantSelector({
         sizeGuide={sizeGuide}
         chooseSizeText={dictionary.choose_size}
         sizeGuideText={dictionary.size_guide}
+        combinations={combinations}
       />
     );
   });
 }
 
-function filterOptions(
+export function filterOptions(
   variants: ProductVariant[],
   options: ProductOption[],
   featuredOptions: string[]

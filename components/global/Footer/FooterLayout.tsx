@@ -53,9 +53,9 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
                 {item.links &&
                   item.links.map((link, index) => (
                     <CustomLink
+                      key={link.link.text + index}
                       href={getSlug(link.link)}
                       className="text-sm"
-                      key={item.heading + index}
                     >
                       {link.link.text}
                     </CustomLink>

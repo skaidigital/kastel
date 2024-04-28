@@ -27,10 +27,10 @@ const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
 
 export default function IndexRoute({
   children,
-  params: { market, lang }
+  params: { lang }
 }: {
   children: ReactNode;
-  params: { market: MarketValues; lang: LangValues };
+  params: { lang: LangValues };
 }) {
   const isInProduction = process.env.NODE_ENV === 'production';
 
@@ -38,7 +38,7 @@ export default function IndexRoute({
 
   return (
     <html lang="en">
-      <GoogleTagManager gtmId={env.GTM_ID} />
+      {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />}
       <head>
         {isInProduction && (
           <Script
@@ -90,7 +90,6 @@ export default function IndexRoute({
             <ShopifyAnalytics hasConsent />
             <MarketPopup />
             {draftMode().isEnabled && <PreviewMarketSelector />}
-            {/* <SmileInit customerId="7292377628922" /> */}
             <Suspense>
               <SmileLayout />
             </Suspense>

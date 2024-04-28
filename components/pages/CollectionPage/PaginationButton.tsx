@@ -27,7 +27,7 @@ export function PaginationButton({ children, type, className }: Props) {
   });
 
   return (
-    <Button asChild variant={type === 'previous' ? 'outline' : 'primary'} size="sm">
+    <Button asChild variant={type === 'previous' ? 'ghost' : 'primary'} size="sm">
       <Link href={href} className={cn(className)}>
         {children}
       </Link>

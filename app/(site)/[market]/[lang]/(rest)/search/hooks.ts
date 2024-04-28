@@ -21,9 +21,13 @@ export function getSearchResultQuery(
   const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
   const end = pageIndex * COLLECTION_PAGE_SIZE;
 
+  const productQuery = groq`
+    *[_type == "product" && defined(slug_${lang}.current) && title.${lang} match $searchQuery]
+  `;
+
   const query = groq`
       {
-      "products": *[_type == "product" && title.${lang} && defined(slug_${market}.current) && status_${market} == "ACTIVE" && match $searchQuery]
+      "products": ${productQuery}
       | score(title.${lang} match $searchQuery)
       [${start}...${end}]{
         ${fragments.productsInTag} {
@@ -40,8 +44,8 @@ export function getSearchResultQuery(
           "maxPrice": maxVariantPrice_no.amount
         }
       } | order(${getSortQuery(sortKey)}),
-      "productCount": count(*[_type == "product" && title.${lang} match $searchQuery]),
-      "hasNextPage": count(*[_type == "product" && title.${lang} match $searchQuery][${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
+      "productCount": count(${productQuery}),
+      "hasNextPage": count(${productQuery}[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
       }
     `;
 

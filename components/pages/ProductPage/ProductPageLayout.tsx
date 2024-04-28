@@ -160,9 +160,11 @@ export async function ProductPageLayout(props: Props) {
                     <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
                   </Suspense>
                 </div>
-                <Heading as="h1" size="xs" className="mb-1">
-                  {title}
-                </Heading>
+                {title && (
+                  <Heading as="h1" size="xs" className="mb-1">
+                    {title}
+                  </Heading>
+                )}
                 {subtitle && (
                   <Text as="p" size="sm">
                     {subtitle}
@@ -182,9 +184,7 @@ export async function ProductPageLayout(props: Props) {
                     {descriptionShort}
                   </Text>
                 )}
-                <Suspense>
-                  <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
-                </Suspense>
+                <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
                 <Suspense fallback={<ProductFormSkeleton />}>
                   <ProductForm
                     productId={id}
@@ -234,9 +234,7 @@ export async function ProductPageLayout(props: Props) {
           />
         ))} */}
 
-      <Suspense>
-        <ReccommendedProducts lang={lang} market={market} />
-      </Suspense>
+      <ReccommendedProducts lang={lang} market={market} />
     </>
   );
 }

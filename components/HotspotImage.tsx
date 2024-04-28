@@ -14,11 +14,6 @@ export function HotspotImage({ image, hotspots, sizes }: Props) {
       <div className="h-full w-full">
         <SanityImage image={image} fill sizes={sizes} className="-z-1 absolute" />
         {hotspots.map((hotspot) => {
-          const hasSizeRange =
-            hotspot.type === 'product' && hotspot?.sizes?.filter((size) => size.type === 'size')[0];
-          const lowestSize = (hasSizeRange && hasSizeRange?.options[0]) || undefined;
-          const highestSize =
-            (hasSizeRange && hasSizeRange?.options[hasSizeRange?.options.length - 1]) || undefined;
           return (
             <HoverCard key={hotspot.x + hotspot.y} openDelay={0} closeDelay={0}>
               <HoverCardTrigger

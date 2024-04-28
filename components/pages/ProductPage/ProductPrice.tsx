@@ -44,6 +44,7 @@ export function ProductPrice({
 
   const formattedMinVariantPrice = formatPrice(minVariantPrice);
   const formattedMaxVariantPrice = formatPrice(maxVariantPrice);
+  const minAndMaxPricesAreEqual = minVariantPrice === maxVariantPrice;
 
   return (
     <div className="my-4 flex text-sm">
@@ -57,7 +58,10 @@ export function ProductPrice({
       </>
       {productType === 'VARIABLE' && !activeVariant && (
         <span>
-          {formattedMinVariantPrice} &ndash; {formattedMaxVariantPrice}
+          {minAndMaxPricesAreEqual
+            ? formattedMinVariantPrice
+            : `${formattedMinVariantPrice} &ndash; ${formattedMaxVariantPrice}
+          `}
         </span>
       )}
     </div>

@@ -11,8 +11,6 @@ import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 
-export const dynamic = 'force-static';
-
 function loadHomePage({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = getPageQuery({ market, lang });
 

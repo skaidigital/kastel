@@ -19,8 +19,6 @@ export default function SmileInit({ customerId }: Porps) {
         return;
       }
 
-      console.log(customerId);
-
       // Fetch the JWT from your API
       const response = await fetch('/api/smile/create-token', {
         method: 'POST',
@@ -31,8 +29,6 @@ export default function SmileInit({ customerId }: Porps) {
       });
 
       const { token: customer_identity_jwt } = await response.json();
-
-      console.log(customer_identity_jwt);
 
       if (window.SmileUI && !customerId) {
         window.SmileUI.init({
