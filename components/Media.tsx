@@ -46,7 +46,7 @@ export function Media({ media, loading }: Props) {
   }
 
   if (typeIsVideo && sameAssetForMobileAndDesktop) {
-    return <Video playbackId={media.video} resolution="HD" loading={loading} />;
+    return <Video playbackId={media.video} controlled={false} resolution="HD" loading={loading} />;
   }
 
   if (typeIsVideo && !sameAssetForMobileAndDesktop) {
@@ -54,12 +54,14 @@ export function Media({ media, loading }: Props) {
       <>
         <Video
           playbackId={media.videoMobile}
+          controlled={false}
           resolution="HD"
           loading={loading}
           className="lg:hidden"
         />
         <Video
           playbackId={media.videoDesktop}
+          controlled={false}
           resolution="HD"
           loading={loading}
           className="hidden lg:block"

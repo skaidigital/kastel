@@ -71,6 +71,35 @@ export const imageValidator = z.object({
     .optional()
 });
 
+// ? Need one that has optional for the asset field since the one above fails if you have alt text but not an image
+export const optionalImageValidator = z.object({
+  asset: z
+    .object({
+      _ref: z.string(),
+      metadata: z.object({
+        lqip: z.string()
+      })
+    })
+    .optional(),
+  altText: z.string().optional(),
+  crop: z
+    .object({
+      top: z.number(),
+      bottom: z.number(),
+      left: z.number(),
+      right: z.number()
+    })
+    .optional(),
+  hotspot: z
+    .object({
+      height: z.number(),
+      width: z.number(),
+      x: z.number(),
+      y: z.number()
+    })
+    .optional()
+});
+
 export const videoValidator = z.string();
 
 export const galleryValidator = z.array(
@@ -135,7 +164,7 @@ export const productCardValidator = z.object({
   title: z.string(),
   slug: z.string(),
   mainImage: imageValidator,
-  lifestyleImage: imageValidator.optional(),
+  lifestyleImage: optionalImageValidator.optional(),
   badges: z.array(z.string()).optional(),
   minVariantPrice: z.object({
     amount: z.number(),

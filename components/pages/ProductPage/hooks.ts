@@ -4,6 +4,7 @@ import {
   // galleryValidator,
   hotspotImageValidator,
   imageValidator,
+  optionalImageValidator,
   portableTextValidator,
   richTextValidator
 } from '@/lib/sanity/validators';
@@ -130,7 +131,7 @@ export const productValidator = z.object({
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
   mainImage: imageValidator,
-  lifestyleImage: imageValidator.optional(),
+  lifestyleImage: optionalImageValidator.optional(),
   hotspotImage: hotspotImageValidator.optional(),
   variants: z.array(productVariantValidator),
   usps: z

@@ -15,6 +15,7 @@ import {
   linkValidator,
   linkWithoutTextValidator,
   mediaValidator,
+  optionalImageValidator,
   pageTypes,
   productCardValidator,
   richTextValidator,
@@ -32,6 +33,7 @@ export type LinkToProps = z.infer<typeof linkToValidator>;
 export type LinkProps = z.infer<typeof linkValidator>;
 export type LinkWithoutTextProps = z.infer<typeof linkWithoutTextValidator>;
 export type SanityImageProps = z.infer<typeof imageValidator>;
+export type OptionalSanityImageProps = z.infer<typeof optionalImageValidator>;
 export type HeadingAndLinksProps = z.infer<typeof headingAndLinksValidator>;
 
 // Product
