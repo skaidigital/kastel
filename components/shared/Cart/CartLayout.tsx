@@ -39,6 +39,8 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
   const quantityRef = useRef(cart?.totalQuantity);
   const { lang } = useBaseParams();
 
+  console.log(cart?.lines);
+
   const { isDesktop } = useDeviceType();
 
   const [isPending, startTransition] = useTransition();
@@ -109,7 +111,8 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                           variantDescription={line.merchandise.product.description}
                           image={line.merchandise.product.featuredImage}
                           quantity={line.quantity}
-                          subtotal={line.cost.totalAmount}
+                          subtotal={line.cost.subtotalAmount}
+                          totalAmount={line.cost.totalAmount}
                         />
                       ))}
                     </div>

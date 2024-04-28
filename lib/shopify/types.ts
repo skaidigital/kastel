@@ -30,6 +30,7 @@ export type CartItem = {
   quantity: number;
   cost: {
     totalAmount: Money;
+    subtotalAmount: Money;
   };
   merchandise: {
     id: string;
