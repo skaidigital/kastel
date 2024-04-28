@@ -2,6 +2,7 @@
 
 import Video from '@/components/Video';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { LangValues } from '@/data/constants';
 import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
@@ -14,6 +15,7 @@ interface Props {
   items: ProductGalleryProps;
   lifestyleImage?: SanityImageProps;
   className?: string;
+  lang?: LangValues;
 }
 
 export function MobileCarousel({ mainImage, items, lifestyleImage, className }: Props) {
@@ -42,7 +44,7 @@ export function MobileCarousel({ mainImage, items, lifestyleImage, className }: 
   if (isDesktop) return null;
 
   return (
-    <div ref={ref} className={cn('keen-slider relative w-full', className)}>
+    <div ref={ref} className={cn('keen-slider', className)}>
       {mainImage && (
         <div
           className={`keen-slider__slide number-slide-0 aspect-h-4 aspect-w-3 h-0 w-full min-w-full max-w-full transform-gpu`}

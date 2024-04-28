@@ -7,6 +7,7 @@ import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
+import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
@@ -60,8 +61,6 @@ export async function ProductPageLayout(props: Props) {
     typeId
   } = product;
 
-  console.log('product faqs', product.faqs);
-
   const productSku = 'SOL002-002-021-40';
 
   const lifeStyleImageCheck = lifestyleImage?.asset
@@ -77,11 +76,15 @@ export async function ProductPageLayout(props: Props) {
         image={featuredImage ? urlForImage(featuredImage).url() : undefined}
       /> */}
       {gallery && gallery.length > 0 && (
-        <MobileCarousel
-          mainImage={mainImage}
-          lifestyleImage={lifeStyleImageCheck}
-          items={gallery}
-        />
+        <div className="relative w-full">
+          <MobileCarousel
+            mainImage={mainImage}
+            lifestyleImage={lifeStyleImageCheck}
+            items={gallery}
+            lang={lang}
+          />
+          <Breadcrumbs productName={title} lang={lang} className="absolute left-3 top-3" />
+        </div>
       )}
       <Section
         noTopPadding
@@ -102,6 +105,7 @@ export async function ProductPageLayout(props: Props) {
                   fill
                   className="absolute h-auto w-full object-cover"
                 />
+                <Breadcrumbs productName={title} lang={lang} className="absolute left-4 top-4" />
               </div>
             )}
             {lifestyleImage && (

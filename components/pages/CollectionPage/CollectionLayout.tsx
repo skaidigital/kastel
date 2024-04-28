@@ -4,6 +4,7 @@ import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
+import { Breadcrumbs } from '@/components/pages/CollectionPage/Breadcrumbs';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
@@ -69,6 +70,9 @@ export function CollectionLayout({
         hasBottomBorder={false}
         className="pb-8 pt-10 lg:pt-10"
       >
+        <Container className="mb-2 lg:mb-4">
+          <Breadcrumbs collectionName={title} lang={lang} />
+        </Container>
         <Container className="flex flex-col justify-between gap-y-3 lg:flex-row lg:gap-y-0">
           {title && (
             <Heading as="h1" size="xl" className="max-w-lg font-bold">
