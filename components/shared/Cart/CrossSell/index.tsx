@@ -37,7 +37,6 @@ export async function CrossSell({ market, lang, className }: Props) {
   }
 
   if (!cart) {
-    console.log('no cart');
     return null;
   }
 

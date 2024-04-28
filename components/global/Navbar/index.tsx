@@ -38,6 +38,8 @@ export async function Navbar({ market, lang, className }: Props) {
 
   const navbar = isDraftMode ? validatedData?.data : withoutNullValues;
 
+  console.log('cart is ', typeof window);
+
   return (
     <NavbarLayout
       data={navbar}

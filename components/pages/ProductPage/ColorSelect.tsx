@@ -4,6 +4,10 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
 import { CustomLink } from '@/components/CustomLink';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import {
+  CarouselNext,
+  CarouselPrevious
+} from '@/components/shared/Cart/CrossSell/CrossSellCarouselButton';
 import { LangValues } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { cn } from '@/lib/utils';
@@ -24,33 +28,37 @@ export function ColorSelect({ products }: Props) {
   const colorString = getColorString(lang);
 
   return (
-    <div>
-      <Text as="p" size="xs" className="mb-3">
-        {colorString}: {activeProduct?.title}
-      </Text>
-      <Carousel className="" opts={{ align: 'start' }}>
-        <CarouselContent className="-ml-1">
-          {products.map((product) => (
-            <CarouselItem key={product.title} className="basis-[22%] pl-1">
-              <CustomLink key={product.mainImage.asset._ref} href={`/products/${product.slug}`}>
-                <div
-                  className={cn(
-                    'aspect-h-4 aspect-w-3 relative h-0 w-full rounded-sm border-2',
-                    urlSlug === product.slug ? ' border-brand-primary' : ' border-brand-light-grey'
-                  )}
-                >
-                  <SanityImage
-                    image={product.mainImage}
-                    fill
-                    className="absolute object-cover object-top"
-                  />
-                </div>
-              </CustomLink>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    </div>
+    <Carousel className="" opts={{ align: 'start' }}>
+      <div className="flex justify-between">
+        <Text as="p" size="xs" className="mb-3">
+          {colorString}: {activeProduct?.title}
+        </Text>
+        <div className="hidden gap-x-1 lg:flex">
+          <CarouselPrevious />
+          <CarouselNext />
+        </div>
+      </div>
+      <CarouselContent className="-ml-1">
+        {products.map((product) => (
+          <CarouselItem key={product.title} className="basis-[22%] pl-1">
+            <CustomLink key={product.mainImage.asset._ref} href={`/products/${product.slug}`}>
+              <div
+                className={cn(
+                  'aspect-h-4 aspect-w-3 relative h-0 w-full rounded-sm border-2',
+                  urlSlug === product.slug ? ' border-brand-primary' : ' border-brand-light-grey'
+                )}
+              >
+                <SanityImage
+                  image={product.mainImage}
+                  fill
+                  className="absolute object-cover object-top"
+                />
+              </div>
+            </CustomLink>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 }
 

@@ -214,7 +214,7 @@ export async function ProductPageLayout(props: Props) {
         </Container>
       </Section>
       {product.hotspotImage && product.hotspotImage.hotspots && (
-        <div className="aspect-h-9 aspect-w-16 h-0 w-full">
+        <div className="aspect-h-9 aspect-w-16 h-0 min-h-full w-full">
           <HotspotImage
             type={product.hotspotImage.type}
             image={product.hotspotImage.image}

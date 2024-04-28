@@ -5,6 +5,8 @@ import { BlogPostHeader } from '@/components/pages/BlogPost/BlogPostHeader';
 import { RecentBlogPosts } from '@/components/pages/BlogPost/RecentBlogPosts';
 import { BlogPostPayload } from '@/components/pages/BlogPost/hooks';
 import { LangValues } from '@/data/constants';
+import { portableTextBlogPostSerializer } from '@/lib/sanity/portableTextBlogPostSerializer';
+import { PortableText } from '@portabletext/react';
 
 export interface Props {
   data: BlogPostPayload;
@@ -39,7 +41,7 @@ export function BlogPost({ data, lang }: Props) {
           imageMobile={imageMobile}
           imageDesktop={imageDesktop}
         />
-        {/* <PortableTextRenderer value={content} type="blogPost" /> */}
+        {content && <PortableText value={content} components={portableTextBlogPostSerializer} />}
         {author && (
           <BlogPostAuthor
             name={author.name}

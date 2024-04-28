@@ -1,4 +1,6 @@
 import { AspectRatio } from '@/components/AspectRatio';
+import { CustomLink } from '@/components/CustomLink';
+import { HotspotImage } from '@/components/HotspotImage';
 import VideoWithSettings from '@/components/VideoWithSettings';
 import { ListItem } from '@/components/base/ListItem';
 import { OL } from '@/components/base/OL';
@@ -7,7 +9,6 @@ import { UL } from '@/components/base/UL';
 import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContainer';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { getSlug } from '@/lib/sanity/getSlug';
-import Link from 'next/link';
 
 export const portableTextBlogPostSerializer = {
   block: {
@@ -100,14 +101,15 @@ export const portableTextBlogPostSerializer = {
       const href = getSlug(value.link);
 
       return (
-        <Link href={href} className="underline">
+        <CustomLink href={href} className="underline">
           {children}
-        </Link>
+        </CustomLink>
       );
     },
     productLink: ({ children, value }: any) => {
       console.log('inside productLink', value);
 
+      // TODO use the hybrid tooltip instead
       return <div>prodc link</div>;
       // return (
       //   <HoverCard>
@@ -192,26 +194,24 @@ export const portableTextBlogPostSerializer = {
           </div>
         </BlogWidthContainer>
       );
+    },
+    hotspotImage: ({ value }: any) => {
+      return (
+        <BlogWidthContainer width={value.width} className="mt-6">
+          {value.aspectRatioSettings && (
+            <AspectRatio settings={value.aspectRatioSettings} className="">
+              {value.image?.image?.asset?._ref && (
+                <HotspotImage
+                  type="hotspotImage"
+                  image={value.image.image}
+                  hotspots={value.image.hotspots}
+                />
+              )}
+            </AspectRatio>
+          )}
+        </BlogWidthContainer>
+      );
     }
-    // hotspotImage: ({ value }: any) => {
-    //   console.log('value for htospot image', value);
-
-    //   return (
-    //     <BlogWidthContainer width={value.width} className="mt-6">
-    //       {value.aspectRatioSettings && (
-    //         <AspectRatio settings={value.aspectRatioSettings} className="relative">
-    //           {value.image?.image?.asset?._ref && (
-    //             <HotspotImage
-    //               image={value.image.image}
-    //               hotspots={value.image.hotspots}
-    //               type="hotspotImage"
-    //             />
-    //           )}
-    //         </AspectRatio>
-    //       )}
-    //     </BlogWidthContainer>
-    //   );
-    // },
     // TODO figure out how to remove mt only for the first child
     // standout: ({ value }: any) => {
     //   return (

@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.13",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.3.1",

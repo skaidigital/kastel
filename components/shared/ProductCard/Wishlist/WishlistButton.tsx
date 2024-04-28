@@ -1,6 +1,11 @@
 'use client';
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/Tooltip';
+import {
+  HybridTooltip,
+  HybridTooltipContent,
+  HybridTooltipTrigger
+} from '@/components/HybridTooltip';
+import { TooltipProvider } from '@/components/Tooltip';
 import { LangValues } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import {
@@ -39,12 +44,14 @@ export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, cla
   if (!isLoggedIn) {
     return (
       <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <TooltipTrigger title={addToWishlistString} className="cursor-not-allowed">
+        <HybridTooltip>
+          <HybridTooltipTrigger title={addToWishlistString} className="cursor-not-allowed">
             {children}
-          </TooltipTrigger>
-          <TooltipContent className="bg-white">{youHaveToBeLoggedInString}</TooltipContent>
-        </Tooltip>
+          </HybridTooltipTrigger>
+          <HybridTooltipContent className="bg-white">
+            {youHaveToBeLoggedInString}
+          </HybridTooltipContent>
+        </HybridTooltip>
       </TooltipProvider>
     );
   }
