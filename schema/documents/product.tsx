@@ -620,7 +620,7 @@ export const product = defineType({
           }
           // Make sure the slug only has lowercase letters, noe spaces and valid characters
           if (!/^[a-z0-9-]+$/.test(value?.current)) {
-            return 'The slug can only contain lowercase letters, numbers and hyphens';
+            return 'The slug can only contain lowercase letters, numbers and a-z';
           }
           return true;
         }),
