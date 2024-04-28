@@ -38,20 +38,7 @@ export function WishlistPage({ lang, products }: Props) {
       {hasWishlistItems && (
         <div className="mb-20 grid grid-cols-2 lg:mb-40 lg:grid-cols-4">
           {products.map((product, index) => (
-            <ProductCard
-              type="product"
-              key={product.gid}
-              title={product.title}
-              slug={product.slug}
-              mainImage={product.mainImage}
-              lifestyleImage={product.lifestyleImage}
-              gid={product.gid}
-              maxVariantPrice={product.maxVariantPrice}
-              minVariantPrice={product.minVariantPrice}
-              badges={product.badges}
-              priority={priorityIndexes.includes(index) ? true : false}
-              sizes={product.sizes}
-            />
+            <ProductCard key={product.gid} product={product} />
           ))}
         </div>
       )}
