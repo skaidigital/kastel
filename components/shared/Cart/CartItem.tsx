@@ -15,6 +15,7 @@ interface Props {
   option3?: SelectedOption;
   quantity: number;
   subtotal: Money;
+  totalAmount: Money;
   image: ShopifyImage;
   variantDescription?: string;
   className?: string;
@@ -29,10 +30,16 @@ export function CartItem({
   option3,
   quantity,
   subtotal,
+  totalAmount,
   image,
   className
 }: Props) {
-  const formattedPrice = formatPrice(subtotal);
+  console.log(totalAmount);
+  console.log(subtotal);
+
+  const formattedPrice = formatPrice(totalAmount);
+  const formattedSubTotal = formatPrice(subtotal);
+  const isDiscounted = totalAmount.amount !== subtotal.amount;
 
   return (
     <div
@@ -77,7 +84,12 @@ export function CartItem({
           <RemoveFromCartButton itemId={lineId} />
         </div>
         <div className="flex justify-between">
-          <span className="text-brand-mid-grey">{formattedPrice}</span>
+          <div>
+            <span className="text-brand-mid-grey">{formattedPrice}</span>
+            {isDiscounted && (
+              <span className="ml-3 text-brand-mid-grey line-through">{formattedSubTotal}</span>
+            )}
+          </div>
           <div className="flex h-8 items-center border border-brand-light-grey">
             <EditItemQuantityButton
               lineId={lineId}
