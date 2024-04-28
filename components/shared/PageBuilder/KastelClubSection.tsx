@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/Button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { CustomLink } from '@/components/CustomLink';
 import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
@@ -10,7 +9,7 @@ import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { KastelClubSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { ROUTES } from '@/data/constants';
+import { SMILE_DEEP_LINKS } from '@/data/constants';
 import { SanityImageProps } from '@/lib/sanity/types';
 
 interface PropsWithExtra extends KastelClubSectionProps {
@@ -118,12 +117,18 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
           {description && <Text>{description}</Text>}
           {buttonText && (
             <Button
-              asChild
               variant="secondary"
+              onClick={() => {
+                if (window.SmileUI) {
+                  window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home });
+                } else {
+                  console.log('SmileUI is not loaded and initialized.');
+                }
+              }}
               size="sm"
-              className="lg:py-6 lg:text-[24px] lg:leading-[24px]"
+              className="h-auto bg-white lg:py-6 lg:text-[24px] lg:leading-[24px]"
             >
-              <CustomLink href={ROUTES.KASTEL_CLUB}>{buttonText}</CustomLink>
+              {buttonText}
             </Button>
           )}
         </div>

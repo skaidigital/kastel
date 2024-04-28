@@ -23,9 +23,22 @@ const linkInternalValidator = z.object({
   linkTo: linkToValidator
 });
 
+const smileValidator = z.object({
+  type: z.literal('link'),
+  linkType: z.literal('smile'),
+  text: z.string(),
+  smileLauncher: z.enum([
+    'home',
+    'points_activity_rules',
+    'points_products',
+    'referral_program_details'
+  ])
+});
+
 export const linkValidator = z.discriminatedUnion('linkType', [
   linkExternalValidator,
-  linkInternalValidator
+  linkInternalValidator,
+  smileValidator
 ]);
 
 const linkWithoutTextInternalValidator = z.object({

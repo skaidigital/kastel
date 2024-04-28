@@ -4,6 +4,10 @@ import { LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types';
 export const getSlug = (link: LinkProps | LinkWithoutTextProps) => {
   const linkType = link.linkType;
 
+  if (linkType === 'smile') {
+    return '#';
+  }
+
   if (linkType === 'external') {
     return link.href || '#';
   }
