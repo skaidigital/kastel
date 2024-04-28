@@ -18,6 +18,7 @@ import { Rating } from '@/components/shared/ProductCard/Rating';
 import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
+import { SanityImageProps } from '@/lib/sanity/types';
 import { SearchParams } from '@/lib/types';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
@@ -62,6 +63,10 @@ export async function ProductPageLayout(props: Props) {
 
   const productSku = 'SOL002-002-021-40';
 
+  const lifeStyleImageCheck = lifestyleImage?.asset
+    ? (lifestyleImage as SanityImageProps)
+    : undefined;
+
   return (
     <>
       {/* <ProductJsonLd
@@ -74,7 +79,7 @@ export async function ProductPageLayout(props: Props) {
         <div className="relative w-full">
           <MobileCarousel
             mainImage={mainImage}
-            lifestyleImage={lifestyleImage}
+            lifestyleImage={lifeStyleImageCheck}
             items={gallery}
             lang={lang}
           />
@@ -107,7 +112,7 @@ export async function ProductPageLayout(props: Props) {
               <div className="aspect-h-4 aspect-w-3 relative h-full w-full">
                 <SanityImage
                   priority
-                  image={lifestyleImage}
+                  image={lifestyleImage as SanityImageProps}
                   sizes={'70vw'}
                   fill
                   className="absolute h-auto w-full object-cover"

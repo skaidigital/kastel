@@ -2,6 +2,7 @@
 
 import Video from '@/components/Video';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { LangValues } from '@/data/constants';
 import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
@@ -14,6 +15,7 @@ interface Props {
   items: ProductGalleryProps;
   lifestyleImage?: SanityImageProps;
   className?: string;
+  lang?: LangValues;
 }
 
 export function MobileCarousel({ mainImage, items, lifestyleImage, className }: Props) {

@@ -90,7 +90,10 @@ export function ProductCard({ product, firstImage, priority, className }: Props)
           <div className="flex flex-col justify-center gap-y-2 border-t border-brand-light-grey bg-white p-3 @xs:flex-row @xs:justify-between @xs:p-4">
             <div className="mb-2 flex flex-col gap-y-1 truncate @xs:mb-0">
               <h3 className="truncate text-xs @xs:text-sm">{title}</h3>
-              <PriceAndSizeRange price={formattedMinPrice} sizeRange={sizeRange} />
+              <PriceAndSizeRange
+                price={formattedMinPrice ? formattedMinPrice : null}
+                sizeRange={sizeRange}
+              />
             </div>
             <div className="flex flex-col @xs:items-end">
               <div className="mb-1 hidden @xs:block">
