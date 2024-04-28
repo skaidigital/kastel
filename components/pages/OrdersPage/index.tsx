@@ -29,7 +29,6 @@ export async function OrdersPage({ currentPage, lang }: Props) {
   const correctCursor = currentPage === 1 ? undefined : lastCursor;
   const { account_page: dictionary } = await getDictionary();
   const { orders, pageInfo } = await getOrders(correctCursor);
-  console.log({ orders });
 
   const hasOrders = orders && orders.length > 0;
 

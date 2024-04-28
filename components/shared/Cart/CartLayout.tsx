@@ -109,7 +109,8 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                           variantDescription={line.merchandise.product.description}
                           image={line.merchandise.product.featuredImage}
                           quantity={line.quantity}
-                          subtotal={line.cost.totalAmount}
+                          subtotal={line.cost.subtotalAmount}
+                          totalAmount={line.cost.totalAmount}
                         />
                       ))}
                     </div>
@@ -232,7 +233,8 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                           variantDescription={line.merchandise.product.description}
                           image={line.merchandise.product.featuredImage}
                           quantity={line.quantity}
-                          subtotal={line.cost.totalAmount}
+                          subtotal={line.cost.subtotalAmount}
+                          totalAmount={line.cost.totalAmount}
                         />
                       ))}
                     </div>

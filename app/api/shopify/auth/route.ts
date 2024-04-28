@@ -25,6 +25,7 @@ export async function GET(request: Request) {
   const data = response.data;
   const accessToken = data.access_token;
   const refresh_token = data.refresh_token;
+  const idToken = data.id_token;
 
   const { access_token: exchangedToken, expires_in } = await getExchangedAccessToken(accessToken);
 
@@ -38,6 +39,7 @@ export async function GET(request: Request) {
   const bufferTime = 300; // 5 minutes
 
   const expiresAt = new Date(Date.now() + (expires_in - bufferTime) * 1000).toString();
+  cookies().set(COOKIE_NAMES.SHOPIFY.ID_TOKEN, idToken);
   cookies().set(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN, exchangedToken);
   cookies().set(COOKIE_NAMES.SHOPIFY.EXPIRES_IN, expiresAt);
   cookies().set(COOKIE_NAMES.SHOPIFY.REFRESH_TOKEN, refresh_token);
