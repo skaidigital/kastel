@@ -278,3 +278,7 @@
 .st2 {
   fill: none;
 }
+
+#smile-ui-container {
+  z-index: 1000 !important;
+}
