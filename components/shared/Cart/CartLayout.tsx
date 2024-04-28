@@ -39,8 +39,6 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
   const quantityRef = useRef(cart?.totalQuantity);
   const { lang } = useBaseParams();
 
-  console.log(cart?.lines);
-
   const { isDesktop } = useDeviceType();
 
   const [isPending, startTransition] = useTransition();

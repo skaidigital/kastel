@@ -34,9 +34,6 @@ export function CartItem({
   image,
   className
 }: Props) {
-  console.log(totalAmount);
-  console.log(subtotal);
-
   const formattedPrice = formatPrice(totalAmount);
   const formattedSubTotal = formatPrice(subtotal);
   const isDiscounted = totalAmount.amount !== subtotal.amount;
