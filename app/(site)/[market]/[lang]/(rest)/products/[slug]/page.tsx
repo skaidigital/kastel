@@ -56,6 +56,7 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
 
   try {
     const initial = await loadProduct({ slug, market, lang, gender: activeGender });
+
     const { product_page: dictionary } = await getDictionary();
 
     if (!initial.data) {

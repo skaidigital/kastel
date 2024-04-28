@@ -4,6 +4,7 @@ import {
   // galleryValidator,
   hotspotImageValidator,
   imageValidator,
+  portableTextValidator,
   richTextValidator
 } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -96,7 +97,7 @@ export const productGalleryValidator = z.array(
 );
 
 export const sizeGuideValidator = z.object({
-  description: z.string(),
+  description: portableTextValidator,
   chart: z.object({
     rows: z.array(
       z.object({

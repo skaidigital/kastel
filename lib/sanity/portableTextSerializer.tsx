@@ -11,22 +11,22 @@ import Link from 'next/link';
 export const portableTextSerializer = {
   block: {
     normal: ({ children }: any) => (
-      <Text className="mt-6" as="p" size="md">
+      <Text className="mt-6" as="span" size="md">
         {children}
       </Text>
     ),
     default: ({ children }: any) => (
-      <Text className="mt-8" as="p">
+      <Text className="mt-8" as="span">
         {children}
       </Text>
     ),
-    small: ({ children }: any) => (
-      <Text className="mt-8" as="p" size="sm">
+    'text-sm': ({ children }: any) => (
+      <Text className="mt-4" as="span" size="sm">
         {children}
       </Text>
     ),
     large: ({ children }: any) => (
-      <Text className="mt-8" as="p" size="lg">
+      <Text className="mt-8" as="span" size="lg">
         {children}
       </Text>
     ),
@@ -45,22 +45,38 @@ export const portableTextSerializer = {
     bullet: ({ children, value }: any) => {
       const { level } = value;
 
-      return <UL level={level}>{children}</UL>;
+      return (
+        <UL level={level} className="mt-4">
+          {children}
+        </UL>
+      );
     },
     number: ({ children, value }: any) => {
       const { level } = value;
 
-      return <OL level={level}>{children}</OL>;
+      return (
+        <OL level={level} className="mt-4">
+          {children}
+        </OL>
+      );
     }
   },
   listItem: {
     bullet: ({ children, value }: any) => {
       const { level } = value;
-      return <ListItem level={level}>{children}</ListItem>;
+      return (
+        <ListItem level={level} className="mt-0 pt-0">
+          {children}
+        </ListItem>
+      );
     },
     number: ({ children, value }: any) => {
       const { level } = value;
-      return <ListItem level={level}>{children}</ListItem>;
+      return (
+        <ListItem level={level} className="mt-0 pt-0">
+          {children}
+        </ListItem>
+      );
     }
   },
 
@@ -87,7 +103,7 @@ export const portableTextSerializer = {
           <SanityImage image={value} />
           {value.caption && (
             <figcaption>
-              <Text size="eyebrow" as="p" className="mt-3">
+              <Text size="eyebrow" as="span" className="mt-3">
                 {value.caption}
               </Text>
             </figcaption>

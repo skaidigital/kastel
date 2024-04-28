@@ -41,10 +41,12 @@ export function ProductCard({ product, firstImage, priority, className }: Props)
 
   const sizeRange = `${lowestSize?.title}-${highestSize?.title}`;
 
-  const formattedMinPrice = formatPrice({
-    amount: String(minVariantPrice.amount),
-    currencyCode: minVariantPrice.currencyCode
-  });
+  const formattedMinPrice = minVariantPrice
+    ? formatPrice({
+        amount: String(minVariantPrice.amount),
+        currencyCode: minVariantPrice.currencyCode
+      })
+    : undefined;
 
   return (
     <div className="relative border border-brand-light-grey @container">

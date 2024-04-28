@@ -433,7 +433,7 @@ export const productsWithoutTags = '!defined($tagSlugs) =>';
 
 export function getSizeGuide(lang: LangValues) {
   return groq`
-  "description": description.${lang},
+  "description": description_${lang},
   "chart": chart_${lang}{
     rows[]{
       cells

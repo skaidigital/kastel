@@ -2,6 +2,7 @@
 
 import { Dictionary } from '@/app/dictionaries';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { SizeGuideProps } from '@/lib/sanity/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
@@ -32,9 +33,9 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
         <DrawerContent className="lg:max-w-[--drawer-width-lg]">
           <DrawerHeader title={sizeGuideText} />
           {description && (
-            <Text size="sm" className="mx-6 text-brand-mid-grey">
-              {description}
-            </Text>
+            <div className="px-6 text-brand-mid-grey">
+              <PortableTextRenderer value={description} type="normal" />
+            </div>
           )}
           <table className="mt-6 min-w-full divide-y divide-gray-200">
             <tbody className="divide-y divide-gray-200 bg-white">
@@ -76,9 +77,9 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
       <SheetContent className="flex h-full max-h-[90dvh] flex-col overflow-hidden">
         <SheetHeader title={sizeGuideText}>
           {description && (
-            <Text as="p" size="sm" className="text-left text-brand-mid-grey">
-              {description}
-            </Text>
+            <div className="text-brand-mid-grey">
+              <PortableTextRenderer value={description} type="normal" />
+            </div>
           )}
         </SheetHeader>
         <div className="flex flex-col overflow-auto">

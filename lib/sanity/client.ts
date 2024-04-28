@@ -1,7 +1,7 @@
 import { apiVersion, dataset, projectId, studioUrl } from '@/lib/sanity/api';
 import { createClient } from 'next-sanity';
 
-const excludedFields = ['slug_en', 'slug_no', 'slug', 'video'];
+const excludedFields = ['slug_en', 'slug_no', 'slug', 'video', 'color', 'hexCode'];
 
 const excludedNestedFields = [
   'slug_no',
@@ -31,7 +31,11 @@ const excludedNestedFields = [
   'text',
   'textPlacement',
   'currencyCode',
-  'type'
+  'type',
+  'color',
+  'isColor',
+  'hexCode',
+  'slug'
 ];
 
 export const client = createClient({

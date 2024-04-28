@@ -8,7 +8,7 @@
     "pnpm": ">=7"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "prod": "next build && next start",
     "build": "next build",
     "start": "next start",
