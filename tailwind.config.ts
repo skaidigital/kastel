@@ -2,6 +2,28 @@
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  safelist: [
+    'aspect-w-16',
+    'aspect-h-9',
+    'aspect-w-4',
+    'aspect-h-3',
+    'aspect-w-[21]',
+    'aspect-h-9',
+    'aspect-w-9',
+    'aspect-h-16',
+    'aspect-w-3',
+    'aspect-h-4',
+    'lg:aspect-w-16',
+    'lg:aspect-h-9',
+    'lg:aspect-w-4',
+    'lg:aspect-h-3',
+    'lg:aspect-w-[21]',
+    'lg:aspect-h-9',
+    'lg:aspect-w-9',
+    'lg:aspect-h-16',
+    'lg:aspect-w-3',
+    'lg:aspect-h-4'
+  ],
   future: {
     hoverOnlyWhenSupported: true
   },

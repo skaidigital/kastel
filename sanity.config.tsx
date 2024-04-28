@@ -1,6 +1,7 @@
 import { apiVersion, projectId } from '@/lib/sanity/api';
 import { defaultDocumentNodeResolver } from '@/schema/defaultDocumentNodeResolver';
 import { structure } from '@/schema/structure';
+import { table } from '@sanity/table';
 import { visionTool } from '@sanity/vision';
 import { defineConfig, definePlugin } from 'sanity';
 import { imageHotspotArrayPlugin } from 'sanity-plugin-hotspot-array';
@@ -54,7 +55,8 @@ const config = definePlugin({
         { code: 'en', title: 'English', label: '🇬🇧' }
       ]
     }),
-    imageHotspotArrayPlugin()
+    imageHotspotArrayPlugin(),
+    table()
   ],
   tools: (prev, { currentUser }) => {
     const isAdmin = currentUser?.roles?.some((role) => role.name === 'developer');

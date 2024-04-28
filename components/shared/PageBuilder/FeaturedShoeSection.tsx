@@ -100,24 +100,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
               ) : null}
             </CarouselItem>
             <CarouselItem className="basis-[80%] lg:basis-1/3 relative pl-2 lg:pl-4">
-              <div className="w-full">
-                {product && (
-                  <ProductCard
-                    title={product.title}
-                    gid={product.gid}
-                    sku={product.sku}
-                    slug={product.slug}
-                    mainImage={product.mainImage}
-                    lifestyleImage={product.lifestyleImage}
-                    badges={product.badges}
-                    type="product"
-                    minVariantPrice={product.minVariantPrice}
-                    maxVariantPrice={product.maxVariantPrice}
-                    lowestSize={lowestSize?.title}
-                    highestSize={highestSize?.title}
-                  />
-                )}
-              </div>
+              <div className="w-full">{product && <ProductCard product={product} />}</div>
             </CarouselItem>
             {restContentItems?.map((item, index) => (
               <CarouselItem key={index} className="basis-[80%] lg:basis-1/3">

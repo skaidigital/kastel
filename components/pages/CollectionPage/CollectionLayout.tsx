@@ -17,6 +17,7 @@ import { PageBuilder } from '@/components/shared/PageBuilder';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
+import { Suspense } from 'react';
 import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 
 interface Props {
@@ -109,17 +110,8 @@ export function CollectionLayout({
               return (
                 <ProductCard
                   key={index}
-                  gid={item.gid}
-                  sku={item.sku}
-                  type={item.type}
-                  title={item.title}
-                  slug={item.slug}
-                  mainImage={item.mainImage}
-                  lifestyleImage={item.lifestyleImage}
-                  badges={item.badges}
                   priority={priorityIndices.includes(index)}
-                  minVariantPrice={item.minVariantPrice}
-                  maxVariantPrice={item.maxVariantPrice}
+                  product={item}
                 />
               );
             })}
@@ -136,26 +128,12 @@ export function CollectionLayout({
                 );
               }
 
-              const hasSizeRange = item?.sizes?.filter((size) => size.type === 'size')[0];
-              const lowestSize = hasSizeRange?.options[0];
-              const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
               const priorityIndices = [0, 1, 2];
               return (
                 <ProductCard
                   key={index}
-                  gid={item.gid}
-                  sku={item.sku}
-                  type={item.type}
-                  title={item.title}
-                  slug={item.slug}
-                  mainImage={item.mainImage}
-                  lifestyleImage={item.lifestyleImage}
-                  badges={item.badges}
                   priority={priorityIndices.includes(index)}
-                  lowestSize={lowestSize?.title}
-                  highestSize={highestSize?.title}
-                  minVariantPrice={item.minVariantPrice}
-                  maxVariantPrice={item.maxVariantPrice}
+                  product={item}
                 />
               );
             })}
@@ -171,10 +149,18 @@ export function CollectionLayout({
         {hasProducts && (
           <div className="mt-20 flex flex-col items-center justify-center space-y-8">
             <div className="flex gap-x-2">
-              <PaginationButton type="previous">Forrige side</PaginationButton>
-              {hasNextPage && <PaginationButton type="next">Neste side</PaginationButton>}
+              <Suspense>
+                <PaginationButton type="previous">Forrige side</PaginationButton>
+              </Suspense>
+              {hasNextPage && (
+                <Suspense>
+                  <PaginationButton type="next">Neste side</PaginationButton>
+                </Suspense>
+              )}
             </div>
-            <PageCounter pageCount={pageCount} />
+            <Suspense>
+              <PageCounter pageCount={pageCount} />
+            </Suspense>
           </div>
         )}
       </Section>
@@ -267,7 +253,7 @@ export function CollectionGrid({
   return (
     <div
       className={cn(
-        '',
+        '-gap-[1px]',
         number === '1' && 'grid grid-cols-1 lg:grid-cols-4',
         number === '2' && 'grid grid-cols-2 lg:grid-cols-4',
         number === '3' && 'grid grid-cols-2 lg:grid-cols-3',

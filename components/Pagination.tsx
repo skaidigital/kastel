@@ -40,7 +40,6 @@ export function Pagination({ hasPreviousPage, hasNextPage, className }: Props) {
         <ChevronLeftIcon className="mt-0.5 h-3 w-3  text-brand-dark-grey" />
       </Link>
       <PageButton pageNumber={currentPage} href="#" isCurrent />
-
       <Link
         href={hasNextPage ? createPageURL(currentPage + 1) : '#'}
         aria-disabled={!hasNextPage}

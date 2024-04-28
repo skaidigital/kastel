@@ -3,8 +3,8 @@
 import { Dictionary } from '@/app/dictionaries';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { OptionGroup } from '@/components/VariantSelector/OptionGroup';
-import { SizeSelector } from '@/components/VariantSelector/SizeSelector';
 import { ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
+import { SizeGuideProps } from '@/lib/sanity/types';
 
 export type Combination = {
   id: string;
@@ -18,6 +18,7 @@ interface Props {
   featuredOptions: string[];
   variants: ProductVariant[];
   dictionary: Dictionary['product_page'];
+  sizeGuide?: SizeGuideProps;
 }
 
 export function VariantSelector({
@@ -25,6 +26,7 @@ export function VariantSelector({
   options,
   featuredOptions,
   variants,
+  sizeGuide,
   dictionary
 }: Props) {
   const combinations: Combination[] = variants.map((variant) => ({
@@ -43,37 +45,23 @@ export function VariantSelector({
       )
   }));
 
-  // Filter out any option where there are not a corresponding variant
   const filteredOptions = filterOptions(variants, options, featuredOptions);
 
-  console.log(filteredOptions);
-
   return filteredOptions.map((option) => {
-    const optionType = option.type;
-    const isSize = optionType === 'size';
-
-    if (isSize)
-      return (
-        <SizeSelector
-          key={option.name}
-          option={option}
-          chooseSizeText={dictionary.choose_size}
-          sizeGuideText={dictionary.size_guide}
-        />
-      );
-
     return (
       <OptionGroup
         key={option.name}
         option={option}
-        options={options}
+        sizeGuide={sizeGuide}
+        chooseSizeText={dictionary.choose_size}
+        sizeGuideText={dictionary.size_guide}
         combinations={combinations}
       />
     );
   });
 }
 
-function filterOptions(
+export function filterOptions(
   variants: ProductVariant[],
   options: ProductOption[],
   featuredOptions: string[]

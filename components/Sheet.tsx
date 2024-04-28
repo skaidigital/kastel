@@ -13,22 +13,23 @@ interface Props {
   title?: string;
   className?: string;
   overlayClassName?: string;
+  noPadding?: boolean;
 }
 
-export function SheetContent({ children, title, className, overlayClassName }: Props) {
+export function SheetContent({ children, title, className, overlayClassName, noPadding }: Props) {
   return (
     <Drawer.Portal>
       <Drawer.Overlay className={cn(overlayClasses, overlayClassName)} />
       <Drawer.Content
         forceMount
         className={cn(
-          'fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none'
+          'fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project bg-white  transition-[transform,opacity] will-change-[transform,opacity] focus:outline-none'
         )}
       >
         <div className="mx-auto mb-4 mt-1.5 h-1.5 w-12 rounded-full bg-brand-light-grey" />
-        <div className="rounded-t-[12px] px-4 pb-4">
+        <div className={cn('rounded-t-[12px]', !noPadding && 'px-4 pb-4')}>
           {title && <SheetHeader title={title} className="mb-4" />}
-          <div className={cn(className)}>{children}</div>
+          <div className={cn('max-h-[90vh]', className)}>{children}</div>
         </div>
       </Drawer.Content>
     </Drawer.Portal>
@@ -77,7 +78,7 @@ export function SheetHeader({ title, className, children }: SheetHeaderProps) {
           </button>
         </Drawer.Close>
       </div>
-      {children}
+      {children && <div className="mt-4"> {children}</div>}
     </div>
   );
 }

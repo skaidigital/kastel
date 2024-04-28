@@ -23,12 +23,6 @@ export const image = groq`
 
 export const video = 'videoMobile.asset->.playbackId';
 
-export const productsInTag =
-  'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>';
-export const productsNotInTag =
-  'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null';
-export const productsWithoutTags = '!defined($tagSlugs) =>';
-
 export function getImageBase(lang: LangValues) {
   return groq`
   asset->{
@@ -65,7 +59,9 @@ export function getGallery(market: MarketValues) {
 export function getGalleryMale(market: MarketValues) {
   return groq`
   "gallery": galleryMale[]{
-    asset->{
+    _type == "figure" => {
+      "type": _type,
+      asset->{
       "_ref": _id,
       crop,
       hotspot,
@@ -77,25 +73,37 @@ export function getGalleryMale(market: MarketValues) {
     crop,
     hotspot,
     width
+  },
+  _type == "mux.video" => {
+    "type": _type,
+    "videoUrl": asset->.playbackId,
   }
+}
 `;
 }
 
 export function getGalleryFemale(market: MarketValues) {
   return groq`
   "gallery": galleryFemale[]{
-    asset->{
-      "_ref": _id,
+      _type == "figure" => {
+        "type": _type,
+        asset->{
+        "_ref": _id,
+        crop,
+        hotspot,
+        metadata{
+          lqip
+        },
+      },
+      "altText": altText.${market},
       crop,
       hotspot,
-      metadata{
-        lqip
-      },
+      width
     },
-    "altText": altText.${market},
-    crop,
-    hotspot,
-    width
+    _type == "mux.video" => {
+      "type": _type,
+      "videoUrl": asset->.playbackId,
+    }
   }
 `;
 }
@@ -244,6 +252,7 @@ export function getProductCard(lang: LangValues, market: MarketValues) {
   lifestyleImage{
     ${getImageBase(lang)}
   },
+  ${getColorWays(lang, market)},
   "minVariantPrice": minVariantPrice_${market}{
     "amount": coalesce(amount, 0),
     "currencyCode": currencyCode
@@ -256,7 +265,7 @@ export function getProductCard(lang: LangValues, market: MarketValues) {
     type == "SIMPLE" => sku,
     type == "VARIABLE" => *[_type=="productVariant" && references(^._id) && defined(sku)][0].sku
     ),
-  "badges": badges[]->.title.${lang},
+  "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
   "sizes": options[] {
     "type": optionType->.type,
     "options": options[]-> {
@@ -412,6 +421,41 @@ export function getFAQBlock(lang: LangValues) {
   "items": items[]->{
     "question": question.${lang},
     "answer": answer_${lang}
+  }
+  `;
+}
+
+export const productsInTag =
+  'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>';
+export const productsNotInTag =
+  'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null';
+export const productsWithoutTags = '!defined($tagSlugs) =>';
+
+export function getSizeGuide(lang: LangValues) {
+  return groq`
+  "description": description.${lang},
+  "chart": chart_${lang}{
+    rows[]{
+      cells
+    }
+  } 
+  `;
+}
+
+export function getColorWays(lang: LangValues, market: MarketValues) {
+  return groq`
+  "colorways": *[_type == "product" && references(^.productType._ref) && defined(mainImage) && defined(slug_no.current)]{
+    "title": title.no,
+    "image": mainImage{
+      ${getImageBase(lang)}
+    },
+    "hexCode": color->color.value, 
+    "slug": slug_no.current,
+    "minVariantPrice": minVariantPrice_${market}{
+      "amount": coalesce(amount, 0),
+      "currencyCode": currencyCode
+    },
+    "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
   }
   `;
 }

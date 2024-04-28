@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 'use client';
 
 import { Dictionary } from '@/app/dictionaries';
@@ -15,7 +14,6 @@ interface Props {
   dictionary: Dictionary['address_page'];
 }
 
-// TODO consider just having a edit page like we have a create page
 export function AddressCard({ address, isPrimary, dictionary }: Props) {
   const addressIdWithoutGid = removeGid(address.id);
   const editAddressHref = ROUTES.EDIT_ADDRESS.replace(':id', addressIdWithoutGid);

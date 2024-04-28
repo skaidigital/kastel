@@ -4,10 +4,13 @@ import { ExtractVariables } from '@/app/api/shopify/types';
 import { isShopifyError } from '@/app/api/shopify/utils';
 import { COOKIE_NAMES } from '@/data/constants';
 import { env } from '@/env';
+import { getExpiryTime } from '@/lib/getExpiryTime';
+import { getRefreshToken } from '@/lib/getRefreshToken';
 import { cookies } from 'next/headers';
+import { logIn } from './actions';
 
 const shopId = env.SHOPIFY_CUSTOMER_SHOP_ID;
-const endpoint = `https://shopify.com/${shopId}/account/customer/api/unstable/graphql`;
+const endpoint = `https://shopify.com/${shopId}/account/customer/api/2024-04/graphql`;
 
 export async function customerAccountFetch<T>({
   cache = 'force-cache',
@@ -22,6 +25,14 @@ export async function customerAccountFetch<T>({
   tags?: string[];
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
+  const expiredCoockie = await getExpiryTime();
+
+  if (!expiredCoockie) {
+    const udpatedToken = await getRefreshToken();
+    if (!udpatedToken) {
+      throw new Error('Not a valid access token');
+    }
+  }
   const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
 
   try {
@@ -50,7 +61,10 @@ export async function customerAccountFetch<T>({
       status: result.status,
       body
     };
-  } catch (e) {
+  } catch (e: any) {
+    if (e.message === 'Not a valid access token') {
+      await logIn();
+    }
     if (isShopifyError(e)) {
       throw {
         cause: e.cause?.toString() || 'unknown',

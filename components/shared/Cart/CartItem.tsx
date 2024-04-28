@@ -1,6 +1,4 @@
 import { formatPrice } from '@/app/api/shopify/utils';
-import { Heading } from '@/components/base/Heading';
-import { Text } from '@/components/base/Text';
 import EditItemQuantityButton from '@/components/shared/Cart/EditQuantityButton';
 import RemoveFromCartButton from '@/components/shared/Cart/RemoveFromCartButton';
 import { Money, SelectedOption, ShopifyImage } from '@/lib/shopify/types';
@@ -17,6 +15,7 @@ interface Props {
   option3?: SelectedOption;
   quantity: number;
   subtotal: Money;
+  totalAmount: Money;
   image: ShopifyImage;
   variantDescription?: string;
   className?: string;
@@ -31,73 +30,80 @@ export function CartItem({
   option3,
   quantity,
   subtotal,
+  totalAmount,
   image,
   className
 }: Props) {
-  const formattedPrice = formatPrice(subtotal);
+  const formattedPrice = formatPrice(totalAmount);
+  const formattedSubTotal = formatPrice(subtotal);
+  const isDiscounted = totalAmount.amount !== subtotal.amount;
 
   return (
-    <div className={cn('flex w-full rounded-project', className)}>
-      <div className="w-40">
+    <div
+      className={cn(
+        'flex w-full gap-x-4 rounded-project border-b border-brand-light-grey bg-white px-4 py-3 lg:px-6 lg:py-4',
+        className
+      )}
+    >
+      <div className="w-20">
         <AspectRatio ratio={3 / 4} className="relative">
-          <div className="absolute right-0 top-0 z-40">
-            <RemoveFromCartButton itemId={lineId} />
-          </div>
           <Image
             src={image.url}
             alt={image.altText || "Ooops, we're missing an alt text!"}
             fill
-            sizes=""
-            className="rounded-project object-cover"
+            sizes="120px"
+            className="absolute rounded-project object-cover"
           />
         </AspectRatio>
       </div>
-      <div className="relative flex w-full flex-col justify-between pl-5">
-        <div className="flex flex-col space-y-1">
-          <Heading as="h3" size="xs">
-            {title}
-          </Heading>
-        </div>
-        <div className="flex items-end justify-between">
-          <div className="flex flex-col gap-y-3">
+      <div className="flex w-full flex-col justify-between text-xs">
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-y-1">
+            <h3 className="font-medium">{title}</h3>
             <div className="flex flex-col gap-y-1">
               {option1 && (
-                <Text size="sm">
+                <span>
                   {option1.name}: {option1.value}
-                </Text>
+                </span>
               )}
               {option2 && (
-                <Text size="sm">
+                <span>
                   {option2.name}: {option2.value}
-                </Text>
+                </span>
               )}
               {option3 && (
-                <Text size="sm">
+                <span>
                   {option3.name}: {option3.value}
-                </Text>
+                </span>
               )}
             </div>
-            <div className="border-brand-border flex h-9 w-fit flex-row items-center rounded-project border">
-              <>
-                <EditItemQuantityButton
-                  lineId={lineId}
-                  variantId={variantId}
-                  quantity={quantity}
-                  type="minus"
-                />
-                <p className="w-6 text-center">
-                  <span className="w-full text-sm">{quantity}</span>
-                </p>
-                <EditItemQuantityButton
-                  lineId={lineId}
-                  variantId={variantId}
-                  quantity={quantity}
-                  type="plus"
-                />
-              </>
-            </div>
           </div>
-          <Text size="sm">{formattedPrice}</Text>
+          <RemoveFromCartButton itemId={lineId} />
+        </div>
+        <div className="flex justify-between">
+          <div>
+            <span className="text-brand-mid-grey">{formattedPrice}</span>
+            {isDiscounted && (
+              <span className="ml-3 text-brand-mid-grey line-through">{formattedSubTotal}</span>
+            )}
+          </div>
+          <div className="flex h-8 items-center border border-brand-light-grey">
+            <EditItemQuantityButton
+              lineId={lineId}
+              variantId={variantId}
+              quantity={quantity}
+              type="minus"
+            />
+            <p className="w-6 text-center">
+              <span className="w-full text-sm">{quantity}</span>
+            </p>
+            <EditItemQuantityButton
+              lineId={lineId}
+              variantId={variantId}
+              quantity={quantity}
+              type="plus"
+            />
+          </div>
         </div>
       </div>
     </div>

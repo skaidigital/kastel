@@ -15,19 +15,19 @@ export function UspsMarquee({ usps, size, className }: Props) {
     usps && (
       <div
         className={cn(
-          'border-b border-t border-brand-light-grey',
-          size === 'sm' && 'py-6',
+          'border-b border-brand-light-grey',
+          size === 'sm' && 'py-5',
           size === 'lg' && 'py-[14px] lg:py-8',
           className
         )}
       >
         <Marquee autoFill>
-          {usps.map((usp) => {
-            const textSize = size === 'sm' ? 'sm' : 'md';
+          {usps.map((usp, index) => {
             const iconSize = size === 'sm' ? 24 : 32;
+
             return (
-              <div key={usp.icon.asset._ref} className="mr-24 flex items-center gap-2">
-                <SanityImage width={iconSize} height={iconSize} image={usp.icon} />
+              <div key={usp.icon.asset._ref + index} className="mr-24 flex items-center gap-2">
+                <SanityImage width={iconSize} height={iconSize} image={usp.icon} noPlaceholder />
                 <span className={cn(size === 'sm' && 'text-sm', size === 'lg' && 'text-md')}>
                   {usp.title}
                 </span>

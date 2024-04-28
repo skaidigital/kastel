@@ -1,9 +1,30 @@
 'use server';
 
-export async function applyDiscountCode() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+import { applyDiscountToCart } from '@/lib/shopify';
+import { cookies } from 'next/headers';
 
-  return {
-    success: true
-  };
-}
+export const addDiscount = async (discountCode: string) => {
+  const cartId = cookies().get('cartId')?.value;
+
+  if (!cartId) {
+    return {
+      success: false,
+      userErrors: [{ field: 'cart', message: 'Cart not found' }]
+    };
+  }
+  try {
+    await applyDiscountToCart(cartId, [discountCode]);
+    console.log('success');
+
+    return {
+      success: true
+    };
+  } catch (e) {
+    console.log('error applying discount', e);
+
+    return {
+      success: false,
+      userErrors: [{ field: 'discountCode', message: e }]
+    };
+  }
+};

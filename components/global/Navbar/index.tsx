@@ -7,7 +7,6 @@ import OpenCart from '@/components/shared/Cart/open-cart';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
-import { cn } from '@/lib/utils';
 import { draftMode } from 'next/headers';
 import { Suspense } from 'react';
 
@@ -42,12 +41,16 @@ export async function Navbar({ market, lang, className }: Props) {
   return (
     <NavbarLayout
       data={navbar}
-      className={cn(navbar?.hasAnnouncementBanner && 'mt-[--announcement-bar-height] ', className)}
+      // className={cn(navbar?.hasAnnouncementBanner && 'mt-[--announcement-bar-height] ', className)}
     >
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
-          <Suspense fallback={<CrossSellSkeleton className="px-6 py-4" />}>
-            <CrossSell lang={lang} className="px-6 py-4" />
+          <Suspense fallback={<CrossSellSkeleton className="px-4 lg:px-6 lg:py-4" />}>
+            <CrossSell
+              market={market}
+              lang={lang}
+              className="border-t border-brand-light-grey px-4 pt-2 lg:px-6 lg:py-4"
+            />
           </Suspense>
         </Cart>
       </Suspense>

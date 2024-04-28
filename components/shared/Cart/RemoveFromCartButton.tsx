@@ -1,8 +1,8 @@
-import LoadingDots from '@/components/LoadingDots';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { removeItem } from '@/components/shared/Cart/actions';
+import { TrashSimple } from '@phosphor-icons/react';
 import clsx from 'clsx';
 import { useTransition } from 'react';
 
@@ -31,17 +31,13 @@ export default function RemoveFromCartButton({ itemId }: Props) {
       }}
       disabled={isPending}
       className={clsx(
-        'ease flex h-[17px] w-[17px] items-center justify-center rounded-project bg-brand-dark-grey transition-all duration-200',
+        'ease flex h-[17px] w-[17px] items-center justify-center rounded-project text-brand-dark-grey transition-all duration-200',
         {
           'cursor-not-allowed px-0': isPending
         }
       )}
     >
-      {isPending ? (
-        <LoadingDots className="bg-white" />
-      ) : (
-        <XMarkIcon className="hover:text-accent-3 mx-[1px] h-4 w-4 text-white" />
-      )}
+      {isPending ? <LoadingSpinner className="size-2" /> : <TrashSimple className="h-4 w-4" />}
     </button>
   );
 }

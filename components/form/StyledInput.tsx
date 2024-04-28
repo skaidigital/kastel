@@ -19,7 +19,7 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
           name={name}
           {...otherProps}
           className={cn(
-            'w-full rounded-[2px] border border-brand-light-grey bg-white p-3 text-xs outline-none placeholder:text-xs focus:border-brand-dark-grey disabled:cursor-not-allowed disabled:bg-gray-50',
+            'w-full rounded-[2px] border border-brand-light-grey bg-white p-3 text-sm outline-none placeholder:text-sm focus:border-brand-dark-grey disabled:cursor-not-allowed disabled:bg-gray-50',
             error
               ? 'border-red-300 text-red-900 placeholder:text-red-300 focus:border-red-500'
               : '',

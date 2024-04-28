@@ -1,10 +1,12 @@
-import { getDictionary, reccommendedProductsValidator } from '@/app/dictionaries';
+import { getDictionary } from '@/app/dictionaries';
 import { ReccommendedProductsLayout } from '@/components/shared/ReccommendedProducts/ReccommendedProductsLayout';
 import {
   ReccommendedProductPayload,
-  getReccommendedProductsQuery
+  getReccommendedProductsQuery,
+  reccommmendedProductsValidator
 } from '@/components/shared/ReccommendedProducts/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
 function loadReccommendedProducts(lang: LangValues, market: MarketValues) {
@@ -25,9 +27,17 @@ interface Props {
 export async function ReccommendedProducts({ lang, market }: Props) {
   const { reccommended_products: dictionary } = await getDictionary();
 
-  reccommendedProductsValidator.parse(dictionary);
-
   const initial = await loadReccommendedProducts(lang, market);
 
-  return <ReccommendedProductsLayout data={initial.data} dictionary={dictionary} />;
+  if (!initial.data) return null;
+
+  const withoutNullValues = nullToUndefined(initial.data);
+
+  const validatedProducts = reccommmendedProductsValidator.safeParse(withoutNullValues);
+
+  if (!validatedProducts.success) {
+    return null;
+  }
+
+  return <ReccommendedProductsLayout data={validatedProducts.data} dictionary={dictionary} />;
 }

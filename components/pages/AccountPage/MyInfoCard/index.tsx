@@ -11,6 +11,8 @@ import {
   MyInfoFormProps,
   myInfoFormValidator
 } from '@/components/pages/AccountPage/MyInfoCard/hooks';
+import { LangValues } from '@/data/constants';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { CustomerMetadata } from '@/lib/shopify/metafields/getCustomerData';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,17 +28,15 @@ export function MyInfoCard({ customerData }: Props) {
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { isDesktop } = useDeviceType();
+  const { lang } = useBaseParams();
 
-  const customerDataValueJSON = customerData.metafield.value;
+  const customerDataValueJSON = customerData.metafield?.value;
   const parsedData = customerDataValueJSON && JSON.parse(customerDataValueJSON);
-
-  console.log(parsedData);
 
   const {
     getValues,
     handleSubmit,
     control,
-    reset,
     formState: { isSubmitting }
   } = useForm<MyInfoFormProps>({
     resolver: zodResolver(myInfoFormValidator),
@@ -52,49 +52,68 @@ export function MyInfoCard({ customerData }: Props) {
 
   const onSubmit: SubmitHandler<MyInfoFormProps> = async (data) => {
     startTransition(async () => {
-      console.log(data);
-
       const response = await sendMyInfoForm(data, customerData.id);
 
       if (!response.success) {
         setIsOpen(false);
-        reset();
         toast.error('Something went wrong', {
           description: 'Please try again later'
         });
       }
       if (response.success) {
         setIsOpen(false);
-        // reset();
-        toast('We have received your inquiry!', {
-          description: 'We will respond as soon as possible.'
-        });
+        toast('We have updated your info!');
       }
     });
   };
 
+  const myInfoString = getMyInfoString(lang);
+  const footLengthString = getFootLengthString(lang);
+  const styleString = getStyleString(lang);
+  const colorString = getColorString(lang);
+  const editString = getEditString(lang);
+
+  const hasFirstNameOrLastName = getValues('firstName') !== '' || getValues('lastName') !== '';
+  const hasFootLength = getValues('footLength') !== '';
+  const hasStyle = getValues('style') !== '';
+  const hasColor = getValues('color') !== '';
+
   return (
     <Card>
       <CardContent>
-        <CardTitle>My info</CardTitle>
+        <CardTitle>{myInfoString}</CardTitle>
         <div className="flex flex-col gap-y-2">
-          <Text size="sm">
-            {getValues('firstName')} {getValues('lastName')}
-          </Text>
-          <Text size="sm">Foot length: {getValues('footLength')}</Text>
-          <Text size="sm">Style: {getValues('style')}</Text>
-          <Text size="sm">Color preference: {getValues('color')}</Text>
+          {hasFirstNameOrLastName && (
+            <Text size="sm">
+              {getValues('firstName')} {getValues('lastName')}
+            </Text>
+          )}
+          {hasFootLength && (
+            <Text size="sm">
+              {footLengthString}: {getValues('footLength')}
+            </Text>
+          )}
+          {hasStyle && (
+            <Text size="sm">
+              {styleString}: {getValues('style')}
+            </Text>
+          )}
+          {hasColor && (
+            <Text size="sm">
+              {colorString}: {getValues('color')}
+            </Text>
+          )}
         </div>
       </CardContent>
       {!isDesktop && (
         <Sheet isOpen={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <button>
-              <CardButton>Test me</CardButton>
+              <CardButton>{editString}</CardButton>
             </button>
           </SheetTrigger>
           <SheetContent>
-            <SheetHeader title="My info" />
+            <SheetHeader title={myInfoString} />
             <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
               <FormInput
                 control={control}
@@ -140,11 +159,11 @@ export function MyInfoCard({ customerData }: Props) {
         <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
           <ModalTrigger>
             <button>
-              <CardButton>Test me</CardButton>
+              <CardButton>{editString}</CardButton>
             </button>
           </ModalTrigger>
           <ModalContent size="sm" label="Someting" className="p-8">
-            <ModalHeader title="My info" />
+            <ModalHeader title={myInfoString} />
             <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
               <FormInput
                 control={control}
@@ -188,4 +207,59 @@ export function MyInfoCard({ customerData }: Props) {
       )}
     </Card>
   );
+}
+
+function getMyInfoString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'My info';
+    case 'no':
+      return 'Min info';
+    default:
+      return 'My info';
+  }
+}
+
+function getFootLengthString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Foot length';
+    case 'no':
+      return 'Fotlengde';
+    default:
+      return 'Foot length';
+  }
+}
+
+function getStyleString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Style';
+    case 'no':
+      return 'Stil';
+    default:
+      return 'Style';
+  }
+}
+
+function getColorString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Color preference';
+    case 'no':
+      return 'Fargepreferanse';
+    default:
+      return 'Color preference';
+  }
+}
+
+function getEditString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Edit';
+    case 'no':
+      return 'Endre';
+    default:
+      return 'Edit';
+  }
 }

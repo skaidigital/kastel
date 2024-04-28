@@ -251,5 +251,5 @@ export async function applyDiscountToCart(cartId: string, discountCodes: string[
     cache: 'no-store'
   });
 
-  return reshapeCart(res.body.data.cart);
+  return reshapeCart(res.body.data.cartDiscountCodesUpdate.cart);
 }

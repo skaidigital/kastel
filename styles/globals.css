@@ -28,6 +28,7 @@
     --font-nature-lab-heading: 'Merriweather', serif;
     --blog-post-container-md: 720px;
     --blog-post-container-lg: 960px;
+    --drawer-width-lg: 560px;
   }
 
   body {

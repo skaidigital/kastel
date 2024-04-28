@@ -1,3 +1,4 @@
+import { productGalleryValidator, sizeGuideValidator } from '@/components/pages/ProductPage/hooks';
 import {
   SEOAndSocialsValidator,
   aspectRatioSettingsValidator,
@@ -45,6 +46,7 @@ export type MobileImageAspectRatio = '9:16' | '3:4';
 export type DesktopImageAspectRatio = '16:9' | '4:3' | '21:9';
 
 export type GalleryProps = z.infer<typeof galleryValidator>;
+export type ProductGalleryProps = z.infer<typeof productGalleryValidator>;
 
 export type MediaProps = z.infer<typeof mediaValidator>;
 export type AspectRatios = z.infer<typeof aspectRatiosValidator>;
@@ -56,3 +58,4 @@ export type VideoSettings = z.infer<typeof videoSettingsValidator>;
 export type BlogPostCardProps = z.infer<typeof blogPostCardValidator>;
 export type AuthorProps = z.infer<typeof authorValidator>;
 export type FAQBlockProps = z.infer<typeof faqBlockValidator>;
+export type SizeGuideProps = z.infer<typeof sizeGuideValidator>;

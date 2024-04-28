@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/form/RadixSelect';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { LANGS, Lang, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';

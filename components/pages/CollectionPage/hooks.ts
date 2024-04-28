@@ -114,7 +114,7 @@ export function getSortQuery(sortKey: string | undefined) {
 
 export function getCollectionProductData(lang: LangValues, market: MarketValues) {
   const query = groq`
-    *[_type == "product" && _id in $ids][]{
+    *[_type == "product" && _id in $ids && defined(slug_${market}.current) && status_${market} == "ACTIVE"][]{
       _id,
     ${fragments.getProductCard(lang, market)}
   }

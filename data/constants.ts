@@ -64,7 +64,7 @@ export const COOKIE_NAMES = {
     ID_TOKEN: 'shopify_id_token',
     EMAIL: 'shopify_email'
   },
-  COOKIE_CONSENT: 'has_seen_cookie_consent',
+  COOKIE_CONSENT: 'CookieConsent',
   POPUP: 'has_seen_popup',
   REQUEST_COUNTRY: 'request_country',
   RECCOMMENDED_MARKET: 'reccommended_market',
@@ -72,7 +72,8 @@ export const COOKIE_NAMES = {
   MARKET: 'market',
   PREVIEW_MARKET: 'previewMarket',
   PREVIEW_LANG: 'previewLang',
-  SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name'
+  SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name',
+  CUSTOMER_EMAIL: 'customer_email'
 };
 
 export const TEMPLATES = {

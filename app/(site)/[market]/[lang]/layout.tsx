@@ -11,6 +11,7 @@ import { ReactNode, Suspense } from 'react';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { MarketPopup } from '@/components/global/MarketPopup';
 import { PopupHandler } from '@/components/global/PopupHandler';
+import { SmileLayout } from '@/components/smile/SmileLayout';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
@@ -26,10 +27,10 @@ const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
 
 export default function IndexRoute({
   children,
-  params: { market, lang }
+  params: { lang }
 }: {
   children: ReactNode;
-  params: { market: MarketValues; lang: LangValues };
+  params: { lang: LangValues };
 }) {
   const isInProduction = process.env.NODE_ENV === 'production';
 
@@ -37,11 +38,11 @@ export default function IndexRoute({
 
   return (
     <html lang="en">
-      <GoogleTagManager gtmId={env.GTM_ID} />
+      {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />}
       <head>
         {isInProduction && (
           <Script
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             id="Cookiebot"
             src="https://consent.cookiebot.com/uc.js"
             data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
@@ -58,7 +59,7 @@ export default function IndexRoute({
                 <PopupHandler lang={lang} />
               </Suspense>
               <main>
-                {children}
+                <Suspense>{children}</Suspense>
                 {draftMode().isEnabled && (
                   <VisualEditing
                     refresh={async (payload) => {
@@ -89,7 +90,9 @@ export default function IndexRoute({
             <ShopifyAnalytics hasConsent />
             <MarketPopup />
             {draftMode().isEnabled && <PreviewMarketSelector />}
-            {/* <SmileInit customerId="7292377628922" /> */}
+            <Suspense>
+              <SmileLayout />
+            </Suspense>
           </Providers>
         </div>
       </body>

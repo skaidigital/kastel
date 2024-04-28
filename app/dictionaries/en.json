@@ -148,7 +148,7 @@
     "cart_is_empty": "Your cart is empty",
     "start_shopping": "Start shopping",
     "cross_sell": {
-      "we_think_you_will_like": "Perhaps you would like",
+      "we_think_you_will_like": "We reccommend",
       "add_to_cart": "Add to cart",
       "choose_option": "Choose an option"
     }
@@ -163,7 +163,7 @@
     "confirm_your_location": "Confirm your location"
   },
   "reccommended_products": {
-    "we_think_you_will_like": "We also recommend"
+    "we_think_you_will_like": "We reccommend"
   },
   "page_builder": {
     "contact_form": {

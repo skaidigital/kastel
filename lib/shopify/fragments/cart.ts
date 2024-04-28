@@ -24,6 +24,10 @@ const cartFragment = /* GraphQL */ `
           id
           quantity
           cost {
+            subtotalAmount {
+              amount
+              currencyCode
+            }
             totalAmount {
               amount
               currencyCode
@@ -46,6 +50,9 @@ const cartFragment = /* GraphQL */ `
       }
     }
     totalQuantity
+    discountCodes {
+      code
+    }
   }
   ${productFragment}
 `;

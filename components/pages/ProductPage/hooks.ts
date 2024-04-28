@@ -1,7 +1,7 @@
 import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import {
-  galleryValidator,
+  // galleryValidator,
   hotspotImageValidator,
   imageValidator,
   richTextValidator
@@ -83,6 +83,29 @@ const PriceValidator = z.object({
   currencyCode: z.string()
 });
 
+const imageInGalleryValidator = imageValidator.extend({
+  type: z.literal('figure')
+});
+const videoInGalleryValidator = z.object({
+  type: z.literal('mux.video'),
+  videoUrl: z.string()
+});
+
+export const productGalleryValidator = z.array(
+  z.discriminatedUnion('type', [imageInGalleryValidator, videoInGalleryValidator])
+);
+
+export const sizeGuideValidator = z.object({
+  description: z.string(),
+  chart: z.object({
+    rows: z.array(
+      z.object({
+        cells: z.array(z.string())
+      })
+    )
+  })
+});
+
 export const productValidator = z.object({
   id: z.string(),
   type: z.union([z.literal('SIMPLE'), z.literal('VARIABLE')]),
@@ -92,7 +115,7 @@ export const productValidator = z.object({
   descriptionShort: z.string(),
   descriptionLongTitle: z.string(),
   descriptionLongDetails: z.string(),
-  gallery: galleryValidator.optional(),
+  gallery: productGalleryValidator.optional(),
   options: z.array(productOptionValidator).optional(),
   faqs: z
     .array(
@@ -105,14 +128,19 @@ export const productValidator = z.object({
   typeId: z.string(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
+  mainImage: imageValidator,
+  lifestyleImage: imageValidator.optional(),
   hotspotImage: hotspotImageValidator.optional(),
   variants: z.array(productVariantValidator),
-  usps: z.array(
-    z.object({
-      title: z.string(),
-      icon: imageValidator
-    })
-  )
+  usps: z
+    .array(
+      z.object({
+        title: z.string(),
+        icon: imageValidator
+      })
+    )
+    .optional(),
+  sizeGuide: sizeGuideValidator.optional()
 });
 
 export type Product = z.infer<typeof productValidator>;
@@ -127,11 +155,11 @@ export function getProductQuery({
   gender: 'male' | 'female';
 }) {
   const query = groq`
-  *[_type == "product" && slug_no.current == $slug && status_no == "ACTIVE" && defined(gid_no)][0]{
-    "id": gid_no,
-    "title": title.no,
-    "subtitle": subtitle.no,
-    "slug": slug_no.current,
+  *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE" && defined(gid_${market})][0]{
+    "id": gid_${market},
+    "title": title.${lang},
+    "subtitle": subtitle.${lang},
+    "slug": slug_${lang}.current,
     type,
     "sku": select(
       type == "SIMPLE" => sku,
@@ -152,28 +180,38 @@ export function getProductQuery({
       "amount": coalesce(amount, 0),
       "currencyCode": currencyCode
     },
-    "hotspotImage": {
-      "type": "hotspotImage",
-      "image": detailImage {
-        ${fragments.getImageBase(lang)}
-      },
-      hotspots[]{
-        ...select(
-          type == "text" => {
-            type,
-            "description": description_${lang},
-          },
-          type == "productCard" => {
-            "type": "product",
-            ...product->{
-              ${fragments.getProductCard(lang, market)}
-            },
-          },
-        ),
-        x,
-        y,
-      }
+    mainImage{
+      ${fragments.getImageBase(lang)}
     },
+    lifestyleImage{
+      ${fragments.getImageBase(lang)}
+    },
+    ...select(
+      detailImage.asset._ref != null && hotspots != null => {
+        "hotspotImage": {
+        "type": "hotspotImage",
+        "image": detailImage {
+          ${fragments.getImageBase(lang)}
+        },
+        hotspots[]{
+          ...select(
+            type == "text" => {
+              type,
+              "description": description_${lang},
+            },
+            type == "productCard" => {
+              "type": "product",
+              ...product->{
+                ${fragments.getProductCard(lang, market)}
+              },
+            },
+          ),
+          x,
+          y,
+        }
+      },
+      },
+    ),
     "variants": select(
       type == "VARIABLE" => *[_type == "productVariant" && references(^._id) && hideInShop_${market} != true && defined(gid_${market})]{
         "id": gid_${market},
@@ -208,22 +246,74 @@ export function getProductQuery({
       }]
     ),
     ${getGallerByGender({ market, gender })},
-    ...productType->{
-      "typeId": _id,
-      "descriptionShort": descriptionShort.${lang},
-      "descriptionLongTitle": descriptionLongTitle.${lang},
-      "descriptionLongDetails": descriptionLongDetails.${lang},
-      "faqs": faqs[]->{
+    "descriptionShort": coalesce(descriptionShort.${lang}, productType->descriptionShort.${lang}),
+    "descriptionLongTitle": coalesce(descriptionLongTitle.${lang}, productType->descriptionLongTitle.${lang}),
+    "descriptionLongDetails": coalesce(descriptionLongDetails.${lang}, productType->descriptionLongDetails.${lang}),
+    "faqs": coalesce(
+    (
+      // Combining FAQs from the main document, productType, and productSettings
+      ((faqs[]->{
         "question": question.${lang},
         "answer": answer_${lang}
-      },
-      "usps": usps[]->{
+      }) + (productType->faqs[]->{
+        "question": question.${lang},
+        "answer": answer_${lang}
+      }) + (*[_type == "productSettings"][0].faqs[]->{
+        "question": question.${lang},
+        "answer": answer_${lang}
+      }))
+    ),
+    // Defaulting to main document FAQs if the above is not available
+    faqs[]->{
+      "question": question.${lang},
+      "answer": answer_${lang}
+    },
+    // Defaulting to productType FAQs if the main document FAQs are not available
+    productType->faqs[]->{
+      "question": question.${lang},
+      "answer": answer_${lang}
+    },
+    // Defaulting to productSettings FAQs if none of the above are available
+    (*[_type == "productSettings"].faqs[]->{
+      "question": question.${lang},
+      "answer": answer_${lang}
+    })
+    ),
+    "usps": coalesce(
+      ((usps[]->{
         "title": title.${lang},
-        "icon": icon {
+        "icon": icon{
+          ${fragments.getImageBase(lang)}
+        }
+      }) + (productType->usps[]->{
+        "title": title.${lang},
+        "icon": icon{
+          ${fragments.getImageBase(lang)}
+        }
+      })),
+      usps[]->{
+        "title": title.${lang},
+        "icon": icon{
+          ${fragments.getImageBase(lang)}
+        }
+      },
+      productType->usps[]->{
+        "title": title.${lang},
+        "icon": icon{
           ${fragments.getImageBase(lang)}
         }
       }
-    }
+    ),
+    "typeId": productType->_id,
+    "sizeGuide": coalesce(
+      sizeGuide->{
+        ${fragments.getSizeGuide(lang)}
+      },
+      productType->sizeGuide->{
+        ${fragments.getSizeGuide(lang)}
+      },
+      null
+    ),
   }
   `;
 
@@ -248,12 +338,12 @@ export function getSibligProductsQuery({
   lang: LangValues;
 }) {
   const query = groq`
-  *[_type == "product" && references($typeId) && status_no == "ACTIVE" && defined(gid_${market})]{
-    "title": title.${lang},
+  *[_type == "product" && references($typeId) && status_${market} == "ACTIVE" && defined(gid_${market}) && defined(color)]{
+    "title": color->title.${lang},
     "mainImage": mainImage {
       ${fragments.getImageBase(lang)}
     },
-    "slug": slug_${market}.current,
+    "slug": slug_${lang}.current,
      }
   `;
 

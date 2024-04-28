@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 import { Bars2Icon } from '@heroicons/react/24/outline';
 import { ChevronLeftIcon, ChevronRightIcon, Cross1Icon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 interface Props {
   items: NavbarPayload['items'];
@@ -52,7 +52,9 @@ export function MobileMenu({ items }: Props) {
               </DrawerClose>
             </div>
             <div className="pb-6">
-              <MobileMenuSearch onClose={onCloseMainMenu} />
+              <Suspense>
+                <MobileMenuSearch onClose={onCloseMainMenu} />
+              </Suspense>
             </div>
             <div className="flex flex-col gap-y-20">
               <ul>

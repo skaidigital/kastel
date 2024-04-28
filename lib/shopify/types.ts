@@ -30,8 +30,8 @@ export type CartItem = {
   quantity: number;
   cost: {
     totalAmount: Money;
+    subtotalAmount: Money;
   };
-
   merchandise: {
     id: string;
     title: string;
@@ -129,6 +129,7 @@ export type ShopifyCart = {
   };
   lines: Connection<CartItem>;
   totalQuantity: number;
+  discountCodes: { code: string }[];
 };
 
 export type ShopifyCollection = {
@@ -236,7 +237,9 @@ export type ShopifyAddToCartOperation = {
 
 export type ShopifyAddDiscountCodeOperation = {
   data: {
-    cart: ShopifyCart;
+    cartDiscountCodesUpdate: {
+      cart: ShopifyCart;
+    };
   };
   variables: {
     cartId: string;

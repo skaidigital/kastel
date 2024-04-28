@@ -1,4 +1,3 @@
-import { textProps } from '@/components/base/Text';
 import * as Switch from '@radix-ui/react-switch';
 import type { Control } from 'react-hook-form';
 import { useController } from 'react-hook-form';
@@ -18,18 +17,18 @@ export const FormSwitch = ({ control, name, label }: Props) => {
   });
 
   return (
-    <div className="flex items-center justify-between space-y-1">
-      <label htmlFor={name} className={textProps({ size: 'eyebrow' })}>
-        {label}
-      </label>
+    <div className="flex items-center gap-x-4 rounded-[2px] border border-brand-light-grey bg-brand-sand p-4">
       <Switch.Root
-        className="relative h-[25px] w-[42px] rounded-full bg-brand-mid-grey  outline-none data-[state=checked]:bg-brand-dark-grey"
+        className="relative h-[25px] w-[42px] rounded-full bg-neutral-200  outline-none data-[state=checked]:bg-neutral-800"
         id={name}
         onCheckedChange={onChange}
         checked={value}
       >
-        <Switch.Thumb className="shadow-blackA4 block h-[21px] w-[21px] translate-x-0.5 rounded-full bg-white shadow-[0_2px_2px] transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]" />
+        <Switch.Thumb className="block h-[21px] w-[21px] translate-x-0.5 rounded-full bg-white transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]" />
       </Switch.Root>
+      <label htmlFor={name} className="text-sm text-neutral-500">
+        {label}
+      </label>
     </div>
   );
 };

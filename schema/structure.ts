@@ -34,6 +34,7 @@ import {
   SquareHalfBottom,
   Star,
   Storefront,
+  Table,
   Tag,
   Trophy,
   User,
@@ -173,6 +174,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Badges', schemaType: 'badge' }).icon(Tag),
         listNew({ S, title: 'Product USPs', schemaType: 'usp' }).icon(ListBullets),
         listNew({ S, title: 'People', schemaType: 'person' }).icon(UserCircle),
+        listNew({ S, title: 'Size charts', schemaType: 'sizeChart' }).icon(Table),
         singleton(S, 'Product settings', 'productSettings', 'productSettings').icon(Gear)
       ]).icon(Gear)
     ]);

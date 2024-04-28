@@ -20,6 +20,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { productCardValidator } from '@/lib/sanity/validators';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Search',
@@ -142,15 +143,13 @@ export default async function Page({ searchParams, params }: Props) {
             )}
             <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
           </div>
-          {hasProducts && <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />}
+          <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />
         </Container>
-        {hasProducts && (
-          <SearchSettingsBar
-            searchParams={searchParams}
-            lang={lang}
-            className="hidden min-h-32 lg:block"
-          />
-        )}
+        <SearchSettingsBar
+          searchParams={searchParams}
+          lang={lang}
+          className="hidden min-h-32 lg:block"
+        />
       </Section>
       <Section label={dictionary.search_results} srHeading={dictionary.search_results} noTopPadding>
         {!hasProducts && (
@@ -163,37 +162,33 @@ export default async function Page({ searchParams, params }: Props) {
         <CollectionGrid number={ProductsInView}>
           {products &&
             products?.map((product: ProductCardProps, index) => {
-              const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
-              const lowestSize = hasSizeRange?.options[0];
-              const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
               return (
                 <ProductCard
-                  type={product.type}
-                  gid={product.gid}
-                  sku={product.sku}
                   key={product.slug}
-                  slug={product.slug}
-                  title={product.title}
-                  mainImage={product.mainImage}
-                  lifestyleImage={product.lifestyleImage}
-                  badges={product.badges}
                   priority={productIndicesToReceivePriorityProp.includes(index)}
-                  lowestSize={lowestSize?.title}
-                  highestSize={highestSize?.title}
-                  minVariantPrice={product.minVariantPrice}
-                  maxVariantPrice={product.maxVariantPrice}
+                  product={product}
                 />
               );
             })}
         </CollectionGrid>
         <div className="mt-20 flex flex-col items-center justify-center space-y-8">
           <div className="flex gap-x-5">
-            <PaginationButton type="previous">{dictionary.next_page}</PaginationButton>
+            {currentPage > 1 && (
+              <Suspense>
+                <PaginationButton type="previous">{dictionary.previous_page}</PaginationButton>
+              </Suspense>
+            )}
             {hasNextPage && (
-              <PaginationButton type="next">{dictionary.previous_page}</PaginationButton>
+              <Suspense>
+                <PaginationButton type="next">{dictionary.next_page}</PaginationButton>
+              </Suspense>
             )}
           </div>
-          {pageCount ? <PageCounter pageCount={pageCount} /> : null}
+          {pageCount ? (
+            <Suspense>
+              <PageCounter pageCount={pageCount} />
+            </Suspense>
+          ) : null}
         </div>
       </Section>
     </>

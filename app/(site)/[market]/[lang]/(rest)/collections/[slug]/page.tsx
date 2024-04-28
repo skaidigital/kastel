@@ -12,7 +12,6 @@ import {
 } from '@/components/pages/CollectionPage/hooks';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
-import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
@@ -20,11 +19,11 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams() {
-  const slugs = await generateStaticSlugs('collection');
+// export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
+//   const slugs = await generateStaticSlugs(lang, 'collection');
 
-  return slugs;
-}
+//   return slugs;
+// }
 
 function loadCollectionBase({
   slug,
@@ -52,16 +51,7 @@ function loadCollectionProductsOrder(
 ) {
   const query = getProductIdsByOrder(lang, sortKey);
 
-  return loadQuery<CollectionProductsPayload>(
-    query,
-    { slug, tagSlugs }
-    // { cache: 'no-cache' }
-    // {
-    //   next: {
-    //     tags: [`collection:${slug}`]
-    //   }
-    // }
-  );
+  return loadQuery<CollectionProductsPayload>(query, { slug, tagSlugs });
 }
 
 function loadCollectionProductData(
@@ -129,6 +119,7 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
   );
 
   const cleanedProductData = cleanData(paginatedInitialProducts, inititalProductsData, hasNextPage);
+
   let validatedProducts;
 
   if (!isDraftMode) {
@@ -234,13 +225,15 @@ function cleanData(
     };
   });
 
-  const collectionProductsWithoutNullValues = nullToUndefined({
-    products: mergedTestData
-  });
+  const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
 
-  const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
-    (product: any) => Object.keys(product).length > 1
-  );
+  // console.log('collectionProductsWithoutNullValues', collectionProductsWithoutNullValues);
 
-  return filteredCollectionProducts;
+  // const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
+  //   (product: any) => Object.keys(product).length > 1
+  // );
+
+  // console.log('filteredCollectionProducts', filteredCollectionProducts);
+
+  return collectionProductsWithoutNullValues;
 }

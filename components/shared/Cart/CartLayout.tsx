@@ -33,6 +33,7 @@ interface Props {
 }
 
 // TODO consider making the cart content into its own component if all the content is the same
+// TODO fix layout shift on loading dots
 export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippingAmount }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const quantityRef = useRef(cart?.totalQuantity);
@@ -64,16 +65,11 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger
-          className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey lg:h-auto lg:w-auto"
+          className="lg:hover-bg-none relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey lg:h-auto lg:w-auto"
           asChild
         >
           <button aria-label="Open cart" className="text-sm">
             <span className="ml-2 mr-4">{cartString}</span>
-            {hasCartItems ? (
-              <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded bg-brand-dark-grey text-[11px] font-medium text-white">
-                {cart.totalQuantity}
-              </div>
-            ) : null}
           </button>
         </DrawerTrigger>
         <DrawerContent className="flex max-h-dvh w-full flex-col lg:h-screen">
@@ -84,7 +80,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             )}
           >
             <>
-              <DrawerHeader title={dictionary.cart} className="bg-white">
+              <DrawerHeader title={dictionary.cart} className="mb-0 bg-white">
                 {freeShippingAmount && currencyCode && (
                   <FreeShippingCountdown
                     freeShippingAmount={freeShippingAmount}
@@ -100,7 +96,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
               <>
                 <div className="flex grow flex-col">
                   <div className="flex h-0 flex-grow flex-col overflow-y-auto">
-                    <div className="flex flex-col space-y-8 p-5 pb-10">
+                    <div className="flex flex-col pb-10">
                       {cart?.lines?.map((line) => (
                         <CartItem
                           key={line.id}
@@ -113,14 +109,18 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                           variantDescription={line.merchandise.product.description}
                           image={line.merchandise.product.featuredImage}
                           quantity={line.quantity}
-                          subtotal={line.cost.totalAmount}
+                          subtotal={line.cost.subtotalAmount}
+                          totalAmount={line.cost.totalAmount}
                         />
                       ))}
                     </div>
                   </div>
                 </div>
                 {children}
-                <DiscountCodeInput className="bg-white px-6 py-4" />
+                <DiscountCodeInput
+                  discountCodes={cart.discountCodes}
+                  className="bg-white px-6 py-4"
+                />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
                     <div className="flex w-full items-center justify-between text-brand-mid-grey">
@@ -183,102 +183,117 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
       <SheetTrigger className="pr-4">
         <ShoppingBagIcon className="size-6" />
       </SheetTrigger>
-      <SheetContent className="">
+      <SheetContent className="h-[calc(95dvh-32px)]" noPadding>
         <div
           className={cn(
-            'flex min-h-[80dvh] flex-col justify-between',
-            hasCartItems ? 'bg-brand-sand' : 'bg-white'
+            'flex h-full flex-col overflow-hidden'
+            // hasCartItems ? 'bg-brand-sand' : 'bg-white'
           )}
         >
-          <>
-            <DrawerHeader title={dictionary.cart} className="bg-white p-0">
-              {freeShippingAmount && currencyCode && (
-                <FreeShippingCountdown
-                  freeShippingAmount={freeShippingAmount}
-                  totalAmount={totalAmount || 0}
-                  dictionary={dictionary}
-                  currencyCode={currencyCode}
-                  className="pt-4"
+          {/* Header */}
+          <DrawerHeader title={dictionary.cart} className="h-fit px-4">
+            {freeShippingAmount && currencyCode && (
+              <FreeShippingCountdown
+                freeShippingAmount={freeShippingAmount}
+                totalAmount={totalAmount || 0}
+                dictionary={dictionary}
+                currencyCode={currencyCode}
+                className="pt-4"
+              />
+            )}
+          </DrawerHeader>
+          {/* Main content */}
+          <div
+            className={cn('flex grow flex-col overflow-auto', !hasCartItems && 'justify-center')}
+          >
+            {!hasCartItems && (
+              <div className="flex w-full flex-col items-center justify-center gap-y-3">
+                <div className="rounded-full bg-brand-sand p-4">
+                  <ShoppingBagIconFilled className="size-8" />
+                </div>
+                <h2 className="mb-8 max-w-xs text-balance text-center text-md">
+                  {dictionary.cart_is_empty}
+                </h2>
+              </div>
+            )}
+            {hasCartItems && (
+              <div>
+                <div className="flex grow flex-col bg-black">
+                  <div className="flex h-0 flex-grow flex-col ">
+                    <div className="flex flex-col">
+                      {cart?.lines?.map((line) => (
+                        <CartItem
+                          key={line.id}
+                          lineId={line.id}
+                          variantId={line.merchandise.id}
+                          title={line.merchandise.product.title}
+                          option1={line.merchandise.selectedOptions[0]}
+                          option2={line.merchandise.selectedOptions[1]}
+                          option3={line.merchandise.selectedOptions[2]}
+                          variantDescription={line.merchandise.product.description}
+                          image={line.merchandise.product.featuredImage}
+                          quantity={line.quantity}
+                          subtotal={line.cost.subtotalAmount}
+                          totalAmount={line.cost.totalAmount}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Footer */}
+          <div className="mt-6 h-fit w-full">
+            {!hasCartItems && (
+              <Button asChild size="sm" className="w-full">
+                <CustomLink href={ROUTES.HOME}>{dictionary.start_shopping}</CustomLink>
+              </Button>
+            )}
+            {hasCartItems && (
+              <>
+                {children}
+                <DiscountCodeInput
+                  discountCodes={cart.discountCodes}
+                  className="bg-white px-4 py-4"
                 />
-              )}
-            </DrawerHeader>
-          </>
-          {hasCartItems && (
-            <>
-              <div className="flex grow flex-col">
-                <div className="flex h-0 flex-grow flex-col overflow-y-auto">
-                  <div className="flex flex-col space-y-8 p-5 pb-10">
-                    {cart?.lines?.map((line) => (
-                      <CartItem
-                        key={line.id}
-                        lineId={line.id}
-                        variantId={line.merchandise.id}
-                        title={line.merchandise.product.title}
-                        option1={line.merchandise.selectedOptions[0]}
-                        option2={line.merchandise.selectedOptions[1]}
-                        option3={line.merchandise.selectedOptions[2]}
-                        variantDescription={line.merchandise.product.description}
-                        image={line.merchandise.product.featuredImage}
-                        quantity={line.quantity}
-                        subtotal={line.cost.totalAmount}
-                      />
-                    ))}
+                <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
+                  <div className="flex w-full flex-col gap-y-2">
+                    <div className="flex w-full items-center justify-between text-brand-mid-grey">
+                      <Text size="sm" className="text-brand-mid-grey">
+                        {dictionary.shipping}
+                      </Text>
+                      <Text size="sm" className="font-medium">
+                        {dictionary.calculated_at_checkout}
+                      </Text>
+                    </div>
+                    <div className="flex w-full items-center justify-between">
+                      <Text size="sm" className="text-brand-mid-grey">
+                        {dictionary.total_incl_vat}
+                      </Text>
+                      <Text size="sm" className="font-medium">
+                        {formattedTotal || 0}
+                      </Text>
+                    </div>
                   </div>
+                  <Button
+                    size="sm"
+                    className="w-full"
+                    isLoading={isPending}
+                    onClick={() => {
+                      startTransition(() => {
+                        trackEvent({ eventName: ANALTYICS_EVENT_NAME.GO_TO_CHECKOUT });
+                        trackGoToCheckout();
+                        router.push(checkoutUrl);
+                      });
+                    }}
+                  >
+                    {dictionary.checkout}
+                  </Button>
                 </div>
-              </div>
-              {children}
-              <DiscountCodeInput className="bg-white px-6 py-4" />
-              <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
-                <div className="flex w-full flex-col gap-y-2">
-                  <div className="flex w-full items-center justify-between text-brand-mid-grey">
-                    <Text size="sm" className="text-brand-mid-grey">
-                      {dictionary.shipping}
-                    </Text>
-                    <Text size="sm" className="font-medium">
-                      {dictionary.calculated_at_checkout}
-                    </Text>
-                  </div>
-                  <div className="flex w-full items-center justify-between">
-                    <Text size="sm" className="text-brand-mid-grey">
-                      {dictionary.total_incl_vat}
-                    </Text>
-                    <Text size="sm" className="font-medium">
-                      {formattedTotal || 0}
-                    </Text>
-                  </div>
-                </div>
-                <Button
-                  size="sm"
-                  className="w-full"
-                  isLoading={isPending}
-                  onClick={() => {
-                    startTransition(() => {
-                      trackEvent({ eventName: ANALTYICS_EVENT_NAME.GO_TO_CHECKOUT });
-                      trackGoToCheckout();
-                      router.push(checkoutUrl);
-                    });
-                  }}
-                >
-                  {dictionary.checkout}
-                </Button>
-              </div>
-            </>
-          )}
-          {!hasCartItems && (
-            <div className="flex w-full flex-col items-center justify-center gap-y-3">
-              <div className="rounded-full bg-brand-sand p-4">
-                <ShoppingBagIconFilled className="size-8" />
-              </div>
-              <h2 className="mb-8 max-w-xs text-balance text-center text-md">
-                {dictionary.cart_is_empty}
-              </h2>
-            </div>
-          )}
-          {!hasCartItems && (
-            <Button asChild size="sm">
-              <CustomLink href={ROUTES.HOME}>{dictionary.start_shopping}</CustomLink>
-            </Button>
-          )}
+              </>
+            )}
+          </div>
         </div>
       </SheetContent>
     </Sheet>

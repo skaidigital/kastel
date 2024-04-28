@@ -6,7 +6,7 @@ import { AccountPageHeader } from '@/components/account/AccountPageHeader';
 import { EmptyState } from '@/components/account/EmptyState';
 import { Text } from '@/components/base/Text';
 import { AddressCard } from '@/components/pages/AddressesPage/AddressCard';
-import { ROUTES } from '@/data/constants';
+import { LangValues, ROUTES } from '@/data/constants';
 import { Address } from '@/lib/shopify/types';
 import { MapPinIcon } from '@heroicons/react/20/solid';
 import { PlusIcon } from '@radix-ui/react-icons';
@@ -15,15 +15,16 @@ interface Props {
   addresses: Address[];
   defaultAddress: Address;
   dictionary: Dictionary['address_page'];
+  lang: LangValues;
 }
 
-export function AddressesPage({ addresses, defaultAddress, dictionary }: Props) {
+export function AddressesPage({ addresses, defaultAddress, dictionary, lang }: Props) {
   const hasAnAddress = addresses.length > 0 || defaultAddress;
 
   return (
     <div className="grid lg:col-span-6">
       <div className="flex items-center justify-between">
-        <AccountPageHeader pageTitle={dictionary.addresses} />
+        <AccountPageHeader lang={lang} pageTitle={dictionary.addresses} />
         <CustomLink href={ROUTES.CREATE_ADDRESS} className="flex shrink-0 items-center space-x-1">
           <PlusIcon className="size-4" />
           <Text>{dictionary.add_address}</Text>

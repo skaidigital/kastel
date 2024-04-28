@@ -4,9 +4,9 @@ import { productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
-export const reccommmendedProductValidator = z.array(productCardValidator);
+export const reccommmendedProductsValidator = z.array(productCardValidator);
 
-export type ReccommendedProductPayload = z.infer<typeof reccommmendedProductValidator>;
+export type ReccommendedProductPayload = z.infer<typeof reccommmendedProductsValidator>;
 
 export function getReccommendedProductsQuery(lang: LangValues, market: MarketValues) {
   return groq`

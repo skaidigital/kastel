@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/form/RadixSelect';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { setActiveTypeName } from '@/components/shared/PageBuilder/ShoePickerSection/actions';
 import { ShoePickerProps } from '@/components/shared/PageBuilder/hooks';
 

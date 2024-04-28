@@ -11,10 +11,12 @@ interface Props {
 }
 
 export function WelcomeMessage({ name, welcomeBackString, content, className }: Props) {
+  console.log('name:', name);
+
   return (
     <div
       className={cn(
-        'flex h-fit flex-col gap-y-4 bg-brand-primary p-4 text-white lg:gap-y-6 lg:p-6',
+        'flex h-fit flex-col gap-y-4 rounded-[4px] bg-brand-primary p-4 text-white lg:p-6',
         className
       )}
     >
@@ -22,7 +24,9 @@ export function WelcomeMessage({ name, welcomeBackString, content, className }: 
         {welcomeBackString}
         {name ? `, ${name}` : ''}!
       </Heading>
-      <PortableTextRenderer value={content} type="normal" />
+      <div className="*:mt-0">
+        <PortableTextRenderer value={content} type="normal" />
+      </div>
     </div>
   );
 }

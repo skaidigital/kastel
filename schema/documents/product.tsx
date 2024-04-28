@@ -3,12 +3,11 @@ import {
   filterAlreadyAddedReferences,
   i18nField,
   i18nNumber,
-  i18nSlug,
   i18nString,
-  isActiveProductValidation,
+  slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
-import { Gear, Image, PaintBrush, Sneaker } from '@phosphor-icons/react';
+import { Gear, Image, PaintBrush, Sneaker, Video } from '@phosphor-icons/react';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const product = defineType({
@@ -75,14 +74,19 @@ export const product = defineType({
     defineField({
       title: 'Gallery - Female',
       name: 'galleryFemale',
-      type: 'gallery',
+      type: 'array',
+      of: [
+        { type: 'figure', title: 'Image', icon: Image },
+        { type: 'mux.video', title: 'Video', icon: Video }
+      ],
       group: 'images',
       validation: (Rule) => Rule.min(1).max(10)
     }),
     defineField({
       title: 'Gallery - Male',
       name: 'galleryMale',
-      type: 'gallery',
+      type: 'array',
+      of: [{ type: 'figure' }, { type: 'mux.video' }],
       group: 'images',
       validation: (Rule) => Rule.min(1).max(10)
     }),
@@ -126,6 +130,123 @@ export const product = defineType({
       title: 'Subtitle (optional)',
       name: 'subtitle',
       type: 'i18n.string',
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Short description',
+      description:
+        "If set this field and have it set on the model, we will use this instead of the model's short description",
+      name: 'descriptionShort',
+      type: 'i18n.text',
+      options: {
+        rows: 2
+      },
+      validation: (Rule: any) =>
+        Rule.custom((value: any, context: any) => {
+          const hasModel = context?.document?.productType?._ref ? true : false;
+
+          if (hasModel) {
+            return true;
+          }
+
+          const hasNo = value?.no;
+          const hasEn = value?.en;
+
+          if (!hasNo || !hasEn) {
+            return [
+              !hasNo && {
+                message:
+                  'You must provide a Norwegian short description if you do not set a model under settings',
+                paths: ['no']
+              },
+              !hasEn && {
+                message:
+                  'You must provide an English short description if you do not set a model under settings',
+                paths: ['en']
+              }
+            ].filter(Boolean);
+          }
+
+          return true;
+        }),
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Long description title',
+      description:
+        "Title of the longer description below the product hero. If set this field and have it set on the model, we will use this instead of the model's long description title.",
+      name: 'descriptionLongTitle',
+      type: 'i18n.text',
+      options: {
+        rows: 2
+      },
+      validation: (Rule: any) =>
+        Rule.custom((value: any, context: any) => {
+          const hasModel = context?.document?.productType?._ref ? true : false;
+
+          if (hasModel) {
+            return true;
+          }
+
+          const hasNo = value?.no;
+          const hasEn = value?.en;
+
+          if (!hasNo || !hasEn) {
+            return [
+              !hasNo && {
+                message:
+                  'You must provide a Norwegian long description title if you do not set a model under settings',
+                paths: ['no']
+              },
+              !hasEn && {
+                message:
+                  'You must provide an English long description title if you do not set a model under settings',
+                paths: ['en']
+              }
+            ].filter(Boolean);
+          }
+
+          return true;
+        }),
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Long description details',
+      description:
+        "The longer description below the product hero. If set this field and have it set on the model, we will use this instead of the model's long description details.",
+      name: 'descriptionLongDetails',
+      type: 'i18n.text',
+      options: {
+        rows: 4
+      },
+      validation: (Rule: any) =>
+        Rule.custom((value: any, context: any) => {
+          const hasModel = context?.document?.productType?._ref ? true : false;
+
+          if (hasModel) {
+            return true;
+          }
+
+          const hasNo = value?.no;
+          const hasEn = value?.en;
+
+          if (!hasNo || !hasEn) {
+            return [
+              !hasNo && {
+                message:
+                  'You have to provide Norwegian long description details if you do not set a model under settings',
+                paths: ['no']
+              },
+              !hasEn && {
+                message:
+                  'You have to provide English long description details if you do not set a model under settings',
+                paths: ['en']
+              }
+            ].filter(Boolean);
+          }
+
+          return true;
+        }),
       group: 'editorial'
     }),
     defineField({
@@ -313,6 +434,43 @@ export const product = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'USPs (optional)',
+      description:
+        'The USPs that will displayed in the marquee on the top and below the product hero. These will be added alongside the USPs you have set in the model, if you have any.',
+      name: 'usps',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'usp' }] }],
+      validation: (Rule) => Rule.max(5),
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'FAQs (optional)',
+      description:
+        'These will be added alongside the default product FAQs set in settings -> Default product FAQs and the FAQs set in the model if you have any',
+      name: 'faqs',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'question' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ],
+      validation: (Rule) => Rule.max(10),
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Size guide (optional)',
+      description:
+        'The size guide that will be shown in the product drawer. If you have set a size chart on the model, this will be shown instead',
+      name: 'sizeGuide',
+      type: 'reference',
+      to: [{ type: 'sizeChart' }],
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Track stock',
       name: 'trackStock',
       type: 'boolean',
@@ -414,12 +572,60 @@ export const product = defineType({
       ],
       validation: (Rule) => Rule.max(3)
     }),
-    ...i18nSlug({ schemaType: 'product', validation: isActiveProductValidation }),
-    // ...i18nField({
-    //   title: 'Metadata',
-    //   name: 'metadata',
-    //   type: 'metadata'
-    // }),
+    defineField({
+      title: 'Slug 🇧🇻',
+      name: 'slug_no',
+      type: 'slug',
+      options: {
+        source: 'title.no',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'product',
+            lang: 'no',
+            context
+          })
+      },
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (!value?.current) {
+            return 'The slug is required';
+          }
+          // Make sure the slug only has lowercase letters, noe spaces and valid characters
+          if (!/^[a-z0-9-]+$/.test(value?.current)) {
+            return 'The slug can only contain lowercase letters, numbers and hyphens';
+          }
+          return true;
+        }),
+      group: 'settings'
+    }),
+    defineField({
+      title: 'Slug 🇬🇧',
+      name: 'slug_en',
+      type: 'slug',
+      options: {
+        source: 'title.en',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'product',
+            lang: 'en',
+            context
+          })
+      },
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (!value?.current) {
+            return 'The slug is required';
+          }
+          // Make sure the slug only has lowercase letters, noe spaces and valid characters
+          if (!/^[a-z0-9-]+$/.test(value?.current)) {
+            return 'The slug can only contain lowercase letters, numbers and a-z';
+          }
+          return true;
+        }),
+      group: 'settings'
+    }),
     ...i18nField({
       title: 'Created at',
       name: 'createdAt',

@@ -1,6 +1,6 @@
 'use client';
 
-import { Select, SelectContent, SelectItem, SelectValue } from '@/components/form/RadixSelect';
+import { Select, SelectContent, SelectItem, SelectValue } from '@/components/Select';
 import { SORT_OPTIONS } from '@/data/constants';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { SelectTrigger } from '@radix-ui/react-select';

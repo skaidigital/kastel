@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const channelKey = env.NEXT_PUBLIC_SMILE_CHANNEL_KEY;
 
 interface Porps {
-  customerId: string;
+  customerId: string | undefined;
 }
 
 // TODO figure out how to lazy load this bad boy
@@ -16,7 +16,6 @@ export default function SmileInit({ customerId }: Porps) {
 
     async function initializeSmileUI() {
       if (window.SmileUI) {
-        console.log('SmileUI is already loaded');
         return;
       }
 
@@ -31,7 +30,13 @@ export default function SmileInit({ customerId }: Porps) {
 
       const { token: customer_identity_jwt } = await response.json();
 
-      console.log(customer_identity_jwt);
+      if (window.SmileUI && !customerId) {
+        window.SmileUI.init({
+          channel_key: channelKey,
+          customer_identity_jwt: undefined // Use the fetched JWT
+        });
+        return;
+      }
 
       if (window.SmileUI) {
         window.SmileUI.init({

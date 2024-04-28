@@ -27,8 +27,18 @@ export async function PopupHandler({ lang }: Props) {
   const requestCountry = cookiesStore.get(COOKIE_NAMES.REQUEST_COUNTRY)?.value;
   const reccommendedMarket = cookiesStore.get(COOKIE_NAMES.RECCOMMENDED_MARKET)?.value;
   const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP)?.value;
+  const hasConsent = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT)?.value;
+  const isProduction = process.env.NODE_ENV === 'production';
 
-  if (!hasChosenMarket && requestCountry && reccommendedMarket) {
+  const productionConsent = isProduction && hasConsent;
+  const productionConcentOrNotProduction = productionConsent || !isProduction;
+
+  if (
+    productionConcentOrNotProduction &&
+    !hasChosenMarket &&
+    requestCountry &&
+    reccommendedMarket
+  ) {
     return (
       <Suspense>
         <MarketSuggestionPopup />
@@ -36,7 +46,7 @@ export async function PopupHandler({ lang }: Props) {
     );
   }
 
-  if (!hasSeenPopupInLastDay) {
+  if (productionConcentOrNotProduction && !hasSeenPopupInLastDay) {
     return (
       <Suspense>
         <Popup lang={lang} />

@@ -10,17 +10,9 @@ interface Props {
 export function AspectRatio({ children, settings, className }: Props) {
   const { sameAspectRatio } = settings;
 
-  return (
-    <div
-      className={cn(
-        'h-0 w-full',
-        sameAspectRatio && getAspectRatioString(settings.aspectRatio),
-        !sameAspectRatio && getAspectRatioString(settings.aspectRatioMobile),
-        !sameAspectRatio && getAspectRatioStringDesktop(settings.aspectRatioDesktop),
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+  const aspectRatioString = sameAspectRatio
+    ? getAspectRatioString(settings.aspectRatio)
+    : `${getAspectRatioString(settings.aspectRatioMobile)} ${getAspectRatioStringDesktop(settings.aspectRatioDesktop)}`;
+
+  return <div className={cn('h-0 w-full', aspectRatioString, className)}>{children}</div>;
 }
