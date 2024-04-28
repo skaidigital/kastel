@@ -586,7 +586,17 @@ export const product = defineType({
             context
           })
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (!value?.current) {
+            return 'The slug is required';
+          }
+          // Make sure the slug only has lowercase letters, noe spaces and valid characters
+          if (!/^[a-z0-9-]+$/.test(value?.current)) {
+            return 'The slug can only contain lowercase letters, numbers and hyphens';
+          }
+          return true;
+        }),
       group: 'settings'
     }),
     defineField({
@@ -603,7 +613,17 @@ export const product = defineType({
             context
           })
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.custom((value, context: any) => {
+          if (!value?.current) {
+            return 'The slug is required';
+          }
+          // Make sure the slug only has lowercase letters, noe spaces and valid characters
+          if (!/^[a-z0-9-]+$/.test(value?.current)) {
+            return 'The slug can only contain lowercase letters, numbers and hyphens';
+          }
+          return true;
+        }),
       group: 'settings'
     }),
     ...i18nField({
