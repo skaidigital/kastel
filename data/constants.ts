@@ -37,7 +37,8 @@ export const CACHE_TAGS = {
   POPUP: 'popup',
   LAYOUT_USP_MARUQEE: 'layoutUSPMarquee',
   METADATA: 'settingsSEOAndSocials',
-  COOKIE_CONSENT: 'cookieConsent'
+  COOKIE_CONSENT: 'cookieConsent',
+  PRODUCT_SETTINGS: 'productSettings'
 };
 
 export const SCHEMA_NAMES = {

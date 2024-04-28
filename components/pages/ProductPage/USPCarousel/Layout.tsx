@@ -6,24 +6,24 @@ import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
 import { useEffect, useState } from 'react';
-import { Product, ProductVariant } from './hooks';
+import { Product, ProductVariant } from '../hooks';
 
 interface Props {
   productType: Product['type'];
   variants: ProductVariant[];
+  type: 'normal' | 'natureLab';
+  items: string[];
 }
 
-export function USPCarousel({ productType, variants }: Props) {
+export function USPCarouselLayout({ productType, variants, type, items }: Props) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!api) {
       return;
     }
 
-    setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
 
     api.on('select', () => {
@@ -42,19 +42,18 @@ export function USPCarousel({ productType, variants }: Props) {
 
   const lowestPrice = isOnSale ? discountedPrice : price;
 
-  const kastelPointsEarned = getKastelPoints(lowestPrice || 0);
+  const kastelPointsEarned = getKastelPoints(lowestPrice || 0, type);
 
-  const data = [
-    {
-      text: 'Kjepp kjepp'
-    },
-    {
-      text: 'Hepp hepp'
-    },
-    {
-      text: 'Some info about stuff'
+  const kastelPointsEarnedString = `Earn ${kastelPointsEarned} Kastel points`;
+  const formattedItems = kastelPointsEarned > 0 ? [kastelPointsEarnedString, ...items] : items;
+
+  function setActive(index: number) {
+    if (!api) {
+      return;
     }
-  ];
+
+    api.scrollTo(index);
+  }
 
   return (
     <div className="flex items-center justify-between border border-brand-light-grey bg-brand-sand p-6">
@@ -71,27 +70,23 @@ export function USPCarousel({ productType, variants }: Props) {
         ]}
       >
         <CarouselContent className="-ml-2">
-          {kastelPointsEarned && (
-            <CarouselItem className="basis-[100%] pl-2">
+          {formattedItems?.map((item) => (
+            <CarouselItem key={item} className="basis-[100%] pl-2">
               <div className="flex justify-between">
                 <Text as="p" size="xs" className="text-brand-dark-grey">
-                  Earn {kastelPointsEarned} Kastel points
-                </Text>
-              </div>
-            </CarouselItem>
-          )}
-          {data?.map((content) => (
-            <CarouselItem key={content.text} className="basis-[100%] pl-2">
-              <div className="flex justify-between">
-                <Text as="p" size="xs" className="text-brand-dark-grey">
-                  {content.text}
+                  {item}
                 </Text>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
-      <ScrollDots current={current} count={count} className="pl-2" />
+      <ScrollDots
+        current={current}
+        count={formattedItems.length}
+        onClick={setActive}
+        className="pl-2"
+      />
     </div>
   );
 }
@@ -99,16 +94,19 @@ export function USPCarousel({ productType, variants }: Props) {
 function ScrollDots({
   current,
   count,
+  onClick,
   className
 }: {
   current: number;
   count: number;
+  onClick: (index: number) => void;
   className?: string;
 }) {
   return (
     <div className={cn('flex justify-center gap-1', className)}>
       {Array.from({ length: count }, (_, index) => (
-        <div
+        <button
+          onClick={() => onClick(index)}
           key={index}
           className={cn('size-2', {
             'bg-brand-primary': current === index + 1,
@@ -120,8 +118,8 @@ function ScrollDots({
   );
 }
 
-function getKastelPoints(price: number, type?: 'normal' | 'naturelLab') {
-  if (type === 'naturelLab') {
+function getKastelPoints(price: number, type?: 'normal' | 'natureLab') {
+  if (type === 'natureLab') {
     return price * 12;
   }
 

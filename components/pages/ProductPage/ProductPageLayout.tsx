@@ -8,6 +8,7 @@ import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
+import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
@@ -27,7 +28,6 @@ import { PaymentIcons } from './PaymentIcons';
 import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
 import { ProductFAQs } from './ProductFAQs';
 import { ProductPrice } from './ProductPrice';
-import { USPCarousel } from './USPCarousel';
 import { UspsMarquee } from './Usps';
 
 interface Props {
@@ -204,7 +204,12 @@ export async function ProductPageLayout(props: Props) {
                 </Suspense>
               </div>
               <PaymentIcons market={market} />
-              <USPCarousel variants={variants} productType={product.type} />
+              <USPCarousel
+                type="normal"
+                variants={variants}
+                productType={product.type}
+                lang={lang}
+              />
               {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} />}
               <Suspense fallback={<CrossSellSkeleton className="mt-8" />}>
                 <CrossSell market={market} lang={lang} className="mt-8" />
