@@ -25,6 +25,8 @@ export function ProductCardImage({ mainImage, lifestyleImage, firstImage, priori
   const chosenFirstImage =
     firstImage === 'lifestyle' && hasLifestyleImage ? lifestyleImage : effectiveMainImage;
 
+  const chosenFirstImageTyped = chosenFirstImage as SanityImageProps;
+
   // Determine the hover image. It should be the opposite unless only one image is available
   const chosenHoverImage =
     firstImage === 'lifestyle' && hasLifestyleImage
@@ -33,7 +35,9 @@ export function ProductCardImage({ mainImage, lifestyleImage, firstImage, priori
         ? lifestyleImage
         : effectiveMainImage;
 
-  const hasHoverImage = chosenHoverImage !== chosenFirstImage;
+  const chosenHoverImageTyped = chosenHoverImage as SanityImageProps;
+
+  const hasHoverImage = chosenHoverImage !== chosenFirstImageTyped;
 
   return (
     <div
@@ -41,7 +45,7 @@ export function ProductCardImage({ mainImage, lifestyleImage, firstImage, priori
       onMouseLeave={() => hasHoverImage && setIsHovered(false)}
     >
       <SanityImage
-        image={isHovered ? chosenHoverImage! : chosenFirstImage}
+        image={isHovered ? chosenHoverImageTyped : chosenFirstImageTyped}
         className={cn('scale-100 rounded-project object-cover')}
         sizes="(min-width: 640px) 50vw, 25vw"
         fill
