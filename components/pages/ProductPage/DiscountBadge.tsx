@@ -9,7 +9,7 @@ interface Props {
   variants: ProductVariant[];
 }
 
-export function DiscountPill({ productType, variants }: Props) {
+export function DiscountBadge({ productType, variants }: Props) {
   const activeVariant = useActiveVariant({
     productType,
     variants

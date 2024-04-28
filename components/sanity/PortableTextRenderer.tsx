@@ -10,6 +10,7 @@ interface Props {
   type?: SerializerType;
 }
 
+// TODO go through and just use the default component + the serializer I want
 export const PortableTextRenderer = ({ value, type = 'normal' }: Props) => {
   if (!value) return null;
 

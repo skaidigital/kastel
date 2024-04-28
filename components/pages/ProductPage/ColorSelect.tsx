@@ -1,6 +1,6 @@
 'use client';
 
-import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
+import { Carousel, CarouselContent, CarouselItem, useCarousel } from '@/components/Carousel';
 import { CustomLink } from '@/components/CustomLink';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
@@ -33,10 +33,7 @@ export function ColorSelect({ products }: Props) {
         <Text as="p" size="xs" className="mb-3">
           {colorString}: {activeProduct?.title}
         </Text>
-        <div className="hidden gap-x-1 lg:flex">
-          <CarouselPrevious />
-          <CarouselNext />
-        </div>
+        <Buttons />
       </div>
       <CarouselContent className="-ml-1">
         {products.map((product) => (
@@ -59,6 +56,18 @@ export function ColorSelect({ products }: Props) {
         ))}
       </CarouselContent>
     </Carousel>
+  );
+}
+
+function Buttons() {
+  const { canScrollNext } = useCarousel();
+  if (!canScrollNext) return null;
+
+  return (
+    <div className="hidden gap-x-1 lg:flex">
+      <CarouselPrevious />
+      <CarouselNext />
+    </div>
   );
 }
 

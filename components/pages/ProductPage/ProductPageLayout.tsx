@@ -21,7 +21,7 @@ import { SearchParams } from '@/lib/types';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import { ColorSelectLayout } from './ColorSelectLayout';
-import { DiscountPill } from './DiscountPill';
+import { DiscountBadge } from './DiscountBadge';
 import { GenderImageButton } from './GenderImageButton';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
@@ -161,7 +161,7 @@ export async function ProductPageLayout(props: Props) {
               <div className="flex flex-col">
                 <div className="mb-[10px] flex items-center justify-between">
                   <div className="flex gap-2">
-                    <DiscountPill variants={variants} productType={product.type} />
+                    <DiscountBadge variants={variants} productType={product.type} />
                     <Rating sku={productSku} />
                   </div>
                   <Suspense fallback={<WishlistFallback />}>

@@ -68,6 +68,7 @@ export function ProductCard({ product, firstImage, priority, className }: Props)
                 />
               )}
               <div className="absolute bottom-3 left-3 flex gap-x-1 @xs:bottom-4 @xs:left-4">
+                {/* Add here */}
                 {badges && <Badges badges={badges} />}
               </div>
               <div className="absolute bottom-3 right-3  @xs:hidden">
