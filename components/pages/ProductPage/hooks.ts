@@ -97,8 +97,9 @@ export const productGalleryValidator = z.array(
   z.discriminatedUnion('type', [imageInGalleryValidator, videoInGalleryValidator])
 );
 
+// TODO make it non-optional after Luisa has fixed them all
 export const sizeGuideValidator = z.object({
-  description: portableTextValidator,
+  description: portableTextValidator.optional(),
   chart: z.object({
     rows: z.array(
       z.object({
