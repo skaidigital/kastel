@@ -29,15 +29,15 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
             </Text>
           </button>
         </DrawerTrigger>
-        <DrawerContent className="lg:max-w-[--drawer-width-lg]">
+        <DrawerContent className="max-h-dvh overflow-y-auto lg:max-w-[--drawer-width-lg]">
           <DrawerHeader title={sizeGuideText} />
           {description && (
             <Text size="sm" className="mx-6 text-brand-mid-grey">
               {description}
             </Text>
           )}
-          <table className="mt-6 min-w-full divide-y divide-gray-200">
-            <tbody className="divide-y divide-gray-200 bg-white">
+          <table className="mt-6  min-w-full divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200  bg-white">
               {chart?.rows?.map((row, rowIndex) => (
                 <tr
                   key={`row-${rowIndex}`}
