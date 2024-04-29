@@ -18,6 +18,7 @@ import { PageBuilder } from '@/components/shared/PageBuilder';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
+import '@/styles/externalOverride.css';
 import { Suspense } from 'react';
 import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 

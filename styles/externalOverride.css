@@ -1,0 +1,13 @@
+#smile-ui-container {
+  z-index: 22 !important;
+}
+
+#smile-ui-container > div {
+  bottom: 52px !important;
+  left: 0 !important;
+}
+
+#CookiebotWidget {
+  z-index: 23 !important;
+  bottom: 54px !important;
+}
