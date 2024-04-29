@@ -25,6 +25,7 @@ interface FilterItemProps {
 
 export async function FilterGroupItem({ item: filterGroup }: FilterItemProps) {
   const market = await getMarket();
+
   const initial = await loadFilterItem(market, filterGroup.type as filterType, filterGroup.id);
 
   const filterGroupResponse = initial?.data;
