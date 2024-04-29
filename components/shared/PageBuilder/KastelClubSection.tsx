@@ -120,9 +120,11 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
               variant="secondary"
               onClick={() => {
                 if (window.SmileUI) {
+                  console.log('Open smile link');
+
                   window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home });
                 } else {
-                  console.log('SmileUI is not loaded and initialized.');
+                  console.log('Failed to open smile link');
                 }
               }}
               size="sm"
