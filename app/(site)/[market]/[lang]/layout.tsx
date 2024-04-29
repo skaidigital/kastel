@@ -50,6 +50,11 @@ export default function IndexRoute({
             type="text/javascript"
           />
         )}
+        <Script
+          id="gorgias-chat-widget-install-v3"
+          src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
+          strategy="lazyOnload"
+        />
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
       <body>
