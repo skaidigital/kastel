@@ -282,3 +282,8 @@
 #smile-ui-container {
   z-index: 25 !important;
 }
+
+#chat-button {
+  z-index: 25 !important;
+  bottom: 88px !important;
+}
