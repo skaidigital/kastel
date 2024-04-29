@@ -17,6 +17,12 @@ export const page = defineType({
       };
     }
   },
+  fieldsets: [
+    {
+      name: 'settings',
+      title: 'Settings'
+    }
+  ],
   fields: [
     defineField({
       title: 'Internal title',
@@ -75,6 +81,33 @@ export const page = defineType({
 
           return true;
         })
+    }),
+    defineField({
+      title: 'Announcement banner',
+      name: 'showAnnouncementBanner',
+      type: 'boolean',
+      fieldset: 'settings',
+      initialValue: false,
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
+    defineField({
+      title: 'Navbar',
+      name: 'showNavbar',
+      type: 'boolean',
+      fieldset: 'settings',
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
+    defineField({
+      title: 'Footer',
+      name: 'showFooter',
+      type: 'boolean',
+      fieldset: 'settings',
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
     defineField({
       title: 'Metadata',

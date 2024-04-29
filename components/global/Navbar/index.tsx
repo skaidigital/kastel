@@ -38,13 +38,8 @@ export async function Navbar({ market, lang, className }: Props) {
 
   const navbar = isDraftMode ? validatedData?.data : withoutNullValues;
 
-  console.log('cart is ', typeof window);
-
   return (
-    <NavbarLayout
-      data={navbar}
-      // className={cn(navbar?.hasAnnouncementBanner && 'mt-[--announcement-bar-height] ', className)}
-    >
+    <NavbarLayout data={navbar}>
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
           <Suspense fallback={<CrossSellSkeleton className="px-4 lg:px-6 lg:py-4" />}>
