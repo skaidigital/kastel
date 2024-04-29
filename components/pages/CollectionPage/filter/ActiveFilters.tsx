@@ -14,6 +14,7 @@ export function ActiveFilters({ searchParams, className }: Props) {
 
   // remove keys that are not filters
   const filteredKeys = keys.filter((key) => !Object.values(URL_STATE_KEYS).includes(key));
+  filteredKeys.push(URL_STATE_KEYS.onSale);
 
   return (
     <div className={cn('flex items-center gap-x-1', className)}>
