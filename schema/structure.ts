@@ -57,7 +57,10 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
         excludedPageIds: EXCLUDED_PAGE_IDS
       }).icon(File),
-      listNew({ S, schemaType: 'blogPost', title: '🚧  Blog posts' }).icon(Article),
+      group(S, 'Blog', [
+        singleton(S, 'Landing page', 'blogLandingPage', 'blogLandingPage').icon(File),
+        listNew({ S, schemaType: 'blogPost', title: '🚧  Posts' }).icon(Article)
+      ]).icon(Article),
       listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       S.divider(),

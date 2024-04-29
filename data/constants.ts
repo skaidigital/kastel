@@ -31,6 +31,8 @@ export const CACHE_TAGS = {
   MERCHANDISING: 'merchandising',
   NOT_FOUND_PAGE: 'pageNotFound',
   PRODUCT: 'product:',
+  BLOG_LANDING_PAGE: 'blogLandingPage',
+  BLOG_POST: 'blogPost:',
   PAYMENT_PROVIDERS: 'paymentProviders',
   NAVBAR: 'navbar',
   FOOTER: 'footer',

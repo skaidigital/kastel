@@ -102,6 +102,7 @@ import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
+import { blogLandingPage } from '@/schema/singletons/blogLandingPage';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
 import { layoutUspMarquee } from '@/schema/singletons/layoutUspMarquee';
@@ -239,6 +240,7 @@ const schema = [
   filters,
   navbar,
   accountPage,
+  blogLandingPage,
   announcementBanner,
   popup,
   usps,
