@@ -25,6 +25,8 @@ interface CartContextProps {
   setIsRemoving: (isRemoving: boolean) => void;
   cartOpen: boolean;
   setCartOpen: (cartOpen: boolean) => void;
+  mobileDrawerOpen: boolean;
+  setMobileDrawerOpen: (mobileDrawerOpen: boolean) => void;
   optimisticCartItems: OptimisticCartItemProps[];
   setOptimisticCartItems: (cartItems: OptimisticCartItemProps[]) => void;
 }
@@ -38,6 +40,8 @@ export const CartContext = createContext<CartContextProps>({
   setIsRemoving: () => null,
   cartOpen: false,
   setCartOpen: () => null,
+  mobileDrawerOpen: false,
+  setMobileDrawerOpen: () => null,
   optimisticCartItems: [],
   setOptimisticCartItems: () => null
 });
@@ -46,6 +50,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
   const [removeFromCartItemId, setRemoveFromCartItemId] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState<boolean>(false);
   const [optimisticCartItems, setOptimisticCartItems] = useState<OptimisticCartItemProps[]>([]);
   const [isRemoving, setIsRemoving] = useState<boolean>(false);
 
@@ -57,6 +62,8 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
       setIsLoading,
       cartOpen,
       setCartOpen,
+      mobileDrawerOpen,
+      setMobileDrawerOpen,
       optimisticCartItems,
       setOptimisticCartItems,
       isRemoving,
@@ -69,6 +76,8 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
     setIsLoading,
     cartOpen,
     setCartOpen,
+    mobileDrawerOpen,
+    setMobileDrawerOpen,
     optimisticCartItems,
     setOptimisticCartItems,
     isRemoving,

@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/Button';
+import { useCartContext } from '@/components/CartContext';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
@@ -8,6 +9,7 @@ import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
+import { useDeviceType } from '@/lib/useDeviceType';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { sendGTMEvent } from '@next/third-parties/google';
@@ -33,8 +35,10 @@ export const AddToCartButton = ({
 }: Props) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { setCartOpen, setMobileDrawerOpen } = useCartContext();
   const { sendAddToCart } = useShopifyAnalytics();
   const { trackAddToCart } = usePlausibleAnalytics();
+  const { isDesktop } = useDeviceType();
 
   const activeVariant = useActiveVariant({
     variants,
@@ -94,6 +98,7 @@ export const AddToCartButton = ({
             });
             // Plausible
             trackAddToCart({ options: metadata });
+            setMobileDrawerOpen(false);
           }
           router.refresh();
         });
