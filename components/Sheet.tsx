@@ -14,16 +14,34 @@ interface Props {
   className?: string;
   overlayClassName?: string;
   noPadding?: boolean;
+  layer?: 1 | 2 | 3;
 }
 
-export function SheetContent({ children, title, className, overlayClassName, noPadding }: Props) {
+export function SheetContent({
+  children,
+  title,
+  className,
+  overlayClassName,
+  noPadding,
+  layer = 1
+}: Props) {
   return (
     <Drawer.Portal>
-      <Drawer.Overlay className={cn(overlayClasses, overlayClassName)} />
+      <Drawer.Overlay
+        className={cn(
+          overlayClasses,
+          layer === 1 && 'z-30',
+          layer === 2 && 'z-40',
+          layer === 3 && 'z-50'
+        )}
+      />
       <Drawer.Content
         forceMount
         className={cn(
-          'fixed bottom-0 left-0 z-30 flex w-full flex-col rounded-project bg-white  transition-[transform,opacity] will-change-[transform,opacity] focus:outline-none'
+          'fixed bottom-0 left-0 flex w-full flex-col rounded-project  bg-white transition-[transform,opacity] will-change-[transform,opacity] focus:outline-none',
+          layer === 1 && 'z-30',
+          layer === 2 && 'z-40',
+          layer === 3 && 'z-50'
         )}
       >
         <div className="mx-auto mb-4 mt-1.5 h-1.5 w-12 rounded-full bg-brand-light-grey" />

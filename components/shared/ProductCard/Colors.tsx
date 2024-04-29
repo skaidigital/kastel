@@ -23,12 +23,11 @@ export function Colors({ className, colorways, productSlug }: Props) {
     return null;
   }
 
-  const firstFourColors = colorways.slice(0, 4);
   const colorBySlug = colorways.find((colorway) => colorway.slug === productSlug);
 
   return (
     <div className={cn('flex gap-x-1', className)}>
-      {firstFourColors?.map((colorway) => (
+      {colorways?.map((colorway) => (
         <button
           onClick={(e) => {
             e.preventDefault();

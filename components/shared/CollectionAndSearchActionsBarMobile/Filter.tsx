@@ -59,7 +59,7 @@ export async function Filter({ lang }: Props) {
                   <SheetTrigger className="flex flex-1 items-center justify-center rounded-[2px] border border-brand-light-grey bg-brand-sand py-3 text-sm font-medium">
                     {filterGroup.title}
                   </SheetTrigger>
-                  <SheetContent overlayClassName="z-50" className="z-50">
+                  <SheetContent layer={2}>
                     <SheetHeader title={filterGroup.title} />
                     <FilterGroupItem item={filterGroup} />
                   </SheetContent>

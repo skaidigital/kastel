@@ -170,7 +170,7 @@ export function CollectionLayout({
       </Section>
       <Section label="description-long-products" srHeading="Description">
         <Container className="grid gap-2 lg:grid-cols-12">
-          <div className="lg:col-span-8 lg:col-start-2">
+          <div className="lg:col-span-6 lg:col-start-2">
             <h2 className="mb-4 text-overline-md font-medium uppercase text-brand-mid-grey">
               {dictionary.description}:
             </h2>

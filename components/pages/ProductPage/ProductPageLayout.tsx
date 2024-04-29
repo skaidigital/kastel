@@ -63,7 +63,7 @@ export async function ProductPageLayout(props: Props) {
 
   const productSku = 'SOL002-002-021-40';
 
-  const lifeStyleImageCheck = lifestyleImage?.asset
+  const lifeStyleImageCheck = lifestyleImage?.asset?._ref
     ? (lifestyleImage as SanityImageProps)
     : undefined;
 
@@ -108,7 +108,7 @@ export async function ProductPageLayout(props: Props) {
                 <Breadcrumbs productName={title} lang={lang} className="absolute left-4 top-4" />
               </div>
             )}
-            {lifestyleImage && (
+            {lifeStyleImageCheck && (
               <div className="aspect-h-4 aspect-w-3 relative h-full w-full">
                 <SanityImage
                   priority
