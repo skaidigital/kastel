@@ -77,6 +77,30 @@ export const page = defineType({
         })
     }),
     defineField({
+      title: 'Show announcement banner?',
+      name: 'showAnnouncementBanner',
+      type: 'boolean',
+      initialValue: false,
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
+    defineField({
+      title: 'Show navbar',
+      name: 'showNavbar',
+      type: 'boolean',
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
+    defineField({
+      title: 'Show footer',
+      name: 'showFooter',
+      type: 'boolean',
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
+    defineField({
       title: 'Metadata',
       name: 'metadata',
       type: 'metadata'
