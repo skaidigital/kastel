@@ -11,7 +11,10 @@ export const pageValidator = z.object({
   type: z.literal('page'),
   createdAt: z.string(),
   updatedAt: z.string(),
-  pageBuilder: pageBuilderValidator
+  pageBuilder: pageBuilderValidator,
+  showAnnouncementBanner: z.boolean(),
+  showNavbar: z.boolean(),
+  showFooter: z.boolean()
 });
 
 export type PagePayload = z.infer<typeof pageValidator>;
@@ -25,7 +28,10 @@ export function getPageQuery({ market, lang }: { market: MarketValues; lang: Lan
       "updatedAt": _updatedAt,
       pageBuilder[]{
         ${concatenatePageBuilderQueries({ market, lang })}
-      }
+      },
+      showAnnouncementBanner,
+      showNavbar,
+      showFooter,
     }
   `;
 
