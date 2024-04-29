@@ -15,7 +15,7 @@ interface Props {
 export default async function Cart({ children, market }: Props) {
   const { cart_drawer: dictionary } = await getDictionary();
 
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn } = await useUser();
 
   const checkoutUrl = await getCheckoutUrl(isLoggedIn);
 

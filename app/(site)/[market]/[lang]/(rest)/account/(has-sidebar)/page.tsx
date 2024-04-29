@@ -19,7 +19,7 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { lang, market } = params;
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn } = await useUser();
 
   if (!isLoggedIn) {
     await logIn();

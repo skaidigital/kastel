@@ -11,7 +11,7 @@ interface Props {
 }
 
 export async function Wishlist({ gid, className }: Props) {
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn } = await useUser();
   let isInWishlist = false;
 
   if (isLoggedIn) {
