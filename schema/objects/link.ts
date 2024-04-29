@@ -1,4 +1,9 @@
-import { SMILE_DEEP_LINKS } from '@/data/constants';
+import {
+  INTERNAL_LINK_OPTIONS,
+  LINK_TYPES,
+  SMILE_DEEP_LINKS,
+  SMILE_DEEP_LINK_OPTIONS
+} from '@/data/constants';
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Link } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
@@ -29,11 +34,7 @@ export const link = defineType({
       type: 'string',
       initialValue: 'internal',
       options: {
-        list: [
-          { title: 'To a page made in Sanity', value: 'internal' },
-          { title: 'To an external page', value: 'external' },
-          { title: 'Smile deep link', value: 'smile' }
-        ]
+        list: LINK_TYPES
       },
       validation: (Rule) => Rule.required().error('Link type is required')
     }),
@@ -47,7 +48,7 @@ export const link = defineType({
       title: 'Links to',
       name: 'linkTo',
       type: 'reference',
-      to: [{ type: 'page' }, { type: 'product' }, { type: 'collection' }],
+      to: INTERNAL_LINK_OPTIONS,
       hidden: ({ parent }) => parent?.type !== 'internal',
       validation: (Rule) =>
         Rule.custom((linkTo, context: any) => {
@@ -64,24 +65,7 @@ export const link = defineType({
       type: 'string',
       initialValue: SMILE_DEEP_LINKS.home,
       options: {
-        list: [
-          {
-            title: 'Home',
-            value: SMILE_DEEP_LINKS.home
-          },
-          {
-            title: 'Points activity rules',
-            value: SMILE_DEEP_LINKS.points_activity_rules
-          },
-          {
-            title: 'Points products',
-            value: SMILE_DEEP_LINKS.points_products
-          },
-          {
-            title: 'Referral program details',
-            value: SMILE_DEEP_LINKS.referral_program_details
-          }
-        ]
+        list: SMILE_DEEP_LINK_OPTIONS
       },
       hidden: ({ parent }) => parent?.type !== 'smile',
       validation: (Rule) =>

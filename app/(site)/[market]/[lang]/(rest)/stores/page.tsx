@@ -13,9 +13,5 @@ export default async function Page() {
   const market = await getMarket();
   const initial = await loadRetailersPage(market);
 
-  return (
-    <div className="h-dvh bg-gray-100">
-      <RetailersPage title={initial.data.title} retailers={initial.data.retailers} />
-    </div>
-  );
+  return <RetailersPage title={initial.data.title} retailers={initial.data.retailers} />;
 }

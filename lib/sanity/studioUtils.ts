@@ -43,8 +43,6 @@ export function resolveHref(documentType?: string, slug?: string): string | unde
       return '/';
     case 'page':
       return slug ? `/no/no/${slug}` : undefined;
-    case 'project':
-      return slug ? `/no/no/projects/${slug}` : undefined;
     case 'collection':
       return slug ? `/no/no/collections/${slug}` : undefined;
     case 'legalPage':

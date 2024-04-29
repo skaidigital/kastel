@@ -1,5 +1,4 @@
 import { AspectRatio } from '@/components/AspectRatio';
-import { CustomLink } from '@/components/CustomLink';
 import { HotspotImage } from '@/components/HotspotImage';
 import VideoWithSettings from '@/components/VideoWithSettings';
 import { ListItem } from '@/components/base/ListItem';
@@ -8,7 +7,7 @@ import { Text } from '@/components/base/Text';
 import { UL } from '@/components/base/UL';
 import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContainer';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { getSlug } from '@/lib/sanity/getSlug';
+import { SanityLink } from '@/components/sanity/SanityLink';
 
 export const portableTextBlogPostSerializer = {
   block: {
@@ -96,14 +95,10 @@ export const portableTextBlogPostSerializer = {
     em: ({ children }: any) => <em>{children}</em>,
     muted: ({ children }: any) => <Text>{children}</Text>,
     inlineLink: ({ children, value }: any) => {
-      console.log('inside inlineLink', value);
-
-      const href = getSlug(value.link);
-
       return (
-        <CustomLink href={href} className="underline">
+        <SanityLink link={value.link} className="underline">
           {children}
-        </CustomLink>
+        </SanityLink>
       );
     },
     productLink: ({ children, value }: any) => {
@@ -212,6 +207,13 @@ export const portableTextBlogPostSerializer = {
         </BlogWidthContainer>
       );
     }
+    // block: ({ value }: any) => {
+    //   return (
+    //     <BlogWidthContainer width={value.width} className="mt-6">
+    //       <div>{JSON.stringify(value)}</div>
+    //     </BlogWidthContainer>
+    //   );
+    // }
     // TODO figure out how to remove mt only for the first child
     // standout: ({ value }: any) => {
     //   return (

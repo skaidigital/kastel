@@ -1,3 +1,6 @@
+'use client';
+
+import { CustomLink } from '@/components/CustomLink';
 import { getSlug } from '@/lib/sanity/getSlug';
 import { LinkProps } from '@/lib/sanity/types';
 import Link from 'next/link';
@@ -7,41 +10,52 @@ interface Props {
   link: LinkProps;
   children: ReactNode;
   className?: string;
-  onClick?: () => void;
 }
 
-export const SanityLink = ({ link, children, className, onClick }: Props) => {
+export const SanityLink = ({ link, children, className }: Props) => {
   if (!link) return null;
 
-  if (link.linkType === 'external' || link.linkType === 'internal') {
+  if (link.linkType === 'internal') {
     const slug = getSlug(link);
-    const openInNewTab = link.linkType === 'external' && link.openInNewTab === true;
 
+    return (
+      <CustomLink className={className || ''} href={slug || '#'}>
+        {children}
+      </CustomLink>
+    );
+  }
+
+  if (link.linkType === 'external') {
     return (
       <Link
         className={className || ''}
-        href={slug || '#'}
-        target={openInNewTab ? '_blank' : '_self'}
-        onClick={onClick}
+        href={link.href}
+        target={link.openInNewTab ? '_blank' : '_self'}
       >
         {children}
       </Link>
     );
   }
 
-  const deeplinkType = link.smileLauncher;
+  if (link.linkType === 'smile') {
+    const deeplinkType = link.smileLauncher;
+    console.log('deeplinkType', deeplinkType);
 
-  return (
-    <button
-      onClick={() => {
-        if (window.SmileUI) {
-          window.SmileUI.openPanel({ deep_link: deeplinkType });
-        } else {
-          console.log('SmileUI is not loaded and initialized.');
-        }
-      }}
-    >
-      {children}
-    </button>
-  );
+    return (
+      <button
+        className={className || ''}
+        onClick={() => {
+          if (window.SmileUI) {
+            window.SmileUI.openPanel({ deep_link: deeplinkType });
+          } else {
+            console.log('SmileUI is not loaded and initialized.');
+          }
+        }}
+      >
+        {children}
+      </button>
+    );
+  }
+
+  return null;
 };

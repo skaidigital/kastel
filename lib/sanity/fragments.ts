@@ -3,6 +3,8 @@ import { groq } from 'next-sanity';
 
 export const slug = groq`"slug": slug.current`;
 
+const smileLink = groq`"smileLauncher": linkToSmileLancher`;
+
 export function getSlug(lang: LangValues) {
   return groq`"slug": slug_${lang}.current`;
 }
@@ -204,7 +206,8 @@ export function getLinkWithoutText(lang: LangValues) {
   "type": _type,
   "linkType": type,
   href,
-  ${getLinkTo(lang)}
+  ${getLinkTo(lang)},
+  ${smileLink}
 `;
 }
 
@@ -292,23 +295,6 @@ export const collectionImage = groq`
   "image": ${image},
 `;
 
-export function getCard(lang: LangValues) {
-  return groq`
-  "title": title.${lang}, 
-  "subtitle": subtitle.${lang}, 
-  link{
-    ${getLinkHero(lang)}
-  },
-  textPositionMobile,
-  textPositionDesktop,
-  type,
-  "video": video.asset->.playbackId,
-  image{
-    ${getImageBase(lang)}
-  },
-`;
-}
-
 export function getMedia(lang: LangValues) {
   return groq`
   type,
@@ -352,6 +338,9 @@ export function getConditionalLink(lang: LangValues) {
     },
     type == "external" => {
        href
+    },
+    type == "smile" => {
+      ${smileLink}
     },
     openInNewTab
 `;
@@ -457,5 +446,19 @@ export function getColorWays(lang: LangValues, market: MarketValues) {
     },
     "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
   }
+  `;
+}
+
+export function getHelpCenter(lang: LangValues) {
+  return groq`
+    *[_type == "helpCenter"][0] {
+      "title": title.${lang},
+      "description": description.${lang},
+      faqBlocks[]{
+        ...@->{
+          ${getFAQBlock(lang)}
+        }
+      }
+    }  
   `;
 }
