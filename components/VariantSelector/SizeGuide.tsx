@@ -74,38 +74,39 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
           </Text>
         </button>
       </SheetTrigger>
-      <SheetContent className="flex h-full max-h-[90dvh] flex-col overflow-hidden">
-        <SheetHeader title={sizeGuideText}>
+      <SheetContent className="flex max-h-[90dvh] flex-col">
+        <SheetHeader title={sizeGuideText}></SheetHeader>
+        <div className="overflow-y-auto">
           {description && (
             <div className="text-brand-mid-grey">
               <PortableTextRenderer value={description} type="normal" />
             </div>
           )}
-        </SheetHeader>
-        <div className="flex flex-col overflow-auto">
-          <table className="mt-4 min-w-full divide-y divide-gray-200">
-            <tbody className="divide-y divide-gray-200 bg-white">
-              {chart?.rows?.map((row, rowIndex) => (
-                <tr
-                  key={`row-${rowIndex}`}
-                  className={cn(
-                    rowIndex === 0
-                      ? 'text-overline-sm font-medium uppercase tracking-widest'
-                      : 'text-xs'
-                  )}
-                >
-                  {row.cells.map((cell, cellIndex) => (
-                    <td
-                      key={`cell-${cellIndex}`}
-                      className="whitespace-nowrap py-4 pr-6 text-brand-mid-grey"
-                    >
-                      {cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="flex flex-col ">
+            <table className="mt-4 min-w-full divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-200 bg-white">
+                {chart?.rows?.map((row, rowIndex) => (
+                  <tr
+                    key={`row-${rowIndex}`}
+                    className={cn(
+                      rowIndex === 0
+                        ? 'text-overline-sm font-medium uppercase tracking-widest'
+                        : 'text-xs'
+                    )}
+                  >
+                    {row.cells.map((cell, cellIndex) => (
+                      <td
+                        key={`cell-${cellIndex}`}
+                        className="whitespace-nowrap py-4 pr-6 text-brand-mid-grey"
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
