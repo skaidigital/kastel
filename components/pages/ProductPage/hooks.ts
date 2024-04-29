@@ -14,6 +14,7 @@ import { z } from 'zod';
 const sizeProductOptionValidator = z.object({
   type: z.literal('size'),
   name: z.string(),
+  slug: z.string(),
   values: z.array(
     z.object({
       title: z.string()
@@ -24,6 +25,7 @@ const sizeProductOptionValidator = z.object({
 const stringProductOptionValidator = z.object({
   type: z.literal('text'),
   name: z.string(),
+  slug: z.string(),
   values: z.array(
     z.object({
       title: z.string()
@@ -171,6 +173,7 @@ export function getProductQuery({
     options[]{
       "name": optionType->.title.${lang},
       "type": optionType->.type,
+      "slug": optionType->slug_${lang}.current,
       "values": options[]->{
         "title": title.${lang},
       }

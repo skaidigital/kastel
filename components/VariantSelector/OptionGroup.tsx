@@ -22,7 +22,7 @@ export function OptionGroup({
   chooseSizeText,
   sizeGuideText
 }: Props) {
-  const [selectedOption, setSelectedOption] = useQueryState(option.name.toLowerCase());
+  const [selectedOption, setSelectedOption] = useQueryState(option.slug);
 
   return (
     <dl className="" key={option.name}>
