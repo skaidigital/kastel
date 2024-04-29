@@ -76,7 +76,6 @@ import { sectionSettings } from '@/schema/objects/sectionSettings';
 import { shoePickerSection } from '@/schema/objects/shoePickerSection';
 import { shopOurModelsSection } from '@/schema/objects/shopOurModelsSection';
 import { spot } from '@/schema/objects/spot';
-import { textBlock } from '@/schema/objects/textBlock';
 import { timelineItem } from '@/schema/objects/timelineItem';
 import { timelineSection } from '@/schema/objects/timelineSection';
 import { ugcSection } from '@/schema/objects/ugcSection';
@@ -96,7 +95,6 @@ import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLab
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
 import { shopOurModelsBlock } from '@/schema/pageBuilderBlocks/shopOurModelsBlock';
-import { textSection } from '@/schema/pageBuilderBlocks/textSection';
 import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
 import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
@@ -187,7 +185,6 @@ const schema = [
   hero,
   uspExplainerSection,
   // Page builder blocks (documents)
-  textSection,
   faqBlock,
   ugcBlock,
   kastelClubBlock,
@@ -226,7 +223,6 @@ const schema = [
   tag,
   tagGroup,
   question,
-  textBlock,
   badge,
   usp,
   blogPost,

@@ -94,13 +94,11 @@ export const portableTextBlogPostSerializer = {
     strong: ({ children }: any) => <strong>{children}</strong>,
     em: ({ children }: any) => <em>{children}</em>,
     muted: ({ children }: any) => <Text>{children}</Text>,
-    inlineLink: ({ children, value }: any) => {
-      return (
-        <SanityLink link={value.link} className="underline">
-          {children}
-        </SanityLink>
-      );
-    },
+    inlineLink: ({ children, value }: any) => (
+      <SanityLink link={value.link} className="underline">
+        {children}
+      </SanityLink>
+    ),
     productLink: ({ children, value }: any) => {
       console.log('inside productLink', value);
 

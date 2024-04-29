@@ -1,5 +1,5 @@
 import { LangValues, MarketValues } from '@/data/constants';
-import { getImageBase } from '@/lib/sanity/fragments';
+import { getImageBase, getPortableText } from '@/lib/sanity/fragments';
 import { imageValidator, richTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
@@ -7,7 +7,9 @@ import { z } from 'zod';
 export function getAccountQuery({ lang, market }: { lang: LangValues; market: MarketValues }) {
   const query = groq`
     *[_type == "accountPage"][0] {
-        "messageFromTheTeam": messageFromTheTeam_${lang},
+        "messageFromTheTeam": messageFromTheTeam_${lang}[]{
+          ${getPortableText(lang)}
+        },
         "productDisplay": productDisplay {
         "title": title.${lang},
         "products": products[] {

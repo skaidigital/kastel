@@ -39,7 +39,6 @@ export const SanityLink = ({ link, children, className }: Props) => {
 
   if (link.linkType === 'smile') {
     const deeplinkType = link.smileLauncher;
-    console.log('deeplinkType', deeplinkType);
 
     return (
       <button

@@ -55,7 +55,9 @@ export async function OrderDetailsPage({ orderId }: Props) {
             </Badge>
             {trackingUrl && (
               <Badge size="xs" className="flex items-center gap-x-1" variant="neutral">
-                <Link href="#">{dictionary.track_your_package}</Link>
+                <Link href={trackingUrl} target="_blank">
+                  {dictionary.track_your_package}
+                </Link>
                 <ArrowTopRightIcon className="size-3 text-brand-mid-grey" />
               </Badge>
             )}

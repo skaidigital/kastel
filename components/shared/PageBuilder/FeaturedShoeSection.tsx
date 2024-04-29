@@ -6,16 +6,15 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/Carousel';
-import { CustomLink } from '@/components/CustomLink';
 import { HotspotImage } from '@/components/HotspotImage';
 import { Media } from '@/components/Media';
 import { SectionHeader } from '@/components/SectionHeader';
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
+import { SanityLink } from '@/components/sanity/SanityLink';
 import { FeaturedShoeSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { resolveLink } from '@/lib/sanity/resolveLink';
 
 interface PropsWithExtra extends FeaturedShoeSectionProps {
   index: number;
@@ -43,8 +42,6 @@ export const FeaturedShoeSection = ({ data }: Props) => {
 
   const firstContentItem = content?.[0];
   const restContentItems = content?.slice(1);
-
-  const href = resolveLink(link);
 
   const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
   const lowestSize = hasSizeRange?.options[0];
@@ -77,7 +74,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
               <div className="flex gap-x-3">
                 {link?.text && (
                   <Button size="md" asChild>
-                    <CustomLink href={href}>{link.text}</CustomLink>
+                    <SanityLink link={link}>{link.text}</SanityLink>
                   </Button>
                 )}
                 <CarouselPrevious />
@@ -116,7 +113,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
           </CarouselContent>
           {link?.text && (
             <Button size="sm" asChild className="mt-10 w-full lg:hidden">
-              <CustomLink href={href}>{link.text}</CustomLink>
+              <SanityLink link={link}>{link.text}</SanityLink>
             </Button>
           )}
         </Container>

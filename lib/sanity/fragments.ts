@@ -110,38 +110,6 @@ export function getGalleryFemale(market: MarketValues) {
 `;
 }
 
-export function getRichText({
-  lang,
-  fieldName = 'richText'
-}: {
-  lang: LangValues;
-  fieldName?: string;
-}) {
-  return groq`
-  ${fieldName}_${lang}[]{
-    ...,
-    markDefs[]{
-      ...,
-      _type == "inlineLink" => {
-        link{
-          ${getLinkWithoutText(lang)}
-        }
-      }
-    },
-    _type == "figure" => {
-      ...,
-      asset->{
-        ...,
-        metadata
-      },
-    },
-    _type == "video" => {
-      "videoUrl": asset->.playbackId,
-    }
-  }
-`;
-}
-
 export const linkTo = groq`
   "linkTo": linkTo->{
     "type": _type,
@@ -409,7 +377,9 @@ export function getFAQBlock(lang: LangValues) {
   "badge": badge->title.${lang},
   "items": items[]->{
     "question": question.${lang},
-    "answer": answer_${lang}
+    "answer": answer_${lang}[]{
+      ${getPortableText(lang)}
+    }
   }
   `;
 }
@@ -422,7 +392,9 @@ export const productsWithoutTags = '!defined($tagSlugs) =>';
 
 export function getSizeGuide(lang: LangValues) {
   return groq`
-  "description": description_${lang},
+  "description": description_${lang}[]{
+    ${getPortableText(lang)}
+  },
   "chart": chart_${lang}{
     rows[]{
       cells
@@ -460,5 +432,19 @@ export function getHelpCenter(lang: LangValues) {
         }
       }
     }  
+  `;
+}
+
+export function getPortableText(lang: LangValues) {
+  return groq`
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalLink" => {
+        link{
+          ${getLinkWithoutText(lang)}
+        },
+      },
+    }
   `;
 }

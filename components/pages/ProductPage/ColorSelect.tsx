@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/shared/Cart/CrossSell/CrossSellCarouselButton';
-import { LangValues } from '@/data/constants';
+import { LangValues, ROUTES } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -38,7 +38,10 @@ export function ColorSelect({ products }: Props) {
       <CarouselContent className="-ml-1">
         {products.map((product) => (
           <CarouselItem key={product.title} className="basis-[22%] pl-1">
-            <CustomLink key={product.mainImage.asset._ref} href={`/products/${product.slug}`}>
+            <CustomLink
+              key={product.mainImage.asset._ref}
+              href={`${ROUTES.PRODUCTS}${product.slug}`}
+            >
               <div
                 className={cn(
                   'aspect-h-4 aspect-w-3 relative h-0 w-full rounded-sm border-2',
