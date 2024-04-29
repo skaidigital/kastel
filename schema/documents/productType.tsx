@@ -133,6 +133,23 @@ export const productType = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'Cross sell products in the cart drawer (optional)',
+      description: 'Products that will be shown in the cart drawer as a cross sell',
+      name: 'cartCrossSellProducts',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'product' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ],
+      validation: (Rule) => Rule.max(3),
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Size guide (optional)',
       description:
         'The size guide that will be shown in the product drawer. If you have set a size chart on a product, this size guide not be shown for that product',

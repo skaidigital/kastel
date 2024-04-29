@@ -256,6 +256,23 @@ export const product = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'Cross sell products in the cart drawer (optional)',
+      description: 'Products that will be shown in the cart drawer as a cross sell',
+      name: 'cartCrossSellProducts',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'product' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        })
+      ],
+      validation: (Rule) => Rule.max(3),
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Badges (optional)',
       name: 'badges',
       type: 'array',
@@ -556,22 +573,7 @@ export const product = defineType({
       group: 'settings',
       hidden: ({ parent }) => parent?.type !== 'SIMPLE'
     }),
-    defineField({
-      title: 'Cross sell products in the cart drawer (optional)',
-      description: 'Products that will be shown in the cart drawer as a cross sell',
-      name: 'cartCrossSellProducts',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'product' }],
-          options: {
-            filter: filterAlreadyAddedReferences
-          }
-        })
-      ],
-      validation: (Rule) => Rule.max(3)
-    }),
+
     defineField({
       title: 'Slug 🇧🇻',
       name: 'slug_no',
