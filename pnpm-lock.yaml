@@ -168,8 +168,8 @@ dependencies:
     specifier: ^13.4.12
     version: 13.5.6(eslint@8.57.0)(typescript@5.4.5)
   framer-motion:
-    specifier: ^10.16.4
-    version: 10.18.0(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^11.1.7
+    version: 11.1.7(react-dom@18.3.1)(react@18.3.1)
   graphql:
     specifier: ^16.8.1
     version: 16.8.1
@@ -10336,6 +10336,25 @@ packages:
       tslib: 2.6.2
     optionalDependencies:
       '@emotion/is-prop-valid': 0.8.8
+    dev: false
+
+  /framer-motion@11.1.7(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-cW11Pu53eDAXUEhv5hEiWuIXWhfkbV32PlgVISn7jRdcAiVrJ1S03YQQ0/DzoswGYYwKi4qYmHHjCzAH52eSdQ==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      tslib: 2.6.2
     dev: false
 
   /framer-motion@6.5.1(react-dom@18.3.1)(react@18.3.1):
