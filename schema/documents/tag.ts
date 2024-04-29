@@ -89,7 +89,6 @@ export const tag = defineType({
     }),
     defineField({
       title: 'Slug 🇧🇻',
-      description: 'Will be hidden unless the referenced tag group is of type "text"',
       name: 'slug_no',
       type: 'slug',
       options: {
@@ -104,13 +103,8 @@ export const tag = defineType({
       },
       validation: (Rule) =>
         Rule.custom(async (value, context: any) => {
-          const client = context.getClient({ apiVersion: '2024-01-08' });
-          const parentId = context.document.group?._ref;
-
-          const parentType = await client.fetch(`*[_id == "${parentId}"][0].type`);
-
-          if (!value && parentType === 'text') {
-            return 'Color is required for tags that belong to a color group';
+          if (!value) {
+            return 'Slug is required';
           }
 
           return true;
@@ -118,7 +112,6 @@ export const tag = defineType({
     }),
     defineField({
       title: 'Slug 🇬🇧',
-      description: 'Will be hidden unless the referenced tag group is of type "text"',
       name: 'slug_en',
       type: 'slug',
       options: {
@@ -133,13 +126,8 @@ export const tag = defineType({
       },
       validation: (Rule) =>
         Rule.custom(async (value, context: any) => {
-          const client = context.getClient({ apiVersion: '2024-01-08' });
-          const parentId = context.document.group?._ref;
-
-          const parentType = await client.fetch(`*[_id == "${parentId}"][0].type`);
-
-          if (!value && parentType === 'text') {
-            return 'Color is required for tags that belong to a color group';
+          if (!value) {
+            return 'Slug is required';
           }
 
           return true;

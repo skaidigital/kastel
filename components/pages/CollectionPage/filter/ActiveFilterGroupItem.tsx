@@ -26,7 +26,8 @@ export function ActiveFilterGroupItem({ parentKey }: Props) {
         {state &&
           state.length > 0 &&
           state.map((value) => {
-            const capitalizedFiltername = value.charAt(0).toUpperCase() + value.slice(1);
+            const capitalizedFiltername =
+              parentKey !== 'on_sale' ? value.charAt(0).toUpperCase() + value.slice(1) : 'Sale';
 
             return (
               <button key={value} onClick={() => handleRemoveFilter(value)}>

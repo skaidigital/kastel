@@ -74,7 +74,7 @@ export function getTagTypeSize(market: MarketValues) {
         "id": _id,
         "title": title.${market},
         "slug": size->slug_${market}.current,
-    }
+    } | order(title)
     `;
 
   return query;
