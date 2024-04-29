@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { Text } from '../base/Text';
 
 interface Props {
   productId: string;
@@ -105,17 +104,7 @@ export const AddToCartButton = ({
         'cursor-not-allowed' && isPending
       )}
     >
-      <>
-        {id ? (
-          <>
-            <Text as="p" size="md" className="font-bold">
-              {addToCartText}
-            </Text>
-          </>
-        ) : (
-          <>{selectSizeText}</>
-        )}
-      </>
+      <>{id ? <>{addToCartText}</> : <>{selectSizeText}</>}</>
     </Button>
   );
 };
