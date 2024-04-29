@@ -197,6 +197,7 @@ export async function ProductPageLayout(props: Props) {
                     {descriptionShort}
                   </Text>
                 )}
+
                 <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
                 <Suspense fallback={<ProductFormSkeleton />}>
                   <ProductForm
@@ -207,6 +208,7 @@ export async function ProductPageLayout(props: Props) {
                     sizeGuide={product.sizeGuide}
                   />
                 </Suspense>
+                <div id="marker-element" className="hidden" style={{ height: '1px' }}></div>
               </div>
               <PaymentIcons market={market} />
               <USPCarousel
