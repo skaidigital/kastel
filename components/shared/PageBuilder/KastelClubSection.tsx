@@ -122,7 +122,11 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
                 if (window.SmileUI) {
                   console.log('Open smile link');
 
-                  window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home });
+                  window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home }).catch(
+                    (error: any) => {
+                      console.error('Failed to open smile link', error);
+                    }
+                  );
                 } else {
                   console.log('Failed to open smile link');
                 }
