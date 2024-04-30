@@ -58,7 +58,7 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
             <CarouselContent className="-ml-0">
               {products.map((product) => {
                 return (
-                  <CarouselItem key={product.title} className="basis-[80%] pl-0">
+                  <CarouselItem key={product.title + product.sku} className="basis-[80%] pl-0">
                     <ProductCard product={product} firstImage={'product'} />
                   </CarouselItem>
                 );
@@ -100,7 +100,7 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
               <CarouselContent className="-ml-0">
                 {products.map((product) => {
                   return (
-                    <CarouselItem key={product.title} className="pl-0 lg:basis-1/2">
+                    <CarouselItem key={product.title + product.sku} className="pl-0 lg:basis-1/2">
                       <ProductCard product={product} firstImage={'product'} />
                     </CarouselItem>
                   );

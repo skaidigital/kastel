@@ -8,11 +8,24 @@ export const media = defineType({
   icon: Image,
   preview: {
     select: {
-      title: 'type'
+      title: 'type',
+      type: 'type',
+      image: 'image',
+      video: 'video',
+      imageMobile: 'imageMobile',
+      imageDesktop: 'imageDesktop',
+      videoMobile: 'videoMobile',
+      videoDesktop: 'videoDesktop'
     },
-    prepare: ({ title }) => ({
-      title: title || 'Untitled'
-    })
+    prepare: ({ title, image, video, imageMobile, imageDesktop, videoMobile, videoDesktop }) => {
+      const mediaPreview =
+        image || video || imageMobile || imageDesktop || videoMobile || videoDesktop;
+
+      return {
+        title: title || 'Untitled',
+        media: mediaPreview
+      };
+    }
   },
   fields: [
     defineField({
