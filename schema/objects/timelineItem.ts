@@ -36,7 +36,7 @@ export const timelineItem = defineType({
       name: 'description',
       type: 'i18n.text',
       options: {
-        rows: 3
+        rows: 5
       },
       validation: validateAllStringTranslations
     }),

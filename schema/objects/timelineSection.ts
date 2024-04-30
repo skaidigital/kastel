@@ -1,9 +1,22 @@
+import { Calendar } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
 export const timelineSection = defineType({
   title: 'Timeline section',
   name: 'timelineSection',
   type: 'object',
+  icon: Calendar,
+  preview: {
+    select: {
+      title: 'timelineBlock.title.en'
+    },
+    prepare({ title }) {
+      return {
+        title,
+        subtitle: 'Timeline section'
+      };
+    }
+  },
   fields: [
     defineField({
       title: 'Timeline block',

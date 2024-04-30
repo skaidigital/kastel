@@ -228,8 +228,7 @@ export const pageBuilder = defineType({
     // Timeline
     defineArrayMember({
       title: '🚧 Timeline',
-      type: 'reference',
-      to: [{ type: 'timelineSection' }],
+      type: 'timelineSection',
       name: 'timelineSection'
     }),
     // FAQ section

@@ -10,6 +10,7 @@ import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/Natur
 import { NatureLabInnovationSection } from '@/components/shared/PageBuilder/NatureLabInnovationSection';
 import { ShoePickerSection } from '@/components/shared/PageBuilder/ShoePickerSection';
 import { ShopOurModelsSection } from '@/components/shared/PageBuilder/ShopOurModelsSection';
+import { TimelineSection } from '@/components/shared/PageBuilder/TimelineSection';
 import { UGCSection } from '@/components/shared/PageBuilder/UGCSection';
 import { USPExplainerSection } from '@/components/shared/PageBuilder/USPExplainerSection';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
@@ -34,7 +35,8 @@ const blockTypes: BlockType = {
   hero: Hero,
   uspExplainerSection: USPExplainerSection,
   natureLabInnovationSection: NatureLabInnovationSection,
-  emailCapture: EmailCapture
+  emailCapture: EmailCapture,
+  timelineSection: TimelineSection
 };
 
 interface Props {

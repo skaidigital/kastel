@@ -289,6 +289,23 @@ const emailCaptureValidator = z.object({
   buttonText: z.string()
 });
 
+const timelineItemValidator = z.object({
+  label: z.string(),
+  title: z.string(),
+  description: z.string(),
+  media: mediaValidator,
+  aspectRatioSettings: aspectRatioSettingsValidator
+});
+
+const timelineSectionValidator = z.object({
+  type: z.literal('timelineSection'),
+  title: z.string(),
+  description: z.string().optional(),
+  badge: z.string().optional(),
+  timeline: z.array(timelineItemValidator),
+  sectionSettings: sectionSettingsValidator
+});
+
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
   cardSectionValidator,
@@ -302,7 +319,8 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredShoeSectionValidator,
   heroValidator,
   uspExplainerSectionValidator,
-  emailCaptureValidator
+  emailCaptureValidator,
+  timelineSectionValidator
 ]);
 
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
@@ -324,6 +342,8 @@ export type HeroProps = z.infer<typeof heroValidator>;
 export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
 export type NatureLabInnovationSectionProps = z.infer<typeof natureLabInnovationSectionValidator>;
 export type EmailCaptureProps = z.infer<typeof emailCaptureValidator>;
+export type TimelineItemProps = z.infer<typeof timelineItemValidator>;
+export type TimelineSectionProps = z.infer<typeof timelineSectionValidator>;
 export type PageBuilder = z.infer<typeof pageBuilderValidator>;
 
 export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
@@ -617,6 +637,28 @@ export const PAGE_BUILDER_TYPES: {
       ${fragments.getPortableText(lang)}
     },
     "buttonText": buttonText.${lang}
+  `,
+  timelineSection: (lang) => groq`
+    ${fragments.base},
+    ...timelineBlock->{
+      "title": title.${lang},
+      "description": description.${lang},
+      "badge": badge->title.${lang},
+      "timeline": timeline[]{
+        "label": label.${lang},
+        "title": title.${lang},
+        "description": description.${lang},
+        "media": media{
+          ${fragments.getMedia(lang)}
+        },
+        "aspectRatioSettings": aspectRatioSettings{
+          ${fragments.aspectRatioSettings}
+        }
+      }
+    },
+    sectionSettings{
+      ${fragments.sectionSettings}
+    }
   `
 };
 
