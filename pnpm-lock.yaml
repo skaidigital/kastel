@@ -195,7 +195,7 @@ dependencies:
     specifier: ^3.12.0
     version: 3.12.0(next@14.2.3)(react-dom@18.3.1)(react@18.3.1)
   next-sanity:
-    specifier: ^9.0.6
+    specifier: ^9.0.12
     version: 9.0.12(@sanity/client@6.15.20)(@sanity/icons@2.11.8)(@sanity/types@3.39.1)(@sanity/ui@2.1.4)(next@14.2.3)(react@18.3.1)(sanity@3.39.1)(styled-components@6.1.8)
   next-sanity-image:
     specifier: ^6.1.1
@@ -231,7 +231,7 @@ dependencies:
     specifier: ^7.8.1
     version: 7.8.1
   sanity:
-    specifier: ^3.39.0
+    specifier: ^3.39.1
     version: 3.39.1(@types/node@20.4.4)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)(styled-components@6.1.8)
   sanity-plugin-documents-pane:
     specifier: ^2.2.1
@@ -6386,7 +6386,7 @@ packages:
     peerDependencies:
       '@sanity/client': ^6.15.20
     dependencies:
-      '@sanity/client': 6.15.20
+      '@sanity/client': 6.15.20(debug@4.3.4)
       '@sanity/uuid': 3.0.2
     dev: false
 
