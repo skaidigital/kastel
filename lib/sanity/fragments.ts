@@ -173,9 +173,16 @@ export function getLinkWithoutText(lang: LangValues) {
   return groq`
   "type": _type,
   "linkType": type,
-  href,
-  ${getLinkTo(lang)},
-  ${smileLink}
+  type == "internal" => {
+    ${getLinkTo(lang)}
+  },
+  type == "external" => {
+    href,
+    openInNewTab
+  },
+  type == "smile" => {
+    ${smileLink}
+  }
 `;
 }
 
@@ -440,7 +447,7 @@ export function getPortableText(lang: LangValues) {
     ...,
     markDefs[]{
       ...,
-      _type == "internalLink" => {
+      _type == "inlineLink" => {
         link{
           ${getLinkWithoutText(lang)}
         },

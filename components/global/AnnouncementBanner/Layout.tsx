@@ -1,8 +1,7 @@
 'use client';
 
-import { CustomLink } from '@/components/CustomLink';
 import { AnnouncementBannerPayload } from '@/components/global/AnnouncementBanner/hooks';
-import { resolveLink } from '@/lib/sanity/resolveLink';
+import { SanityLink } from '@/components/sanity/SanityLink';
 import Marquee from 'react-fast-marquee';
 
 interface Props {
@@ -21,15 +20,27 @@ export function AnnouncementBannerLayout(props: Props) {
 
   const { content, hasLink } = announcementBanner;
 
-  const Wrapper = hasLink ? CustomLink : 'div';
+  const classNames =
+    'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36';
+
+  if (hasLink) {
+    return (
+      <SanityLink link={announcementBanner.link} className={classNames}>
+        <Marquee autoFill pauseOnHover>
+          {content?.map((usp) => {
+            return (
+              <span key={usp && usp} className="mr-10 font-bold lg:mr-32">
+                {usp && usp}
+              </span>
+            );
+          })}
+        </Marquee>
+      </SanityLink>
+    );
+  }
 
   return (
-    <Wrapper
-      href={hasLink ? resolveLink(announcementBanner.link) : undefined}
-      className={
-        'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36'
-      }
-    >
+    <div className={classNames}>
       <Marquee autoFill pauseOnHover>
         {content?.map((usp) => {
           return (
@@ -39,6 +50,6 @@ export function AnnouncementBannerLayout(props: Props) {
           );
         })}
       </Marquee>
-    </Wrapper>
+    </div>
   );
 }

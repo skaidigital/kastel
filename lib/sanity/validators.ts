@@ -32,16 +32,18 @@ const linkInternalValidator = z.object({
   linkTo: linkToValidator
 });
 
+const smileLauncherEnum = z.enum([
+  'home',
+  'points_activity_rules',
+  'points_products',
+  'referral_program_details'
+]);
+
 const smileValidator = z.object({
   type: z.literal('link'),
   linkType: z.literal('smile'),
   text: z.string(),
-  smileLauncher: z.enum([
-    'home',
-    'points_activity_rules',
-    'points_products',
-    'referral_program_details'
-  ])
+  smileLauncher: smileLauncherEnum
 });
 
 export const linkValidator = z.discriminatedUnion('linkType', [
@@ -59,12 +61,20 @@ const linkWithoutTextInternalValidator = z.object({
 const linkWithoutTextExternalValidator = z.object({
   type: z.literal('linkWithoutText'),
   linkType: z.literal('external'),
-  href: z.string().url()
+  href: z.string().url(),
+  openInNewTab: z.boolean()
+});
+
+const linkWithoutTextSmileValidator = z.object({
+  type: z.literal('linkWithoutText'),
+  linkType: z.literal('smile'),
+  smileLauncher: smileLauncherEnum
 });
 
 export const linkWithoutTextValidator = z.discriminatedUnion('linkType', [
   linkWithoutTextInternalValidator,
-  linkWithoutTextExternalValidator
+  linkWithoutTextExternalValidator,
+  linkWithoutTextSmileValidator
 ]);
 
 export const imageValidator = z.object({

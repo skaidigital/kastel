@@ -35,7 +35,7 @@ export async function AnnouncementBanner({ lang, className }: Props) {
     validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
   }
 
-  const footer = isDraftMode ? validatedData?.data : dataWithoutNullValues;
+  const announcementBanner = isDraftMode ? validatedData?.data : dataWithoutNullValues;
 
-  return <AnnouncementBannerLayout data={footer} className={className} />;
+  return <AnnouncementBannerLayout data={announcementBanner} className={className} />;
 }

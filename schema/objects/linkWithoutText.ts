@@ -79,6 +79,20 @@ export const linkWithoutText = defineType({
           }
           return true;
         })
+    }),
+    defineField({
+      title: 'Open in new tab?',
+      name: 'openInNewTab',
+      type: 'boolean',
+      initialValue: false,
+      hidden: ({ parent }) => parent?.type !== 'external',
+      validation: (Rule) =>
+        Rule.custom((openInNewTab, context: any) => {
+          if (context.parent?.type === 'external' && openInNewTab === undefined) {
+            return 'You have to choose if the link should open in a new tab or not';
+          }
+          return true;
+        })
     })
   ]
 });

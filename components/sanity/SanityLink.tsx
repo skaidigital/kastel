@@ -2,12 +2,12 @@
 
 import { CustomLink } from '@/components/CustomLink';
 import { getSlug } from '@/lib/sanity/getSlug';
-import { LinkProps } from '@/lib/sanity/types';
+import { LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
 interface Props {
-  link: LinkProps;
+  link: LinkProps | LinkWithoutTextProps;
   children: ReactNode;
   className?: string;
   onClick?: () => void;
