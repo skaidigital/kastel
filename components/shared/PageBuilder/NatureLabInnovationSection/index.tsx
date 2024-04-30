@@ -1,7 +1,9 @@
 'use client';
 
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
+import { NatureLabInnovationItem } from '@/components/shared/PageBuilder/NatureLabInnovationSection/NatureLabInnovationItem';
 import { NatureLabInnovationSectionProps } from '@/components/shared/PageBuilder/hooks';
 
 interface PropsWithExtra extends NatureLabInnovationSectionProps {
@@ -18,10 +20,6 @@ interface Props {
 // ? Add section settingsn
 export const NatureLabInnovationSection = ({ data }: Props) => {
   const { index, pageId, pageType, title, description, innovations } = data;
-
-  console.log(title);
-  console.log(description);
-  console.log(innovations);
 
   return (
     <Section
@@ -42,8 +40,27 @@ export const NatureLabInnovationSection = ({ data }: Props) => {
         )}
       </Container>
       {/* Mobile carousel */}
+      <Carousel
+        opts={{
+          align: 'start'
+        }}
+        className="mx-4 lg:hidden"
+      >
+        <CarouselContent className="-ml-6">
+          {innovations?.map((innovation) => (
+            <CarouselItem className="basis-[90%] pl-6" key={innovation.title}>
+              <NatureLabInnovationItem item={innovation} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
       {/* Desktop grid */}
+      <Container className="hidden grid-cols-3 gap-x-4 gap-y-10 lg:grid">
+        {innovations?.map((innovation) => (
+          <NatureLabInnovationItem item={innovation} key={innovation.title} />
+        ))}
+      </Container>
     </Section>
   );
 };
