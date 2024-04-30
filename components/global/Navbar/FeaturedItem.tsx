@@ -1,9 +1,8 @@
 import { Heading } from '@/components/base/Heading';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { getSlug } from '@/lib/sanity/getSlug';
+import { SanityLink } from '@/components/sanity/SanityLink';
 import { LinkProps, SanityImageProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
 
 interface FeaturedItemProps {
   title: string;
@@ -14,9 +13,11 @@ interface FeaturedItemProps {
 }
 
 export const FeaturedItem = ({ title, image, link, className, onClick }: FeaturedItemProps) => {
+  console.log('FeaturedItemProps:', link);
+
   return (
-    <Link
-      href={getSlug(link)}
+    <SanityLink
+      link={link}
       onClick={onClick}
       className={cn('sm:text-sm group relative flex flex-col items-center gap-y-4', className)}
     >
@@ -30,6 +31,6 @@ export const FeaturedItem = ({ title, image, link, className, onClick }: Feature
       <p className="absolute bottom-0 left-0 px-2 pb-1 text-white">
         <Heading size="md">{title}</Heading>
       </p>
-    </Link>
+    </SanityLink>
   );
 };
