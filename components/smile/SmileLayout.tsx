@@ -1,17 +1,17 @@
 import { COOKIE_NAMES } from '@/data/constants';
+import { getExpiryTime } from '@/lib/getExpiryTime';
 import { cookies } from 'next/headers';
-import SmileInit from './SmileInit';
-import { getCustomerId } from './hooks';
 
-// interface SmileProps {}
+import { getCustomerId } from './hooks';
+import SmileInit from './SmileInitV2';
 
 export async function SmileLayout() {
   const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
-  console.log('accessToken', accessToken);
+  const isExpired = await getExpiryTime();
 
-  if (!accessToken) {
-    console.log('Init Smile without customer ID');
+  console.log(accessToken, isExpired);
 
+  if (!accessToken || !isExpired) {
     return <SmileInit customerId={undefined} />;
   }
 
@@ -19,7 +19,6 @@ export async function SmileLayout() {
   console.log('customerId', customerId);
 
   const idWithoutGid = customerId?.split('gid://shopify/Customer/')[1];
-  console.log('idWithoutGid', idWithoutGid);
 
   return <SmileInit customerId={idWithoutGid} />;
 }
