@@ -35,7 +35,6 @@ export default function SmileInit({ customerId }: Props) {
           await init();
           retryCount++;
         }
-        console.error('Failed to initialize Smile UI: SmileUI is not available on window.');
       }
     }
 
