@@ -1,5 +1,4 @@
-import { CustomLink } from '@/components/CustomLink';
-import { getSlug } from '@/lib/sanity/getSlug';
+import { SanityLink } from '@/components/sanity/SanityLink';
 import { HeadingAndLinksProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 
@@ -21,13 +20,9 @@ export function FooterItem({ item, className }: Props) {
       <div className="flex flex-col gap-y-2">
         {item.links &&
           item.links.map((link) => (
-            <CustomLink
-              href={getSlug(link.link)}
-              className="text-sm"
-              key={item.heading + link.link.text}
-            >
+            <SanityLink link={link.link} className="text-sm" key={item.heading + link.link.text}>
               {link.link.text}
-            </CustomLink>
+            </SanityLink>
           ))}
       </div>
     </div>

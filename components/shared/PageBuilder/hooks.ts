@@ -406,7 +406,9 @@ export const PAGE_BUILDER_TYPES: {
       "badge": badge->title.${lang},
       "items": items[]->{
         "question": question.${lang},
-        "answer": answer_${lang}
+        "answer": answer_${lang}[]{
+          ${fragments.getPortableText(lang)}
+        },
       },
     },
     sectionSettings{
@@ -481,7 +483,9 @@ export const PAGE_BUILDER_TYPES: {
       "titleContent": titleContent.${lang},
       steps[]{
         "title": title.${lang},
-        "content": content_${lang},
+        "content": content_${lang}[]{
+          ${fragments.getPortableText(lang)}
+        },
         image{
           ${fragments.getImageBase(lang)}
         }

@@ -78,6 +78,7 @@ export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: M
       "content": content_${lang}[]{
           ...,
           markDefs[]{
+            ...,
             _type == "inlineLink" => {
               link{
                 ${getLinkWithoutText(lang)}

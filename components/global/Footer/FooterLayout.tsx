@@ -1,15 +1,14 @@
 import { Dictionary } from '@/app/dictionaries';
-import { CustomLink } from '@/components/CustomLink';
 import { Logo } from '@/components/Logo';
 import { Container } from '@/components/base/Container';
 import { Text } from '@/components/base/Text';
 import { FooterItem } from '@/components/global/Footer/FooterItem';
 import { MadeBySkai } from '@/components/global/Footer/MadeBySkai';
 import { FooterPayload } from '@/components/global/Footer/hooks';
+import { SanityLink } from '@/components/sanity/SanityLink';
 import { MarketSelectorDropdown } from '@/components/shared/MarketSelectorDropdown';
 import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
 import { MarketValues } from '@/data/constants';
-import { getSlug } from '@/lib/sanity/getSlug';
 import { env } from 'process';
 
 interface Props {
@@ -52,13 +51,9 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
               <div className="flex flex-col gap-y-2">
                 {item.links &&
                   item.links.map((link, index) => (
-                    <CustomLink
-                      key={link.link.text + index}
-                      href={getSlug(link.link)}
-                      className="text-sm"
-                    >
+                    <SanityLink key={link.link.text + index} link={link.link} className="text-sm">
                       {link.link.text}
-                    </CustomLink>
+                    </SanityLink>
                   ))}
               </div>
             </div>

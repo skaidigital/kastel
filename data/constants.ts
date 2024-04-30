@@ -6,10 +6,13 @@ export const ROUTES = {
   ACCOUNT: '/account',
   WISHLIST: '/account/wishlist',
   ACCOUNT_CUSTOMER_SERVICE: '/account/customer-service',
+  HELP_CENTER: '/help-center',
+  LEGAL: '/legal',
   ADDRESSES: '/account/addresses',
   CREATE_ADDRESS: '/account/addresses/create',
   EDIT_ADDRESS: '/account/addresses/:id/edit',
   PRODUCTS: '/products',
+  COLLECTIONS: '/collections',
   ORDERS: '/account/orders',
   ORDER_DETAILS: '/account/orders',
   BLOG: '/blog',
@@ -289,3 +292,44 @@ export const SORT_OPTIONS = [
     value: 'newest'
   }
 ];
+
+// ? The different types of links that can be created in Sanity.
+export const LINK_TYPES = [
+  { title: 'To a page made in Sanity', value: 'internal' },
+  { title: 'To an external page', value: 'external' },
+  { title: 'Smile deep link', value: 'smile' }
+];
+
+// ? The different types of pages that can be linked to in Sanity.
+export const INTERNAL_LINK_OPTIONS = [
+  { type: 'page', title: 'Page' },
+  { type: 'product', title: 'Product' },
+  { type: 'collection', title: 'Collection' },
+  { type: 'legalPage', title: 'Legal page' },
+  { type: 'blogPost', title: 'Blog post' },
+  { type: 'blogLandingPage', title: 'Blog landing page' },
+  { type: 'helpCenter', title: 'Help center' },
+  { type: 'retailersPage', title: 'Retailers page' }
+];
+
+// ? The different types of pages that can be linked to in Sanity.
+export const SMILE_DEEP_LINK_OPTIONS = [
+  {
+    title: 'Home',
+    value: SMILE_DEEP_LINKS.home
+  },
+  {
+    title: 'Points activity rules',
+    value: SMILE_DEEP_LINKS.points_activity_rules
+  },
+  {
+    title: 'Points products',
+    value: SMILE_DEEP_LINKS.points_products
+  },
+  {
+    title: 'Referral program details',
+    value: SMILE_DEEP_LINKS.referral_program_details
+  }
+];
+
+// TODO add tel, email, and social media

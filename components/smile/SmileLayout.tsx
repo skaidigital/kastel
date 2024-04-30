@@ -16,6 +16,8 @@ export async function SmileLayout() {
   }
 
   const customerId = await getCustomerId();
+  console.log('customerId', customerId);
+
   const idWithoutGid = customerId?.split('gid://shopify/Customer/')[1];
 
   return <SmileInit customerId={idWithoutGid} />;

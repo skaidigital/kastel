@@ -1,15 +1,15 @@
-import { SCHEMA_NAMES } from '@/data/constants';
+import { ROUTES } from '@/data/constants';
 import { LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types';
 
 export const getSlug = (link: LinkProps | LinkWithoutTextProps) => {
   const linkType = link.linkType;
 
-  if (linkType === 'smile') {
-    return '#';
-  }
-
   if (linkType === 'external') {
     return link.href || '#';
+  }
+
+  if (linkType === 'smile') {
+    return '#';
   }
 
   if (!link.linkTo) {
@@ -22,15 +22,25 @@ export const getSlug = (link: LinkProps | LinkWithoutTextProps) => {
   if (internalLinkType === 'page' && slug === 'home') {
     return `/`;
   }
-  if (internalLinkType === SCHEMA_NAMES.PAGE) {
-    return `/${slug}`;
-  } else if (internalLinkType === 'product') {
-    return `/${SCHEMA_NAMES.PRODUCT}/${slug}`;
-  } else if (internalLinkType === 'collection') {
-    return `/${SCHEMA_NAMES.COLLECTION}/${slug}`;
-  } else if (internalLinkType === 'retailersPage') {
-    return `/stores`;
-  } else {
-    return '/';
+
+  switch (internalLinkType) {
+    case 'page':
+      return `/${slug}`;
+    case 'product':
+      return `${ROUTES.PRODUCTS}/${slug}`;
+    case 'collection':
+      return `${ROUTES.COLLECTIONS}/${slug}`;
+    case 'retailersPage':
+      return `/stores`;
+    case 'blogLandingPage':
+      return `${ROUTES.BLOG}`;
+    case 'blogPost':
+      return `${ROUTES.BLOG}/${slug}`;
+    case 'helpCenter':
+      return `${ROUTES.HELP_CENTER}`;
+    case 'legalPage':
+      return `${ROUTES.LEGAL}/${slug}`;
+    default:
+      return '/';
   }
 };

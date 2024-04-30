@@ -1,3 +1,9 @@
+import {
+  INTERNAL_LINK_OPTIONS,
+  LINK_TYPES,
+  SMILE_DEEP_LINKS,
+  SMILE_DEEP_LINK_OPTIONS
+} from '@/data/constants';
 import { ValidationContext, defineField, defineType } from 'sanity';
 
 export const linkWithoutText = defineType({
@@ -24,10 +30,7 @@ export const linkWithoutText = defineType({
       type: 'string',
       initialValue: 'internal',
       options: {
-        list: [
-          { title: 'A page made in Sanity', value: 'internal' },
-          { title: 'An external site', value: 'external' }
-        ]
+        list: LINK_TYPES
       },
       validation: (Rule) => Rule.required()
     }),
@@ -35,17 +38,30 @@ export const linkWithoutText = defineType({
       title: 'Links to',
       name: 'linkTo',
       type: 'reference',
-      to: [
-        { type: 'page' },
-        { type: 'product' },
-        { type: 'collection' },
-        { type: 'retailersPage' }
-      ],
+      to: INTERNAL_LINK_OPTIONS,
       hidden: ({ parent }) => parent?.type !== 'internal',
       validation: (Rule) =>
         Rule.custom((linkTo, context: ValidationContext) => {
           if (context.document?._type === 'internal' && !linkTo) {
             return 'Internal link requires a link to a page';
+          }
+          return true;
+        })
+    }),
+    defineField({
+      title: 'Smile Launcher',
+      description: 'Pick a place in the Smile Launcher',
+      name: 'linkToSmileLancher',
+      type: 'string',
+      initialValue: SMILE_DEEP_LINKS.home,
+      options: {
+        list: SMILE_DEEP_LINK_OPTIONS
+      },
+      hidden: ({ parent }) => parent?.type !== 'smile',
+      validation: (Rule) =>
+        Rule.custom((linkToSmileLancher, context: any) => {
+          if (context.parent?.type === 'smile' && !linkToSmileLancher) {
+            return 'Smile link requires a link to a place in the Smile Launcher';
           }
           return true;
         })

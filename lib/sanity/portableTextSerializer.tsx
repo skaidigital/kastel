@@ -5,8 +5,7 @@ import { OL } from '@/components/base/OL';
 import { Text } from '@/components/base/Text';
 import { UL } from '@/components/base/UL';
 import { SanityImage } from '@/components/sanity/SanityImage';
-import { getSlug } from '@/lib/sanity/getSlug';
-import Link from 'next/link';
+import { SanityLink } from '@/components/sanity/SanityLink';
 
 export const portableTextSerializer = {
   block: {
@@ -84,15 +83,11 @@ export const portableTextSerializer = {
     strong: ({ children }: any) => <strong>{children}</strong>,
     em: ({ children }: any) => <em>{children}</em>,
     muted: ({ children }: any) => <Text>{children}</Text>,
-    inlineLink: ({ children, value }: any) => {
-      const href = getSlug(value.link);
-
-      return (
-        <Link href={href} className="underline">
-          {children}
-        </Link>
-      );
-    }
+    inlineLink: ({ children, value }: any) => (
+      <SanityLink link={value.link} className="underline">
+        {children}
+      </SanityLink>
+    )
   },
 
   // # Custom types

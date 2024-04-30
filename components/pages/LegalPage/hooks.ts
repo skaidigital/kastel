@@ -1,4 +1,5 @@
 import { LangValues } from '@/data/constants';
+import { getLinkWithoutText } from '@/lib/sanity/fragments';
 import { portableTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
@@ -22,7 +23,17 @@ export function getLegalPageQuery({ lang }: { lang: LangValues }) {
         "subtitle": subtitle.${lang},
         "type": _type,
         "updatedAt": _updatedAt,
-        "content": content_${lang},
+        "content": content_${lang}[]{
+          ...,
+          markDefs[]{
+            ...,
+            _type == "inlineLink" => {
+              link{
+                ${getLinkWithoutText(lang)}
+              }
+            },
+          }
+        }
       }
     `;
 

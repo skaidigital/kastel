@@ -5,11 +5,9 @@ import { Container } from '@/components/base/Container';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
-import { getSlug } from '@/lib/sanity/getSlug';
 import { cn } from '@/lib/utils';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import Link from 'next/link';
 
 interface Props {
   items: NavbarPayload['items'];
@@ -26,9 +24,9 @@ export function DesktopMenu({ items, className }: Props) {
             return (
               <NavigationMenu.Item key={item.text} className="pr-5">
                 <NavigationMenu.Link asChild>
-                  <Link className="text-sm" href={getSlug(item)}>
+                  <SanityLink className="text-sm" link={item}>
                     {item.text}
-                  </Link>
+                  </SanityLink>
                 </NavigationMenu.Link>
               </NavigationMenu.Item>
             );
@@ -65,7 +63,10 @@ export function DesktopMenu({ items, className }: Props) {
                                       index === 3 && '[--animation-delay:950ms]',
                                       index === 4 && '[--animation-delay:1000ms]',
                                       index === 5 && '[--animation-delay:1025ms]',
-                                      index === 6 && '[--animation-delay:1050ms]'
+                                      index === 6 && '[--animation-delay:1050ms]',
+                                      index === 7 && '[--animation-delay:1075ms]',
+                                      index === 8 && '[--animation-delay:1100ms]',
+                                      index === 9 && '[--animation-delay:1125ms]'
                                     )}
                                   >
                                     {item.link?.text && item.link.text}
@@ -100,7 +101,7 @@ export function DesktopMenu({ items, className }: Props) {
       </NavigationMenu.List>
 
       <div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
-        <NavigationMenu.Viewport className="sm:w-[var(--radix-navigation-menu-viewport-width)] border-brand-border relative mt-[1px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden border-b bg-white/90 backdrop-blur-lg transition-[width,_height] duration-300 " />
+        <NavigationMenu.Viewport className="sm:w-[var(--radix-navigation-menu-viewport-width)] border-brand-border relative mt-[1px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden border-b bg-white/80 backdrop-blur-lg transition-[width,_height] duration-300 " />
       </div>
     </NavigationMenu.Root>
   );
