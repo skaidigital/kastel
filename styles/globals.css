@@ -6,6 +6,9 @@
   body {
     @apply text-brand-dark-grey placeholder:text-brand-dark-grey;
   }
+  input {
+    @apply focus:outline-brand-primary;
+  }
   .link-animation {
     @apply transition-colors duration-100 ease-in-out;
   }

@@ -280,6 +280,15 @@ const natureLabInnovationSectionValidator = z.object({
   innovations: z.array(natureLabInnovationItemValidator)
 });
 
+const emailCaptureValidator = z.object({
+  type: z.literal('natureLabInnovationsSection'),
+  title: z.string(),
+  media: mediaValidator,
+  badge: z.string().optional(),
+  description: portableTextValidator,
+  buttonText: z.string()
+});
+
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
   cardSectionValidator,
@@ -292,7 +301,8 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   shopOurModelsSectionValidator,
   featuredShoeSectionValidator,
   heroValidator,
-  uspExplainerSectionValidator
+  uspExplainerSectionValidator,
+  emailCaptureValidator
 ]);
 
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
@@ -313,6 +323,7 @@ export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidat
 export type HeroProps = z.infer<typeof heroValidator>;
 export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
 export type NatureLabInnovationSectionProps = z.infer<typeof natureLabInnovationSectionValidator>;
+export type EmailCaptureProps = z.infer<typeof emailCaptureValidator>;
 export type PageBuilder = z.infer<typeof pageBuilderValidator>;
 
 export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
@@ -594,6 +605,18 @@ export const PAGE_BUILDER_TYPES: {
       },
       "keyFeatures": keyFeatures[].feature.${lang}
     },
+  `,
+  emailCapture: (lang) => groq`
+    ${fragments.base},
+    "title": title.${lang},
+    "media": media{
+      ${fragments.getMedia(lang)}
+    },
+    "badge": badge->title.${lang},
+    "description": description_${lang}[]{
+      ${fragments.getPortableText(lang)}
+    },
+    "buttonText": buttonText.${lang}
   `
 };
 

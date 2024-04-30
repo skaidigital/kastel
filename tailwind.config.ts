@@ -240,6 +240,9 @@ module.exports = {
       exitToRight: 'exitToRight 250ms ease'
     },
     extend: {
+      ringColor: {
+        DEFAULT: 'brand-primary'
+      },
       colors: {
         brand: {
           primary: '#407F7F',

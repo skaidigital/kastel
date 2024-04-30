@@ -1,5 +1,6 @@
 import { BlogPostSection } from '@/components/shared/PageBuilder/BlogPostSection';
 import { CardSection } from '@/components/shared/PageBuilder/CardSection';
+import { EmailCapture } from '@/components/shared/PageBuilder/EmailCapture';
 import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
 import { FeaturedCollectionSection } from '@/components/shared/PageBuilder/FeaturedCollectionSection';
 import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedShoeSection';
@@ -32,7 +33,8 @@ const blockTypes: BlockType = {
   featuredShoeSection: FeaturedShoeSection,
   hero: Hero,
   uspExplainerSection: USPExplainerSection,
-  natureLabInnovationSection: NatureLabInnovationSection
+  natureLabInnovationSection: NatureLabInnovationSection,
+  emailCapture: EmailCapture
 };
 
 interface Props {

@@ -36,13 +36,13 @@ export const emailCapture = defineType({
     }),
     defineField({
       title: 'Description 🇧🇻',
-      name: 'descriptionNo',
+      name: 'description_no',
       type: 'richText',
       validation: (Rule) => Rule.required()
     }),
     defineField({
       title: 'Description 🇬🇧',
-      name: 'descriptionEn',
+      name: 'description_en',
       type: 'richText',
       validation: (Rule) => Rule.required()
     }),
