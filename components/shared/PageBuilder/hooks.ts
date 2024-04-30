@@ -282,6 +282,7 @@ const natureLabInnovationSectionValidator = z.object({
 
 const emailCaptureValidator = z.object({
   type: z.literal('natureLabInnovationsSection'),
+  key: z.string(),
   title: z.string(),
   media: mediaValidator,
   badge: z.string().optional(),
@@ -299,6 +300,7 @@ const timelineItemValidator = z.object({
 
 const timelineSectionValidator = z.object({
   type: z.literal('timelineSection'),
+  key: z.string(),
   title: z.string(),
   description: z.string().optional(),
   badge: z.string().optional(),
