@@ -118,14 +118,23 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
           {buttonText && (
             <Button
               variant="secondary"
-              onClick={() => {
+              onClick={async () => {
                 if (window.SmileUI) {
-                  console.log('Open smile link');
+                  console.log('Open smile link', window.SmileUI);
 
-                  window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home }).catch(
-                    (error: any) => {
-                      console.error('Failed to open smile link', error);
-                    }
+                  const data = await window.SmileUI.openPanel({
+                    deep_link: 'home'
+                  }).catch((error: any) => {
+                    console.error('Failed to open smile link', error);
+                  });
+                  console.log('Open smile link', data);
+
+                  window.SmileUI.ready().then(() =>
+                    window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home }).catch(
+                      (error: any) => {
+                        console.error('Failed to open smile link', error);
+                      }
+                    )
                   );
                 } else {
                   console.log('Failed to open smile link');

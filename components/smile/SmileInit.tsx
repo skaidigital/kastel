@@ -18,6 +18,13 @@ export default function SmileInit({ customerId }: Porps) {
       if (window.SmileUI) {
         return;
       }
+      if (window.SmileUI && !customerId) {
+        window.SmileUI.init({
+          channel_key: channelKey,
+          customer_identity_jwt: undefined // Use the fetched JWT
+        });
+        return;
+      }
 
       // Fetch the JWT from your API
       const response = await fetch('/api/smile/create-token', {
@@ -29,14 +36,6 @@ export default function SmileInit({ customerId }: Porps) {
       });
 
       const { token: customer_identity_jwt } = await response.json();
-
-      if (window.SmileUI && !customerId) {
-        window.SmileUI.init({
-          channel_key: channelKey,
-          customer_identity_jwt: undefined // Use the fetched JWT
-        });
-        return;
-      }
 
       if (window.SmileUI) {
         window.SmileUI.init({
