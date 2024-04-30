@@ -142,10 +142,12 @@ const shopOurModelsSectionValidator = z.object({
   type: z.literal('shopOurModelsSection'),
   key: z.string(),
   badge: z.string().optional(),
+  buttonText: z.string(),
   shoes: z.array(
     z.object({
       title: z.string(),
       description: z.string().optional(),
+      firstShoeSlug: z.string(),
       colorWays: z.array(
         z.object({
           image: imageValidator,
@@ -499,6 +501,7 @@ export const PAGE_BUILDER_TYPES: {
     ${fragments.base},
     ...shopOurModelsBlock->{
       "badge": badge->title.${lang},
+      "buttonText": buttonText.${lang},
       "shoes": shoes[]{
         ...shoe->{
           "colorWays": *[_type == "product" && references(^._id) && defined(mainImage) && defined(slug_no.current)]{
@@ -515,6 +518,7 @@ export const PAGE_BUILDER_TYPES: {
               }
           },
         },
+        "firstShoeSlug": firstShoe->slug_${lang}.current,
         "title": title.${lang},
         "description": description.${lang},
         "details": details[]{

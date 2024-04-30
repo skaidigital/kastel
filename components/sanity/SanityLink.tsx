@@ -10,16 +10,17 @@ interface Props {
   link: LinkProps;
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
-export const SanityLink = ({ link, children, className }: Props) => {
+export const SanityLink = ({ link, children, className, onClick }: Props) => {
   if (!link) return null;
 
   if (link.linkType === 'internal') {
     const slug = getSlug(link);
 
     return (
-      <CustomLink className={className || ''} href={slug || '#'}>
+      <CustomLink onClick={onClick} className={className || ''} href={slug || '#'}>
         {children}
       </CustomLink>
     );
@@ -29,6 +30,7 @@ export const SanityLink = ({ link, children, className }: Props) => {
     return (
       <Link
         className={className || ''}
+        onClick={onClick}
         href={link.href}
         target={link.openInNewTab ? '_blank' : '_self'}
       >
@@ -46,8 +48,10 @@ export const SanityLink = ({ link, children, className }: Props) => {
         onClick={() => {
           if (window.SmileUI) {
             window.SmileUI.openPanel({ deep_link: deeplinkType });
+            onClick && onClick();
           } else {
             console.log('SmileUI is not loaded and initialized.');
+            onClick && onClick();
           }
         }}
       >

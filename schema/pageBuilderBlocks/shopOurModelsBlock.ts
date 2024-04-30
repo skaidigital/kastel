@@ -31,6 +31,12 @@ export const shopOurModelsBlock = defineType({
       to: [{ type: 'badge' }]
     }),
     defineField({
+      title: 'CTA button text',
+      name: 'buttonText',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
+    }),
+    defineField({
       title: 'Shoes',
       name: 'shoes',
       type: 'array',
@@ -58,6 +64,33 @@ export const shopOurModelsBlock = defineType({
               to: [{ type: 'productType' }],
               validation: (Rule) => Rule.required()
             }),
+            defineField({
+              title: 'First shoe',
+              description: 'Select which shoe to display first',
+              name: 'firstShoe',
+              type: 'reference',
+              to: [
+                {
+                  type: 'product'
+                }
+              ],
+              options: {
+                filter: ({ document, parentPath }: any) => {
+                  const thisObject = document?.shoes?.find(
+                    (item: any) => item._key === parentPath[1]?._key
+                  );
+                  const shoeRef = thisObject?.shoe?._ref;
+
+                  return {
+                    filter: 'productType._ref == $shoeRef',
+                    params: {
+                      shoeRef
+                    }
+                  };
+                }
+              }
+            }),
+
             defineField({
               title: 'Title',
               name: 'title',

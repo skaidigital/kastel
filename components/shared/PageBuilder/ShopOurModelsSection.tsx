@@ -33,7 +33,7 @@ interface Props {
 }
 
 export const ShopOurModelsSection = ({ data }: Props) => {
-  const { index, pageId, pageType, badge, shoes, sectionSettings } = data;
+  const { index, pageId, pageType, badge, shoes, buttonText, sectionSettings } = data;
 
   const [activeShoeTitle, setActiveShoeTitle] = useState<string | undefined>(shoes?.at(0)?.title);
   const activeShoe = shoes?.find((shoe) => shoe.title === activeShoeTitle);
@@ -71,6 +71,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
 
   useEffect(() => {
     if (activeShoe) {
+      // const firstShoeOrFirstIndex= shoe
       setActiveColorwaySlug(activeShoe?.colorWays?.at(0)?.slug);
     }
   }, [activeShoe]);
@@ -109,7 +110,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
           )}
           {activeShoe?.colorWays && (
             <div className="flex gap-2">
-              {activeShoe.colorWays.map((colorWay) => (
+              {activeShoe.colorWays.map((colorWay) => {
                 <button
                   onClick={() => setActiveColorwaySlug(colorWay.slug)}
                   className={cn(
@@ -120,8 +121,8 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                   )}
                   key={colorWay.slug}
                   style={{ background: colorWay.hexCode }}
-                />
-              ))}
+                />;
+              })}
             </div>
           )}
         </div>
@@ -133,7 +134,9 @@ export const ShopOurModelsSection = ({ data }: Props) => {
         <div className="flex flex-col items-center gap-y-6">
           {slug && (
             <Button size="sm" asChild className="w-full">
-              <CustomLink href={`${ROUTES.PRODUCTS}/${slug}`}>Check out the shoe</CustomLink>
+              {buttonText && (
+                <CustomLink href={`${ROUTES.PRODUCTS}/${slug}`}>{buttonText}</CustomLink>
+              )}
             </Button>
           )}
           {activeShoe?.usps?.length && (
@@ -249,7 +252,9 @@ export const ShopOurModelsSection = ({ data }: Props) => {
           </div>
           {slug && (
             <Button size="md" asChild className="w-full">
-              <CustomLink href={`${ROUTES.PRODUCTS}/${slug}`}>Check out the shoe</CustomLink>
+              {buttonText && (
+                <CustomLink href={`${ROUTES.PRODUCTS}/${slug}`}>{buttonText}</CustomLink>
+              )}
             </Button>
           )}
         </div>
