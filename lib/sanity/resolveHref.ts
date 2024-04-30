@@ -10,8 +10,6 @@ export function resolveHref({ slug, type }: Props) {
     return '/';
   }
   switch (type) {
-    case 'home':
-      return '/';
     case 'page':
       return slug ? `/${slug}` : undefined;
     case 'product':

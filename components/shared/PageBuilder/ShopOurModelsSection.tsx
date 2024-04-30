@@ -175,6 +175,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
           )}
         </div>
       </Container>
+      {/* Desktop */}
       <Container className="hidden grid-cols-12 gap-4 lg:grid">
         <Carousel className="col-span-5 col-start-2 flex flex-col gap-y-14">
           <div className="flex max-w-md flex-col">
@@ -193,7 +194,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
               <div className="flex gap-x-8">
                 {activeShoe.usps.map((usp) => (
                   <div key={usp.title} className="flex flex-col items-center gap-y-1">
-                    <SanityImage width={40} height={40} image={usp.image} />
+                    <SanityImage width={40} height={40} image={usp.image} noPlaceholder />
                     <Text size="overline-sm">{usp.title}</Text>
                   </div>
                 ))}
@@ -211,7 +212,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                   <AccordionTrigger className="mb-4 text-md font-medium uppercase">
                     {detail.title}
                   </AccordionTrigger>
-                  <AccordionContent className="max-w-sm text-sm text-brand-mid-grey">
+                  <AccordionContent className="max-w-md text-sm text-brand-mid-grey">
                     {detail.description}
                   </AccordionContent>
                 </AccordionItem>
@@ -246,8 +247,10 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                     <button
                       onClick={() => setActiveColorwaySlug(colorWay.slug)}
                       className={cn(
-                        'size-10',
-                        colorWay.slug === activeColorwaySlug ? 'border border-black' : 'border-0'
+                        'size-10 border-2',
+                        colorWay.slug === activeColorwaySlug
+                          ? 'border-black'
+                          : 'border-brand-light-grey'
                       )}
                       key={colorWay.slug}
                       style={{ background: colorWay.hexCode }}
