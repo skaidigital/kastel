@@ -38,8 +38,11 @@ export const ShopOurModelsSection = ({ data }: Props) => {
   const [activeShoeTitle, setActiveShoeTitle] = useState<string | undefined>(shoes?.at(0)?.title);
   const activeShoe = shoes?.find((shoe) => shoe.title === activeShoeTitle);
 
+  const firstShoeOrFirstIndex =
+    activeShoe?.colorWays?.find((as) => as.slug === activeShoe.firstShoeSlug)?.slug ||
+    activeShoe?.colorWays?.at(0)?.slug;
   const [activeColorwaySlug, setActiveColorwaySlug] = useState<string | undefined>(
-    activeShoe?.colorWays?.at(0)?.slug
+    firstShoeOrFirstIndex
   );
   const activeColorway = activeShoe?.colorWays?.find(
     (colorway) => colorway.slug === activeColorwaySlug
@@ -71,8 +74,12 @@ export const ShopOurModelsSection = ({ data }: Props) => {
 
   useEffect(() => {
     if (activeShoe) {
-      // const firstShoeOrFirstIndex= shoe
-      setActiveColorwaySlug(activeShoe?.colorWays?.at(0)?.slug);
+      const firstShoeOrFirstIndex =
+        activeShoe?.colorWays?.find((as) => as.slug === activeShoe.firstShoeSlug)?.slug ||
+        activeShoe?.colorWays?.at(0)?.slug;
+      console.log({ firstShoeOrFirstIndex });
+
+      setActiveColorwaySlug(firstShoeOrFirstIndex);
     }
   }, [activeShoe]);
 
@@ -110,7 +117,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
           )}
           {activeShoe?.colorWays && (
             <div className="flex gap-2">
-              {activeShoe.colorWays.map((colorWay) => {
+              {activeShoe.colorWays.map((colorWay) => (
                 <button
                   onClick={() => setActiveColorwaySlug(colorWay.slug)}
                   className={cn(
@@ -121,8 +128,8 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                   )}
                   key={colorWay.slug}
                   style={{ background: colorWay.hexCode }}
-                />;
-              })}
+                />
+              ))}
             </div>
           )}
         </div>
