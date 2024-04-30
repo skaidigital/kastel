@@ -1,4 +1,7 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import {
+  filterAlreadyAddedReferences,
+  validateAllStringTranslations
+} from '@/lib/sanity/studioUtils';
 import { Leaf } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -40,7 +43,15 @@ export const natureLabInnovationSection = defineType({
       description: 'Choose 1-6 innovations from Nature Lab that this shoe uses',
       name: 'innovations',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'natureLabInnovationItem' }] }],
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'natureLabInnovationItem' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        }
+      ],
       validation: (Rule) => Rule.required().min(1).max(6)
     })
   ]

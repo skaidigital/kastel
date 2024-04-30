@@ -3,14 +3,16 @@ import { cva, type VariantProps } from 'cva';
 import React from 'react';
 
 export const headingStyles = cva({
-  base: 'uppercase font-bold',
+  base: '',
   variants: {
     size: {
-      xs: 'text-heading-xs',
-      sm: 'text-heading-sm',
-      md: 'text-heading-md',
-      lg: 'text-heading-lg',
-      xl: 'text-heading-lg xl:text-heading-xl'
+      xs: 'text-heading-xs uppercase font-bold',
+      sm: 'text-heading-sm uppercase font-bold',
+      md: 'text-heading-md uppercase font-bold',
+      lg: 'text-heading-lg uppercase font-bold',
+      'lg-nature-lab':
+        'text-nature-lab-heading-lg lg:text-nature-lab-heading-xl font-[--nature-lab-heading]',
+      xl: 'text-heading-lg xl:text-heading-xl uppercase font-bold'
     }
   },
   defaultVariants: {

@@ -45,6 +45,12 @@ export const natureLabInnovationItem = defineType({
       of: [
         {
           type: 'object',
+          icon: Leaf,
+          preview: {
+            select: {
+              title: 'feature.en'
+            }
+          },
           fields: [
             defineField({
               title: 'Feature',

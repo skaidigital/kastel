@@ -18,6 +18,7 @@ import {
   House,
   Info,
   Layout,
+  Leaf,
   List,
   ListBullets,
   MegaphoneSimple,
@@ -149,7 +150,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair),
         listNew({ S, title: 'Nature Lab Innovation', schemaType: 'natureLabInnovationItem' }).icon(
-          Crosshair
+          Leaf
         )
       ]).icon(Recycle),
       group(S, 'Retailers', [

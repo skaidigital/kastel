@@ -67,6 +67,7 @@ module.exports = {
       'nature-lab-md': ['14px', { lineHeight: '18px' }],
       'nature-lab-lg': ['18px', { lineHeight: '24px' }],
       'nature-lab-heading-lg': ['32px', { lineHeight: '36px', letterSpacing: '0.4px' }],
+      'nature-lab-heading-xl': ['40px', { lineHeight: '48px', letterSpacing: '0.4px' }],
       'overline-sm': ['10px', { lineHeight: '10px', letterSpacing: '0.4px' }],
       'overline-md': ['14px', { lineHeight: '14px', letterSpacing: '0.4px' }]
     },
