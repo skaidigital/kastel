@@ -5,11 +5,9 @@ import { Container } from '@/components/base/Container';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
-import { getSlug } from '@/lib/sanity/getSlug';
 import { cn } from '@/lib/utils';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import Link from 'next/link';
 
 interface Props {
   items: NavbarPayload['items'];
@@ -26,9 +24,9 @@ export function DesktopMenu({ items, className }: Props) {
             return (
               <NavigationMenu.Item key={item.text} className="pr-5">
                 <NavigationMenu.Link asChild>
-                  <Link className="text-sm" href={getSlug(item)}>
+                  <SanityLink className="text-sm" link={item}>
                     {item.text}
-                  </Link>
+                  </SanityLink>
                 </NavigationMenu.Link>
               </NavigationMenu.Item>
             );

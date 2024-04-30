@@ -3,14 +3,14 @@ import { getHelpCenter } from '@/lib/sanity/fragments';
 import { faqBlockValidator } from '@/lib/sanity/validators';
 import { z } from 'zod';
 
-export const customerServicePageValidator = z.object({
+export const helpCenterPageValidator = z.object({
   title: z.string(),
   description: z.string(),
   faqBlocks: z.array(faqBlockValidator)
 });
 
-export type CustomerServicePagePayload = z.infer<typeof customerServicePageValidator>;
+export type HelpCenterPagePayload = z.infer<typeof helpCenterPageValidator>;
 
-export function getCustomerServicePageQuery(lang: LangValues) {
+export function getHelpCenterPageQuery(lang: LangValues) {
   return getHelpCenter(lang);
 }

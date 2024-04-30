@@ -2,7 +2,6 @@
 
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
-import { CustomLink } from '@/components/CustomLink';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Logo } from '@/components/Logo';
 import { Modal, ModalContent } from '@/components/Modal';
@@ -11,8 +10,9 @@ import { Text } from '@/components/base/Text';
 import { hasSeenPopup } from '@/components/global/Popup/actions';
 import { PopupPayload } from '@/components/global/Popup/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { SanityLink } from '@/components/sanity/SanityLink';
 import { subscribeToNewsletter } from '@/components/shared/NewsletterSignup/actions';
-import { getSlug } from '@/lib/sanity/getSlug';
+import { LinkProps } from '@/lib/sanity/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -79,7 +79,7 @@ export function PopupLayout({ data, klaviyoListId }: Props) {
                 />
               )}
               {type === 'info' && data.link?.text && (
-                <InfoLink href={getSlug(data.link)}>{data.link.text}</InfoLink>
+                <InfoLink link={data.link}>{data.link.text}</InfoLink>
               )}
             </div>
           </div>
@@ -108,7 +108,7 @@ export function PopupLayout({ data, klaviyoListId }: Props) {
             />
           )}
           {type === 'info' && data.link?.text && (
-            <InfoLink href={getSlug(data.link)}>{data.link.text}</InfoLink>
+            <InfoLink link={data.link}>{data.link.text}</InfoLink>
           )}
         </div>
       </SheetContent>
@@ -208,10 +208,10 @@ function NewsletterSignupForm({
   );
 }
 
-function InfoLink({ href, children }: { href: string; children: React.ReactNode }) {
+function InfoLink({ link, children }: { link: LinkProps; children: React.ReactNode }) {
   return (
     <Button asChild size="sm">
-      <CustomLink href={href}>{children}</CustomLink>
+      <SanityLink link={link}>{children}</SanityLink>
     </Button>
   );
 }

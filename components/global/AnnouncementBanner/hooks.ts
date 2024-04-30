@@ -38,7 +38,9 @@ export function getAnnouncementBannerQuery(lang: LangValues) {
   const query = groq`
     *[_type == "announcementBanner"][0] {
       isShown,
-      "content": content[].content.${lang},
+      "content": content[].content.${lang}[]{
+        ${fragments.getPortableText(lang)}
+      },
       hasLink,
       link{
         ${fragments.getLinkWithoutText(lang)}

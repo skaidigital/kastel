@@ -1,7 +1,7 @@
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
+import { cn } from '@/lib/utils';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
@@ -23,7 +23,12 @@ interface RetailersPageProps {
 
 export function RetailersPage({ title, retailers }: RetailersPageProps) {
   return (
-    <Section label="retailers-page" srHeading="Retailer Page" noTopPadding className="pt-10">
+    <Section
+      label="retailers-page"
+      srHeading="Retailer Page"
+      noTopPadding
+      className="bg-gray-100 pt-10"
+    >
       <Container className="pt-10">
         {title && (
           <Heading as={'h2'} className="mb-11 font-bold lg:mb-20">
@@ -36,39 +41,30 @@ export function RetailersPage({ title, retailers }: RetailersPageProps) {
               <Wrapper
                 retailer={retailer}
                 key={retailer.name}
-                className="group flex flex-col justify-between rounded-sm bg-white p-8 focus-within:bg-brand-primary focus-within:text-white hover:bg-brand-primary hover:text-white"
+                className="group group group flex flex-col justify-between rounded-sm bg-white p-8 *:text-brand-mid-grey hover:bg-brand-primary hover:text-white *:hover:text-white focus:bg-brand-primary focus:text-white *:focus:text-white"
               >
                 <div>
                   {retailer.name && (
-                    <Heading as={'h3'} size="sm" className="mb-3">
+                    <h3 className="mb-3 text-md font-bold uppercase text-brand-dark-grey group-hover:text-white group-focus:text-white">
                       {retailer.name}
-                    </Heading>
+                    </h3>
                   )}
                   <div className="mb-8">
-                    {retailer.address1 && (
-                      <Text as="p" size="md">
-                        {retailer.address1}
-                      </Text>
-                    )}
-                    {retailer.address2 && (
-                      <Text as="p" size="md">
-                        {retailer.address2}
-                      </Text>
-                    )}
+                    <div className="flex gap-x-1">
+                      {retailer.address1 && <span className="text-sm">{retailer.address1}</span>}
+                      {retailer.address2 && <span className="text-sm">– {retailer.address2}</span>}
+                    </div>
                     {retailer.zip && retailer.city && retailer.country && (
-                      <Text as="p" size="md">
+                      <div className="text-sm ">
                         {retailer.zip}, {retailer.city}, {retailer.country}
-                      </Text>
+                      </div>
                     )}
                   </div>
                 </div>
                 {retailer.websiteUrl && (
-                  <Link
-                    href={retailer.websiteUrl}
-                    className="flex items-center group-hover:bg-brand-primary group-hover:text-white group-focus:bg-brand-primary group-focus:text-white"
-                  >
-                    Website <ArrowUpRightIcon className="ml-1 h-4 w-4" />
-                  </Link>
+                  <div className="flex w-fit items-center text-sm font-medium">
+                    <span>Website</span> <ArrowUpRightIcon className="ml-1 size-4" />
+                  </div>
                 )}
               </Wrapper>
             ))}
@@ -85,10 +81,11 @@ interface WrapperProps {
 }
 
 function Wrapper({ retailer, className, children }: WrapperProps) {
-  if (retailer.websiteUrl) {
-    <Link href={retailer.websiteUrl} className={className || ''}>
+  const Wrapper = retailer.websiteUrl ? Link : 'div';
+
+  return (
+    <Wrapper href={retailer.websiteUrl} className={cn(className)}>
       {children}
-    </Link>;
-  }
-  return <div className={className || ''}>{children}</div>;
+    </Wrapper>
+  );
 }

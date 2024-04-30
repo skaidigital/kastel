@@ -3,6 +3,8 @@ import { groq } from 'next-sanity';
 
 export const slug = groq`"slug": slug.current`;
 
+const smileLink = groq`"smileLauncher": linkToSmileLancher`;
+
 export function getSlug(lang: LangValues) {
   return groq`"slug": slug_${lang}.current`;
 }
@@ -108,38 +110,6 @@ export function getGalleryFemale(market: MarketValues) {
 `;
 }
 
-export function getRichText({
-  lang,
-  fieldName = 'richText'
-}: {
-  lang: LangValues;
-  fieldName?: string;
-}) {
-  return groq`
-  ${fieldName}_${lang}[]{
-    ...,
-    markDefs[]{
-      ...,
-      _type == "inlineLink" => {
-        link{
-          ${getLinkWithoutText(lang)}
-        }
-      }
-    },
-    _type == "figure" => {
-      ...,
-      asset->{
-        ...,
-        metadata
-      },
-    },
-    _type == "video" => {
-      "videoUrl": asset->.playbackId,
-    }
-  }
-`;
-}
-
 export const linkTo = groq`
   "linkTo": linkTo->{
     "type": _type,
@@ -204,7 +174,8 @@ export function getLinkWithoutText(lang: LangValues) {
   "type": _type,
   "linkType": type,
   href,
-  ${getLinkTo(lang)}
+  ${getLinkTo(lang)},
+  ${smileLink}
 `;
 }
 
@@ -292,23 +263,6 @@ export const collectionImage = groq`
   "image": ${image},
 `;
 
-export function getCard(lang: LangValues) {
-  return groq`
-  "title": title.${lang}, 
-  "subtitle": subtitle.${lang}, 
-  link{
-    ${getLinkHero(lang)}
-  },
-  textPositionMobile,
-  textPositionDesktop,
-  type,
-  "video": video.asset->.playbackId,
-  image{
-    ${getImageBase(lang)}
-  },
-`;
-}
-
 export function getMedia(lang: LangValues) {
   return groq`
   type,
@@ -352,6 +306,9 @@ export function getConditionalLink(lang: LangValues) {
     },
     type == "external" => {
        href
+    },
+    type == "smile" => {
+      ${smileLink}
     },
     openInNewTab
 `;
@@ -420,7 +377,9 @@ export function getFAQBlock(lang: LangValues) {
   "badge": badge->title.${lang},
   "items": items[]->{
     "question": question.${lang},
-    "answer": answer_${lang}
+    "answer": answer_${lang}[]{
+      ${getPortableText(lang)}
+    }
   }
   `;
 }
@@ -433,7 +392,9 @@ export const productsWithoutTags = '!defined($tagSlugs) =>';
 
 export function getSizeGuide(lang: LangValues) {
   return groq`
-  "description": description_${lang},
+  "description": description_${lang}[]{
+    ${getPortableText(lang)}
+  },
   "chart": chart_${lang}{
     rows[]{
       cells
@@ -457,5 +418,33 @@ export function getColorWays(lang: LangValues, market: MarketValues) {
     },
     "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
   }
+  `;
+}
+
+export function getHelpCenter(lang: LangValues) {
+  return groq`
+    *[_type == "helpCenter"][0] {
+      "title": title.${lang},
+      "description": description.${lang},
+      faqBlocks[]{
+        ...@->{
+          ${getFAQBlock(lang)}
+        }
+      }
+    }  
+  `;
+}
+
+export function getPortableText(lang: LangValues) {
+  return groq`
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalLink" => {
+        link{
+          ${getLinkWithoutText(lang)}
+        },
+      },
+    }
   `;
 }
