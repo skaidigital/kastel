@@ -1,8 +1,8 @@
 import { Card, CardButton, CardContent, CardTitle } from '@/components/account/Card';
 import { Text } from '@/components/base/Text';
-import { SmileButton } from '@/components/smile/Button';
+import { SmileButton } from '@/components/pages/AccountPage/SmileButton';
 import { getSmilePoints } from '@/components/smile/hooks';
-import { LangValues, SMILE_DEEP_LINKS } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 
 interface Props {
   lang: LangValues;
@@ -31,7 +31,7 @@ export async function KastelClubCard({ lang }: Props) {
           </Text>
         )}
       </CardContent>
-      <SmileButton deepLink={SMILE_DEEP_LINKS.points_activity_rules}>
+      <SmileButton>
         <CardButton>{learnMoreString}</CardButton>
       </SmileButton>
     </Card>

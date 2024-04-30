@@ -31,7 +31,19 @@
     --drawer-width-lg: 560px;
   }
 
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
   body {
+    margin: 0;
+
     font-display: swap;
 
     /* * User can't select text or copy content */
