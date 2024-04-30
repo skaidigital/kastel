@@ -38,7 +38,8 @@ export default function IndexRoute({
   // const hasConsent = cookies().get(COOKIE_NAMES.COOKIE_CONSENT)?.value === 'true';
 
   return (
-    <html lang="en">
+    <>
+      {/* // <html lang="en"> */}
       {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />}
       <head>
         {isInProduction && (
@@ -57,53 +58,54 @@ export default function IndexRoute({
         />
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
       </head>
-      <body>
-        <div className="fixed bottom-0 top-0 w-full overflow-x-auto bg-white">
-          <CartContextProvider>
-            <Providers>
-              <div>
-                <Suspense>
-                  <PopupHandler lang={lang} />
-                </Suspense>
-                <main>
-                  <Suspense>{children}</Suspense>
-                  {draftMode().isEnabled && (
-                    <VisualEditing
-                      refresh={async (payload) => {
-                        'use server';
-                        if (!draftMode().isEnabled) {
-                          console.debug('Skipped manual refresh because draft mode is not enabled');
-                          return;
-                        }
-                        if (payload.source === 'mutation') {
-                          if (payload.document.slug?.current) {
-                            console.log('Revalidate slug', payload.document.slug.current);
-                            const tag = `${payload.document._type}:${payload.document.slug.current}`;
-                            console.log('Revalidate slug', tag);
-                            await revalidateTag(tag);
-                          }
-                          console.log('Revalidate tag', payload.document._type);
-                          return revalidateTag(payload.document._type);
-                        }
-                        console.log('Revalidate home page');
-                        await revalidatePath('/', 'layout');
-                      }}
-                    />
-                  )}
-                  <Analytics />
-                </main>
-              </div>
-              <ShopifyAnalytics hasConsent />
-              <MarketPopup />
-              {draftMode().isEnabled && <PreviewMarketSelector />}
-              <Suspense>
-                <SmileLayout />
-              </Suspense>
-            </Providers>
-          </CartContextProvider>
-        </div>
+      {/* <body> */}
+      {/* <div className="fixed bottom-0 top-0 w-full overflow-x-auto bg-white"> */}
+      <CartContextProvider>
+        <Providers>
+          <div>
+            <Suspense>
+              <PopupHandler lang={lang} />
+            </Suspense>
+            <main>
+              <Suspense>{children}</Suspense>
+              {draftMode().isEnabled && (
+                <VisualEditing
+                  refresh={async (payload) => {
+                    'use server';
+                    if (!draftMode().isEnabled) {
+                      console.debug('Skipped manual refresh because draft mode is not enabled');
+                      return;
+                    }
+                    if (payload.source === 'mutation') {
+                      if (payload.document.slug?.current) {
+                        console.log('Revalidate slug', payload.document.slug.current);
+                        const tag = `${payload.document._type}:${payload.document.slug.current}`;
+                        console.log('Revalidate slug', tag);
+                        await revalidateTag(tag);
+                      }
+                      console.log('Revalidate tag', payload.document._type);
+                      return revalidateTag(payload.document._type);
+                    }
+                    console.log('Revalidate home page');
+                    await revalidatePath('/', 'layout');
+                  }}
+                />
+              )}
+              <Analytics />
+            </main>
+          </div>
+          <ShopifyAnalytics hasConsent />
+          <MarketPopup />
+          {draftMode().isEnabled && <PreviewMarketSelector />}
+          <Suspense>
+            <SmileLayout />
+          </Suspense>
+        </Providers>
+      </CartContextProvider>
+      {/* </div>
       </body>
-    </html>
+    </html> */}
+    </>
   );
 }
 
