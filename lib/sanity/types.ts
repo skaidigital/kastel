@@ -18,6 +18,7 @@ import {
   optionalImageValidator,
   pageTypes,
   productCardValidator,
+  quoteValidator,
   richTextValidator,
   videoSettingsValidator
 } from '@/lib/sanity/validators';
@@ -61,3 +62,4 @@ export type BlogPostCardProps = z.infer<typeof blogPostCardValidator>;
 export type AuthorProps = z.infer<typeof authorValidator>;
 export type FAQBlockProps = z.infer<typeof faqBlockValidator>;
 export type SizeGuideProps = z.infer<typeof sizeGuideValidator>;
+export type QuoteProps = z.infer<typeof quoteValidator>;

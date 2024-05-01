@@ -13,6 +13,7 @@ import {
   HybridTooltipTrigger
 } from '@/components/HybridTooltip';
 import { Media } from '@/components/Media';
+import { Quote } from '@/components/Quote';
 import { TooltipProvider } from '@/components/Tooltip';
 import VideoWithSettings from '@/components/VideoWithSettings';
 import { Container } from '@/components/base/Container';
@@ -60,7 +61,7 @@ export const portableTextBlogPostSerializer = {
     h2: ({ children }: any) => (
       <h2
         data-name="h2"
-        className="mx-auto mt-12 max-w-[--blog-post-container-md] text-heading-sm font-bold"
+        className="mx-auto mt-12 max-w-[--blog-post-container-md] text-balance text-heading-sm font-bold"
       >
         {children}
       </h2>
@@ -69,6 +70,11 @@ export const portableTextBlogPostSerializer = {
       <h3 className="mx-auto mt-8 max-w-[--blog-post-container-md] text-heading-xs font-bold">
         {children}
       </h3>
+    ),
+    blockquote: ({ children }: any) => (
+      <blockquote className="mx-auto mb-6 mt-12 max-w-[--blog-post-container-md] text-lg lg:text-lg">
+        &ldquo;{children}&ldquo;
+      </blockquote>
     )
     // TODO add h4
   },
@@ -213,6 +219,7 @@ export const portableTextBlogPostSerializer = {
         </BlogWidthContainer>
       );
     },
+    quote: ({ value }: any) => <Quote quote={value} />,
     // TODO turn this into a component? Getting a bit big
     products: ({ value }: any) => {
       const productCount = value?.products?.length;

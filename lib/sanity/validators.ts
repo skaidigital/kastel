@@ -1,21 +1,19 @@
 import { z } from 'zod';
 
 // # Simple types
-export const pageTypes = z.enum([
-  'page',
-  'product',
-  'collection',
-  'legalPage',
-  'blogPost',
-  'blogLandingPage',
-  'helpCenter',
-  'retailersPage'
-]);
+const PageTypesRequiringSlug = z.enum(['page', 'product', 'collection', 'legalPage', 'blogPost']);
+const PageTypesNotRequiringSlug = z.enum(['retailersPage', 'helpCenter']);
 
-export const linkToValidator = z.object({
-  type: pageTypes,
+const WithSlug = z.object({
+  type: PageTypesRequiringSlug,
   slug: z.string()
 });
+
+const WithoutSlug = z.object({
+  type: PageTypesNotRequiringSlug
+});
+
+const linkToValidator = z.union([WithSlug, WithoutSlug]);
 
 const linkExternalValidator = z.object({
   type: z.literal('link'),
@@ -363,3 +361,37 @@ export const faqBlockValidator = z.object({
     })
   )
 });
+
+const quoteWithoutAuthorValidator = z.object({
+  type: z.literal('quote'),
+  showAuthor: z.literal(false),
+  quote: z.string()
+});
+
+const quoteWithInternalAuthorValidator = z.object({
+  type: z.literal('quote'),
+  showAuthor: z.literal(true),
+  quote: z.string(),
+  authorType: z.literal('internal'),
+  author: z.object({
+    name: z.string(),
+    description: z.string().optional(),
+    image: imageValidator,
+    role: z.string()
+  })
+});
+
+const quoteWithExternalAuthorValidator = z.object({
+  type: z.literal('quote'),
+  showAuthor: z.literal(true),
+  quote: z.string(),
+  authorType: z.literal('external'),
+  authorName: z.string()
+});
+
+const quoteWithAuthorValidator = z.union([
+  quoteWithInternalAuthorValidator,
+  quoteWithExternalAuthorValidator
+]);
+
+export const quoteValidator = z.union([quoteWithoutAuthorValidator, quoteWithAuthorValidator]);

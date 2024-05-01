@@ -107,6 +107,10 @@ export const blogPostText = defineField({
           // component: ({ children }: any) => {
           //   return <p className="text-sm text-brand-mid-grey">{children}</p>;
           // }
+        },
+        {
+          title: 'Quote',
+          value: 'blockquote'
         }
       ],
       type: 'block'

@@ -455,3 +455,21 @@ export function getPortableText(lang: LangValues) {
     }
   `;
 }
+
+export function getQuote(lang: LangValues) {
+  return groq`
+    "type": _type,
+    "quote": text.${lang},
+    showAuthor,
+    authorType,
+    "authorName": by,
+    "author": person->{
+      name,
+      "description": description.${lang},
+      image{
+        ${getImageBase(lang)}
+      },
+      "role": role.${lang}
+    }
+  `;
+}

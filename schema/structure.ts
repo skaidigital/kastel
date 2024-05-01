@@ -61,7 +61,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       }).icon(File),
       group(S, 'Blog', [
         singleton(S, 'Landing page', 'blogLandingPage', 'blogLandingPage').icon(File),
-        listNew({ S, schemaType: 'blogPost', title: '🚧  Posts' }).icon(Article)
+        listNew({ S, schemaType: 'blogPost', title: 'Posts' }).icon(Article)
       ]).icon(Article),
       listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
@@ -126,7 +126,6 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
       group(S, 'Reusable content blocks', [
-        list(S, '🚧 Text', `_type == 'textBlock'`).icon(Layout),
         listNew({ S, title: 'FAQ', schemaType: 'faqBlock' }).icon(List),
         listNew({ S, title: 'Cards', schemaType: 'cardBlock' }).icon(GridFour),
         listNew({ S, title: 'Shoe picker', schemaType: 'shoePickerBlock' }).icon(Sneaker),
