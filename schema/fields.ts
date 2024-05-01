@@ -214,7 +214,7 @@ export const pageBuilder = defineType({
     }),
     // Nature Lab Innovation item (only for productType and product)
     defineArrayMember({
-      title: '🚧 Nature Lab Innovations',
+      title: 'Nature Lab Innovations',
       name: 'natureLabInnovationSection',
       type: 'natureLabInnovationSection'
     }),
@@ -232,7 +232,7 @@ export const pageBuilder = defineType({
     }),
     // Timeline
     defineArrayMember({
-      title: '🚧 Timeline',
+      title: 'Timeline',
       type: 'timelineSection',
       name: 'timelineSection'
     }),
