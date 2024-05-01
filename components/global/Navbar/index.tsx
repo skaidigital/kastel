@@ -30,11 +30,11 @@ export async function Navbar({ market, lang, className }: Props) {
   const withoutNullValues = nullToUndefined(initial.data);
   let validatedData;
 
-  if (isDraftMode) {
+  if (!isDraftMode) {
     validatedData = navbarValidator.safeParse(withoutNullValues);
   }
 
-  const navbar = isDraftMode ? validatedData?.data : withoutNullValues;
+  const navbar = isDraftMode ? withoutNullValues : validatedData?.data;
 
   return (
     <NavbarLayout data={navbar} className={className}>
