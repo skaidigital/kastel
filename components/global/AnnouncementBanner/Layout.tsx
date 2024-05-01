@@ -2,6 +2,7 @@
 
 import { AnnouncementBannerPayload } from '@/components/global/AnnouncementBanner/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
+import { cn } from '@/lib/utils';
 import Marquee from 'react-fast-marquee';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export function AnnouncementBannerLayout(props: Props) {
-  const { data: announcementBanner } = props;
+  const { data: announcementBanner, className } = props;
 
   if (!announcementBanner) return null;
 
@@ -21,11 +22,11 @@ export function AnnouncementBannerLayout(props: Props) {
   const { content, hasLink } = announcementBanner;
 
   const classNames =
-    'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden bg-brand-primary text-overline-sm font-medium uppercase text-white lg:gap-x-36';
+    'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden text-overline-sm font-medium uppercase lg:gap-x-36';
 
   if (hasLink) {
     return (
-      <SanityLink link={announcementBanner.link} className={classNames}>
+      <SanityLink link={announcementBanner.link} className={cn(classNames, className)}>
         <Marquee autoFill pauseOnHover>
           {content?.map((usp) => {
             return (
@@ -40,7 +41,7 @@ export function AnnouncementBannerLayout(props: Props) {
   }
 
   return (
-    <div className={classNames}>
+    <div className={cn(classNames, className)}>
       <Marquee autoFill pauseOnHover>
         {content?.map((usp) => {
           return (

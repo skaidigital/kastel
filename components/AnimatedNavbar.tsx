@@ -12,18 +12,28 @@ interface Props {
 export function AnimatedNavbar({ hasAnnouncementBanner, children }: Props) {
   const { scrollY } = useScroll();
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
-  const [shouldAnimateHeight, setShouldAnimateHeight] = useState<boolean>(true);
+  const [shouldShow, setShouldShow] = useState<boolean>(true);
+
+  const [shouldAnimateOffset, setShouldAnimateOffset] = useState<boolean>(
+    hasAnnouncementBanner ? true : false
+  );
 
   const animateThresholdHeight = hasAnnouncementBanner ? 76 : 44;
 
-  // Changing how the yTransform is used with transform property
   const yTransform = useTransform(scrollY, [32, 0], [32, 0]);
-  console.log({ yTransform });
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
-    console.log({ latest });
+    const previous = scrollY.getPrevious();
+    const diff = previous && latest - previous;
+
     if (latest >= animateThresholdHeight) {
       setShouldAnimate(true);
+      if (previous && latest > previous && diff && diff > 50) {
+        setShouldShow(false);
+      }
+      if (previous && latest < previous) {
+        setShouldShow(true);
+      }
     }
     if (latest < animateThresholdHeight) {
       setShouldAnimate(false);
@@ -31,26 +41,27 @@ export function AnimatedNavbar({ hasAnnouncementBanner, children }: Props) {
   });
 
   useMotionValueEvent(yTransform, 'change', (latest) => {
-    console.log('latest yTransform', latest);
     if (latest >= 32) {
-      setShouldAnimateHeight(false);
+      setShouldAnimateOffset(false);
     }
     if (latest < 32) {
-      setShouldAnimateHeight(true);
+      setShouldAnimateOffset(true);
     }
   });
 
   return (
     <motion.div
-      //   style={{ transform: `translateY(${yTransform}px)` }}
       style={{
-        transform: shouldAnimateHeight
+        transform: shouldAnimateOffset
           ? `translateY(${32 - yTransform.get()}px)`
-          : 'translateY(0px)'
+          : 'translateY(0px)',
+        visibility: shouldShow ? 'visible' : 'hidden'
       }}
       className={cn(
         'fixed left-0 top-0 z-20 w-full',
-        shouldAnimate ? 'bg-transparent' : 'bg-black'
+        shouldAnimate
+          ? 'bg-white'
+          : 'bg-transparent text-white hover:bg-white/80 hover:text-brand-dark-grey hover:backdrop-blur-lg focus:bg-white/80 focus:text-brand-dark-grey focus:backdrop-blur-lg'
       )}
     >
       {children}

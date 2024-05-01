@@ -88,8 +88,8 @@ export const page = defineType({
       type: 'boolean',
       fieldset: 'settings',
       initialValue: false,
-      validation: (Rule) => Rule.required(),
-      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+      validation: (Rule) => Rule.required()
+      // hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
     defineField({
       title: 'Navbar',
@@ -97,8 +97,8 @@ export const page = defineType({
       type: 'boolean',
       fieldset: 'settings',
       initialValue: true,
-      validation: (Rule) => Rule.required(),
-      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+      validation: (Rule) => Rule.required()
+      // hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
     defineField({
       title: 'Footer',
@@ -106,8 +106,8 @@ export const page = defineType({
       type: 'boolean',
       fieldset: 'settings',
       initialValue: true,
-      validation: (Rule) => Rule.required(),
-      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+      validation: (Rule) => Rule.required()
+      // hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
     defineField({
       title: 'Metadata',
