@@ -4,6 +4,7 @@ import { EmailCapture } from '@/components/shared/PageBuilder/EmailCapture';
 import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
 import { FeaturedCollectionSection } from '@/components/shared/PageBuilder/FeaturedCollectionSection';
 import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedShoeSection';
+import { FullBleedMediaSection } from '@/components/shared/PageBuilder/FullBleedMediaSection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
 import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/NatureLabExplainerSection';
@@ -36,7 +37,8 @@ const blockTypes: BlockType = {
   uspExplainerSection: USPExplainerSection,
   natureLabInnovationSection: NatureLabInnovationSection,
   emailCapture: EmailCapture,
-  timelineSection: TimelineSection
+  timelineSection: TimelineSection,
+  fullBleedMediaSection: FullBleedMediaSection
 };
 
 interface Props {

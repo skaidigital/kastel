@@ -35,6 +35,7 @@ import {
   SquareHalfBottom,
   Star,
   Storefront,
+  Subtitles,
   Table,
   Tag,
   Trophy,
@@ -149,6 +150,9 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         ),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair),
+        listNew({ S, title: 'Full bleed media', schemaType: 'fullBleedMediaBlock' }).icon(
+          Subtitles
+        ),
         listNew({ S, title: 'Nature Lab Innovation', schemaType: 'natureLabInnovationItem' }).icon(
           Leaf
         )

@@ -43,10 +43,6 @@ export const FeaturedShoeSection = ({ data }: Props) => {
   const firstContentItem = content?.[0];
   const restContentItems = content?.slice(1);
 
-  const hasSizeRange = product?.sizes?.filter((size) => size.type === 'size')[0];
-  const lowestSize = hasSizeRange?.options[0];
-  const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
-
   return (
     <Section
       label="featuredShoe"

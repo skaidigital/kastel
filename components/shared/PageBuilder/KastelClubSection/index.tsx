@@ -8,6 +8,7 @@ import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { SanityImage } from '@/components/sanity/SanityImage';
+import { SignInLink } from '@/components/shared/PageBuilder/KastelClubSection/SignInLink';
 import { KastelClubSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { SMILE_DEEP_LINKS } from '@/data/constants';
 import { SanityImageProps } from '@/lib/sanity/types';
@@ -92,7 +93,7 @@ export const KastelClubSection = ({ data }: Props) => {
           />
         ))}
         {lastSlide && (
-          <div className="relative col-span-1 row-span-1">
+          <div className="aspect-h-1 aspect-w-1 relative col-span-1 row-span-1">
             <Media media={lastSlide} loading="lazy" />
           </div>
         )}
@@ -114,38 +115,41 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
       <div className="absolute z-30 flex items-end">
         <div className="flex flex-col gap-y-4 p-6 text-white lg:max-w-lg lg:gap-y-6 xl:p-8">
           {title && <Heading size="xl">{title}</Heading>}
-          {description && <Text>{description}</Text>}
-          {buttonText && (
-            <Button
-              variant="secondary"
-              onClick={async () => {
-                if (window.SmileUI) {
-                  console.log('Open smile link', window.SmileUI);
+          {description && <Text className="text-balance">{description}</Text>}
+          <div className="flex flex-col gap-y-2">
+            {buttonText && (
+              <Button
+                variant="secondary"
+                onClick={async () => {
+                  if (window.SmileUI) {
+                    console.log('Open smile link', window.SmileUI);
 
-                  const data = await window.SmileUI.openPanel({
-                    deep_link: 'home'
-                  }).catch((error: any) => {
-                    console.error('Failed to open smile link', error);
-                  });
-                  console.log('Open smile link', data);
+                    const data = await window.SmileUI.openPanel({
+                      deep_link: 'home'
+                    }).catch((error: any) => {
+                      console.error('Failed to open smile link', error);
+                    });
+                    console.log('Open smile link', data);
 
-                  window.SmileUI.ready().then(() =>
-                    window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home }).catch(
-                      (error: any) => {
-                        console.error('Failed to open smile link', error);
-                      }
-                    )
-                  );
-                } else {
-                  console.log('Failed to open smile link');
-                }
-              }}
-              size="sm"
-              className="h-auto bg-white lg:py-6 lg:text-[24px] lg:leading-[24px]"
-            >
-              {buttonText}
-            </Button>
-          )}
+                    window.SmileUI.ready().then(() =>
+                      window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home }).catch(
+                        (error: any) => {
+                          console.error('Failed to open smile link', error);
+                        }
+                      )
+                    );
+                  } else {
+                    console.log('Failed to open smile link');
+                  }
+                }}
+                size="sm"
+                className="bg-white lg:py-6 lg:text-[24px] lg:leading-[24px]"
+              >
+                {buttonText}
+              </Button>
+            )}
+            <SignInLink />
+          </div>
         </div>
       </div>
       <div className="absolute z-20 h-full w-full bg-gradient-to-t from-black/80 from-0% to-black/20 to-30% " />
