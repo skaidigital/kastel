@@ -84,8 +84,8 @@ export const validateAllStringTranslations = (Rule: any) =>
     return true;
   });
 
-export const readOnlyUnlessDeveloper = (currentUser: any) =>
-  currentUser?.role === 'developer' ? false : true;
+export const readOnlyUnlessDeveloper = ({ currentUser }: any) =>
+  !currentUser?.roles.some((role: any) => role.name === 'developer');
 
 interface Props {
   title: string;
