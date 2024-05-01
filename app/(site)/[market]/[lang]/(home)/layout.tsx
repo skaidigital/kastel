@@ -1,3 +1,4 @@
+import { AnimatedNavbar } from '@/components/AnimatedNavbar';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { LayoutUSPMarquee } from '@/components/global/LayoutUSPMarquee';
@@ -19,11 +20,9 @@ export default function Layout({ children, params: { market, lang } }: Props) {
   return (
     <div>
       <AnnouncementBanner lang={lang} />
-      <Navbar
-        market={market}
-        lang={lang}
-        className="fixed inset-0 left-0 top-0 z-40 border-none bg-transparent text-white transition-colors duration-200 ease-in-out hover:border-none hover:bg-white/80 hover:text-brand-dark-grey hover:backdrop-blur-lg focus:bg-white/80 focus:text-brand-dark-grey focus:backdrop-blur-lg"
-      />
+      <AnimatedNavbar hasAnnouncementBanner={true}>
+        <Navbar market={market} lang={lang} />
+      </AnimatedNavbar>
       {children}
       <LayoutUSPMarquee lang={lang} />
       <Footer market={market} lang={lang} />

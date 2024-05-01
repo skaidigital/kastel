@@ -40,7 +40,7 @@ export function ColorSelect({ products }: Props) {
           <CarouselItem key={product.title} className="basis-[22%] pl-1">
             <CustomLink
               key={product.mainImage.asset._ref}
-              href={`${ROUTES.PRODUCTS}${product.slug}`}
+              href={`${ROUTES.PRODUCTS}/${product.slug}`}
             >
               <div
                 className={cn(

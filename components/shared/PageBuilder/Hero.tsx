@@ -51,11 +51,11 @@ export const Hero = ({ data }: Props) => {
       hasBottomBorder={false}
     >
       <AspectRatio settings={aspectRatioSettings} className="relative">
-        {hasAnyContent && <div className="absolute z-20 h-full w-full bg-black/20" />}
+        {hasAnyContent && <div className="absolute z-[1] h-full w-full bg-black/20" />}
         {media && <Media media={media} loading="eager" />}
         <div
           className={cn(
-            'z-30 flex h-full w-full grow flex-col p-5 text-white lg:p-10',
+            'z-[2] flex h-full w-full grow flex-col p-5 text-white lg:p-10',
             textPositionMobile === 'top-left' && 'items-start justify-start text-left',
             textPositionMobile === 'top-center' && 'items-center justify-start text-center',
             textPositionMobile === 'top-right' && 'items-end justify-start text-right',
