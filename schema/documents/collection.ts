@@ -135,7 +135,7 @@ export const collection = defineType({
       title: 'Page builder',
       name: 'pageBuilder',
       type: 'pageBuilder',
-      group: 'settings'
+      group: 'editorial'
     }),
     defineField({
       title: 'Metadata',
