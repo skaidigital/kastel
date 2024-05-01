@@ -219,7 +219,7 @@ export async function ProductPageLayout(props: Props) {
               />
               {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} />}
               <Suspense fallback={<CrossSellSkeleton className="mt-8" />}>
-                <CrossSell market={market} lang={lang} className="mt-8" />
+                <CrossSell market={market} lang={lang} gid={product.id} className="mt-8" />
               </Suspense>
             </div>
           </div>

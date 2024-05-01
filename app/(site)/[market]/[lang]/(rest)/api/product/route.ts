@@ -41,15 +41,26 @@ const STATUS_CODES = {
   OK: 200
 };
 
-export async function POST(request: NextRequest, res: Response) {
+interface Props {
+  request: NextRequest;
+  // res: Response;
+  // params: {
+  //   market: MarketValues;
+  //   lang: LangValues;
+  // };
+}
+// request: NextRequest, res: Response
+export async function POST({ request }: Props) {
   // Your secret key (this should be stored in environment variables)
   const secretKey = env.NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY;
 
   console.log('in post');
   console.log(secretKey);
 
+  // console.log(params);
+
   // Check for the secret key in the request header
-  const requestKey = request.headers.get('x-secret-key');
+  const requestKey = request.headers.get('');
   console.log('requestKey', requestKey);
 
   if (requestKey !== secretKey) {

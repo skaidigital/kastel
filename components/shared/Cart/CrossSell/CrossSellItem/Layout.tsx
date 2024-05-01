@@ -4,6 +4,7 @@ import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Button } from '@/components/Button';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Combination } from '@/components/VariantSelector';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
@@ -41,6 +42,8 @@ export function CrossSellItemLayout({
   const isSimpleProduct = product.variants.length === 1;
   const isVariableProduct = product.variants.length > 1;
 
+  console.log('inventory', JSON.stringify(inventory));
+
   const activeVariant = isSimpleProduct
     ? product.variants[0]
     : product.variants.find((variant) => {
@@ -57,6 +60,8 @@ export function CrossSellItemLayout({
             .join('/') === selectedCombination
         );
       });
+
+  console.log('activeVariant', activeVariant);
 
   const combinations: Combination[] = product.variants.map((variant) => ({
     id: variant.id,
@@ -81,9 +86,15 @@ export function CrossSellItemLayout({
       .join('/')
   );
 
+  console.log(combinationStrings);
+
+  console.log('combinations', combinations);
+
   function handleAddToCart() {
+    if (!activeVariant) return;
+    if (outOfStock({ productId: product.id, combinations })) return;
+
     startTransition(async () => {
-      if (!activeVariant) return;
       const error = await addItem(activeVariant.id);
       if (error) {
         console.error(error);
@@ -119,7 +130,7 @@ export function CrossSellItemLayout({
             ))}
         </div>
         <div className="flex gap-x-1 ">
-          {/* {isVariableProduct && combinationStrings && (
+          {isVariableProduct && combinationStrings && (
             <Select
               onValueChange={(e) => {
                 setSelectedCombination(e);
@@ -129,18 +140,20 @@ export function CrossSellItemLayout({
                 <SelectValue placeholder={dictionary.choose_option} />
               </SelectTrigger>
               <SelectContent>
-                {combinationStrings.map((option) => (
-                  <SelectItem key={option} value={option}>
-                    {option}
-                  </SelectItem>
-                ))}
+                {combinationStrings.map((option) => {
+                  return (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
-          )} */}
+          )}
           <Button
             variant="primary"
             onClick={handleAddToCart}
-            disabled={!activeVariant}
+            disabled={!activeVariant || outOfStock({ productId: activeVariant?.id, combinations })}
             size="icon"
             isLoading={isPending}
             className={cn(
@@ -229,4 +242,18 @@ export function CrossSellItemLayout({
     //   </div>
     // </div>
   );
+}
+
+interface StockPros {
+  productId?: string;
+  combinations: Combination[];
+}
+
+function outOfStock({ productId, combinations }: StockPros) {
+  if (!productId) return true;
+  const stock = combinations.find((combination) => combination.id === productId);
+
+  console.log('stock', stock);
+
+  return !stock?.availableForSale;
 }

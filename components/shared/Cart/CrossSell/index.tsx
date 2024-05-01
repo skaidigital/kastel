@@ -15,20 +15,39 @@ import { getCart } from '@/lib/shopify';
 import { cn } from '@/lib/utils';
 import { cookies } from 'next/headers';
 
-async function loadCrossSellProducts({ market, lang }: { market: MarketValues; lang: LangValues }) {
+async function loadCrossSellProducts({
+  market,
+  lang,
+  gid
+}: {
+  market: MarketValues;
+  lang: LangValues;
+  gid: string;
+}) {
+  console.log('gid', gid);
+
   const query = getCrossSellQuery({ market, lang });
 
-  return loadQuery<CrossSellProducts>(query, {}, { next: { tags: [CACHE_TAGS.MERCHANDISING] } });
+  return loadQuery<CrossSellProducts>(
+    query,
+    { gid },
+    { next: { tags: [CACHE_TAGS.MERCHANDISING] } }
+  );
 }
 
 interface Props {
   market: MarketValues;
   lang: LangValues;
   className?: string;
+  gid: string;
 }
 
-export async function CrossSell({ market, lang, className }: Props) {
+export async function CrossSell({ market, lang, className, gid }: Props) {
   const cartId = cookies().get('cartId')?.value;
+
+  if (!gid) {
+    return null;
+  }
 
   let cart;
 
@@ -36,15 +55,15 @@ export async function CrossSell({ market, lang, className }: Props) {
     cart = await getCart(cartId);
   }
 
-  if (!cart) {
-    return null;
-  }
+  // if (!cart) {
+  //   return null;
+  // }
 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
 
   const dict = await getDictionary();
   const dictionary = dict.cart_drawer.cross_sell;
-  const initial = await loadCrossSellProducts({ market, lang });
+  const initial = await loadCrossSellProducts({ market, lang, gid });
 
   if (!initial.data) {
     return null;
