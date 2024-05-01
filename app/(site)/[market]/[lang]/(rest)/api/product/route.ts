@@ -50,7 +50,7 @@ interface Props {
   // };
 }
 // request: NextRequest, res: Response
-export async function POST({ request }: Props) {
+export async function POST(request: NextRequest, res: Response) {
   // Your secret key (this should be stored in environment variables)
   const secretKey = env.NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY;
 
