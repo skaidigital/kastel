@@ -38,7 +38,12 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
             </Text>
           )}
         </div>
-        <NewsletterSignup klaviyoId={klaviyoId} dictionary={dictionary.sign_up} />
+        <NewsletterSignup
+          klaviyoId={klaviyoId}
+          dictionary={dictionary.sign_up}
+          labelText={footer.newsletterLabel}
+          descriptionText={footer.newsletterDescription}
+        />
         <MarketSelectorDropdown market={market} />
         <div className="grid grid-cols-2 gap-y-16">
           {footer?.items?.map((item, index) => (
@@ -88,6 +93,8 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
           <NewsletterSignup
             klaviyoId={klaviyoId}
             dictionary={dictionary.sign_up}
+            labelText={footer.newsletterLabel}
+            descriptionText={footer.newsletterDescription}
             className="mb-6"
           />
           {children}

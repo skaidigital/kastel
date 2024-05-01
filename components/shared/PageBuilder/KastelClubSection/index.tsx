@@ -93,7 +93,7 @@ export const KastelClubSection = ({ data }: Props) => {
           />
         ))}
         {lastSlide && (
-          <div className="relative col-span-1 row-span-1">
+          <div className="aspect-h-1 aspect-w-1 relative col-span-1 row-span-1">
             <Media media={lastSlide} loading="lazy" />
           </div>
         )}
@@ -115,7 +115,7 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
       <div className="absolute z-30 flex items-end">
         <div className="flex flex-col gap-y-4 p-6 text-white lg:max-w-lg lg:gap-y-6 xl:p-8">
           {title && <Heading size="xl">{title}</Heading>}
-          {description && <Text>{description}</Text>}
+          {description && <Text className="text-balance">{description}</Text>}
           <div className="flex flex-col gap-y-2">
             {buttonText && (
               <Button

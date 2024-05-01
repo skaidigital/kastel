@@ -19,9 +19,11 @@ interface Props {
   klaviyoId: string;
   className?: string;
   dictionary: Dictionary['footer']['sign_up'];
+  labelText: string;
+  descriptionText: string;
 }
 
-export const NewsletterSignup = ({ klaviyoId, className, dictionary }: Props) => {
+export const NewsletterSignup = ({ klaviyoId, className, labelText, descriptionText }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const { handleSubmit, register, reset } = useForm<NewsletterFormSchema>({
@@ -49,7 +51,7 @@ export const NewsletterSignup = ({ klaviyoId, className, dictionary }: Props) =>
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-y-4', className)}>
       <div className="flex flex-col gap-y-3">
-        <Text size="sm">Want to get 10% off your next purchase?</Text>
+        {labelText && <Text size="sm">{labelText}</Text>}
         <div className="relative h-12 w-60 rounded-[4px] bg-brand-primary-light ">
           <input
             {...register('email')}
@@ -64,10 +66,11 @@ export const NewsletterSignup = ({ klaviyoId, className, dictionary }: Props) =>
           </button>
         </div>
       </div>
-      <Text size="sm" className="max-w-lg text-balance text-brand-light-grey">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non tincidunt erat. Morbi sit
-        amet mollis ante, vitae.
-      </Text>
+      {descriptionText && (
+        <Text size="sm" className="max-w-lg text-balance text-brand-light-grey">
+          {descriptionText}
+        </Text>
+      )}
     </form>
   );
 };
