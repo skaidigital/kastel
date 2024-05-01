@@ -15,7 +15,6 @@ const excludedNestedFields = [
   'hasBottomBorder',
   'sameAspectRatio',
   'aspectRatio',
-  'aspectRatioSettings',
   'aspectRatioMobile',
   'aspectRatioDesktop',
   'textPositionMobile',
