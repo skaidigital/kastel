@@ -46,7 +46,7 @@ export const Section = ({
   ...props
 }: Props) => {
   return (
-    <div
+    <section
       aria-labelledby={label}
       className={cn(
         sectionProps({ size, noTopPadding, noBottomPadding, hasBottomBorder, className })
@@ -57,6 +57,6 @@ export const Section = ({
         {srHeading}
       </h2>
       {children}
-    </div>
+    </section>
   );
 };
