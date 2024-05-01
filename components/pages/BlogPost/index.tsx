@@ -30,7 +30,7 @@ export function BlogPost({ data, lang }: Props) {
   } = data;
 
   return (
-    <Section label="blogPostContent" srHeading="Blog post content">
+    <Section label="blogPostContent" srHeading="Blog post content" className="article-grid">
       <Container>
         <BlogPostHeader
           title={title}
@@ -51,14 +51,14 @@ export function BlogPost({ data, lang }: Props) {
             className="mb-20 mt-12 lg:mx-auto lg:mb-40 lg:max-w-[--blog-post-container-md]"
           />
         )}
-        {blogPosts && (
-          <RecentBlogPosts
-            title={blogPosts.title}
-            posts={blogPosts.posts}
-            buttonText={blogPosts.buttonText}
-          />
-        )}
       </Container>
+      {blogPosts && (
+        <RecentBlogPosts
+          title={blogPosts.title}
+          posts={blogPosts.posts}
+          buttonText={blogPosts.buttonText}
+        />
+      )}
     </Section>
   );
 }

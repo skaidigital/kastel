@@ -27,18 +27,20 @@ export function BlogPostHeader({
   const desktopAspectRatio = getAspectRatioString(aspectRatioDesktop);
 
   return (
-    <div className="mx-auto flex w-full max-w-[--blog-post-container-md] flex-col">
-      {readTime && (
-        <Badge className="mb-2">
-          {readTime} {getReadTimeString(lang)}
-        </Badge>
-      )}
-      {title && <h1 className="text-heading-sm font-bold lg:text-heading-lg">{title}</h1>}
+    <div className="flex w-full flex-col">
+      <div className="mx-auto flex max-w-[--blog-post-container-md]  flex-col">
+        {readTime && (
+          <Badge className="mb-2 flex">
+            {readTime} {getReadTimeString(lang)}
+          </Badge>
+        )}
+        {title && <h1 className="text-heading-sm font-bold lg:text-heading-lg ">{title}</h1>}
+      </div>
       <div className={cn('relative mt-6 lg:hidden', mobileAspectRatio)}>
-        {imageMobile && <SanityImage image={imageMobile} fill />}
+        {imageMobile && <SanityImage image={imageMobile} fill sizes="95vw" />}
       </div>
       <div className={cn('relative mt-10 hidden lg:block', desktopAspectRatio)}>
-        {imageDesktop && <SanityImage image={imageDesktop} fill />}
+        {imageDesktop && <SanityImage image={imageDesktop} fill sizes="95vw" />}
       </div>
     </div>
   );

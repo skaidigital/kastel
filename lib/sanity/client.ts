@@ -37,7 +37,8 @@ const excludedNestedFields = [
   'color',
   'isColor',
   'hexCode',
-  'slug'
+  'slug',
+  'width'
 ];
 
 export const client = createClient({
