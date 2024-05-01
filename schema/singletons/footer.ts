@@ -33,17 +33,17 @@ export const footer = defineType({
         })
       ],
       validation: (Rule) => Rule.required().min(1).max(4)
-    }),
-    defineField({
-      title: 'Items (Swedish market)',
-      name: 'items_sv',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'headingAndLinks'
-        })
-      ],
-      validation: (Rule) => Rule.required().min(1).max(4)
     })
+    // defineField({
+    //   title: 'Items (Swedish market)',
+    //   name: 'items_sv',
+    //   type: 'array',
+    //   of: [
+    //     defineArrayMember({
+    //       type: 'headingAndLinks'
+    //     })
+    //   ],
+    //   validation: (Rule) => Rule.required().min(1).max(4)
+    // })
   ]
 });

@@ -18,13 +18,13 @@ export const navbar = defineType({
       type: 'array',
       of: [defineArrayMember({ type: 'meganav' }), defineArrayMember({ type: 'link' })],
       validation: (Rule) => Rule.required().min(1).max(6)
-    }),
-    defineField({
-      title: 'Items (Swedish market)',
-      name: 'items_sv',
-      type: 'array',
-      of: [defineArrayMember({ type: 'meganav' }), defineArrayMember({ type: 'link' })],
-      validation: (Rule) => Rule.required().min(1).max(6)
     })
+    // defineField({
+    //   title: 'Items (Swedish market)',
+    //   name: 'items_sv',
+    //   type: 'array',
+    //   of: [defineArrayMember({ type: 'meganav' }), defineArrayMember({ type: 'link' })],
+    //   validation: (Rule) => Rule.required().min(1).max(6)
+    // })
   ]
 });
