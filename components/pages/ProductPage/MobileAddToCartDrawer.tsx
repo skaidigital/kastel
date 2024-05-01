@@ -6,6 +6,7 @@ import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
+import { useDeviceType } from '@/lib/useDeviceType';
 import * as Portal from '@radix-ui/react-portal';
 import { useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
@@ -33,6 +34,7 @@ export function MobileAddToCartDrawer({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref);
   const { mobileDrawerOpen: isOpen, setMobileDrawerOpen: setIsOpen } = useCartContext();
+  const { isDesktop } = useDeviceType();
 
   useEffect(() => {
     if (isInView === false) {
@@ -58,6 +60,10 @@ export function MobileAddToCartDrawer({
         block: 'center'
       });
     }
+  }
+
+  if (isDesktop) {
+    return <div>{children}</div>;
   }
 
   return (
