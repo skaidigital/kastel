@@ -16,7 +16,6 @@ import {
   linkWithoutTextValidator,
   mediaValidator,
   optionalImageValidator,
-  pageTypes,
   productCardValidator,
   quoteValidator,
   richTextValidator,
@@ -55,7 +54,6 @@ export type MediaProps = z.infer<typeof mediaValidator>;
 export type AspectRatios = z.infer<typeof aspectRatiosValidator>;
 export type AspectRatioSettingsProps = z.infer<typeof aspectRatioSettingsValidator>;
 export type ConditionalLinkProps = z.infer<typeof conditionalLinkValidator>;
-export type PageTypes = z.infer<typeof pageTypes>;
 export type HotspotImageProps = z.infer<typeof hotspotImageValidator>;
 export type VideoSettings = z.infer<typeof videoSettingsValidator>;
 export type BlogPostCardProps = z.infer<typeof blogPostCardValidator>;

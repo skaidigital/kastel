@@ -2,12 +2,11 @@ import { AspectRatio } from '@/components/AspectRatio';
 import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
+import { ConditionalSanityLink } from '@/components/sanity/ConditionalSanityLink';
 import { CardSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { resolveHref } from '@/lib/sanity/resolveHref';
 import { cn } from '@/lib/utils';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
 import { createDataAttribute } from 'next-sanity';
-import Link from 'next/link';
 
 interface PropsWithExtra extends CardSectionProps {
   index: number;
@@ -19,11 +18,6 @@ interface Props {
   data: PropsWithExtra;
 }
 
-/**
- * Renders 2-3 cards in a row
- *
- * NOTE: Test
- */
 export const CardSection = ({ data }: Props) => {
   const { index, pageId, pageType, cards, aspectRatioSettings, sectionSettings } = data;
 
@@ -46,20 +40,10 @@ export const CardSection = ({ data }: Props) => {
       <Container className={cn('grid grid-cols-1 gap-4', lgColCount)}>
         {cards?.map((card) => {
           const { link, media } = card;
-          const Wrapper = link.hasLink === true ? Link : 'div';
+          const Wrapper = link.hasLink === true ? ConditionalSanityLink : 'div';
 
           return (
-            <Wrapper
-              data-sanity={dataAttribute?.(['pageBuilder', index])}
-              key={index}
-              href={
-                link.hasLink && link.type === 'external'
-                  ? link.href
-                  : link.hasLink && link.type === 'internal'
-                    ? resolveHref({ slug: link.linkTo.slug, type: link.linkTo.type }) || '#'
-                    : '#'
-              }
-            >
+            <Wrapper data-sanity={dataAttribute?.(['pageBuilder', index])} key={index} link={link}>
               <AspectRatio
                 settings={aspectRatioSettings}
                 className={cn(
