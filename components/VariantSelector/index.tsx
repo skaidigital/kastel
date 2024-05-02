@@ -35,7 +35,9 @@ export function VariantSelector({
       inventory.variants.edges.find((edge) => edge.node.id === variant.id)?.node
         ?.availableForSale || false,
     ...variant.selectedOptions
-      ?.filter((option): option is { value: string; name: string } => option !== undefined)
+      ?.filter(
+        (option): option is { value: string; name: string; slug: string } => option !== undefined
+      )
       .reduce(
         (accumulator, option) => ({
           ...accumulator,

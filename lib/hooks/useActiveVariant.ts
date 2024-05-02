@@ -10,8 +10,8 @@ export function useActiveVariant({ variants, productType }: Props) {
   const allPossibleVariantOptionNames =
     variants.reduce((acc: string[], variant) => {
       variant.selectedOptions.forEach((option: any) => {
-        if (!acc.includes(option.name.toLowerCase())) {
-          acc.push(option.name.toLowerCase());
+        if (!acc.includes(option.slug)) {
+          acc.push(option.slug);
         }
       });
       return acc;
