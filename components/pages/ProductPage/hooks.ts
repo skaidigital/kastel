@@ -43,6 +43,7 @@ export type ProductOption = z.infer<typeof productOptionValidator>;
 const selectedOptionValidator = z
   .object({
     name: z.string(),
+    slug: z.string(),
     value: z.string()
   })
   .optional()
@@ -176,6 +177,7 @@ export function getProductQuery({
       "slug": optionType->slug_${lang}.current,
       "values": options[]->{
         "title": title.${lang},
+        "slug": slug_${lang}.current
       }
     },
     "minVariantPrice": minVariantPrice_${market}{
@@ -227,14 +229,17 @@ export function getProductQuery({
         "selectedOptions": [
         option1->{
             "name": type->title.${lang},
+            "slug": type->slug_${market}.current,
             "value": title.${lang},
         },
         option2->{
             "name": type->title.${lang},
+            "slug": type->slug_${market}.current,
             "value": title.${lang},
         },
         option3->{
             "name": type->title.${lang},
+            "slug": type->slug_${market}.current,
             "value": title.${lang},
         }
       ]},

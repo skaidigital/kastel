@@ -15,19 +15,34 @@ import { getCart } from '@/lib/shopify';
 import { cn } from '@/lib/utils';
 import { cookies } from 'next/headers';
 
-async function loadCrossSellProducts({ market, lang }: { market: MarketValues; lang: LangValues }) {
+async function loadCrossSellProducts({
+  market,
+  lang,
+  gid
+}: {
+  market: MarketValues;
+  lang: LangValues;
+  gid: string;
+}) {
+  console.log('gid', gid);
+
   const query = getCrossSellQuery({ market, lang });
 
-  return loadQuery<CrossSellProducts>(query, {}, { next: { tags: [CACHE_TAGS.MERCHANDISING] } });
+  return loadQuery<CrossSellProducts>(
+    query,
+    { gid },
+    { next: { tags: [CACHE_TAGS.MERCHANDISING] } }
+  );
 }
 
 interface Props {
   market: MarketValues;
   lang: LangValues;
   className?: string;
+  gid?: string;
 }
 
-export async function CrossSell({ market, lang, className }: Props) {
+export async function CrossSell({ market, lang, className, gid }: Props) {
   const cartId = cookies().get('cartId')?.value;
 
   let cart;
@@ -36,17 +51,38 @@ export async function CrossSell({ market, lang, className }: Props) {
     cart = await getCart(cartId);
   }
 
-  if (!cart) {
+  if (!cart && !gid) {
+    console.log('No cart or gid');
+
     return null;
   }
+
+  const firstCartItemId = cart?.lines[0]?.merchandise?.product?.id;
+  const activeId = gid || firstCartItemId;
+
+  if (!activeId) {
+    console.log('No activeId');
+
+    return null;
+  }
+
+  console.log('activeId', activeId);
+
+  console.log('firstCartItemId', firstCartItemId);
+
+  // if (!cart) {
+  //   return null;
+  // }
 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
 
   const dict = await getDictionary();
   const dictionary = dict.cart_drawer.cross_sell;
-  const initial = await loadCrossSellProducts({ market, lang });
+  const initial = await loadCrossSellProducts({ market, lang, gid: activeId });
 
   if (!initial.data) {
+    console.log('No data');
+
     return null;
   }
 
