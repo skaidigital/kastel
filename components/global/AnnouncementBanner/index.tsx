@@ -1,7 +1,6 @@
 import { AnnouncementBannerLayout } from '@/components/global/AnnouncementBanner/Layout';
 import {
   AnnouncementBannerPayload,
-  announcementBannerValidator,
   getAnnouncementBannerQuery
 } from '@/components/global/AnnouncementBanner/hooks';
 import { CACHE_TAGS, LangValues } from '@/data/constants';
@@ -29,13 +28,13 @@ export async function AnnouncementBanner({ lang, className }: Props) {
   const isDraftMode = draftMode().isEnabled;
 
   const dataWithoutNullValues = nullToUndefined(initial.data);
-  let validatedData;
+  // let validatedData;
 
-  if (isDraftMode) {
-    validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
-  }
+  // if (!isDraftMode) {
+  //   validatedData = announcementBannerValidator.safeParse(dataWithoutNullValues);
+  // }
 
-  const announcementBanner = isDraftMode ? validatedData?.data : dataWithoutNullValues;
+  // const announcementBanner = isDraftMode ? validatedData?.data : dataWithoutNullValues;
 
-  return <AnnouncementBannerLayout data={announcementBanner} className={className} />;
+  return <AnnouncementBannerLayout data={dataWithoutNullValues} className={className} />;
 }

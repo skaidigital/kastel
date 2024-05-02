@@ -240,6 +240,12 @@ module.exports = {
       exitToRight: 'exitToRight 250ms ease'
     },
     extend: {
+      minHeight: {
+        screenHeightWithoutHeader: 'calc(100vh - 101px)'
+      },
+      height: {
+        screenHeightWithoutHeader: 'calc(100vh - 101px)'
+      },
       ringColor: {
         DEFAULT: 'brand-primary'
       },

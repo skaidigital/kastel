@@ -1,5 +1,5 @@
 import { NavbarLayout } from '@/components/global/Navbar/NavbarLayout';
-import { NavbarPayload, getNavbarQuery, navbarValidator } from '@/components/global/Navbar/hooks';
+import { NavbarPayload, getNavbarQuery } from '@/components/global/Navbar/hooks';
 import Cart from '@/components/shared/Cart';
 import OpenCart from '@/components/shared/Cart/open-cart';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
@@ -28,16 +28,16 @@ export async function Navbar({ market, lang, className }: Props) {
   const isDraftMode = draftMode().isEnabled;
 
   const withoutNullValues = nullToUndefined(initial.data);
-  let validatedData;
+  // let validatedData;
 
-  if (!isDraftMode) {
-    validatedData = navbarValidator.safeParse(withoutNullValues);
-  }
+  // if (!isDraftMode) {
+  //   validatedData = navbarValidator.safeParse(withoutNullValues);
+  // }
 
-  const navbar = isDraftMode ? withoutNullValues : validatedData?.data;
+  // const navbar = isDraftMode ? withoutNullValues : validatedData?.data;
 
   return (
-    <NavbarLayout data={navbar} className={className}>
+    <NavbarLayout data={withoutNullValues} className={className}>
       <Suspense fallback={<OpenCart />}>
         <Cart market={market}>
           <></>

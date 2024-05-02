@@ -15,10 +15,8 @@ import { PopupHandler } from '@/components/global/PopupHandler';
 import { SmileLayout } from '@/components/smile/SmileLayout';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
-import PlausibleProvider from 'next-plausible';
 import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
-import Script from 'next/script';
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
@@ -41,23 +39,6 @@ export default function IndexRoute({
     <>
       {/* // <html lang="en"> */}
       {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />}
-      <head>
-        {isInProduction && (
-          <Script
-            strategy="lazyOnload"
-            id="Cookiebot"
-            src="https://consent.cookiebot.com/uc.js"
-            data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
-            type="text/javascript"
-          />
-        )}
-        <Script
-          id="gorgias-chat-widget-install-v3"
-          src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
-          strategy="lazyOnload"
-        />
-        <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
-      </head>
       {/* <body> */}
       {/* <div className="fixed bottom-0 top-0 w-full overflow-x-auto bg-white"> */}
       <CartContextProvider>
