@@ -39,21 +39,36 @@ interface Props {
   market: MarketValues;
   lang: LangValues;
   className?: string;
-  gid: string;
+  gid?: string;
 }
 
 export async function CrossSell({ market, lang, className, gid }: Props) {
   const cartId = cookies().get('cartId')?.value;
-
-  if (!gid) {
-    return null;
-  }
 
   let cart;
 
   if (cartId) {
     cart = await getCart(cartId);
   }
+
+  if (!cart && !gid) {
+    console.log('No cart or gid');
+
+    return null;
+  }
+
+  const firstCartItemId = cart?.lines[0]?.merchandise?.product?.id;
+  const activeId = gid || firstCartItemId;
+
+  if (!activeId) {
+    console.log('No activeId');
+
+    return null;
+  }
+
+  console.log('activeId', activeId);
+
+  console.log('firstCartItemId', firstCartItemId);
 
   // if (!cart) {
   //   return null;
@@ -63,9 +78,11 @@ export async function CrossSell({ market, lang, className, gid }: Props) {
 
   const dict = await getDictionary();
   const dictionary = dict.cart_drawer.cross_sell;
-  const initial = await loadCrossSellProducts({ market, lang, gid });
+  const initial = await loadCrossSellProducts({ market, lang, gid: activeId });
 
   if (!initial.data) {
+    console.log('No data');
+
     return null;
   }
 
