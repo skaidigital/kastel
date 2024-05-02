@@ -23,12 +23,7 @@ export function NavbarLayout({ data, children, className }: Props) {
 
   return (
     <>
-      <nav
-        className={cn(
-          'border-brand-border relative flex h-14 w-full items-center border-b bg-white lg:h-11',
-          className
-        )}
-      >
+      <nav className={cn('relative flex h-14 w-full items-center lg:h-11', className)}>
         <Container className="flex w-full items-center justify-between p-0 text-center lg:px-4">
           <div className="flex items-center gap-x-2 lg:hidden">
             <MobileMenu items={items} />

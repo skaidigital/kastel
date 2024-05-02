@@ -35,6 +35,7 @@ import {
   SquareHalfBottom,
   Star,
   Storefront,
+  Subtitles,
   Table,
   Tag,
   Trophy,
@@ -60,7 +61,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       }).icon(File),
       group(S, 'Blog', [
         singleton(S, 'Landing page', 'blogLandingPage', 'blogLandingPage').icon(File),
-        listNew({ S, schemaType: 'blogPost', title: '🚧  Posts' }).icon(Article)
+        listNew({ S, schemaType: 'blogPost', title: 'Posts' }).icon(Article)
       ]).icon(Article),
       listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
       singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
@@ -125,7 +126,6 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         singleton(S, '404 page', 'pageNotFound', 'pageNotFound').icon(Placeholder)
       ]).icon(Layout),
       group(S, 'Reusable content blocks', [
-        list(S, '🚧 Text', `_type == 'textBlock'`).icon(Layout),
         listNew({ S, title: 'FAQ', schemaType: 'faqBlock' }).icon(List),
         listNew({ S, title: 'Cards', schemaType: 'cardBlock' }).icon(GridFour),
         listNew({ S, title: 'Shoe picker', schemaType: 'shoePickerBlock' }).icon(Sneaker),
@@ -140,7 +140,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
           title: 'Nature Lab Explainer',
           schemaType: 'natureLabExplainerBlock'
         }).icon(Recycle),
-        listNew({ S, title: '🚧 Timeline', schemaType: 'timelineBlock' }).icon(Calendar),
+        listNew({ S, title: 'Timeline', schemaType: 'timelineBlock' }).icon(Calendar),
         listNew({ S, title: 'Shop Our Models', schemaType: 'shopOurModelsBlock' }).icon(Slideshow),
         listNew({ S, title: 'UGC', schemaType: 'ugcBlock' }).icon(VideoCamera),
         listNew({ S, title: 'Featured Shoe', schemaType: 'featuredShoeBlock' }).icon(Star),
@@ -149,6 +149,9 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         ),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair),
+        listNew({ S, title: 'Full bleed media', schemaType: 'fullBleedMediaBlock' }).icon(
+          Subtitles
+        ),
         listNew({ S, title: 'Nature Lab Innovation', schemaType: 'natureLabInnovationItem' }).icon(
           Leaf
         )

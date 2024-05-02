@@ -3,7 +3,20 @@ import { loadQuery } from '@/lib/sanity/store';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
-export const paymentProvidersValidator = z.array(z.string()).optional();
+const paymentProvider = z.enum([
+  'amazonPay',
+  'amex',
+  'applePay',
+  'googlePay',
+  'masterCard',
+  'mobilePay',
+  'payPal',
+  'samsungPay',
+  'vipps',
+  'visa'
+]);
+
+export const paymentProvidersValidator = z.array(paymentProvider).optional();
 
 export type PaymentProvidersPayload = z.infer<typeof paymentProvidersValidator>;
 

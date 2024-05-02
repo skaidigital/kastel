@@ -70,12 +70,25 @@ export const blogPostText = defineField({
       },
       styles: [
         {
+          title: 'Normal',
+          value: 'normal'
+          // component: ({ children }: any) => {
+          //   return <p className="text-sm text-brand-mid-grey lg:text-md">{children}</p>;
+          // }
+        },
+        {
           title: 'H2',
           value: 'h2'
+          // component: ({ children }: any) => {
+          //   return <h2 className="text-heading-sm font-bold text-brand-dark-grey">{children}</h2>;
+          // }
         },
         {
           title: 'H3',
           value: 'h3'
+          // component: ({ children }: any) => {
+          //   return <h2 className="text-heading-xs font-bold text-brand-dark-grey">{children}</h2>;
+          // }
         },
         {
           title: 'H4',
@@ -84,10 +97,20 @@ export const blogPostText = defineField({
         {
           title: 'Text (Large)',
           value: 'text-lg'
+          // component: ({ children }: any) => {
+          //   return <p className="text-lg text-brand-mid-grey">{children}</p>;
+          // }
         },
         {
           title: 'Text (Small)',
           value: 'text-sm'
+          // component: ({ children }: any) => {
+          //   return <p className="text-sm text-brand-mid-grey">{children}</p>;
+          // }
+        },
+        {
+          title: 'Quote',
+          value: 'blockquote'
         }
       ],
       type: 'block'
@@ -141,6 +164,17 @@ export const blogPostText = defineField({
       name: 'products',
       title: 'Products',
       icon: Sneaker,
+      preview: {
+        select: {
+          title: 'title.en'
+        },
+        prepare(selection) {
+          return {
+            title: selection.title,
+            subtitle: 'Products'
+          };
+        }
+      },
       fields: [
         defineField({
           title: 'Title',
@@ -150,6 +184,7 @@ export const blogPostText = defineField({
         }),
         defineField({
           title: 'Products',
+          description: 'Add 2-8 products',
           name: 'products',
           type: 'array',
           of: [
@@ -158,7 +193,7 @@ export const blogPostText = defineField({
               to: [{ type: 'product' }]
             }
           ],
-          validation: (Rule) => Rule.min(1).max(8)
+          validation: (Rule) => Rule.required().min(2).max(8)
         })
       ]
     },
@@ -180,7 +215,7 @@ export const blogPostText = defineField({
         },
         prepare(selection) {
           return {
-            title: selection.title[0].children[0].text,
+            title: selection.title[0]?.children[0]?.text || 'No content',
             subtitle: 'Standout section'
           };
         }
@@ -276,9 +311,15 @@ export const blogPostText = defineField({
           description: 'Add 2-3 images',
           name: 'images',
           type: 'array',
+          options: {
+            layout: 'grid'
+          },
           of: [
             {
               type: 'image',
+              options: {
+                hotspot: true
+              },
               fields: [
                 defineField({
                   title: 'Descriptive text for screen readers and search engines',
@@ -298,7 +339,7 @@ export const blogPostText = defineField({
               ]
             }
           ],
-          validation: (Rule) => Rule.min(2).max(3)
+          validation: (Rule) => Rule.required().min(2).max(3)
         }),
         defineField({
           title: 'Width',
@@ -312,6 +353,17 @@ export const blogPostText = defineField({
       title: 'Hotspot image',
       name: 'hotspotImage',
       type: 'object',
+      preview: {
+        select: {
+          title: 'image.internalTitle'
+        },
+        prepare(selection) {
+          return {
+            title: selection.title,
+            subtitle: 'Hotspot image'
+          };
+        }
+      },
       fields: [
         defineField({
           title: 'Image',

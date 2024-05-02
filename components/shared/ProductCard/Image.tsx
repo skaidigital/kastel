@@ -46,7 +46,7 @@ export function ProductCardImage({ mainImage, lifestyleImage, firstImage, priori
     >
       <SanityImage
         image={isHovered ? chosenHoverImageTyped : chosenFirstImageTyped}
-        className={cn('scale-100 rounded-project object-cover')}
+        className={cn('scale-100 object-cover')}
         sizes="(min-width: 640px) 50vw, 25vw"
         fill
         priority={priority}

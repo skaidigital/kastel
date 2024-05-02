@@ -15,24 +15,14 @@ export const settingsPaymentProviders = defineType({
     defineField({
       title: 'Payment providers 🇧🇻',
       name: `paymentProviders_no`,
+      validation: (Rule) => Rule.required(),
       type: 'array',
       of: [
         defineField({
           title: 'Payment provider',
           name: 'paymentProvider',
-          type: 'paymentProvider'
-        })
-      ]
-    }),
-    defineField({
-      title: 'Payment providers 🇸🇪',
-      name: `paymentProviders_sv`,
-      type: 'array',
-      of: [
-        defineField({
-          title: 'Payment provider',
-          name: 'paymentProvider',
-          type: 'paymentProvider'
+          type: 'paymentProvider',
+          validation: (Rule) => Rule.required()
         })
       ]
     })

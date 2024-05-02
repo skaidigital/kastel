@@ -1,3 +1,5 @@
+import { AnimatedAnnouncementBanner } from '@/components/AnimatedAnnouncementBanner';
+import { AnimatedNavbar } from '@/components/AnimatedNavbar';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
@@ -14,8 +16,16 @@ export interface PageProps {
 export function PageLayout({ data, market, lang }: PageProps) {
   return (
     <>
-      {data?.showAnnouncementBanner && <AnnouncementBanner lang={lang} />}
-      {data?.showNavbar && <Navbar market={market} lang={lang} />}
+      {data?.showAnnouncementBanner && (
+        <AnimatedAnnouncementBanner>
+          <AnnouncementBanner lang={lang} />
+        </AnimatedAnnouncementBanner>
+      )}
+      {data?.showNavbar && (
+        <AnimatedNavbar hasAnnouncementBanner={data.showAnnouncementBanner}>
+          <Navbar market={market} lang={lang} />
+        </AnimatedNavbar>
+      )}
       {data?.pageBuilder?.map((block, index: number) => (
         <PageBuilder
           key={block.key + index}

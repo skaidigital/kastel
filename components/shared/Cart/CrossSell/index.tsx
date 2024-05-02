@@ -86,17 +86,6 @@ export async function CrossSell({ market, lang, className, gid }: Props) {
     return null;
   }
 
-  // const dataWithoutNullValues = nullToUndefined(initial.data);
-
-  // const validatedData = crossSellProductsValidator.safeParse(dataWithoutNullValues);
-  // console.log('validatedData', validatedData);
-
-  // if (!validatedData.success) {
-  //   console.error('Error validating cross sell products', validatedData.error);
-  //   return null;
-  // }
-  // console.log('validatedData', validatedData);
-
   const pairsWellWithString = getPairsWellWithString(lang);
 
   return (

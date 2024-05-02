@@ -43,7 +43,6 @@ export default async function HomePage({ params: { market, lang } }: Props) {
   //   return <PagePreview initial={initial} market={market} lang={lang} />;
   // }
 
-  // return <PageLayout data={validatedPage.data} market={market} lang={lang} />;
   return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
 }
 

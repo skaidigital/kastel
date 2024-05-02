@@ -1,3 +1,13 @@
+import { AMEXLogo } from '@/components/icons/AMEXLogo';
+import { AmazonPayLogo } from '@/components/icons/AmazonPayLogo';
+import { ApplePayLogo } from '@/components/icons/ApplePayLogo';
+import { GooglePayLogo } from '@/components/icons/GooglePayLogo';
+import { MasterCardLogo } from '@/components/icons/MasterCardLogo';
+import { MobilePayLogo } from '@/components/icons/MobilePayLogo';
+import { PayPalLogo } from '@/components/icons/PayPalLogo';
+import { SamsungPayLogo } from '@/components/icons/SamsungPayLogo';
+import { VippsLogo } from '@/components/icons/VippsLogo';
+import { VisaLogo } from '@/components/icons/VisaLogo';
 import { AspectRatios } from '@/lib/sanity/types';
 
 // Routes
@@ -333,3 +343,34 @@ export const SMILE_DEEP_LINK_OPTIONS = [
 ];
 
 // TODO add tel, email, and social media
+
+export type PaymentProviderType =
+  | 'amazonPay'
+  | 'amex'
+  | 'applePay'
+  | 'googlePay'
+  | 'masterCard'
+  | 'mobilePay'
+  | 'payPal'
+  | 'samsungPay'
+  | 'vipps'
+  | 'visa';
+
+type PaymentProvider = {
+  title: string;
+  value: PaymentProviderType;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+};
+
+export const PAYMENT_PROVIDERS: PaymentProvider[] = [
+  { title: 'Amazon Pay', value: 'amazonPay', icon: AmazonPayLogo },
+  { title: 'AMEX', value: 'amex', icon: AMEXLogo },
+  { title: 'Apple Pay', value: 'applePay', icon: ApplePayLogo },
+  { title: 'Google Pay', value: 'googlePay', icon: GooglePayLogo },
+  { title: 'MasterCard', value: 'masterCard', icon: MasterCardLogo },
+  { title: 'Mobile Pay', value: 'mobilePay', icon: MobilePayLogo },
+  { title: 'PayPal', value: 'payPal', icon: PayPalLogo },
+  { title: 'Samsung Pay', value: 'samsungPay', icon: SamsungPayLogo },
+  { title: 'Vipps', value: 'vipps', icon: VippsLogo },
+  { title: 'Visa', value: 'visa', icon: VisaLogo }
+];

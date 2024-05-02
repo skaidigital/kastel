@@ -8,6 +8,7 @@ import {
   getLinkWithoutText,
   getMedia,
   getProductCard,
+  getQuote,
   videoSettings
 } from '@/lib/sanity/fragments';
 import {
@@ -120,9 +121,21 @@ export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: M
               ${aspectRatioSettings}
             },
           },
+          _type == "products" => {
+            "title": title.${lang},
+            "products": products[]->{
+              ${getProductCard(lang, market)}
+            },
+          },
+          _type == "quote" => {
+            ...@->{
+              ${getQuote(lang)}
+            },
+          },
           _type == "standout" => {
             type,
             content,
+            "backgroundColor": backgroundColor->color.value,
             type == "media" => {
               media{
                 ${getMedia(lang)},

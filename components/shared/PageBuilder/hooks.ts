@@ -308,6 +308,32 @@ const timelineSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const fullBleedMediaSectionValidator = z.object({
+  type: z.literal('fullBleedMediaSection'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  textPlacementMobile: z.union([
+    z.literal('left-top'),
+    z.literal('left-center'),
+    z.literal('left-bottom'),
+    z.literal('center-top'),
+    z.literal('center'),
+    z.literal('center-bottom')
+  ]),
+  textPlacementDesktop: z.union([
+    z.literal('left-top'),
+    z.literal('left-center'),
+    z.literal('left-bottom'),
+    z.literal('center-top'),
+    z.literal('center'),
+    z.literal('center-bottom'),
+    z.literal('split-bottom')
+  ]),
+  media: mediaValidator,
+  aspectRatioSettings: aspectRatioSettingsValidator
+});
+
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
   cardSectionValidator,
@@ -322,7 +348,8 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   heroValidator,
   uspExplainerSectionValidator,
   emailCaptureValidator,
-  timelineSectionValidator
+  timelineSectionValidator,
+  fullBleedMediaSectionValidator
 ]);
 
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
@@ -346,8 +373,8 @@ export type NatureLabInnovationSectionProps = z.infer<typeof natureLabInnovation
 export type EmailCaptureProps = z.infer<typeof emailCaptureValidator>;
 export type TimelineItemProps = z.infer<typeof timelineItemValidator>;
 export type TimelineSectionProps = z.infer<typeof timelineSectionValidator>;
+export type FullBleedMediaSectionProps = z.infer<typeof fullBleedMediaSectionValidator>;
 export type PageBuilder = z.infer<typeof pageBuilderValidator>;
-
 export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
 
 export const PAGE_BUILDER_TYPES: {
@@ -660,6 +687,21 @@ export const PAGE_BUILDER_TYPES: {
     },
     sectionSettings{
       ${fragments.sectionSettings}
+    }
+  `,
+  fullBleedMediaSection: (lang) => groq`
+    ${fragments.base},
+    ...fullBleedMediaBlock->{
+      "title": title.${lang},
+      "description": description.${lang},
+      media{
+        ${fragments.getMedia(lang)}
+      },
+      aspectRatioSettings{
+        ${fragments.aspectRatioSettings}
+      },
+      textPlacementMobile,
+      textPlacementDesktop
     }
   `
 };

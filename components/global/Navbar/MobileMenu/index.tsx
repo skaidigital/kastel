@@ -34,7 +34,7 @@ export function MobileMenu({ items }: Props) {
           <DrawerTrigger>
             <button
               aria-label="Open main menu"
-              className="relative flex h-11 w-11 items-center justify-center rounded-project text-brand-mid-grey transition-colors hover:bg-brand-light-grey"
+              className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey"
             >
               <Bars2Icon className="transition-brand w-6" />
             </button>

@@ -55,6 +55,7 @@ import { conditionalLink } from '@/schema/objects/conditionalLink';
 import { featuredCollectionSection } from '@/schema/objects/featuredCollectionSection';
 import { featuredNavItem } from '@/schema/objects/featuredNavItem';
 import { featuredShoeSection } from '@/schema/objects/featuredShoeSection';
+import { fullBleedMediaBlock } from '@/schema/objects/fullBleedMediaBlock';
 import { headingAndLinks } from '@/schema/objects/headingAndLinks';
 import { kastelClubSection } from '@/schema/objects/kastelClubSection';
 import { legalPageText } from '@/schema/objects/legalPageText';
@@ -84,15 +85,13 @@ import { uspExplainerSection } from '@/schema/objects/uspExplainerSection';
 import { variableText } from '@/schema/objects/variableText';
 import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
-import { contactForm } from '@/schema/pageBuilderBlocks/contactForm';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
 import { faqSection } from '@/schema/pageBuilderBlocks/faqSection';
 import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredCollectionBlock';
 import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
+import { fullBleedMediaSection } from '@/schema/pageBuilderBlocks/fullBleedMediaSection';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
-import { instagramFeed } from '@/schema/pageBuilderBlocks/instagramFeed';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
-import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
 import { shopOurModelsBlock } from '@/schema/pageBuilderBlocks/shopOurModelsBlock';
 import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
@@ -166,9 +165,6 @@ const schema = [
   reccommendedBlogPosts,
 
   // Page builder blocks (objects)
-  pageTitle,
-  instagramFeed,
-  contactForm,
   faqSection,
   blogPostSection,
   featuredCollectionSection,
@@ -184,6 +180,7 @@ const schema = [
   featuredShoeSection,
   hero,
   uspExplainerSection,
+  fullBleedMediaSection,
   // Page builder blocks (documents)
   faqBlock,
   ugcBlock,
@@ -196,6 +193,7 @@ const schema = [
   featuredShoeBlock,
   uspExplainerBlock,
   cardBlock,
+  fullBleedMediaBlock,
 
   // Product
   productType,

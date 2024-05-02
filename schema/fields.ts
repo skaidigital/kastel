@@ -158,8 +158,7 @@ export const pageBuilder = defineType({
       name: 'hero',
       type: 'hero'
     }),
-    // Full width media section
-    // USP + Shoe
+    // USP Explainer
     defineArrayMember({
       title: 'USP Explainer section',
       type: 'uspExplainerSection',
@@ -201,6 +200,12 @@ export const pageBuilder = defineType({
       name: 'featuredCollectionSection',
       type: 'featuredCollectionSection'
     }),
+    // Full bleed media section
+    defineArrayMember({
+      title: 'Full bleed media section',
+      type: 'fullBleedMediaSection',
+      name: 'fullBleedMediaSection'
+    }),
     // Card section
     defineArrayMember({
       title: 'Card section',
@@ -209,7 +214,7 @@ export const pageBuilder = defineType({
     }),
     // Nature Lab Innovation item (only for productType and product)
     defineArrayMember({
-      title: '🚧 Nature Lab Innovations',
+      title: 'Nature Lab Innovations',
       name: 'natureLabInnovationSection',
       type: 'natureLabInnovationSection'
     }),
@@ -227,7 +232,7 @@ export const pageBuilder = defineType({
     }),
     // Timeline
     defineArrayMember({
-      title: '🚧 Timeline',
+      title: 'Timeline',
       type: 'timelineSection',
       name: 'timelineSection'
     }),
@@ -239,7 +244,7 @@ export const pageBuilder = defineType({
     }),
     // Email capture
     defineArrayMember({
-      title: '🚧 Email capture',
+      title: 'Email capture',
       type: 'emailCapture'
     })
   ]

@@ -27,18 +27,13 @@ const dictionaries: Record<string, DictionaryLoader> = {
 };
 
 export const getFooterDictionary = async (lang: LangValues) => {
-  console.log(lang);
-
   if (!lang && lang !== 'no' && lang !== 'en') {
     throw new Error('Not supported language');
   }
 
   const loader = dictionaries[lang];
-  console.log(loader);
 
   if (!loader) {
-    console.log(loader);
-
     throw new Error(`Error in dictionary`);
   }
   return loader();

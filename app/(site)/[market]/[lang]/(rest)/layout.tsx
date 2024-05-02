@@ -3,7 +3,7 @@ import { Footer } from '@/components/global/Footer';
 import { LayoutUSPMarquee } from '@/components/global/LayoutUSPMarquee';
 import { Navbar } from '@/components/global/Navbar';
 import { LangValues, MarketValues } from '@/data/constants';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 
 interface Props {
   params: {
@@ -15,20 +15,12 @@ interface Props {
 
 export default function Layout({ children, params: { market, lang } }: Props) {
   return (
-    <div>
-      <Suspense>
-        <AnnouncementBanner lang={lang} />
-      </Suspense>
-      <Suspense>
-        <Navbar market={market} lang={lang} />
-      </Suspense>
+    <>
+      <AnnouncementBanner lang={lang} className="!bg-brand-primary !text-white" />
+      <Navbar market={market} lang={lang} className="border-b border-brand-light-grey" />
       {children}
-      <Suspense>
-        <LayoutUSPMarquee lang={lang} />
-      </Suspense>
-      <Suspense>
-        <Footer market={market} lang={lang} />
-      </Suspense>
-    </div>
+      <LayoutUSPMarquee lang={lang} />
+      <Footer market={market} lang={lang} />
+    </>
   );
 }

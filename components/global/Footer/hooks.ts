@@ -6,7 +6,9 @@ import { z } from 'zod';
 
 export const footerValidator = z.object({
   description: z.string(),
-  items: z.array(headingAndLinksValidator)
+  items: z.array(headingAndLinksValidator),
+  newsletterLabel: z.string(),
+  newsletterDescription: z.string()
 });
 
 export const testFooterValidator = z.any();
@@ -17,6 +19,8 @@ export function getFooterQuery(lang: LangValues) {
   const query = groq`
   *[_type == "footer"][0] {
     "description": description.${lang},
+    "newsletterLabel": newsletterLabel.${lang},
+    "newsletterDescription": newsletterDescription.${lang},
     "items": items_${lang}[]{
       "heading": heading.${lang},
         links[]{

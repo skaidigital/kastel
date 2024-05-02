@@ -101,7 +101,7 @@ export function DesktopMenu({ items, className }: Props) {
       </NavigationMenu.List>
 
       <div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
-        <NavigationMenu.Viewport className="sm:w-[var(--radix-navigation-menu-viewport-width)] border-brand-border relative mt-[1px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden border-b bg-white/80 backdrop-blur-lg transition-[width,_height] duration-300 " />
+        <NavigationMenu.Viewport className="sm:w-[calc(var(--radix-navigation-menu-viewport-width)-1px)] border-brand-border origin-top-center relative h-[calc(var(--radix-navigation-menu-viewport-height)-1px)] w-full overflow-hidden border-b bg-white/80 backdrop-blur-lg transition-all" />
       </div>
     </NavigationMenu.Root>
   );

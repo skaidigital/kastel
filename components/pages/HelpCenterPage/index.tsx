@@ -14,11 +14,12 @@ import {
   getHelpCenterPageQuery,
   helpCenterPageValidator
 } from '@/components/pages/HelpCenterPage/hooks';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
+import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
 import { loadQuery } from '@/lib/sanity/store';
 import { cn } from '@/lib/utils';
+import { PortableText } from 'next-sanity';
 import { draftMode } from 'next/headers';
 
 async function loadHelpCenterPage(lang: LangValues) {
@@ -51,19 +52,24 @@ export async function HelpCenterPage({ lang }: Props) {
 
   return (
     <Container className="mb-20 mt-6 lg:mt-10 lg:grid lg:grid-cols-12">
-      <div className="lg:col-span-10 lg:col-start-2">
-        {page.title && (
-          <Heading as="h1" size="md" className="lg:col-span-5 lg:mt-2">
-            {page.title}
-          </Heading>
-        )}
-        {page.description && (
-          <Text className="mt-3 max-w-xl text-balance lg:col-span-5">{page.description}</Text>
-        )}
+      <div className="lg:col-span-10 lg:col-start-2 lg:grid">
+        <div className="lg:col mb-20 mt-10 lg:mb-40 lg:mt-20 lg:grid lg:grid-cols-10">
+          {page.title && (
+            <Heading as="h1" size="md" className="lg:col-span-4 lg:mt-2">
+              {page.title}
+            </Heading>
+          )}
+          {page.description && (
+            <Text className="mt-3 max-w-xl text-balance lg:col-span-5 lg:col-start-6">
+              {page.description}
+            </Text>
+          )}
+        </div>
         <Section
           label="faqBlocks"
           srHeading="FAQs"
           size="sm"
+          noTopPadding
           hasBottomBorder={false}
           className="grid gap-y-20"
         >
@@ -78,7 +84,12 @@ export async function HelpCenterPage({ lang }: Props) {
                 badge={block.badge}
                 className="lg:col-span-5"
               />
-              <Accordion collapsible type="single" className="lg:col-span-5 lg:col-start-7">
+              <Accordion
+                collapsible
+                type="single"
+                defaultValue={block.items?.at(0)?.question || undefined}
+                className="lg:col-span-5 lg:col-start-7"
+              >
                 {block.items?.map((item) => (
                   <AccordionItem
                     value={item.question && item.question}
@@ -86,7 +97,9 @@ export async function HelpCenterPage({ lang }: Props) {
                   >
                     {item.question && <AccordionTrigger>{item.question}</AccordionTrigger>}
                     <AccordionContent>
-                      {item.answer && <PortableTextRenderer value={item.answer} />}
+                      {item.answer && (
+                        <PortableText value={item.answer} components={portableTextSerializer} />
+                      )}
                     </AccordionContent>
                   </AccordionItem>
                 ))}

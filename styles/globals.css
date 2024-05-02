@@ -32,6 +32,7 @@
     --blog-post-container-md: 720px;
     --blog-post-container-lg: 960px;
     --drawer-width-lg: 560px;
+    --brand-primary: black;
   }
 
   html {
@@ -71,7 +72,7 @@
 
   .no-scroll {
     overflow: hidden;
-    padding-right: 15px; /* Approx. width of scrollbar */
+    padding-right: 15px;
   }
 }
 
@@ -315,4 +316,16 @@
 
 #chat-button {
   z-index: 25 !important;
+}
+
+.full-bleed {
+  width: 100vw; /* Match the viewport width */
+  position: relative; /* Relative positioning to enable offset usage */
+  left: calc(-50vw + 50%); /* Correctly center the element */
+  margin-right: calc(-50vw + 50%); /* Negate extra space to avoid horizontal scroll */
+  overflow-x: hidden; /* Hide any accidental horizontal overflow */
+}
+
+.noMarginFirstChild > :first-child {
+  margin-top: 0;
 }

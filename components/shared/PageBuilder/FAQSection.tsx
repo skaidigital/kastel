@@ -44,7 +44,7 @@ export const FAQSection = ({ data }: Props) => {
         <Accordion collapsible type="single" className="lg:col-span-5 lg:col-start-7">
           {items?.map((item) => (
             <AccordionItem value={item.question} key={item.question}>
-              <AccordionTrigger>{item.question}</AccordionTrigger>
+              <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
               <AccordionContent>
                 <PortableTextRenderer value={item.answer} />
               </AccordionContent>

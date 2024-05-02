@@ -56,7 +56,7 @@ function Slide({ item, pageId, pageType, index }: SlideProps) {
   });
 
   return (
-    <div className="relative flex w-full flex-col bg-blue-50 lg:h-dvh lg:flex-row">
+    <div className="relative flex w-full flex-col bg-brand-light-grey lg:h-dvh lg:flex-row">
       {/* Content container */}
       <Container className="sticky flex h-fit flex-col gap-y-6 py-10 lg:top-20 lg:mt-40 lg:basis-1/3 lg:gap-y-10 lg:p-8">
         {item.usps && (

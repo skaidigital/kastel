@@ -1,12 +1,11 @@
 import { AspectRatio } from '@/components/AspectRatio';
 import { Button } from '@/components/Button';
-import { CustomLink } from '@/components/CustomLink';
 import { Media } from '@/components/Media';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
+import { ConditionalSanityLink } from '@/components/sanity/ConditionalSanityLink';
 import { HeroProps } from '@/components/shared/PageBuilder/hooks';
-import { resolveHref } from '@/lib/sanity/resolveHref';
 import { cn } from '@/lib/utils';
 
 interface PropsWithExtra extends HeroProps {
@@ -35,12 +34,12 @@ export const Hero = ({ data }: Props) => {
   } = data;
 
   const hasAnyContent = title || description || (link.hasLink && link.text) ? true : false;
-  const href =
-    link.hasLink && link.type === 'external'
-      ? link.href
-      : link.hasLink && link.type === 'internal'
-        ? resolveHref({ slug: link.linkTo.slug, type: link.linkTo.type }) || '#'
-        : '#';
+  // const href =
+  //   link.hasLink && link.type === 'external'
+  //     ? link.href
+  //     : link.hasLink && link.type === 'internal'
+  //       ? resolveHref({ slug: link.linkTo.slug, type: link.linkTo.type }) || '#'
+  //       : '#';
 
   return (
     <Section
@@ -51,11 +50,11 @@ export const Hero = ({ data }: Props) => {
       hasBottomBorder={false}
     >
       <AspectRatio settings={aspectRatioSettings} className="relative">
-        {hasAnyContent && <div className="absolute z-20 h-full w-full bg-black/20" />}
+        {hasAnyContent && <div className="absolute z-[1] h-full w-full bg-black/20" />}
         {media && <Media media={media} loading="eager" />}
         <div
           className={cn(
-            'z-30 flex h-full w-full grow flex-col p-5 text-white lg:p-10',
+            'z-[2] flex h-full w-full grow flex-col p-5 text-white lg:p-10',
             textPositionMobile === 'top-left' && 'items-start justify-start text-left',
             textPositionMobile === 'top-center' && 'items-center justify-start text-center',
             textPositionMobile === 'top-right' && 'items-end justify-start text-right',
@@ -106,7 +105,7 @@ export const Hero = ({ data }: Props) => {
               variant={buttonSettings.variant}
               className="translate-y-[10px] animate-fade-up-text opacity-0 transition-[opacity-color] [--animation-delay:900ms]"
             >
-              <CustomLink href={href}>{link.text}</CustomLink>
+              <ConditionalSanityLink link={link}>{link.text}</ConditionalSanityLink>
             </Button>
           )}
         </div>

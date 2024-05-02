@@ -1,4 +1,7 @@
-import { pageBuilderValidator } from '@/components/shared/PageBuilder/hooks';
+import {
+  concatenatePageBuilderQueries,
+  pageBuilderValidator
+} from '@/components/shared/PageBuilder/hooks';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { mediaValidator, productCardValidator } from '@/lib/sanity/validators';
@@ -62,15 +65,14 @@ export function getCollectionBaseQuery({
       moods[]{
         ${fragments.getMedia(lang)}
       },
+      pageBuilder[]{
+        ${concatenatePageBuilderQueries({ market, lang })}
+      }
     }
   `;
 
   return query;
 }
-
-// pageBuilder[]{
-//   ${concatenatePageBuilderQueries({ market, lang })}
-// }
 
 export function getProductIdsByOrder(market: LangValues, sortKey: string | undefined) {
   const query = groq`

@@ -43,6 +43,7 @@ export const person = defineType({
       initialValue: 'employee',
       validation: (Rule) => Rule.required()
     }),
+    // TODO figure out what to validate here
     defineField({
       title: 'Role',
       name: 'role',

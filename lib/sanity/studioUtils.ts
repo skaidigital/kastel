@@ -39,18 +39,16 @@ export const singleton = (S: StructureBuilder, title: string, type: string, id: 
 
 export function resolveHref(documentType?: string, slug?: string): string | undefined {
   switch (documentType) {
-    case 'home':
-      return '/';
     case 'page':
       return slug ? `/no/no/${slug}` : undefined;
+    case 'product':
+      return slug ? `/no/no/products/${slug}` : undefined;
     case 'collection':
       return slug ? `/no/no/collections/${slug}` : undefined;
     case 'legalPage':
       return slug ? `/no/no/legal/${slug}` : undefined;
     case 'blogPost':
       return slug ? `/no/no/blog/${slug}` : undefined;
-    case 'product':
-      return slug ? `/no/no/products/${slug}` : undefined;
     default:
       console.warn('Invalid document type:', documentType);
       return undefined;
@@ -84,8 +82,8 @@ export const validateAllStringTranslations = (Rule: any) =>
     return true;
   });
 
-export const readOnlyUnlessDeveloper = (currentUser: any) =>
-  currentUser?.role === 'developer' ? false : true;
+export const readOnlyUnlessDeveloper = ({ currentUser }: any) =>
+  !currentUser?.roles.some((role: any) => role.name === 'developer');
 
 interface Props {
   title: string;
