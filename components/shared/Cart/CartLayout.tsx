@@ -72,7 +72,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger
-          className="lg:hover-bg-none relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey lg:h-auto lg:w-auto"
+          className="lg:hover-bg-none relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey focus:bg-brand-light-grey lg:h-auto lg:w-auto lg:hover:bg-transparent lg:focus:bg-transparent"
           asChild
         >
           <button

@@ -11,7 +11,6 @@ import { useEffect } from 'react';
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  console.log(pathname);
 
   useEffect(() => {
     // GTM – Analytics
