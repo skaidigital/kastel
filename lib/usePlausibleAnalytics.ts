@@ -10,7 +10,7 @@ export function usePlausibleAnalytics() {
       props: options
     });
 
-  const trackGoToCheckout = () => plausible(ANALTYICS_EVENT_NAME.GO_TO_CHECKOUT);
+  const trackGoToCheckout = () => plausible(ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT);
 
   const trackConsent = ({ type }: { type: ConsentType }) =>
     plausible(ANALTYICS_EVENT_NAME.CONSENT, {
