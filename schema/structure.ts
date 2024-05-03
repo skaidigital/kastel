@@ -3,6 +3,7 @@ import { group, list, listNew, singleton } from '@/lib/sanity/studioUtils';
 import {
   ArrowLineUp,
   Article,
+  BookOpenText,
   Calendar,
   Check,
   Coins,
@@ -15,6 +16,7 @@ import {
   Gear,
   GoogleLogo,
   GridFour,
+  HandCoins,
   House,
   Info,
   Layout,
@@ -56,15 +58,19 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         .id('home')
         .child(S.document().schemaType('page').documentId('home'))
         .icon(House),
-      list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
-        excludedPageIds: EXCLUDED_PAGE_IDS
-      }).icon(File),
+      group(S, 'Pages', [
+        list(S, 'Landing pages', `_type == 'page' && !(_id in $excludedPageIds)`, {
+          excludedPageIds: EXCLUDED_PAGE_IDS
+        }).icon(File),
+        listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
+        singleton(S, 'About page', 'aboutPage', 'aboutPage').icon(BookOpenText),
+        singleton(S, 'Kastel Club page', 'kastelClubPage', 'kastelClubPage').icon(HandCoins),
+        singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User)
+      ]).icon(File),
       group(S, 'Blog', [
         singleton(S, 'Landing page', 'blogLandingPage', 'blogLandingPage').icon(File),
         listNew({ S, schemaType: 'blogPost', title: 'Posts' }).icon(Article)
       ]).icon(Article),
-      listNew({ S, schemaType: 'legalPage', title: 'Legal pages' }).icon(Gavel),
-      singleton(S, 'Account page', 'accountPage', 'accountPage').icon(User),
       S.divider(),
       list(S, 'Models', `_type == 'productType'`).icon(Square),
       S.listItem()

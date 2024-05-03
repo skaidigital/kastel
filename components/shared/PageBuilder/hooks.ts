@@ -334,6 +334,28 @@ const fullBleedMediaSectionValidator = z.object({
   aspectRatioSettings: aspectRatioSettingsValidator
 });
 
+const pageTitleValidator = z.object({
+  type: z.literal('pageTitle'),
+  key: z.string(),
+  title: z.string(),
+  description: z.string()
+});
+
+const meetTheTeamSectionValidator = z.object({
+  type: z.literal('meetTheTeamSection'),
+  key: z.string(),
+  title: z.string(),
+  people: z.array(
+    z.object({
+      image: imageValidator,
+      name: z.string(),
+      role: z.string(),
+      description: z.string().optional()
+    })
+  ),
+  sectionSettings: sectionSettingsValidator
+});
+
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
   cardSectionValidator,
@@ -349,7 +371,9 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   uspExplainerSectionValidator,
   emailCaptureValidator,
   timelineSectionValidator,
-  fullBleedMediaSectionValidator
+  fullBleedMediaSectionValidator,
+  pageTitleValidator,
+  meetTheTeamSectionValidator
 ]);
 
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
@@ -374,6 +398,8 @@ export type EmailCaptureProps = z.infer<typeof emailCaptureValidator>;
 export type TimelineItemProps = z.infer<typeof timelineItemValidator>;
 export type TimelineSectionProps = z.infer<typeof timelineSectionValidator>;
 export type FullBleedMediaSectionProps = z.infer<typeof fullBleedMediaSectionValidator>;
+export type PageTitleProps = z.infer<typeof pageTitleValidator>;
+export type MeetTheTeamSectionProps = z.infer<typeof meetTheTeamSectionValidator>;
 export type PageBuilder = z.infer<typeof pageBuilderValidator>;
 export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
 
@@ -381,6 +407,11 @@ export const PAGE_BUILDER_TYPES: {
   // eslint-disable-next-line no-unused-vars
   [key: string]: (lang: LangValues, market: MarketValues) => string;
 } = {
+  pageTitle: (lang) => `
+    ${fragments.base},
+    "title": title.${lang},
+    "description": description.${lang}
+  `,
   hero: (lang) => `
     ${fragments.base},
     "title": title.${lang},
@@ -702,7 +733,22 @@ export const PAGE_BUILDER_TYPES: {
       },
       textPlacementMobile,
       textPlacementDesktop
-    }
+    },
+  `,
+  meetTheTeamSection: (lang) => groq`
+    ${fragments.base},
+    "title": title.${lang},
+    "people": people[]->{
+      "image": image{
+        ${fragments.getImageBase(lang)}
+      },
+      "name": name,
+      "role": role.${lang},
+      "description": description.${lang}
+    },
+    sectionSettings{
+      ${fragments.sectionSettings}
+    },
   `
 };
 

@@ -7,8 +7,10 @@ import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedSho
 import { FullBleedMediaSection } from '@/components/shared/PageBuilder/FullBleedMediaSection';
 import { Hero } from '@/components/shared/PageBuilder/Hero';
 import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
+import { MeetTheTeamSection } from '@/components/shared/PageBuilder/MeetTheTeamSection';
 import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/NatureLabExplainerSection';
 import { NatureLabInnovationSection } from '@/components/shared/PageBuilder/NatureLabInnovationSection';
+import { PageTitle } from '@/components/shared/PageBuilder/PageTitle';
 import { ShoePickerSection } from '@/components/shared/PageBuilder/ShoePickerSection';
 import { ShopOurModelsSection } from '@/components/shared/PageBuilder/ShopOurModelsSection';
 import { TimelineSection } from '@/components/shared/PageBuilder/TimelineSection';
@@ -38,7 +40,9 @@ const blockTypes: BlockType = {
   natureLabInnovationSection: NatureLabInnovationSection,
   emailCapture: EmailCapture,
   timelineSection: TimelineSection,
-  fullBleedMediaSection: FullBleedMediaSection
+  fullBleedMediaSection: FullBleedMediaSection,
+  pageTitle: PageTitle,
+  meetTheTeamSection: MeetTheTeamSection
 };
 
 interface Props {

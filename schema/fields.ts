@@ -152,6 +152,12 @@ export const pageBuilder = defineType({
     input: PageBuilderModal
   },
   of: [
+    // Page title
+    defineArrayMember({
+      title: 'Page title',
+      name: 'pageTitle',
+      type: 'pageTitle'
+    }),
     // Hero
     defineArrayMember({
       title: 'Hero',
@@ -245,7 +251,14 @@ export const pageBuilder = defineType({
     // Email capture
     defineArrayMember({
       title: 'Email capture',
+      name: 'emailCapture',
       type: 'emailCapture'
+    }),
+    // Meet the team
+    defineArrayMember({
+      title: 'Meet the team',
+      name: 'meetTheTeamSection',
+      type: 'meetTheTeamSection'
     })
   ]
 });

@@ -1,3 +1,4 @@
+import { INTERNAL_LINK_OPTIONS } from '@/data/constants';
 import { hiddenBasedOnLink, validateLinkType } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
@@ -58,7 +59,7 @@ export const conditionalLink = defineType({
       title: 'Links to',
       name: 'linkTo',
       type: 'reference',
-      to: [{ type: 'page' }, { type: 'product' }, { type: 'collection' }],
+      to: INTERNAL_LINK_OPTIONS,
       hidden: ({ parent }) => parent?.type !== 'internal' || !parent?.hasLink,
       validation: (Rule) =>
         Rule.custom((linkTo, context: any) => {

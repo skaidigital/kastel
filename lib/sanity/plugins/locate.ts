@@ -10,7 +10,9 @@ const documentTypesWithPreview = [
   'blogPost',
   'blogLandingPage',
   'helpCenter',
-  'retailersPage'
+  'retailersPage',
+  'aboutPage',
+  'kastelClubPage'
 ];
 
 export const locate: DocumentLocationResolver = (params, context) => {
@@ -139,6 +141,28 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 {
                   title: 'Retailers Page',
                   href: '/no/no/stores'
+                }
+              ],
+              tone: 'positive',
+              message: 'Open preview'
+            } satisfies DocumentLocationsState;
+          case 'aboutPage':
+            return {
+              locations: [
+                {
+                  title: 'About Page',
+                  href: '/no/no/about'
+                }
+              ],
+              tone: 'positive',
+              message: 'Open preview'
+            } satisfies DocumentLocationsState;
+          case 'kastelClubPage':
+            return {
+              locations: [
+                {
+                  title: 'Kastel Club page',
+                  href: '/no/no/kastel-club'
                 }
               ],
               tone: 'positive',
