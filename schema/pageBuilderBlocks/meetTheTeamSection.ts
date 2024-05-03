@@ -1,4 +1,7 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import {
+  filterAlreadyAddedReferences,
+  validateAllStringTranslations
+} from '@/lib/sanity/studioUtils';
 import { UsersFour } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -23,7 +26,15 @@ export const meetTheTeamSection = defineType({
       title: 'People',
       name: 'people',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'person' }] }],
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'person' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
+        }
+      ],
       validation: (Rule) => Rule.required().min(1)
     }),
     defineField({

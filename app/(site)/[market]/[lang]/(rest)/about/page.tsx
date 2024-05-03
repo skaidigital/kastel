@@ -1,9 +1,6 @@
 import { AboutPage } from '@/components/pages/AboutPage';
-import {
-  PagePayload,
-  getPageQuery,
-  removeEmptyPageBuilderObjects
-} from '@/components/pages/PageLayout/hooks';
+import { AboutPagePayload, getAboutPageQuery } from '@/components/pages/AboutPage/hooks';
+import { removeEmptyPageBuilderObjects } from '@/components/pages/PageLayout/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -12,9 +9,9 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 
 function loadAboutPage({ market, lang }: { market: MarketValues; lang: LangValues }) {
-  const query = getPageQuery({ market, lang });
+  const query = getAboutPageQuery({ market, lang });
 
-  return loadQuery<PagePayload | null>(
+  return loadQuery<AboutPagePayload | null>(
     query,
     { slug: 'about' },
     { next: { tags: [CACHE_TAGS.ABOUT_PAGE] } }
