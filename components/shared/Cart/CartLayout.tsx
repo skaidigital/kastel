@@ -164,7 +164,15 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                     isLoading={isPending}
                     onClick={() => {
                       startTransition(() => {
-                        trackEvent({ eventName: ANALTYICS_EVENT_NAME.GO_TO_CHECKOUT });
+                        // Vercel Analtyics
+                        trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                        // GTM – Analytics
+                        sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                        // GTM – Meta
+                        sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+                        // GTM – Snap
+                        sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+
                         trackGoToCheckout();
                         router.push(checkoutUrl);
                       });
