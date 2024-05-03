@@ -44,17 +44,11 @@ export const CardSection = ({ data }: Props) => {
 
           return (
             <Wrapper data-sanity={dataAttribute?.(['pageBuilder', index])} key={index} link={link}>
-              <AspectRatio
-                settings={aspectRatioSettings}
-                className={cn(
-                  link.hasLink &&
-                    'group relative bg-gradient-to-t from-black/80 from-0% to-black/20 to-30%'
-                )}
-              >
+              <AspectRatio settings={aspectRatioSettings} className={cn(link.hasLink && 'group ')}>
                 <Media media={{ ...media }} loading="lazy" />
                 {link.hasLink && (
                   <div className="flex items-end justify-between">
-                    <div className="flex w-full items-end justify-between p-6 text-white lg:p-8">
+                    <div className="z-[3] flex w-full items-end justify-between p-6 text-white lg:p-8">
                       {link.text && (
                         <h3 className="basis-2/3 text-heading-md font-bold uppercase lg:text-heading-xl">
                           {link.text}
@@ -63,6 +57,9 @@ export const CardSection = ({ data }: Props) => {
                       <ArrowUpRightIcon className="size-10 shrink-0 text-white group-hover:mb-2 group-hover:transition-transform group-hover:duration-200 group-hover:ease-in-out lg:size-20" />
                     </div>
                   </div>
+                )}
+                {link.hasLink && (
+                  <div className="z-2 absolute bottom-0 left-0 bg-gradient-to-t from-black/80 from-0% to-black/20 to-30%" />
                 )}
               </AspectRatio>
             </Wrapper>
