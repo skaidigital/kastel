@@ -59,7 +59,7 @@ export const hero = defineType({
       hidden: ({ parent }) => !parent.link?.hasLink,
       validation: (Rule) =>
         Rule.custom((field: any, context: any) => {
-          const haslink = context.parent.link?.hasLink;
+          const haslink = context.parent?.link?.hasLink;
 
           if (haslink && !field) {
             return 'You must select a button variant';

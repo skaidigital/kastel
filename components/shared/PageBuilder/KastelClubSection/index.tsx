@@ -112,7 +112,7 @@ interface IntroProps {
 function Intro({ title, description, buttonText, backgroundImage }: IntroProps) {
   return (
     <div className="aspect-h-4 aspect-w-3 relative h-0 w-full lg:aspect-h-1 lg:aspect-w-1">
-      <div className="absolute z-30 flex items-end">
+      <div className="absolute z-[3] flex items-end">
         <div className="flex flex-col gap-y-4 p-6 text-white lg:max-w-lg lg:gap-y-6 xl:p-8">
           {title && <Heading size="xl">{title}</Heading>}
           {description && <Text className="text-balance">{description}</Text>}
@@ -149,12 +149,12 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
           </div>
         </div>
       </div>
-      <div className="absolute z-20 h-full w-full bg-gradient-to-t from-black/80 from-0% to-black/20 to-30% " />
+      <div className="absolute z-[2] h-full w-full bg-gradient-to-t from-black/80 from-0% to-black/20 to-30% " />
       {backgroundImage && (
         <SanityImage
           image={backgroundImage}
           fill
-          className="absolute inset-0 z-10 h-full w-full object-cover"
+          className="z-1 absolute inset-0 h-full w-full object-cover"
         />
       )}
     </div>

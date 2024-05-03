@@ -5,7 +5,7 @@ import { FAQSection } from '@/components/shared/PageBuilder/FAQSection';
 import { FeaturedCollectionSection } from '@/components/shared/PageBuilder/FeaturedCollectionSection';
 import { FeaturedShoeSection } from '@/components/shared/PageBuilder/FeaturedShoeSection';
 import { FullBleedMediaSection } from '@/components/shared/PageBuilder/FullBleedMediaSection';
-import { Hero } from '@/components/shared/PageBuilder/Hero';
+import { HeroSection } from '@/components/shared/PageBuilder/Hero';
 import { KastelClubSection } from '@/components/shared/PageBuilder/KastelClubSection';
 import { MeetTheTeamSection } from '@/components/shared/PageBuilder/MeetTheTeamSection';
 import { NatureLabExplainerSection } from '@/components/shared/PageBuilder/NatureLabExplainerSection';
@@ -35,7 +35,7 @@ const blockTypes: BlockType = {
   natureLabExplainerSection: NatureLabExplainerSection,
   shopOurModelsSection: ShopOurModelsSection,
   featuredShoeSection: FeaturedShoeSection,
-  hero: Hero,
+  hero: HeroSection,
   uspExplainerSection: USPExplainerSection,
   natureLabInnovationSection: NatureLabInnovationSection,
   emailCapture: EmailCapture,
