@@ -17,7 +17,7 @@ interface Props {
 // TODO animate height
 export function DesktopMenu({ items, className }: Props) {
   return (
-    <NavigationMenu.Root delayDuration={0} className={cn('z-50 flex justify-center', className)}>
+    <NavigationMenu.Root delayDuration={0} className={cn('z-20 flex justify-center', className)}>
       <NavigationMenu.List className="center m-0 flex list-none items-center">
         {items?.map((item) => {
           if (item.type === 'link') {
