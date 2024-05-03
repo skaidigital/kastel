@@ -2,6 +2,7 @@ import { Dictionary } from '@/app/dictionaries';
 import { HotspotImage } from '@/components/HotspotImage';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductFormSkeleton } from '@/components/ProductForm/ProductFormSkeleton';
+import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
 import Video from '@/components/Video';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
@@ -20,6 +21,7 @@ import { Rating } from '@/components/shared/ProductCard/Rating';
 import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
+import { urlForImage } from '@/lib/sanity/image';
 import { SanityImageProps } from '@/lib/sanity/types';
 import { SearchParams } from '@/lib/types';
 import { cookies } from 'next/headers';
@@ -41,7 +43,6 @@ interface Props {
   lang: LangValues;
 }
 
-// TODO add back prodctJsonLd
 export async function ProductPageLayout(props: Props) {
   const { data: product, market, lang } = props;
 
@@ -72,12 +73,11 @@ export async function ProductPageLayout(props: Props) {
 
   return (
     <>
-      {/* <ProductJsonLd
+      <ProductJsonLd
         productId={id}
         title={title}
-        description={description ? toPlainText(description) : undefined}
-        image={featuredImage ? urlForImage(featuredImage).url() : undefined}
-      /> */}
+        image={mainImage ? urlForImage(mainImage).url() : undefined}
+      />
       {gallery && gallery.length > 0 && (
         <div className="relative w-full">
           <MobileCarousel

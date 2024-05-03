@@ -9,6 +9,7 @@ interface Props {
 
 export async function ProductJsonLd({ productId, title, description, image }: Props) {
   const response = await getProductInventory(productId);
+
   if (!response) return null;
 
   const productJsonLd = {
