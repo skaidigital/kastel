@@ -52,15 +52,15 @@ export function getVariableProductVariantsDataQuery(markets: string[]) {
 
 export function getProductFromSanityQuery(market: MarketValues) {
   const query = groq`
-  *[_id == $id][0] {
+  *[_type == "product" && _id == $id][0] {
     _id,
     _type,
-    "image": gallery[0].asset->{
+    "image": mainImage.asset->{
       "originalSource": url,
       "altText": altText,
       "mediaContentType": mimeType
     },
-    "title": title_${market},
+    "title": title.${market},
     "slug": slug_${market}.current,
     "status": status_${market},
     trackStock,
@@ -68,8 +68,8 @@ export function getProductFromSanityQuery(market: MarketValues) {
     type,
     allowBackorders,
     "options": options[] {
-      "title": optionType->title_${market},
-      "variants": options[]->title_${market}
+      "title": optionType->title.${market},
+      "variants": options[]->title.${market}
     },
     "variants": select(type == "VARIABLE" => ${variableProductVariants(market)}, type == 'SIMPLE' => ${simpleProductVariants(market)})
   }
@@ -84,13 +84,12 @@ export function variableProductVariants(market: MarketValues) {
     _id,
     sku,
     barcode,
-    "option1": option1->.title_${market},
-    "option2": option2->.title_${market},
-    "option3": option3->.title_${market},
+    "option1": option1->.title.${market},
+    "option2": option2->.title.${market},
+    "option3": option3->.title.${market},
     "price": price_${market},
     "discountedPrice": discountedPrice_${market},
-    "gid": gid_${market},
-    "id": id_${market},
+    "gid": gid_${market}
   }
   `;
   return query;
@@ -110,38 +109,3 @@ export function simpleProductVariants(market: MarketValues) {
 }]`;
   return query;
 }
-
-// export const variableProductVariants = `
-// *[_type == "productVariant" && parentProduct._ref == ^._id] {
-//   _id,
-//   sku,
-//   barcode,
-//   "option1": option1->.title_no,
-//   "option2": option2->.title_no,
-//   "option3": option3->.title_no,
-//   "price": price_no,
-//   "discountedPrice": discountedPrice_no,
-// }
-// `;
-
-// export const simpleProductVariants = `[{
-//   _id,
-//   "sku": sku,
-//   "barcode": barcode,
-//   "option1": "",
-//   "option2": "",
-//   "option3": "",
-//   "price": price_no,
-//   "discountedPrice": discountedPrice_no,
-// }]`;
-
-// "variants": *[_type == "productVariant" && parentProduct._ref == ^._id ]{
-//   _id,
-//   sku,
-//   barcode,
-//   "option1": option1->.title_${market},
-//   "option2": option1->.title_${market},
-//   "option3": option1->.title_${market},
-//   "price": price_${market},
-//   "discountedPrice": discountedPrice_${market},
-// }
