@@ -41,11 +41,11 @@ export const timelineBlock = defineType({
     }),
     defineField({
       title: 'Timeline',
-      description: 'Add 1-4 items to the timeline',
+      description: 'Add 1-12 items to the timeline',
       name: 'timeline',
       type: 'array',
       of: [{ type: 'timelineItem' }],
-      validation: (Rule) => Rule.min(1).max(4)
+      validation: (Rule) => Rule.required().min(1).max(12)
     })
   ]
 });

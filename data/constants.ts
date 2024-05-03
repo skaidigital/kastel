@@ -53,7 +53,9 @@ export const CACHE_TAGS = {
   LAYOUT_USP_MARUQEE: 'layoutUSPMarquee',
   METADATA: 'settingsSEOAndSocials',
   COOKIE_CONSENT: 'cookieConsent',
-  PRODUCT_SETTINGS: 'productSettings'
+  PRODUCT_SETTINGS: 'productSettings',
+  ABOUT_PAGE: 'aboutPage',
+  KASTEL_CLUB_PAGE: 'kastelClubPage'
 };
 
 export const SCHEMA_NAMES = {
@@ -319,7 +321,9 @@ export const INTERNAL_LINK_OPTIONS = [
   { type: 'blogPost', title: 'Blog post' },
   { type: 'blogLandingPage', title: 'Blog landing page' },
   { type: 'helpCenter', title: 'Help center' },
-  { type: 'retailersPage', title: 'Retailers page' }
+  { type: 'retailersPage', title: 'Retailers page' },
+  { type: 'aboutPage', title: 'About page' },
+  { type: 'kastelClubPage', title: 'Kastel Club page' }
 ];
 
 // ? The different types of pages that can be linked to in Sanity.

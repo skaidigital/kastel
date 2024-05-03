@@ -91,17 +91,23 @@ import { featuredCollectionBlock } from '@/schema/pageBuilderBlocks/featuredColl
 import { featuredShoeBlock } from '@/schema/pageBuilderBlocks/featuredShoeBlock';
 import { fullBleedMediaSection } from '@/schema/pageBuilderBlocks/fullBleedMediaSection';
 import { hero } from '@/schema/pageBuilderBlocks/hero';
+import { meetTheTeamSection } from '@/schema/pageBuilderBlocks/meetTheTeamSection';
 import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLabInnovationSection';
+import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
 import { shopOurModelsBlock } from '@/schema/pageBuilderBlocks/shopOurModelsBlock';
 import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
 import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
+import { aboutPage } from '@/schema/singletons/aboutPage';
 import { accountPage } from '@/schema/singletons/accountPage';
 import { announcementBanner } from '@/schema/singletons/announcementBanner';
 import { blogLandingPage } from '@/schema/singletons/blogLandingPage';
 import { footer } from '@/schema/singletons/footer';
 import { helpCenter } from '@/schema/singletons/helpCenter';
+import { kastelClubPage } from '@/schema/singletons/kastelClubPage';
+import { kastelClubPageSectionItem } from '@/schema/singletons/kastelClubPage/item';
+import { kastelClubPageSection } from '@/schema/singletons/kastelClubPage/section';
 import { layoutUspMarquee } from '@/schema/singletons/layoutUspMarquee';
 import { merchandising } from '@/schema/singletons/merchandising';
 import { navbar } from '@/schema/singletons/navbar';
@@ -135,6 +141,8 @@ const schema = [
 
   // Objects
   address,
+  kastelClubPageSection,
+  kastelClubPageSectionItem,
   variableText,
   legalPageText,
   blogPostText,
@@ -181,6 +189,8 @@ const schema = [
   hero,
   uspExplainerSection,
   fullBleedMediaSection,
+  pageTitle,
+  meetTheTeamSection,
   // Page builder blocks (documents)
   faqBlock,
   ugcBlock,
@@ -230,6 +240,8 @@ const schema = [
   retailer,
 
   // Singletons
+  aboutPage,
+  kastelClubPage,
   footer,
   filters,
   navbar,
