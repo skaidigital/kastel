@@ -1,3 +1,7 @@
+import {
+  concatenatePageBuilderQueries,
+  pageBuilderValidator
+} from '@/components/shared/PageBuilder/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import {
@@ -147,7 +151,8 @@ export const productValidator = z.object({
       })
     )
     .optional(),
-  sizeGuide: sizeGuideValidator.optional()
+  sizeGuide: sizeGuideValidator.optional(),
+  pageBuilder: pageBuilderValidator.optional()
 });
 
 export type Product = z.infer<typeof productValidator>;
@@ -326,6 +331,22 @@ export function getProductQuery({
         ${fragments.getSizeGuide(lang)}
       },
       null
+    ),
+    "pageBuilder": coalesce(
+      (
+        (pageBuilder[]{
+          ${concatenatePageBuilderQueries({ market, lang })}
+        }) +
+        (productType->pageBuilder[]{
+          ${concatenatePageBuilderQueries({ market, lang })}
+        })
+      ),
+      pageBuilder[]{
+        ${concatenatePageBuilderQueries({ market, lang })}
+      },
+      productType->pageBuilder[]{
+        ${concatenatePageBuilderQueries({ market, lang })}
+      }
     ),
   }
   `;

@@ -14,6 +14,8 @@ import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
 import { CrossSellSkeleton } from '@/components/shared/Cart/CrossSell/CrossSellSkeleton';
 import { MobileCarousel } from '@/components/shared/MobileCarousel';
+import { PageBuilder } from '@/components/shared/PageBuilder';
+import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { Rating } from '@/components/shared/ProductCard/Rating';
 import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
@@ -58,7 +60,8 @@ export async function ProductPageLayout(props: Props) {
     subtitle,
     variants,
     options,
-    typeId
+    typeId,
+    pageBuilder
   } = product;
 
   const productSku = 'SOL002-002-021-40';
@@ -250,8 +253,9 @@ export async function ProductPageLayout(props: Props) {
         description={product.descriptionLongDetails}
         title={product.descriptionLongTitle}
       />
-      {/* 
-      {pageBuilder?.length > 0 &&
+
+      {pageBuilder &&
+        pageBuilder?.length > 0 &&
         pageBuilder.map((block: PageBuilderBlock, index: number) => (
           <PageBuilder
             key={index}
@@ -259,10 +263,10 @@ export async function ProductPageLayout(props: Props) {
             index={index}
             market={market}
             lang={lang}
-            pageId={productType?.id || ''}
-            pageType="productType"
+            pageId={id}
+            pageType="product"
           />
-        ))} */}
+        ))}
 
       <ReccommendedProducts lang={lang} market={market} />
     </>
