@@ -270,7 +270,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             )}
           </div>
           {/* Footer */}
-          <div className="mt-6 h-fit w-full">
+          <div className="mt-6 h-fit w-full px-4 py-3">
             {!hasCartItems && (
               <Button asChild size="sm" className="w-full">
                 <CustomLink href={ROUTES.HOME}>{dictionary.start_shopping}</CustomLink>
