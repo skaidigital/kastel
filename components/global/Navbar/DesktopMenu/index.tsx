@@ -22,7 +22,7 @@ export function DesktopMenu({ items, className }: Props) {
         {items?.map((item) => {
           if (item.type === 'link') {
             return (
-              <NavigationMenu.Item key={item.text} className="pr-5">
+              <NavigationMenu.Item key={item.text} className="flex self-center pr-5">
                 <NavigationMenu.Link asChild>
                   <SanityLink className="text-sm" link={item}>
                     {item.text}
@@ -34,10 +34,10 @@ export function DesktopMenu({ items, className }: Props) {
           if (item.type === 'meganav') {
             return (
               <NavigationMenu.Item key={item.title} className="pr-5 text-sm">
-                <NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-[2px] rounded-project outline-none">
+                <NavigationMenu.Trigger className="group flex h-full select-none items-center justify-between gap-[2px] rounded-project outline-none">
                   {item.title}{' '}
                   <CaretDownIcon
-                    className="duration-250 relative top-[1px] transition-transform ease-in group-data-[state=open]:-rotate-180"
+                    className="duration-250 relative transition-transform ease-in group-data-[state=open]:-rotate-180"
                     aria-hidden
                   />
                 </NavigationMenu.Trigger>
