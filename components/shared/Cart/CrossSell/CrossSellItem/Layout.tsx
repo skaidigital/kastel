@@ -42,8 +42,6 @@ export function CrossSellItemLayout({
   const isSimpleProduct = product.variants.length === 1;
   const isVariableProduct = product.variants.length > 1;
 
-  console.log('inventory', JSON.stringify(inventory));
-
   const activeVariant = isSimpleProduct
     ? product.variants[0]
     : product.variants.find((variant) => {
@@ -60,8 +58,6 @@ export function CrossSellItemLayout({
             .join('/') === selectedCombination
         );
       });
-
-  console.log('activeVariant', activeVariant);
 
   const combinations: Combination[] = product.variants.map((variant) => ({
     id: variant.id,
@@ -86,17 +82,14 @@ export function CrossSellItemLayout({
       .join('/')
   );
 
-  console.log(combinationStrings);
-
-  console.log('combinations', combinations);
-
   function handleAddToCart() {
     if (!activeVariant) return;
-    if (outOfStock({ productId: product.id, combinations })) return;
+    if (outOfStock({ productId: activeVariant.id, combinations })) return;
 
     startTransition(async () => {
       const error = await addItem(activeVariant.id);
-      if (error) {
+
+      if (error.success) {
         console.error(error);
 
         throw new Error(error.toString());

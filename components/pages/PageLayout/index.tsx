@@ -14,8 +14,6 @@ export interface PageProps {
 }
 
 export function PageLayout({ data, market, lang }: PageProps) {
-  console.log('data', data);
-
   return (
     <>
       {data?.showAnnouncementBanner && (
