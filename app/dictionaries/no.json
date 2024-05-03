@@ -150,7 +150,8 @@
     "cross_sell": {
       "we_think_you_will_like": "Vi anbefaler",
       "add_to_cart": "Legg i handlekurv",
-      "choose_option": "Velg alternativ"
+      "choose_option": "Velg alternativ",
+      "out_of_stock": "Utsolgt"
     }
   },
   "market_selector": {

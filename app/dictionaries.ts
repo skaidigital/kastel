@@ -161,6 +161,7 @@ export interface Dictionary {
       we_think_you_will_like: string;
       add_to_cart: string;
       choose_option: string;
+      out_of_stock: string;
     };
   };
   market_selector: {

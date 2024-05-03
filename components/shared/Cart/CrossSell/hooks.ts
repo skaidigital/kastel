@@ -83,7 +83,7 @@ function crossSellProductQuery({ market, lang }: { market: string; lang: LangVal
         }
       ]},
       type == "SIMPLE" => [{
-        "id": gid_${market},    
+        "id": variantGid_${market},    
         "price": price_${market},
         "discountedPrice": compareAtPrice_${market},
       }]

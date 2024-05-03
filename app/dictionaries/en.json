@@ -150,7 +150,8 @@
     "cross_sell": {
       "we_think_you_will_like": "We reccommend",
       "add_to_cart": "Add to cart",
-      "choose_option": "Choose an option"
+      "choose_option": "Choose an option",
+      "out_of_stock": "Out of stock"
     }
   },
   "market_selector": {

@@ -2,6 +2,7 @@
 
 import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
+import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
@@ -14,6 +15,7 @@ import {
   META_ANALYTICS_EVENT_NAME,
   SNAPCHAT_ANALYTICS_EVENT_NAME
 } from '@/data/constants';
+import { trackEvent } from '@/lib/actions';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { sendGTMEvent } from '@next/third-parties/google';
@@ -28,10 +30,6 @@ interface Props {
   className?: string;
 }
 
-// TODO grey out if it's not in stock
-// TODO show price
-// TODO show selected variant's options
-// TODO test with simple product
 export function CrossSellItemLayout({
   product,
   inventory,
@@ -81,12 +79,14 @@ export function CrossSellItemLayout({
       )
   }));
 
-  const combinationStrings = combinations?.map((combination) =>
-    Object.entries(combination)
+  const combinationStrings = combinations?.map((combination) => ({
+    label: Object.entries(combination)
       .filter(([key]) => key !== 'id' && key !== 'availableForSale')
       .map(([key, value]) => value)
-      .join('/')
-  );
+      .join('/'),
+    id: combination.id,
+    availableForSale: combination.availableForSale
+  }));
 
   function handleAddToCart() {
     if (!activeVariant) return;
@@ -96,7 +96,9 @@ export function CrossSellItemLayout({
       const response = await addItem(activeVariant.id);
 
       if (response.success) {
-        console.log(response);
+        trackEvent({
+          eventName: 'add_to_cart'
+        });
 
         // GTM – Analtyics
         sendGTMEvent({
@@ -120,12 +122,12 @@ export function CrossSellItemLayout({
   return (
     <div className={cn('flex gap-x-3 lg:p-3', className)}>
       <div className="w-20">
-        <div className="aspect-h-4 aspect-w-3 relative rounded-[2px] border border-brand-light-grey">
+        <div className="aspect-h-4 aspect-w-3 relative">
           <SanityImage image={image} fill className="absolute object-cover" />
         </div>
       </div>
       <div className="flex w-full flex-col justify-between ">
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-1">
           <h4 className="text-balance text-sm font-medium">{title}</h4>
           {activeVariant &&
             (activeVariant.discountedPrice ? (
@@ -138,7 +140,9 @@ export function CrossSellItemLayout({
                 </span>
               </div>
             ) : (
-              <span>{formatPrice({ amount: String(activeVariant.price), currencyCode })}</span>
+              <span className="text-xs">
+                {formatPrice({ amount: String(activeVariant.price), currencyCode })}
+              </span>
             ))}
         </div>
         <div className="flex gap-x-1 ">
@@ -153,9 +157,11 @@ export function CrossSellItemLayout({
               </SelectTrigger>
               <SelectContent>
                 {combinationStrings.map((option) => {
+                  const notAvailable = !option.availableForSale;
                   return (
-                    <SelectItem key={option} value={option}>
-                      {option}
+                    <SelectItem key={option.id} value={option.id} disabled={notAvailable}>
+                      {option.label}
+                      {notAvailable && <Badge size="xs">{dictionary.out_of_stock}</Badge>}
                     </SelectItem>
                   );
                 })}
@@ -169,8 +175,8 @@ export function CrossSellItemLayout({
             size="icon"
             isLoading={isPending}
             className={cn(
-              'h-full w-fit shrink-0 px-3 py-1.5',
-              isSimpleProduct && 'w-full gap-x-2',
+              'h-full w-fit shrink-0 px-3 py-1.5 text-xs',
+              isSimpleProduct && 'h-9 w-full gap-x-2',
               isVariableProduct && 'h-9 w-12'
             )}
           >
@@ -180,79 +186,6 @@ export function CrossSellItemLayout({
         </div>
       </div>
     </div>
-    // <div className={cn('flex w-full rounded-project', className)}>
-    //   <div className="w-40">
-    //     <AspectRatio ratio={3 / 4} className="bg-brand-border relative rounded-project">
-    //       {image && <SanityImage fill image={image} className="rounded-project" />}
-    //     </AspectRatio>
-    //   </div>
-    //   <div className="relative flex w-full flex-col justify-between pl-5">
-    //     <div className="flex flex-col gap-y-3">
-    //       <Heading as="h3" size="xs">
-    //         {title}
-    //       </Heading>
-    //       {activeVariant &&
-    //         (activeVariant.discountedPrice ? (
-    //           <div className="flex gap-x-2">
-    //             <Text size="sm">
-    //               {formatPrice({ amount: String(activeVariant.discountedPrice), currencyCode })}
-    //             </Text>
-    //             <Text size="sm" className="line-through">
-    //               {formatPrice({ amount: String(activeVariant.price), currencyCode })}
-    //             </Text>
-    //           </div>
-    //         ) : (
-    //           <Text size="sm">
-    //             {formatPrice({ amount: String(activeVariant.price), currencyCode })}
-    //           </Text>
-    //         ))}
-    //       {activeVariant && activeVariant.selectedOptions && (
-    //         <div className="flex flex-col gap-y-0">
-    //           {activeVariant.selectedOptions.map((option) => (
-    //             <Text size="sm" key={option?.value}>
-    //               {option?.value}
-    //             </Text>
-    //           ))}
-    //         </div>
-    //       )}
-    //     </div>
-    //     <div className="flex gap-x-3">
-    //       {isVariableProduct && combinationStrings && (
-    //         <Select
-    //           onValueChange={(e) => {
-    //             setSelectedCombination(e);
-    //           }}
-    //         >
-    //           <SelectTrigger>
-    //             <SelectValue placeholder={dictionary.choose_option} />
-    //           </SelectTrigger>
-    //           <SelectContent>
-    //             {combinationStrings.map((option) => (
-    //               <SelectItem key={option} value={option}>
-    //                 {option}
-    //               </SelectItem>
-    //             ))}
-    //           </SelectContent>
-    //         </Select>
-    //       )}
-    //       <Button
-    //         variant="outline"
-    //         onClick={handleAddToCart}
-    //         disabled={!activeVariant}
-    //         size="icon"
-    //         isLoading={isPending}
-    //         className={cn(
-    //           'border-brand-border flex items-center justify-center rounded-project border text-black',
-    //           isSimpleProduct && 'w-full gap-x-2',
-    //           isVariableProduct && 'h-9 w-12'
-    //         )}
-    //       >
-    //         {isSimpleProduct && dictionary.add_to_cart}
-    //         <ShoppingBagIcon className="h-4 w-4 text-black" />
-    //       </Button>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 
@@ -263,6 +196,7 @@ interface StockPros {
 
 function outOfStock({ productId, combinations }: StockPros) {
   if (!productId) return true;
+
   const stock = combinations.find((combination) => combination.id === productId);
 
   return !stock?.availableForSale;

@@ -2,10 +2,7 @@
 
 import { getDictionary } from '@/app/dictionaries';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import {
-  CarouselNext,
-  CarouselPrevious
-} from '@/components/shared/Cart/CrossSell/CrossSellCarouselButton';
+import { CarouselButtons } from '@/components/shared/Cart/CrossSell/CarouselButtons';
 import { CrossSellItem } from '@/components/shared/Cart/CrossSell/CrossSellItem';
 import { CrossSellProducts, getCrossSellQuery } from '@/components/shared/Cart/CrossSell/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
@@ -37,10 +34,11 @@ interface Props {
   market: MarketValues;
   lang: LangValues;
   className?: string;
+  crossSellItemClassName?: string;
   gid?: string;
 }
 
-export async function CrossSell({ market, lang, className, gid }: Props) {
+export async function CrossSell({ market, lang, className, crossSellItemClassName, gid }: Props) {
   const cartId = cookies().get('cartId')?.value;
 
   let cart;
@@ -76,6 +74,8 @@ export async function CrossSell({ market, lang, className, gid }: Props) {
 
   const pairsWellWithString = getPairsWellWithString(lang);
 
+  const hasOnlyOneItem = initial.data.length === 1;
+
   return (
     <div className={cn(className)}>
       <Carousel
@@ -87,19 +87,19 @@ export async function CrossSell({ market, lang, className, gid }: Props) {
       >
         <div className="flex justify-between">
           <h3 className="text-sm font-medium">{pairsWellWithString}</h3>
-          <div className="hidden gap-x-1 lg:flex">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div>
+          <CarouselButtons />
         </div>
         <CarouselContent className="-ml-4">
           {initial?.data?.map((item, index) => (
-            <CarouselItem key={item.title + index} className="basis-[90%] bg-white pl-4">
+            <CarouselItem
+              key={item.title + index}
+              className={cn('pl-4', hasOnlyOneItem ? 'basis-full' : 'basis-[90%]')}
+            >
               <CrossSellItem
                 product={item}
                 currencyCode={currencyCode}
                 dictionary={dictionary}
-                className="p-0 lg:p-0"
+                className={cn('bg-white', crossSellItemClassName)}
               />
             </CarouselItem>
           ))}

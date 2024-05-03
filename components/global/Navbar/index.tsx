@@ -48,6 +48,7 @@ export async function Navbar({ market, lang, className }: Props) {
               market={market}
               lang={lang}
               className="border-t border-brand-light-grey px-4 pt-2 lg:px-6 lg:py-4"
+              crossSellItemClassName="px-3 py-2"
             />
           </Suspense>
         </Cart>
