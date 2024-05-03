@@ -43,7 +43,6 @@ export async function updateCustomerData({ customerGid, data }: CustomerData) {
   const updateCustomerDataResponse = await shopifyAdminQuery(metafieldsSetMutation, { metafields });
 
   if (!updateCustomerDataResponse) {
-    console.log('Error updating customer data', updateCustomerDataResponse);
     success = false;
   }
 

@@ -18,3 +18,17 @@ export function Badges({ badges }: Props) {
     </Badge>
   ));
 }
+
+export function DiscountBadge({ discount }: { discount: string }) {
+  const { activeColorway } = useProductCardContext();
+
+  const activeDiscount = activeColorway ? activeColorway.largestDiscount : discount;
+
+  return (
+    activeDiscount && (
+      <Badge className="mr-2" size="sm" color="red">
+        -{activeDiscount}%
+      </Badge>
+    )
+  );
+}

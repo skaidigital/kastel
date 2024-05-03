@@ -179,6 +179,7 @@ const colorWayValidator = z.object({
   hexCode: z.string(),
   slug: z.string(),
   badges: z.array(z.string()).optional(),
+  largestDiscount: z.string().optional(),
   minVariantPrice: z.object({
     amount: z.number(),
     currencyCode: z.string()
@@ -204,6 +205,7 @@ export const productCardValidator = z.object({
     amount: z.number(),
     currencyCode: z.string()
   }),
+  largestDiscount: z.string().optional(),
   colorways: z.array(colorWayValidator).optional(),
   sizes: z
     .array(

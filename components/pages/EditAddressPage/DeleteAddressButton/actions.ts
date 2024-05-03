@@ -39,8 +39,6 @@ export async function deleteAddress(addressId: string) {
     tags: [CACHE_TAGS.CUSTOMER_ADDRESS]
   });
 
-  console.log('res in deleteAddress', res);
-
   const errors = res.body.data.customerAddressDelete.userErrors;
 
   if (errors.length) {

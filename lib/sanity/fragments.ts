@@ -242,6 +242,7 @@ export function getProductCard(lang: LangValues, market: MarketValues) {
     "amount": coalesce(amount, 0),
     "currencyCode": currencyCode
   },
+  "largestDiscount": largestDiscount_${market},
   "sku": select(
     type == "SIMPLE" => sku,
     type == "VARIABLE" => *[_type=="productVariant" && references(^._id) && defined(sku)][0].sku
@@ -432,6 +433,7 @@ export function getColorWays(lang: LangValues, market: MarketValues) {
     },
     "hexCode": color->color.value, 
     "slug": slug_no.current,
+    "largestDiscount": largestDiscount_${market},
     "minVariantPrice": minVariantPrice_${market}{
       "amount": coalesce(amount, 0),
       "currencyCode": currencyCode

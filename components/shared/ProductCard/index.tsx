@@ -8,7 +8,7 @@ import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wish
 import { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 import { Suspense } from 'react';
-import { Badges } from './Badges';
+import { Badges, DiscountBadge } from './Badges';
 import { PriceAndSizeRange } from './PriceAndSizeRange';
 import { Rating, RatingFallback } from './Rating';
 
@@ -38,8 +38,8 @@ export function ProductCard({ product, firstImage, priority, className }: Props)
   const hasSizeRange = sizes?.filter((size) => size.type === 'size')[0];
   const lowestSize = hasSizeRange?.options[0];
   const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
-
   const sizeRange = `${lowestSize?.title}-${highestSize?.title}`;
+  const biggestDiscount = product?.largestDiscount;
 
   const formattedMinPrice = minVariantPrice
     ? formatPrice({
@@ -69,6 +69,7 @@ export function ProductCard({ product, firstImage, priority, className }: Props)
               )}
               <div className="absolute bottom-3 left-3 flex gap-x-1 @xs:bottom-4 @xs:left-4">
                 {/* Add here */}
+                {biggestDiscount && <DiscountBadge discount={Number(biggestDiscount).toFixed(0)} />}
                 {badges && <Badges badges={badges} />}
               </div>
               <div className="absolute bottom-3 right-3  @xs:hidden">

@@ -246,7 +246,5 @@ function outOfStock({ productId, combinations }: StockPros) {
   if (!productId) return true;
   const stock = combinations.find((combination) => combination.id === productId);
 
-  console.log('stock', stock);
-
   return !stock?.availableForSale;
 }

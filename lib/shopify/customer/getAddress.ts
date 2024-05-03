@@ -34,8 +34,6 @@ const customerAddressesQuery = /* GraphQL */ `
 `;
 
 export async function getAddresses(id: string) {
-  console.log('id', id);
-
   const res = await customerAccountFetch<ShopifyResponse>({
     query: customerAddressesQuery,
     cache: 'no-store',

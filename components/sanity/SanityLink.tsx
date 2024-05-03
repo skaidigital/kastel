@@ -50,7 +50,7 @@ export const SanityLink = ({ link, children, className, onClick }: Props) => {
             window.SmileUI.openPanel({ deep_link: deeplinkType });
             onClick && onClick();
           } else {
-            console.log('SmileUI is not loaded and initialized.');
+            console.warn('SmileUI is not loaded and initialized.');
             onClick && onClick();
           }
         }}

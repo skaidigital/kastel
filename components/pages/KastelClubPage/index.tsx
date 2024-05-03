@@ -18,7 +18,6 @@ interface Props {
 
 export async function KastelClubPage({ data }: Props) {
   const { waysToEarn, faq, perks } = data;
-  console.log(JSON.stringify(data.perks));
 
   return (
     <div>

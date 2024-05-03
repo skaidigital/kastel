@@ -13,8 +13,6 @@ interface FeaturedItemProps {
 }
 
 export const FeaturedItem = ({ title, image, link, className, onClick }: FeaturedItemProps) => {
-  console.log('FeaturedItemProps:', link);
-
   return (
     <SanityLink
       link={link}

@@ -76,9 +76,6 @@ export async function shopifyFetch<T>({
       body
     };
   } catch (e) {
-    console.log('Shopify fetch error:');
-    console.log(e);
-
     console.error('Shopify fetch error:');
     console.error(JSON.stringify(e));
 

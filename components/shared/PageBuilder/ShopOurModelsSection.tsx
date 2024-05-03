@@ -77,7 +77,6 @@ export const ShopOurModelsSection = ({ data }: Props) => {
       const firstShoeOrFirstIndex =
         activeShoe?.colorWays?.find((as) => as.slug === activeShoe.firstShoeSlug)?.slug ||
         activeShoe?.colorWays?.at(0)?.slug;
-      console.log({ firstShoeOrFirstIndex });
 
       setActiveColorwaySlug(firstShoeOrFirstIndex);
     }

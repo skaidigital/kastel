@@ -33,11 +33,6 @@ export const AddToCartButton = ({
   addToCartText,
   selectSizeText
 }: Props) => {
-  console.log('productId', productId);
-  console.log('productType', productType);
-  console.log('variants', variants);
-  console.log('inventory', inventory);
-
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { setCartOpen, setMobileDrawerOpen } = useCartContext();
@@ -49,8 +44,6 @@ export const AddToCartButton = ({
     variants,
     productType
   });
-
-  // console.log('activeVariant', activeVariant);
 
   const id = activeVariant?.id;
   const price = activeVariant?.price;
@@ -70,11 +63,6 @@ export const AddToCartButton = ({
     ...(productId && { productId }),
     ...(id && { variantId: id })
   };
-
-  // console.log('isInStock', isInStock);
-  // console.log('availableForSale', availableForSale);
-  // console.log('id', id);
-
   return (
     <Button
       title={title}

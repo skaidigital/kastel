@@ -46,8 +46,6 @@ export async function getCustomerId() {
 
   const customerId = customerEmailResponse?.body?.data?.customer?.id || undefined;
 
-  console.log(customerId);
-
   return customerId;
 }
 

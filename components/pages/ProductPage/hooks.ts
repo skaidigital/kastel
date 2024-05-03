@@ -132,6 +132,7 @@ export const productValidator = z.object({
     )
     .optional(),
   typeId: z.string(),
+  largestDiscount: z.string().optional(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
   mainImage: imageValidator,
@@ -180,6 +181,7 @@ export function getProductQuery({
         "slug": slug_${lang}.current
       }
     },
+    "largestDiscount": largestDiscount_${market},
     "minVariantPrice": minVariantPrice_${market}{
       "amount": coalesce(amount, 0),
       "currencyCode": currencyCode

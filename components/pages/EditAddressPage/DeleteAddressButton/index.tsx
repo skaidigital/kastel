@@ -36,16 +36,12 @@ export function DeleteAddressButton({ addressId, className }: Props) {
       const response = await deleteAddress(addressId);
 
       if (!response.success) {
-        console.log('response in error', response);
-
         toast.error('Something went wrong', {
           description: response.userErrors && response.userErrors[0]?.message
         });
         return;
       }
       if (response.success) {
-        console.log('response in success', response);
-
         toast('Success!', {
           description: 'This address has been deleted.'
         });

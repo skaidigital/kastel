@@ -24,8 +24,6 @@ async function loadCrossSellProducts({
   lang: LangValues;
   gid: string;
 }) {
-  console.log('gid', gid);
-
   const query = getCrossSellQuery({ market, lang });
 
   return loadQuery<CrossSellProducts>(
@@ -52,8 +50,6 @@ export async function CrossSell({ market, lang, className, gid }: Props) {
   }
 
   if (!cart && !gid) {
-    console.log('No cart or gid');
-
     return null;
   }
 
@@ -61,14 +57,8 @@ export async function CrossSell({ market, lang, className, gid }: Props) {
   const activeId = gid || firstCartItemId;
 
   if (!activeId) {
-    console.log('No activeId');
-
     return null;
   }
-
-  console.log('activeId', activeId);
-
-  console.log('firstCartItemId', firstCartItemId);
 
   // if (!cart) {
   //   return null;
@@ -81,8 +71,6 @@ export async function CrossSell({ market, lang, className, gid }: Props) {
   const initial = await loadCrossSellProducts({ market, lang, gid: activeId });
 
   if (!initial.data) {
-    console.log('No data');
-
     return null;
   }
 

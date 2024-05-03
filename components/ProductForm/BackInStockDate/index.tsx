@@ -14,7 +14,6 @@ export async function BackInStockDate({ sku, expectedBackInStockText }: Props) {
   useEffect(() => {
     if (!sku) return;
     getBackInStockDate(sku).then((data) => {
-      // console.log(data);
       setBackInStockDate(data.backInStockDate);
     });
   }, []);
@@ -39,7 +38,6 @@ async function getBackInStockDate(sku: string) {
     });
 
     const data = await response.json();
-    // console.log({ data });
 
     return data;
   } catch (error) {

@@ -166,7 +166,11 @@ export async function ProductPageLayout(props: Props) {
               <div className="flex flex-col">
                 <div className="mb-[10px] flex items-center justify-between">
                   <div className="flex gap-2">
-                    <DiscountBadge variants={variants} productType={product.type} />
+                    <DiscountBadge
+                      variants={variants}
+                      productType={product.type}
+                      largestDiscount={product.largestDiscount}
+                    />
                     <Rating sku={productSku} />
                   </div>
                   <Suspense fallback={<WishlistFallback />}>

@@ -104,8 +104,6 @@ async function syncProductToShopify(product: ProductSyncSchema) {
   // Check if product is created in Shopify
   const isCreatedInShopifyResponse: boolean = await isCreatedInShopify(product._id, product.gid);
 
-  console.log(isCreatedInShopifyResponse);
-
   if (!isCreatedInShopifyResponse) {
     // Create product in Shopify
     const createProductResponse: any = await createProductInShopify(product);

@@ -10,7 +10,6 @@ export async function sendMyInfoForm(data: MyInfoFormProps, id: string) {
   const validatedData = myInfoFormValidator.safeParse(data);
 
   if (!validatedData.success) {
-    console.log('Ooop, something went wrong');
     console.error(validatedData.error);
     return {
       success: false,

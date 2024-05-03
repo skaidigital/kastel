@@ -11,16 +11,11 @@ interface Porps {
 
 // TODO figure out how to lazy load this bad boy
 export default function SmileInit({ customerId }: Porps) {
-  console.log('customerId', customerId);
-
   useEffect(() => {
     initializeSmileUI();
-    console.log('customerId', customerId);
 
     async function initializeSmileUI() {
       if (window.SmileUI) {
-        console.log('We have SmileUI');
-
         return;
       }
       if (window.SmileUI && !customerId) {
@@ -39,7 +34,6 @@ export default function SmileInit({ customerId }: Porps) {
         },
         body: JSON.stringify({ customer_id: customerId })
       });
-      console.log('response', response);
 
       const { token: customer_identity_jwt } = await response.json();
 
@@ -52,8 +46,6 @@ export default function SmileInit({ customerId }: Porps) {
       }
 
       if (window.SmileUI) {
-        console.log('We have SmileUI with customer ID');
-
         window.SmileUI.init({
           channel_key: channelKey,
           customer_identity_jwt: customer_identity_jwt // Use the fetched JWT
@@ -62,8 +54,6 @@ export default function SmileInit({ customerId }: Porps) {
     }
 
     if (!window.SmileUI) {
-      console.log('We do not have SmileUI');
-
       const script = document.createElement('script');
       script.async = true;
       script.src = 'https://js.smile.io/v1/smile-ui.js';

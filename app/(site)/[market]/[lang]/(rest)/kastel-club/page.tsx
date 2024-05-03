@@ -23,7 +23,6 @@ interface Props {
 
 export default async function Page({ params: { lang } }: Props) {
   const initial = await loadKastelClubPage(lang);
-  console.log({ initial });
 
   if (!initial.data) return null;
 

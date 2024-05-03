@@ -7,13 +7,18 @@ import { Product, ProductVariant } from './hooks';
 interface Props {
   productType: Product['type'];
   variants: ProductVariant[];
+  largestDiscount: Product['largestDiscount'];
 }
 
-export function DiscountBadge({ productType, variants }: Props) {
+export function DiscountBadge({ productType, variants, largestDiscount }: Props) {
   const activeVariant = useActiveVariant({
     productType,
     variants
   });
+
+  if (!activeVariant && largestDiscount) {
+    return <Badge>-{Number(largestDiscount).toFixed(0)}%</Badge>;
+  }
 
   const price = activeVariant?.price;
   const discountedPrice = activeVariant?.discountedPrice;

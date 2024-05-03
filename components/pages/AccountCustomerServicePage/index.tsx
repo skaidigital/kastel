@@ -42,7 +42,7 @@ export async function AccountCustomerServicePage({ lang }: Props) {
   const validatedData = customerServicePageValidator.safeParse(withoutNullValues);
 
   if (!validatedData.success) {
-    console.log(validatedData.error.errors);
+    console.error(validatedData.error.errors);
 
     throw new Error('Failed to validate customer service page data');
   }

@@ -13,8 +13,6 @@ export function SyncProductToShopify(context: DocumentActionsContext) {
   async function sendData(market: MarketValues) {
     const marketName = MARKET[market].name;
 
-    console.log(market);
-
     const client = getClient({ apiVersion: '2022-12-07' });
 
     const marketsQuery = `*[_type == "product" && _id == $id][0].markets`;

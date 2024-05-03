@@ -11,8 +11,6 @@ interface Props {
 }
 
 export function WelcomeMessage({ name, welcomeBackString, content, className }: Props) {
-  console.log('name:', name);
-
   return (
     <div
       className={cn(

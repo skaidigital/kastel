@@ -51,8 +51,6 @@ export function EditAddressPage({ dictionary, data, addressId, isDefaultAddress 
   });
 
   const onSubmit: SubmitHandler<UpdateAddressFormProps> = async (data) => {
-    console.log('Running the onsubmit in EditAddressPage update form');
-
     startTransition(async () => {
       const response = await updateAddress({ data, addressId });
 

@@ -65,8 +65,6 @@ export function CreateAddressPage({ dictionary }: Props) {
     });
   };
 
-  console.log('values', getValues());
-
   return (
     <div className="grid lg:col-span-3">
       <AccountPageHeader lang={lang} pageTitle={dictionary.create_address} />
