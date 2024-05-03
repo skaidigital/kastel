@@ -9,7 +9,6 @@ import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
-import { useDeviceType } from '@/lib/useDeviceType';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { sendGTMEvent } from '@next/third-parties/google';
@@ -38,7 +37,6 @@ export const AddToCartButton = ({
   const { setCartOpen, setMobileDrawerOpen } = useCartContext();
   const { sendAddToCart } = useShopifyAnalytics();
   const { trackAddToCart } = usePlausibleAnalytics();
-  const { isDesktop } = useDeviceType();
 
   const activeVariant = useActiveVariant({
     variants,
@@ -46,9 +44,6 @@ export const AddToCartButton = ({
   });
 
   const id = activeVariant?.id;
-  const price = activeVariant?.price;
-  const discountedPrice = activeVariant?.discountedPrice;
-  const bestPrice = discountedPrice || price;
 
   const activeVariantInventory = inventory.variants.edges.find(({ node }) => node.id === id)?.node;
 

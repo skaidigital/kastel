@@ -1,9 +1,12 @@
+// TODO redirect once we have the required ID to make the flow work
 export async function POST(request: Request) {
   const body = await request.json();
 
   if (!body) {
     return new Response(JSON.stringify({ success: false }), { status: 400 });
   }
+
+  console.log({ body });
 
   const shop = 'kastel-shoes.myshopify.com';
 
