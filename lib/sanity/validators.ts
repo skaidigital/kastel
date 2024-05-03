@@ -362,16 +362,16 @@ export const authorValidator = z.object({
   image: imageValidator
 });
 
+export const questionAndAnswerValidator = z.object({
+  question: z.string(),
+  answer: portableTextValidator
+});
+
 export const faqBlockValidator = z.object({
   title: z.string(),
   description: z.string().optional(),
   badge: z.string().optional(),
-  items: z.array(
-    z.object({
-      question: z.string(),
-      answer: portableTextValidator
-    })
-  )
+  items: z.array(questionAndAnswerValidator)
 });
 
 const quoteWithoutAuthorValidator = z.object({
@@ -407,3 +407,11 @@ const quoteWithAuthorValidator = z.union([
 ]);
 
 export const quoteValidator = z.union([quoteWithoutAuthorValidator, quoteWithAuthorValidator]);
+
+export const tableValidator = z.object({
+  rows: z.array(
+    z.object({
+      cells: z.array(z.string())
+    })
+  )
+});

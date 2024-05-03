@@ -1,6 +1,11 @@
 import { LangValues } from '@/data/constants';
-import { getImageBase } from '@/lib/sanity/fragments';
-import { imageValidator } from '@/lib/sanity/validators';
+import { getImageBase, getLink, getQuestionAndAnswer, table } from '@/lib/sanity/fragments';
+import {
+  imageValidator,
+  linkValidator,
+  questionAndAnswerValidator,
+  tableValidator
+} from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
 
@@ -13,21 +18,34 @@ const sectionItemValidator = z.object({
 const sectionValidator = z.object({
   title: z.string(),
   description: z.string().optional(),
-  items: z.array(sectionItemValidator)
+  items: z.array(sectionItemValidator),
+  cta: linkValidator
 });
 
 export const kastelClubPageValidator = z.object({
-  waysToEarn: sectionValidator
+  waysToEarn: sectionValidator,
+  perks: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    table: tableValidator
+  }),
+  faq: z.object({
+    title: z.string(),
+    questions: z.array(questionAndAnswerValidator)
+  })
 });
 
 export type KastelClubSectionItemProps = z.infer<typeof sectionItemValidator>;
 export type KastelClubSectionProps = z.infer<typeof sectionValidator>;
 export type KastelClubPagePayload = z.infer<typeof kastelClubPageValidator>;
 
-export function getSectionItem(lang: LangValues) {
+export function getSection(lang: LangValues) {
   return groq`
     "title": title.${lang},
     "description": description.${lang},
+    cta{
+      ${getLink(lang)}
+    },
     items[]{
       "title": title.${lang},
       "description": description.${lang},
@@ -42,7 +60,20 @@ export function getKastelClubPageQuery(lang: LangValues) {
   return groq`
     *[_type == "kastelClubPage"][0] {
       waysToEarn{
-        ${getSectionItem(lang)}
+        ${getSection(lang)}
+      },
+      perks{
+        "title": title.${lang},
+        "description": description.${lang},
+        "table": table_${lang}{
+          ${table}
+        }
+      },
+      faq{
+        "title": title.${lang},
+        questions[]->{
+          ${getQuestionAndAnswer(lang)}
+        }
       }
     }  
   `;

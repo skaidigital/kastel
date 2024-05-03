@@ -149,6 +149,9 @@ export function getLink(lang: LangValues) {
   type == "external" => {
     href,
     openInNewTab
+  },
+  type == "smile" => {
+    ${smileLink}
   }
 `;
 }
@@ -377,19 +380,31 @@ export function getAuthor(lang: LangValues) {
 `;
 }
 
+export function getQuestionAndAnswer(lang: LangValues) {
+  return groq`
+  "question": question.${lang},
+  "answer": answer_${lang}[]{
+    ${getPortableText(lang)}
+  }
+`;
+}
+
 export function getFAQBlock(lang: LangValues) {
   return groq`
   "title": title.${lang},
   "description": description.${lang},
   "badge": badge->title.${lang},
   "items": items[]->{
-    "question": question.${lang},
-    "answer": answer_${lang}[]{
-      ${getPortableText(lang)}
-    }
+    ${getQuestionAndAnswer(lang)}
   }
   `;
 }
+
+export const table = groq`
+  rows[]{
+    cells
+  }
+`;
 
 export const productsInTag =
   'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>';
@@ -403,9 +418,7 @@ export function getSizeGuide(lang: LangValues) {
     ${getPortableText(lang)}
   },
   "chart": chart_${lang}{
-    rows[]{
-      cells
-    }
+    ${table}
   } 
   `;
 }

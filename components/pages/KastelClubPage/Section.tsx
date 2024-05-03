@@ -5,6 +5,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
 import { Container } from '@/components/base/Container';
 import { SectionItem } from '@/components/pages/KastelClubPage/SectionItem';
 import { KastelClubSectionProps } from '@/components/pages/KastelClubPage/hooks';
+import { SanityLink } from '@/components/sanity/SanityLink';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
 
@@ -20,17 +21,22 @@ export function Section({ section, className }: Props) {
   if (isDesktop) {
     return (
       <Container className={cn('flex flex-col gap-y-20', className)}>
-        <div className="flex max-w-xl flex-col gap-y-4">
-          {section.title && (
-            <h2 className="text-heading-lg font-bold uppercase lg:text-heading-xl">
-              {section.title}
-            </h2>
-          )}
-          {section.description && (
-            <p className="text-md text-brand-mid-grey lg:text-lg">{section.description}</p>
-          )}
+        <div className="flex flex-col gap-y-4 lg:flex-row lg:items-end lg:justify-between lg:gap-0">
+          <div className="flex max-w-xl flex-col gap-y-4">
+            {section.title && (
+              <h2 className="text-heading-lg font-bold uppercase lg:text-heading-xl">
+                {section.title}
+              </h2>
+            )}
+            {section.description && (
+              <p className="text-md text-brand-mid-grey lg:text-lg">{section.description}</p>
+            )}
+          </div>
+          <Button size="md" className="h-fit" asChild>
+            {section.cta && <SanityLink link={section.cta}>{section.cta.text}</SanityLink>}
+          </Button>
         </div>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {section.items?.map((item) => <SectionItem key={item.title} item={item} />)}
         </div>
       </Container>
@@ -69,8 +75,8 @@ export function Section({ section, className }: Props) {
         </CarouselContent>
       </Carousel>
       <Container>
-        <Button size="sm" className="w-full">
-          Something something
+        <Button size="sm" className="w-full" asChild>
+          {section.cta && <SanityLink link={section.cta}>{section.cta.text}</SanityLink>}
         </Button>
       </Container>
     </div>

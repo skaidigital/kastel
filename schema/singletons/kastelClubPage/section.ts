@@ -26,6 +26,12 @@ export const kastelClubPageSection = defineType({
       type: 'array',
       of: [{ type: 'kastelClubPageSectionItem' }],
       validation: (Rule) => Rule.required().min(1)
+    }),
+    defineField({
+      title: 'Call to action',
+      name: 'cta',
+      type: 'link',
+      validation: (Rule) => Rule.required()
     })
   ]
 });
