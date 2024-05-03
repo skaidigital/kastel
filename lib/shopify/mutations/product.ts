@@ -1,11 +1,10 @@
 import { ERROR_FRAGMENT } from '../fragments';
 
-export const createProductMutation = /* GraphQL */ `
-  mutation CreateProduct($input: ProductInput!, $media: [CreateMediaInput!]) {
-    productCreate(input: $input, media: $media) {
+const productFragment = /* GraphQL */ `
       product {
         id
         handle
+        createdAt
         priceRangeV2 {
           maxVariantPrice {
             amount
@@ -20,12 +19,21 @@ export const createProductMutation = /* GraphQL */ `
           nodes {
             id
             sku
+            price
+				    compareAtPrice
             inventoryItem {
               id
             }
           }
         }
       }
+      `;
+
+export const createProductMutation = /* GraphQL */ `
+  mutation CreateProduct($input: ProductInput!, $media: [CreateMediaInput!]) {
+    productCreate(input: $input, media: $media) {
+      product {
+      ${productFragment}
       ${ERROR_FRAGMENT}
     }
   }
@@ -34,33 +42,12 @@ export const createProductMutation = /* GraphQL */ `
 export const updateProductMutation = /* GraphQL */ `
   mutation UpdateProduct($input: ProductInput!) {
     productUpdate(input: $input) {
-      product {
-        id
-        handle
-        priceRangeV2 {
-          maxVariantPrice {
-            amount
-            currencyCode
-          }
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-        variants(first: 20) {
-          nodes {
-            id
-            sku
-            inventoryItem {
-              id
-            }
-          }
-        }
-      }
+      ${productFragment}
       ${ERROR_FRAGMENT}
     }
   }
 `;
+
 export const publishablePublishMutation = /* GraphQL */ `
   mutation publishablePublish($id: ID!, $input: [PublicationInput!]!) {
     publishablePublish(id: $id, input: $input) {

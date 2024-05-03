@@ -239,7 +239,7 @@ export const METAFIELDS = {
   product: {
     sanityId: {
       namespace: 'skai',
-      key: 'sanityId'
+      key: 'sanity_id'
     }
   },
   customer: {
@@ -258,7 +258,7 @@ export const METAFIELDS = {
 
 export const SANITY_STUDIO_API_VERSION = 'v2023-08-01';
 
-export const HEADLESS_PUBLICATION_ID = 'gid://shopify/Publication/211462553912';
+export const HEADLESS_PUBLICATION_ID = 'gid://shopify/Publication/121492766949';
 
 export const SMILE_DEEP_LINKS = {
   home: 'home',

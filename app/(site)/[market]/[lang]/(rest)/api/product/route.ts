@@ -10,6 +10,7 @@ import {
   PriceRangeV2Schema,
   ProductSyncSchema,
   ProductSyncValidator,
+  ProductUpdateSchema,
   ValidatePayloadBody
 } from '@/lib/api/types';
 import { adminClient } from '@/lib/sanity/adminClient';
@@ -41,36 +42,19 @@ const STATUS_CODES = {
   OK: 200
 };
 
-interface Props {
-  request: NextRequest;
-  // res: Response;
-  // params: {
-  //   market: MarketValues;
-  //   lang: LangValues;
-  // };
-}
 // request: NextRequest, res: Response
 export async function POST(request: NextRequest, res: Response) {
   // Your secret key (this should be stored in environment variables)
   const secretKey = env.NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY;
 
-  console.log('in post');
-  console.log(secretKey);
-
-  // console.log(params);
-
   // Check for the secret key in the request header
-  const requestKey = request.headers.get('');
-  console.log('requestKey', requestKey);
+  const requestKey = request.headers.get('x-secret-key');
 
   if (requestKey !== secretKey) {
-    console.log('requestKey', requestKey);
-
     return new Response(JSON.stringify({ success: false }), { status: STATUS_CODES.UNAUTHORIZED });
   }
 
   const body = await request.json();
-  console.log('body', body);
 
   if (!body) {
     return new Response(JSON.stringify({ success: false }), { status: STATUS_CODES.BAD_REQUEST });
@@ -78,35 +62,26 @@ export async function POST(request: NextRequest, res: Response) {
 
   try {
     const validatedBody = ValidatePayloadBody.safeParse(body);
-    console.log('validatedBody', validatedBody);
 
     if (!validatedBody.success) {
-      console.log('validatedBody.error', validatedBody.error);
-
       return new Response(JSON.stringify({ success: false, data: validatedBody.error }), {
         status: STATUS_CODES.BAD_REQUEST
       });
     }
 
     const { _id, market } = validatedBody.data;
-    console.log('_id', _id);
 
     const sanityProductResponse = await getProductFromSanity(_id, market);
-    console.log('sanityProductResponse', sanityProductResponse);
 
     if (!sanityProductResponse.success) {
-      console.log('sanityProductResponse', sanityProductResponse);
-
-      return new Response(JSON.stringify({ success: false, data: sanityProductResponse }), {
+      return new Response(JSON.stringify({ success: false }), {
         status: STATUS_CODES.BAD_REQUEST
       });
     }
 
     sanityProductResponse.data.market = market;
-    console.log('sanityProductResponse.data', sanityProductResponse.data);
 
     const productSyncedToShopify = await syncProductToShopify(sanityProductResponse.data);
-    console.log('productSyncedToShopify', productSyncedToShopify);
 
     if (!productSyncedToShopify.success) {
       return new Response(JSON.stringify({ success: false, data: productSyncedToShopify }), {
@@ -128,14 +103,12 @@ export async function POST(request: NextRequest, res: Response) {
 async function syncProductToShopify(product: ProductSyncSchema) {
   // Check if product is created in Shopify
   const isCreatedInShopifyResponse: boolean = await isCreatedInShopify(product._id, product.gid);
-  console.log('isCreatedInShopifyResponse', isCreatedInShopifyResponse);
+
+  console.log(isCreatedInShopifyResponse);
 
   if (!isCreatedInShopifyResponse) {
-    console.log('Product not created in Shopify');
-
     // Create product in Shopify
     const createProductResponse: any = await createProductInShopify(product);
-    console.log('createProductResponse', createProductResponse);
 
     // If success, update Sanity with Shopify id
     if (!createProductResponse.success) {
@@ -147,22 +120,36 @@ async function syncProductToShopify(product: ProductSyncSchema) {
     }
     const { createdProduct } = createProductResponse;
     await setProductIdAndGidInSanity(product, createdProduct);
+    const largestDiscount = getLargestDiscount(createdProduct);
 
+    await setPriceRangeSanity(
+      product._id,
+      product.market,
+      createdProduct.createdAt,
+      largestDiscount,
+      createdProduct.priceRangeV2
+    );
+
+    console.log('Product created in Shopify');
     return { success: true, message: 'Product created in Shopify', data: createProductResponse };
   }
-  console.log('Product created in Shopify');
 
   // Update product in Shopify
   const updateProductResponse = await updateProductInShopify(product);
-  console.log('updateProductResponse', updateProductResponse);
 
   const { updatedProduct } = updateProductResponse;
   await setProductIdAndGidInSanity(product, updatedProduct);
 
   if (updateProductResponse.updatedProduct && updateProductResponse.updatedProduct.priceRangeV2) {
+    const largestDiscount = getLargestDiscount(updatedProduct);
+
+    console.log(largestDiscount);
+
     await setPriceRangeSanity(
       product._id,
       product.market,
+      updateProductResponse.updatedProduct.createdAt,
+      largestDiscount,
       updateProductResponse.updatedProduct.priceRangeV2
     );
   }
@@ -183,7 +170,6 @@ async function setProductIdAndGidInSanity(product: ProductSyncSchema, productRes
     [gidKey]: gid,
     [variantGidKey]: type === 'SIMPLE' ? firstVariantId : null
   };
-  console.log('input', input);
 
   const transaction = adminClient.transaction();
 
@@ -213,19 +199,28 @@ async function setProductIdAndGidInSanity(product: ProductSyncSchema, productRes
 async function setPriceRangeSanity(
   _id: string,
   market: string | undefined | null,
+  createdAt: string,
+  largestDiscount: string | null,
   PriceRangeV2Schema?: PriceRangeV2Schema
 ) {
   if (!PriceRangeV2Schema || !market) {
     return;
   }
-  const maxPriceKey = `maxPrice_${market}`;
-  const minPriceKey = `minPrice_${market}`;
+  const maxPriceKey = `maxVariantPrice_${market}`;
+  const minPriceKey = `minVariantPrice_${market}`;
+  const createdAtKey = `createdAt_${market}`;
+  const largestDiscountKey = `largestDiscount_${market}`;
+
   const input = {
+    [largestDiscountKey]: largestDiscount && Number(largestDiscount) > 0 ? largestDiscount : null,
+    [createdAtKey]: createdAt,
     [maxPriceKey]: {
+      _type: 'price',
       amount: Number(PriceRangeV2Schema.maxVariantPrice.amount),
       currencyCode: PriceRangeV2Schema.maxVariantPrice.currencyCode
     },
     [minPriceKey]: {
+      _type: 'price',
       amount: Number(PriceRangeV2Schema.minVariantPrice.amount),
       currencyCode: PriceRangeV2Schema.minVariantPrice.currencyCode
     }
@@ -256,8 +251,6 @@ async function createProductInShopify(product: ProductSyncSchema) {
 
   const publishResponse = await PublishProductToSalesChannel(serializedInput);
 
-  console.log(publishResponse);
-
   //TODO Validate response
   return response;
 }
@@ -282,4 +275,28 @@ async function getProductFromSanity(_id: string, market: MarketValues) {
   });
 
   return data;
+}
+
+function getLargestDiscount(product: ProductUpdateSchema | null) {
+  const variants = product?.variants?.nodes;
+
+  if (!variants) {
+    return null;
+  }
+
+  // find the largest discount between price and compareAtPrice
+  const largestDiscount = variants.reduce((acc, variant) => {
+    if (!variant.compareAtPrice) {
+      return acc;
+    }
+
+    const price = Number(variant.price);
+    const compareAtPrice = Number(variant.compareAtPrice);
+
+    const discount = ((compareAtPrice - price) / compareAtPrice) * 100;
+
+    return discount > acc ? discount : acc;
+  }, 0);
+
+  return largestDiscount.toFixed(2);
 }

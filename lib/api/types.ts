@@ -34,7 +34,7 @@ const ProductSyncImageValidator = z.object({
 });
 
 const VariantSyncValidator = z.object({
-  _id: z.string().uuid(),
+  _id: z.string(),
   sku: z.string(),
   price: z.number(),
   discountedPrice: z.number().optional().nullable(),
@@ -95,6 +95,8 @@ export const ProductExsistInShopifyValidator = z.object({
 const VariantUpdateValidator = z.object({
   id: z.string(),
   sku: z.string(),
+  price: z.string(),
+  compareAtPrice: z.string().optional().nullable(),
   inventoryItem: z.object({
     id: z.string()
   })
@@ -113,6 +115,7 @@ const PriceRangeV2Validator = z.object({
 export const ProductUpdateValidator = z.object({
   id: z.string(),
   handle: z.string(),
+  createdAt: z.string(),
   priceRangeV2: PriceRangeV2Validator.optional().nullable(),
   variants: z.object({
     nodes: z.array(VariantUpdateValidator)

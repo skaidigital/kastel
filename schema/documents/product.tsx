@@ -4,6 +4,7 @@ import {
   i18nField,
   i18nNumber,
   i18nString,
+  readOnlyUnlessDeveloper,
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
 } from '@/lib/sanity/studioUtils';
@@ -638,8 +639,8 @@ export const product = defineType({
     ...i18nString({
       title: 'Gid',
       name: 'gid',
-      fieldset: 'shopify',
-      readOnly: true
+      fieldset: 'shopify'
+      // readOnly: readOnlyUnlessDeveloper({user})
     }),
     ...i18nString({
       title: 'Variant gid',
@@ -652,16 +653,24 @@ export const product = defineType({
       name: `minVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
-      group: market.id
-      // readOnly: readOnlyUnlessDeveloper
+      group: market.id,
+      readOnly: readOnlyUnlessDeveloper
     })),
     ...MARKETS.map((market) => ({
       title: 'Max price',
       name: `maxVariantPrice_${market.id}`,
       type: 'price',
       fieldset: 'shopify',
-      group: market.id
-      // readOnly: readOnlyUnlessDeveloper
+      group: market.id,
+      readOnly: readOnlyUnlessDeveloper
+    })),
+    ...MARKETS.map((market) => ({
+      title: 'Largest discount',
+      name: `largestDiscount_${market.id}`,
+      type: 'string',
+      fieldset: 'shopify',
+      group: market.id,
+      readOnly: readOnlyUnlessDeveloper
     }))
   ],
   orderings: [
