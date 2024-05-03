@@ -10,22 +10,22 @@ import { SanityLink } from '@/components/sanity/SanityLink';
 export const portableTextSerializer = {
   block: {
     normal: ({ children }: any) => (
-      <Text className="mt-6" as="span" size="md">
+      <Text className="mt-6" as="p" size="md">
         {children}
       </Text>
     ),
     default: ({ children }: any) => (
-      <Text className="mt-8" as="span">
+      <Text className="mt-8" as="p">
         {children}
       </Text>
     ),
     'text-sm': ({ children }: any) => (
-      <Text className="mt-4" as="span" size="sm">
+      <Text className="mt-4" as="p" size="sm">
         {children}
       </Text>
     ),
     large: ({ children }: any) => (
-      <Text className="mt-8" as="span" size="lg">
+      <Text className="mt-8" as="p" size="lg">
         {children}
       </Text>
     ),

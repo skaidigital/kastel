@@ -3,9 +3,11 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
+import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
 import { SizeGuideProps } from '@/lib/sanity/types';
 import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
+import { PortableText } from 'next-sanity';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '../Drawer';
 import { Text } from '../base/Text';
 
@@ -33,8 +35,8 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
         <DrawerContent className="max-h-dvh overflow-y-auto lg:max-w-[--drawer-width-lg]">
           <DrawerHeader title={sizeGuideText} />
           {description && (
-            <div className="px-6 text-brand-mid-grey">
-              <PortableTextRenderer value={description} type="normal" />
+            <div className="noMarginFirstChild px-6 text-brand-mid-grey ">
+              <PortableText value={description} components={portableTextSerializer} />
             </div>
           )}
           <table className="mt-6  min-w-full divide-y divide-gray-200">
