@@ -15,7 +15,7 @@ interface Props {
 }
 
 // TODO add section tags
-export function Section({ section, className }: Props) {
+export function KastelClubPageSection({ section, className }: Props) {
   const { isDesktop } = useDeviceType();
 
   if (isDesktop) {
@@ -36,7 +36,7 @@ export function Section({ section, className }: Props) {
             {section.cta && <SanityLink link={section.cta}>{section.cta.text}</SanityLink>}
           </Button>
         </div>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
           {section.items?.map((item) => <SectionItem key={item.title} item={item} />)}
         </div>
       </Container>

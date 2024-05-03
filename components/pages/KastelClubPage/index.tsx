@@ -4,9 +4,10 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/Accordion';
+import { Hero } from '@/components/Hero';
 import { Container } from '@/components/base/Container';
 import { KastelClubPageMarquee } from '@/components/pages/KastelClubPage/Marquee';
-import { Section } from '@/components/pages/KastelClubPage/Section';
+import { KastelClubPageSection } from '@/components/pages/KastelClubPage/Section';
 import { KastelClubPagePayload } from '@/components/pages/KastelClubPage/hooks';
 import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
 import { cn } from '@/lib/utils';
@@ -17,19 +18,18 @@ interface Props {
 }
 
 export async function KastelClubPage({ data }: Props) {
-  const { waysToEarn, faq, perks } = data;
-  console.log(JSON.stringify(data.perks));
+  const { hero, waysToEarn, faq, perks, referAFriend, marquee, tiers } = data;
 
   return (
     <div>
       <div>
-        <div className="h-[400px] bg-blue-50">hero hero</div>
-        <KastelClubPageMarquee />
+        {hero && <Hero data={hero} />}
+        {marquee && <KastelClubPageMarquee items={marquee} />}
       </div>
 
       <div className="my-20 flex flex-col gap-y-20 lg:my-40 lg:gap-y-40">
         {/* Ways to earn */}
-        {waysToEarn && <Section section={waysToEarn} />}
+        {waysToEarn && <KastelClubPageSection section={waysToEarn} />}
 
         {/* Perks */}
         <Container className="flex flex-col gap-y-10 lg:mx-auto lg:max-w-[680px]">
@@ -57,6 +57,49 @@ export async function KastelClubPage({ data }: Props) {
                   >
                     {row.cells.map((cell, cellIndex) => (
                       <td key={`cell-${cellIndex}`} className="whitespace-nowrap py-6 ">
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </Container>
+
+        {/* Refer a friend */}
+        {referAFriend && <KastelClubPageSection section={referAFriend} />}
+
+        {/* Tiers */}
+        <Container className="flex flex-col gap-y-10 lg:mx-auto">
+          <div className="flex flex-col gap-y-4 lg:max-w-xl">
+            {tiers.title && (
+              <h2 className="text-heading-lg font-bold uppercase lg:text-heading-xl">
+                {tiers.title}
+              </h2>
+            )}
+            {tiers.description && (
+              <p className="text-balance text-sm lg:text-md">{tiers.description}</p>
+            )}
+          </div>
+          {tiers.table && (
+            <table className="min-w-full divide-y divide-gray-200 ">
+              <tbody className="divide-y divide-gray-200  overflow-x-auto bg-white">
+                {tiers.table?.rows?.map((row, rowIndex) => (
+                  <tr
+                    key={`row-${rowIndex}`}
+                    className={cn(
+                      '',
+                      rowIndex === 0
+                        ? 'text-overline-sm font-medium uppercase tracking-widest lg:text-overline-md'
+                        : 'text-sm text-brand-mid-grey lg:text-md'
+                    )}
+                  >
+                    {row.cells.map((cell, cellIndex) => (
+                      <td
+                        key={`cell-${cellIndex}`}
+                        className="w-1/3 py-6 pr-6 lg:whitespace-normal lg:pr-10"
+                      >
                         {cell}
                       </td>
                     ))}

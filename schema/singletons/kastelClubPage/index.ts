@@ -24,6 +24,47 @@ export const kastelClubPage = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Hero',
+      name: 'hero',
+      type: 'hero',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Marquee',
+      name: 'marquee',
+      type: 'array',
+      validation: (Rule) => Rule.required().min(1),
+      of: [
+        {
+          type: 'object',
+          preview: {
+            select: {
+              title: 'title.en'
+            },
+            prepare({ title }) {
+              return {
+                title: title || 'Untitled'
+              };
+            }
+          },
+          fields: [
+            defineField({
+              title: 'Icon',
+              name: 'icon',
+              type: 'figure',
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              title: 'Title',
+              name: 'title',
+              type: 'i18n.string',
+              validation: validateAllStringTranslations
+            })
+          ]
+        }
+      ]
+    }),
+    defineField({
       title: 'Ways to earn',
       name: 'waysToEarn',
       type: 'kastelClubPageSection',
@@ -32,6 +73,46 @@ export const kastelClubPage = defineType({
     defineField({
       title: 'The perks',
       name: 'perks',
+      type: 'object',
+      validation: (Rule) => Rule.required(),
+      fields: [
+        defineField({
+          title: 'Title',
+          name: 'title',
+          type: 'i18n.string',
+          validation: validateAllStringTranslations
+        }),
+        defineField({
+          title: 'Description (optional)',
+          name: 'description',
+          type: 'i18n.text',
+          options: {
+            rows: 3
+          }
+        }),
+        defineField({
+          title: 'Table 🇧🇻',
+          name: 'table_no',
+          type: 'table',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          title: 'Table 🇬🇧',
+          name: 'table_en',
+          type: 'table',
+          validation: (Rule) => Rule.required()
+        })
+      ]
+    }),
+    defineField({
+      title: 'Refer a friend',
+      name: 'referAFriend',
+      type: 'kastelClubPageSection',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'The tiers',
+      name: 'tiers',
       type: 'object',
       validation: (Rule) => Rule.required(),
       fields: [

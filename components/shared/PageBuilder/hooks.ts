@@ -194,7 +194,7 @@ const textPlacementValidator = z.union([
   z.literal('split-bottom')
 ]);
 
-const heroValidator = z.object({
+export const heroValidator = z.object({
   type: z.literal('hero'),
   key: z.string(),
   title: z.string(),
