@@ -11,12 +11,6 @@ interface TrackEvent {
 }
 
 export async function trackEvent({ eventName, options }: TrackEvent) {
-  const hasConsent = cookies().get(COOKIE_NAMES.COOKIE_CONSENT)?.value === 'true';
-
-  if (!hasConsent) {
-    return;
-  }
-
   track(eventName, options);
 }
 

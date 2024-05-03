@@ -9,8 +9,14 @@ import { Combination } from '@/components/VariantSelector';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
+import {
+  ANALTYICS_EVENT_NAME,
+  META_ANALYTICS_EVENT_NAME,
+  SNAPCHAT_ANALYTICS_EVENT_NAME
+} from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { sendGTMEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 
@@ -87,12 +93,25 @@ export function CrossSellItemLayout({
     if (outOfStock({ productId: activeVariant.id, combinations })) return;
 
     startTransition(async () => {
-      const error = await addItem(activeVariant.id);
+      const response = await addItem(activeVariant.id);
 
-      if (error.success) {
-        console.error(error);
+      if (response.success) {
+        console.log(response);
 
-        throw new Error(error.toString());
+        // GTM – Analtyics
+        sendGTMEvent({
+          event: ANALTYICS_EVENT_NAME.ADD_TO_CART
+        });
+        // Meta
+        sendGTMEvent({
+          event: META_ANALYTICS_EVENT_NAME.ADD_TO_CART
+        });
+        // Snap
+        sendGTMEvent({
+          event: SNAPCHAT_ANALYTICS_EVENT_NAME.ADD_TO_CART
+        });
+
+        // throw new Error(response.toString());
       }
       router.refresh();
     });

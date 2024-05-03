@@ -69,9 +69,25 @@ export const EMAILS = {
 };
 
 export const ANALTYICS_EVENT_NAME = {
+  VIEW_ITEM: 'view_item',
   ADD_TO_CART: 'add_to_cart',
-  GO_TO_CHECKOUT: 'go_to_checkout',
+  BEGIN_CHECKOUT: 'begin_checkout',
+  VIEW_CART: 'view_cart',
   CONSENT: 'consent'
+};
+
+export const META_ANALYTICS_EVENT_NAME = {
+  VIEW_ITEM: 'ViewContent',
+  ADD_TO_CART: 'AddToCart',
+  BEGIN_CHECKOUT: '-InitiateCheckout',
+  VIEW_CART: 'ViewCart'
+};
+
+export const SNAPCHAT_ANALYTICS_EVENT_NAME = {
+  VIEW_ITEM: 'View Content',
+  ADD_TO_CART: 'Add Cart',
+  BEGIN_CHECKOUT: 'Start Checkout',
+  VIEW_CART: 'View Cart'
 };
 
 export const COOKIE_NAMES = {

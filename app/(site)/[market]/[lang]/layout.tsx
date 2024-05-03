@@ -33,14 +33,9 @@ export default function IndexRoute({
 }) {
   const isInProduction = process.env.NODE_ENV === 'production';
 
-  // const hasConsent = cookies().get(COOKIE_NAMES.COOKIE_CONSENT)?.value === 'true';
-
   return (
     <>
-      {/* // <html lang="en"> */}
       {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />}
-      {/* <body> */}
-      {/* <div className="fixed bottom-0 top-0 w-full overflow-x-auto bg-white"> */}
       <CartContextProvider>
         <Providers>
           <div>
@@ -83,9 +78,6 @@ export default function IndexRoute({
           </Suspense>
         </Providers>
       </CartContextProvider>
-      {/* </div>
-      </body>
-    </html> */}
     </>
   );
 }

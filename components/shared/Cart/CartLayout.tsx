@@ -11,7 +11,13 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components
 import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import { CartItem } from '@/components/shared/Cart/CartItem';
 import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
-import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
+import {
+  ANALTYICS_EVENT_NAME,
+  LangValues,
+  META_ANALYTICS_EVENT_NAME,
+  ROUTES,
+  SNAPCHAT_ANALYTICS_EVENT_NAME
+} from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
@@ -21,6 +27,7 @@ import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon as ShoppingBagIconFilled } from '@heroicons/react/20/solid';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { sendGTMEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
 
@@ -68,7 +75,18 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
           className="lg:hover-bg-none relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey lg:h-auto lg:w-auto"
           asChild
         >
-          <button aria-label="Open cart" className="text-sm">
+          <button
+            onClick={() => {
+              // GTM – Analytics
+              sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.VIEW_CART });
+              // GTM – Meta
+              sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.VIEW_CART });
+              // GTM – Snap
+              sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.VIEW_CART });
+            }}
+            aria-label="Open cart"
+            className="text-sm"
+          >
             <span className="ml-2 mr-4">{cartString}</span>
           </button>
         </DrawerTrigger>
@@ -282,7 +300,15 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                     isLoading={isPending}
                     onClick={() => {
                       startTransition(() => {
-                        trackEvent({ eventName: ANALTYICS_EVENT_NAME.GO_TO_CHECKOUT });
+                        // Vercel Analtyics
+                        trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                        // GTM – Analytics
+                        sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                        // GTM – Meta
+                        sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+                        // GTM – Snap
+                        sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+
                         trackGoToCheckout();
                         router.push(checkoutUrl);
                       });

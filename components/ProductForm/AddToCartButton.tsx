@@ -5,7 +5,11 @@ import { useCartContext } from '@/components/CartContext';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
-import { ANALTYICS_EVENT_NAME } from '@/data/constants';
+import {
+  ANALTYICS_EVENT_NAME,
+  META_ANALYTICS_EVENT_NAME,
+  SNAPCHAT_ANALYTICS_EVENT_NAME
+} from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
@@ -86,9 +90,17 @@ export const AddToCartButton = ({
               eventName: ANALTYICS_EVENT_NAME.ADD_TO_CART,
               options: metadata
             });
-            // GTM
+            // GTM – Analtyics
             sendGTMEvent({
               event: ANALTYICS_EVENT_NAME.ADD_TO_CART
+            });
+            // Meta
+            sendGTMEvent({
+              event: META_ANALYTICS_EVENT_NAME.ADD_TO_CART
+            });
+            // Snap
+            sendGTMEvent({
+              event: SNAPCHAT_ANALYTICS_EVENT_NAME.ADD_TO_CART
             });
             // Plausible
             trackAddToCart({ options: metadata });
