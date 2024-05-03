@@ -2,6 +2,7 @@ import { kastelClubBlock } from '@/components/shared/PageBuilder/kastelClubBlock
 import { natureLabExplainerBlock } from '@/components/shared/PageBuilder/natureLabExplainerBlock';
 import { badge } from '@/schema/documents/badge';
 import { blogPost } from '@/schema/documents/blogPost';
+import { blogPostReccommendedBlogPosts } from '@/schema/documents/blogPost/posts';
 import { collection } from '@/schema/documents/collection';
 import { color } from '@/schema/documents/color';
 import { faqBlock } from '@/schema/documents/faqBlock';
@@ -143,6 +144,7 @@ const schema = [
   address,
   kastelClubPageSection,
   kastelClubPageSectionItem,
+  blogPostReccommendedBlogPosts,
   variableText,
   legalPageText,
   blogPostText,

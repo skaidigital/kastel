@@ -8,18 +8,6 @@ export const reccommendedBlogPosts = defineType({
 
   fields: [
     defineField({
-      title: 'Title',
-      name: 'title',
-      type: 'i18n.string',
-      validation: validateAllStringTranslations
-    }),
-    defineField({
-      title: 'Button text',
-      name: 'buttonText',
-      type: 'i18n.string',
-      validation: validateAllStringTranslations
-    }),
-    defineField({
       title: 'Type',
       name: 'type',
       type: 'string',
@@ -32,6 +20,18 @@ export const reccommendedBlogPosts = defineType({
       },
       initialValue: 'mostRecent',
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Title',
+      name: 'title',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Button text',
+      name: 'buttonText',
+      type: 'i18n.string',
+      validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Blog posts',

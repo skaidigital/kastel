@@ -120,8 +120,8 @@ export const blogPost = defineType({
     }),
     defineField({
       title: 'Reccommendeded blog posts',
-      name: 'reccommendedBlogPosts',
-      type: 'reccommendedBlogPosts',
+      name: 'blogPostReccommendedBlogPosts',
+      type: 'blogPostReccommendedBlogPosts',
       group: 'settings',
       validation: (Rule) => Rule.required()
     }),
