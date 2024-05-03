@@ -8,12 +8,26 @@ export const card = defineType({
   icon: Square,
   preview: {
     select: {
-      title: 'title.en'
+      type: 'media.type',
+      image: 'media.image',
+      video: 'media.video',
+      imageMobile: 'media.imageMobile',
+      imageDesktop: 'media.imageDesktop',
+      videoMobile: 'media.videoMobile',
+      videoDesktop: 'media.videoDesktop'
     },
-    prepare(selection) {
+    prepare({ type, image, video, imageMobile, imageDesktop, videoMobile, videoDesktop }) {
+      const mediaPreview =
+        image || video || imageMobile || imageDesktop || videoMobile || videoDesktop;
+
+      const typeToTitleCase = (type: string) => {
+        return type.charAt(0).toUpperCase() + type.slice(1);
+      };
+      const formattedType = typeToTitleCase(type);
+
       return {
-        title: selection.title,
-        subtitle: 'Card'
+        title: formattedType || 'Card',
+        media: mediaPreview
       };
     }
   },
