@@ -118,7 +118,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
             ))}
           </CarouselContent>
           {link?.text && (
-            <Button size="sm" asChild className="mt-10 w-full lg:hidden">
+            <Button size="sm" asChild className="w-full lg:hidden">
               <SanityLink link={link}>{link.text}</SanityLink>
             </Button>
           )}

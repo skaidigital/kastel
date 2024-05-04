@@ -16,7 +16,7 @@ export function TypeSelector({ types, activeTypeName }: Props) {
 
   return (
     <Select value={activeTypeName} onValueChange={handleChange}>
-      <SelectTrigger className="w-fit shrink-0 bg-brand-primary px-6 py-4 text-overline-md font-bold uppercase text-white lg:h-auto lg:text-[24px] lg:leading-[24px] [&>svg]:lg:size-6">
+      <SelectTrigger className="h-12 w-fit shrink-0 bg-brand-primary px-6 text-overline-md font-bold uppercase text-white lg:mb-2 lg:h-auto lg:py-4 lg:text-[24px] lg:leading-[24px] [&>svg]:lg:size-6">
         <SelectValue>{activeTypeName}</SelectValue>
       </SelectTrigger>
       <SelectContent>

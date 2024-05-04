@@ -171,18 +171,18 @@ interface BackCardProps {
 function BackCard({ title, description, descriptionList }: BackCardProps) {
   return (
     <div className="aspect-h-1 aspect-w-1 bg-white">
-      <div className="flex flex-col justify-between p-6">
-        <div className="flex max-w-40 flex-col gap-y-2">
+      <div className="mb-6 flex flex-col p-6 lg:mb-14 lg:justify-center">
+        <div className="mb-6 flex flex-col gap-y-2">
           {title && <h3 className="text-lg font-semibold">{title}</h3>}
           {description && <Text size="sm">{description}</Text>}
         </div>
         {descriptionList && (
-          <dl className="flex flex-col gap-y-2">
+          <dl className="flex flex-col gap-y-3 text-xs lg:gap-y-2 lg:text-sm">
             {descriptionList.map(({ descriptionTerm, descriptionDetails }) => (
               <div key={descriptionTerm} className="flex items-center justify-between">
-                {descriptionTerm && <dt className="text-sm">{descriptionTerm}</dt>}
+                {descriptionTerm && <dt>{descriptionTerm}</dt>}
                 {descriptionDetails && (
-                  <dd className="text-sm text-brand-mid-grey">{descriptionDetails}</dd>
+                  <dd className="text-brand-mid-grey">{descriptionDetails}</dd>
                 )}
               </div>
             ))}

@@ -34,6 +34,9 @@ export function ShoePickerLayout({
   activeTypeName,
   sectionSettings
 }: Props) {
+  const firstTwoWordsInTitle = title?.split(' ').slice(0, 2).join(' ');
+  const restOfTitle = title?.split(' ').slice(2).join(' ');
+
   return (
     <Section
       label="shoePickerSection"
@@ -52,8 +55,9 @@ export function ShoePickerLayout({
         <Container className="flex items-end justify-between">
           <div className="flex flex-col gap-y-4 lg:shrink-0 lg:flex-row lg:items-end lg:gap-x-6 lg:gap-y-0">
             {title && (
-              <Heading className="max-w-[90%] text-balance text-heading-lg lg:max-w-md lg:shrink-0 lg:text-heading-xl">
-                {title}
+              <Heading className="text-balance text-heading-lg lg:max-w-md lg:shrink-0 lg:text-heading-xl">
+                {firstTwoWordsInTitle}
+                <br /> {restOfTitle}
               </Heading>
             )}
             {activeType?.title && <TypeSelector types={types} activeTypeName={activeTypeName} />}
