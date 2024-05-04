@@ -1,3 +1,4 @@
+import { HtmlDescription } from '@/components/sanity/HtmlDescription';
 import { LANGS } from '@/data/constants';
 import { getLangFlag } from '@/lib/utils';
 import { Signpost } from '@phosphor-icons/react';
@@ -26,8 +27,18 @@ export const redirect = defineType({
   fields: [
     defineField({
       title: 'How do redirects work?',
-      description:
-        'If you have a page / URL and you want to redirect it to another page / URL, you can do so here. Remember to set the market, source and destination. The source and destination should be the path of the URL, without the domain. I.e. /course/visma-2',
+      description: (
+        <HtmlDescription>
+          Here you can set up redirects from an old routes like <code>some-page</code> to a new
+          route like <code>new-route</code>. Remember NOT to write &rsquo;/&rsquo; first. In order
+          to make the redirect work, you need to publish the document and any other redirect you
+          want to set up, and go to the <code>Deploy</code> tab and click <code>Deploy</code>. You
+          can to it{' '}
+          <a href="/studio/vercel-deploy" className="underline">
+            via this link.
+          </a>
+        </HtmlDescription>
+      ),
       name: 'myCustomNote',
       type: 'note',
       options: {
