@@ -13,7 +13,7 @@ interface Props {
 
 export function MarketSelectorDropdown({ market, className }: Props) {
   const marketValues = MARKETS.find((m) => m.id === market);
-  const [marketPopupIsOpen, setMarketPopupIsOpen] = useQueryState('market_popup', parseAsBoolean);
+  const [_, setMarketPopupIsOpen] = useQueryState('market_popup', parseAsBoolean);
   const openMarketPopup = () => setMarketPopupIsOpen(true);
 
   return (
