@@ -1,4 +1,4 @@
-import { MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import { loadQuery } from '@/lib/sanity/store';
 import { imageValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -14,11 +14,11 @@ const metadataValidator = z.object({
 
 export type MetadataPayload = z.infer<typeof metadataValidator>;
 
-export function getMetadataQuery(market: MarketValues) {
+export function getMetadataQuery(lang: LangValues) {
   const query = groq`
-    *[_type == $schemaType && slug_${market}.current == $slug][0].metadata_${market}{
-      metaTitle,
-      metaDescription,
+    *[_type == $schemaType && slug_${lang}.current == $slug][0].metadata{
+      "metaTitle": metaTitle.${lang},
+      "metaDescription": metaDescription.${lang},
       noFollow,
       noIndex,
       ogImage
@@ -28,20 +28,20 @@ export function getMetadataQuery(market: MarketValues) {
 }
 
 export async function loadMetadata({
-  market,
+  lang,
   slug,
   schemaType
 }: {
-  market: MarketValues;
+  lang: LangValues;
   slug: string;
   schemaType: string;
 }) {
-  const metadataQuery = getMetadataQuery(market);
+  const metadataQuery = getMetadataQuery(lang);
 
   const metadata = await loadQuery<MetadataPayload | null>(
     metadataQuery,
     { slug, schemaType },
-    { next: { tags: [`${schemaType}:${slug}:${market}`] } }
+    { next: { tags: [`${schemaType}:${slug}`] } }
   );
 
   return metadata.data;

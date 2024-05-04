@@ -1,6 +1,6 @@
 import { LegalPage } from '@/components/pages/LegalPage';
 import { LegalPagePayload, getLegalPageQuery } from '@/components/pages/LegalPage/hooks';
-import { LangValues, MarketValues } from '@/data/constants';
+import { LangValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
@@ -37,12 +37,12 @@ export default async function PageSlugRoute({ params }: Props) {
 }
 
 export async function generateMetadata({
-  params: { slug, market }
+  params: { slug, lang }
 }: {
-  params: { slug: string; market: MarketValues };
+  params: { slug: string; lang: LangValues };
 }): Promise<Metadata> {
   const metadata = await loadMetadata({
-    market,
+    lang,
     slug,
     schemaType: 'legalPage'
   });

@@ -32,11 +32,11 @@ export default async function Page({ params: { market, lang } }: Props) {
 }
 
 export async function generateMetadata({
-  params: { market }
+  params: { lang }
 }: {
-  params: { market: MarketValues };
+  params: { lang: LangValues };
 }): Promise<Metadata> {
-  const metadata = await loadMetadata({ market, slug: 'home', schemaType: 'page' });
+  const metadata = await loadMetadata({ lang, slug: 'home', schemaType: 'aboutPage' });
 
   const title = metadata?.metaTitle;
   const description = metadata?.metaDescription;

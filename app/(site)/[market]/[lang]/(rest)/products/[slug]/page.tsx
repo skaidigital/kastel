@@ -2,7 +2,7 @@ import { getDictionary } from '@/app/dictionaries';
 import { ProductPageLayout } from '@/components/pages/ProductPage/ProductPageLayout';
 import { Product, getProductQuery, productValidator } from '@/components/pages/ProductPage/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
-import { loadMetadata } from '@/lib/sanity/getMetadata';
+import { loadProductMetadata } from '@/lib/sanity/getProductMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
@@ -83,14 +83,14 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
 }
 
 export async function generateMetadata({
-  params: { slug, market }
+  params: { slug, market, lang }
 }: {
-  params: { slug: string; market: MarketValues };
+  params: { slug: string; market: MarketValues; lang: LangValues };
 }): Promise<Metadata> {
-  const metadata = await loadMetadata({
+  const metadata = await loadProductMetadata({
     market,
-    slug,
-    schemaType: 'product'
+    lang,
+    slug
   });
 
   const title = metadata?.metaTitle;

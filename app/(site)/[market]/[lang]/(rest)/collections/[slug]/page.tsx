@@ -157,12 +157,12 @@ export default async function SlugCollectionPage({ params, searchParams }: Props
 }
 
 export async function generateMetadata({
-  params: { slug, market }
+  params: { slug, lang }
 }: {
-  params: { slug: string; market: MarketValues };
+  params: { slug: string; lang: LangValues };
 }): Promise<Metadata> {
   const metadata = await loadMetadata({
-    market,
+    lang,
     slug,
     schemaType: 'collection'
   });

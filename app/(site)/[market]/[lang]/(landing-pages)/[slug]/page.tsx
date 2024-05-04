@@ -58,12 +58,12 @@ export default async function PageSlugRoute({ params }: Props) {
 }
 
 export async function generateMetadata({
-  params: { slug, market }
+  params: { slug, lang }
 }: {
-  params: { slug: string; market: MarketValues };
+  params: { slug: string; lang: LangValues };
 }): Promise<Metadata> {
   const metadata = await loadMetadata({
-    market,
+    lang,
     slug,
     schemaType: 'page'
   });
