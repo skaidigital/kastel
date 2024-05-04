@@ -249,7 +249,7 @@ module.exports = {
         screenHeightWithoutHeader: 'calc(100vh - 101px)'
       },
       ringColor: {
-        DEFAULT: 'brand-primary'
+        DEFAULT: '#407F7F'
       },
       colors: {
         brand: {
