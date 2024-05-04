@@ -16,7 +16,7 @@ export function generateStaticSlugs(lang: LangValues, type: string) {
       stega: false
     })
     .fetch<{ slug: string }[]>(
-      groq`*[_type == $type && defined(slug_${lang}.current)]{"slug": slug_${lang}.current}`,
+      groq`*[_type == $type && defined(slug_${lang}.current) && metadata.noIndex != true]{"slug": slug_${lang}.current}`,
       { type }
     );
 }

@@ -27,8 +27,8 @@ export const ROUTES = {
   ORDER_DETAILS: '/account/orders',
   BLOG: '/blog',
   SHOP_ALL: '/shop/all',
+  ABOUT: '/about',
   KASTEL_CLUB: '/kastel-club',
-  REGISTER_ACCOUNT: '/register-account',
   RESET_PASSWORD: '/reset-password',
   SHOP: '/shop',
   STORE_LOCATOR: '/stores'
