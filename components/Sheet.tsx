@@ -38,7 +38,7 @@ export function SheetContent({
       <Drawer.Content
         forceMount
         className={cn(
-          'fixed bottom-0 left-0 flex w-full flex-col rounded-project  bg-white transition-[transform,opacity] will-change-[transform,opacity] focus:outline-none',
+          'fixed bottom-0 left-0 flex w-full flex-col rounded-project  rounded-t-[12px] border-t border-brand-light-grey/50 bg-white transition-[transform,opacity] will-change-[transform,opacity] focus:outline-none',
           layer === 1 && 'z-30',
           layer === 2 && 'z-40',
           layer === 3 && 'z-50'

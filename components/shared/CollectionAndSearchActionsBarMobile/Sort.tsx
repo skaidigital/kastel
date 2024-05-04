@@ -55,13 +55,13 @@ export function Sort({ lang }: Props) {
                     htmlFor={option.value}
                     className={cn(!isChecked ? 'text-brand-mid-grey' : '')}
                   >
-                    {option.value}
+                    {option.title}
                     <RadioGroupItem
                       value={option.value}
                       id={option.value}
                       className="text-brand-primary"
                     >
-                      {option.value}
+                      {option.title}
                     </RadioGroupItem>
                   </label>
                 </Text>

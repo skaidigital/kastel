@@ -48,20 +48,7 @@ export function CrossSellItemLayout({
 
   const activeVariant = isSimpleProduct
     ? product.variants[0]
-    : product.variants.find((variant) => {
-        const combination =
-          variant.selectedOptions?.reduce(
-            (accumulator, option) =>
-              option ? { ...accumulator, [option.name.toLowerCase()]: option.value } : accumulator,
-            {}
-          ) || {};
-        return (
-          Object.entries(combination)
-            .filter(([key]) => key !== 'id' && key !== 'availableForSale')
-            .map(([key, value]) => value)
-            .join('/') === selectedCombination
-        );
-      });
+    : product.variants.find((variant) => variant.id === selectedCombination);
 
   const combinations: Combination[] = product.variants.map((variant) => ({
     id: variant.id,

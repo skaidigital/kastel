@@ -37,7 +37,7 @@ export default function RemoveFromCartButton({ itemId }: Props) {
         }
       )}
     >
-      {isPending ? <LoadingSpinner className="size-2" /> : <TrashSimple className="h-4 w-4" />}
+      {isPending ? <LoadingSpinner className="size-4" /> : <TrashSimple className="size-4" />}
     </button>
   );
 }

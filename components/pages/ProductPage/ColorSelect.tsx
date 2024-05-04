@@ -41,6 +41,7 @@ export function ColorSelect({ products }: Props) {
             <CustomLink
               key={product.mainImage.asset._ref}
               href={`${ROUTES.PRODUCTS}/${product.slug}`}
+              noScroll
             >
               <div
                 className={cn(

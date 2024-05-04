@@ -8,8 +8,8 @@ import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { useDeviceType } from '@/lib/useDeviceType';
 import * as Portal from '@radix-ui/react-portal';
-import { useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 interface Props {
   productId: string;
@@ -31,19 +31,20 @@ export function MobileAddToCartDrawer({
   selectSizeText,
   children
 }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref);
+  const { ref, inView } = useInView({
+    rootMargin: '400px'
+  });
   const { mobileDrawerOpen: isOpen, setMobileDrawerOpen: setIsOpen } = useCartContext();
   const { isDesktop } = useDeviceType();
 
   useEffect(() => {
-    if (isInView === false) {
+    if (inView === false) {
       setIsOpen(true);
     }
-    if (isInView === true) {
+    if (inView === true) {
       setIsOpen(false);
     }
-  }, [isInView]);
+  }, [inView]);
 
   const activeVariant = useActiveVariant({
     variants,
@@ -63,11 +64,11 @@ export function MobileAddToCartDrawer({
   }
 
   if (isDesktop) {
-    return <div>{children}</div>;
+    return <>{children}</>;
   }
 
   return (
-    <div ref={ref}>
+    <div data-id="test" ref={ref}>
       {children}
       {isOpen && (
         <Portal.Root>

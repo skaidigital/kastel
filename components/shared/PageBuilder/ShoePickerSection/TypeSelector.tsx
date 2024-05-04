@@ -19,7 +19,8 @@ export function TypeSelector({ types, activeTypeName }: Props) {
       <SelectTrigger className="h-12 w-fit shrink-0 bg-brand-primary px-6 text-overline-md font-bold uppercase text-white lg:mb-2 lg:h-auto lg:py-4 lg:text-[24px] lg:leading-[24px] [&>svg]:lg:size-6">
         <SelectValue>{activeTypeName}</SelectValue>
       </SelectTrigger>
-      <SelectContent>
+      {/* ? Fixes a bug where it clicks the item below the selected item */}
+      <SelectContent ref={(ref) => ref?.addEventListener('touchend', (e) => e.preventDefault())}>
         {types?.map((type) => (
           <SelectItem
             key={type.title}

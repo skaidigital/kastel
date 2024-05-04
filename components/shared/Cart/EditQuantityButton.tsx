@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
-import LoadingDots from '@/components/LoadingDots';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { removeItem, updateItemQuantity } from '@/components/shared/Cart/actions';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
@@ -49,7 +49,7 @@ export default function EditItemQuantityButton({ lineId, variantId, quantity, ty
       )}
     >
       {isPending ? (
-        <LoadingDots className="bg-black dark:bg-white" />
+        <LoadingSpinner />
       ) : type === 'plus' ? (
         <PlusIcon className="size-4 dark:text-neutral-500" />
       ) : (

@@ -54,15 +54,11 @@ export default function IndexRoute({
                     }
                     if (payload.source === 'mutation') {
                       if (payload.document.slug?.current) {
-                        console.log('Revalidate slug', payload.document.slug.current);
                         const tag = `${payload.document._type}:${payload.document.slug.current}`;
-                        console.log('Revalidate slug', tag);
                         await revalidateTag(tag);
                       }
-                      console.log('Revalidate tag', payload.document._type);
                       return revalidateTag(payload.document._type);
                     }
-                    console.log('Revalidate home page');
                     await revalidatePath('/', 'layout');
                   }}
                 />

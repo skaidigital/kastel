@@ -14,6 +14,7 @@ import {
 } from '@/lib/shopify/metafields/adjustItemInWishlist';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface Props {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ interface Props {
 export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, className }: Props) {
   const router = useRouter();
   const { lang } = useBaseParams();
+  const [isShown, setIsShown] = useState<boolean>(false);
 
   async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     if (itemIsInWislist) {
@@ -44,10 +46,14 @@ export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, cla
   if (!isLoggedIn) {
     return (
       <TooltipProvider delayDuration={0}>
-        <HybridTooltip>
+        <HybridTooltip open={isShown} onOpenChange={setIsShown}>
           <HybridTooltipTrigger
             title={addToWishlistString}
             className={cn('cursor-not-allowed', className)}
+            onClick={(e) => {
+              e.preventDefault();
+              setIsShown(true);
+            }}
           >
             {children}
           </HybridTooltipTrigger>
@@ -61,8 +67,11 @@ export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, cla
 
   return (
     <button
-      onClick={(e) => handleClick(e)}
-      className={cn('z-10 rounded-full bg-white p-2', className)}
+      onClick={(e) => {
+        e.preventDefault();
+        handleClick(e);
+      }}
+      className={cn('z-20 rounded-full bg-white p-2', className)}
       title={addToWishlistString}
     >
       {children}

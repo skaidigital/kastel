@@ -95,7 +95,7 @@ export function CartItem({
               type="minus"
             />
             <p className="w-6 text-center">
-              <span className="w-full text-sm">{quantity}</span>
+              <span className="w-full text-[14px] leading-[14px]">{quantity}</span>
             </p>
             <EditItemQuantityButton
               lineId={lineId}

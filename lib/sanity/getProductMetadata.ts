@@ -38,8 +38,6 @@ export async function loadProductMetadata({
 }) {
   const metadataQuery = getMetadataQuery({ market, lang });
 
-  console.log({ market, lang, slug });
-
   const metadata = await loadQuery<MetadataPayload | null>(
     metadataQuery,
     { slug },

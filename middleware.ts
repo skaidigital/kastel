@@ -34,7 +34,6 @@ export async function middleware(request: NextRequest) {
   const { pathname, origin } = request.nextUrl;
   const country = request.geo?.country || 'NO';
   // const locale = getLocale(request);
-  // console.log({ locale });
 
   // Parse the Accept-Language header to get the most preferred language
 

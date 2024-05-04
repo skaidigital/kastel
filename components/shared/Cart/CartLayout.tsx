@@ -21,8 +21,8 @@ import {
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { Cart } from '@/lib/shopify/types';
-import { useDeviceType } from '@/lib/useDeviceType';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon as ShoppingBagIconFilled } from '@heroicons/react/20/solid';
@@ -46,7 +46,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
   const quantityRef = useRef(cart?.totalQuantity);
   const { lang } = useBaseParams();
 
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -270,7 +270,7 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
             )}
           </div>
           {/* Footer */}
-          <div className="mt-6 h-fit w-full px-4 py-3">
+          <div className="mt-6 h-fit w-full">
             {!hasCartItems && (
               <Button asChild size="sm" className="w-full">
                 <CustomLink href={ROUTES.HOME}>{dictionary.start_shopping}</CustomLink>

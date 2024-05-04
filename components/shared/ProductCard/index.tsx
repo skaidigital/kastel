@@ -50,7 +50,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
     : undefined;
 
   return (
-    <div className="relative border border-brand-light-grey @container">
+    <div className="relative h-full border border-brand-light-grey @container">
       <ProductCardProvider>
         <CustomLinkProductCard slug={slug}>
           <div className="absolute right-3 top-3 z-50 @xs:right-4 @xs:top-4">

@@ -7,18 +7,19 @@ import { useProductCardContext } from './shared/ProductCard/Context';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
   children: React.ReactNode;
+  noScroll?: boolean;
 }
 
 /**
  * Custom link component that prepends the market and language to the href
  */
-export function CustomLink({ href, children, ...restLink }: Props) {
+export function CustomLink({ href, children, noScroll, ...restLink }: Props) {
   const { market, lang } = useBaseParams();
 
   if (!href || !children) return null;
 
   return (
-    <Link href={`/${market}/${lang}${href}`} {...restLink}>
+    <Link href={`/${market}/${lang}${href}`} {...restLink} scroll={noScroll ? false : undefined}>
       {children}
     </Link>
   );

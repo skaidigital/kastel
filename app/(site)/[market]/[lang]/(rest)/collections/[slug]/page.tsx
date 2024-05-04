@@ -227,13 +227,9 @@ function cleanData(
 
   const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
 
-  // console.log('collectionProductsWithoutNullValues', collectionProductsWithoutNullValues);
-
   // const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
   //   (product: any) => Object.keys(product).length > 1
   // );
-
-  // console.log('filteredCollectionProducts', filteredCollectionProducts);
 
   return collectionProductsWithoutNullValues;
 }
