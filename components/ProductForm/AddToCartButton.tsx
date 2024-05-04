@@ -38,7 +38,7 @@ export const AddToCartButton = ({
 }: Props) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const { setCartOpen, setMobileDrawerOpen } = useCartContext();
+  const { setMobileDrawerOpen } = useCartContext();
   const { sendAddToCart } = useShopifyAnalytics();
   const { trackAddToCart } = usePlausibleAnalytics();
 
@@ -56,7 +56,7 @@ export const AddToCartButton = ({
   const isInStock =
     activeVariantInventory?.quantityAvailable && activeVariantInventory.quantityAvailable > 0;
 
-  const title = !availableForSale ? 'Out of stock' : !id ? 'Please select options' : undefined;
+  const title = !availableForSale ? 'Out of stock' : !id ? selectSizeText : addToCartText;
 
   const metadata = {
     ...(productId && { productId }),
@@ -115,7 +115,7 @@ export const AddToCartButton = ({
         'cursor-not-allowed' && isPending
       )}
     >
-      <>{id ? <>{addToCartText}</> : <>{selectSizeText}</>}</>
+      <>{id ? <>{title}</> : <>{selectSizeText}</>}</>
     </Button>
   );
 };

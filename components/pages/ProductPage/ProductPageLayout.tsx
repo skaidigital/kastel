@@ -204,8 +204,9 @@ export async function ProductPageLayout(props: Props) {
                     {descriptionShort}
                   </Text>
                 )}
-
-                <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
+                {type === 'VARIABLE' && typeId && (
+                  <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
+                )}
                 <Suspense fallback={<ProductFormSkeleton />}>
                   <ProductForm
                     productId={id}

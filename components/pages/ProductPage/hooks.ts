@@ -135,7 +135,7 @@ export const productValidator = z.object({
       })
     )
     .optional(),
-  typeId: z.string(),
+  typeId: z.string().optional(),
   largestDiscount: z.string().optional(),
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
@@ -257,8 +257,9 @@ export function getProductQuery({
         sku,
         "selectedOptions": [
           {
-            "name": "Default",
-            "value": "Default"
+            "name": "default",
+            "value": "default",
+            "slug": "default"
           }
         ],
       }]
@@ -364,7 +365,7 @@ export const productSiblingsValidator = z.array(productSiblingValidator);
 
 export type ProductSiblings = z.infer<typeof productSiblingsValidator>;
 
-export function getSibligProductsQuery({
+export function getSiblingProductsQuery({
   market,
   lang
 }: {

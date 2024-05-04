@@ -3,7 +3,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { notFound } from 'next/navigation';
 import { ColorSelect } from './ColorSelect';
-import { ProductSiblings, getSibligProductsQuery, productSiblingsValidator } from './hooks';
+import { ProductSiblings, getSiblingProductsQuery, productSiblingsValidator } from './hooks';
 
 function loadSiblingProducts({
   typeId,
@@ -14,7 +14,7 @@ function loadSiblingProducts({
   market: MarketValues;
   lang: LangValues;
 }) {
-  const query = getSibligProductsQuery({ market, lang });
+  const query = getSiblingProductsQuery({ market, lang });
 
   return loadQuery<ProductSiblings | null>(
     query,
