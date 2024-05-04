@@ -39,7 +39,7 @@ export function BlogPostCard({ post }: Props) {
           )}
           {title && <Heading className="mb-3 text-heading-xs">{title}</Heading>}
           {description && (
-            <Text className="mb-6 font-medium text-brand-mid-grey">{description}</Text>
+            <Text className="mb-6 line-clamp-2 text-brand-mid-grey">{description}</Text>
           )}
           <div className="flex items-center gap-x-2">
             <Text className="font-medium text-brand-mid-grey transition-all duration-100 ease-in-out group-hover:mr-1.5">

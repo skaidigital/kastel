@@ -22,11 +22,20 @@ import { groq } from 'next-sanity';
 import { z } from 'zod';
 
 const blogWidthValidator = z.union([z.literal('normal'), z.literal('wide')]);
-const blogPostsValidator = z.object({
+
+const mostRecentBlogPosts = z.object({
+  type: z.literal('mostRecent'),
+  posts: z.array(blogPostCardValidator)
+});
+
+const selectedBlogPosts = z.object({
+  type: z.literal('selected'),
   title: z.string(),
   buttonText: z.string(),
   posts: z.array(blogPostCardValidator)
 });
+
+const blogPostsValidator = z.discriminatedUnion('type', [mostRecentBlogPosts, selectedBlogPosts]);
 
 export const blogPostValidator = z.object({
   id: z.string(),
@@ -64,7 +73,8 @@ export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: M
       imageDesktop{
         ${getImageBase(lang)}
       },
-      "blogPosts": reccommendedBlogPosts{
+      "blogPosts": blogPostReccommendedBlogPosts{
+        type,
         "title": title.${lang},
         "buttonText": buttonText.${lang},
         "posts": select(

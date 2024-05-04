@@ -13,7 +13,6 @@ export interface Props {
   lang: LangValues;
 }
 
-// TODO get description for blog posts
 export function BlogPost({ data, lang }: Props) {
   if (!data) return null;
 
@@ -30,7 +29,11 @@ export function BlogPost({ data, lang }: Props) {
   } = data;
 
   return (
-    <Section label="blogPostContent" srHeading="Blog post content" className="article-grid">
+    <Section
+      label="blogPostContent"
+      srHeading="Blog post content"
+      className="article-grid pt-10 lg:pt-20"
+    >
       <Container>
         <BlogPostHeader
           title={title}
@@ -52,13 +55,7 @@ export function BlogPost({ data, lang }: Props) {
           />
         )}
       </Container>
-      {blogPosts && (
-        <RecentBlogPosts
-          title={blogPosts.title}
-          posts={blogPosts.posts}
-          buttonText={blogPosts.buttonText}
-        />
-      )}
+      {blogPosts && <RecentBlogPosts data={blogPosts} lang={lang} />}
     </Section>
   );
 }

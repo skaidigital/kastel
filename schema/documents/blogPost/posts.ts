@@ -1,3 +1,4 @@
+import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
 export const blogPostReccommendedBlogPosts = defineType({
@@ -72,7 +73,10 @@ export const blogPostReccommendedBlogPosts = defineType({
       of: [
         {
           type: 'reference',
-          to: [{ type: 'blogPost' }]
+          to: [{ type: 'blogPost' }],
+          options: {
+            filter: filterAlreadyAddedReferences
+          }
         }
       ],
       validation: (Rule) =>
