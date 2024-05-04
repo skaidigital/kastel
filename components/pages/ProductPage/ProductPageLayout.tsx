@@ -104,7 +104,7 @@ export async function ProductPageLayout(props: Props) {
                 <SanityImage
                   priority
                   image={mainImage}
-                  sizes={'70vw'}
+                  sizes="(max-width: 1024px) 100vw, 70vw"
                   fill
                   className="absolute h-auto w-full object-cover"
                 />
@@ -116,7 +116,7 @@ export async function ProductPageLayout(props: Props) {
                 <SanityImage
                   priority
                   image={lifestyleImage as SanityImageProps}
-                  sizes={'70vw'}
+                  sizes="(max-width: 1024px) 100vw, 70vw"
                   fill
                   className="absolute h-auto w-full object-cover"
                 />
@@ -136,7 +136,7 @@ export async function ProductPageLayout(props: Props) {
                           priority={index === 0 || index === 1}
                           key={index}
                           image={item}
-                          sizes={'70vw'}
+                          sizes="(max-width: 1024px) 100vw, 70vw"
                           fill
                           className="absolute h-auto w-full object-cover"
                         />

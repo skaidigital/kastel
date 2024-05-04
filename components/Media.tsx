@@ -5,9 +5,10 @@ import { MediaProps } from '@/lib/sanity/types';
 interface Props {
   media: MediaProps;
   loading: 'lazy' | 'eager';
+  sizes?: string;
 }
 
-export function Media({ media, loading }: Props) {
+export function Media({ media, loading, sizes }: Props) {
   const { type, sameAssetForMobileAndDesktop } = media;
   const typeIsImage = type === 'image';
   const typeIsVideo = type === 'video';
@@ -18,7 +19,7 @@ export function Media({ media, loading }: Props) {
         priority={loading === 'eager' ? true : false}
         image={media.image}
         className="absolute inset-0 h-full w-full object-cover"
-        sizes="100vw"
+        sizes={sizes}
         fill
       />
     );
@@ -31,14 +32,14 @@ export function Media({ media, loading }: Props) {
           priority={loading === 'eager' ? true : false}
           image={media.imageMobile}
           className="absolute inset-0 h-full w-full object-cover lg:hidden"
-          sizes="100vw"
+          sizes={sizes}
           fill
         />
         <SanityImage
           priority={loading === 'eager' ? true : false}
           image={media.imageDesktop}
           className="absolute inset-0 hidden h-full w-full object-cover lg:block"
-          sizes="100vw"
+          sizes={sizes}
           fill
         />
       </>

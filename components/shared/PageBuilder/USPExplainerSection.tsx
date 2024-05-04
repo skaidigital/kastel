@@ -85,13 +85,14 @@ function Slide({ item, pageId, pageType, index }: SlideProps) {
           />
         )}
       </Container>
-      {/* Media container */}
       <div
         data-sanity={dataAttribute?.(['pageBuilder', index])}
         className="relative bg-red-50 lg:basis-2/3"
       >
         <div className="aspect-h-4 aspect-w-3 h-full w-full lg:aspect-none ">
-          {item.media && <Media media={item.media} loading="lazy" />}
+          {item.media && (
+            <Media media={item.media} loading="lazy" sizes="(max-width: 1024px) 100vw, 70vw" />
+          )}
         </div>
       </div>
     </div>

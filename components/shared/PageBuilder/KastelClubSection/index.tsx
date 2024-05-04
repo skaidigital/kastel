@@ -122,7 +122,7 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
                 variant="secondary"
                 onClick={async () => {
                   if (window.SmileUI) {
-                    const data = await window.SmileUI.openPanel({
+                    await window.SmileUI.openPanel({
                       deep_link: 'home'
                     }).catch((error: any) => {
                       console.error('Failed to open smile link', error);
@@ -155,6 +155,7 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
           image={backgroundImage}
           fill
           className="z-1 absolute inset-0 h-full w-full object-cover"
+          sizes="(max-width: 1024px) 100vw, 50vw"
         />
       )}
     </div>

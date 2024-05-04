@@ -59,7 +59,11 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
               {products.map((product) => {
                 return (
                   <CarouselItem key={product.title + product.sku} className="basis-[80%] pl-0">
-                    <ProductCard product={product} firstImage={'product'} />
+                    <ProductCard
+                      product={product}
+                      firstImage={'product'}
+                      imageSizes="(max-width: 1024px) 80vw, 40vw"
+                    />
                   </CarouselItem>
                 );
               })}
@@ -126,7 +130,7 @@ function MediaContent({
   return (
     <div className="lg:basis-1/2">
       <div className="!lg:aspect-none aspect-h-4 aspect-w-3 relative h-full w-full bg-gradient-to-t from-black/80 from-0% to-black/20 to-30%">
-        <Media media={{ ...media }} loading="lazy" />
+        <Media media={{ ...media }} loading="lazy" sizes="(max-width: 1024px) 100vw, 33vw" />
         <div className="flex h-full items-end justify-start">
           <div className="flex h-fit w-fit flex-col gap-y-4 p-8 text-white">
             {title && (

@@ -10,9 +10,16 @@ interface Props {
   lifestyleImage?: OptionalSanityImageProps;
   firstImage?: 'product' | 'lifestyle';
   priority?: boolean;
+  sizes?: string;
 }
 
-export function ProductCardImage({ mainImage, lifestyleImage, firstImage, priority }: Props) {
+export function ProductCardImage({
+  mainImage,
+  lifestyleImage,
+  firstImage,
+  priority,
+  sizes
+}: Props) {
   const { isHovered, setIsHovered, activeColorway } = useProductCardContext();
 
   // Apply activeColorway override if available
@@ -47,7 +54,7 @@ export function ProductCardImage({ mainImage, lifestyleImage, firstImage, priori
       <SanityImage
         image={isHovered ? chosenHoverImageTyped : chosenFirstImageTyped}
         className={cn('scale-100 object-cover')}
-        sizes="(min-width: 640px) 50vw, 25vw"
+        sizes={sizes || '(min-width: 640px) 50vw, 25vw'}
         fill
         priority={priority}
       />

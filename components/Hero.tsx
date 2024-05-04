@@ -36,7 +36,7 @@ export function Hero({ data }: Props) {
     >
       <AspectRatio settings={aspectRatioSettings} className="relative">
         {hasAnyContent && <div className="absolute z-[1] h-full w-full bg-black/20" />}
-        {media && <Media media={media} loading="eager" />}
+        {media && <Media media={media} loading="eager" sizes="100vw" />}
         <div
           className={cn(
             'z-[2] flex h-full w-full grow flex-col p-5 text-white lg:p-10',

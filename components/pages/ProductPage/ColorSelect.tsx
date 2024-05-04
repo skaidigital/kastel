@@ -51,6 +51,7 @@ export function ColorSelect({ products }: Props) {
                 <SanityImage
                   image={product.mainImage}
                   fill
+                  sizes="(min-width: 1024px) 200px, 100px"
                   className="absolute object-cover object-top"
                 />
               </div>

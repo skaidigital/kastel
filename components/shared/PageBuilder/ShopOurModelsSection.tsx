@@ -134,7 +134,12 @@ export const ShopOurModelsSection = ({ data }: Props) => {
         </div>
         <div className="aspect-h-4 aspect-w-3 relative h-0 w-full">
           {activeColorway && (
-            <SanityImage image={activeColorway.image} fill className="absolute object-cover" />
+            <SanityImage
+              image={activeColorway.image}
+              fill
+              className="absolute object-cover"
+              sizes="100vw"
+            />
           )}
         </div>
         <div className="flex flex-col items-center gap-y-6">
@@ -149,7 +154,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
             <div className="flex gap-x-8">
               {activeShoe.usps.map((usp) => (
                 <div key={usp.title} className="flex flex-col items-center gap-y-1">
-                  <SanityImage width={40} height={40} image={usp.image} />
+                  <SanityImage width={40} height={40} image={usp.image} noPlaceholder />
                   <Text size="overline-sm">{usp.title}</Text>
                 </div>
               ))}
@@ -237,7 +242,12 @@ export const ShopOurModelsSection = ({ data }: Props) => {
         <div className="col-span-4 flex flex-col gap-y-6 lg:col-start-8">
           <div className="aspect-h-4 aspect-w-3 relative h-0 w-full">
             {activeColorway && (
-              <SanityImage image={activeColorway.image} fill className="absolute object-cover" />
+              <SanityImage
+                image={activeColorway.image}
+                fill
+                className="absolute object-cover"
+                sizes="33vw"
+              />
             )}
             {activeShoe?.colorWays && (
               <div className="absolute bottom-0 left-0 flex items-end justify-center pb-6">

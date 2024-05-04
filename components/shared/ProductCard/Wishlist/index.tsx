@@ -23,7 +23,7 @@ export async function Wishlist({ gid, className }: Props) {
       gid={gid}
       isLoggedIn={isLoggedIn}
       itemIsInWislist={isInWishlist}
-      className={cn('z-50 flex items-center justify-center ', className)}
+      className={cn('z-50 flex items-center justify-center bg-black', className)}
     >
       {isInWishlist ? (
         <HeartIconFilled className="size-4" />

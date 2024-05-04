@@ -61,6 +61,9 @@ export function CollectionLayout({
   const pageCount = Math.ceil(productCount / COLLECTION_PAGE_SIZE);
   const hasProducts = productCount !== 0;
 
+  const imageSizePerItem = 100 / Number(productsPerRow) + 5;
+  const sizes = `${imageSizePerItem}vw`;
+
   return (
     <>
       <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />
@@ -104,10 +107,10 @@ export function CollectionLayout({
                   <div
                     key={index}
                     className={cn(
-                      'aspect-h-3 aspect-w-2 !relative lg:aspect-none lg:h-auto lg:w-full'
+                      'aspect-h-3 aspect-w-2 !relative border border-brand-light-grey lg:aspect-none lg:h-auto lg:w-full'
                     )}
                   >
-                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} />
+                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
                   </div>
                 );
               }
@@ -117,6 +120,7 @@ export function CollectionLayout({
                   key={index}
                   priority={priorityIndices.includes(index)}
                   product={item}
+                  imageSizes={sizes}
                 />
               );
             })}
@@ -127,8 +131,11 @@ export function CollectionLayout({
             {desktopItems?.map((item, index) => {
               if (item.type === 'image' || item.type === 'video') {
                 return (
-                  <div key={index} className={cn('!relative h-full w-full')}>
-                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} />
+                  <div
+                    key={index}
+                    className={cn('!relative h-full w-full border border-brand-light-grey')}
+                  >
+                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
                   </div>
                 );
               }
@@ -139,6 +146,7 @@ export function CollectionLayout({
                   key={index}
                   priority={priorityIndices.includes(index)}
                   product={item}
+                  imageSizes={sizes}
                 />
               );
             })}

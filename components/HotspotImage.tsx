@@ -10,8 +10,8 @@ import { HotspotImageProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 
 interface Props extends HotspotImageProps {
-  sizes?: string;
   children?: React.ReactNode;
+  sizes?: string;
 }
 
 export function HotspotImage({ image, hotspots, sizes, children }: Props) {

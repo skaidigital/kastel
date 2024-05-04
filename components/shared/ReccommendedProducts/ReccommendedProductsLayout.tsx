@@ -44,7 +44,7 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
                 key={product.title + index}
                 className="-pl-0 basis-[80%] lg:basis-[25%]"
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} imageSizes="(max-width: 1024px) 80vw, 33vw" />
               </CarouselItem>
             ))}
           </CarouselContent>

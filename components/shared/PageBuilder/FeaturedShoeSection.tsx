@@ -43,6 +43,8 @@ export const FeaturedShoeSection = ({ data }: Props) => {
   const firstContentItem = content?.[0];
   const restContentItems = content?.slice(1);
 
+  const sizes = '(max-width: 1024px) 80vw, 40vw';
+
   return (
     <Section
       label="featuredShoe"
@@ -86,22 +88,30 @@ export const FeaturedShoeSection = ({ data }: Props) => {
                     type="hotspotImage"
                     image={firstContentItem.image}
                     hotspots={firstContentItem.hotspots}
+                    sizes={sizes}
                   />
                 ) : (
-                  <Media media={firstContentItem} loading="lazy" />
+                  <Media media={firstContentItem} loading="lazy" sizes={sizes} />
                 )
               ) : null}
             </CarouselItem>
             <CarouselItem className="basis-[80%] lg:basis-1/3 relative pl-2 lg:pl-4">
-              <div className="w-full">{product && <ProductCard product={product} />}</div>
+              <div className="w-full">
+                {product && <ProductCard product={product} imageSizes={sizes} />}
+              </div>
             </CarouselItem>
             {restContentItems?.map((item, index) => (
               <CarouselItem key={index} className="basis-[80%] lg:basis-1/3">
                 <div className="relative h-full w-full">
                   {item.type === 'hotspotImage' ? (
-                    <HotspotImage type="hotspotImage" image={item.image} hotspots={item.hotspots} />
+                    <HotspotImage
+                      type="hotspotImage"
+                      image={item.image}
+                      hotspots={item.hotspots}
+                      sizes={sizes}
+                    />
                   ) : (
-                    <Media media={item} loading="lazy" />
+                    <Media media={item} loading="lazy" sizes={sizes} />
                   )}
                 </div>
               </CarouselItem>

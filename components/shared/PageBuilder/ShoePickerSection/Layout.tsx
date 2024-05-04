@@ -68,13 +68,17 @@ export function ShoePickerLayout({
             if (item.type === 'product') {
               return (
                 <CarouselItem key={item.title + index} className="basis-[80%] pl-0 lg:basis-[25%]">
-                  <ProductCard firstImage={'product'} product={item} />
+                  <ProductCard
+                    firstImage={'product'}
+                    product={item}
+                    imageSizes="(max-width: 1024px) 80vw, 30vw"
+                  />
                 </CarouselItem>
               );
             }
             return (
               <CarouselItem key={index} className="relative h-auto basis-[80%] pl-0 lg:basis-[25%]">
-                <Media media={item} loading="lazy" />j
+                <Media media={item} loading="lazy" sizes="(max-width: 1024px) 80vw, 30vw" />
               </CarouselItem>
             );
           })}

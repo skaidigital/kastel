@@ -17,9 +17,10 @@ interface Props {
   firstImage?: 'product' | 'lifestyle';
   priority?: boolean;
   className?: string;
+  imageSizes?: string;
 }
 
-export function ProductCard({ product, firstImage, priority, className }: Props) {
+export function ProductCard({ product, firstImage, priority, className, imageSizes }: Props) {
   if (!product) return null;
 
   const {
@@ -65,10 +66,10 @@ export function ProductCard({ product, firstImage, priority, className }: Props)
                   firstImage={firstImage}
                   mainImage={mainImage}
                   lifestyleImage={lifestyleImage}
+                  sizes={imageSizes}
                 />
               )}
               <div className="absolute bottom-3 left-3 flex gap-x-1 @xs:bottom-4 @xs:left-4">
-                {/* Add here */}
                 {biggestDiscount && <DiscountBadge discount={Number(biggestDiscount).toFixed(0)} />}
                 {badges && <Badges badges={badges} />}
               </div>
