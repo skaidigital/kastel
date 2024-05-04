@@ -37,7 +37,7 @@ export function DesktopMenu({ items, className }: Props) {
                 <NavigationMenu.Trigger className="group flex h-full select-none items-center justify-between gap-[2px] rounded-project outline-none">
                   {item.title}{' '}
                   <CaretDownIcon
-                    className="duration-250 relative transition-transform ease-in group-data-[state=open]:-rotate-180"
+                    className="duration-250 relative transition-transform ease-out group-data-[state=open]:-rotate-180"
                     aria-hidden
                   />
                 </NavigationMenu.Trigger>
@@ -56,7 +56,7 @@ export function DesktopMenu({ items, className }: Props) {
                                   <SanityLink
                                     link={item?.link}
                                     className={cn(
-                                      'transition-brand w-fit translate-y-[-10px] animate-fade-in-text text-sm opacity-0 transition-[opacity,color] hover:text-brand-mid-grey hover:duration-100 hover:ease-in-out focus:text-brand-mid-grey',
+                                      'ease transition-brand w-fit translate-y-[-10px] animate-fade-in-text text-sm opacity-0 transition-[opacity,color] hover:text-brand-mid-grey hover:duration-100 focus:text-brand-mid-grey',
                                       index === 0 && '[--animation-delay:600ms]',
                                       index === 1 && '[--animation-delay:700ms]',
                                       index === 2 && '[--animation-delay:800ms]',
