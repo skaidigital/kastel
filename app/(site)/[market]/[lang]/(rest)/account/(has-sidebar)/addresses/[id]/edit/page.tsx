@@ -1,18 +1,19 @@
 import { getDictionary } from '@/app/dictionaries';
 import { EditAddressPage } from '@/components/pages/EditAddressPage';
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { getAddresses } from '@/lib/shopify/customer/getAddress';
 import { getDefaultAddress } from '@/lib/shopify/customer/getDefaultAddress';
 import { Metadata } from 'next';
 
 interface Props {
   params: {
+    lang: LangValues;
     id: string;
   };
 }
 
-export default async function Page({ params: { id } }: Props) {
-  const { create_address_page: dictionary } = await getDictionary();
+export default async function Page({ params: { id, lang } }: Props) {
+  const { create_address_page: dictionary } = await getDictionary({ lang });
 
   const [address, defaultAddress] = await Promise.all([getAddresses(id), getDefaultAddress()]);
   const isDefaultAddress = defaultAddress?.id === address?.id ? true : false;

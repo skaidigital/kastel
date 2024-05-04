@@ -37,9 +37,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     generateStaticSlugs(LANG.en.id, 'blogPost')
   ]);
 
-  console.log({ collectionSlugEn });
-  console.log({ productSlugsEn });
-
   const pageSlugsNoWithoutHome = pageSlugsNo.filter((slug) => slug.slug !== 'home');
   const pageSlugsEnWithoutHome = pageSlugsEn.filter((slug) => slug.slug !== 'home');
 

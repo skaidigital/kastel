@@ -14,7 +14,7 @@ export interface PageProps {
 }
 
 export async function CollectionPage({ data, currentPage, searchParams, market, lang }: PageProps) {
-  const { collection_page } = await getDictionary();
+  const { collection_page } = await getDictionary({ lang });
   return (
     <>
       <CollectionLayout

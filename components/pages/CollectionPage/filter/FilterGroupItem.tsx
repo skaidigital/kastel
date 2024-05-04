@@ -2,7 +2,6 @@ import { ColorFilter } from '@/components/pages/CollectionPage/filter/ColorFilte
 import { SizeFilter } from '@/components/pages/CollectionPage/filter/SizeFilter';
 import { TextFilter } from '@/components/pages/CollectionPage/filter/TextFilter';
 import { MarketValues } from '@/data/constants';
-import { getMarket } from '@/lib/getMarket';
 import { loadQuery } from '@/lib/sanity/store';
 import {
   FilterGroupSchema,
@@ -21,11 +20,10 @@ function loadFilterItem(market: MarketValues, type: filterType, parentId: string
 
 interface FilterItemProps {
   item: FilterGroupSchema;
+  market: MarketValues;
 }
 
-export async function FilterGroupItem({ item: filterGroup }: FilterItemProps) {
-  const market = await getMarket();
-
+export async function FilterGroupItem({ item: filterGroup, market }: FilterItemProps) {
   const initial = await loadFilterItem(market, filterGroup.type as filterType, filterGroup.id);
 
   const filterGroupResponse = initial?.data;

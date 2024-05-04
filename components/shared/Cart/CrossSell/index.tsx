@@ -64,7 +64,7 @@ export async function CrossSell({ market, lang, className, crossSellItemClassNam
 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
 
-  const dict = await getDictionary();
+  const dict = await getDictionary({ lang });
   const dictionary = dict.cart_drawer.cross_sell;
   const initial = await loadCrossSellProducts({ market, lang, gid: activeId });
 

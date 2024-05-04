@@ -71,7 +71,7 @@ export default function IndexRoute({
             </main>
           </div>
           <ShopifyAnalytics hasConsent />
-          <MarketPopup />
+          <MarketPopup lang={lang} />
           {draftMode().isEnabled && <PreviewMarketSelector />}
           <Suspense>
             <SmileLayout />

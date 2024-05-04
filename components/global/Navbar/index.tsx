@@ -41,8 +41,7 @@ export async function Navbar({ market, lang, className }: Props) {
   return (
     <NavbarLayout data={withoutNullValues} className={className}>
       <Suspense fallback={<OpenCart />}>
-        <Cart market={market}>
-          <></>
+        <Cart market={market} lang={lang}>
           <Suspense fallback={<CrossSellSkeleton className="px-4 lg:px-6 lg:py-4" />}>
             <CrossSell
               market={market}

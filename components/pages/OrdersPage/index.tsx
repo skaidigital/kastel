@@ -27,7 +27,7 @@ interface Props {
 export async function OrdersPage({ currentPage, lang }: Props) {
   const lastCursor = await getOrderCursors(currentPage);
   const correctCursor = currentPage === 1 ? undefined : lastCursor;
-  const { account_page: dictionary } = await getDictionary();
+  const { account_page: dictionary } = await getDictionary({ lang });
   const { orders, pageInfo } = await getOrders(correctCursor);
 
   const hasOrders = orders && orders.length > 0;

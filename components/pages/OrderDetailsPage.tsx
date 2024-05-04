@@ -8,6 +8,7 @@ import { Badge } from '@/components/Badge';
 import { AccountPageHeader } from '@/components/account/AccountPageHeader';
 import { Heading } from '@/components/base/Heading';
 import { Text } from '@/components/base/Text';
+import { LangValues } from '@/data/constants';
 import { getOrder } from '@/lib/shopify/customer/getOrder';
 import { capitalizeFirstLetter, cn, getOrderIcon } from '@/lib/utils';
 import { ArrowTopRightIcon } from '@radix-ui/react-icons';
@@ -16,11 +17,12 @@ import Link from 'next/link';
 
 interface Props {
   orderId: string;
+  lang: LangValues;
 }
 
-export async function OrderDetailsPage({ orderId }: Props) {
+export async function OrderDetailsPage({ orderId, lang }: Props) {
   const order = await getOrder(orderId);
-  const { order_details_page: dictionary } = await getDictionary();
+  const { order_details_page: dictionary } = await getDictionary({ lang });
 
   const subtotal = formatPrice(order.subtotal);
   const shipping = formatPrice(order.totalShipping);

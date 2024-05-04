@@ -41,7 +41,7 @@ export async function PopupHandler({ lang }: Props) {
   ) {
     return (
       <Suspense>
-        <MarketSuggestionPopup />
+        <MarketSuggestionPopup lang={lang} />
       </Suspense>
     );
   }

@@ -1,20 +1,21 @@
 import { OrderDetailsPage } from '@/components/pages/OrderDetailsPage';
-import { MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export default function Page({
-  params: { orderId }
+  params: { orderId, lang }
 }: {
   params: {
     orderId: string;
+    lang: LangValues;
   };
 }) {
   if (!orderId) {
     return notFound();
   }
 
-  return <OrderDetailsPage orderId={orderId} />;
+  return <OrderDetailsPage orderId={orderId} lang={lang} />;
 }
 
 export function generateMetadata({

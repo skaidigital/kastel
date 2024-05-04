@@ -60,11 +60,11 @@ export async function Filter({ lang }: Props) {
               type="multiple"
               className="lg:col-span-5 lg:col-start-7"
             >
-              {filterGroup.map((item, index) => (
+              {filterGroup.map((item) => (
                 <AccordionItem value={item.id} key={item.id} className="border-none lg:py-4">
                   <AccordionTrigger className="mb-4">{item.title}</AccordionTrigger>
                   <AccordionContent>
-                    <FilterGroupItem item={item} />
+                    <FilterGroupItem item={item} lang={lang} />
                   </AccordionContent>
                 </AccordionItem>
               ))}

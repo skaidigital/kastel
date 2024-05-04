@@ -25,7 +25,7 @@ interface Props {
 }
 
 export async function ReccommendedProducts({ lang, market }: Props) {
-  const { reccommended_products: dictionary } = await getDictionary();
+  const { reccommended_products: dictionary } = await getDictionary({ lang });
 
   const initial = await loadReccommendedProducts(lang, market);
 

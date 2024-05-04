@@ -4,6 +4,7 @@ import { VippsHurtigkasseButton } from '@/components/ProductForm/VippsHurtigkass
 import { VariantSelector } from '@/components/VariantSelector';
 import { MobileAddToCartDrawer } from '@/components/pages/ProductPage/MobileAddToCartDrawer';
 import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
+import { LangValues } from '@/data/constants';
 import { SizeGuideProps } from '@/lib/sanity/types';
 import { getProductInventory } from './hooks';
 
@@ -14,6 +15,7 @@ export type Combination = {
 };
 
 interface Props {
+  lang: LangValues;
   productId: string;
   type: Product['type'];
   variants: ProductVariant[];
@@ -21,12 +23,12 @@ interface Props {
   options?: ProductOption[];
 }
 
-export async function ProductForm({ productId, type, sizeGuide, options, variants }: Props) {
+export async function ProductForm({ productId, type, sizeGuide, options, variants, lang }: Props) {
   if (!variants || !productId) return null;
 
   const [inventory, dictionaryResponse] = await Promise.all([
     getProductInventory(productId),
-    getDictionary()
+    getDictionary({ lang })
   ]);
 
   const dictionary = dictionaryResponse.product_page;

@@ -209,6 +209,7 @@ export async function ProductPageLayout(props: Props) {
                 )}
                 <Suspense fallback={<ProductFormSkeleton />}>
                   <ProductForm
+                    lang={lang}
                     productId={id}
                     type={type}
                     variants={variants}

@@ -5,14 +5,15 @@ import { FilterGroupItem } from '@/components/pages/CollectionPage/filter/Filter
 import { FilterLayout } from '@/components/pages/CollectionPage/filter/FilterLayout';
 import { filterGroupsValidator } from '@/components/pages/CollectionPage/filter/hooks';
 import { OnSaleCheckbox } from '@/components/shared/CollectionAndSearchActionsBarMobile/OnSaleCheckbox';
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { PlusIcon } from '@radix-ui/react-icons';
 
 interface Props {
+  market: MarketValues;
   lang: LangValues;
 }
 
-export async function Filter({ lang }: Props) {
+export async function Filter({ market, lang }: Props) {
   const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;
@@ -47,7 +48,7 @@ export async function Filter({ lang }: Props) {
                     </SheetTrigger>
                     <SheetContent overlayClassName="z-50" className="z-50">
                       <SheetHeader title={filterGroup.title} />
-                      <FilterGroupItem item={filterGroup} />
+                      <FilterGroupItem item={filterGroup} market={market} />
                     </SheetContent>
                   </Sheet>
                 ))}
@@ -61,7 +62,7 @@ export async function Filter({ lang }: Props) {
                   </SheetTrigger>
                   <SheetContent layer={2}>
                     <SheetHeader title={filterGroup.title} />
-                    <FilterGroupItem item={filterGroup} />
+                    <FilterGroupItem item={filterGroup} market={market} />
                   </SheetContent>
                 </Sheet>
               ))}

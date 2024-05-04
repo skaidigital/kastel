@@ -1,15 +1,16 @@
 import { Filter } from '@/components/shared/CollectionAndSearchActionsBarMobile/Filter';
 import { Settings } from '@/components/shared/CollectionAndSearchActionsBarMobile/Settings';
 import { Sort } from '@/components/shared/CollectionAndSearchActionsBarMobile/Sort';
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 
 interface Props {
+  market: MarketValues;
   lang: LangValues;
   className?: string;
 }
 
-export function CollectionAndSearchActionsBarMobile({ lang, className }: Props) {
+export function CollectionAndSearchActionsBarMobile({ market, lang, className }: Props) {
   return (
     <div
       className={cn(
@@ -17,7 +18,7 @@ export function CollectionAndSearchActionsBarMobile({ lang, className }: Props) 
         className
       )}
     >
-      <Filter lang={lang} />
+      <Filter market={market} lang={lang} />
       <Sort lang={lang} />
       <Settings lang={lang} />
     </div>

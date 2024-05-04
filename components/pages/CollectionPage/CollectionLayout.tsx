@@ -66,7 +66,7 @@ export function CollectionLayout({
 
   return (
     <>
-      <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />
+      <CollectionAndSearchActionsBarMobile market={market} lang={lang} className="lg:hidden" />
       <Section
         size="sm"
         label="collection-hero"

@@ -12,7 +12,7 @@ interface Props {
 export default async function Page({ params: { lang } }: Props) {
   const [addresses, defaultAddress] = await Promise.all([getAddresses(), getDefaultAddress()]);
   const addressesWithoutDefault = addresses.filter((address) => address.id !== defaultAddress.id);
-  const { address_page: dictionary } = await getDictionary();
+  const { address_page: dictionary } = await getDictionary({ lang });
 
   return (
     <AddressesPage

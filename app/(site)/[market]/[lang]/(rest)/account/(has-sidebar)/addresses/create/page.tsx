@@ -3,8 +3,14 @@ import { CreateAddressPage } from '@/components/pages/CreateAddressPage';
 import { LangValues } from '@/data/constants';
 import { Metadata } from 'next';
 
-export default async function Page() {
-  const { create_address_page: dictionary } = await getDictionary();
+interface Props {
+  params: {
+    lang: LangValues;
+  };
+}
+
+export default async function Page({ params: { lang } }: Props) {
+  const { create_address_page: dictionary } = await getDictionary({ lang });
 
   return <CreateAddressPage dictionary={dictionary} />;
 }

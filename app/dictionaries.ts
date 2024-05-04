@@ -1,3 +1,4 @@
+import { LangValues } from '@/data/constants';
 import { z } from 'zod';
 
 type DictionaryLoader = () => Promise<Dictionary>;
@@ -199,10 +200,8 @@ const dictionaries: Record<string, DictionaryLoader> = {
   no: () => import('./dictionaries/no.json').then((module) => module.default)
 };
 
-export const getDictionary = async () => {
-  // const market = await getMarket();
-  const market = 'no';
-  const loader = dictionaries[market];
+export const getDictionary = async ({ lang }: { lang: LangValues }) => {
+  const loader = dictionaries[lang];
 
   if (!loader) {
     throw new Error(`Error in dictionary`);

@@ -77,7 +77,7 @@ export default async function Page({ searchParams, params }: Props) {
 
   const tagSlugs = formatSearchParams(searchParams);
 
-  const { search_page: dictionary, collection_page } = await getDictionary();
+  const { search_page: dictionary, collection_page } = await getDictionary({ lang });
 
   const searchResult = await loadSearchResults({
     lang,
@@ -143,7 +143,7 @@ export default async function Page({ searchParams, params }: Props) {
             )}
             <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
           </div>
-          <CollectionAndSearchActionsBarMobile lang={lang} className="lg:hidden" />
+          <CollectionAndSearchActionsBarMobile market={market} lang={lang} className="lg:hidden" />
         </Container>
         <SearchSettingsBar
           searchParams={searchParams}

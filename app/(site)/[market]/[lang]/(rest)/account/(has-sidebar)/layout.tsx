@@ -1,17 +1,22 @@
 import { LinkItem } from '@/app/(site)/[market]/[lang]/(rest)/account/(has-sidebar)/LinkItem';
 import { getDictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
-import { COOKIE_NAMES, ROUTES } from '@/data/constants';
+import { COOKIE_NAMES, LangValues, ROUTES } from '@/data/constants';
 import { getExpiryTime } from '@/lib/getExpiryTime';
 import { getRefreshToken } from '@/lib/getRefreshToken';
 import { logIn, logOut } from '@/lib/shopify/customer/actions';
 import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
 
-export default async function Layout({ children }: { children: ReactNode }) {
+interface Props {
+  params: { lang: LangValues };
+  children: ReactNode;
+}
+
+export default async function Layout({ params: { lang }, children }: Props) {
   const expiredCoockie = await getExpiryTime();
   const refreshToken = cookies().get(COOKIE_NAMES.SHOPIFY.REFRESH_TOKEN)?.value;
-  const { account_layout: dictionary } = await getDictionary();
+  const { account_layout: dictionary } = await getDictionary({ lang });
 
   if (!expiredCoockie && refreshToken) {
     const updatedToken = await getRefreshToken();
