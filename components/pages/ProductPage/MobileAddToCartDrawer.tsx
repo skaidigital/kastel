@@ -32,7 +32,7 @@ export function MobileAddToCartDrawer({
   children
 }: Props) {
   const { ref, inView } = useInView({
-    rootMargin: '600px 0px 200px 0px'
+    rootMargin: '200px 0px 600px 0px'
   });
   const { mobileDrawerOpen: isOpen, setMobileDrawerOpen: setIsOpen } = useCartContext();
   const isDesktop = useIsDesktop();
