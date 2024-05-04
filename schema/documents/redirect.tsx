@@ -1,5 +1,5 @@
-import { MARKETS } from '@/data/constants';
-import { getMarketFlag } from '@/lib/utils';
+import { LANGS } from '@/data/constants';
+import { getLangFlag } from '@/lib/utils';
 import { Signpost } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -13,13 +13,13 @@ export const redirect = defineType({
       source: 'source',
       destination: 'destination',
       permanent: 'permanent',
-      market: 'market'
+      lang: 'lang'
     },
-    prepare({ source, destination, permanent, market }) {
-      const marketFlag = getMarketFlag(market);
+    prepare({ source, destination, permanent, lang }) {
+      const marketFlag = getLangFlag(lang);
       return {
         title: `/${source} → /${destination} ${permanent ? '(permanent)' : ''}`,
-        subtitle: market ? marketFlag : 'Market not set'
+        subtitle: lang ? marketFlag : 'Language not set'
       };
     }
   },
@@ -35,14 +35,15 @@ export const redirect = defineType({
       }
     }),
     defineField({
-      title: 'Market',
-      name: 'market',
+      title: 'Language',
+      name: 'lang',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      initialValue: 'no',
       options: {
-        list: MARKETS.map((market) => ({
-          title: market.name,
-          value: market.id
+        list: LANGS.map((lang) => ({
+          title: lang.name,
+          value: lang.id
         }))
       }
     }),
@@ -50,7 +51,7 @@ export const redirect = defineType({
       title: 'From',
       description: (
         <>
-          I.e. <code>course/visma</code>. Remember NOT to write &rsquo;/&rsquo; first.
+          I.e. <code>some-page</code>. Remember NOT to write &rsquo;/&rsquo; first.
         </>
       ),
       name: 'source',
@@ -61,7 +62,7 @@ export const redirect = defineType({
       title: 'To',
       description: (
         <>
-          I.e. <code>course/visma-2</code>. Remember NOT to write &rsquo;/&rsquo; first.
+          I.e. <code>new-route-for-page</code>. Remember NOT to write &rsquo;/&rsquo; first.
         </>
       ),
       name: 'destination',

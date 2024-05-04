@@ -147,6 +147,7 @@ export default async function Page({ searchParams, params }: Props) {
         </Container>
         <SearchSettingsBar
           searchParams={searchParams}
+          market={market}
           lang={lang}
           className="hidden min-h-32 lg:block"
         />

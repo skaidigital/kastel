@@ -12,7 +12,7 @@ import {
   filterGroupsValidator,
   getFilterQuery
 } from '@/components/pages/CollectionPage/filter/hooks';
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { loadQuery } from '@/lib/sanity/store';
 import { PlusIcon } from '@radix-ui/react-icons';
 
@@ -24,10 +24,11 @@ export function loadFilter(lang: LangValues) {
 }
 
 interface Props {
+  market: MarketValues;
   lang: LangValues;
 }
 
-export async function Filter({ lang }: Props) {
+export async function Filter({ market, lang }: Props) {
   const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;
@@ -64,7 +65,7 @@ export async function Filter({ lang }: Props) {
                 <AccordionItem value={item.id} key={item.id} className="border-none lg:py-4">
                   <AccordionTrigger className="mb-4">{item.title}</AccordionTrigger>
                   <AccordionContent>
-                    <FilterGroupItem item={item} lang={lang} />
+                    <FilterGroupItem item={item} market={market} />
                   </AccordionContent>
                 </AccordionItem>
               ))}

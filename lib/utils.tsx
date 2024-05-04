@@ -59,6 +59,17 @@ export function getMarketFlag(market: MarketValues) {
   }
 }
 
+export function getLangFlag(lang: LangValues) {
+  switch (lang) {
+    case 'no':
+      return '🇳🇴';
+    case 'en':
+      return '🇬🇧';
+    default:
+      throw new Error(`Unknown lang: ${lang}`);
+  }
+}
+
 export function getAspectRatioString(ratio: AspectRatios) {
   switch (ratio) {
     case '16:9':

@@ -2,7 +2,7 @@ import { Dictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
 import { Text } from '@/components/base/Text';
 import { Filter } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop/Filter';
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { ActiveFilters } from '../filter/ActiveFilters';
 import { ProductsPerRowSelector } from './ProductsPerRowSelector';
@@ -14,6 +14,7 @@ interface Props {
     [key: string]: string | undefined;
   };
   dictionary: Dictionary['collection_page'];
+  market: MarketValues;
   lang: LangValues;
   className?: string;
 }
@@ -22,13 +23,14 @@ export function CollectionSettingsBarDesktop({
   searchParams,
   numberOfProducts,
   dictionary,
+  market,
   lang,
   className
 }: Props) {
   return (
     <Container className={cn('flex flex-col space-y-2 pb-8 lg:pb-2', className)}>
       <Row className="items-end">
-        <Filter lang={lang} />
+        <Filter market={market} lang={lang} />
         <div className="flex space-x-10">
           <ProductsPerRowSelector />
           <Sort lang={lang} />

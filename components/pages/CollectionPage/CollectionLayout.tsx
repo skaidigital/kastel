@@ -95,6 +95,7 @@ export function CollectionLayout({
         searchParams={searchParams}
         numberOfProducts={productCount}
         dictionary={dictionary}
+        market={market}
         lang={lang}
         className="hidden min-h-32 lg:block"
       />
