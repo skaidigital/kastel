@@ -45,7 +45,10 @@ export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, cla
     return (
       <TooltipProvider delayDuration={0}>
         <HybridTooltip>
-          <HybridTooltipTrigger title={addToWishlistString} className="cursor-not-allowed">
+          <HybridTooltipTrigger
+            title={addToWishlistString}
+            className={cn('cursor-not-allowed', className)}
+          >
             {children}
           </HybridTooltipTrigger>
           <HybridTooltipContent className="bg-white">

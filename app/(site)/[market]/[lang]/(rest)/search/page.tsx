@@ -163,11 +163,12 @@ export default async function Page({ searchParams, params }: Props) {
           {products &&
             products?.map((product: ProductCardProps, index) => {
               return (
-                <ProductCard
-                  key={product.slug}
-                  priority={productIndicesToReceivePriorityProp.includes(index)}
-                  product={product}
-                />
+                <div className="m-[-1px]" key={product.slug}>
+                  <ProductCard
+                    priority={productIndicesToReceivePriorityProp.includes(index)}
+                    product={product}
+                  />
+                </div>
               );
             })}
         </CollectionGrid>
