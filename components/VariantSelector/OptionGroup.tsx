@@ -58,7 +58,8 @@ export function OptionGroup({
                   !isActive &&
                     availableForSale &&
                     'bg-white hover:border-brand-primary hover:bg-brand-primary hover:text-white focus:border-brand-primary focus:bg-brand-primary focus:text-white',
-                  !availableForSale && 'cursor-not-allowed bg-brand-sand'
+                  !availableForSale &&
+                    '!text-eyebrow relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-brand-mid-grey before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform'
                 )}
               >
                 {value.title}
