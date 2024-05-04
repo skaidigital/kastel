@@ -100,64 +100,68 @@ export function CollectionLayout({
         className="hidden min-h-32 lg:block"
       />
       <Section label="collection-products" srHeading="Products" noTopPadding>
-        <div className="lg:hidden">
-          <CollectionGrid number={productsPerRow}>
-            {mobileItems?.map((item, index) => {
-              if (item.type === 'image' || item.type === 'video') {
+        {hasProducts && (
+          <div className="lg:hidden">
+            <CollectionGrid number={productsPerRow}>
+              {mobileItems?.map((item, index) => {
+                if (item.type === 'image' || item.type === 'video') {
+                  return (
+                    <div
+                      key={index}
+                      className={cn(
+                        'aspect-h-3 aspect-w-2 !relative m-[-1px] border border-brand-light-grey lg:aspect-none lg:h-auto lg:w-full'
+                      )}
+                    >
+                      <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
+                    </div>
+                  );
+                }
+                const priorityIndices = [0, 1, 2];
                 return (
-                  <div
-                    key={index}
-                    className={cn(
-                      'aspect-h-3 aspect-w-2 !relative m-[-1px] border border-brand-light-grey lg:aspect-none lg:h-auto lg:w-full'
-                    )}
-                  >
-                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
+                  <div key={index} className="m-[-1px]">
+                    <ProductCard
+                      priority={priorityIndices.includes(index)}
+                      product={item}
+                      imageSizes={sizes}
+                    />
                   </div>
                 );
-              }
-              const priorityIndices = [0, 1, 2];
-              return (
-                <div key={index} className="m-[-1px]">
-                  <ProductCard
-                    priority={priorityIndices.includes(index)}
-                    product={item}
-                    imageSizes={sizes}
-                  />
-                </div>
-              );
-            })}
-          </CollectionGrid>
-        </div>
-        <div className="hidden lg:block">
-          <CollectionGrid number={productsPerRow}>
-            {desktopItems?.map((item, index) => {
-              if (item.type === 'image' || item.type === 'video') {
-                return (
-                  <div
-                    key={index}
-                    className={cn(
-                      '!relative m-[-1px] h-full w-full border border-brand-light-grey'
-                    )}
-                  >
-                    <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
-                  </div>
-                );
-              }
+              })}
+            </CollectionGrid>
+          </div>
+        )}
+        {hasProducts && (
+          <div className="hidden lg:block">
+            <CollectionGrid number={productsPerRow}>
+              {desktopItems?.map((item, index) => {
+                if (item.type === 'image' || item.type === 'video') {
+                  return (
+                    <div
+                      key={index}
+                      className={cn(
+                        '!relative m-[-1px] h-full w-full border border-brand-light-grey'
+                      )}
+                    >
+                      <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
+                    </div>
+                  );
+                }
 
-              const priorityIndices = [0, 1, 2];
-              return (
-                <div className="m-[-1px]" key={index}>
-                  <ProductCard
-                    key={index}
-                    priority={priorityIndices.includes(index)}
-                    product={item}
-                    imageSizes={sizes}
-                  />
-                </div>
-              );
-            })}
-          </CollectionGrid>
-        </div>
+                const priorityIndices = [0, 1, 2];
+                return (
+                  <div className="m-[-1px]" key={index}>
+                    <ProductCard
+                      key={index}
+                      priority={priorityIndices.includes(index)}
+                      product={item}
+                      imageSizes={sizes}
+                    />
+                  </div>
+                );
+              })}
+            </CollectionGrid>
+          </div>
+        )}
         {!hasProducts && (
           <Container className="lg:mt-10">
             <Text as="p" size="lg">

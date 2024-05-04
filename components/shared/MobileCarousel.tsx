@@ -3,8 +3,8 @@
 import Video from '@/components/Video';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { LangValues } from '@/data/constants';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
-import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
@@ -39,7 +39,7 @@ export function MobileCarousel({ mainImage, items, lifestyleImage, className }: 
     setCurrentSlide(0);
   }, []);
 
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   if (isDesktop) return null;
 

@@ -7,7 +7,7 @@ import { NorwegianFlagIcon } from '@/components/icons/NorwegianFlagIcon';
 import { MarketItem } from '@/components/shared/MarketItem';
 import { handleHasChosenMarket } from '@/lib/actions';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { useDeviceType } from '@/lib/useDeviceType';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { useRouter } from 'next/navigation';
 import { parseAsBoolean, useQueryState } from 'nuqs';
 
@@ -30,7 +30,7 @@ export function MarketLayout({ dictionary }: Props) {
     setIsOpen(null).then(() => router.push(href));
   }
 
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   if (isDesktop) {
     return (

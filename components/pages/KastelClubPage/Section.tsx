@@ -6,7 +6,7 @@ import { Container } from '@/components/base/Container';
 import { SectionItem } from '@/components/pages/KastelClubPage/SectionItem';
 import { KastelClubSectionProps } from '@/components/pages/KastelClubPage/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
-import { useDeviceType } from '@/lib/useDeviceType';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 
 // TODO add section tags
 export function KastelClubPageSection({ section, className }: Props) {
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   if (isDesktop) {
     return (

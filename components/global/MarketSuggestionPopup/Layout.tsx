@@ -10,7 +10,7 @@ import { MarketItem } from '@/components/shared/MarketItem';
 import countries from '@/data/countries';
 import { handleHasChosenMarket } from '@/lib/actions';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { useDeviceType } from '@/lib/useDeviceType';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { useRouter } from 'next/navigation';
 import { parseAsBoolean, useQueryState } from 'nuqs';
 import { useState } from 'react';
@@ -30,7 +30,7 @@ export function MarketSuggestionPopupLayout({ dictionary, requestCountry }: Prop
   const onClose = () => setIsOpen(false);
   const router = useRouter();
 
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   function handleOpenMoreLocations() {
     onClose();

@@ -5,7 +5,7 @@ import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { TeamMember } from '@/components/shared/PageBuilder/MeetTheTeamSection/TeamMember';
 import { MeetTheTeamSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { useDeviceType } from '@/lib/useDeviceType';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 
 interface PropsWithExtra extends MeetTheTeamSectionProps {
   index: number;
@@ -20,7 +20,7 @@ interface Props {
 export const MeetTheTeamSection = ({ data }: Props) => {
   const { title, people, sectionSettings } = data;
 
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   if (isDesktop) {
     return (

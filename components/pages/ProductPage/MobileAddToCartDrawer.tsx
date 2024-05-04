@@ -6,7 +6,7 @@ import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
 import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
-import { useDeviceType } from '@/lib/useDeviceType';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import * as Portal from '@radix-ui/react-portal';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -32,10 +32,10 @@ export function MobileAddToCartDrawer({
   children
 }: Props) {
   const { ref, inView } = useInView({
-    rootMargin: '400px'
+    rootMargin: '600px 0px 200px 0px'
   });
   const { mobileDrawerOpen: isOpen, setMobileDrawerOpen: setIsOpen } = useCartContext();
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     if (inView === false) {

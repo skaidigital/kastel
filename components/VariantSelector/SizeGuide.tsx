@@ -3,9 +3,9 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
 import { SizeGuideProps } from '@/lib/sanity/types';
-import { useDeviceType } from '@/lib/useDeviceType';
 import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '../Drawer';
@@ -20,7 +20,7 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
   const chart = sizeGuide?.chart;
   const description = sizeGuide?.description;
 
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   if (isDesktop) {
     return (

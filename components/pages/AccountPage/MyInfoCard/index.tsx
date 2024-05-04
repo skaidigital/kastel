@@ -13,8 +13,8 @@ import {
 } from '@/components/pages/AccountPage/MyInfoCard/hooks';
 import { LangValues } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { CustomerMetadata } from '@/lib/shopify/metafields/getCustomerData';
-import { useDeviceType } from '@/lib/useDeviceType';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState, useTransition } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -27,7 +27,7 @@ interface Props {
 export function MyInfoCard({ customerData }: Props) {
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
   const { lang } = useBaseParams();
 
   const customerDataValueJSON = customerData.metafield?.value;

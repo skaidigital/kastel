@@ -12,8 +12,8 @@ import { PopupPayload } from '@/components/global/Popup/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { SanityLink } from '@/components/sanity/SanityLink';
 import { subscribeToNewsletter } from '@/components/shared/NewsletterSignup/actions';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { LinkProps } from '@/lib/sanity/types';
-import { useDeviceType } from '@/lib/useDeviceType';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -38,7 +38,7 @@ export function PopupLayout({ data, klaviyoListId }: Props) {
     await hasSeenPopup();
     setIsOpen(false);
   }
-  const { isDesktop } = useDeviceType();
+  const isDesktop = useIsDesktop();
 
   if (isDesktop) {
     return (
