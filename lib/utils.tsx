@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { MarketValues, SITE_URLS } from '@/data/constants';
+import { LangValues, MarketValues, SITE_URLS, SORT_OPTIONS } from '@/data/constants';
 import { AspectRatios } from '@/lib/sanity/types';
 import { CheckIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx, { ClassValue } from 'clsx';
@@ -124,4 +124,10 @@ export function getOrderIcon(variant: string) {
     default:
       return <ClockIcon className="h-3 w-3" />;
   }
+}
+
+export function getSortOptions(lang: LangValues) {
+  const sortOptions = SORT_OPTIONS[lang];
+
+  return sortOptions;
 }

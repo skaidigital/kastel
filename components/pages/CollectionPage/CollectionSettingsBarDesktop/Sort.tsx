@@ -1,13 +1,18 @@
 'use client';
 
 import { Select, SelectContent, SelectItem, SelectValue } from '@/components/Select';
-import { SORT_OPTIONS } from '@/data/constants';
+import { LangValues } from '@/data/constants';
+import { getSortOptions } from '@/lib/utils';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { SelectTrigger } from '@radix-ui/react-select';
 import { useRouter } from 'next/navigation';
 import { parseAsString, useQueryState } from 'nuqs';
 
-export function Sort() {
+interface Props {
+  lang: LangValues;
+}
+
+export function Sort({ lang }: Props) {
   const router = useRouter();
   const [sort, setSort] = useQueryState('sort', parseAsString);
 
@@ -15,28 +20,30 @@ export function Sort() {
     setSort(e).then(() => router.refresh());
   }
 
+  const sortOptions = getSortOptions(lang);
+
   return (
     <div className="w-40 rounded-[2px] bg-brand-light-grey text-center text-brand-mid-grey">
       <Select
         onValueChange={(e) => {
           handleChange(e);
         }}
-        defaultValue={sort || SORT_OPTIONS[0]?.value}
+        defaultValue={sort || sortOptions[0]?.value}
       >
         <SelectTrigger className="flex w-full items-center justify-between space-x-1 px-4 py-2.5 text-sm">
-          <SelectValue placeholder={SORT_OPTIONS[0]?.label || 'Loading'} />
+          <SelectValue placeholder={sort || 'Loading'} />
           <ChevronDownIcon className="size-4" />
         </SelectTrigger>
         <SelectContent>
-          {SORT_OPTIONS &&
-            SORT_OPTIONS.map((option) => (
+          {sortOptions &&
+            sortOptions.map((option) => (
               <SelectItem
                 key={option.value}
                 value={option.value}
                 defaultChecked={option.value === sort}
                 className="w-full"
               >
-                {option.label}
+                {option.title}
               </SelectItem>
             ))}
         </SelectContent>

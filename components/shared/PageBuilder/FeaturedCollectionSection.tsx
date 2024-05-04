@@ -55,15 +55,17 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
               align: 'start'
             }}
           >
-            <CarouselContent className="-ml-0">
+            <CarouselContent className="-ml-0 border border-brand-light-grey">
               {products.map((product) => {
                 return (
                   <CarouselItem key={product.title + product.sku} className="basis-[80%] pl-0">
-                    <ProductCard
-                      product={product}
-                      firstImage={'product'}
-                      imageSizes="(max-width: 1024px) 80vw, 40vw"
-                    />
+                    <div className="m-[-1px]">
+                      <ProductCard
+                        product={product}
+                        firstImage={'product'}
+                        imageSizes="(max-width: 1024px) 80vw, 40vw"
+                      />
+                    </div>
                   </CarouselItem>
                 );
               })}
@@ -101,11 +103,13 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
           <div className="flex gap-x-10">
             <MediaContent title={title} description={description} media={media} />
             <div className="w-full grow">
-              <CarouselContent className="-ml-0">
+              <CarouselContent className="-ml-0 border border-brand-light-grey">
                 {products.map((product) => {
                   return (
                     <CarouselItem key={product.title + product.sku} className="pl-0 lg:basis-1/2">
-                      <ProductCard product={product} firstImage={'product'} />
+                      <div className="m-[-1px]">
+                        <ProductCard product={product} firstImage={'product'} />
+                      </div>
                     </CarouselItem>
                   );
                 })}

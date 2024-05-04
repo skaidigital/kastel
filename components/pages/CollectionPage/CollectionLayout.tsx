@@ -107,7 +107,7 @@ export function CollectionLayout({
                   <div
                     key={index}
                     className={cn(
-                      'aspect-h-3 aspect-w-2 !relative border border-brand-light-grey lg:aspect-none lg:h-auto lg:w-full'
+                      'aspect-h-3 aspect-w-2 !relative m-[-1px] border border-brand-light-grey lg:aspect-none lg:h-auto lg:w-full'
                     )}
                   >
                     <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
@@ -116,12 +116,13 @@ export function CollectionLayout({
               }
               const priorityIndices = [0, 1, 2];
               return (
-                <ProductCard
-                  key={index}
-                  priority={priorityIndices.includes(index)}
-                  product={item}
-                  imageSizes={sizes}
-                />
+                <div key={index} className="m-[-1px]">
+                  <ProductCard
+                    priority={priorityIndices.includes(index)}
+                    product={item}
+                    imageSizes={sizes}
+                  />
+                </div>
               );
             })}
           </CollectionGrid>
@@ -133,7 +134,9 @@ export function CollectionLayout({
                 return (
                   <div
                     key={index}
-                    className={cn('!relative h-full w-full border border-brand-light-grey')}
+                    className={cn(
+                      '!relative m-[-1px] h-full w-full border border-brand-light-grey'
+                    )}
                   >
                     <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
                   </div>
@@ -142,12 +145,14 @@ export function CollectionLayout({
 
               const priorityIndices = [0, 1, 2];
               return (
-                <ProductCard
-                  key={index}
-                  priority={priorityIndices.includes(index)}
-                  product={item}
-                  imageSizes={sizes}
-                />
+                <div className="m-[-1px]" key={index}>
+                  <ProductCard
+                    key={index}
+                    priority={priorityIndices.includes(index)}
+                    product={item}
+                    imageSizes={sizes}
+                  />
+                </div>
               );
             })}
           </CollectionGrid>

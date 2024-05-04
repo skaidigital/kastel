@@ -302,24 +302,72 @@ export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
   { title: '3:4', value: '3:4' }
 ];
 
-export const SORT_OPTIONS = [
-  {
-    label: 'Recommended',
-    value: 'recommended'
-  },
-  {
-    label: 'Price (Low)',
-    value: 'price_lowest'
-  },
-  {
-    label: 'Price (High)',
-    value: 'price_highest'
-  },
-  {
-    label: 'Newest',
-    value: 'newest'
-  }
-];
+export interface SortOption {
+  title: string;
+  value: string;
+}
+
+type SortOptionsMap = {
+  [lang in LangValues]: SortOption[];
+};
+
+export const SORT_OPTIONS: SortOptionsMap = {
+  en: [
+    {
+      title: 'Recommended',
+      value: 'recommended'
+    },
+    {
+      title: 'Price (Low)',
+      value: 'price_lowest'
+    },
+    {
+      title: 'Price (High)',
+      value: 'price_highest'
+    },
+    {
+      title: 'Newest',
+      value: 'newest'
+    }
+  ],
+  no: [
+    {
+      title: 'Anbefalt',
+      value: 'recommended'
+    },
+    {
+      title: 'Pris (Lav)',
+      value: 'price_lowest'
+    },
+    {
+      title: 'Pris (Høy)',
+      value: 'price_highest'
+    },
+    {
+      title: 'Nyeste',
+      value: 'newest'
+    }
+  ]
+};
+
+// export const SORT_OPTIONS = [
+//   {
+//     label: 'Recommended',
+//     value: 'recommended'
+//   },
+//   {
+//     label: 'Price (Low)',
+//     value: 'price_lowest'
+//   },
+//   {
+//     label: 'Price (High)',
+//     value: 'price_highest'
+//   },
+//   {
+//     label: 'Newest',
+//     value: 'newest'
+//   }
+// ];
 
 // ? The different types of links that can be created in Sanity.
 export const LINK_TYPES = [

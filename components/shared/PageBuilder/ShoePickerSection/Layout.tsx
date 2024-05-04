@@ -63,11 +63,14 @@ export function ShoePickerLayout({
             <CarouselNext />
           </div>
         </Container>
-        <CarouselContent className="-ml-0 divide-x divide-brand-light-grey">
+        <CarouselContent className="-ml-0 border-y border-brand-light-grey">
           {activeType?.items.map((item, index) => {
             if (item.type === 'product') {
               return (
-                <CarouselItem key={item.title + index} className="basis-[80%] pl-0 lg:basis-[25%]">
+                <CarouselItem
+                  key={item.title + index}
+                  className="m-[-1px] basis-[80%] pl-0 lg:basis-[25%]"
+                >
                   <ProductCard
                     firstImage={'product'}
                     product={item}
@@ -77,7 +80,10 @@ export function ShoePickerLayout({
               );
             }
             return (
-              <CarouselItem key={index} className="relative h-auto basis-[80%] pl-0 lg:basis-[25%]">
+              <CarouselItem
+                key={index}
+                className="relative m-[-1px] h-auto basis-[80%] pl-0 lg:basis-[25%]"
+              >
                 <Media media={item} loading="lazy" sizes="(max-width: 1024px) 80vw, 30vw" />
               </CarouselItem>
             );

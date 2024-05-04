@@ -49,7 +49,7 @@ export async function FilterGroupItem({ item: filterGroup }: FilterItemProps) {
         </div>
       )}
       {filterGroup.type === 'size' && (
-        <div className="grid grid-cols-4 gap-1 lg:gap-4">
+        <div className="grid grid-cols-4 gap-1 lg:gap-2">
           {filterGroups.map((filter: FilterItemSchema) => (
             <SizeFilter key={filter.id} filter={filter} parentKey={filterGroup.slug} />
           ))}

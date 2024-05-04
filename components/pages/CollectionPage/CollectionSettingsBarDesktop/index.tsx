@@ -31,7 +31,7 @@ export function CollectionSettingsBarDesktop({
         <Filter lang={lang} />
         <div className="flex space-x-10">
           <ProductsPerRowSelector />
-          <Sort />
+          <Sort lang={lang} />
         </div>
       </Row>
       <Row>

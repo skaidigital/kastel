@@ -3,8 +3,8 @@
 import { RadioGroup, RadioGroupItem } from '@/components/RadioGroup';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
 import { Text } from '@/components/base/Text';
-import { LangValues, SORT_OPTIONS } from '@/data/constants';
-import { cn } from '@/lib/utils';
+import { LangValues } from '@/data/constants';
+import { cn, getSortOptions } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { parseAsString, useQueryState } from 'nuqs';
 
@@ -20,7 +20,9 @@ export function Sort({ lang }: Props) {
     setSort(e).then(() => router.refresh());
   }
 
-  const sortValue = sort || SORT_OPTIONS[0]?.value;
+  const sortOptions = getSortOptions(lang);
+
+  const sortValue = sort || sortOptions[0]?.value;
   const sortString = getSortString(lang);
 
   return (
@@ -36,34 +38,35 @@ export function Sort({ lang }: Props) {
           onValueChange={(e) => {
             handleChange(e);
           }}
-          defaultValue={sort || SORT_OPTIONS[0]?.value}
+          defaultValue={sort || sortOptions[0]?.value}
           className="gap-y-4"
         >
-          {SORT_OPTIONS.map((option) => {
-            const isChecked = option.value === sortValue;
-            return (
-              <Text
-                key={option.value}
-                size="sm"
-                asChild
-                className="flex items-center justify-between gap-x-2"
-              >
-                <label
-                  htmlFor={option.value}
-                  className={cn(!isChecked ? 'text-brand-mid-grey' : '')}
+          {sortOptions &&
+            sortOptions.map((option) => {
+              const isChecked = option.value === sortValue;
+              return (
+                <Text
+                  key={option.value}
+                  size="sm"
+                  asChild
+                  className="flex items-center justify-between gap-x-2"
                 >
-                  {option.label}
-                  <RadioGroupItem
-                    value={option.value}
-                    id={option.value}
-                    className="text-brand-primary"
+                  <label
+                    htmlFor={option.value}
+                    className={cn(!isChecked ? 'text-brand-mid-grey' : '')}
                   >
-                    {option.label}
-                  </RadioGroupItem>
-                </label>
-              </Text>
-            );
-          })}
+                    {option.value}
+                    <RadioGroupItem
+                      value={option.value}
+                      id={option.value}
+                      className="text-brand-primary"
+                    >
+                      {option.value}
+                    </RadioGroupItem>
+                  </label>
+                </Text>
+              );
+            })}
         </RadioGroup>
       </SheetContent>
     </Sheet>
