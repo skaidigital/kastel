@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils';
 import { Suspense } from 'react';
 import { Badges, DiscountBadge } from './Badges';
 import { PriceAndSizeRange } from './PriceAndSizeRange';
-import { Rating, RatingFallback } from './Rating';
 
 interface Props {
   product: ProductCardProps;
@@ -74,7 +73,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                 {badges && <Badges badges={badges} />}
               </div>
               <div className="absolute bottom-3 right-3  @xs:hidden">
-                {sku && (
+                {/* {sku && (
                   <Suspense
                     fallback={
                       <RatingFallback className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4" />
@@ -85,7 +84,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                       className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
                     />
                   </Suspense>
-                )}
+                )} */}
               </div>
             </ImageContainer>
           </div>
@@ -99,11 +98,11 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
             </div>
             <div className="flex flex-col @xs:items-end">
               <div className="mb-1 hidden @xs:block">
-                {sku && (
+                {/* {sku && (
                   <Suspense fallback={<RatingFallback className="mb-1" />}>
                     <Rating sku={sku} className="mb-1" />
                   </Suspense>
-                )}
+                )} */}
               </div>
               <Colors colorways={colorways} productSlug={slug} />
             </div>

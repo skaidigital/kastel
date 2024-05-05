@@ -3,25 +3,26 @@ import { ProductPageLayout } from '@/components/pages/ProductPage/ProductPageLay
 import { Product, getProductQuery, productValidator } from '@/components/pages/ProductPage/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { loadProductMetadata } from '@/lib/sanity/getProductMetadata';
+import { generateStaticSlugsProducts } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { SearchParams } from '@/lib/types';
 import '@/styles/hideSmile.css';
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
-export const dynamic = 'force-dynamic';
 
-// export async function generateStaticParams({
-//   params: { lang, market }
-// }: {
-//   params: { lang: LangValues; market: MarketValues };
-// }) {
-//   const slugs = await generateStaticSlugsProducts(lang, market);
+export const dynamic = 'force-static';
 
-//   return slugs;
-// }
+export async function generateStaticParams({
+  params: { lang, market }
+}: {
+  params: { lang: LangValues; market: MarketValues };
+}) {
+  const slugs = await generateStaticSlugsProducts(lang, market);
+
+  return slugs;
+}
 
 function loadProduct({
   slug,
@@ -52,7 +53,8 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
   const slug = params.slug;
   const market = params.market;
   const lang = params.lang;
-  const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
+  // const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
+  const activeGender = 'female';
 
   try {
     const initial = await loadProduct({ slug, market, lang, gender: activeGender });

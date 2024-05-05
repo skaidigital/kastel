@@ -1,14 +1,8 @@
 import { NavbarLayout } from '@/components/global/Navbar/NavbarLayout';
 import { NavbarPayload, getNavbarQuery } from '@/components/global/Navbar/hooks';
-import Cart from '@/components/shared/Cart';
-import { CrossSell } from '@/components/shared/Cart/CrossSell';
-import { CrossSellSkeleton } from '@/components/shared/Cart/CrossSell/CrossSellSkeleton';
-import OpenCart from '@/components/shared/Cart/open-cart';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
-import { draftMode } from 'next/headers';
-import { Suspense } from 'react';
 
 async function loadNavbar(lang: LangValues) {
   const query = getNavbarQuery(lang);
@@ -27,7 +21,7 @@ interface Props {
 }
 export async function Navbar({ market, lang, className }: Props) {
   const initial = await loadNavbar(lang);
-  const isDraftMode = draftMode().isEnabled;
+  // const isDraftMode = draftMode().isEnabled;
 
   const withoutNullValues = nullToUndefined(initial.data);
   // let validatedData;
@@ -40,7 +34,8 @@ export async function Navbar({ market, lang, className }: Props) {
 
   return (
     <NavbarLayout data={withoutNullValues} className={className}>
-      <Suspense fallback={<OpenCart />}>
+      <></>
+      {/* <Suspense fallback={<OpenCart />}>
         <Cart market={market} lang={lang}>
           <Suspense fallback={<CrossSellSkeleton className="px-4 lg:px-6 lg:py-4" />}>
             <CrossSell
@@ -51,7 +46,7 @@ export async function Navbar({ market, lang, className }: Props) {
             />
           </Suspense>
         </Cart>
-      </Suspense>
+      </Suspense> */}
     </NavbarLayout>
   );
 }

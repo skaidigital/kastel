@@ -1,4 +1,4 @@
-import { AccountPageSchema } from '@/app/(site)/[market]/[lang]/(rest)/account/(has-sidebar)/hooks';
+import { AccountPageSchema } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/hooks';
 import { KastelClubCard } from '@/components/pages/AccountPage/KastelClubCard';
 import { LinkButton } from '@/components/pages/AccountPage/LinkButton';
 import { MyInfoCard } from '@/components/pages/AccountPage/MyInfoCard';

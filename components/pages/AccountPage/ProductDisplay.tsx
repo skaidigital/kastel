@@ -1,4 +1,4 @@
-import { productAccountSchema } from '@/app/(site)/[market]/[lang]/(rest)/account/(has-sidebar)/hooks';
+import { productAccountSchema } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/hooks';
 import { Badge } from '@/components/Badge';
 import { CustomLink } from '@/components/CustomLink';
 import { SanityImage } from '@/components/sanity/SanityImage';

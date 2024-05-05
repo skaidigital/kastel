@@ -2,16 +2,19 @@ import { LegalPage } from '@/components/pages/LegalPage';
 import { LegalPagePayload, getLegalPageQuery } from '@/components/pages/LegalPage/hooks';
 import { LangValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
+import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 
-// export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
-//   const slugs = await generateStaticSlugs(lang, 'legalPage');
+export const dynamic = 'force-static';
 
-//   return slugs;
-// }
+export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
+  const slugs = await generateStaticSlugs(lang, 'legalPage');
+
+  return slugs;
+}
 
 function loadPage({ slug, lang }: { slug: string; lang: LangValues }) {
   const query = getLegalPageQuery({ lang });

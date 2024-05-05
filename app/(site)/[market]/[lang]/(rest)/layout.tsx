@@ -5,6 +5,13 @@ import { Navbar } from '@/components/global/Navbar';
 import { LangValues, MarketValues } from '@/data/constants';
 import { ReactNode } from 'react';
 
+export async function generateStaticParams() {
+  return [
+    { market: 'no', lang: 'no' },
+    { market: 'no', lang: 'en' }
+  ];
+}
+
 interface Props {
   params: {
     market: MarketValues;

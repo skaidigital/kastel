@@ -1,4 +1,4 @@
-import { LinkItem } from '@/app/(site)/[market]/[lang]/(rest)/account/(has-sidebar)/LinkItem';
+import { LinkItem } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/LinkItem';
 import { getDictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
 import { COOKIE_NAMES, LangValues, ROUTES } from '@/data/constants';

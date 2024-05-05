@@ -11,12 +11,8 @@ import { ReactNode, Suspense } from 'react';
 import { CartContextProvider } from '@/components/CartContext';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { MarketPopup } from '@/components/global/MarketPopup';
-import { PopupHandler } from '@/components/global/PopupHandler';
-import { SmileLayout } from '@/components/smile/SmileLayout';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
-import { VisualEditing } from 'next-sanity';
-import { revalidatePath, revalidateTag } from 'next/cache';
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
@@ -39,12 +35,12 @@ export default function IndexRoute({
       <CartContextProvider>
         <Providers>
           <div>
-            <Suspense>
+            {/* <Suspense>
               <PopupHandler lang={lang} />
-            </Suspense>
+            </Suspense> */}
             <main>
               <Suspense>{children}</Suspense>
-              {draftMode().isEnabled && (
+              {/* {draftMode().isEnabled && (
                 <VisualEditing
                   refresh={async (payload) => {
                     'use server';
@@ -62,16 +58,16 @@ export default function IndexRoute({
                     await revalidatePath('/', 'layout');
                   }}
                 />
-              )}
+              )} */}
               <Analytics />
             </main>
           </div>
           <ShopifyAnalytics hasConsent />
           <MarketPopup lang={lang} />
           {draftMode().isEnabled && <PreviewMarketSelector />}
-          <Suspense>
+          {/* <Suspense>
             <SmileLayout />
-          </Suspense>
+          </Suspense> */}
         </Providers>
       </CartContextProvider>
     </>

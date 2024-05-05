@@ -24,7 +24,6 @@ import { LangValues, MarketValues } from '@/data/constants';
 import { urlForImage } from '@/lib/sanity/image';
 import { SanityImageProps } from '@/lib/sanity/types';
 import { SearchParams } from '@/lib/types';
-import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import { ColorSelectLayout } from './ColorSelectLayout';
 import { DiscountBadge } from './DiscountBadge';
@@ -48,7 +47,8 @@ export async function ProductPageLayout(props: Props) {
 
   if (!product) return null;
 
-  const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
+  // const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
+  const activeGender = 'female';
 
   const {
     gallery,
