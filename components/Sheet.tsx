@@ -58,6 +58,7 @@ export function SheetContent({
 interface SheetRootProps {
   isOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+
   children: ReactNode;
 }
 
@@ -89,7 +90,7 @@ export function SheetHeader({ title, className, children }: SheetHeaderProps) {
             {title}
           </Heading>
         </Drawer.Title>
-        <Drawer.Close>
+        <Drawer.Close asChild>
           <button>
             <TouchTarget>
               <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey" />

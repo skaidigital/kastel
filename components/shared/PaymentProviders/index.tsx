@@ -27,7 +27,10 @@ export async function PaymentProviders({ market, size = 'md' }: Props) {
     <div className={cn('flex', size === 'sm' ? 'gap-x-1' : 'gap-x-2')}>
       {paymentProviders.data.map((provider) => (
         <React.Fragment key={provider}>
-          {getPaymentProvider(provider, 'h-8 w-auto rounded-[4px] border border-brand-light-grey')}
+          {getPaymentProvider(
+            provider,
+            'h-8 w-auto rounded-[4px] border border-brand-light-grey bg-white'
+          )}
         </React.Fragment>
       ))}
     </div>

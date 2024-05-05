@@ -8,7 +8,7 @@ import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCoun
 import { Button } from '@/components/Button';
 import { CustomLink } from '@/components/CustomLink';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
 import { CartItem } from '@/components/shared/Cart/CartItem';
 import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
 import {
@@ -217,17 +217,16 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
           )}
         >
           {/* Header */}
-          <DrawerHeader title={dictionary.cart} className="h-fit px-4">
+          <SheetHeader title={dictionary.cart} className="h-fit px-4">
             {freeShippingAmount && currencyCode && (
               <FreeShippingCountdown
                 freeShippingAmount={freeShippingAmount}
                 totalAmount={totalAmount || 0}
                 dictionary={dictionary}
                 currencyCode={currencyCode}
-                className="pt-4"
               />
             )}
-          </DrawerHeader>
+          </SheetHeader>
           {/* Main content */}
           <div
             className={cn('flex grow flex-col overflow-auto', !hasCartItems && 'justify-center')}

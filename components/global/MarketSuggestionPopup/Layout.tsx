@@ -13,7 +13,7 @@ import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { useRouter } from 'next/navigation';
 import { parseAsBoolean, useQueryState } from 'nuqs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   requestCountry: string;
@@ -42,6 +42,15 @@ export function MarketSuggestionPopupLayout({ dictionary, requestCountry }: Prop
     router.push(href);
     onClose();
   }
+
+  useEffect(() => {
+    async function handleSetHasChosenMarket() {
+      await handleHasChosenMarket();
+    }
+    if (!isOpen) {
+      handleSetHasChosenMarket();
+    }
+  }, [isOpen]);
 
   const countryName = countries.find((country) => country.value === requestCountry)?.label;
 

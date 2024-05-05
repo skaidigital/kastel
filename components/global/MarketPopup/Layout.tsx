@@ -44,7 +44,7 @@ export function MarketLayout({ dictionary }: Props) {
           <ModalHeader title={dictionary.select_your_location} onClose={onClose} />
           <div className="grid grid-cols-3 gap-4">
             <MarketItem
-              flag={<NorwegianFlagIcon />}
+              flag={<NorwegianFlagIcon className="h-full w-full" />}
               market="Norway"
               language="Norwegian"
               href="/no/no"
@@ -52,7 +52,7 @@ export function MarketLayout({ dictionary }: Props) {
               onClick={() => handleClick('/no/no')}
             />
             <MarketItem
-              flag={<NorwegianFlagIcon />}
+              flag={<NorwegianFlagIcon className="h-full w-full" />}
               market="Norway"
               language="English"
               href="/no/en"
@@ -73,7 +73,7 @@ export function MarketLayout({ dictionary }: Props) {
         </h2>
         <div className="grid grid-cols-2 gap-3">
           <MarketItem
-            flag={<NorwegianFlagIcon />}
+            flag={<NorwegianFlagIcon className="h-full w-full" />}
             market="Norway"
             language="Norwegian"
             href="/no/no"
@@ -81,7 +81,7 @@ export function MarketLayout({ dictionary }: Props) {
             onClick={() => handleClick('/no/no')}
           />
           <MarketItem
-            flag={<NorwegianFlagIcon />}
+            flag={<NorwegianFlagIcon className="h-full w-full" />}
             market="Norway"
             language="English"
             href="/no/en"

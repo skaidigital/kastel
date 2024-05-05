@@ -20,7 +20,11 @@ export function FooterItem({ item, className }: Props) {
       <div className="flex flex-col gap-y-2">
         {item.links &&
           item.links.map((link) => (
-            <SanityLink link={link.link} className="text-sm" key={item.heading + link.link.text}>
+            <SanityLink
+              link={link.link}
+              className="text-balance text-sm"
+              key={item.heading + link.link.text}
+            >
               {link.link.text}
             </SanityLink>
           ))}

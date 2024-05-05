@@ -12,13 +12,15 @@ interface Props {
   children: React.ReactNode;
   placement?: 'left' | 'right' | 'bottom';
   className?: string;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-export function DrawerContent({ children, placement = 'right', className }: Props) {
+export function DrawerContent({ children, placement = 'right', className, ref }: Props) {
   return (
     <Dialog.Portal>
       <Overlay />
       <Dialog.Content
+        ref={(ref) => ref?.addEventListener('touchend', (e) => e.preventDefault())}
         forceMount
         className={cn(
           'border-brand-border fixed z-30 flex h-screen w-full max-w-md flex-col rounded-project bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none',
