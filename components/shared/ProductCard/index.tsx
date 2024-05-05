@@ -5,10 +5,8 @@ import { ProductCardProvider } from '@/components/shared/ProductCard/Context';
 import { ProductCardImage } from '@/components/shared/ProductCard/Image';
 import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer';
 import { Rating } from '@/components/shared/ProductCard/Rating';
-import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
-import { Suspense } from 'react';
 import { Badges, DiscountBadge } from './Badges';
 import { PriceAndSizeRange } from './PriceAndSizeRange';
 
@@ -54,9 +52,9 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
       <ProductCardProvider>
         <CustomLinkProductCard slug={slug}>
           <div className="absolute right-3 top-3 z-50 @xs:right-4 @xs:top-4">
-            <Suspense fallback={<WishlistFallback />}>
+            {/* <Suspense fallback={<WishlistFallback />}>
               <Wishlist gid={gid} />
-            </Suspense>
+            </Suspense> */}
           </div>
           <div className={cn('group border-b border-brand-light-grey', className)}>
             <ImageContainer>

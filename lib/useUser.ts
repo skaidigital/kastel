@@ -1,20 +1,21 @@
-// export async function useUser() {
-//   const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+'use client';
 
-//   const isLoggedIn = accessToken ? true : false;
+import { useQuery } from '@tanstack/react-query';
 
-//   if (isLoggedIn) {
-//     const expiredCoockie = await getExpiryTime();
-//     if (!expiredCoockie) {
-//       return { isLoggedIn: false };
-//     }
-//   }
+async function getIsLoggedIn() {
+  const response = await fetch('/api/isLoggedIn');
+  const { isLoggedIn } = await response.json();
 
-//   return { isLoggedIn };
-// }
+  return isLoggedIn;
+}
 
 export async function useUser() {
-  const isLoggedIn = false;
+  const { data: isLoggedIn } = useQuery({
+    queryKey: ['isLoggedIn'],
+    queryFn: async () => {
+      return getIsLoggedIn();
+    }
+  });
 
   return { isLoggedIn };
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import { WishlistButton } from '@/components/shared/ProductCard/Wishlist/WishlistButton';
 import { isItemInWishlist } from '@/lib/shopify/metafields/isItemInWishlist';
 import { useUser } from '@/lib/useUser';
@@ -12,6 +14,7 @@ interface Props {
 
 export async function Wishlist({ gid, className }: Props) {
   const { isLoggedIn } = await useUser();
+
   let isInWishlist = false;
 
   if (isLoggedIn) {

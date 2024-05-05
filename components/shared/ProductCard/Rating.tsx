@@ -1,3 +1,5 @@
+'use client';
+
 import { Text } from '@/components/base/Text';
 import { useProductRating } from '@/components/lipscore/useProductRating';
 import { cn } from '@/lib/utils';
@@ -12,12 +14,12 @@ function RatingWrapper({ children, className }: { children: React.ReactNode; cla
   return <div className="flex items-center gap-x-1 text-xs @[320px]:text-sm">{children}</div>;
 }
 
-// TODO consider having the fallback be nothing to reduce layout shift
 export function Rating({ sku, className }: Props) {
-  // const response = await getProductRatingBySku(sku);
+  const { data: response, isLoading } = useProductRating(sku);
 
-  const { data: response } = useProductRating(sku);
-  console.log({ response });
+  if (isLoading) {
+    return <RatingFallback />;
+  }
 
   if (!response || !response.rating || !response.votes) {
     return null;
@@ -47,7 +49,7 @@ export function RatingFallback({ className }: RatingFallbackProps) {
         <StarFilledIcon className="h-[14.4px] w-[14.4px]" />
         <Text size="sm">5.0</Text>
       </div>
-      <Text size="sm">(0000)</Text>
+      <Text size="sm">(00)</Text>
     </RatingWrapper>
   );
 }
