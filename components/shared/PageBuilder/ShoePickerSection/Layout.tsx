@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Carousel,
   CarouselContent,
@@ -9,6 +11,7 @@ import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
+import { useShoePickerContext } from '@/components/shared/PageBuilder/ShoePickerSection/Context';
 import { TypeSelector } from '@/components/shared/PageBuilder/ShoePickerSection/TypeSelector';
 import { ShoePickerProps } from '@/components/shared/PageBuilder/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
@@ -19,8 +22,6 @@ interface Props {
   pageType: string;
   title: string;
   types: ShoePickerProps['types'];
-  activeType: ShoePickerProps['types'][0];
-  activeTypeName: string;
   sectionSettings: ShoePickerProps['sectionSettings'];
 }
 
@@ -30,12 +31,13 @@ export function ShoePickerLayout({
   pageType,
   title,
   types,
-  activeType,
-  activeTypeName,
   sectionSettings
 }: Props) {
   const firstTwoWordsInTitle = title?.split(' ').slice(0, 2).join(' ');
   const restOfTitle = title?.split(' ').slice(2).join(' ');
+
+  const { activeTypeName } = useShoePickerContext();
+  const activeType = types.find((type) => type.title === activeTypeName);
 
   return (
     <Section

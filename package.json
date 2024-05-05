@@ -83,6 +83,7 @@
     "@sentry/nextjs": "^7.105.0",
     "@shopify/hydrogen-react": "2023.4.5",
     "@t3-oss/env-nextjs": "^0.7.1",
+    "@tanstack/react-query": "^5.34.2",
     "@types/node": "20.4.4",
     "@vercel/analytics": "^1.2.2",
     "@vercel/postgres": "^0.7.2",

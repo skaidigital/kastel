@@ -140,6 +140,9 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.7.1
     version: 0.7.3(typescript@5.4.5)(zod@3.23.5)
+  '@tanstack/react-query':
+    specifier: ^5.34.2
+    version: 5.34.2(react@18.3.1)
   '@types/node':
     specifier: 20.4.4
     version: 20.4.4
@@ -7019,6 +7022,19 @@ packages:
       - supports-color
       - typescript
     dev: true
+
+  /@tanstack/query-core@5.34.2:
+    resolution: {integrity: sha512-FM1UXldYcoMiWmVbpewV14EVpnr/ETBbdF84tmCktx29e2bXBFhGtAfyDHUD4X1FehaV5tC9GkXZUMZRQV3lcA==}
+    dev: false
+
+  /@tanstack/react-query@5.34.2(react@18.3.1):
+    resolution: {integrity: sha512-5L9W9XQ/lRcyhlVN0xrOkPZE9PJxZWw7BdJR244j3G7sxMfSreZWvxx13DJt08M5DWn9B5VstpKgqpIIQOIJKA==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': 5.34.2
+      react: 18.3.1
+    dev: false
 
   /@tanstack/react-virtual@3.0.0-beta.54(react@18.3.1):
     resolution: {integrity: sha512-D1mDMf4UPbrtHRZZriCly5bXTBMhylslm4dhcHqTtDJ6brQcgGmk8YD9JdWBGWfGSWPKoh2x1H3e7eh+hgPXtQ==}

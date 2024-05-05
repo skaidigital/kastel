@@ -1,7 +1,7 @@
 'use client';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
-import { setActiveTypeName } from '@/components/shared/PageBuilder/ShoePickerSection/actions';
+import { useShoePickerContext } from '@/components/shared/PageBuilder/ShoePickerSection/Context';
 import { ShoePickerProps } from '@/components/shared/PageBuilder/hooks';
 
 interface Props {
@@ -10,8 +10,11 @@ interface Props {
 }
 
 export function TypeSelector({ types, activeTypeName }: Props) {
+  const { setActiveTypeName } = useShoePickerContext();
+
   async function handleChange(value: string) {
-    await setActiveTypeName(value);
+    // await setActiveTypeName(value);
+    setActiveTypeName(value);
   }
 
   return (

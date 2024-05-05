@@ -4,6 +4,7 @@ import { Colors } from '@/components/shared/ProductCard/Colors';
 import { ProductCardProvider } from '@/components/shared/ProductCard/Context';
 import { ProductCardImage } from '@/components/shared/ProductCard/Image';
 import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer';
+import { Rating } from '@/components/shared/ProductCard/Rating';
 import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
@@ -73,18 +74,12 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                 {badges && <Badges badges={badges} />}
               </div>
               <div className="absolute bottom-3 right-3  @xs:hidden">
-                {/* {sku && (
-                  <Suspense
-                    fallback={
-                      <RatingFallback className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4" />
-                    }
-                  >
-                    <Rating
-                      sku={sku}
-                      className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
-                    />
-                  </Suspense>
-                )} */}
+                {sku && (
+                  <Rating
+                    sku={sku}
+                    className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
+                  />
+                )}
               </div>
             </ImageContainer>
           </div>
@@ -98,11 +93,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
             </div>
             <div className="flex flex-col @xs:items-end">
               <div className="mb-1 hidden @xs:block">
-                {/* {sku && (
-                  <Suspense fallback={<RatingFallback className="mb-1" />}>
-                    <Rating sku={sku} className="mb-1" />
-                  </Suspense>
-                )} */}
+                {sku && <Rating sku={sku} className="mb-1" />}
               </div>
               <Colors colorways={colorways} productSlug={slug} />
             </div>
