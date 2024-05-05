@@ -39,7 +39,6 @@ export function DrawerContent({ children, placement = 'right', className }: Prop
 
 interface DrawerRootProps {
   isOpen?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onOpenChange?: (open: boolean) => void;
   children: ReactNode;
 }

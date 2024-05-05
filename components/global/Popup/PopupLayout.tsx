@@ -17,7 +17,7 @@ import { LinkProps } from '@/lib/sanity/types';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as Dialog from '@radix-ui/react-dialog';
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -39,6 +39,12 @@ export function PopupLayout({ data, klaviyoListId }: Props) {
     setIsOpen(false);
   }
   const isDesktop = useIsDesktop();
+
+  useEffect(() => {
+    if (!isOpen) {
+      hasSeenPopup();
+    }
+  }, [isOpen]);
 
   if (isDesktop) {
     return (

@@ -14,6 +14,7 @@ interface Props {
   className?: string;
   overlayClassName?: string;
   noPadding?: boolean;
+  onClose?: (e: any) => void;
   layer?: 1 | 2 | 3;
 }
 
