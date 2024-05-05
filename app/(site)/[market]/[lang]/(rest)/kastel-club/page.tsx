@@ -7,6 +7,8 @@ import { CACHE_TAGS, LangValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
+export const dynamic = 'force-static';
+
 async function loadKastelClubPage(lang: LangValues) {
   const query = getKastelClubPageQuery(lang);
 

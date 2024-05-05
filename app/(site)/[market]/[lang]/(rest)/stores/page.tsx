@@ -3,6 +3,8 @@ import { getRetailersPageQuery } from '@/components/pages/RetailersPage/hooks';
 import { MarketValues } from '@/data/constants';
 import { loadQuery } from '@/lib/sanity/store';
 
+export const dynamic = 'force-static';
+
 async function loadRetailersPage(market: MarketValues) {
   const sanityQuery = getRetailersPageQuery(market);
   return loadQuery<any>(sanityQuery, {}, { next: { tags: [`retailers`] } });

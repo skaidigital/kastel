@@ -12,6 +12,7 @@ import {
 } from '@/components/pages/CollectionPage/hooks';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
+import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
@@ -19,11 +20,13 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-// export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
-//   const slugs = await generateStaticSlugs(lang, 'collection');
+export const dynamic = 'force-static';
 
-//   return slugs;
-// }
+export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
+  const slugs = await generateStaticSlugs(lang, 'collection');
+
+  return slugs;
+}
 
 function loadCollectionBase({
   slug,
