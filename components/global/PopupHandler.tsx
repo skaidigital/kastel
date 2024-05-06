@@ -1,34 +1,28 @@
-import { COOKIE_NAMES, LangValues } from '@/data/constants';
+'use client';
+
+import { LangValues } from '@/data/constants';
+import { usePopupCookies } from '@/lib/usePopupCookies';
 import dynamic from 'next/dynamic';
-import { cookies } from 'next/headers';
-import { Suspense } from 'react';
 
-const MarketSuggestionPopup = dynamic(
-  () =>
-    import('@/components/global/MarketSuggestionPopup/index').then(
-      (mod) => mod.MarketSuggestionPopup
-    ),
-  {
-    suspense: true
-  }
+const DynamicMarketSuggestionPopup = dynamic(() =>
+  import('@/components/global/MarketSuggestionPopup').then((mod) => mod.MarketSuggestionPopup)
 );
-
-const Popup = dynamic(() => import('@/components/global/Popup').then((mod) => mod.Popup), {
-  suspense: true
-});
+// const DynamicPopup = dynamic(() => import('@/components/global/Popup').then((mod) => mod.Popup));
 
 interface Props {
   lang: LangValues;
 }
 
-export async function PopupHandler({ lang }: Props) {
-  const cookiesStore = cookies();
-  const hasChosenMarket = cookiesStore.get(COOKIE_NAMES.HAS_CHOSEN_MARKET)?.value;
-  const requestCountry = cookiesStore.get(COOKIE_NAMES.REQUEST_COUNTRY)?.value;
-  const reccommendedMarket = cookiesStore.get(COOKIE_NAMES.RECCOMMENDED_MARKET)?.value;
-  const hasSeenPopupInLastDay = cookiesStore.get(COOKIE_NAMES.POPUP)?.value;
-  const hasConsent = cookiesStore.get(COOKIE_NAMES.COOKIE_CONSENT)?.value;
+// TODO use dynamic import
+export function PopupHandler({ lang }: Props) {
   const isProduction = process.env.NODE_ENV === 'production';
+
+  const { cookies } = usePopupCookies();
+  const hasChosenMarket = cookies?.hasChosenMarket;
+  const requestCountry = cookies?.requestCountry as string;
+  const reccommendedMarket = cookies?.reccommendedMarket as string;
+  const hasSeenPopupInLastDay = cookies?.hasSeenPopupInLastDay;
+  const hasConsent = cookies?.hasConsent;
 
   const productionConsent = isProduction && hasConsent;
   const productionConcentOrNotProduction = productionConsent || !isProduction;
@@ -40,19 +34,17 @@ export async function PopupHandler({ lang }: Props) {
     reccommendedMarket
   ) {
     return (
-      <Suspense>
-        <MarketSuggestionPopup lang={lang} />
-      </Suspense>
+      <DynamicMarketSuggestionPopup
+        lang={lang}
+        requestCountry={requestCountry}
+        reccommendedMarket={reccommendedMarket}
+      />
     );
   }
 
-  if (productionConcentOrNotProduction && !hasSeenPopupInLastDay) {
-    return (
-      <Suspense>
-        <Popup lang={lang} />
-      </Suspense>
-    );
-  }
+  // if (productionConcentOrNotProduction && !hasSeenPopupInLastDay) {
+  //   return <DynamicPopup lang={lang} />;
+  // }
 
   return null;
 }

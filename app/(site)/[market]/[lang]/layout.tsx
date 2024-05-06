@@ -1,16 +1,15 @@
 import Providers from '@/components/Providers';
-import PreviewMarketSelector from '@/components/sanity/PreviewMarketSelector';
 import { env } from '@/env';
 import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
-import { draftMode } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 
 import { CartContextProvider } from '@/components/CartContext';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { MarketPopup } from '@/components/global/MarketPopup';
+import { PopupHandler } from '@/components/global/PopupHandler';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import '../../../../styles/MyWebfontsKit.css';
@@ -35,9 +34,9 @@ export default function IndexRoute({
       <CartContextProvider>
         <Providers>
           <div>
-            {/* <Suspense>
-              <PopupHandler lang={lang} />
-            </Suspense> */}
+            {/* <Suspense> */}
+            <PopupHandler lang={lang} />
+            {/* </Suspense> */}
             <main>
               <Suspense>{children}</Suspense>
               {/* {draftMode().isEnabled && (
@@ -64,7 +63,7 @@ export default function IndexRoute({
           </div>
           <ShopifyAnalytics hasConsent />
           <MarketPopup lang={lang} />
-          {draftMode().isEnabled && <PreviewMarketSelector />}
+          {/* {draftMode().isEnabled && <PreviewMarketSelector />} */}
           {/* <Suspense>
             <SmileLayout />
           </Suspense> */}

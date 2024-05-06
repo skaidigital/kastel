@@ -23,7 +23,7 @@ interface Props {
 
 // TODO make it more sophisticated once we have more markets
 export function MarketSuggestionPopupLayout({ dictionary, requestCountry }: Props) {
-  const [marketPopupIsOpen, setMarketPopupIsOpen] = useQueryState('market_popup', parseAsBoolean);
+  const [_, setMarketPopupIsOpen] = useQueryState('market_popup', parseAsBoolean);
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const { market, lang } = useBaseParams();
 
