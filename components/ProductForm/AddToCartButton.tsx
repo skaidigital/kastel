@@ -114,7 +114,7 @@ export const AddToCartButton = ({
               queryKey: ['cart']
             });
           }
-          router.refresh();
+          // router.refresh();
         });
       }}
       className={cn(

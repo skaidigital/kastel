@@ -41,6 +41,8 @@ export default function EditItemQuantityButton({ lineId, variantId, quantity, ty
             // Trigger the error boundary in the root error.js
             throw new Error(error.toString());
           }
+          console.log('will now refresh');
+
           queryClient.invalidateQueries({
             queryKey: ['cart']
           });

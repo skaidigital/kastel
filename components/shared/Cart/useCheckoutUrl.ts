@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 // TODO update cache when you log in etch
-async function getCheckoutUrl(isLoggedIn: boolean) {
+async function getCheckoutUrl(isLoggedIn: boolean): Promise<{ checkoutUrl: string }> {
   const checkoutUrlResponse = await fetch('/api/shopify/getCheckoutUrl', {
     method: 'POST',
     headers: {
@@ -22,5 +22,5 @@ export function useCheckoutUrl(isLoggedIn: boolean) {
     }
   });
 
-  return { checkoutUrl: response.data, isLoading: response.isLoading };
+  return { checkoutUrl: response.data?.checkoutUrl || undefined, isLoading: response.isLoading };
 }

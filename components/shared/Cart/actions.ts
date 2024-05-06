@@ -1,6 +1,5 @@
 'use server';
 
-import { CACHE_TAGS } from '@/data/constants';
 import {
   addToCart,
   applyDiscountToCart,
@@ -10,7 +9,6 @@ import {
   updateCart,
   updateCartAttributes
 } from '@/lib/shopify';
-import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
 export async function getCheckoutUrl(isLoggedIn: boolean) {
@@ -66,7 +64,7 @@ export const addItem = async (variantId: string | undefined): Promise<AddItemRes
   try {
     await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
 
-    revalidateTag(CACHE_TAGS.CART);
+    // revalidateTag(CACHE_TAGS.CART);
 
     return { success: true, cartId };
   } catch (e) {

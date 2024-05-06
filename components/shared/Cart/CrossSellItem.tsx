@@ -102,7 +102,7 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
           queryKey: ['cart']
         });
       }
-      router.refresh();
+      // router.refresh();
     });
   }
 

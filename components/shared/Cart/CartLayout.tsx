@@ -48,6 +48,8 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const { cart } = useCart();
   const { checkoutUrl } = useCheckoutUrl(isLoggedIn);
 
+  console.log({ checkoutUrl });
+
   const isDesktop = useIsDesktop();
 
   const [isPending, startTransition] = useTransition();
