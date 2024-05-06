@@ -1,7 +1,7 @@
 'use client';
 
+import { useProductInventory } from '@/app/api/shopify/useProductInventory';
 import { Dictionary } from '@/app/dictionaries';
-import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { OptionGroup } from '@/components/VariantSelector/OptionGroup';
 import { ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { SizeGuideProps } from '@/lib/sanity/types';
@@ -13,7 +13,7 @@ export type Combination = {
 };
 
 interface Props {
-  inventory: ProductInventoryResponse;
+  productId: string;
   options: ProductOption[];
   featuredOptions: string[];
   variants: ProductVariant[];
@@ -22,17 +22,19 @@ interface Props {
 }
 
 export function VariantSelector({
-  inventory,
+  productId,
   options,
   featuredOptions,
   variants,
   sizeGuide,
   dictionary
 }: Props) {
+  const { data: inventory } = useProductInventory(productId);
+
   const combinations: Combination[] = variants.map((variant) => ({
     id: variant.id,
     availableForSale:
-      inventory.variants.edges.find((edge) => edge.node.id === variant.id)?.node
+      inventory?.variants?.edges?.find((edge) => edge.node.id === variant.id)?.node
         ?.availableForSale || false,
     ...variant.selectedOptions
       ?.filter(

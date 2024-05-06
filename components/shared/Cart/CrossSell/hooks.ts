@@ -33,22 +33,43 @@ export const crossSellProductsValidator = z.array(crossSellProductValidator).opt
 export type CrossSellProduct = z.infer<typeof crossSellProductValidator>;
 export type CrossSellProducts = z.infer<typeof crossSellProductsValidator>;
 
-export function getCrossSellQuery({ market, lang }: { market: string; lang: LangValues }) {
-  const query = groq`
-  *[_type=="product" && gid_${market}==$gid][0] {
-      "crossSellProducts": coalesce(
-        cartCrossSellProducts[]->{
-        ${crossSellProductQuery({ market, lang })}
-      },
-        productType->.cartCrossSellProducts[]->{
-        ${crossSellProductQuery({ market, lang })}
-      },
-        *[_type == "merchandising"][0].cartCrossSellProducts[][]->{
-        ${crossSellProductQuery({ market, lang })}
-      }  
-    )
-  }.crossSellProducts
+export function getCrossSellQuery({
+  market,
+  lang,
+  gid
+}: {
+  market: string;
+  lang: LangValues;
+  gid?: string;
+}) {
+  let query;
+  if (gid) {
+    // Query when `gid` is provided
+    query = groq`
+      *[_type=="product" && gid_${market}==$gid][0] {
+        "crossSellProducts": coalesce(
+          cartCrossSellProducts[]->{
+            ${crossSellProductQuery({ market, lang })}
+          },
+          productType->.cartCrossSellProducts[]->{
+            ${crossSellProductQuery({ market, lang })}
+          },
+          *[_type == "merchandising"][0].cartCrossSellProducts[][]->{
+            ${crossSellProductQuery({ market, lang })}
+          }  
+        )
+      }.crossSellProducts
     `;
+  } else {
+    // Query when `gid` is not provided
+    query = groq`
+      *[_type == "merchandising"][0] {
+        "crossSellProducts": cartCrossSellProducts[][]->{
+          ${crossSellProductQuery({ market, lang })}
+        }
+      }.crossSellProducts
+    `;
+  }
 
   return query;
 }

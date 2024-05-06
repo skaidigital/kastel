@@ -39,7 +39,8 @@ const config = definePlugin({
     }),
     media(),
     muxInput({
-      mp4_support: 'standard'
+      mp4_support: 'standard',
+      disableUploadConfig: true
     }),
     visionTool({ defaultApiVersion: apiVersion }),
     simplerColorInput({

@@ -13,7 +13,7 @@ import {
   removeItemFromWishlist
 } from '@/lib/shopify/metafields/adjustItemInWishlist';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 interface Props {
@@ -26,17 +26,19 @@ interface Props {
 }
 
 export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, className }: Props) {
-  const router = useRouter();
   const { lang } = useBaseParams();
   const [isShown, setIsShown] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
   async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     if (itemIsInWislist) {
-      const response = await removeItemFromWishlist(gid).then(() => router.refresh());
+      const response = await removeItemFromWishlist(gid);
+      queryClient.invalidateQueries({ queryKey: ['isItemInWishlist', gid] });
       return response;
     }
 
-    const response = await addItemToWishlist(gid).then(() => router.refresh());
+    const response = await addItemToWishlist(gid);
+    queryClient.invalidateQueries({ queryKey: ['isItemInWishlist', gid] });
     return response;
   }
 

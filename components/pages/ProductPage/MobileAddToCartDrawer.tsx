@@ -3,7 +3,6 @@
 import { Button } from '@/components/Button';
 import { useCartContext } from '@/components/CartContext';
 import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
-import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
@@ -15,7 +14,6 @@ interface Props {
   productId: string;
   productType: Product['type'];
   variants: ProductVariant[];
-  inventory: ProductInventoryResponse;
   addToCartText: string;
   selectSizeText: string;
 
@@ -26,7 +24,6 @@ export function MobileAddToCartDrawer({
   productId,
   productType,
   variants,
-  inventory,
   addToCartText,
   selectSizeText,
   children
@@ -83,7 +80,6 @@ export function MobileAddToCartDrawer({
                 productId={productId}
                 productType={productType}
                 variants={variants}
-                inventory={inventory}
                 addToCartText={addToCartText}
                 selectSizeText={selectSizeText}
               />

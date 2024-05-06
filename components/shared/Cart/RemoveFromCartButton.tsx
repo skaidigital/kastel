@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { removeItem } from '@/components/shared/Cart/actions';
 import { TrashSimple } from '@phosphor-icons/react';
+import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useTransition } from 'react';
 
@@ -13,6 +14,7 @@ interface Props {
 export default function RemoveFromCartButton({ itemId }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const queryClient = useQueryClient();
 
   return (
     <button
@@ -25,6 +27,9 @@ export default function RemoveFromCartButton({ itemId }: Props) {
             // Trigger the error boundary in the root error.js
             throw new Error(error.toString());
           }
+          queryClient.invalidateQueries({
+            queryKey: ['cart']
+          });
 
           router.refresh();
         });

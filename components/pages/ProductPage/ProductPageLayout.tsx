@@ -1,7 +1,6 @@
 import { Dictionary } from '@/app/dictionaries';
 import { HotspotImage } from '@/components/HotspotImage';
 import { ProductForm } from '@/components/ProductForm';
-import { ProductFormSkeleton } from '@/components/ProductForm/ProductFormSkeleton';
 import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
 import Video from '@/components/Video';
 import { Container } from '@/components/base/Container';
@@ -13,18 +12,16 @@ import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
-import { CrossSellSkeleton } from '@/components/shared/Cart/CrossSell/CrossSellSkeleton';
 import { MobileCarousel } from '@/components/shared/MobileCarousel';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { Rating } from '@/components/shared/ProductCard/Rating';
-import { Wishlist, WishlistFallback } from '@/components/shared/ProductCard/Wishlist';
+import { Wishlist } from '@/components/shared/ProductCard/Wishlist';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
 import { urlForImage } from '@/lib/sanity/image';
 import { SanityImageProps } from '@/lib/sanity/types';
 import { SearchParams } from '@/lib/types';
-import { Suspense } from 'react';
 import { ColorSelectLayout } from './ColorSelectLayout';
 import { DiscountBadge } from './DiscountBadge';
 import { GenderImageButton } from './GenderImageButton';
@@ -176,9 +173,7 @@ export async function ProductPageLayout(props: Props) {
                     />
                     <Rating sku={productSku} />
                   </div>
-                  <Suspense fallback={<WishlistFallback />}>
-                    <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
-                  </Suspense>
+                  <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
                 </div>
                 {title && (
                   <Heading as="h1" size="xs" className="mb-1">
@@ -207,16 +202,14 @@ export async function ProductPageLayout(props: Props) {
                 {type === 'VARIABLE' && typeId && (
                   <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
                 )}
-                <Suspense fallback={<ProductFormSkeleton />}>
-                  <ProductForm
-                    lang={lang}
-                    productId={id}
-                    type={type}
-                    variants={variants}
-                    options={options}
-                    sizeGuide={product.sizeGuide}
-                  />
-                </Suspense>
+                <ProductForm
+                  lang={lang}
+                  productId={id}
+                  type={type}
+                  variants={variants}
+                  options={options}
+                  sizeGuide={product.sizeGuide}
+                />
                 <div id="marker-element" className="hidden" style={{ height: '1px' }}></div>
               </div>
               <PaymentIcons market={market} />
@@ -227,15 +220,13 @@ export async function ProductPageLayout(props: Props) {
                 lang={lang}
               />
               {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} />}
-              <Suspense fallback={<CrossSellSkeleton className="mt-8" />}>
-                <CrossSell
-                  market={market}
-                  lang={lang}
-                  gid={product.id}
-                  className="mt-8"
-                  crossSellItemClassName="p-0 lg:p-0 mt-2"
-                />
-              </Suspense>
+              <CrossSell
+                market={market}
+                lang={lang}
+                gid={product.id}
+                className="mt-8"
+                crossSellItemClassName="p-0 lg:p-0 mt-2"
+              />
             </div>
           </div>
         </Container>

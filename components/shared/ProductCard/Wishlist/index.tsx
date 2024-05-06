@@ -1,7 +1,7 @@
 'use client';
 
 import { WishlistButton } from '@/components/shared/ProductCard/Wishlist/WishlistButton';
-import { isItemInWishlist } from '@/lib/shopify/metafields/isItemInWishlist';
+import { useIsItemInWishlist } from '@/lib/shopify/metafields/isItemInWishlist';
 import { useUser } from '@/lib/useUser';
 import { cn } from '@/lib/utils';
 import { HeartIcon as HeartIconFilled } from '@heroicons/react/20/solid';
@@ -12,20 +12,21 @@ interface Props {
   className?: string;
 }
 
-export async function Wishlist({ gid, className }: Props) {
-  const { isLoggedIn } = await useUser();
+// TODO fix this in the account page
+export function Wishlist({ gid, className }: Props) {
+  const { isLoggedIn } = useUser();
 
-  let isInWishlist = false;
+  const { data: isInWishlist, isLoading } = useIsItemInWishlist(gid);
 
-  if (isLoggedIn) {
-    isInWishlist = await isItemInWishlist(gid);
+  if (isLoading) {
+    return <WishlistFallback className={className} />;
   }
 
   return (
     <WishlistButton
       gid={gid}
       isLoggedIn={isLoggedIn}
-      itemIsInWislist={isInWishlist}
+      itemIsInWislist={isInWishlist || false}
       className={cn('z-50 flex items-center justify-center rounded-full bg-white p-2', className)}
     >
       {isInWishlist ? (
@@ -37,9 +38,11 @@ export async function Wishlist({ gid, className }: Props) {
   );
 }
 
-export function WishlistFallback() {
+export function WishlistFallback({ className }: { className?: string }) {
   return (
-    <div className="z-50 flex items-center justify-center rounded-full bg-white p-2">
+    <div
+      className={cn('z-50 flex items-center justify-center rounded-full bg-white p-2', className)}
+    >
       <HeartIconOutline className="size-4" />
     </div>
   );

@@ -9,7 +9,7 @@ async function getIsLoggedIn() {
   return isLoggedIn;
 }
 
-export async function useUser() {
+export function useUser() {
   const { data: isLoggedIn } = useQuery({
     queryKey: ['isLoggedIn'],
     queryFn: async () => {

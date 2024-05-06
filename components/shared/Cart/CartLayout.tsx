@@ -6,11 +6,14 @@ import { Text } from '@/components/base/Text';
 import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCountdown';
 
 import { Button } from '@/components/Button';
+import { useCartContext } from '@/components/CartContext';
 import { CustomLink } from '@/components/CustomLink';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
 import { CartItem } from '@/components/shared/Cart/CartItem';
 import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
+import { useCart } from '@/components/shared/Cart/useCart';
+import { useCheckoutUrl } from '@/components/shared/Cart/useCheckoutUrl';
 import {
   ANALTYICS_EVENT_NAME,
   LangValues,
@@ -22,29 +25,28 @@ import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { Cart } from '@/lib/shopify/types';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
+import { useUser } from '@/lib/useUser';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon as ShoppingBagIconFilled } from '@heroicons/react/20/solid';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState, useTransition } from 'react';
+import { useTransition } from 'react';
 
 interface Props {
-  checkoutUrl: string;
   dictionary: Dictionary['cart_drawer'];
   children: React.ReactNode;
-  cart?: Cart;
   freeShippingAmount?: number;
 }
 
 // TODO consider making the cart content into its own component if all the content is the same
-// TODO fix layout shift on loading dots
-export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippingAmount }: Props) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const quantityRef = useRef(cart?.totalQuantity);
+export function CartLayout({ dictionary, children, freeShippingAmount }: Props) {
   const { lang } = useBaseParams();
+  const { isLoggedIn } = useUser();
+  const { cartOpen: isOpen, setCartOpen: setIsOpen } = useCartContext();
+  const { cart } = useCart();
+  const { checkoutUrl } = useCheckoutUrl(isLoggedIn);
 
   const isDesktop = useIsDesktop();
 
@@ -55,14 +57,6 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
 
   const totalAmount = cart ? Number(cart?.cost?.totalAmount?.amount) : undefined;
   const formattedTotal = cart ? formatPrice(cart?.cost?.totalAmount) : undefined;
-
-  useEffect(() => {
-    if (cart?.totalQuantity !== quantityRef?.current && !isOpen) {
-      setIsOpen(true);
-    }
-
-    quantityRef.current = cart?.totalQuantity;
-  }, [cart?.totalQuantity, isOpen]);
 
   const hasCartItems = cart && cart?.totalQuantity > 0;
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
@@ -158,28 +152,30 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                       </Text>
                     </div>
                   </div>
-                  <Button
-                    size="sm"
-                    className="w-full"
-                    isLoading={isPending}
-                    onClick={() => {
-                      startTransition(() => {
-                        // Vercel Analtyics
-                        trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
-                        // GTM – Analytics
-                        sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
-                        // GTM – Meta
-                        sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
-                        // GTM – Snap
-                        sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+                  {checkoutUrl && (
+                    <Button
+                      size="sm"
+                      className="w-full"
+                      isLoading={isPending}
+                      onClick={() => {
+                        startTransition(() => {
+                          // Vercel Analtyics
+                          trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          // GTM – Analytics
+                          sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          // GTM – Meta
+                          sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          // GTM – Snap
+                          sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
 
-                        trackGoToCheckout();
-                        router.push(checkoutUrl);
-                      });
-                    }}
-                  >
-                    {dictionary.checkout}
-                  </Button>
+                          trackGoToCheckout();
+                          router.push(checkoutUrl);
+                        });
+                      }}
+                    >
+                      {dictionary.checkout}
+                    </Button>
+                  )}
                 </div>
               </>
             )}
@@ -301,28 +297,30 @@ export function CartLayout({ cart, checkoutUrl, dictionary, children, freeShippi
                       </Text>
                     </div>
                   </div>
-                  <Button
-                    size="sm"
-                    className="w-full"
-                    isLoading={isPending}
-                    onClick={() => {
-                      startTransition(() => {
-                        // Vercel Analtyics
-                        trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
-                        // GTM – Analytics
-                        sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
-                        // GTM – Meta
-                        sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
-                        // GTM – Snap
-                        sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+                  {checkoutUrl && (
+                    <Button
+                      size="sm"
+                      className="w-full"
+                      isLoading={isPending}
+                      onClick={() => {
+                        startTransition(() => {
+                          // Vercel Analtyics
+                          trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          // GTM – Analytics
+                          sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          // GTM – Meta
+                          sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          // GTM – Snap
+                          sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
 
-                        trackGoToCheckout();
-                        router.push(checkoutUrl);
-                      });
-                    }}
-                  >
-                    {dictionary.checkout}
-                  </Button>
+                          trackGoToCheckout();
+                          router.push(checkoutUrl);
+                        });
+                      }}
+                    >
+                      {dictionary.checkout}
+                    </Button>
+                  )}
                 </div>
               </>
             )}

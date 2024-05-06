@@ -6,7 +6,6 @@ import { MobileAddToCartDrawer } from '@/components/pages/ProductPage/MobileAddT
 import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { LangValues } from '@/data/constants';
 import { SizeGuideProps } from '@/lib/sanity/types';
-import { getProductInventory } from './hooks';
 
 export type Combination = {
   id: string;
@@ -24,30 +23,22 @@ interface Props {
 }
 
 export async function ProductForm({ productId, type, sizeGuide, options, variants, lang }: Props) {
+  const { product_page: dictionary } = await getDictionary({ lang });
+
   if (!variants || !productId) return null;
-
-  const [inventory, dictionaryResponse] = await Promise.all([
-    getProductInventory(productId),
-    getDictionary({ lang })
-  ]);
-
-  const dictionary = dictionaryResponse.product_page;
-
-  if (!inventory) return null;
 
   return (
     <MobileAddToCartDrawer
       productId={productId}
       productType={type}
       variants={variants}
-      inventory={inventory}
       addToCartText={dictionary.add_to_cart}
       selectSizeText={dictionary.choose_size}
     >
       <div id="product-form" className="flex flex-col gap-y-8">
         {options && variants && (
           <VariantSelector
-            inventory={inventory}
+            productId={productId}
             options={options}
             sizeGuide={sizeGuide}
             featuredOptions={[]}
@@ -60,12 +51,11 @@ export async function ProductForm({ productId, type, sizeGuide, options, variant
             productId={productId}
             productType={type}
             variants={variants}
-            inventory={inventory}
             addToCartText={dictionary.add_to_cart}
             selectSizeText={dictionary.choose_size}
           />
           <span className="text-sm">Eller</span>
-          <VippsHurtigkasseButton variants={variants} productType={type} inventory={inventory} />
+          <VippsHurtigkasseButton variants={variants} productType={type} productId={productId} />
         </div>
       </div>
     </MobileAddToCartDrawer>

@@ -1,10 +1,10 @@
 'use client';
 
+import { useProductInventory } from '@/app/api/shopify/useProductInventory';
 import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
-import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Combination } from '@/components/VariantSelector';
 import { SanityImage } from '@/components/sanity/SanityImage';
@@ -19,29 +19,27 @@ import { trackEvent } from '@/lib/actions';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { sendGTMEvent } from '@next/third-parties/google';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 
 interface Props {
   product: CrossSellProduct;
-  inventory: ProductInventoryResponse;
   currencyCode: string;
   dictionary: Dictionary['cart_drawer']['cross_sell'];
   className?: string;
 }
 
-export function CrossSellItemLayout({
-  product,
-  inventory,
-  currencyCode,
-  className,
-  dictionary
-}: Props) {
+export function CrossSellItem({ product, currencyCode, className, dictionary }: Props) {
   const { title, image } = product;
   const [isPending, startTransition] = useTransition();
   const [selectedCombination, setSelectedCombination] = useState<string | undefined>();
 
+  const { data: inventory, isLoading: inventoryLoading } = useProductInventory(product.id);
+
   const router = useRouter();
+
+  const queryClient = useQueryClient();
 
   const isSimpleProduct = product.variants.length === 1;
   const isVariableProduct = product.variants.length > 1;
@@ -53,7 +51,7 @@ export function CrossSellItemLayout({
   const combinations: Combination[] = product.variants.map((variant) => ({
     id: variant.id,
     availableForSale:
-      inventory.variants.edges.find((edge) => edge.node.id === variant.id)?.node
+      inventory?.variants.edges.find((edge) => edge.node.id === variant.id)?.node
         ?.availableForSale || false,
     ...variant.selectedOptions
       ?.filter((option): option is { value: string; name: string } => option !== undefined)
@@ -100,7 +98,9 @@ export function CrossSellItemLayout({
           event: SNAPCHAT_ANALYTICS_EVENT_NAME.ADD_TO_CART
         });
 
-        // throw new Error(response.toString());
+        queryClient.invalidateQueries({
+          queryKey: ['cart']
+        });
       }
       router.refresh();
     });
@@ -158,7 +158,11 @@ export function CrossSellItemLayout({
           <Button
             variant="primary"
             onClick={handleAddToCart}
-            disabled={!activeVariant || outOfStock({ productId: activeVariant?.id, combinations })}
+            disabled={
+              !activeVariant ||
+              inventoryLoading ||
+              outOfStock({ productId: activeVariant?.id, combinations })
+            }
             size="icon"
             isLoading={isPending}
             className={cn(

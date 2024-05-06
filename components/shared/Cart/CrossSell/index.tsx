@@ -3,14 +3,12 @@
 import { getDictionary } from '@/app/dictionaries';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
 import { CarouselButtons } from '@/components/shared/Cart/CrossSell/CarouselButtons';
-import { CrossSellItem } from '@/components/shared/Cart/CrossSell/CrossSellItem';
 import { CrossSellProducts, getCrossSellQuery } from '@/components/shared/Cart/CrossSell/hooks';
+import { CrossSellItem } from '@/components/shared/Cart/CrossSellItem';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { env } from '@/env';
 import { loadQuery } from '@/lib/sanity/store';
-import { getCart } from '@/lib/shopify';
 import { cn } from '@/lib/utils';
-import { cookies } from 'next/headers';
 
 async function loadCrossSellProducts({
   market,
@@ -19,13 +17,13 @@ async function loadCrossSellProducts({
 }: {
   market: MarketValues;
   lang: LangValues;
-  gid: string;
+  gid?: string;
 }) {
   const query = getCrossSellQuery({ market, lang });
 
   return loadQuery<CrossSellProducts>(
     query,
-    { gid },
+    { gid: gid || null },
     { next: { tags: [CACHE_TAGS.MERCHANDISING] } }
   );
 }
@@ -39,34 +37,11 @@ interface Props {
 }
 
 export async function CrossSell({ market, lang, className, crossSellItemClassName, gid }: Props) {
-  const cartId = cookies().get('cartId')?.value;
-
-  let cart;
-
-  if (cartId) {
-    cart = await getCart(cartId);
-  }
-
-  if (!cart && !gid) {
-    return null;
-  }
-
-  const firstCartItemId = cart?.lines[0]?.merchandise?.product?.id;
-  const activeId = gid || firstCartItemId;
-
-  if (!activeId) {
-    return null;
-  }
-
-  // if (!cart) {
-  //   return null;
-  // }
-
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
 
   const dict = await getDictionary({ lang });
   const dictionary = dict.cart_drawer.cross_sell;
-  const initial = await loadCrossSellProducts({ market, lang, gid: activeId });
+  const initial = await loadCrossSellProducts({ market, lang });
 
   if (!initial.data) {
     return null;

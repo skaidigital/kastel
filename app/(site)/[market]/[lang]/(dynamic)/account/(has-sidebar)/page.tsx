@@ -1,10 +1,10 @@
 import { AccountPage } from '@/components/pages/AccountPage';
-import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
+import { CACHE_TAGS, COOKIE_NAMES, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { logIn } from '@/lib/shopify/customer/actions';
-import { useUser } from '@/lib/useUser';
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import { AccountPageValidator, getAccountQuery } from './hooks';
 
 function loadAccountPage({ lang, market }: { lang: LangValues; market: MarketValues }) {
@@ -19,7 +19,9 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { lang, market } = params;
-  const { isLoggedIn } = await useUser();
+  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+
+  const isLoggedIn = accessToken ? true : false;
 
   if (!isLoggedIn) {
     await logIn();

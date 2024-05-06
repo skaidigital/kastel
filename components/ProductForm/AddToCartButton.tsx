@@ -1,8 +1,8 @@
 'use client';
 
+import { useProductInventory } from '@/app/api/shopify/useProductInventory';
 import { Button } from '@/components/Button';
 import { useCartContext } from '@/components/CartContext';
-import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
 import {
@@ -16,6 +16,7 @@ import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { sendGTMEvent } from '@next/third-parties/google';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
@@ -23,7 +24,6 @@ interface Props {
   productId: string;
   productType: Product['type'];
   variants: ProductVariant[];
-  inventory: ProductInventoryResponse;
   addToCartText: string;
   selectSizeText: string;
 }
@@ -32,13 +32,12 @@ export const AddToCartButton = ({
   productId,
   productType,
   variants,
-  inventory,
   addToCartText,
   selectSizeText
 }: Props) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const { setMobileDrawerOpen } = useCartContext();
+  const { setMobileDrawerOpen, setCartOpen } = useCartContext();
   const { sendAddToCart } = useShopifyAnalytics();
   const { trackAddToCart } = usePlausibleAnalytics();
 
@@ -47,9 +46,13 @@ export const AddToCartButton = ({
     productType
   });
 
+  const queryClient = useQueryClient();
+
+  const { data: inventory, isLoading: inventoryLoading } = useProductInventory(productId);
+
   const id = activeVariant?.id;
 
-  const activeVariantInventory = inventory.variants.edges.find(({ node }) => node.id === id)?.node;
+  const activeVariantInventory = inventory?.variants.edges.find(({ node }) => node.id === id)?.node;
 
   const availableForSale = activeVariantInventory?.availableForSale;
 
@@ -65,7 +68,7 @@ export const AddToCartButton = ({
   return (
     <Button
       title={title}
-      disabled={!availableForSale || !id || !isInStock}
+      disabled={!availableForSale || !id || !isInStock || inventoryLoading}
       size="sm"
       isLoading={isPending}
       onClick={() => {
@@ -105,6 +108,11 @@ export const AddToCartButton = ({
             // Plausible
             trackAddToCart({ options: metadata });
             setMobileDrawerOpen(false);
+            setCartOpen(true);
+            // TODO do the same for incrementing and deleting if this is necessary
+            queryClient.invalidateQueries({
+              queryKey: ['cart']
+            });
           }
           router.refresh();
         });

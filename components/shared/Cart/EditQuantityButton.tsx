@@ -1,9 +1,12 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { removeItem, updateItemQuantity } from '@/components/shared/Cart/actions';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 
 interface Props {
@@ -16,6 +19,7 @@ interface Props {
 export default function EditItemQuantityButton({ lineId, variantId, quantity, type }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const queryClient = useQueryClient();
 
   return (
     <button
@@ -31,10 +35,15 @@ export default function EditItemQuantityButton({ lineId, variantId, quantity, ty
                   quantity: type === 'plus' ? quantity + 1 : quantity - 1
                 });
 
+          console.log({ error });
+
           if (error) {
             // Trigger the error boundary in the root error.js
             throw new Error(error.toString());
           }
+          queryClient.invalidateQueries({
+            queryKey: ['cart']
+          });
 
           router.refresh();
         });

@@ -4,9 +4,8 @@ import { refreshAccessToken } from '@/lib/shopify/customer/actions';
 import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
-  console.log('Refreshing');
-
   const refreshToken = cookies().get(COOKIE_NAMES.SHOPIFY.REFRESH_TOKEN)?.value;
+
   if (!refreshToken) {
     return new Response('No refresh token', { status: 401 });
   }
@@ -20,7 +19,6 @@ export async function GET(request: Request) {
     });
   }
   const { access_token, expires_in, refresh_token, id_token } = response;
-  console.log(response);
 
   const bufferTime = 300; // 5 minutes
 

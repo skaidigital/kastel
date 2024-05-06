@@ -1,7 +1,7 @@
 'use client';
 
+import { useProductInventory } from '@/app/api/shopify/useProductInventory';
 import { goToVippsHurtigkasse } from '@/components/ProductForm/VippsHurtigkasseButton/actions';
-import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { useTransition } from 'react';
@@ -9,10 +9,10 @@ import { useTransition } from 'react';
 interface Props {
   variants: ProductVariant[];
   productType: Product['type'];
-  inventory: ProductInventoryResponse;
+  productId: string;
 }
 
-export function VippsHurtigkasseButton({ variants, productType, inventory }: Props) {
+export function VippsHurtigkasseButton({ variants, productType, productId }: Props) {
   const [isPending, startTransition] = useTransition();
 
   const activeVariant = useActiveVariant({
@@ -20,8 +20,10 @@ export function VippsHurtigkasseButton({ variants, productType, inventory }: Pro
     productType
   });
 
+  const { data: inventory, isLoading: inventoryLoading } = useProductInventory(productId);
+
   const id = activeVariant?.id;
-  const availableForSale = inventory.variants.edges.find((variant) => variant.node.id === id)?.node
+  const availableForSale = inventory?.variants.edges.find((variant) => variant.node.id === id)?.node
     .availableForSale;
 
   return (
@@ -33,7 +35,7 @@ export function VippsHurtigkasseButton({ variants, productType, inventory }: Pro
           await goToVippsHurtigkasse(id);
         });
       }}
-      disabled={!availableForSale || !id || isPending}
+      disabled={!availableForSale || !id || isPending || inventoryLoading}
     >
       <svg
         width="399"
