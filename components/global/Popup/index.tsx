@@ -1,46 +1,40 @@
+'use client';
+
 import { PopupLayout } from '@/components/global/Popup/PopupLayout';
-import { PopupPayload, getPopupQuery } from '@/components/global/Popup/hooks';
-import { CACHE_TAGS, LangValues } from '@/data/constants';
-import { env } from '@/env';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
-import { loadQuery } from '@/lib/sanity/store';
+import { LangValues } from '@/data/constants';
+import { useQuery } from '@tanstack/react-query';
 
-function loadPopup(lang: LangValues) {
-  const query = getPopupQuery(lang);
+function usePopup(lang: LangValues) {
+  return useQuery({
+    queryKey: ['popup'],
+    queryFn: async () => {
+      const response = await fetch('/api/sanity/getPopupData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ lang })
+      });
+      console.log('response', response);
 
-  return loadQuery<PopupPayload>(query, {}, { next: { tags: [CACHE_TAGS.POPUP] } });
+      const data = await response.json();
+      console.log('data', data);
+      return data;
+    },
+    enabled: !!lang
+  });
 }
 
 interface Props {
   lang: LangValues;
 }
 
-export async function Popup({ lang }: Props) {
-  const initial = await loadPopup(lang);
+export function Popup({ lang }: Props) {
+  const { data: popupData } = usePopup(lang);
 
-  if (!initial.data || !initial.data.isShown) {
+  if (!popupData || !popupData.data.isShown) {
     return null;
   }
 
-  const withoutNullValues = nullToUndefined(initial.data);
-  // let validatedData;
-
-  // if (isDraftMode) {
-  //   validatedData = popupValidator.safeParse(withoutNullValues);
-
-  //   if (!validatedData.success) {
-  //     console.error(validatedData.error);
-  //     return null;
-  //   }
-  // }
-
-  // const popup = isDraftMode ? validatedData?.data : withoutNullValues;
-  const popup = withoutNullValues;
-  const klaviyoListId = env.KLAVIYO_NEWSLETTER_LIST_ID;
-
-  if (!popup) {
-    return null;
-  }
-
-  return <PopupLayout data={popup} klaviyoListId={klaviyoListId} />;
+  return <PopupLayout data={popupData.data} />;
 }

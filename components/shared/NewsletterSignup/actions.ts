@@ -5,10 +5,11 @@ import { env } from '@/env';
 
 interface Props {
   email: string;
-  klaviyoId: string;
 }
 
-export async function subscribeToNewsletter({ email, klaviyoId }: Props) {
+export async function subscribeToNewsletter({ email }: Props) {
+  const klaviyoId = env.KLAVIYO_NEWSLETTER_LIST_ID;
+
   if (!klaviyoId) {
     return {
       success: false

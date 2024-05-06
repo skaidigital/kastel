@@ -25,10 +25,6 @@ export async function GET(request: Request) {
       hasSeenPopupInLastDay,
       hasConsent
     }),
-    {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
+    { status: 200 }
   );
 }

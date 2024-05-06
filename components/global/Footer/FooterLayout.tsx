@@ -39,7 +39,6 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
           )}
         </div>
         <NewsletterSignup
-          klaviyoId={klaviyoId}
           dictionary={dictionary.sign_up}
           labelText={footer.newsletterLabel}
           descriptionText={footer.newsletterDescription}
@@ -91,7 +90,6 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
         )}
         <div className="col-span-3 col-start-1 row-start-3">
           <NewsletterSignup
-            klaviyoId={klaviyoId}
             dictionary={dictionary.sign_up}
             labelText={footer.newsletterLabel}
             descriptionText={footer.newsletterDescription}

@@ -11,6 +11,7 @@ import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { MarketPopup } from '@/components/global/MarketPopup';
 import { PopupHandler } from '@/components/global/PopupHandler';
 import PreviewMarketSelector from '@/components/sanity/PreviewMarketSelector';
+import { Smile } from '@/components/smile';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { VisualEditing } from 'next-sanity';
@@ -23,6 +24,7 @@ const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${env.NEXT_PUBLIC_VERCEL_URL}`
   : 'http://localhost:3000';
 
+// TODO see if PopupHandler locks up the main thread
 export default function IndexRoute({
   children,
   params: { lang }
@@ -66,7 +68,7 @@ export default function IndexRoute({
           <ShopifyAnalytics hasConsent />
           <MarketPopup lang={lang} />
           {draftMode().isEnabled && <PreviewMarketSelector />}
-          {/* <Smile /> */}
+          <Smile />
         </Providers>
       </CartContextProvider>
     </>

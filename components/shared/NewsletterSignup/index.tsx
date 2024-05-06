@@ -16,14 +16,13 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 interface Props {
-  klaviyoId: string;
   className?: string;
   dictionary: Dictionary['footer']['sign_up'];
   labelText: string;
   descriptionText: string;
 }
 
-export const NewsletterSignup = ({ klaviyoId, className, labelText, descriptionText }: Props) => {
+export const NewsletterSignup = ({ className, labelText, descriptionText }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const { handleSubmit, register, reset } = useForm<NewsletterFormSchema>({
@@ -36,7 +35,7 @@ export const NewsletterSignup = ({ klaviyoId, className, labelText, descriptionT
 
   async function onSubmit(data: NewsletterFormSchema) {
     startTransition(async () => {
-      const response = await subscribeToNewsletter({ email: data.email, klaviyoId });
+      const response = await subscribeToNewsletter({ email: data.email });
 
       if (response.success) {
         toast.success('You have successfully subscribed to our newsletter');

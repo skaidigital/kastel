@@ -1,5 +1,6 @@
-import { LangValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
+import { loadQuery } from '@/lib/sanity/store';
 import { imageValidator, linkValidator, richTextValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
@@ -60,4 +61,10 @@ export function getPopupQuery(lang: LangValues) {
   `;
 
   return query;
+}
+
+export function loadPopup(lang: LangValues) {
+  const query = getPopupQuery(lang);
+
+  return loadQuery<PopupPayload>(query, {}, { next: { tags: [CACHE_TAGS.POPUP] } });
 }

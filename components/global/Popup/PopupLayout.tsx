@@ -24,12 +24,11 @@ import { z } from 'zod';
 
 interface Props {
   data: PopupPayload;
-  klaviyoListId: string;
 }
 
 // TODO translate the messages
 // TODO vertically center the loading spinner
-export function PopupLayout({ data, klaviyoListId }: Props) {
+export function PopupLayout({ data }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const { title, content, image, badge, type } = data;
@@ -78,11 +77,7 @@ export function PopupLayout({ data, klaviyoListId }: Props) {
               </div>
               <MainContent badge={badge} title={title} content={content} />
               {type === 'newsletter' && data.buttonText && (
-                <NewsletterSignupForm
-                  buttonText={data.buttonText}
-                  onClose={handlePopupClose}
-                  klaviyoListId={klaviyoListId}
-                />
+                <NewsletterSignupForm buttonText={data.buttonText} onClose={handlePopupClose} />
               )}
               {type === 'info' && data.link?.text && (
                 <InfoLink link={data.link}>{data.link.text}</InfoLink>
@@ -107,11 +102,7 @@ export function PopupLayout({ data, klaviyoListId }: Props) {
             </div>
           </div>
           {type === 'newsletter' && data.buttonText && (
-            <NewsletterSignupForm
-              buttonText={data.buttonText}
-              onClose={handlePopupClose}
-              klaviyoListId={klaviyoListId}
-            />
+            <NewsletterSignupForm buttonText={data.buttonText} onClose={handlePopupClose} />
           )}
           {type === 'info' && data.link?.text && (
             <InfoLink link={data.link}>{data.link.text}</InfoLink>
@@ -160,12 +151,10 @@ type FormProps = z.infer<typeof formValidator>;
 
 function NewsletterSignupForm({
   buttonText,
-  onClose,
-  klaviyoListId
+  onClose
 }: {
   buttonText: string;
   onClose: () => void;
-  klaviyoListId: string;
 }) {
   const [isPending, startTransition] = useTransition();
 
@@ -180,8 +169,7 @@ function NewsletterSignupForm({
   const onSubmit = async (data: FormProps) => {
     startTransition(async () => {
       const response = await subscribeToNewsletter({
-        email: data.email,
-        klaviyoId: klaviyoListId
+        email: data.email
       });
 
       onClose();
