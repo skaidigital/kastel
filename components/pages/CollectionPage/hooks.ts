@@ -4,6 +4,7 @@ import {
 } from '@/components/shared/PageBuilder/hooks';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { mediaValidator, productCardValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
 import { z } from 'zod';
@@ -174,4 +175,30 @@ export function mergeCollectionBaseAndProducts(
     productCount: productCount || 0,
     hasNextPage: products.hasNextPage
   };
+}
+
+export function cleanData(
+  initialProducts: any,
+  inititalProductsData: any,
+  hasNextPage: boolean
+): CollectionProductsPayload {
+  const mergedTestData = initialProducts.map((product: any) => {
+    const productData = inititalProductsData.data.find(
+      (productData: any) => productData._id === product._id
+    );
+
+    return {
+      ...product,
+      ...productData,
+      hasNextPage: hasNextPage
+    };
+  });
+
+  const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
+
+  // const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
+  //   (product: any) => Object.keys(product).length > 1
+  // );
+
+  return collectionProductsWithoutNullValues;
 }

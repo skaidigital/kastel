@@ -1,0 +1,78 @@
+'use server';
+
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
+import { loadQuery } from '@/lib/sanity/storeServer';
+import {
+  CollectionProductsPayload,
+  cleanData,
+  getCollectionProductData,
+  getProductIdsByOrder
+} from './hooks';
+
+export async function loadCollectionProductsOrder(
+  slug: string,
+  lang: LangValues,
+  tagSlugs: string[] | null,
+  sortKey?: string
+) {
+  const query = getProductIdsByOrder(lang, sortKey);
+
+  return loadQuery<CollectionProductsPayload>(query, { slug, tagSlugs });
+}
+
+export async function loadCollectionProductData(
+  lang: LangValues,
+  market: MarketValues,
+  productIds: string[],
+  pageIndex: number,
+  slug: string,
+  sortKey?: string
+) {
+  const query = getCollectionProductData(lang, market);
+
+  return loadQuery<CollectionProductsPayload>(
+    query,
+    { ids: productIds },
+    { next: { tags: [`collection:${slug}`, `pageIndex:${pageIndex}`, `${sortKey}`] } }
+  );
+}
+
+interface CollectionProductDataProps {
+  lang: LangValues;
+  market: MarketValues;
+  slug: string;
+  currentPage: number;
+  sortKey?: string;
+  paramValues: string[] | null;
+}
+
+export async function loadCollectionProductDataV2({
+  lang,
+  market,
+  slug,
+  currentPage,
+  sortKey,
+  paramValues
+}: CollectionProductDataProps) {
+  const initialProducts = await loadCollectionProductsOrder(slug, lang, paramValues, sortKey);
+
+  const removeInvalidProducts = initialProducts.data.products.filter((product) => product._id);
+  const currentStart = (currentPage - 1) * COLLECTION_PAGE_SIZE;
+  const currentEnd = currentPage * COLLECTION_PAGE_SIZE;
+  const paginatedInitialProducts = removeInvalidProducts.slice(currentStart, currentEnd);
+  const paginatedProductIds = paginatedInitialProducts.map((product) => product._id);
+  const hasNextPage = removeInvalidProducts.length > currentEnd;
+
+  const inititalProductsData = await loadCollectionProductData(
+    lang,
+    market,
+    paginatedProductIds,
+    currentPage,
+    slug,
+    sortKey
+  );
+
+  const cleanedProductData = cleanData(paginatedInitialProducts, inititalProductsData, hasNextPage);
+
+  return cleanedProductData;
+}

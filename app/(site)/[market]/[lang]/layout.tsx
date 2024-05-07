@@ -8,10 +8,7 @@ import { ReactNode, Suspense } from 'react';
 
 import { CartContextProvider } from '@/components/CartContext';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
-import { MarketPopup } from '@/components/global/MarketPopup';
-import { PopupHandler } from '@/components/global/PopupHandler';
 import PreviewMarketSelector from '@/components/sanity/PreviewMarketSelector';
-import { Smile } from '@/components/smile';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { VisualEditing } from 'next-sanity';
@@ -40,7 +37,7 @@ export default function IndexRoute({
       <CartContextProvider>
         <Providers>
           <div>
-            <PopupHandler lang={lang} />
+            {/* <PopupHandler lang={lang} /> */}
             <main>
               <Suspense>{children}</Suspense>
               {draftMode().isEnabled && (
@@ -66,9 +63,9 @@ export default function IndexRoute({
             </main>
           </div>
           <ShopifyAnalytics hasConsent />
-          <MarketPopup lang={lang} />
+          {/* <MarketPopup lang={lang} /> */}
           {draftMode().isEnabled && <PreviewMarketSelector />}
-          <Smile />
+          {/* <Smile /> */}
         </Providers>
       </CartContextProvider>
     </>
