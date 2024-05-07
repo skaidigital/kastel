@@ -13,7 +13,7 @@ import {
   getFilterQuery
 } from '@/components/pages/CollectionPage/filter/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
-import { loadQuery } from '@/lib/sanity/store';
+import { loadQuery } from '@/lib/sanity/storeServer';
 import { PlusIcon } from '@radix-ui/react-icons';
 
 // TODO move into a separate file since it's used in multiple places

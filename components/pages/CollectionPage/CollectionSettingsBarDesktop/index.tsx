@@ -1,18 +1,15 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
 import { Text } from '@/components/base/Text';
-import { Filter } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop/Filter';
 import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { ActiveFilters } from '../filter/ActiveFilters';
+import { Filter } from './Filter';
 import { ProductsPerRowSelector } from './ProductsPerRowSelector';
 import { Sort } from './Sort';
 
 interface Props {
   numberOfProducts: number;
-  searchParams?: {
-    [key: string]: string | undefined;
-  };
   dictionary: Dictionary['collection_page'];
   market: MarketValues;
   lang: LangValues;
@@ -20,7 +17,6 @@ interface Props {
 }
 
 export function CollectionSettingsBarDesktop({
-  searchParams,
   numberOfProducts,
   dictionary,
   market,
@@ -37,7 +33,7 @@ export function CollectionSettingsBarDesktop({
         </div>
       </Row>
       <Row>
-        <ActiveFilters searchParams={searchParams} />
+        <ActiveFilters />
         <Text size="xs" className="text-brand-mid-grey">
           {numberOfProducts} {dictionary.number_of_products}
         </Text>

@@ -4,8 +4,7 @@ import { Dictionary } from '@/app/dictionaries';
 import {
   CollectionBasePayload,
   CollectionProductsPayload,
-  collectionProductsValidator,
-  mergeCollectionBaseAndProducts
+  collectionProductsValidator
 } from '@/components/pages/CollectionPage/hooks';
 import { LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -14,20 +13,15 @@ import { notFound } from 'next/navigation';
 import { CollectionLayout } from './CollectionLayout';
 import { loadCollectionProductDataV2 } from './actions';
 
-// validatedBase={validatedBase}
-// slug={slug}
-// market={market}
-// lang={lang}
-
 export interface PageProps {
-  validatedBase: CollectionBasePayload;
+  moods: CollectionBasePayload['moods'];
   slug: string;
   market: MarketValues;
   lang: LangValues;
   dictionary: Dictionary['collection_page'];
 }
 
-export async function CollectionPage({ validatedBase, slug, market, lang, dictionary }: PageProps) {
+export async function CollectionPage({ slug, market, lang, dictionary, moods }: PageProps) {
   const paramValues = null;
   const sortKey = undefined;
   const currentPage = 1;
@@ -42,8 +36,6 @@ export async function CollectionPage({ validatedBase, slug, market, lang, dictio
     console.error(error);
     return <h2>{error.message}</h2>;
   }
-
-  console.log('data', data);
 
   if (!data) {
     return <h2>No products found</h2>;
@@ -71,15 +63,18 @@ export async function CollectionPage({ validatedBase, slug, market, lang, dictio
   //   }
   // }
 
-  const mergedData = mergeCollectionBaseAndProducts(
-    validatedBase,
-    validatedProducts?.data,
-    productCount
-  );
+  // const mergedData = mergeCollectionBaseAndProducts(
+  //   validatedBase,
+  //   validatedProducts?.data,
+  //   productCount
+  // );
+
   return (
     <>
       <CollectionLayout
-        data={mergedData}
+        data={validatedProducts.data}
+        productCount={productCount}
+        moods={moods}
         currentPage={currentPage}
         searchParams={searchParams}
         market={market}
