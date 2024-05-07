@@ -23,6 +23,7 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 export const dynamic = 'force-static';
 
@@ -30,6 +31,10 @@ export async function generateStaticParams({ params: { lang } }: { params: { lan
   const slugs = await generateStaticSlugs(lang, 'collection');
 
   return slugs;
+}
+
+interface SanityQueryProps<T> {
+  data: T;
 }
 
 function loadCollectionBase({
@@ -43,7 +48,7 @@ function loadCollectionBase({
 }) {
   const query = getCollectionBaseQuery({ market, lang });
 
-  return loadQuery<CollectionBasePayload | null>(
+  return loadQuery<SanityQueryProps<CollectionBasePayload | null>>(
     query,
     { slug },
     { next: { tags: [`collection:${slug}`] } }
@@ -121,15 +126,17 @@ export default async function SlugCollectionPage({ params }: Props) {
         lang={lang}
         className="hidden min-h-32 lg:block"
       />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <CollectionPage
-          moods={moods}
-          slug={slug}
-          market={market}
-          lang={lang}
-          dictionary={collection_page}
-        />
-      </HydrationBoundary>
+      <Suspense>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <CollectionPage
+            moods={moods}
+            slug={slug}
+            market={market}
+            lang={lang}
+            dictionary={collection_page}
+          />
+        </HydrationBoundary>
+      </Suspense>
       <Section label="description-long-products" srHeading="Description">
         <Container className="grid gap-2 lg:grid-cols-12">
           <div className="lg:col-span-6 lg:col-start-2">

@@ -9,7 +9,7 @@ import {
 import { LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { useQuery } from '@tanstack/react-query';
-import { notFound } from 'next/navigation';
+import { notFound, useSearchParams } from 'next/navigation';
 import { CollectionLayout } from './CollectionLayout';
 import { loadCollectionProductDataV2 } from './actions';
 
@@ -22,12 +22,20 @@ export interface PageProps {
 }
 
 export async function CollectionPage({ slug, market, lang, dictionary, moods }: PageProps) {
-  const paramValues = null;
-  const sortKey = undefined;
+  const testSearchParams = useSearchParams();
+  const paramsObject = Object.fromEntries(testSearchParams.entries());
+
+  console.log('paramsObject', paramsObject);
+
+  const paramValues = formatSearchParamsValues(paramsObject);
+
+  console.log(paramValues);
+
+  const sortKey = paramsObject?.sort;
   const currentPage = 1;
-  const searchParams = undefined;
-  const { data, error, isFetched } = useQuery({
-    queryKey: ['collectionProducts', slug, lang],
+  const searchParams = paramsObject;
+  const { data, error, isFetched, isLoading } = useQuery({
+    queryKey: ['collectionProducts', slug, lang, market, currentPage, sortKey, paramValues],
     queryFn: () =>
       loadCollectionProductDataV2({ lang, market, slug, currentPage, sortKey, paramValues })
   });
