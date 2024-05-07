@@ -5,7 +5,6 @@ import { cookies } from 'next/headers';
 
 export async function getExpiryTime() {
   const expiryTime = (cookies().get(COOKIE_NAMES.SHOPIFY.EXPIRES_IN)?.value as string) || null;
-  console.log({ expiryTime });
 
   // If no expiry time, return null or if the expiry time is in the past return null
   if (!expiryTime || new Date(expiryTime) < new Date()) {

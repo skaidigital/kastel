@@ -16,6 +16,7 @@ import { MobileCarousel } from '@/components/shared/MobileCarousel';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { Rating } from '@/components/shared/ProductCard/Rating';
+import { Wishlist } from '@/components/shared/ProductCard/Wishlist';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
 import { urlForImage } from '@/lib/sanity/image';
@@ -172,7 +173,7 @@ export async function ProductPageLayout(props: Props) {
                     />
                     <Rating sku={productSku} />
                   </div>
-                  {/* <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" /> */}
+                  <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
                 </div>
                 {title && (
                   <Heading as="h1" size="xs" className="mb-1">

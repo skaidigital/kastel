@@ -2,9 +2,7 @@
 
 import { ExtractVariables } from '@/app/api/shopify/types';
 import { isShopifyError } from '@/app/api/shopify/utils';
-import { COOKIE_NAMES } from '@/data/constants';
 import { env } from '@/env';
-import { cookies } from 'next/headers';
 import { logIn } from './actions';
 
 const shopId = env.SHOPIFY_CUSTOMER_SHOP_ID;
@@ -35,7 +33,12 @@ export async function customerAccountFetch<T>({
   //     throw new Error('Not a valid access token');
   //   }
   // }
-  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+  // const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+  const accessTokenResponse = await fetch('/api/shopify/getCustomerAccountAccessToken');
+  console.log('accessTokenResponse', accessTokenResponse);
+
+  const accessToken = await accessTokenResponse.json();
+  console.log('accessToken', accessToken);
 
   try {
     const result = await fetch(endpoint, {
