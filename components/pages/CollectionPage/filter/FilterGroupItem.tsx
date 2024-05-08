@@ -16,31 +16,37 @@ function loadFilterItem(
   market: MarketValues,
   type: filterType,
   parentId: string,
-  collectionSlug?: string
+  collectionSlug?: string,
+  searchGids?: string[]
 ) {
-  const query = getFilterItemQuery(market, type, collectionSlug);
+  const query = getFilterItemQuery(market, type, collectionSlug, searchGids);
 
-  console.log(query, parentId);
-
-  return loadQuery<any>(query, { parentId, collectionSlug }, { next: { tags: ['filter'] } });
+  return loadQuery<any>(
+    query,
+    { parentId, collectionSlug: collectionSlug || null, searchGids: searchGids || null },
+    { next: { tags: ['filter'] } }
+  );
 }
 
 interface FilterItemProps {
   item: FilterGroupSchema;
   market: MarketValues;
   collectionSlug?: string;
+  searchGids?: string[];
 }
 
 export async function FilterGroupItem({
   item: filterGroup,
   market,
-  collectionSlug
+  collectionSlug,
+  searchGids
 }: FilterItemProps) {
   const initial = await loadFilterItem(
     market,
     filterGroup.type as filterType,
     filterGroup.id,
-    collectionSlug
+    collectionSlug,
+    searchGids
   );
 
   const filterGroupResponse = initial?.data;

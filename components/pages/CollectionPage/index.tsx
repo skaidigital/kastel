@@ -41,52 +41,34 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
     return <h2>{error.message}</h2>;
   }
 
-  if (!data) {
-    return <h2>No products found</h2>;
+  if (data) {
+    const removeInvalidProducts = data.products.filter((product) => product._id);
+    const productCount = removeInvalidProducts.length;
+
+    const validatedProducts = collectionProductsValidator.safeParse(data);
+
+    if (!validatedProducts.success) {
+      console.error(validatedProducts.error);
+      notFound();
+    }
+
+    return (
+      <>
+        <CollectionLayout
+          data={validatedProducts.data}
+          productCount={productCount}
+          moods={moods}
+          currentPage={currentPage}
+          searchParams={searchParams}
+          market={market}
+          lang={lang}
+          dictionary={dictionary}
+        />
+      </>
+    );
   }
 
-  const removeInvalidProducts = data.products.filter((product) => product._id);
-  const productCount = removeInvalidProducts.length;
-
-  const validatedProducts = collectionProductsValidator.safeParse(data);
-
-  if (!validatedProducts.success) {
-    console.error(validatedProducts.error);
-    notFound();
-  }
-
-  // if (!isDraftMode) {
-  //   validatedProducts = collectionProductsValidator.safeParse({
-  //     products: cleanedProductData,
-  //     hasNextPage: hasNextPage
-  //   });
-
-  //   if (!validatedProducts.success) {
-  //     console.error(validatedProducts.error);
-  //     notFound();
-  //   }
-  // }
-
-  // const mergedData = mergeCollectionBaseAndProducts(
-  //   validatedBase,
-  //   validatedProducts?.data,
-  //   productCount
-  // );
-
-  return (
-    <>
-      <CollectionLayout
-        data={validatedProducts.data}
-        productCount={productCount}
-        moods={moods}
-        currentPage={currentPage}
-        searchParams={searchParams}
-        market={market}
-        lang={lang}
-        dictionary={dictionary}
-      />
-    </>
-  );
+  return null;
 }
 
 interface FormatParamsValuesProps {

@@ -34,17 +34,18 @@ type filterType = 'text' | 'color' | 'size';
 export function getFilterItemQuery(
   market: MarketValues,
   type: filterType,
-  collectionSlug?: string
+  collectionSlug?: string,
+  searchGids?: string[]
 ) {
   switch (type) {
     case 'text':
-      return getTagTypeText(market, collectionSlug);
+      return getTagTypeText(market, collectionSlug, searchGids);
     case 'color':
-      return getTagTypeColor(market, collectionSlug);
+      return getTagTypeColor(market, collectionSlug, searchGids);
     case 'size':
-      return getTagTypeSize(market, collectionSlug);
+      return getTagTypeSize(market, collectionSlug, searchGids);
     default:
-      return getTagTypeText(market, collectionSlug);
+      return getTagTypeText(market, collectionSlug, searchGids);
   }
 }
 
@@ -53,10 +54,23 @@ const collectionFilterFragment = groq`
         "allTags": tags[]._ref + productType->tags[]._ref
       }.allTags[]`;
 
-export function getTagTypeText(market: MarketValues, collectionSlug?: string) {
+function searchFilterFragment(market: MarketValues) {
+  return groq`
+      && _id in *[_type == "product" && gid_${market} in $searchGids]{
+        "allTags": tags[]._ref + productType->tags[]._ref
+      }.allTags[]`;
+}
+
+export function getTagTypeText(
+  market: MarketValues,
+  collectionSlug?: string,
+  searchGids?: string[]
+) {
   const query = groq`
     *[_type == "tag" && references($parentId) && defined(slug_${market}.current) 
       ${collectionSlug ? collectionFilterFragment : ''}
+      ${collectionSlug ? collectionFilterFragment : ''}
+      ${searchGids ? searchFilterFragment(market) : ''}
     ] {
         "id": _id,
         "title": title.${market},
@@ -67,9 +81,16 @@ export function getTagTypeText(market: MarketValues, collectionSlug?: string) {
   return query;
 }
 
-export function getTagTypeColor(market: MarketValues, collectionSlug?: string) {
+export function getTagTypeColor(
+  market: MarketValues,
+  collectionSlug?: string,
+  searchGids?: string[]
+) {
   const query = groq`
-    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(color) ${collectionSlug ? collectionFilterFragment : ''}] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(color) 
+    ${collectionSlug ? collectionFilterFragment : ''}
+    ${searchGids ? searchFilterFragment(market) : ''}
+    ] {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current,
@@ -80,9 +101,16 @@ export function getTagTypeColor(market: MarketValues, collectionSlug?: string) {
   return query;
 }
 
-export function getTagTypeSize(market: MarketValues, collectionSlug?: string) {
+export function getTagTypeSize(
+  market: MarketValues,
+  collectionSlug?: string,
+  searchGids?: string[]
+) {
   const query = groq`
-    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(size) ${collectionSlug ? collectionFilterFragment : ''}] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(size) 
+    ${collectionSlug ? collectionFilterFragment : ''}
+    ${searchGids ? searchFilterFragment(market) : ''}
+     ] {
         "id": _id,
         "title": title.${market},
         "slug": size->slug_${market}.current,
@@ -91,14 +119,6 @@ export function getTagTypeSize(market: MarketValues, collectionSlug?: string) {
 
   return query;
 }
-
-// _updatedAt: '2024-04-08T17:15:24Z',
-// _createdAt: '2024-04-08T07:45:37Z',
-// _rev: 'E87k6YxnDWNgIf2QmMFA4j',
-// slug_no: { _type: 'slug', current: '36' },
-// title: { no: '36', _type: 'i18n.string', en: '36' },
-// internalUsedFor: 'Sizes',
-// slug_en: { current: '36', _type: 'slug' }
 
 const ColorValidator = z
   .object({

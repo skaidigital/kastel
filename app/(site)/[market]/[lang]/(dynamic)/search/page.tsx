@@ -106,6 +106,8 @@ export default async function Page({ searchParams, params }: Props) {
 
   const products = validatedSearchResult?.products;
 
+  const searchGids = products?.map((product) => product.gid);
+
   const hasProducts = products && products?.length > 0;
 
   const pageCount =
@@ -149,6 +151,7 @@ export default async function Page({ searchParams, params }: Props) {
           searchParams={searchParams}
           market={market}
           lang={lang}
+          searchGids={searchGids}
           className="hidden min-h-32 lg:block"
         />
       </Section>
@@ -162,7 +165,7 @@ export default async function Page({ searchParams, params }: Props) {
         )}
         <CollectionGrid number={ProductsInView}>
           {products &&
-            products?.map((product: ProductCardProps, index) => {
+            products?.map((product: ProductCardProps, index: number) => {
               return (
                 <div className="m-[-1px]" key={product.slug}>
                   <ProductCard
