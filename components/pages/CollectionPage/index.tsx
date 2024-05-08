@@ -28,12 +28,31 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
   const paramValues = formatSearchParamsValues(paramsObject);
 
   const sortKey = paramsObject?.sort;
+  const saleKey = paramsObject?.on_sale;
+
+  const prioritizedSortkey = saleKey ? 'on_sale' : sortKey;
   const currentPage = 1;
   const searchParams = paramsObject;
+
+  const collectionFechData = {
+    lang,
+    market,
+    slug,
+    currentPage,
+    sortKey: prioritizedSortkey,
+    paramValues
+  };
   const { data, error, isFetched, isLoading } = useQuery({
-    queryKey: ['collectionProducts', slug, lang, market, currentPage, sortKey, paramValues],
-    queryFn: () =>
-      loadCollectionProductDataV2({ lang, market, slug, currentPage, sortKey, paramValues })
+    queryKey: [
+      'collectionProducts',
+      slug,
+      lang,
+      market,
+      currentPage,
+      prioritizedSortkey,
+      paramValues
+    ],
+    queryFn: () => loadCollectionProductDataV2(collectionFechData)
   });
 
   if (error) {
@@ -41,52 +60,34 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
     return <h2>{error.message}</h2>;
   }
 
-  if (!data) {
-    return <h2>No products found</h2>;
+  if (data) {
+    const removeInvalidProducts = data.products.filter((product) => product._id);
+    const productCount = removeInvalidProducts.length;
+
+    const validatedProducts = collectionProductsValidator.safeParse(data);
+
+    if (!validatedProducts.success) {
+      console.error(validatedProducts.error);
+      notFound();
+    }
+
+    return (
+      <>
+        <CollectionLayout
+          data={validatedProducts.data}
+          productCount={productCount}
+          moods={moods}
+          currentPage={currentPage}
+          searchParams={searchParams}
+          market={market}
+          lang={lang}
+          dictionary={dictionary}
+        />
+      </>
+    );
   }
 
-  const removeInvalidProducts = data.products.filter((product) => product._id);
-  const productCount = removeInvalidProducts.length;
-
-  const validatedProducts = collectionProductsValidator.safeParse(data);
-
-  if (!validatedProducts.success) {
-    console.error(validatedProducts.error);
-    notFound();
-  }
-
-  // if (!isDraftMode) {
-  //   validatedProducts = collectionProductsValidator.safeParse({
-  //     products: cleanedProductData,
-  //     hasNextPage: hasNextPage
-  //   });
-
-  //   if (!validatedProducts.success) {
-  //     console.error(validatedProducts.error);
-  //     notFound();
-  //   }
-  // }
-
-  // const mergedData = mergeCollectionBaseAndProducts(
-  //   validatedBase,
-  //   validatedProducts?.data,
-  //   productCount
-  // );
-
-  return (
-    <>
-      <CollectionLayout
-        data={validatedProducts.data}
-        productCount={productCount}
-        moods={moods}
-        currentPage={currentPage}
-        searchParams={searchParams}
-        market={market}
-        lang={lang}
-        dictionary={dictionary}
-      />
-    </>
-  );
+  return null;
 }
 
 interface FormatParamsValuesProps {

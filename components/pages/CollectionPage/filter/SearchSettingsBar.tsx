@@ -14,13 +14,14 @@ interface Props {
   market: MarketValues;
   lang: LangValues;
   className?: string;
+  searchGids?: string[];
 }
 
-export function SearchSettingsBar({ market, lang, searchParams, className }: Props) {
+export function SearchSettingsBar({ market, lang, searchParams, className, searchGids }: Props) {
   return (
     <Container className={cn('flex flex-col space-y-2 pb-8 lg:pb-2', className)}>
       <Row className="items-end">
-        <Filter market={market} lang={lang} />
+        <Filter market={market} lang={lang} searchGids={searchGids} />
         <div className="flex space-x-10">
           <ProductsPerRowSelector />
           <Sort lang={lang} />
