@@ -1,6 +1,13 @@
-import Video from '@/components/Video';
-import { SanityImage } from '@/components/sanity/SanityImage';
 import { MediaProps } from '@/lib/sanity/types';
+import dynamic from 'next/dynamic';
+
+const DynamicSanityImage = dynamic(() =>
+  import('@/components/sanity/SanityImage').then((mod) => mod.SanityImage)
+);
+const DynamicVideo = dynamic(() => import('@/components/Video').then((mod) => mod.default));
+const DynamicLazyLoadedVideo = dynamic(() =>
+  import('@/components/LazyLoadedVideo').then((mod) => mod.default)
+);
 
 interface Props {
   media: MediaProps;
@@ -15,7 +22,7 @@ export function Media({ media, loading, sizes }: Props) {
 
   if (typeIsImage && sameAssetForMobileAndDesktop) {
     return (
-      <SanityImage
+      <DynamicSanityImage
         priority={loading === 'eager' ? true : false}
         image={media.image}
         className="absolute inset-0 h-full w-full object-cover"
@@ -28,14 +35,14 @@ export function Media({ media, loading, sizes }: Props) {
   if (typeIsImage && !sameAssetForMobileAndDesktop) {
     return (
       <>
-        <SanityImage
+        <DynamicSanityImage
           priority={loading === 'eager' ? true : false}
           image={media.imageMobile}
           className="absolute inset-0 h-full w-full object-cover lg:hidden"
           sizes={sizes}
           fill
         />
-        <SanityImage
+        <DynamicSanityImage
           priority={loading === 'eager' ? true : false}
           image={media.imageDesktop}
           className="absolute inset-0 hidden h-full w-full object-cover lg:block"
@@ -47,24 +54,54 @@ export function Media({ media, loading, sizes }: Props) {
   }
 
   if (typeIsVideo && sameAssetForMobileAndDesktop) {
-    return <Video playbackId={media.video} controlled={false} resolution="HD" loading={loading} />;
+    if (loading === 'lazy') {
+      return (
+        <DynamicLazyLoadedVideo
+          playbackId={media.video}
+          controlled={false}
+          resolution="HD"
+          loading="lazy"
+        />
+      );
+    }
+    return (
+      <DynamicVideo playbackId={media.video} controlled={false} resolution="HD" loading="eager" />
+    );
   }
 
   if (typeIsVideo && !sameAssetForMobileAndDesktop) {
-    return (
+    if (loading === 'lazy') {
       <>
-        <Video
+        <DynamicLazyLoadedVideo
           playbackId={media.videoMobile}
           controlled={false}
           resolution="HD"
-          loading={loading}
+          loading="lazy"
           className="lg:hidden"
         />
-        <Video
+        <DynamicLazyLoadedVideo
           playbackId={media.videoDesktop}
           controlled={false}
           resolution="HD"
-          loading={loading}
+          loading="lazy"
+          className="hidden lg:block"
+        />
+      </>;
+    }
+    return (
+      <>
+        <DynamicVideo
+          playbackId={media.videoMobile}
+          controlled={false}
+          resolution="HD"
+          loading="lazy"
+          className="lg:hidden"
+        />
+        <DynamicVideo
+          playbackId={media.videoDesktop}
+          controlled={false}
+          resolution="HD"
+          loading="lazy"
           className="hidden lg:block"
         />
       </>

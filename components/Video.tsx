@@ -7,6 +7,7 @@ export type VideoProps = {
   loading: 'lazy' | 'eager';
   resolution: 'SD' | 'HD';
   controlled?: boolean;
+  controls?: boolean;
   className?: string;
 };
 
@@ -14,6 +15,7 @@ export default function Video({
   playbackId,
   loading,
   resolution,
+  controls,
   className,
   controlled = false
 }: VideoProps) {
@@ -47,7 +49,7 @@ export default function Video({
       autoPlay={!controlled}
       playsInline={!controlled}
       loop={!controlled}
-      controls={controlled}
+      controls={controls === true ? true : false}
       muted={!controlled}
       poster={poster}
       preload="none"

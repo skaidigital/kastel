@@ -5,9 +5,10 @@ import Image, { getImageProps } from 'next/image';
 import { preload } from 'react-dom';
 import { useInView } from 'react-intersection-observer';
 
-export function LazyLoadedVideo(props: VideoProps) {
-  const { ref, inView } = useInView({ triggerOnce: true, rootMargin: '100px' });
+export default function LazyLoadedVideo(props: VideoProps) {
+  const { ref, inView } = useInView({ triggerOnce: true });
 
+  // Use `getImgProps` to convert the video poster image to WebP
   const {
     props: { src: poster }
   } = getImageProps({
@@ -27,7 +28,14 @@ export function LazyLoadedVideo(props: VideoProps) {
   return (
     <>
       {!inView ? (
-        <Image ref={ref} alt={'Video poster'} src={poster ?? ''} loading="lazy" fill />
+        <Image
+          ref={ref}
+          alt={'Video poster'}
+          src={poster ?? ''}
+          className={props.className}
+          loading={'lazy'}
+          layout="fill"
+        />
       ) : (
         <Video {...props} />
       )}
