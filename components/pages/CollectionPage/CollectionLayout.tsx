@@ -1,29 +1,26 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
-import { Breadcrumbs } from '@/components/pages/CollectionPage/Breadcrumbs';
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
-import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
 import {
-  Collection,
+  CollectionBasePayload,
   CollectionMood,
-  CollectionProductPayload
+  CollectionProductPayload,
+  CollectionProductsPayload
 } from '@/components/pages/CollectionPage/hooks';
-import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
-import { PageBuilder } from '@/components/shared/PageBuilder';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import '@/styles/externalOverride.css';
 import { Suspense } from 'react';
-import { CollectionSettingsBarDesktop } from './CollectionSettingsBarDesktop';
 
 interface Props {
-  data: Collection;
+  data: CollectionProductsPayload;
+  moods: CollectionBasePayload['moods'];
+  productCount: number;
   currentPage: number;
   searchParams?: {
     [key: string]: string | undefined;
@@ -38,20 +35,12 @@ export function CollectionLayout({
   currentPage,
   searchParams,
   dictionary,
+  productCount,
+  moods,
   market,
   lang
 }: Props) {
-  const {
-    id,
-    products,
-    moods,
-    title,
-    hasNextPage,
-    productCount,
-    descriptionLong,
-    descriptionShort,
-    pageBuilder
-  } = data;
+  const { products, hasNextPage } = data;
 
   const productsPerRow = searchParams?.view || '4';
 
@@ -66,39 +55,6 @@ export function CollectionLayout({
 
   return (
     <>
-      <CollectionAndSearchActionsBarMobile market={market} lang={lang} className="lg:hidden" />
-      <Section
-        size="sm"
-        label="collection-hero"
-        srHeading="Collection hero"
-        hasBottomBorder={false}
-        className="pb-8 pt-10 lg:pt-10"
-      >
-        <Container className="mb-2 lg:mb-4">
-          <Breadcrumbs collectionName={title} lang={lang} />
-        </Container>
-        <Container className="flex flex-col justify-between gap-y-3 lg:flex-row lg:gap-y-0">
-          {title && (
-            <Heading as="h1" size="xl" className="max-w-lg font-bold">
-              {title}
-            </Heading>
-          )}
-          {descriptionShort && (
-            <Text as="p" className="h-fit max-w-sm text-brand-mid-grey">
-              {descriptionShort}
-            </Text>
-          )}
-          <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
-        </Container>
-      </Section>
-      <CollectionSettingsBarDesktop
-        searchParams={searchParams}
-        numberOfProducts={productCount}
-        dictionary={dictionary}
-        market={market}
-        lang={lang}
-        className="hidden min-h-32 lg:block"
-      />
       <Section label="collection-products" srHeading="Products" noTopPadding>
         {hasProducts && (
           <div className="lg:hidden">
@@ -187,32 +143,6 @@ export function CollectionLayout({
           </div>
         )}
       </Section>
-      <Section label="description-long-products" srHeading="Description">
-        <Container className="grid gap-2 lg:grid-cols-12">
-          <div className="lg:col-span-6 lg:col-start-2">
-            <h2 className="mb-4 text-overline-md font-medium uppercase text-brand-mid-grey">
-              {dictionary.description}:
-            </h2>
-            {descriptionLong && (
-              <p
-                className="text-md lg:text-lg"
-                dangerouslySetInnerHTML={{ __html: descriptionLong.replace(/\n/g, '<br />') }}
-              />
-            )}
-          </div>
-        </Container>
-      </Section>
-      {pageBuilder?.map((block, index: number) => (
-        <PageBuilder
-          key={block.key}
-          data={block}
-          index={index}
-          market={market}
-          lang={lang}
-          pageId={id}
-          pageType={'collection'}
-        />
-      ))}
     </>
   );
 }

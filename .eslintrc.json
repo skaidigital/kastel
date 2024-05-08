@@ -19,7 +19,8 @@
     "no-undef": ["error", { "typeof": true }],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/naming-convention": "off",
-    "@typescript-eslint/no-throw-literal": "off"
+    "@typescript-eslint/no-throw-literal": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   },
   "globals": {
     "React": "writable"

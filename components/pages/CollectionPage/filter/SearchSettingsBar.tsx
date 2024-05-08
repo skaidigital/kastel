@@ -27,7 +27,7 @@ export function SearchSettingsBar({ market, lang, searchParams, className }: Pro
         </div>
       </Row>
       <Row>
-        <ActiveFilters searchParams={searchParams} />
+        <ActiveFilters />
       </Row>
     </Container>
   );

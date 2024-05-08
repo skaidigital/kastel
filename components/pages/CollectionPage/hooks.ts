@@ -200,5 +200,5 @@ export function cleanData(
   //   (product: any) => Object.keys(product).length > 1
   // );
 
-  return collectionProductsWithoutNullValues;
+  return { products: collectionProductsWithoutNullValues, hasNextPage };
 }

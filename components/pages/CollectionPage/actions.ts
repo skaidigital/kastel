@@ -9,6 +9,10 @@ import {
   getProductIdsByOrder
 } from './hooks';
 
+interface SanityQueryProps<T> {
+  data: T;
+}
+
 export async function loadCollectionProductsOrder(
   slug: string,
   lang: LangValues,
@@ -17,7 +21,7 @@ export async function loadCollectionProductsOrder(
 ) {
   const query = getProductIdsByOrder(lang, sortKey);
 
-  return loadQuery<CollectionProductsPayload>(query, { slug, tagSlugs });
+  return loadQuery<SanityQueryProps<CollectionProductsPayload>>(query, { slug, tagSlugs });
 }
 
 export async function loadCollectionProductData(
@@ -30,7 +34,7 @@ export async function loadCollectionProductData(
 ) {
   const query = getCollectionProductData(lang, market);
 
-  return loadQuery<CollectionProductsPayload>(
+  return loadQuery<SanityQueryProps<CollectionProductsPayload>>(
     query,
     { ids: productIds },
     { next: { tags: [`collection:${slug}`, `pageIndex:${pageIndex}`, `${sortKey}`] } }

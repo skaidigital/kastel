@@ -141,7 +141,7 @@ export default async function Page({ searchParams, params }: Props) {
                 {dictionary.search_results}
               </span>
             )}
-            <ActiveFilters searchParams={searchParams} className="mt-3 lg:hidden" />
+            <ActiveFilters className="mt-3 lg:hidden" />
           </div>
           <CollectionAndSearchActionsBarMobile market={market} lang={lang} className="lg:hidden" />
         </Container>
