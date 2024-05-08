@@ -49,7 +49,8 @@ export const UGCSection = ({ data }: Props) => {
       <div className="hidden grid-cols-3 gap-x-1 lg:grid">
         {videos?.map((video, index) => (
           <div key={video + index} className="aspect-h-16 aspect-w-9 relative h-0 w-full">
-            <Video playbackId={video} />
+            {/* <Video playbackId={video} /> */}
+            <div>test</div>
           </div>
         ))}
       </div>
@@ -64,7 +65,8 @@ export const UGCSection = ({ data }: Props) => {
           {videos?.map((video, index) => (
             <CarouselItem key={video + index} className="basis-[80%] pl-2">
               <div className="aspect-h-16 aspect-w-9 relative h-0 w-full">
-                <Video playbackId={video} />
+                {/* <Video playbackId={video} /> */}
+                <div>test</div>
               </div>
             </CarouselItem>
           ))}
