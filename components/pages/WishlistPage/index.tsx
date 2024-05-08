@@ -22,7 +22,7 @@ export function WishlistPage({ lang, products }: Props) {
 
   return (
     <div className="flex flex-col">
-      <Container className="mt-6 lg:mt-10">
+      <Container className="mt-6 lg:mt-10 lg:px-0">
         <AccountPageHeader lang={lang} pageTitle={wishlistString} />
       </Container>
       {!hasWishlistItems && (
