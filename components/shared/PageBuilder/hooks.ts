@@ -356,6 +356,12 @@ const meetTheTeamSectionValidator = z.object({
   sectionSettings: sectionSettingsValidator
 });
 
+const siteReviewsValidator = z.object({
+  type: z.literal('siteReviews'),
+  key: z.string(),
+  isEnabled: z.literal(true)
+});
+
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
   cardSectionValidator,
@@ -373,7 +379,8 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   timelineSectionValidator,
   fullBleedMediaSectionValidator,
   pageTitleValidator,
-  meetTheTeamSectionValidator
+  meetTheTeamSectionValidator,
+  siteReviewsValidator
 ]);
 
 export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
@@ -749,6 +756,10 @@ export const PAGE_BUILDER_TYPES: {
     sectionSettings{
       ${fragments.sectionSettings}
     },
+  `,
+  siteReviews: () => groq`
+    ${fragments.base},
+    isEnabled,
   `
 };
 

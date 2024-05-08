@@ -442,3 +442,5 @@ export const PAYMENT_PROVIDERS: PaymentProvider[] = [
   { title: 'Vipps', value: 'vipps', icon: VippsLogo },
   { title: 'Visa', value: 'visa', icon: VisaLogo }
 ];
+
+export const PRODUCT_PAGE_REVIEWS_PAGE_SIZE = 10;

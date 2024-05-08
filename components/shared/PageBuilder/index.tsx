@@ -1,3 +1,4 @@
+import { SiteReviews } from '@/components/SiteReviews';
 import { BlogPostSection } from '@/components/shared/PageBuilder/BlogPostSection';
 import { CardSection } from '@/components/shared/PageBuilder/CardSection';
 import { EmailCapture } from '@/components/shared/PageBuilder/EmailCapture';
@@ -42,7 +43,8 @@ const blockTypes: BlockType = {
   timelineSection: TimelineSection,
   fullBleedMediaSection: FullBleedMediaSection,
   pageTitle: PageTitle,
-  meetTheTeamSection: MeetTheTeamSection
+  meetTheTeamSection: MeetTheTeamSection,
+  siteReviews: SiteReviews
 };
 
 interface Props {

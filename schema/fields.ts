@@ -259,6 +259,12 @@ export const pageBuilder = defineType({
       title: 'Meet the team',
       name: 'meetTheTeamSection',
       type: 'meetTheTeamSection'
+    }),
+    // Site reviews
+    defineArrayMember({
+      title: 'Site reviews',
+      name: 'siteReviews',
+      type: 'siteReviews'
     })
   ]
 });
