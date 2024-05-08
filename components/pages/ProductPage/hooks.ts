@@ -125,6 +125,8 @@ export const productValidator = z.object({
   descriptionShort: z.string(),
   descriptionLongTitle: z.string(),
   descriptionLongDetails: z.string(),
+  galleryMale: productGalleryValidator.optional(),
+  galleryFemale: productGalleryValidator.optional(),
   gallery: productGalleryValidator.optional(),
   options: z.array(productOptionValidator).optional(),
   faqs: z
@@ -264,6 +266,8 @@ export function getProductQuery({
         ],
       }]
     ),
+    "galleryMale": ${fragments.getGalleryMale(market)},
+    "galleryFemale": ${fragments.getGalleryFemale(market)},
     ${getGallerByGender({ market, gender })},
     "descriptionShort": coalesce(descriptionShort.${lang}, productType->descriptionShort.${lang}),
     "descriptionLongTitle": coalesce(descriptionLongTitle.${lang}, productType->descriptionLongTitle.${lang}),

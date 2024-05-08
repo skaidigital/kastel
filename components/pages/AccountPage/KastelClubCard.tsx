@@ -20,7 +20,7 @@ export async function KastelClubCard({ lang }: Props) {
   return (
     <Card>
       <CardContent>
-        <CardTitle>Kastel Club</CardTitle>
+        <CardTitle>Kastel Klubb</CardTitle>
         {hasPoints ? (
           <Text size="sm">
             {youHaveString} {smilePoints} Kastel points!
@@ -62,7 +62,7 @@ function getYouHaveString(lang: LangValues) {
 function getJoinString(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Bli med i Kastel Club og tjen poeng på hver handel!';
+      return 'Bli med i Kastel Klubb og tjen poeng på hver handel!';
     case 'en':
       return 'Join Kastel Club and earn points on every purchase!';
     default:
