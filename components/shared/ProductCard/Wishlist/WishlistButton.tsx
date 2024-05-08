@@ -6,6 +6,7 @@ import {
   HybridTooltipTrigger
 } from '@/components/HybridTooltip';
 import { TooltipProvider } from '@/components/Tooltip';
+import { revalidateWishlistProducts } from '@/components/shared/ProductCard/Wishlist/actions';
 import { LangValues } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import {
@@ -34,11 +35,13 @@ export function WishlistButton({ children, itemIsInWislist, isLoggedIn, gid, cla
     if (itemIsInWislist) {
       const response = await removeItemFromWishlist(gid);
       queryClient.invalidateQueries({ queryKey: ['isItemInWishlist', gid] });
+      await revalidateWishlistProducts();
       return response;
     }
 
     const response = await addItemToWishlist(gid);
     queryClient.invalidateQueries({ queryKey: ['isItemInWishlist', gid] });
+    await revalidateWishlistProducts();
     return response;
   }
 

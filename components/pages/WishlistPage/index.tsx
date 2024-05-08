@@ -4,6 +4,7 @@ import { Container } from '@/components/base/Container';
 import { WishlistProductsProps } from '@/components/pages/WishlistPage/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { LangValues, ROUTES } from '@/data/constants';
+import { cn } from '@/lib/utils';
 import HeartIcon from '@heroicons/react/20/solid/HeartIcon';
 
 interface Props {
@@ -22,7 +23,7 @@ export function WishlistPage({ lang, products }: Props) {
 
   return (
     <div className="flex flex-col">
-      <Container className="mt-6 lg:mt-10 lg:px-0">
+      <Container className={cn('mt-6 lg:mt-10', hasWishlistItems ? 'xl:px-0' : '')}>
         <AccountPageHeader lang={lang} pageTitle={wishlistString} />
       </Container>
       {!hasWishlistItems && (
