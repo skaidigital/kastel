@@ -97,6 +97,7 @@ import { natureLabInnovationSection } from '@/schema/pageBuilderBlocks/natureLab
 import { pageTitle } from '@/schema/pageBuilderBlocks/pageTitle';
 import { shoePickerBlock } from '@/schema/pageBuilderBlocks/shoePickerBlock';
 import { shopOurModelsBlock } from '@/schema/pageBuilderBlocks/shopOurModelsBlock';
+import { siteReviews } from '@/schema/pageBuilderBlocks/siteReviews';
 import { timelineBlock } from '@/schema/pageBuilderBlocks/timelineBlock';
 import { ugcBlock } from '@/schema/pageBuilderBlocks/ugcBlock';
 import { uspExplainerBlock } from '@/schema/pageBuilderBlocks/uspExplainerBlock';
@@ -179,6 +180,7 @@ const schema = [
   blogPostSection,
   featuredCollectionSection,
   emailCapture,
+  siteReviews,
   natureLabInnovationSection,
   cardSection,
   shoePickerSection,
