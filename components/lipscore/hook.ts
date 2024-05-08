@@ -1,5 +1,6 @@
 'use server';
 
+import { PRODUCT_PAGE_REVIEWS_PAGE_SIZE } from '@/data/constants';
 import { env } from '@/env';
 import { z } from 'zod';
 
@@ -112,7 +113,8 @@ const productReviewsValidator = z.array(productReviewValidator);
  * @returns Lipscore reviews array
  */
 export async function getProductReviews(internalId: string, page: number = 1) {
-  const reviewUrl = ` https://api.lipscore.com/products/${internalId}/reviews?api_key=${env.LIPSCORE_API_KEY}&page=${page}&per_page=10`;
+  const pageSize = PRODUCT_PAGE_REVIEWS_PAGE_SIZE;
+  const reviewUrl = ` https://api.lipscore.com/products/${internalId}/reviews?api_key=${env.LIPSCORE_API_KEY}&page=${page}&per_page=${pageSize}`;
 
   const response = await fetch(reviewUrl, {
     method: 'GET',

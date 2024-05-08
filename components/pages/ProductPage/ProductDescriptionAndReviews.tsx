@@ -11,11 +11,9 @@ interface Props {
 }
 
 export async function ProductDescriptionAndReviews({ title, description, sku }: Props) {
-  console.log(sku);
   const queryClient = new QueryClient();
 
   const lipscoreProductId = await getProductIdSku(sku);
-  console.log(lipscoreProductId);
   const page = 1;
 
   await queryClient.prefetchQuery({
@@ -37,8 +35,6 @@ export async function ProductDescriptionAndReviews({ title, description, sku }: 
         <div className="mt-4 px-4 lg:mt-6 lg:px-16">
           <p className="mb-6 text-center text-sm lg:text-md">{description}</p>
         </div>
-      </Container>
-      <Container className="lg:max-w-[960px]">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <ProductReviews lipscoreProductId={String(lipscoreProductId)} />
         </HydrationBoundary>

@@ -1,7 +1,15 @@
 'use client';
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/Accordion';
 import { Badge } from '@/components/Badge';
+import { Button } from '@/components/Button';
 import { ProductReview, getProductReviews } from '@/components/lipscore/hook';
+import { PRODUCT_PAGE_REVIEWS_PAGE_SIZE } from '@/data/constants';
 import { StarFilledIcon } from '@radix-ui/react-icons';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -22,51 +30,63 @@ export function ProductReviews({ lipscoreProductId }: Props) {
     console.error(error);
     return null;
   }
-  // if (error) {
-  //   console.error(error);
-  //   return <h2>{error.message}</h2>;
-  // }
+
+  const pageSize = PRODUCT_PAGE_REVIEWS_PAGE_SIZE;
+  const hasPreviousPage = page > 1;
+  const hasNextPage = data && data?.length >= pageSize;
 
   return (
     <div className="w-full">
-      <h1>Reviews</h1>
-      <ul className="flex flex-col gap-y-10">
-        {data?.map((review) => <ReviewItem key={review.created_at} review={review} />)}
-      </ul>
-      <div>
-        <button
-          onClick={() => setPage((currentPage) => Math.max(currentPage - 1, 1))}
-          disabled={page === 1}
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => setPage((currentPage) => currentPage + 1)}
-          disabled={(data && data?.length < 10) || isFetching} // Assuming each page has 25 items, disable if fetched fewer.
-        >
-          Next
-        </button>
-        <p>Page {page}</p>
-      </div>
-      {isFetching && <p>Loading...</p>}
+      <Accordion type="single" id="reviews" collapsible>
+        <AccordionItem value="reviews">
+          <AccordionTrigger>
+            <h1>Reviews</h1>
+          </AccordionTrigger>
+          <AccordionContent>
+            <ul className="flex flex-col gap-y-10">
+              {data?.map((review) => <ReviewItem key={review.created_at} review={review} />)}
+            </ul>
+            <div className="mt-6 flex items-center justify-center gap-x-2 lg:mt-10">
+              <Button
+                size="sm"
+                variant="primary"
+                onClick={() => setPage((currentPage) => Math.max(currentPage - 1, 1))}
+                isLoading={isFetching}
+                disabled={!hasPreviousPage || isFetching}
+              >
+                Previous
+              </Button>
+              <Button
+                size="sm"
+                variant="primary"
+                onClick={() => setPage((currentPage) => currentPage + 1)}
+                isLoading={isFetching}
+                disabled={!hasNextPage || isFetching}
+              >
+                Next
+              </Button>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 }
 
 function ReviewItem({ review }: { review: ProductReview }) {
   return (
-    <div className="flex flex-col gap-y-2 border-b border-brand-light-grey pb-5">
+    <div className="flex flex-col gap-y-4 border-b border-brand-light-grey pb-5">
       <div className="flex justify-between">
         <div className="flex flex-col gap-y-2">
-          <span className="text-md font-semibold">{review.user.short_name}</span>
+          <span className="text-sm font-semibold">{review.user.short_name}</span>
           <RatingStars rating={Number(review.rating)} />
         </div>
         <div>{review.internal_order_id ? <Badge>Verified</Badge> : null}</div>
       </div>
       <div>
-        <span className="text-sm text-brand-mid-grey">
-          text: <span dangerouslySetInnerHTML={{ __html: review.text }}></span>
-        </span>
+        <div className="text-sm text-brand-mid-grey">
+          <span dangerouslySetInnerHTML={{ __html: review.text }}></span>
+        </div>
       </div>
     </div>
   );

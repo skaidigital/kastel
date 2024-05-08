@@ -9,6 +9,7 @@ import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
+import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton';
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
@@ -174,7 +175,9 @@ export async function ProductPageLayout(props: Props) {
                       productType={product.type}
                       largestDiscount={product.largestDiscount}
                     />
-                    <Rating sku={productSku} />
+                    <ScrollToRatingsButton>
+                      <Rating sku={productSku} />
+                    </ScrollToRatingsButton>
                   </div>
                   <Suspense fallback={<WishlistFallback />}>
                     <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
