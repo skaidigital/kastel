@@ -19,38 +19,27 @@ export function AnnouncementBannerLayout(props: Props) {
 
   if (!isShown) return null;
 
-  const { content, hasLink } = announcementBanner;
+  const { items } = announcementBanner;
 
   const classNames =
     'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden text-overline-sm font-medium uppercase lg:gap-x-36';
 
-  if (hasLink) {
-    return (
-      <SanityLink link={announcementBanner.link} className={cn(classNames, className)}>
-        <Marquee autoFill pauseOnHover>
-          {content?.map((usp) => {
-            return (
-              <span key={usp && usp} className="mr-10 font-bold lg:mr-32">
-                {usp && usp}
-              </span>
-            );
-          })}
-        </Marquee>
-      </SanityLink>
-    );
-  }
-
   return (
-    <div className={cn(classNames, className)}>
-      <Marquee autoFill pauseOnHover>
-        {content?.map((usp) => {
+    <Marquee autoFill pauseOnHover>
+      {items?.map((usp) => {
+        if (usp.hasLink) {
           return (
-            <span key={usp && usp} className="mr-10 font-bold lg:mr-32">
-              {usp && usp}
-            </span>
+            <SanityLink link={usp.link} key={usp.content} className={cn(classNames, className)}>
+              {usp.content && <span className="mr-10 font-bold lg:mr-32">{usp.content}</span>}
+            </SanityLink>
           );
-        })}
-      </Marquee>
-    </div>
+        }
+        return (
+          <span key={usp.content} className="mr-10 font-bold lg:mr-32">
+            {usp.content}
+          </span>
+        );
+      })}
+    </Marquee>
   );
 }

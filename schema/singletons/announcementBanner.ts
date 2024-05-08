@@ -40,6 +40,26 @@ export const announcementBanner = defineType({
               name: 'content',
               type: 'i18n.string',
               validation: validateAllStringTranslations
+            }),
+            defineField({
+              title: 'Link to something?',
+              name: 'hasLink',
+              type: 'boolean',
+              initialValue: true,
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              title: 'Link',
+              name: 'link',
+              type: 'linkWithoutText',
+              validation: (Rule) =>
+                Rule.custom((field, context: any) => {
+                  if (context?.parent?.hasLink && !field) {
+                    return 'Link is required';
+                  }
+                  return true;
+                }),
+              hidden: ({ parent }) => !parent?.hasLink
             })
           ]
         }
@@ -54,26 +74,6 @@ export const announcementBanner = defineType({
           }
           return true;
         })
-    }),
-    defineField({
-      title: 'Link to something?',
-      name: 'hasLink',
-      type: 'boolean',
-      initialValue: true,
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      title: 'Link',
-      name: 'link',
-      type: 'linkWithoutText',
-      validation: (Rule) =>
-        Rule.custom((field, context: any) => {
-          if (context?.parent?.hasLink && !field) {
-            return 'Link is required';
-          }
-          return true;
-        }),
-      hidden: ({ parent }) => !parent?.hasLink
     })
   ]
 });

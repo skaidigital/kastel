@@ -8,28 +8,27 @@ const hiddenAnnouncementBannerValidator = z.object({
   isShown: z.literal(false)
 });
 
-const showAnnouncementBannerWithLinkValidator = z.object({
-  isShown: z.literal(true),
-  content: z.array(z.string()),
+const announncementBannerItemWithLinkValidator = z.object({
+  content: z.string(),
   hasLink: z.literal(true),
   link: linkWithoutTextValidator
 });
 
-const showAnnouncementBannerWithoutLinkValidator = z.object({
-  isShown: z.literal(true),
-  content: z.array(z.string()),
+const announncementBannerItemWithoutLinkValidator = z.object({
+  content: z.string(),
   hasLink: z.literal(false)
 });
 
-// Discrimination on `hasLink`
-const showAnnouncementBannerValidator = z.discriminatedUnion('hasLink', [
-  showAnnouncementBannerWithLinkValidator,
-  showAnnouncementBannerWithoutLinkValidator
-]);
+const shownAnnouncementBannerValidator = z.object({
+  isShown: z.literal(true),
+  items: z.array(
+    z.union([announncementBannerItemWithLinkValidator, announncementBannerItemWithoutLinkValidator])
+  )
+});
 
 export const announcementBannerValidator = z.union([
   hiddenAnnouncementBannerValidator,
-  showAnnouncementBannerValidator
+  shownAnnouncementBannerValidator
 ]);
 
 export type AnnouncementBannerPayload = z.infer<typeof announcementBannerValidator>;
@@ -38,11 +37,13 @@ export function getAnnouncementBannerQuery(lang: LangValues) {
   const query = groq`
     *[_type == "announcementBanner"][0] {
       isShown,
-      "content": content[].content.${lang},
-      hasLink,
-      link{
-        ${fragments.getLinkWithoutText(lang)}
-      },
+      "items": content[]{
+        "content": content.${lang},
+        "hasLink": hasLink,
+        "link": link{
+          ${fragments.getLinkWithoutText(lang)}
+        }
+      }
     }
   `;
 
