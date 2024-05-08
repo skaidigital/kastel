@@ -1,6 +1,6 @@
 import { COOKIE_NAMES } from '@/data/constants';
+import { env } from '@/env';
 import { getExpiryTime } from '@/lib/getExpiryTime';
-import { getRefreshToken } from '@/lib/getRefreshToken';
 import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
@@ -9,15 +9,22 @@ export async function GET(request: Request) {
   const cookieExpirationTime = await getExpiryTime();
   console.log('cookieExpirationTime', cookieExpirationTime);
 
-  if (!cookieExpirationTime) {
+  if (cookieExpirationTime) {
     console.log('cookieExpirationTime is null');
-
-    const newToken = await getRefreshToken();
-    console.log('newToken', newToken);
-
-    if (!newToken) {
+    const baseUrl = env.BASE_URL;
+    const response = await fetch(baseUrl + '/api/shopify/refresh');
+    console.log('response from refresh', response);
+    const status = response.status;
+    if (status !== 200) {
       throw new Error('Not a valid access token');
     }
+
+    // const newToken = await getRefreshToken();
+    // console.log('newToken', newToken);
+
+    // if (!newToken) {
+    // throw new Error('Not a valid access token');
+    // }
   }
 
   const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;

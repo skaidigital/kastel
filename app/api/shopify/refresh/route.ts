@@ -4,9 +4,14 @@ import { refreshAccessToken } from '@/lib/shopify/customer/actions';
 import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
+  console.log('in refresh');
+
   const refreshToken = cookies().get(COOKIE_NAMES.SHOPIFY.REFRESH_TOKEN)?.value;
+  console.log('refreshToken', refreshToken);
 
   if (!refreshToken) {
+    console.log('refreshToken is null');
+
     return new Response('No refresh token', { status: 401 });
   }
 

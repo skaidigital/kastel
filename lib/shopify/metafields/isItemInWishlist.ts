@@ -7,12 +7,12 @@ export async function isItemInWishlist(itemGid: string) {
   return wishlistResponse.includes(itemGid);
 }
 
-export function useIsItemInWishlist(itemGid: string) {
+export function useIsItemInWishlist({ gid, isLoggedIn }: { gid: string; isLoggedIn: boolean }) {
   return useQuery({
-    queryKey: ['isItemInWishlist', itemGid],
+    queryKey: ['isItemInWishlist', gid],
     queryFn: async () => {
-      return isItemInWishlist(itemGid);
+      return isItemInWishlist(gid);
     },
-    enabled: !!itemGid
+    enabled: !!gid && !!isLoggedIn
   });
 }

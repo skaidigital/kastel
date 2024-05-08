@@ -16,7 +16,7 @@ interface Props {
 export function Wishlist({ gid, className }: Props) {
   const { isLoggedIn } = useUser();
 
-  const { data: isInWishlist, isLoading } = useIsItemInWishlist(gid);
+  const { data: isInWishlist, isLoading } = useIsItemInWishlist({ gid, isLoggedIn });
 
   if (isLoading) {
     return <WishlistFallback className={className} />;

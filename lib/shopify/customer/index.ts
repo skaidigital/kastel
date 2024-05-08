@@ -2,9 +2,14 @@
 
 import { ExtractVariables } from '@/app/api/shopify/types';
 import { isShopifyError } from '@/app/api/shopify/utils';
+import { COOKIE_NAMES } from '@/data/constants';
 import { env } from '@/env';
+import { getExpiryTime } from '@/lib/getExpiryTime';
+import { getRefreshToken } from '@/lib/getRefreshToken';
+import { cookies } from 'next/headers';
 import { logIn } from './actions';
 
+// const baseUrl = env.BASE_URL;
 const shopId = env.SHOPIFY_CUSTOMER_SHOP_ID;
 const endpoint = `https://shopify.com/${shopId}/account/customer/api/2024-04/graphql`;
 
@@ -22,23 +27,25 @@ export async function customerAccountFetch<T>({
   tags?: string[];
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
-  // const expiredCoockie = await getExpiryTime();
+  const expiredCoockie = await getExpiryTime();
 
-  // if (!expiredCoockie) {
-  //   // const updatedToken = await getRefreshToken();
-  //   const updatedToken =
-  //     'atkn_CiEI9InZsQYQ9KP3sgaiARIKENlzlD4MfEm5nAjLR6urftISQF9PYkT-htO7d7YrwcLN-jgBRTmpLd8zecRBdmuvp-0iGqRO0XJzSNu0VZXiYhK4C_SqRAeF1ZC-Tq3PBw2zZAs';
+  if (!expiredCoockie) {
+    const updatedToken = await getRefreshToken();
 
-  //   if (!updatedToken) {
-  //     throw new Error('Not a valid access token');
-  //   }
-  // }
-  // const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
-  const accessTokenResponse = await fetch('/api/shopify/getCustomerAccountAccessToken');
-  console.log('accessTokenResponse', accessTokenResponse);
+    // const updatedToken =
+    //   'atkn_CiEI9InZsQYQ9KP3sgaiARIKENlzlD4MfEm5nAjLR6urftISQF9PYkT-htO7d7YrwcLN-jgBRTmpLd8zecRBdmuvp-0iGqRO0XJzSNu0VZXiYhK4C_SqRAeF1ZC-Tq3PBw2zZAs';
 
-  const accessToken = await accessTokenResponse.json();
-  console.log('accessToken', accessToken);
+    if (!updatedToken) {
+      throw new Error('Not a valid access token');
+    }
+  }
+  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+
+  // const accessTokenResponse = await fetch(baseUrl + '/api/shopify/getCustomerAccountAccessToken');
+  // console.log('accessTokenResponse', accessTokenResponse);
+
+  // const accessToken = await accessTokenResponse.json();
+  // console.log('accessToken', accessToken);
 
   try {
     const result = await fetch(endpoint, {

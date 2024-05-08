@@ -26,6 +26,7 @@ const FilterGroupValidator = z.object({
 });
 
 export const filterGroupsValidator = z.array(FilterGroupValidator);
+
 export type FilterGroupSchema = z.infer<typeof FilterGroupValidator>;
 
 type filterType = 'text' | 'color' | 'size';
