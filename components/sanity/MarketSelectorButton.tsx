@@ -26,30 +26,20 @@ export const MarketSelectorButton = ({ currentMarket, currentLang, className }: 
     router.push(newUrl);
   }
 
-  // const selectedMarket = MARKETS.find((market) => market.id === currentMarket);
-  // const selectedLang = LANGS.find((lang) => lang.id === currentLang);
   const selectedLang = LANGS.find((lang) => lang.id === secondRouteSegment);
 
   return (
-    <div className={cn('something', className)}>
+    <div className={cn('', className)}>
       <Select
         onValueChange={(e: LangValues) => {
           handlePreviewLangChange(e);
         }}
-        // onValueChange={(e: MarketValues) => {
-        //   handleSelectPreviewMarket(e);
-        // }}
       >
         <SelectTrigger>
           {/* <SelectValue placeholder={`${selectedMarket?.name} ${selectedMarket?.flag}`} /> */}
           <SelectValue placeholder={`${selectedLang?.name} ${selectedLang?.flag}`} />
         </SelectTrigger>
         <SelectContent>
-          {/* {MARKETS.map((market: Market) => (
-            <SelectItem key={market.id} value={market.id}>
-              {market.flag} {market.name}
-            </SelectItem>
-          ))} */}
           {LANGS.map((lang: Lang) => (
             <SelectItem key={lang.id} value={lang.id}>
               {lang.flag} {lang.name}

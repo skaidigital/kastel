@@ -1,5 +1,5 @@
 import Providers from '@/components/Providers';
-import PreviewMarketSelector from '@/components/sanity/PreviewMarketSelector';
+import PreviewToolbar from '@/components/sanity/PreviewToolbar';
 import { env } from '@/env';
 import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
@@ -68,7 +68,7 @@ export default function IndexRoute({
           </div>
           <ShopifyAnalytics hasConsent />
           <MarketPopup lang={lang} />
-          {draftMode().isEnabled && <PreviewMarketSelector />}
+          {draftMode().isEnabled && <PreviewToolbar />}
           <Suspense>
             <SmileLayout />
           </Suspense>
