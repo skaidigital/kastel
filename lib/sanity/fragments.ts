@@ -60,7 +60,7 @@ export function getGallery(market: MarketValues) {
 
 export function getGalleryMale(market: MarketValues) {
   return groq`
-  "gallery": galleryMale[]{
+  galleryMale[]{
     _type == "figure" => {
       "type": _type,
       asset->{
@@ -86,7 +86,7 @@ export function getGalleryMale(market: MarketValues) {
 
 export function getGalleryFemale(market: MarketValues) {
   return groq`
-  "gallery": galleryFemale[]{
+    galleryFemale[]{
       _type == "figure" => {
         "type": _type,
         asset->{

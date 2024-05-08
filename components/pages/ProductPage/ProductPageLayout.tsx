@@ -2,7 +2,6 @@ import { Dictionary } from '@/app/dictionaries';
 import { HotspotImage } from '@/components/HotspotImage';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
-import Video from '@/components/Video';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
@@ -10,7 +9,6 @@ import { Text } from '@/components/base/Text';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
 import { Product } from '@/components/pages/ProductPage/hooks';
-import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
 import { MobileCarousel } from '@/components/shared/MobileCarousel';
 import { PageBuilder } from '@/components/shared/PageBuilder';
@@ -24,10 +22,10 @@ import { SanityImageProps } from '@/lib/sanity/types';
 import { SearchParams } from '@/lib/types';
 import { ColorSelectLayout } from './ColorSelectLayout';
 import { DiscountBadge } from './DiscountBadge';
-import { GenderImageButton } from './GenderImageButton';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
 import { ProductFAQs } from './ProductFAQs';
+import { ProductGallery } from './ProductGallery';
 import { ProductPrice } from './ProductPrice';
 import { UspsMarquee } from './Usps';
 
@@ -44,11 +42,7 @@ export async function ProductPageLayout(props: Props) {
 
   if (!product) return null;
 
-  // const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
-  const activeGender = 'female';
-
   const {
-    gallery,
     mainImage,
     lifestyleImage,
     title,
@@ -75,12 +69,12 @@ export async function ProductPageLayout(props: Props) {
         title={title}
         image={mainImage ? urlForImage(mainImage).url() : undefined}
       />
-      {gallery && gallery.length > 0 && (
+      {product.galleryFemale && product.galleryFemale.length > 0 && (
         <div className="relative w-full">
           <MobileCarousel
             mainImage={mainImage}
             lifestyleImage={lifeStyleImageCheck}
-            items={gallery}
+            items={product.galleryFemale}
             lang={lang}
           />
           <Breadcrumbs productName={title} lang={lang} className="absolute left-3 top-3" />
@@ -94,72 +88,14 @@ export async function ProductPageLayout(props: Props) {
         className="border-brand-border gap-y-5 border-b bg-white pb-9 lg:flex lg:pb-20"
       >
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:mt-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
-          <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
-            <GenderImageButton activeGender={activeGender} />
-            {mainImage && (
-              <div className="aspect-h-4 aspect-w-3 relative h-full w-full">
-                <SanityImage
-                  priority
-                  image={mainImage}
-                  sizes="(max-width: 1024px) 100vw, 70vw"
-                  fill
-                  className="absolute h-auto w-full object-cover"
-                />
-                <Breadcrumbs productName={title} lang={lang} className="absolute left-4 top-4" />
-              </div>
-            )}
-            {lifeStyleImageCheck && (
-              <div className="aspect-h-4 aspect-w-3 relative h-full w-full">
-                <SanityImage
-                  priority
-                  image={lifestyleImage as SanityImageProps}
-                  sizes="(max-width: 1024px) 100vw, 70vw"
-                  fill
-                  className="absolute h-auto w-full object-cover"
-                />
-              </div>
-            )}
-            {gallery &&
-              gallery.length > 0 &&
-              gallery.map((item, index) => {
-                if (item.type === 'figure') {
-                  return (
-                    <div
-                      key={item.asset._ref && item.asset._ref}
-                      className="aspect-h-4 aspect-w-3 relative h-full w-full"
-                    >
-                      {item.asset._ref && (
-                        <SanityImage
-                          priority={index === 0 || index === 1}
-                          key={index}
-                          image={item}
-                          sizes="(max-width: 1024px) 100vw, 70vw"
-                          fill
-                          className="absolute h-auto w-full object-cover"
-                        />
-                      )}
-                    </div>
-                  );
-                }
-                if (item.type === 'mux.video') {
-                  return (
-                    <div
-                      key={item.videoUrl && item.videoUrl}
-                      className="aspect-h-4 aspect-w-3 relative mb-10 h-full w-full"
-                    >
-                      {item.videoUrl && (
-                        <Video
-                          playbackId={item.videoUrl}
-                          resolution="HD"
-                          loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
-                        />
-                      )}
-                    </div>
-                  );
-                }
-                return null;
-              })}
-          </div>
+          <ProductGallery
+            title={title}
+            lang={lang}
+            mainImage={mainImage}
+            galleryFemale={product.galleryFemale}
+            galleryMale={product.galleryMale}
+            lifestyleImage={lifestyleImage as SanityImageProps}
+          />
           <div className="no-flex-grow sticky top-0 h-fit gap-y-10 lg:max-w-[560px]">
             <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
             <div className="mt-6 lg:mt-10 lg:px-[84px]">
