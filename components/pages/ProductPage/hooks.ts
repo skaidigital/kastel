@@ -238,17 +238,17 @@ export function getProductQuery({
         "selectedOptions": [
         option1->{
             "name": type->title.${lang},
-            "slug": type->slug_${market}.current,
+            "slug": type->slug_${lang}.current,
             "value": title.${lang},
         },
         option2->{
             "name": type->title.${lang},
-            "slug": type->slug_${market}.current,
+            "slug": type->slug_${lang}.current,
             "value": title.${lang},
         },
         option3->{
             "name": type->title.${lang},
-            "slug": type->slug_${market}.current,
+            "slug": type->slug_${lang}.current,
             "value": title.${lang},
         }
       ]},

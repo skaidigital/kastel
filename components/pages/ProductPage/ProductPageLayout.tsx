@@ -149,7 +149,6 @@ export async function ProductPageLayout(props: Props) {
                   options={options}
                   sizeGuide={product.sizeGuide}
                 />
-                <div id="marker-element" className="hidden" style={{ height: '1px' }}></div>
               </div>
               <PaymentIcons market={market} />
               <USPCarousel

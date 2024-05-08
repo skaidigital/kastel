@@ -17,7 +17,6 @@ import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
 interface Props {
@@ -35,7 +34,6 @@ export const AddToCartButton = ({
   addToCartText,
   selectSizeText
 }: Props) => {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { setMobileDrawerOpen, setCartOpen } = useCartContext();
   const { sendAddToCart } = useShopifyAnalytics();
