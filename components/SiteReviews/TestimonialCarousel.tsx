@@ -40,7 +40,7 @@ export function TestimonialCarousel({ children, count }: Props) {
       opts={{
         align: 'start'
       }}
-      className="flex grow flex-col items-start"
+      className=""
       plugins={[
         Autoplay({
           delay: 3000
@@ -48,7 +48,12 @@ export function TestimonialCarousel({ children, count }: Props) {
       ]}
     >
       <CarouselContent className="-ml-0 mb-4 lg:mb-6">{children}</CarouselContent>
-      <ScrollDots current={current} count={count} onClick={setActive} />
+      <ScrollDots
+        current={current}
+        count={count}
+        onClick={setActive}
+        className="flex justify-start"
+      />
     </Carousel>
   );
 }
