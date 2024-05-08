@@ -15,8 +15,8 @@ const badgeProps = cva({
       orderDanger: 'bg-[#FEE2E2] text-[#B91C1C]'
     },
     size: {
-      xs: 'text-xs font-medium py-0.5 px-1.5',
-      sm: 'text-sm font-medium py-0.5 px-1.5',
+      xs: 'text-xs font-medium py-1 px-1.5',
+      sm: 'text-sm font-medium py-1 px-1.5',
       md: 'text-eyebrow'
     }
   },

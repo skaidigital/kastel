@@ -98,12 +98,11 @@ const productReviewValidator = z.object({
   internal_order_id: z.string().optional().nullable(),
   text: z.string(),
   user: z.object({
-    // name: z.string(),
     short_name: z.string()
-    // email: z.string(),
-    // avatar_thumb_url: z.string().optional().nullable()
   })
 });
+
+export type ProductReview = z.infer<typeof productReviewValidator>;
 
 const productReviewsValidator = z.array(productReviewValidator);
 
