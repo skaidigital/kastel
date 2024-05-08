@@ -12,19 +12,42 @@ import {
 
 type filterType = 'text' | 'color' | 'size';
 
-function loadFilterItem(market: MarketValues, type: filterType, parentId: string) {
-  const query = getFilterItemQuery(market, type);
+function loadFilterItem(
+  market: MarketValues,
+  type: filterType,
+  parentId: string,
+  collectionSlug?: string,
+  searchGids?: string[]
+) {
+  const query = getFilterItemQuery(market, type, collectionSlug, searchGids);
 
-  return loadQuery<any>(query, { parentId }, { next: { tags: ['filter'] } });
+  return loadQuery<any>(
+    query,
+    { parentId, collectionSlug: collectionSlug || null, searchGids: searchGids || null },
+    { next: { tags: ['filter'] } }
+  );
 }
 
 interface FilterItemProps {
   item: FilterGroupSchema;
   market: MarketValues;
+  collectionSlug?: string;
+  searchGids?: string[];
 }
 
-export async function FilterGroupItem({ item: filterGroup, market }: FilterItemProps) {
-  const initial = await loadFilterItem(market, filterGroup.type as filterType, filterGroup.id);
+export async function FilterGroupItem({
+  item: filterGroup,
+  market,
+  collectionSlug,
+  searchGids
+}: FilterItemProps) {
+  const initial = await loadFilterItem(
+    market,
+    filterGroup.type as filterType,
+    filterGroup.id,
+    collectionSlug,
+    searchGids
+  );
 
   const filterGroupResponse = initial?.data;
 

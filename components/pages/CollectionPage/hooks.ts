@@ -84,15 +84,17 @@ export function getProductIdsByOrder(market: LangValues, sortKey: string | undef
           ${fragments.productsInTag}{
             _id,
             _createdAt,
-            "minPrice" : minVariantPrice_no.amount,
-            "maxPrice": maxVariantPrice_no.amount
+            "largestDiscount": largestDiscount_${market},
+            "minPrice" : minVariantPrice_${market}.amount,
+            "maxPrice": maxVariantPrice_${market}.amount
           },
           ${fragments.productsNotInTag},
           ${fragments.productsWithoutTags} {
             _id,
             _createdAt,
-            "minPrice" : minVariantPrice_no.amount,
-            "maxPrice": maxVariantPrice_no.amount
+            "largestDiscount": largestDiscount_${market},
+            "minPrice" : minVariantPrice_${market}.amount,
+            "maxPrice": maxVariantPrice_${market}.amount
           }
         }
       } | order(${getSortQuery(sortKey)})
@@ -110,6 +112,8 @@ export function getSortQuery(sortKey: string | undefined) {
       return 'maxPrice desc';
     case 'newest':
       return '_createdAt desc';
+    case 'on_sale':
+      return 'largestDiscount desc';
     default:
       return null;
   }

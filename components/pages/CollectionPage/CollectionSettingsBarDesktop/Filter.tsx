@@ -26,9 +26,11 @@ export function loadFilter(lang: LangValues) {
 interface Props {
   market: MarketValues;
   lang: LangValues;
+  collectionSlug?: string;
+  searchGids?: string[];
 }
 
-export async function Filter({ market, lang }: Props) {
+export async function Filter({ market, lang, collectionSlug, searchGids }: Props) {
   const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;
@@ -65,7 +67,12 @@ export async function Filter({ market, lang }: Props) {
                 <AccordionItem value={item.id} key={item.id} className="border-none lg:py-4">
                   <AccordionTrigger className="mb-4">{item.title}</AccordionTrigger>
                   <AccordionContent>
-                    <FilterGroupItem item={item} market={market} />
+                    <FilterGroupItem
+                      item={item}
+                      market={market}
+                      collectionSlug={collectionSlug}
+                      searchGids={searchGids}
+                    />
                   </AccordionContent>
                 </AccordionItem>
               ))}
