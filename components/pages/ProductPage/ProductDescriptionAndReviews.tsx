@@ -1,12 +1,28 @@
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
+import { getProductIdSku, getProductReviews } from '@/components/lipscore/hook';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { ProductReviews } from './ProductReviews/ProductReviewsV2';
 
 interface Props {
   title: string;
   description: string;
+  sku: string;
 }
 
-export function ProductDescriptionAndReviews({ title, description }: Props) {
+export async function ProductDescriptionAndReviews({ title, description, sku }: Props) {
+  console.log(sku);
+  const queryClient = new QueryClient();
+
+  const lipscoreProductId = await getProductIdSku(sku);
+  console.log(lipscoreProductId);
+  const page = 1;
+
+  await queryClient.prefetchQuery({
+    queryKey: ['productReviews', page],
+    queryFn: () => getProductReviews(String(lipscoreProductId), page)
+  });
+
   return (
     <Section
       srHeading="Product Description"
@@ -20,6 +36,9 @@ export function ProductDescriptionAndReviews({ title, description }: Props) {
         </h2>
         <div className="mt-4 px-4 lg:mt-6 lg:px-16">
           <p className="mb-6 text-center text-sm lg:text-md">{description}</p>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <ProductReviews lipscoreProductId={String(lipscoreProductId)} />
+          </HydrationBoundary>
           {/* <p>Kundeanmeldelser</p> */}
         </div>
       </Container>
