@@ -84,7 +84,7 @@ const RatingLine = ({ rating, amount, total }: RatingLineProps) => {
   return (
     <div className="flex items-center gap-x-8">
       <span className="text-paragraph-small">{rating}</span>
-      <div className="w-100% bg-brand-header-grey border-1 flex h-12 border-brand-border">
+      <div className="w-100% bg-brand-header-grey border-1 border-brand-border flex h-12">
         <div
           style={{ width: `${percentage}%`, maxWidth: '100%' }}
           className={`h-100% bg-brand-dark-grey`}

@@ -40,9 +40,9 @@ export function HotspotImage({ image, hotspots, sizes, children }: Props) {
                 <HybridTooltipContent
                   side="top"
                   align="center"
-                  className={cn(hotspot.type === 'product' && 'w-[320px] border-none p-0')}
+                  className={cn('', hotspot.type === 'product' && 'w-[320px] border-none p-0')}
                 >
-                  {hotspot.type === 'text' && <div>{hotspot.description}</div>}
+                  {hotspot.type === 'text' && <p className="text-sm">{hotspot.description}</p>}
                   {hotspot.type === 'product' && <ProductCard product={hotspot} />}
                 </HybridTooltipContent>
               </HybridTooltip>

@@ -5,7 +5,7 @@ import { removeVariantGid } from '@/lib/shopify/helpers';
 
 export async function goToVippsHurtigkasse(activeVariantId: string) {
   if (!activeVariantId) {
-    console.log('No active variant id found');
+    console.error('No active variant id found');
     return;
   }
 
@@ -29,25 +29,3 @@ export async function goToVippsHurtigkasse(activeVariantId: string) {
 
   return data;
 }
-
-//   ? Code for taking the entire care to Hurtigkasse
-//   const cartId = cookies().get('cartId')?.value;
-
-//   if (!cartId) {
-//     console.error('No cart id found');
-//     return;
-//   }
-
-//   const cart = await getCart(cartId);
-
-//   if (!cart) {
-//     console.error('No cart found');
-
-//     return;
-//   }
-
-//   const formattedCart = cart.lines.map((line) => ({
-//     variant_id: line.merchandise.id,
-//     quantity: line.quantity
-//   }));
-//   console.log({ formattedCart });

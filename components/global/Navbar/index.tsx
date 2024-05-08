@@ -6,8 +6,8 @@ import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
-async function loadNavbar(lang: LangValues) {
-  const query = getNavbarQuery(lang);
+async function loadNavbar({ market, lang }: { market: MarketValues; lang: LangValues }) {
+  const query = getNavbarQuery({ market, lang });
 
   return loadQuery<NavbarPayload>(
     query,
@@ -22,7 +22,7 @@ interface Props {
   className?: string;
 }
 export async function Navbar({ market, lang, className }: Props) {
-  const initial = await loadNavbar(lang);
+  const initial = await loadNavbar({ market, lang });
   // const isDraftMode = draftMode().isEnabled;
 
   const withoutNullValues = nullToUndefined(initial.data);

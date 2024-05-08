@@ -42,7 +42,7 @@ export const FullBleedMediaSection = ({ data }: Props) => {
     >
       {aspectRatioSettings && (
         <AspectRatio settings={aspectRatioSettings} className="relative">
-          {media && <Media media={media} loading="lazy" />}
+          {media && <Media media={media} loading="lazy" sizes="100vw" />}
           <div
             className={cn(
               'absolute z-30 h-fit w-fit',

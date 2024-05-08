@@ -1,4 +1,5 @@
 import Providers from '@/components/Providers';
+import PreviewToolbar from '@/components/sanity/PreviewToolbar';
 import { env } from '@/env';
 import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
@@ -10,7 +11,6 @@ import { CartContextProvider } from '@/components/CartContext';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
 import { MarketPopup } from '@/components/global/MarketPopup';
 import { PopupHandler } from '@/components/global/PopupHandler';
-import PreviewMarketSelector from '@/components/sanity/PreviewMarketSelector';
 import { Smile } from '@/components/smile';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -67,7 +67,7 @@ export default function IndexRoute({
           </div>
           <ShopifyAnalytics hasConsent />
           <MarketPopup lang={lang} />
-          {draftMode().isEnabled && <PreviewMarketSelector />}
+          {draftMode().isEnabled && <PreviewToolbar />}
           <Smile />
         </Providers>
       </CartContextProvider>

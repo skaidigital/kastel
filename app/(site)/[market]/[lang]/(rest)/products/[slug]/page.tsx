@@ -10,6 +10,7 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { SearchParams } from '@/lib/types';
 import '@/styles/hideSmile.css';
 import { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-static';
@@ -53,7 +54,7 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
   const slug = params.slug;
   const market = params.market;
   const lang = params.lang;
-  // const activeGender = cookies().get('gender')?.value as 'male' | 'female' | undefined;
+  const isDraftMode = draftMode().isEnabled;
   const activeGender = 'female';
 
   try {
@@ -67,7 +68,9 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
 
     const productWithoutNullValues = nullToUndefined(initial.data);
 
-    const validatedProduct = productValidator.parse(productWithoutNullValues);
+    const validatedProduct = isDraftMode
+      ? productWithoutNullValues
+      : productValidator.parse(productWithoutNullValues);
 
     return (
       <ProductPageLayout

@@ -1,4 +1,4 @@
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { getLink } from '@/lib/sanity/fragments';
 import { headingAndLinksValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -15,13 +15,13 @@ export const testFooterValidator = z.any();
 
 export type FooterPayload = z.infer<typeof footerValidator>;
 
-export function getFooterQuery(lang: LangValues) {
+export function getFooterQuery({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = groq`
   *[_type == "footer"][0] {
     "description": description.${lang},
     "newsletterLabel": newsletterLabel.${lang},
     "newsletterDescription": newsletterDescription.${lang},
-    "items": items_${lang}[]{
+    "items": items_${market}[]{
       "heading": heading.${lang},
         links[]{
           link{

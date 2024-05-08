@@ -5,10 +5,9 @@ import { PaymentProviders } from '@/components/shared/PaymentProviders';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
-import { draftMode } from 'next/headers';
 
-function loadFooter(lang: LangValues) {
-  const query = getFooterQuery(lang);
+function loadFooter({ market, lang }: { market: MarketValues; lang: LangValues }) {
+  const query = getFooterQuery({ market, lang });
 
   return loadQuery<FooterPayload>(query, {}, { next: { tags: [CACHE_TAGS.FOOTER, 'home'] } });
 }
@@ -19,9 +18,9 @@ interface Props {
 }
 
 export async function Footer({ market, lang }: Props) {
-  const initial = await loadFooter(lang);
+  const initial = await loadFooter({ market, lang });
   const dictionary = await getFooterDictionary(lang);
-  const isDraftMode = draftMode().isEnabled;
+  // const isDraftMode = draftMode().isEnabled;
 
   const footerWithoutNullValues = nullToUndefined(initial.data);
   // let validatedFooter;

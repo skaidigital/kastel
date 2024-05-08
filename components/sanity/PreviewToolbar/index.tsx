@@ -1,3 +1,4 @@
+import { ExitDraftModeButton } from '@/components/sanity/PreviewToolbar/ExitDraftModeButton';
 import {
   COOKIE_NAMES,
   FALLBACK_LANG,
@@ -6,9 +7,9 @@ import {
   MarketValues
 } from '@/data/constants';
 import { cookies } from 'next/headers';
-import { MarketSelectorButton } from './MarketSelectorButton';
+import { MarketSelectorButton } from '../MarketSelectorButton';
 
-export default function PreviewMarketSelector() {
+export default function PreviewToolbar() {
   const previewMarket =
     (cookies().get(COOKIE_NAMES.PREVIEW_MARKET)?.value as MarketValues) || FALLBACK_MARKET;
   const previewLang =
@@ -16,11 +17,14 @@ export default function PreviewMarketSelector() {
 
   return (
     <div className="fixed bottom-10 left-1/2 z-20 translate-x-[-50%] bg-white">
-      <MarketSelectorButton
-        currentMarket={previewMarket}
-        currentLang={previewLang}
-        className="relative w-32"
-      />
+      <div className="flex gap-x-2">
+        <MarketSelectorButton
+          currentMarket={previewMarket}
+          currentLang={previewLang}
+          className="relative w-32"
+        />
+        <ExitDraftModeButton />
+      </div>
     </div>
   );
 }

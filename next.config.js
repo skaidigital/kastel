@@ -3,6 +3,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const { createClient } = require('next-sanity');
 const createJITI = require('jiti');
 const { withPlausibleProxy } = require('next-plausible');
+const withBundleAnalyzer = require('@next/bundle-analyzer')();
 var jiti = createJITI(__filename);
 
 jiti('./env');
@@ -85,6 +86,11 @@ const nextConfigWithSentry = withSentryConfig(
   SentryOptions
 );
 
-module.exports = withPlausibleProxy()({
+const nextConfigWithPlausibleProxy = withPlausibleProxy()({
   ...nextConfigWithSentry
 });
+
+module.exports =
+  process.env.ANALYZE === 'true'
+    ? withBundleAnalyzer(nextConfigWithPlausibleProxy)
+    : nextConfigWithPlausibleProxy;

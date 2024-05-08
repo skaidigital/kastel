@@ -1,4 +1,4 @@
-import { LangValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import * as fragments from '@/lib/sanity/fragments';
 import { headingAndLinksValidator, imageValidator, linkValidator } from '@/lib/sanity/validators';
 import { groq } from 'next-sanity';
@@ -26,11 +26,11 @@ export const navbarValidator = z.object({
 export type MeganavPayload = z.infer<typeof meganavValidator>;
 export type NavbarPayload = z.infer<typeof navbarValidator>;
 
-export function getNavbarQuery(lang: LangValues) {
+export function getNavbarQuery({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = groq`
   *[_type == "navbar"][0] {
     "hasAnnouncementBanner": count(*[_type == "announcementBanner"]) > 0,
-    "items": items_${lang}[]{
+    "items": items_${market}[]{
       _type == "meganav" => {
         "type": _type,
         "title": title.${lang},

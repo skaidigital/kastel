@@ -1,6 +1,6 @@
 'use client';
 
-import { getProductRatingBySku } from '@/components/lipscore/hook';
+import { getProductRatingBySku } from '@/components/lipscore/hooks';
 import { useQuery } from '@tanstack/react-query';
 
 export function useProductRating(sku: string) {

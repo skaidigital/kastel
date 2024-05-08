@@ -25,11 +25,7 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
   const testSearchParams = useSearchParams();
   const paramsObject = Object.fromEntries(testSearchParams.entries());
 
-  console.log('paramsObject', paramsObject);
-
   const paramValues = formatSearchParamsValues(paramsObject);
-
-  console.log(paramValues);
 
   const sortKey = paramsObject?.sort;
   const currentPage = 1;
