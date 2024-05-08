@@ -29,6 +29,9 @@ export const ugcBlock = defineType({
       name: 'videos',
       type: 'array',
       of: [{ type: 'mux.video' }],
+      options: {
+        layout: 'grid'
+      },
       validation: (Rule) => Rule.required().min(3).max(3)
     })
   ]
