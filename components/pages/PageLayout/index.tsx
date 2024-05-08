@@ -1,5 +1,6 @@
 import { AnimatedAnnouncementBanner } from '@/components/AnimatedAnnouncementBanner';
 import { AnimatedNavbar } from '@/components/AnimatedNavbar';
+import { SiteReviews } from '@/components/SiteReviews';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
@@ -26,6 +27,7 @@ export function PageLayout({ data, market, lang }: PageProps) {
           <Navbar market={market} lang={lang} />
         </AnimatedNavbar>
       )}
+      <SiteReviews />
       {data?.pageBuilder?.map((block, index: number) => (
         <PageBuilder
           key={block.key + index}

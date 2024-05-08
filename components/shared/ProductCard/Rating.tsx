@@ -1,5 +1,5 @@
 import { Text } from '@/components/base/Text';
-import { getProductRatingBySku } from '@/components/lipscore/hook';
+import { getProductRatingBySku } from '@/components/lipscore/hooks';
 import { cn } from '@/lib/utils';
 import { StarFilledIcon } from '@radix-ui/react-icons';
 

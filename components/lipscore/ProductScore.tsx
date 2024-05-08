@@ -1,4 +1,4 @@
-import { getProductRatingBySku } from './hook';
+import { getProductRatingBySku } from './hooks';
 
 interface Props {
   sku: string;

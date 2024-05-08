@@ -1,6 +1,6 @@
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
-import { getProductIdSku, getProductReviews } from '@/components/lipscore/hook';
+import { getProductIdSku, getProductReviews } from '@/components/lipscore/hooks';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { ProductReviews } from './ProductReviews';
 

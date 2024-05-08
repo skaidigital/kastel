@@ -152,11 +152,8 @@ export async function getServiceReview() {
   });
 
   const serviceReview = await serviceResponse.json();
-  console.log(serviceReview);
 
   const validatedResponse = ServiceRatingValidator.safeParse(serviceReview);
-
-  console.log(validatedResponse);
 
   if (!validatedResponse.success) {
     return {

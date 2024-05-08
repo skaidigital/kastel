@@ -1,5 +1,5 @@
 import { Text } from '../base/Text';
-import { getProductRatingBySku } from './hook';
+import { getProductRatingBySku } from './hooks';
 
 export async function ProductRating({ sku }: { sku: string }) {
   const productRating = await getProductRatingBySku(sku);
