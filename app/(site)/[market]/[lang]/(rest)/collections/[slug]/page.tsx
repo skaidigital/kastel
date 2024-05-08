@@ -24,7 +24,6 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
 export const dynamic = 'force-static';
 
@@ -62,10 +61,10 @@ interface Props {
 
 export default async function SlugCollectionPage({ params }: Props) {
   const { market, lang, slug } = params;
-  const paramValues = null;
-  const sortKey = undefined;
   const queryClient = new QueryClient();
-  const searchParams = undefined;
+
+  const sortKey = undefined;
+  const paramValues = null;
 
   const initialBase = await loadCollectionBase({ slug, market, lang });
 
@@ -85,7 +84,7 @@ export default async function SlugCollectionPage({ params }: Props) {
   const { collection_page } = await getDictionary({ lang });
 
   await queryClient.prefetchQuery({
-    queryKey: ['collectionProducts', slug, lang],
+    queryKey: ['collectionProducts', slug, lang, market, 1, undefined, null],
     queryFn: () =>
       loadCollectionProductDataV2({ lang, market, slug, currentPage: 1, sortKey, paramValues })
   });
@@ -128,17 +127,15 @@ export default async function SlugCollectionPage({ params }: Props) {
         className="hidden min-h-32 lg:block"
         collectionSlug={slug}
       />
-      <Suspense>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <CollectionPage
-            moods={moods}
-            slug={slug}
-            market={market}
-            lang={lang}
-            dictionary={collection_page}
-          />
-        </HydrationBoundary>
-      </Suspense>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <CollectionPage
+          moods={moods}
+          slug={slug}
+          market={market}
+          lang={lang}
+          dictionary={collection_page}
+        />
+      </HydrationBoundary>
       <CollectionAndSearchActionsBarMobile
         lang={lang}
         market={market}

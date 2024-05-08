@@ -42,7 +42,8 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
     sortKey: prioritizedSortkey,
     paramValues
   };
-  const { data, error, isFetched, isLoading } = useQuery({
+
+  const { data, error } = useQuery({
     queryKey: [
       'collectionProducts',
       slug,
@@ -57,7 +58,7 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
 
   if (error) {
     console.error(error);
-    return <h2>{error.message}</h2>;
+    return null;
   }
 
   if (data) {
