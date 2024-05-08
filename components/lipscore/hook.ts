@@ -10,6 +10,12 @@ const ProductRatingValidator = z.object({
   votes: z.number()
 });
 
+const ServiceRatingValidator = z.object({
+  id: z.number(),
+  rating: z.string(),
+  votes: z.number()
+});
+
 const ProductsRatingValidator = z.array(ProductRatingValidator);
 
 interface LipscoreReview {
@@ -132,4 +138,58 @@ export async function getProductReviews(internalId: string, page: number = 1) {
   }
 
   return validatedReviews.data;
+}
+
+export async function getServiceReview() {
+  const serviceReviewUrl = `https://api.lipscore.com/products/9307087?fields=rating,votes&api_key=${env.LIPSCORE_API_KEY}`;
+  const serviceResponse = await fetch(serviceReviewUrl, {
+    method: 'GET',
+    headers: {
+      'X-Authorization': env.LIPSCORE_API_SECRET
+    }
+  });
+
+  const serviceReview = await serviceResponse.json();
+  console.log(serviceReview);
+
+  const validatedResponse = ServiceRatingValidator.safeParse(serviceReview);
+
+  console.log(validatedResponse);
+
+  if (!validatedResponse.success) {
+    return {
+      rating: '0',
+      votes: 0,
+      reviews: []
+    };
+  }
+
+  const reviewUrl = ` https://api.lipscore.com/products/9307087/reviews?api_key=${env.LIPSCORE_API_KEY}&rating=5`;
+
+  const response = await fetch(reviewUrl, {
+    method: 'GET',
+    headers: {
+      'X-Authorization': env.LIPSCORE_API_SECRET
+    }
+  });
+
+  const reviews = await response.json();
+
+  const validatedReviews = productReviewsValidator.safeParse(reviews);
+
+  if (!validatedReviews.success) {
+    const serviceReview = {
+      rating: validatedResponse.data.rating || '0',
+      votes: validatedResponse.data.votes || 0,
+      reviews: []
+    };
+
+    return serviceReview;
+  }
+
+  return {
+    rating: validatedResponse.data.rating || '0',
+    votes: validatedResponse.data.votes || 0,
+    reviews: validatedReviews.data
+  };
 }

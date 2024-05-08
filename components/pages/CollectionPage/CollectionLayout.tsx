@@ -33,7 +33,7 @@ interface Props {
   lang: LangValues;
 }
 
-export function CollectionLayout({
+export async function CollectionLayout({
   data,
   currentPage,
   searchParams,
