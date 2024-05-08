@@ -9,13 +9,15 @@ interface Props {
   lang: LangValues;
   className?: string;
   collectionSlug?: string;
+  searchGids?: string[];
 }
 
 export function CollectionAndSearchActionsBarMobile({
   market,
   lang,
   className,
-  collectionSlug
+  collectionSlug,
+  searchGids
 }: Props) {
   return (
     <div
@@ -24,7 +26,7 @@ export function CollectionAndSearchActionsBarMobile({
         className
       )}
     >
-      <Filter market={market} lang={lang} collectionSlug={collectionSlug} />
+      <Filter market={market} lang={lang} collectionSlug={collectionSlug} searchGids={searchGids} />
       <Sort lang={lang} />
       <Settings lang={lang} />
     </div>

@@ -13,6 +13,7 @@ import {
   collectionBaseValidator,
   getCollectionBaseQuery
 } from '@/components/pages/CollectionPage/hooks';
+import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
@@ -138,6 +139,12 @@ export default async function SlugCollectionPage({ params }: Props) {
           />
         </HydrationBoundary>
       </Suspense>
+      <CollectionAndSearchActionsBarMobile
+        lang={lang}
+        market={market}
+        collectionSlug={slug}
+        className="lg:hidden"
+      />
       <Section label="description-long-products" srHeading="Description">
         <Container className="grid gap-2 lg:grid-cols-12">
           <div className="lg:col-span-6 lg:col-start-2">

@@ -145,7 +145,12 @@ export default async function Page({ searchParams, params }: Props) {
             )}
             <ActiveFilters className="mt-3 lg:hidden" />
           </div>
-          <CollectionAndSearchActionsBarMobile market={market} lang={lang} className="lg:hidden" />
+          <CollectionAndSearchActionsBarMobile
+            market={market}
+            lang={lang}
+            className="lg:hidden"
+            searchGids={searchGids}
+          />
         </Container>
         <SearchSettingsBar
           searchParams={searchParams}

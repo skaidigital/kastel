@@ -28,12 +28,31 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
   const paramValues = formatSearchParamsValues(paramsObject);
 
   const sortKey = paramsObject?.sort;
+  const saleKey = paramsObject?.on_sale;
+
+  const prioritizedSortkey = saleKey ? 'on_sale' : sortKey;
   const currentPage = 1;
   const searchParams = paramsObject;
+
+  const collectionFechData = {
+    lang,
+    market,
+    slug,
+    currentPage,
+    sortKey: prioritizedSortkey,
+    paramValues
+  };
   const { data, error, isFetched, isLoading } = useQuery({
-    queryKey: ['collectionProducts', slug, lang, market, currentPage, sortKey, paramValues],
-    queryFn: () =>
-      loadCollectionProductDataV2({ lang, market, slug, currentPage, sortKey, paramValues })
+    queryKey: [
+      'collectionProducts',
+      slug,
+      lang,
+      market,
+      currentPage,
+      prioritizedSortkey,
+      paramValues
+    ],
+    queryFn: () => loadCollectionProductDataV2(collectionFechData)
   });
 
   if (error) {

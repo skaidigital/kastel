@@ -12,9 +12,10 @@ interface Props {
   market: MarketValues;
   lang: LangValues;
   collectionSlug?: string;
+  searchGids?: string[];
 }
 
-export async function Filter({ market, lang, collectionSlug }: Props) {
+export async function Filter({ market, lang, collectionSlug, searchGids }: Props) {
   const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;
@@ -53,6 +54,7 @@ export async function Filter({ market, lang, collectionSlug }: Props) {
                         item={filterGroup}
                         market={market}
                         collectionSlug={collectionSlug}
+                        searchGids={searchGids}
                       />
                     </SheetContent>
                   </Sheet>
@@ -71,6 +73,7 @@ export async function Filter({ market, lang, collectionSlug }: Props) {
                       item={filterGroup}
                       market={market}
                       collectionSlug={collectionSlug}
+                      searchGids={searchGids}
                     />
                   </SheetContent>
                 </Sheet>
