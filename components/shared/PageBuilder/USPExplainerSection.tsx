@@ -58,7 +58,7 @@ function Slide({ item, pageId, pageType, index }: SlideProps) {
   return (
     <div className="relative flex w-full flex-col bg-brand-sand lg:h-dvh lg:flex-row">
       {/* Content container */}
-      <Container className="sticky flex h-fit flex-col gap-y-6 py-10 lg:top-20 lg:mt-40 lg:basis-1/3 lg:gap-y-10 lg:p-8">
+      <Container className="sticky flex h-fit flex-col gap-y-6 py-10 lg:basis-1/3 lg:gap-y-10 lg:self-center lg:p-8">
         {item.usps && (
           <div className="flex items-center gap-x-6">
             {item.usps.map((usp) => {
