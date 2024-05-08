@@ -35,13 +35,10 @@ export default function EditItemQuantityButton({ lineId, variantId, quantity, ty
                   quantity: type === 'plus' ? quantity + 1 : quantity - 1
                 });
 
-          console.log({ error });
-
           if (error) {
             // Trigger the error boundary in the root error.js
             throw new Error(error.toString());
           }
-          console.log('will now refresh');
 
           queryClient.invalidateQueries({
             queryKey: ['cart']

@@ -134,7 +134,7 @@ export async function getProductReviews(internalId: string, page: number = 1) {
   const validatedReviews = productReviewsValidator.safeParse(reviews);
 
   if (!validatedReviews.success) {
-    console.log(validatedReviews.error);
+    console.error(validatedReviews.error);
 
     return [];
   }

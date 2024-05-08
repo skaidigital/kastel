@@ -15,10 +15,8 @@ function usePopup(lang: LangValues) {
         },
         body: JSON.stringify({ lang })
       });
-      console.log('response', response);
 
       const data = await response.json();
-      console.log('data', data);
       return data;
     },
     enabled: !!lang

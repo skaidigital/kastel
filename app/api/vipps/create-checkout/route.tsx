@@ -6,8 +6,6 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify({ success: false }), { status: 400 });
   }
 
-  console.log({ body });
-
   const shop = 'kastel-shoes.myshopify.com';
 
   const url = new URL(`https://crude-hurtigkasse-2.herokuapp.com/api/gateway/start`);
