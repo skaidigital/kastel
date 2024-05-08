@@ -25,17 +25,17 @@ export function AnnouncementBannerLayout(props: Props) {
     'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden text-overline-sm font-medium uppercase lg:gap-x-36';
 
   return (
-    <Marquee autoFill pauseOnHover>
+    <Marquee autoFill pauseOnHover className={className}>
       {items?.map((usp) => {
         if (usp.hasLink) {
           return (
-            <SanityLink link={usp.link} key={usp.content} className={cn(classNames, className)}>
+            <SanityLink link={usp.link} key={usp.content} className={cn(classNames)}>
               {usp.content && <span className="mr-10 font-bold lg:mr-32">{usp.content}</span>}
             </SanityLink>
           );
         }
         return (
-          <span key={usp.content} className="mr-10 font-bold lg:mr-32">
+          <span key={usp.content} className={cn('mr-10 font-bold lg:mr-32', classNames)}>
             {usp.content}
           </span>
         );

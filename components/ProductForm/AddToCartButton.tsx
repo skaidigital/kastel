@@ -107,12 +107,11 @@ export const AddToCartButton = ({
             trackAddToCart({ options: metadata });
             setMobileDrawerOpen(false);
             setCartOpen(true);
-            // TODO do the same for incrementing and deleting if this is necessary
+
             queryClient.invalidateQueries({
               queryKey: ['cart']
             });
           }
-          // router.refresh();
         });
       }}
       className={cn(

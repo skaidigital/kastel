@@ -1,6 +1,3 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
 import { LoadingSpinner } from '@/components/LoadingSpinner';
@@ -17,7 +14,6 @@ interface Props {
 }
 
 export default function EditItemQuantityButton({ lineId, variantId, quantity, type }: Props) {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
 
@@ -43,8 +39,6 @@ export default function EditItemQuantityButton({ lineId, variantId, quantity, ty
           queryClient.invalidateQueries({
             queryKey: ['cart']
           });
-
-          router.refresh();
         });
       }}
       disabled={isPending}

@@ -5,6 +5,7 @@ import { formatPrice } from '@/app/api/shopify/utils';
 import { Dictionary } from '@/app/dictionaries';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
+import { useCartContext } from '@/components/CartContext';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Combination } from '@/components/VariantSelector';
 import { SanityImage } from '@/components/sanity/SanityImage';
@@ -20,7 +21,6 @@ import { cn } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 
 interface Props {
@@ -34,10 +34,9 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
   const { title, image } = product;
   const [isPending, startTransition] = useTransition();
   const [selectedCombination, setSelectedCombination] = useState<string | undefined>();
+  const { setCartOpen } = useCartContext();
 
   const { data: inventory, isLoading: inventoryLoading } = useProductInventory(product.id);
-
-  const router = useRouter();
 
   const queryClient = useQueryClient();
 
@@ -101,6 +100,8 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
         queryClient.invalidateQueries({
           queryKey: ['cart']
         });
+
+        setCartOpen(true);
       }
       // router.refresh();
     });

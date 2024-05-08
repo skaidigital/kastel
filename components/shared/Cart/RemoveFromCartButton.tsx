@@ -30,8 +30,6 @@ export default function RemoveFromCartButton({ itemId }: Props) {
           queryClient.invalidateQueries({
             queryKey: ['cart']
           });
-
-          router.refresh();
         });
       }}
       disabled={isPending}
