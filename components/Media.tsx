@@ -47,8 +47,7 @@ export function Media({ media, loading, sizes }: Props) {
   }
 
   if (typeIsVideo && sameAssetForMobileAndDesktop) {
-    // return <Video playbackId={media.video} controlled={false} resolution="HD" loading={loading} />;
-    return <div>test</div>;
+    return <Video playbackId={media.video} controlled={false} resolution="HD" loading={loading} />;
   }
 
   if (typeIsVideo && !sameAssetForMobileAndDesktop) {
