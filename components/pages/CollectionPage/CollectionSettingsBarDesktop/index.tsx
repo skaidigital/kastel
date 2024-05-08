@@ -14,6 +14,7 @@ interface Props {
   market: MarketValues;
   lang: LangValues;
   className?: string;
+  collectionSlug?: string;
 }
 
 export function CollectionSettingsBarDesktop({
@@ -21,12 +22,13 @@ export function CollectionSettingsBarDesktop({
   dictionary,
   market,
   lang,
-  className
+  className,
+  collectionSlug
 }: Props) {
   return (
     <Container className={cn('flex flex-col space-y-2 pb-8 lg:pb-2', className)}>
       <Row className="items-end">
-        <Filter market={market} lang={lang} />
+        <Filter market={market} lang={lang} collectionSlug={collectionSlug} />
         <div className="flex space-x-10">
           <ProductsPerRowSelector />
           <Sort lang={lang} />

@@ -31,22 +31,33 @@ export type FilterGroupSchema = z.infer<typeof FilterGroupValidator>;
 
 type filterType = 'text' | 'color' | 'size';
 
-export function getFilterItemQuery(market: MarketValues, type: filterType) {
+export function getFilterItemQuery(
+  market: MarketValues,
+  type: filterType,
+  collectionSlug?: string
+) {
   switch (type) {
     case 'text':
-      return getTagTypeText(market);
+      return getTagTypeText(market, collectionSlug);
     case 'color':
-      return getTagTypeColor(market);
+      return getTagTypeColor(market, collectionSlug);
     case 'size':
-      return getTagTypeSize(market);
+      return getTagTypeSize(market, collectionSlug);
     default:
-      return getTagTypeText(market);
+      return getTagTypeText(market, collectionSlug);
   }
 }
 
-export function getTagTypeText(market: MarketValues) {
+const collectionFilterFragment = groq`
+      && _id in *[_type == "collection" && slug_no.current == $collectionSlug].products[].product->{
+        "allTags": tags[]._ref + productType->tags[]._ref
+      }.allTags[]`;
+
+export function getTagTypeText(market: MarketValues, collectionSlug?: string) {
   const query = groq`
-    *[_type == "tag" && references($parentId) && defined(slug_${market}.current)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) 
+      ${collectionSlug ? collectionFilterFragment : ''}
+    ] {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current
@@ -56,9 +67,9 @@ export function getTagTypeText(market: MarketValues) {
   return query;
 }
 
-export function getTagTypeColor(market: MarketValues) {
+export function getTagTypeColor(market: MarketValues, collectionSlug?: string) {
   const query = groq`
-    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(color)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(color) ${collectionSlug ? collectionFilterFragment : ''}] {
         "id": _id,
         "title": title.${market},
         "slug": slug_${market}.current,
@@ -69,9 +80,9 @@ export function getTagTypeColor(market: MarketValues) {
   return query;
 }
 
-export function getTagTypeSize(market: MarketValues) {
+export function getTagTypeSize(market: MarketValues, collectionSlug?: string) {
   const query = groq`
-    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(size)] {
+    *[_type == "tag" && references($parentId) && defined(slug_${market}.current) && defined(size) ${collectionSlug ? collectionFilterFragment : ''}] {
         "id": _id,
         "title": title.${market},
         "slug": size->slug_${market}.current,

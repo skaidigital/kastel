@@ -20,15 +20,18 @@ import { PlusIcon } from '@radix-ui/react-icons';
 export function loadFilter(lang: LangValues) {
   const query = getFilterQuery(lang);
 
+  console.log(query);
+
   return loadQuery<any>(query, {}, { next: { tags: ['filters'] } });
 }
 
 interface Props {
   market: MarketValues;
   lang: LangValues;
+  collectionSlug?: string;
 }
 
-export async function Filter({ market, lang }: Props) {
+export async function Filter({ market, lang, collectionSlug }: Props) {
   const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;
@@ -65,7 +68,7 @@ export async function Filter({ market, lang }: Props) {
                 <AccordionItem value={item.id} key={item.id} className="border-none lg:py-4">
                   <AccordionTrigger className="mb-4">{item.title}</AccordionTrigger>
                   <AccordionContent>
-                    <FilterGroupItem item={item} market={market} />
+                    <FilterGroupItem item={item} market={market} collectionSlug={collectionSlug} />
                   </AccordionContent>
                 </AccordionItem>
               ))}

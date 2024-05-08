@@ -8,9 +8,15 @@ interface Props {
   market: MarketValues;
   lang: LangValues;
   className?: string;
+  collectionSlug?: string;
 }
 
-export function CollectionAndSearchActionsBarMobile({ market, lang, className }: Props) {
+export function CollectionAndSearchActionsBarMobile({
+  market,
+  lang,
+  className,
+  collectionSlug
+}: Props) {
   return (
     <div
       className={cn(
@@ -18,7 +24,7 @@ export function CollectionAndSearchActionsBarMobile({ market, lang, className }:
         className
       )}
     >
-      <Filter market={market} lang={lang} />
+      <Filter market={market} lang={lang} collectionSlug={collectionSlug} />
       <Sort lang={lang} />
       <Settings lang={lang} />
     </div>

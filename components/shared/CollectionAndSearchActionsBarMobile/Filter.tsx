@@ -11,9 +11,10 @@ import { PlusIcon } from '@radix-ui/react-icons';
 interface Props {
   market: MarketValues;
   lang: LangValues;
+  collectionSlug?: string;
 }
 
-export async function Filter({ market, lang }: Props) {
+export async function Filter({ market, lang, collectionSlug }: Props) {
   const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;
@@ -48,7 +49,11 @@ export async function Filter({ market, lang }: Props) {
                     </SheetTrigger>
                     <SheetContent overlayClassName="z-50" className="z-50">
                       <SheetHeader title={filterGroup.title} />
-                      <FilterGroupItem item={filterGroup} market={market} />
+                      <FilterGroupItem
+                        item={filterGroup}
+                        market={market}
+                        collectionSlug={collectionSlug}
+                      />
                     </SheetContent>
                   </Sheet>
                 ))}
@@ -62,7 +67,11 @@ export async function Filter({ market, lang }: Props) {
                   </SheetTrigger>
                   <SheetContent layer={2}>
                     <SheetHeader title={filterGroup.title} />
-                    <FilterGroupItem item={filterGroup} market={market} />
+                    <FilterGroupItem
+                      item={filterGroup}
+                      market={market}
+                      collectionSlug={collectionSlug}
+                    />
                   </SheetContent>
                 </Sheet>
               ))}

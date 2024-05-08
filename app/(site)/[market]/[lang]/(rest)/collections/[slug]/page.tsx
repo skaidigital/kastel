@@ -125,6 +125,7 @@ export default async function SlugCollectionPage({ params }: Props) {
         market={market}
         lang={lang}
         className="hidden min-h-32 lg:block"
+        collectionSlug={slug}
       />
       <Suspense>
         <HydrationBoundary state={dehydrate(queryClient)}>

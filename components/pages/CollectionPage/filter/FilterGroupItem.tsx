@@ -12,19 +12,36 @@ import {
 
 type filterType = 'text' | 'color' | 'size';
 
-function loadFilterItem(market: MarketValues, type: filterType, parentId: string) {
-  const query = getFilterItemQuery(market, type);
+function loadFilterItem(
+  market: MarketValues,
+  type: filterType,
+  parentId: string,
+  collectionSlug?: string
+) {
+  const query = getFilterItemQuery(market, type, collectionSlug);
 
-  return loadQuery<any>(query, { parentId }, { next: { tags: ['filter'] } });
+  console.log(query, parentId);
+
+  return loadQuery<any>(query, { parentId, collectionSlug }, { next: { tags: ['filter'] } });
 }
 
 interface FilterItemProps {
   item: FilterGroupSchema;
   market: MarketValues;
+  collectionSlug?: string;
 }
 
-export async function FilterGroupItem({ item: filterGroup, market }: FilterItemProps) {
-  const initial = await loadFilterItem(market, filterGroup.type as filterType, filterGroup.id);
+export async function FilterGroupItem({
+  item: filterGroup,
+  market,
+  collectionSlug
+}: FilterItemProps) {
+  const initial = await loadFilterItem(
+    market,
+    filterGroup.type as filterType,
+    filterGroup.id,
+    collectionSlug
+  );
 
   const filterGroupResponse = initial?.data;
 
