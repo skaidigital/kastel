@@ -53,7 +53,7 @@ export function OptionGroup({
                 key={value.title}
                 onClick={() => setSelectedOption(value.title)}
                 className={cn(
-                  'flex items-center justify-center rounded-[2px] border border-brand-light-grey text-sm',
+                  'flex items-center justify-center rounded-[2px] border border-brand-light-grey py-2.5 text-sm',
                   isActive && 'bg-brand-primary text-white ',
                   !isActive &&
                     availableForSale &&

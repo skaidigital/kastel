@@ -203,9 +203,10 @@ module.exports = {
     },
     animation: {
       spin: 'spin 0.4s linear infinite',
-      blink: 'blink 1.4s both infinite',
+      blink: 'blink 1.4s var(--animation-delay, 0ms) both infinite',
       'hotspot-blink': 'hotspot-blink 2.5 cubic-bezier(0, 0, 0.2, 1) infinite',
-      'fade-in-text': 'fade-in-text 500ms var(--animation-delay, 0ms) ease-out forwards',
+      'fade-in-text':
+        'fade-in-text var(--duration, 500ms) var(--animation-delay, 0ms) ease-out forwards',
       'fade-up-text': 'fade-up-text 500ms var(--animation-delay, 0ms) ease-out forwards',
       'modal-show': 'fade-in 300ms var(--ease-out-quad) forwards',
       'modal-hide': 'fade-out 300ms var(--ease-out-quad) forwards',

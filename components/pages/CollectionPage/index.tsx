@@ -1,6 +1,8 @@
 'use client';
 
 import { Dictionary } from '@/app/dictionaries';
+import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
+import { CollectionProductsLoadingState } from '@/components/pages/CollectionPage/LoadingState';
 import {
   CollectionBasePayload,
   CollectionProductsPayload,
@@ -26,13 +28,13 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
   const paramsObject = Object.fromEntries(testSearchParams.entries());
 
   const paramValues = formatSearchParamsValues(paramsObject);
+  const { setNumberOfProducts } = useCollectionContext();
 
   const sortKey = paramsObject?.sort;
   const saleKey = paramsObject?.on_sale;
 
   const prioritizedSortkey = saleKey ? 'on_sale' : sortKey;
   const currentPage = 1;
-  const searchParams = paramsObject;
 
   const collectionFechData = {
     lang,
@@ -43,7 +45,7 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
     paramValues
   };
 
-  const { data, error } = useQuery({
+  const { data, error, isLoading } = useQuery({
     queryKey: [
       'collectionProducts',
       slug,
@@ -62,34 +64,32 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
     return null;
   }
 
-  if (data) {
-    const removeInvalidProducts = data.products.filter((product) => product._id);
-    const productCount = removeInvalidProducts.length;
+  if (isLoading) return <CollectionProductsLoadingState />;
 
-    const validatedProducts = collectionProductsValidator.safeParse(data);
+  const removeInvalidProducts = data?.products.filter((product) => product._id);
+  const productCount = removeInvalidProducts?.length || 0;
+  setNumberOfProducts(productCount);
 
-    if (!validatedProducts.success) {
-      console.error(validatedProducts.error);
-      notFound();
-    }
+  const validatedProducts = collectionProductsValidator.safeParse(data);
 
-    return (
-      <>
-        <CollectionLayout
-          data={validatedProducts.data}
-          productCount={productCount}
-          moods={moods}
-          currentPage={currentPage}
-          searchParams={searchParams}
-          market={market}
-          lang={lang}
-          dictionary={dictionary}
-        />
-      </>
-    );
+  if (!validatedProducts.success) {
+    console.error(validatedProducts.error);
+    notFound();
   }
 
-  return null;
+  return (
+    <>
+      <CollectionLayout
+        data={validatedProducts.data}
+        productCount={productCount}
+        moods={moods}
+        currentPage={currentPage}
+        market={market}
+        lang={lang}
+        dictionary={dictionary}
+      />
+    </>
+  );
 }
 
 interface FormatParamsValuesProps {

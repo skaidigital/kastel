@@ -1,6 +1,6 @@
 import { Dictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
-import { Text } from '@/components/base/Text';
+import { ProductCount } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop/ProductCount';
 import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { ActiveFilters } from '../filter/ActiveFilters';
@@ -36,9 +36,7 @@ export function CollectionSettingsBarDesktop({
       </Row>
       <Row>
         <ActiveFilters />
-        <Text size="xs" className="text-brand-mid-grey">
-          {numberOfProducts} {dictionary.number_of_products}
-        </Text>
+        <ProductCount productsString={dictionary.number_of_products} />
       </Row>
     </Container>
   );

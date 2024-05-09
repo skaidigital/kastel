@@ -5,7 +5,7 @@ import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 
 import { CartContextProvider } from '@/components/CartContext';
 import ShopifyAnalytics from '@/components/ShopifyAnalytics';
@@ -42,7 +42,7 @@ export default function IndexRoute({
           <div>
             <PopupHandler lang={lang} />
             <main>
-              <Suspense>{children}</Suspense>
+              {children}
               {draftMode().isEnabled && (
                 <VisualEditing
                   refresh={async (payload) => {

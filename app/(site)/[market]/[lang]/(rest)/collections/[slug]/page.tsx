@@ -6,6 +6,8 @@ import { Text } from '@/components/base/Text';
 import { CollectionPage } from '@/components/pages/CollectionPage';
 import { Breadcrumbs } from '@/components/pages/CollectionPage/Breadcrumbs';
 import { CollectionSettingsBarDesktop } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop';
+import { CollectionContextProvider } from '@/components/pages/CollectionPage/Context';
+import { CollectionProductsLoadingState } from '@/components/pages/CollectionPage/LoadingState';
 import { loadCollectionProductDataV2 } from '@/components/pages/CollectionPage/actions';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
 import {
@@ -95,7 +97,7 @@ export default async function SlugCollectionPage({ params }: Props) {
   const productCount = 0;
 
   return (
-    <>
+    <CollectionContextProvider>
       <Section
         size="sm"
         label="collection-hero"
@@ -128,8 +130,8 @@ export default async function SlugCollectionPage({ params }: Props) {
         className="hidden min-h-32 lg:block"
         collectionSlug={slug}
       />
-      <Suspense>
-        <HydrationBoundary state={dehydrate(queryClient)}>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Suspense fallback={<CollectionProductsLoadingState />}>
           <CollectionPage
             moods={moods}
             slug={slug}
@@ -137,8 +139,8 @@ export default async function SlugCollectionPage({ params }: Props) {
             lang={lang}
             dictionary={collection_page}
           />
-        </HydrationBoundary>
-      </Suspense>
+        </Suspense>
+      </HydrationBoundary>
       <CollectionAndSearchActionsBarMobile
         lang={lang}
         market={market}
@@ -171,7 +173,7 @@ export default async function SlugCollectionPage({ params }: Props) {
           pageType={'collection'}
         />
       ))}
-    </>
+    </CollectionContextProvider>
   );
 }
 

@@ -3,8 +3,7 @@ import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
-import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
-import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
+import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
 import {
   CollectionBasePayload,
   CollectionMood,
@@ -15,16 +14,15 @@ import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import '@/styles/externalOverride.css';
-import { Suspense } from 'react';
 
 interface Props {
   data: CollectionProductsPayload;
   moods: CollectionBasePayload['moods'];
   productCount: number;
   currentPage: number;
-  searchParams?: {
-    [key: string]: string | undefined;
-  };
+  // searchParams?: {
+  //   [key: string]: string | undefined;
+  // };
   dictionary: Dictionary['collection_page'];
   market: MarketValues;
   lang: LangValues;
@@ -33,7 +31,7 @@ interface Props {
 export async function CollectionLayout({
   data,
   currentPage,
-  searchParams,
+  // searchParams,
   dictionary,
   productCount,
   moods,
@@ -42,7 +40,10 @@ export async function CollectionLayout({
 }: Props) {
   const { products, hasNextPage } = data;
 
-  const productsPerRow = searchParams?.view || '4';
+  const { productsPerRow, setProductsPerRow } = useCollectionContext();
+  console.log({ productsPerRow });
+
+  // const productsPerRow = searchParams?.view || '4';
 
   const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 3, moods);
   const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods);
@@ -125,7 +126,7 @@ export async function CollectionLayout({
             </Text>
           </Container>
         )}
-        {hasProducts && (
+        {/* {hasProducts && (
           <div className="mt-20 flex flex-col items-center justify-center space-y-8">
             <div className="flex gap-x-2">
               <Suspense>
@@ -141,7 +142,7 @@ export async function CollectionLayout({
               <PageCounter pageCount={pageCount} />
             </Suspense>
           </div>
-        )}
+        )} */}
       </Section>
     </>
   );
@@ -200,7 +201,7 @@ export function CollectionGrid({
   children,
   className
 }: {
-  number: string;
+  number: number;
   children: React.ReactNode;
   className?: string;
 }) {
@@ -208,10 +209,10 @@ export function CollectionGrid({
     <div
       className={cn(
         '-gap-[1px]',
-        number === '1' && 'grid grid-cols-1 lg:grid-cols-4',
-        number === '2' && 'grid grid-cols-2 lg:grid-cols-4',
-        number === '3' && 'grid grid-cols-2 lg:grid-cols-3',
-        number === '4' && 'grid grid-cols-2 lg:grid-cols-4',
+        number === 1 && 'grid grid-cols-1 lg:grid-cols-4',
+        number === 2 && 'grid grid-cols-2 lg:grid-cols-4',
+        number === 3 && 'grid grid-cols-2 lg:grid-cols-3',
+        number === 4 && 'grid grid-cols-2 lg:grid-cols-4',
         className
       )}
     >
