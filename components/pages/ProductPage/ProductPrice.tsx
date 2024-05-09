@@ -49,15 +49,21 @@ export function ProductPrice({
   return (
     <div className="my-4 flex text-sm">
       <>
-        {formattedDiscountedPrice && <span className="mr-3 ">{formattedDiscountedPrice}</span>}
+        {formattedDiscountedPrice && (
+          <span className="mr-3 " suppressHydrationWarning>
+            {formattedDiscountedPrice}
+          </span>
+        )}
         {isOnSale ? (
-          <del className="text-brand-mid-grey line-through">{formattedPrice}</del>
+          <del className="text-brand-mid-grey line-through" suppressHydrationWarning>
+            {formattedPrice}
+          </del>
         ) : (
-          <span>{formattedPrice}</span>
+          <span suppressHydrationWarning>{formattedPrice}</span>
         )}
       </>
       {productType === 'VARIABLE' && !activeVariant && (
-        <span>
+        <span suppressHydrationWarning>
           {minAndMaxPricesAreEqual
             ? formattedMinVariantPrice
             : `${formattedMinVariantPrice} – ${formattedMaxVariantPrice}
