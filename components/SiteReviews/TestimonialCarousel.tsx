@@ -70,12 +70,13 @@ function ScrollDots({
   className?: string;
 }) {
   return (
-    <div className={cn('flex justify-center gap-1', className)}>
+    <div className={cn('flex justify-center gap-1.5', className)}>
       {Array.from({ length: count }, (_, index) => (
         <button
+          aria-label={`${index + 1}`}
           onClick={() => onClick(index)}
           key={index}
-          className={cn('size-2', {
+          className={cn('size-3', {
             'bg-brand-primary': current === index + 1,
             'bg-brand-primary-light': current !== index + 1
           })}

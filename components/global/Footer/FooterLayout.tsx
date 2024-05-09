@@ -68,7 +68,7 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
           RAISED BY WEATHER
         </span>
         {footer.description && (
-          <Text className="col-span-3 row-start-2 text-brand-light-grey" size="md">
+          <Text className="col-span-3 row-start-2 text-white" size="md">
             {footer.description}
           </Text>
         )}

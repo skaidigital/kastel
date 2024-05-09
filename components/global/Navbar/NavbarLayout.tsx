@@ -33,6 +33,7 @@ export function NavbarLayout({ data, children, className }: Props) {
           <CustomLink
             href={ROUTES.HOME}
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:hidden"
+            aria-label="Home"
           >
             <Logo className="w-[66px]" />
           </CustomLink>

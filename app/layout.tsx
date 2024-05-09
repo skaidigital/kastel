@@ -3,11 +3,12 @@ import PlausibleProvider from 'next-plausible';
 import Script from 'next/script';
 import '../styles/globals.css';
 
+// TODO figure out how to dynamically change lang
 export default function Layout({ children }: { children: React.ReactNode }) {
   const isInProduction = process.env.NODE_ENV === 'production';
 
   return (
-    <html>
+    <html lang="no">
       <head>
         {isInProduction && (
           <Script

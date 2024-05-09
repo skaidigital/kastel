@@ -33,6 +33,7 @@ export function Colors({ className, colorways, productSlug }: Props) {
             e.preventDefault();
             setActiveColorway(colorway);
           }}
+          aria-label={colorway.title}
           className={cn(
             'size-6 rounded-[2px] border @xs:size-5',
             colorway.hexCode === (activeColorway?.hexCode || colorBySlug?.hexCode)
