@@ -29,10 +29,12 @@ export function formatPrice(price: Money) {
 
   const amountInt = parseInt(price.amount);
 
-  return new Intl.NumberFormat('no-NB', {
+  const formattedPrice = new Intl.NumberFormat('no-NB', {
     style: 'currency',
     currency: price.currencyCode
   }).format(amountInt);
+
+  return formattedPrice;
 }
 
 export function extractGid(id: string) {
