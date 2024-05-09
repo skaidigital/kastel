@@ -7,6 +7,7 @@ import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
+import { ProductPageContextProvider } from '@/components/pages/ProductPage/Context';
 import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton';
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
 import { Product } from '@/components/pages/ProductPage/hooks';
@@ -64,7 +65,7 @@ export async function ProductPageLayout(props: Props) {
     : undefined;
 
   return (
-    <>
+    <ProductPageContextProvider>
       <ProductJsonLd
         productId={id}
         title={title}
@@ -75,7 +76,8 @@ export async function ProductPageLayout(props: Props) {
           <MobileCarousel
             mainImage={mainImage}
             lifestyleImage={lifeStyleImageCheck}
-            items={product.galleryFemale}
+            galleryFemale={product.galleryFemale}
+            galleryMale={product.galleryMale}
             lang={lang}
           />
           <Breadcrumbs productName={title} lang={lang} className="absolute left-3 top-3" />
@@ -202,6 +204,6 @@ export async function ProductPageLayout(props: Props) {
         ))}
 
       <ReccommendedProducts lang={lang} market={market} />
-    </>
+    </ProductPageContextProvider>
   );
 }
