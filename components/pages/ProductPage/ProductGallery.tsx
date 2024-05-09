@@ -2,11 +2,11 @@
 
 import Video from '@/components/Video';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
+import { useProductPageContext } from '@/components/pages/ProductPage/Context';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { LangValues } from '@/data/constants';
 import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
 
 interface Props {
   title: string;
@@ -25,22 +25,21 @@ export function ProductGallery({
   galleryFemale,
   galleryMale
 }: Props) {
-  const lifeStyleImageCheck = lifestyleImage?.asset?._ref
+  const hasLifestyleImage = lifestyleImage?.asset?._ref
     ? (lifestyleImage as SanityImageProps)
     : undefined;
 
-  const [activeGender, setActiveGenderState] = useState<'male' | 'female'>('female');
+  const { activeGender, setActiveGender } = useProductPageContext();
 
   return (
     <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
-      {/* <GenderImageButton /> */}
       <div className="relative">
         <div className="absolute right-0 top-0 z-10 p-4">
-          <div className="mb-4 flex justify-center gap-x-2">
+          <div className="mb-4 flex justify-center gap-x-1">
             <button
-              onClick={() => setActiveGenderState('female')}
+              onClick={() => setActiveGender('female')}
               className={cn(
-                'flex-1 rounded-[2px] px-4  py-2',
+                'px-4 py-2',
                 activeGender == 'female'
                   ? 'bg-brand-primary text-white'
                   : 'bg-brand-light-grey text-black'
@@ -49,9 +48,9 @@ export function ProductGallery({
               Female
             </button>
             <button
-              onClick={() => setActiveGenderState('male')}
+              onClick={() => setActiveGender('male')}
               className={cn(
-                'flex-1 rounded-[2px] px-4 py-2',
+                'px-4 py-2',
                 activeGender == 'male'
                   ? 'bg-brand-primary text-white'
                   : 'bg-brand-light-grey text-black'
@@ -74,7 +73,7 @@ export function ProductGallery({
           <Breadcrumbs productName={title} lang={lang} className="absolute left-4 top-4" />
         </div>
       )}
-      {lifeStyleImageCheck && (
+      {hasLifestyleImage && (
         <div className="aspect-h-4 aspect-w-3 relative h-full w-full">
           <SanityImage
             priority
