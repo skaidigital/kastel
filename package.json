@@ -18,7 +18,9 @@
     "commit": "cz",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check"
+    "test": "pnpm lint && pnpm prettier:check",
+    "export:prod": "sanity dataset export production ./backup/production-export.tar.gz",
+    "import:dev": "sanity dataset import ./backup/production-export.tar.gz development --replace"
   },
   "git": {
     "pre-commit": "lint-staged"
