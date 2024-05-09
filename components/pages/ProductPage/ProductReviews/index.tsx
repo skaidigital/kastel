@@ -9,7 +9,8 @@ import {
 import { Button } from '@/components/Button';
 import { getProductReviews } from '@/components/lipscore/hooks';
 import { ReviewItem } from '@/components/pages/ProductPage/ProductReviews/ReviewItem';
-import { PRODUCT_PAGE_REVIEWS_PAGE_SIZE } from '@/data/constants';
+import { LangValues, PRODUCT_PAGE_REVIEWS_PAGE_SIZE } from '@/data/constants';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
@@ -19,10 +20,12 @@ interface Props {
 
 export function ProductReviews({ lipscoreProductId }: Props) {
   const [page, setPage] = useState(1);
+  const { lang } = useBaseParams();
 
   const { data, error, isFetching } = useQuery({
     queryKey: ['productReviews', page],
-    queryFn: () => getProductReviews(lipscoreProductId, page)
+    queryFn: () => getProductReviews(lipscoreProductId, page),
+    placeholderData: (prev) => prev
   });
 
   if (error) {
@@ -34,12 +37,17 @@ export function ProductReviews({ lipscoreProductId }: Props) {
   const hasPreviousPage = page > 1;
   const hasNextPage = data && data?.length >= pageSize;
 
+  const reviewsString = getReviewsString(lang);
+  const pageString = getPageString(lang);
+  const previousString = getPreviousString(lang);
+  const nextString = getNextString(lang);
+
   return (
     <div className="w-full">
       <Accordion type="single" id="reviews" collapsible>
         <AccordionItem value="reviews">
           <AccordionTrigger>
-            <h1>Reviews</h1>
+            <h1>{reviewsString}</h1>
           </AccordionTrigger>
           <AccordionContent>
             <ul className="flex flex-col gap-y-10">
@@ -51,29 +59,78 @@ export function ProductReviews({ lipscoreProductId }: Props) {
                 />
               ))}
             </ul>
-            <div className="mt-6 flex items-center justify-center gap-x-2 lg:mt-10">
-              <Button
-                size="sm"
-                variant="primary"
-                onClick={() => setPage((currentPage) => Math.max(currentPage - 1, 1))}
-                isLoading={isFetching}
-                disabled={!hasPreviousPage || isFetching}
-              >
-                Previous
-              </Button>
-              <Button
-                size="sm"
-                variant="primary"
-                onClick={() => setPage((currentPage) => currentPage + 1)}
-                isLoading={isFetching}
-                disabled={!hasNextPage || isFetching}
-              >
-                Next
-              </Button>
+            <div className="mt-6 flex flex-col items-center justify-between gap-10 lg:mt-10 lg:flex-row lg:gap-0">
+              <span className="text-sm">
+                {pageString}: {page}
+              </span>
+              <div className="flex items-center justify-center gap-x-2">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => setPage((currentPage) => Math.max(currentPage - 1, 1))}
+                  isLoading={isFetching}
+                  disabled={!hasPreviousPage || isFetching}
+                >
+                  {previousString}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="primary"
+                  onClick={() => setPage((currentPage) => currentPage + 1)}
+                  isLoading={isFetching}
+                  disabled={!hasNextPage || isFetching}
+                >
+                  {nextString}
+                </Button>
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>
   );
+}
+
+function getReviewsString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Reviews';
+    case 'no':
+      return 'Anmeldelser';
+    default:
+      return 'Reviews';
+  }
+}
+
+function getPageString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Page';
+    case 'no':
+      return 'Side';
+    default:
+      return 'Page';
+  }
+}
+
+function getPreviousString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Previous';
+    case 'no':
+      return 'Forrige';
+    default:
+      return 'Previous';
+  }
+}
+
+function getNextString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Next';
+    case 'no':
+      return 'Neste';
+    default:
+      return 'Next';
+  }
 }

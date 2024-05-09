@@ -30,10 +30,10 @@ export function ReviewItem({ review, className }: { review: ProductReview; class
 function getVerifiedString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Verified';
+      return 'Verified buyer';
     case 'no':
-      return 'Bekreftet';
+      return 'Bekreftet kjøp';
     default:
-      return 'Verified';
+      return 'Verified buyer';
   }
 }
