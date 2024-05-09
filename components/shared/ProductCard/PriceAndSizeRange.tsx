@@ -21,7 +21,7 @@ export function PriceAndSizeRange({ price, sizeRange }: Props) {
   const activePrice = activeColorway ? formattedMinPrice : price;
   return (
     <div className="flex gap-x-3 text-xs text-brand-mid-grey @xs:gap-x-4 @xs:text-sm">
-      <span>{activePrice}</span>
+      <span suppressHydrationWarning>{activePrice}</span>
       <span>{sizeRange}</span>
     </div>
   );
