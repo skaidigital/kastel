@@ -15,7 +15,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 
 interface Props {
   className?: string;
@@ -44,6 +43,7 @@ export const NewsletterSignup = ({ className, labelText, descriptionText }: Prop
   async function onSubmit(data: NewsletterFormSchema) {
     startTransition(async () => {
       const response = await subscribeToNewsletter({ email: data.email });
+      const toast = (await import('sonner')).toast;
 
       if (response.success) {
         toast.success(toastSuccessTitle, {

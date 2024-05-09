@@ -14,13 +14,7 @@ import { CartItem } from '@/components/shared/Cart/CartItem';
 import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
 import { useCart } from '@/components/shared/Cart/useCart';
 import { useCheckoutUrl } from '@/components/shared/Cart/useCheckoutUrl';
-import {
-  ANALTYICS_EVENT_NAME,
-  LangValues,
-  META_ANALYTICS_EVENT_NAME,
-  ROUTES,
-  SNAPCHAT_ANALYTICS_EVENT_NAME
-} from '@/data/constants';
+import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
@@ -73,10 +67,6 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
             onClick={() => {
               // GTM – Analytics
               sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.VIEW_CART });
-              // GTM – Meta
-              sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.VIEW_CART });
-              // GTM – Snap
-              sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.VIEW_CART });
             }}
             aria-label="Open cart"
             className="text-sm"
@@ -163,11 +153,6 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                           trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
                           // GTM – Analytics
                           sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
-                          // GTM – Meta
-                          sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
-                          // GTM – Snap
-                          sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
-
                           trackGoToCheckout();
                           router.push(checkoutUrl);
                         });
@@ -308,10 +293,6 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                           trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
                           // GTM – Analytics
                           sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
-                          // GTM – Meta
-                          sendGTMEvent({ eventName: META_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
-                          // GTM – Snap
-                          sendGTMEvent({ eventName: SNAPCHAT_ANALYTICS_EVENT_NAME.BEGIN_CHECKOUT });
 
                           trackGoToCheckout();
                           router.push(checkoutUrl);

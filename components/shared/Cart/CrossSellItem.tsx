@@ -11,11 +11,7 @@ import { Combination } from '@/components/VariantSelector';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
-import {
-  ANALTYICS_EVENT_NAME,
-  META_ANALYTICS_EVENT_NAME,
-  SNAPCHAT_ANALYTICS_EVENT_NAME
-} from '@/data/constants';
+import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
@@ -87,14 +83,6 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
         // GTM – Analtyics
         sendGTMEvent({
           event: ANALTYICS_EVENT_NAME.ADD_TO_CART
-        });
-        // Meta
-        sendGTMEvent({
-          event: META_ANALYTICS_EVENT_NAME.ADD_TO_CART
-        });
-        // Snap
-        sendGTMEvent({
-          event: SNAPCHAT_ANALYTICS_EVENT_NAME.ADD_TO_CART
         });
 
         queryClient.invalidateQueries({

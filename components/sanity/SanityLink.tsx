@@ -45,23 +45,6 @@ export const SanityLink = ({ link, children, className, onClick }: Props) => {
     return (
       <button
         className={className || ''}
-        // onClick={async () => {
-        //   if (window.SmileUI) {
-        //     await window.SmileUI.openPanel({
-        //       deep_link: 'home'
-        //     }).catch((error: any) => {
-        //       console.error('Failed to open smile link', error);
-        //     });
-
-        //     window.SmileUI.ready().then(() =>
-        //       window.SmileUI.openPanel({ deep_link: deeplinkType }).catch((error: any) => {
-        //         console.error('Failed to open smile link', error);
-        //       })
-        //     );
-        //   } else {
-        //     console.error('Failed to open smile link');
-        //   }
-        // }}
         onClick={async () => {
           if (window.SmileUI) {
             await window.SmileUI.openPanel({ deep_link: deeplinkType });

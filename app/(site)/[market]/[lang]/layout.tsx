@@ -14,8 +14,8 @@ import { PopupHandler } from '@/components/global/PopupHandler';
 import { Smile } from '@/components/smile';
 import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
-import { VisualEditing } from 'next-sanity';
-import { revalidatePath, revalidateTag } from 'next/cache';
+// import { VisualEditing } from 'next-sanity';
+// import { revalidatePath, revalidateTag } from 'next/cache';
 import { draftMode } from 'next/headers';
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
@@ -43,7 +43,7 @@ export default function IndexRoute({
             <PopupHandler lang={lang} />
             <main>
               {children}
-              {draftMode().isEnabled && (
+              {/* {draftMode().isEnabled && (
                 <VisualEditing
                   refresh={async (payload) => {
                     'use server';
@@ -61,7 +61,7 @@ export default function IndexRoute({
                     await revalidatePath('/', 'layout');
                   }}
                 />
-              )}
+              )} */}
               <Analytics />
             </main>
           </div>

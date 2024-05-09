@@ -89,11 +89,9 @@ export function ModalHeader({ title, className, children, onClose }: ModalHeader
           </Heading>
         </Dialog.Title>
         <Dialog.Close onClick={onClose}>
-          <button>
-            <TouchTarget>
-              <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey focus:text-brand-dark-grey" />
-            </TouchTarget>
-          </button>
+          <TouchTarget>
+            <XMarkIcon className="transition-brand h-4 w-4 text-brand-mid-grey hover:text-brand-dark-grey focus:text-brand-dark-grey" />
+          </TouchTarget>
         </Dialog.Close>
       </div>
       {children}
