@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getWishlist } from './getWishlist';
 
 export async function isItemInWishlist(itemGid: string) {
+  console.log('isItemInWishlist', itemGid);
+
   const wishlistResponse = await getWishlist();
 
   return wishlistResponse.includes(itemGid);

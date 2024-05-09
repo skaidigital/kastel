@@ -5,6 +5,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { addDiscount } from '@/components/shared/Cart/DiscountCodeInput/actions';
 import { Cart } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useRef, useTransition } from 'react';
 import { toast } from 'sonner';
@@ -20,6 +21,7 @@ export function DiscountCodeInput({ discountCodes, className }: Props) {
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return (
     <form className={cn('flex w-full flex-col', className)}>
@@ -41,7 +43,9 @@ export function DiscountCodeInput({ discountCodes, className }: Props) {
 
               if (response.success) {
                 toast.success('Discount code applied');
-                router.refresh();
+                queryClient.invalidateQueries({
+                  queryKey: ['cart']
+                });
                 return;
               }
               if (!response.success) {
