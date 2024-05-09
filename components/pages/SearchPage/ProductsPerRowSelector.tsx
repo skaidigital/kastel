@@ -1,17 +1,30 @@
 'use client';
 
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { parseAsInteger, useQueryState } from 'nuqs';
+import { useEffect } from 'react';
 
 export function ProductsPerRowSelector() {
   const router = useRouter();
+  const isDesktop = useIsDesktop();
 
   const [active, setActive] = useQueryState('view', parseAsInteger);
 
   function handleOnClick(number: number) {
     setActive(number).then(() => router.refresh());
   }
+
+  useEffect(() => {
+    if (active === 2 && isDesktop && typeof window !== 'undefined') {
+      handleOnClick(4);
+    }
+
+    if ((active === 3 || active === 4) && !isDesktop && typeof window !== 'undefined') {
+      handleOnClick(2);
+    }
+  }, [isDesktop]);
 
   return (
     <div className="flex space-x-2">

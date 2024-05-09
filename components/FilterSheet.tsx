@@ -15,7 +15,7 @@ interface Props {
   searchGids?: string[];
 }
 
-export async function Filter({ market, lang, collectionSlug, searchGids }: Props) {
+export async function FilterSheet({ market, lang, collectionSlug, searchGids }: Props) {
   const initial = await loadFilter(lang);
 
   const filterGroupResponse = initial?.data?.items;

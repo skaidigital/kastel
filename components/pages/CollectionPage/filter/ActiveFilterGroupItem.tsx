@@ -28,6 +28,7 @@ export function ActiveFilterGroupItem({ parentKey }: Props) {
           state.map((value) => {
             const capitalizedFiltername =
               parentKey !== 'on_sale' ? value.charAt(0).toUpperCase() + value.slice(1) : 'Sale';
+            const replaceDashWithSpace = capitalizedFiltername.replace(/-/g, ' ');
 
             return (
               <button key={value} onClick={() => handleRemoveFilter(value)}>
@@ -36,7 +37,7 @@ export function ActiveFilterGroupItem({ parentKey }: Props) {
                   size={'sm'}
                   className="flex items-center gap-x-1 rounded-[2px] bg-gray-100 px-2 py-1 font-medium text-brand-mid-grey hover:bg-brand-primary hover:text-white focus:bg-brand-primary focus:text-white"
                 >
-                  {capitalizedFiltername}
+                  {replaceDashWithSpace}
                   <XMarkIcon className="size-4" />
                 </Text>
               </button>

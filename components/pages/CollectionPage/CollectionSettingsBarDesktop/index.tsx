@@ -9,7 +9,6 @@ import { ProductsPerRowSelector } from './ProductsPerRowSelector';
 import { Sort } from './Sort';
 
 interface Props {
-  numberOfProducts: number;
   dictionary: Dictionary['collection_page'];
   market: MarketValues;
   lang: LangValues;
@@ -18,7 +17,6 @@ interface Props {
 }
 
 export function CollectionSettingsBarDesktop({
-  numberOfProducts,
   dictionary,
   market,
   lang,

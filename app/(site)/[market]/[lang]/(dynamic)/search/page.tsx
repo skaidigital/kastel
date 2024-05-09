@@ -12,8 +12,8 @@ import { CollectionGrid } from '@/components/pages/CollectionPage/CollectionLayo
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
+import { SearchActionsBarMobile } from '@/components/pages/SearchPage/ActionsBarMobile';
 import { SearchSettingsBar } from '@/components/pages/SearchPage/SetingsBar';
-import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -145,7 +145,7 @@ export default async function Page({ searchParams, params }: Props) {
             )}
             <ActiveFilters className="mt-3 lg:hidden" />
           </div>
-          <CollectionAndSearchActionsBarMobile
+          <SearchActionsBarMobile
             market={market}
             lang={lang}
             className="lg:hidden"

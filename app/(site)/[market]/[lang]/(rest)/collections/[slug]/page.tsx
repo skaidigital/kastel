@@ -4,6 +4,7 @@ import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { CollectionPage } from '@/components/pages/CollectionPage';
+import { CollectionActionsBarMobile } from '@/components/pages/CollectionPage/ActionsBarMobile';
 import { Breadcrumbs } from '@/components/pages/CollectionPage/Breadcrumbs';
 import { CollectionSettingsBarDesktop } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop';
 import { CollectionContextProvider } from '@/components/pages/CollectionPage/Context';
@@ -15,7 +16,6 @@ import {
   collectionBaseValidator,
   getCollectionBaseQuery
 } from '@/components/pages/CollectionPage/hooks';
-import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
@@ -94,8 +94,6 @@ export default async function SlugCollectionPage({ params }: Props) {
 
   const { title, descriptionShort, pageBuilder, descriptionLong, id, moods } = validatedBase.data;
 
-  const productCount = 0;
-
   return (
     <CollectionContextProvider>
       <Section
@@ -123,7 +121,6 @@ export default async function SlugCollectionPage({ params }: Props) {
         </Container>
       </Section>
       <CollectionSettingsBarDesktop
-        numberOfProducts={productCount}
         dictionary={collection_page}
         market={market}
         lang={lang}
@@ -141,7 +138,7 @@ export default async function SlugCollectionPage({ params }: Props) {
           />
         </Suspense>
       </HydrationBoundary>
-      <CollectionAndSearchActionsBarMobile
+      <CollectionActionsBarMobile
         lang={lang}
         market={market}
         collectionSlug={slug}

@@ -12,7 +12,10 @@ interface Props {
   lang: LangValues;
 }
 
-export function Sort({ lang }: Props) {
+/**
+ * Sorts the products in the collection and search page
+ */
+export function SortSheet({ lang }: Props) {
   const router = useRouter();
   const [sort, setSort] = useQueryState('sort', parseAsString);
 
