@@ -30,11 +30,7 @@ export function NavbarLayout({ data, children, className, hasTransparentHeader }
             <MobileMenu items={items} />
             <SearchButton />
           </div>
-          <DesktopMenu
-            items={items}
-            className="hidden lg:block lg:w-fit"
-            hasTransparentHeader={hasTransparentHeader}
-          />
+          <DesktopMenu items={items} className="hidden lg:block lg:w-fit" />
           <CustomLink
             href={ROUTES.HOME}
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:hidden"
