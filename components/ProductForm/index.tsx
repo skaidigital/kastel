@@ -55,7 +55,14 @@ export async function ProductForm({ productId, type, sizeGuide, options, variant
             selectSizeText={dictionary.choose_size}
           />
           <span className="text-sm">Eller</span>
-          <VippsHurtigkasseButton variants={variants} productType={type} productId={productId} />
+          <div className="w-full">
+            <VippsHurtigkasseButton
+              variants={variants}
+              productType={type}
+              productId={productId}
+              classname="w-full"
+            />
+          </div>
         </div>
       </div>
     </MobileAddToCartDrawer>

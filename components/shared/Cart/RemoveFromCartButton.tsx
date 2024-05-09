@@ -1,5 +1,3 @@
-import { useRouter } from 'next/navigation';
-
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { removeItem } from '@/components/shared/Cart/actions';
 import { TrashSimple } from '@phosphor-icons/react';
@@ -12,7 +10,6 @@ interface Props {
 }
 
 export default function RemoveFromCartButton({ itemId }: Props) {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
 

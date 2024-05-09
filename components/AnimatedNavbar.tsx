@@ -40,7 +40,7 @@ export function AnimatedNavbar({ hasAnnouncementBanner, children }: Props) {
       className={cn(
         'fixed left-0 top-0 z-20 w-full',
         shouldAnimate
-          ? '[&>nav]:bg-white [&>nav]:backdrop-blur-lg [&>nav]:hover:bg-white/80 [&>nav]:focus:bg-white/80 [&>nav]:focus:backdrop-blur-lg'
+          ? 'bg-white hover:bg-white/80 hover:backdrop-blur-lg focus:bg-white/80 focus:backdrop-blur-lg'
           : 'bg-transparent text-white hover:bg-white/80 hover:text-brand-dark-grey hover:backdrop-blur-lg focus:bg-white/80 focus:text-brand-dark-grey focus:backdrop-blur-lg'
       )}
     >

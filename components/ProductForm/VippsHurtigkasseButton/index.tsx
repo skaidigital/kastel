@@ -4,15 +4,17 @@ import { useProductInventory } from '@/app/api/shopify/useProductInventory';
 import { goToVippsHurtigkasse } from '@/components/ProductForm/VippsHurtigkasseButton/actions';
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
+import { cn } from '@/lib/utils';
 import { useTransition } from 'react';
 
 interface Props {
   variants: ProductVariant[];
   productType: Product['type'];
   productId: string;
+  classname?: string;
 }
 
-export function VippsHurtigkasseButton({ variants, productType, productId }: Props) {
+export function VippsHurtigkasseButton({ variants, productType, productId, classname }: Props) {
   const [isPending, startTransition] = useTransition();
 
   const activeVariant = useActiveVariant({
@@ -28,7 +30,7 @@ export function VippsHurtigkasseButton({ variants, productType, productId }: Pro
 
   return (
     <button
-      className="disabled:cursor-not-allowed disabled:opacity-50"
+      className={cn('disabled:cursor-not-allowed disabled:opacity-50', classname)}
       onClick={() => {
         if (!availableForSale || !id) return;
         startTransition(async () => {
@@ -38,8 +40,8 @@ export function VippsHurtigkasseButton({ variants, productType, productId }: Pro
       disabled={!availableForSale || !id || isPending || inventoryLoading}
     >
       <svg
-        width="399"
-        height="45"
+        width="100%"
+        height="100%"
         viewBox="0 0 399 45"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

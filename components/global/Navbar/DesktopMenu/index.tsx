@@ -101,10 +101,11 @@ export function DesktopMenu({ items, className }: Props) {
       </NavigationMenu.List>
 
       <div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
-        <NavigationMenu.Viewport className="sm:w-[calc(var(--radix-navigation-menu-viewport-width)-1px)] border-brand-border origin-top-center relative h-[calc(var(--radix-navigation-menu-viewport-height)-1px)] w-full overflow-hidden border-b bg-white/80 backdrop-blur-lg transition-all" />
+        <NavigationMenu.Viewport
+          data-id="megamenu-viewport"
+          className="sm:w-[calc(var(--radix-navigation-menu-viewport-width)-1px)] border-brand-border origin-top-center relative h-[calc(var(--radix-navigation-menu-viewport-height)-1px)] w-full overflow-hidden border-b bg-white/80 backdrop-blur-lg transition-all"
+        />
       </div>
     </NavigationMenu.Root>
   );
 }
-
-// data-[state=closed]:animate-menu-slide-up data-[state=open]:animate-menu-slide-down

@@ -9,7 +9,6 @@ import { SizeGuideProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '../Drawer';
-import { Text } from '../base/Text';
 
 interface Props {
   sizeGuide: SizeGuideProps;
@@ -25,12 +24,8 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
   if (isDesktop) {
     return (
       <Drawer>
-        <DrawerTrigger>
-          <button>
-            <Text as="p" size="xs" className="text-brand-dark-grey underline">
-              {sizeGuideText}
-            </Text>
-          </button>
+        <DrawerTrigger className="text-xs text-brand-dark-grey underline" asChild={false}>
+          {sizeGuideText}
         </DrawerTrigger>
         <DrawerContent className="max-h-dvh overflow-y-auto lg:max-w-[--drawer-width-lg]">
           <DrawerHeader title={sizeGuideText} />
@@ -69,12 +64,8 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
 
   return (
     <Sheet>
-      <SheetTrigger>
-        <button>
-          <Text as="p" size="xs" className="text-brand-dark-grey underline">
-            {sizeGuideText}
-          </Text>
-        </button>
+      <SheetTrigger className="text-xs text-brand-dark-grey underline">
+        {sizeGuideText}
       </SheetTrigger>
       <SheetContent className="flex max-h-[90dvh] flex-col">
         <SheetHeader title={sizeGuideText}></SheetHeader>

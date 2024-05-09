@@ -14,9 +14,10 @@ interface Props {
   data: NavbarPayload;
   children: React.ReactNode;
   className?: string;
+  hasTransparentHeader?: boolean;
 }
 
-export function NavbarLayout({ data, children, className }: Props) {
+export function NavbarLayout({ data, children, className, hasTransparentHeader }: Props) {
   const items = data?.items;
 
   if (!items) return null;
@@ -29,7 +30,11 @@ export function NavbarLayout({ data, children, className }: Props) {
             <MobileMenu items={items} />
             <SearchButton />
           </div>
-          <DesktopMenu items={items} className="hidden lg:block lg:w-fit" />
+          <DesktopMenu
+            items={items}
+            className="hidden lg:block lg:w-fit"
+            hasTransparentHeader={hasTransparentHeader}
+          />
           <CustomLink
             href={ROUTES.HOME}
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:hidden"
