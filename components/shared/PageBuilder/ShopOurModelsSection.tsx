@@ -33,7 +33,7 @@ interface Props {
 }
 
 export const ShopOurModelsSection = ({ data }: Props) => {
-  const { index, pageId, pageType, badge, shoes, buttonText, sectionSettings } = data;
+  const { badge, shoes, buttonText, sectionSettings } = data;
 
   const [activeShoeTitle, setActiveShoeTitle] = useState<string | undefined>(shoes?.at(0)?.title);
   const activeShoe = shoes?.find((shoe) => shoe.title === activeShoeTitle);
@@ -95,7 +95,10 @@ export const ShopOurModelsSection = ({ data }: Props) => {
           {badge && <Badge className="mb-2">{badge}</Badge>}
           {activeShoe?.title && (
             <Select value={activeShoeTitle} onValueChange={setActiveShoeTitle}>
-              <SelectTrigger className="h-fit w-fit gap-4 border-0 pl-0 [&>svg]:size-8">
+              <SelectTrigger
+                aria-label="Select shoe"
+                className="h-fit w-fit gap-4 border-0 pl-0 [&>svg]:size-8"
+              >
                 <SelectValue asChild className="rounded-none">
                   <Heading size="lg">{activeShoe?.title}</Heading>
                 </SelectValue>
@@ -118,6 +121,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
             <div className="flex gap-2">
               {activeShoe.colorWays.map((colorWay) => (
                 <button
+                  aria-label={colorWay.title}
                   onClick={() => setActiveColorwaySlug(colorWay.slug)}
                   className={cn(
                     'size-10 border-2',
@@ -254,6 +258,7 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                 <div className="flex gap-2">
                   {activeShoe.colorWays.map((colorWay) => (
                     <button
+                      aria-label={colorWay.title}
                       onClick={() => setActiveColorwaySlug(colorWay.slug)}
                       className={cn(
                         'size-10 border-2',

@@ -31,7 +31,7 @@ export function MobileMenu({ items }: Props) {
     <NavigationMenu.Root>
       <NavigationMenu.List>
         <Drawer isOpen={mainMenuIsOpen} onOpenChange={setMainMenuIsOpen}>
-          <DrawerTrigger>
+          <DrawerTrigger asChild>
             <button
               aria-label="Open main menu"
               className="relative flex h-11 w-11 items-center justify-center rounded-project transition-colors hover:bg-brand-light-grey"

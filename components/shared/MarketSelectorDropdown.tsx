@@ -18,7 +18,7 @@ export function MarketSelectorDropdown({ market, className }: Props) {
 
   return (
     <div className="flex flex-col gap-y-3">
-      <Text size="sm" className="text-brand-light-grey">
+      <Text size="sm" className="text-white">
         Shipping to
       </Text>
       <button

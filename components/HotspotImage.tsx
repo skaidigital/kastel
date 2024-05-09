@@ -32,7 +32,9 @@ export function HotspotImage({ image, hotspots, sizes, children }: Props) {
               className="relative"
             >
               <HybridTooltip delayDuration={0}>
-                <HybridTooltipTrigger>
+                <HybridTooltipTrigger
+                  aria-label={`${hotspot.type === 'text' ? hotspot.description : hotspot.title}`}
+                >
                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
                     <span className="block h-2 w-2 rounded-full bg-white"></span>
                   </div>

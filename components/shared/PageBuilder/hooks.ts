@@ -151,6 +151,7 @@ const shopOurModelsSectionValidator = z.object({
       colorWays: z.array(
         z.object({
           image: imageValidator,
+          title: z.string(),
           hexCode: z.string(),
           slug: z.string()
         })
@@ -606,6 +607,7 @@ export const PAGE_BUILDER_TYPES: {
             "image": mainImage{
               ${fragments.getImageBase(lang)}
             },
+            "title": color->title.${lang},
             "hexCode": color->color.value,
             "slug": slug_${lang}.current,
           },

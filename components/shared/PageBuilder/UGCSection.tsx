@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const UGCSection = ({ data }: Props) => {
-  const { index, pageId, pageType, videos, sectionSettings } = data;
+  const { videos, sectionSettings } = data;
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -36,6 +36,14 @@ export const UGCSection = ({ data }: Props) => {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
+  function setActive(index: number) {
+    if (!api) {
+      return;
+    }
+
+    api.scrollTo(index);
+  }
 
   return (
     <Section
@@ -68,7 +76,7 @@ export const UGCSection = ({ data }: Props) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <ScrollDots current={current} count={count} className="mt-10" />
+        <ScrollDots current={current} count={count} onClick={setActive} className="mt-10" />
       </Carousel>
     </Section>
   );
@@ -77,16 +85,20 @@ export const UGCSection = ({ data }: Props) => {
 function ScrollDots({
   current,
   count,
+  onClick,
   className
 }: {
   current: number;
   count: number;
+  onClick: (index: number) => void;
   className?: string;
 }) {
   return (
     <div className={cn('flex w-full justify-center gap-2', className)}>
       {Array.from({ length: count }, (_, index) => (
-        <div
+        <button
+          aria-label={`${index + 1}`}
+          onClick={() => onClick(index)}
           key={index}
           className={cn('h-2 max-w-20 grow', {
             'bg-brand-primary': current === index + 1,

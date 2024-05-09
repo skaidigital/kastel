@@ -202,7 +202,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
 
   return (
     <Sheet isOpen={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger className="pr-4">
+      <SheetTrigger aria-label="Open cart" className="pr-4">
         <ShoppingBagIcon className="size-6" />
       </SheetTrigger>
       <SheetContent className="h-[calc(95dvh-32px)]" noPadding>

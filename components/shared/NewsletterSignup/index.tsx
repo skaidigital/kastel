@@ -61,6 +61,7 @@ export const NewsletterSignup = ({ className, labelText, descriptionText }: Prop
   }
 
   const emailString = getYourEmailString(lang);
+  const subscribeString = getSubscribeString(lang);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-y-4', className)}>
@@ -73,6 +74,7 @@ export const NewsletterSignup = ({ className, labelText, descriptionText }: Prop
             className="placeholder:tex-sm absolute left-0 top-0 h-full w-full bg-transparent px-4 text-sm font-medium text-brand-dark-grey placeholder:text-brand-dark-grey"
           />
           <button
+            aria-label={subscribeString}
             type="submit"
             className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-dark-grey"
           >
@@ -81,13 +83,24 @@ export const NewsletterSignup = ({ className, labelText, descriptionText }: Prop
         </div>
       </div>
       {descriptionText && (
-        <Text size="sm" className="max-w-lg text-balance text-brand-light-grey">
+        <Text size="sm" className="max-w-lg text-balance text-white">
           {descriptionText}
         </Text>
       )}
     </form>
   );
 };
+
+function getSubscribeString(lang: LangValues) {
+  switch (lang) {
+    case 'no':
+      return 'Abonner';
+    case 'en':
+      return 'Subscribe';
+    default:
+      return 'Subscribe';
+  }
+}
 
 function getYourEmailString(lang: LangValues) {
   switch (lang) {
