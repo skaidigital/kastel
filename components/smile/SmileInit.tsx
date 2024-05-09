@@ -1,32 +1,51 @@
 'use client';
 
-import { env } from '@/env';
 import { useEffect } from 'react';
 
-const channelKey = env.NEXT_PUBLIC_SMILE_CHANNEL_KEY;
+// Assuming the channel key is valid and stored in an environment variable accessible here
+const channelKey = process.env.NEXT_PUBLIC_SMILE_CHANNEL_KEY;
 
-interface Porps {
+interface Props {
   customerId: string | undefined;
 }
 
-// TODO figure out how to lazy load this bad boy
-export default function SmileInit({ customerId }: Porps) {
+export default function SmileInit({ customerId }: Props) {
+  let retryCount = 0;
+  // This useEffect will run when the component mounts or customerId changes
   useEffect(() => {
-    initializeSmileUI();
+    async function init() {
+      const jwtToken = await fetchJwt({ customerId });
 
-    async function initializeSmileUI() {
-      if (window.SmileUI) {
-        return;
+      if (!window.SmileUI) {
+        try {
+          await loadSmileUIScript();
+        } catch (error) {
+          console.error('Failed to load Smile UI script:', error);
+          return;
+        }
       }
-      if (window.SmileUI && !customerId) {
+
+      if (window.SmileUI) {
         window.SmileUI.init({
           channel_key: channelKey,
-          customer_identity_jwt: undefined
+          customer_identity_jwt: jwtToken
         });
-        return;
+      } else {
+        if (retryCount < 3) {
+          await init();
+          retryCount++;
+        }
       }
+    }
 
-      // Fetch the JWT from your API
+    init();
+  }, [customerId, retryCount]); // Depend on customerId
+
+  async function fetchJwt({ customerId }: { customerId?: string }) {
+    if (!customerId) {
+      return undefined;
+    }
+    try {
       const response = await fetch('/api/smile/create-token', {
         method: 'POST',
         headers: {
@@ -34,45 +53,24 @@ export default function SmileInit({ customerId }: Porps) {
         },
         body: JSON.stringify({ customer_id: customerId })
       });
-
-      const { token: customer_identity_jwt } = await response.json();
-
-      if (window.SmileUI && !customerId) {
-        window.SmileUI.init({
-          channel_key: channelKey,
-          customer_identity_jwt: undefined // Use the fetched JWT
-        });
-        return;
-      }
-
-      if (window.SmileUI) {
-        try {
-          window.SmileUI.init({
-            channel_key: channelKey,
-            customer_identity_jwt: customer_identity_jwt // Use the fetched JWT
-          });
-          return;
-        } catch (error) {
-          console.error('SmileUI was not loaded with customerId', customerId, 'error:', error);
-          window.SmileUI.init({
-            channel_key: channelKey,
-            customer_identity_jwt: undefined
-          });
-          return;
-        }
-      }
+      const data = await response.json();
+      return data.token;
+    } catch (error) {
+      console.error('Error fetching JWT:', error);
+      return null;
     }
+  }
 
-    if (!window.SmileUI) {
+  function loadSmileUIScript() {
+    return new Promise<void>((resolve, reject) => {
       const script = document.createElement('script');
       script.async = true;
       script.src = 'https://js.smile.io/v1/smile-ui.js';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Smile UI script failed to load'));
       document.head.appendChild(script);
-      script.onload = initializeSmileUI;
-    } else {
-      initializeSmileUI();
-    }
-  }, [customerId]);
+    });
+  }
 
   return null;
 }

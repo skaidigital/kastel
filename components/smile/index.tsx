@@ -1,7 +1,7 @@
 'use client';
 
 import { useCustomerId } from '@/components/smile/useCustomerId';
-import SmileInit from './SmileInitV2';
+import SmileInit from './SmileInit';
 
 export function Smile() {
   const { data, isLoading } = useCustomerId();
