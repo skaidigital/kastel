@@ -202,7 +202,7 @@ module.exports = {
       }
     },
     animation: {
-      spin: 'spin 1s var(--smooth-bezier) infinite',
+      spin: 'spin 0.4s linear infinite',
       blink: 'blink 1.4s both infinite',
       'hotspot-blink': 'hotspot-blink 2.5 cubic-bezier(0, 0, 0.2, 1) infinite',
       'fade-in-text':

@@ -2,25 +2,20 @@
 
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Logo } from '@/components/Logo';
 import { Modal, ModalContent } from '@/components/Modal';
 import { Sheet, SheetContent } from '@/components/Sheet';
 import { Text } from '@/components/base/Text';
+import { NewsletterSignupForm } from '@/components/global/Popup/NewsletterSignupForm';
 import { hasSeenPopup } from '@/components/global/Popup/actions';
 import { PopupPayload } from '@/components/global/Popup/hooks';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { SanityLink } from '@/components/sanity/SanityLink';
-import { subscribeToNewsletter } from '@/components/shared/NewsletterSignup/actions';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { LinkProps } from '@/lib/sanity/types';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { zodResolver } from '@hookform/resolvers/zod';
 import * as Dialog from '@radix-ui/react-dialog';
-import { useEffect, useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { z } from 'zod';
+import { useEffect, useState } from 'react';
 
 interface Props {
   data: PopupPayload;
@@ -140,65 +135,6 @@ function MainContent({
         </Text>
       )}
     </div>
-  );
-}
-
-const formValidator = z.object({
-  email: z.string().email()
-});
-
-type FormProps = z.infer<typeof formValidator>;
-
-function NewsletterSignupForm({
-  buttonText,
-  onClose
-}: {
-  buttonText: string;
-  onClose: () => void;
-}) {
-  const [isPending, startTransition] = useTransition();
-
-  const { register, handleSubmit } = useForm<FormProps>({
-    mode: 'onBlur',
-    resolver: zodResolver(formValidator),
-    defaultValues: {
-      email: ''
-    }
-  });
-
-  const onSubmit = async (data: FormProps) => {
-    startTransition(async () => {
-      const response = await subscribeToNewsletter({
-        email: data.email
-      });
-
-      onClose();
-      if (response.success) {
-        toast.success('You have successfully signed up for our newsletter!', {
-          description: 'Please check your inbox for a confirmation email.'
-        });
-        return;
-      }
-      toast.error('There was an error signing up for our newsletter. Please try again later.');
-    });
-  };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} className="relative flex flex-col gap-y-2">
-      <input
-        {...register('email')}
-        autoComplete="email"
-        type="Email"
-        className="w-full rounded-[2px] border border-brand-light-grey bg-brand-sand p-3 text-sm font-medium text-brand-mid-grey placeholder:text-sm placeholder:font-medium placeholder:text-brand-mid-grey"
-        placeholder="test"
-      />
-      <Button type="submit" size="sm" className="relative">
-        <span className={isPending ? 'opacity-0' : ''}> {buttonText}</span>
-        {isPending && (
-          <LoadingSpinner className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-        )}
-      </Button>
-    </form>
   );
 }
 

@@ -9,7 +9,6 @@ import { SanityLink } from '@/components/sanity/SanityLink';
 import { MarketSelectorDropdown } from '@/components/shared/MarketSelectorDropdown';
 import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
 import { MarketValues } from '@/data/constants';
-import { env } from 'process';
 
 interface Props {
   data: FooterPayload;
@@ -18,11 +17,8 @@ interface Props {
   children?: React.ReactNode;
 }
 
-// TODO get text for the content under the newsletter signup input
 export function FooterLayout({ data: footer, dictionary, market, children }: Props) {
   if (!footer) return null;
-
-  const klaviyoId = env.KLAVIYO_NEWSLETTER_LIST_ID!;
 
   return (
     <footer className="bg-brand-primary py-10 text-white lg:py-20">

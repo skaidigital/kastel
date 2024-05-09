@@ -1,36 +1,35 @@
 'use client';
 
-import { Dictionary } from '@/app/dictionaries';
+import { Button } from '@/components/Button';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { Text } from '@/components/base/Text';
 import { subscribeToNewsletter } from '@/components/shared/NewsletterSignup/actions';
-import {
-  NewsletterFormSchema,
-  newsletterFormSchema
-} from '@/components/shared/NewsletterSignup/hooks';
 import { LangValues } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
-interface Props {
-  className?: string;
-  dictionary: Dictionary['footer']['sign_up'];
-  labelText: string;
-  descriptionText: string;
-}
+const formValidator = z.object({
+  email: z.string().email()
+});
 
-export const NewsletterSignup = ({ className, labelText, descriptionText }: Props) => {
+type FormProps = z.infer<typeof formValidator>;
+
+export function NewsletterSignupForm({
+  buttonText,
+  onClose
+}: {
+  buttonText: string;
+  onClose: () => void;
+}) {
   const [isPending, startTransition] = useTransition();
   const { lang } = useBaseParams();
 
-  const { handleSubmit, register, reset } = useForm<NewsletterFormSchema>({
-    resolver: zodResolver(newsletterFormSchema),
-    mode: 'onSubmit',
+  const { register, handleSubmit } = useForm<FormProps>({
+    mode: 'onBlur',
+    resolver: zodResolver(formValidator),
     defaultValues: {
       email: ''
     }
@@ -41,53 +40,45 @@ export const NewsletterSignup = ({ className, labelText, descriptionText }: Prop
   const toastErrorTitle = getErrorToastTitle(lang);
   const toastErrorDescription = getErrorToastDescription(lang);
 
-  async function onSubmit(data: NewsletterFormSchema) {
+  const onSubmit = async (data: FormProps) => {
     startTransition(async () => {
-      const response = await subscribeToNewsletter({ email: data.email });
+      const response = await subscribeToNewsletter({
+        email: data.email
+      });
 
+      onClose();
       if (response.success) {
         toast.success(toastSuccessTitle, {
           description: toastSuccessDescription
         });
-        reset();
         return;
       }
       toast.error(toastErrorTitle, {
         description: toastErrorDescription
       });
-      reset();
-      return;
     });
-  }
+  };
 
   const emailString = getYourEmailString(lang);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-y-4', className)}>
-      <div className="flex flex-col gap-y-3">
-        {labelText && <Text size="sm">{labelText}</Text>}
-        <div className="relative h-12 w-60 rounded-[4px] bg-brand-primary-light ">
-          <input
-            {...register('email')}
-            placeholder={emailString}
-            className="placeholder:tex-sm absolute left-0 top-0 h-full w-full bg-transparent px-4 text-sm font-medium text-brand-dark-grey placeholder:text-brand-dark-grey"
-          />
-          <button
-            type="submit"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-dark-grey"
-          >
-            {isPending ? <LoadingSpinner /> : <ArrowRightIcon className="size-5 " />}
-          </button>
-        </div>
-      </div>
-      {descriptionText && (
-        <Text size="sm" className="max-w-lg text-balance text-brand-light-grey">
-          {descriptionText}
-        </Text>
-      )}
+    <form onSubmit={handleSubmit(onSubmit)} className="relative flex flex-col gap-y-2">
+      <input
+        {...register('email')}
+        autoComplete="email"
+        type="Email"
+        className="w-full rounded-[2px] border border-brand-light-grey bg-brand-sand p-3 text-sm font-medium text-brand-mid-grey placeholder:text-sm placeholder:font-medium placeholder:text-brand-mid-grey"
+        placeholder={emailString}
+      />
+      <Button type="submit" size="sm" className="relative">
+        <span className={isPending ? 'hidden' : ''}> {buttonText}</span>
+        {isPending && (
+          <LoadingSpinner className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        )}
+      </Button>
     </form>
   );
-};
+}
 
 function getYourEmailString(lang: LangValues) {
   switch (lang) {
