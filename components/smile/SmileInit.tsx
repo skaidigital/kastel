@@ -21,7 +21,7 @@ export default function SmileInit({ customerId }: Porps) {
       if (window.SmileUI && !customerId) {
         window.SmileUI.init({
           channel_key: channelKey,
-          customer_identity_jwt: undefined // Use the fetched JWT
+          customer_identity_jwt: undefined
         });
         return;
       }
@@ -46,10 +46,20 @@ export default function SmileInit({ customerId }: Porps) {
       }
 
       if (window.SmileUI) {
-        window.SmileUI.init({
-          channel_key: channelKey,
-          customer_identity_jwt: customer_identity_jwt // Use the fetched JWT
-        });
+        try {
+          window.SmileUI.init({
+            channel_key: channelKey,
+            customer_identity_jwt: customer_identity_jwt // Use the fetched JWT
+          });
+          return;
+        } catch (error) {
+          console.error('SmileUI was not loaded with customerId', customerId, 'error:', error);
+          window.SmileUI.init({
+            channel_key: channelKey,
+            customer_identity_jwt: undefined // Use the fetched JWT
+          });
+          return;
+        }
       }
     }
 
