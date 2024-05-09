@@ -81,8 +81,9 @@ export const productVariant = defineType({
     ...i18nString({
       title: 'Gid',
       name: 'gid',
-      fieldset: 'shopify',
-      readOnly: true
+      fieldset: 'shopify'
+      // readOnly: true
+      // readOnly: readOnlyUnlessDeveloper || true
       // validation: (Rule) => Rule.required() //! Rework validation based on status?
     }),
     defineField({

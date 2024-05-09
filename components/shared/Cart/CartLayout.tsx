@@ -40,7 +40,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const { isLoggedIn } = useUser();
   const { cartOpen: isOpen, setCartOpen: setIsOpen } = useCartContext();
   const { cart } = useCart();
-  const { checkoutUrl } = useCheckoutUrl(isLoggedIn);
+  const { checkoutUrl, isLoading: isCheckoutLoading } = useCheckoutUrl(isLoggedIn);
 
   const isDesktop = useIsDesktop();
 
@@ -146,7 +146,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                     <Button
                       size="sm"
                       className="w-full"
-                      isLoading={isPending}
+                      isLoading={isPending || isCheckoutLoading}
                       onClick={() => {
                         startTransition(() => {
                           // Vercel Analtyics
@@ -286,7 +286,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                     <Button
                       size="sm"
                       className="w-full"
-                      isLoading={isPending}
+                      isLoading={isPending || isCheckoutLoading}
                       onClick={() => {
                         startTransition(() => {
                           // Vercel Analtyics

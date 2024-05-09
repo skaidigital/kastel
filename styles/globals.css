@@ -345,6 +345,10 @@
   margin-top: 0;
 }
 
+.noPaddingFirstChild > :first-child {
+  padding-top: 0;
+}
+
 /* User can't select text or copy content */
 .noTouch {
   -webkit-touch-callout: none;
