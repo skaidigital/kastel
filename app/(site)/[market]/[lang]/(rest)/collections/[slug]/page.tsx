@@ -128,8 +128,8 @@ export default async function SlugCollectionPage({ params }: Props) {
         className="hidden min-h-32 lg:block"
         collectionSlug={slug}
       />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense>
+      <Suspense>
+        <HydrationBoundary state={dehydrate(queryClient)}>
           <CollectionPage
             moods={moods}
             slug={slug}
@@ -137,8 +137,8 @@ export default async function SlugCollectionPage({ params }: Props) {
             lang={lang}
             dictionary={collection_page}
           />
-        </Suspense>
-      </HydrationBoundary>
+        </HydrationBoundary>
+      </Suspense>
       <CollectionAndSearchActionsBarMobile
         lang={lang}
         market={market}
