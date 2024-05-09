@@ -11,7 +11,7 @@ import {
   CollectionProductsPayload
 } from '@/components/pages/CollectionPage/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import '@/styles/externalOverride.css';
 
@@ -39,16 +39,11 @@ export async function CollectionLayout({
   lang
 }: Props) {
   const { products, hasNextPage } = data;
-
   const { productsPerRow, setProductsPerRow } = useCollectionContext();
-  console.log({ productsPerRow });
-
-  // const productsPerRow = searchParams?.view || '4';
 
   const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 3, moods);
   const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods);
 
-  const pageCount = Math.ceil(productCount / COLLECTION_PAGE_SIZE);
   const hasProducts = productCount !== 0;
 
   const imageSizePerItem = 100 / Number(productsPerRow) + 5;
@@ -126,23 +121,6 @@ export async function CollectionLayout({
             </Text>
           </Container>
         )}
-        {/* {hasProducts && (
-          <div className="mt-20 flex flex-col items-center justify-center space-y-8">
-            <div className="flex gap-x-2">
-              <Suspense>
-                <PaginationButton type="previous">Forrige side</PaginationButton>
-              </Suspense>
-              {hasNextPage && (
-                <Suspense>
-                  <PaginationButton type="next">Neste side</PaginationButton>
-                </Suspense>
-              )}
-            </div>
-            <Suspense>
-              <PageCounter pageCount={pageCount} />
-            </Suspense>
-          </div>
-        )} */}
       </Section>
     </>
   );
