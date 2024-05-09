@@ -2,6 +2,7 @@ import { AMEXLogo } from '@/components/icons/AMEXLogo';
 import { AmazonPayLogo } from '@/components/icons/AmazonPayLogo';
 import { ApplePayLogo } from '@/components/icons/ApplePayLogo';
 import { GooglePayLogo } from '@/components/icons/GooglePayLogo';
+import { KlarnaLogo } from '@/components/icons/KlarnaLogo';
 import { MasterCardLogo } from '@/components/icons/MasterCardLogo';
 import { MobilePayLogo } from '@/components/icons/MobilePayLogo';
 import { PayPalLogo } from '@/components/icons/PayPalLogo';
@@ -410,13 +411,12 @@ export const SMILE_DEEP_LINK_OPTIONS = [
   }
 ];
 
-// TODO add tel, email, and social media
-
 export type PaymentProviderType =
   | 'amazonPay'
   | 'amex'
   | 'applePay'
   | 'googlePay'
+  | 'klarna'
   | 'masterCard'
   | 'mobilePay'
   | 'payPal'
@@ -435,6 +435,7 @@ export const PAYMENT_PROVIDERS: PaymentProvider[] = [
   { title: 'AMEX', value: 'amex', icon: AMEXLogo },
   { title: 'Apple Pay', value: 'applePay', icon: ApplePayLogo },
   { title: 'Google Pay', value: 'googlePay', icon: GooglePayLogo },
+  { title: 'Klarna', value: 'klarna', icon: KlarnaLogo },
   { title: 'MasterCard', value: 'masterCard', icon: MasterCardLogo },
   { title: 'Mobile Pay', value: 'mobilePay', icon: MobilePayLogo },
   { title: 'PayPal', value: 'payPal', icon: PayPalLogo },

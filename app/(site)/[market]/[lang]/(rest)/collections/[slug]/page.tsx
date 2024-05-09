@@ -24,6 +24,7 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 export const dynamic = 'force-static';
 
@@ -128,13 +129,15 @@ export default async function SlugCollectionPage({ params }: Props) {
         collectionSlug={slug}
       />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <CollectionPage
-          moods={moods}
-          slug={slug}
-          market={market}
-          lang={lang}
-          dictionary={collection_page}
-        />
+        <Suspense>
+          <CollectionPage
+            moods={moods}
+            slug={slug}
+            market={market}
+            lang={lang}
+            dictionary={collection_page}
+          />
+        </Suspense>
       </HydrationBoundary>
       <CollectionAndSearchActionsBarMobile
         lang={lang}

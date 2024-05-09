@@ -53,7 +53,8 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
       prioritizedSortkey,
       paramValues
     ],
-    queryFn: () => loadCollectionProductDataV2(collectionFechData)
+    queryFn: () => loadCollectionProductDataV2(collectionFechData),
+    placeholderData: (prev) => prev
   });
 
   if (error) {
