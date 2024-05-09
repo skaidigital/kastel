@@ -1,22 +1,25 @@
 'use client';
 
-import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { parseAsInteger, useQueryState } from 'nuqs';
 
 export function ProductsPerRowSelector() {
-  const { productsPerRow, setProductsPerRow } = useCollectionContext();
+  const router = useRouter();
+
+  const [active, setActive] = useQueryState('view', parseAsInteger);
 
   function handleOnClick(number: number) {
-    setProductsPerRow(number);
+    setActive(number).then(() => router.refresh());
   }
 
   return (
     <div className="flex space-x-2">
       <button onClick={() => handleOnClick(3)}>
-        <ViewProductNumber cols={3} active={productsPerRow} />
+        <ViewProductNumber cols={3} active={active} />
       </button>
       <button onClick={() => handleOnClick(4)}>
-        <ViewProductNumber cols={4} active={productsPerRow} />
+        <ViewProductNumber cols={4} active={active} />
       </button>
     </div>
   );

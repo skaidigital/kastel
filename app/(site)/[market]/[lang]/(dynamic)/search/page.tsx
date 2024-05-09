@@ -12,7 +12,7 @@ import { CollectionGrid } from '@/components/pages/CollectionPage/CollectionLayo
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
-import { SearchSettingsBar } from '@/components/pages/CollectionPage/filter/SearchSettingsBar';
+import { SearchSettingsBar } from '@/components/pages/SearchPage/SetingsBar';
 import { CollectionAndSearchActionsBarMobile } from '@/components/shared/CollectionAndSearchActionsBarMobile';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
@@ -168,7 +168,7 @@ export default async function Page({ searchParams, params }: Props) {
             </Text>
           </Container>
         )}
-        <CollectionGrid number={ProductsInView}>
+        <CollectionGrid number={Number(ProductsInView)}>
           {products &&
             products?.map((product: ProductCardProps, index: number) => {
               return (

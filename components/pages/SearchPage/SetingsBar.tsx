@@ -2,10 +2,10 @@ import { Container } from '@/components/base/Container';
 import { Row } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop';
 import { Filter } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop/Filter';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
+import { ProductsPerRowSelector } from '@/components/pages/SearchPage/ProductsPerRowSelector';
 import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
-import { ProductsPerRowSelector } from '../CollectionSettingsBarDesktop/ProductsPerRowSelector';
-import { Sort } from '../CollectionSettingsBarDesktop/Sort';
+import { Sort } from '../CollectionPage/CollectionSettingsBarDesktop/Sort';
 
 interface Props {
   searchParams?: {
