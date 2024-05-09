@@ -29,7 +29,8 @@ export function SyncProductToShopify(context: DocumentActionsContext) {
 
     toast.push(loadingToast);
 
-    const response = await fetch(`/api/product`, {
+    //todo: change this to a dynamic path based on the market
+    const response = await fetch(`/no/no/api/product`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,8 +42,6 @@ export function SyncProductToShopify(context: DocumentActionsContext) {
     const data = await response.json();
 
     const isSuccess = data.success;
-
-    // const isSuccess = true;
 
     if (isSuccess) {
       toast.push(successToast(marketName));
@@ -58,14 +57,14 @@ export function SyncProductToShopify(context: DocumentActionsContext) {
       onHandle: async () => {
         await sendData(MARKET.no.id);
       }
-    },
-    {
-      label: `Sync to ${MARKET.sv.name} ${MARKET.sv.flag}`,
-      icon: UploadIcon,
-      onHandle: async () => {
-        await sendData(MARKET.sv.id);
-      }
     }
+    // {
+    //   label: `Sync to ${MARKET.sv.name} ${MARKET.sv.flag}`,
+    //   icon: UploadIcon,
+    //   onHandle: async () => {
+    //     await sendData(MARKET.sv.id);
+    //   }
+    // }
   ];
 }
 

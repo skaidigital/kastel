@@ -126,23 +126,6 @@ export function CollectionLayout({ data, currentPage, dictionary, productCount, 
             </Text>
           </Container>
         )}
-        {/* {hasProducts && (
-          <div className="mt-20 flex flex-col items-center justify-center space-y-8">
-            <div className="flex gap-x-2">
-              <Suspense>
-                <PaginationButton type="previous">Forrige side</PaginationButton>
-              </Suspense>
-              {hasNextPage && (
-                <Suspense>
-                  <PaginationButton type="next">Neste side</PaginationButton>
-                </Suspense>
-              )}
-            </div>
-            <Suspense>
-              <PageCounter pageCount={pageCount} />
-            </Suspense>
-          </div>
-        )} */}
       </Section>
     </>
   );
