@@ -56,7 +56,7 @@ export default function SmileInit({ customerId }: Porps) {
           console.error('SmileUI was not loaded with customerId', customerId, 'error:', error);
           window.SmileUI.init({
             channel_key: channelKey,
-            customer_identity_jwt: undefined // Use the fetched JWT
+            customer_identity_jwt: undefined
           });
           return;
         }
