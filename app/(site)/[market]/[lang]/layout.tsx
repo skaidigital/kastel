@@ -19,6 +19,7 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { draftMode } from 'next/headers';
+import Script from 'next/script';
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
@@ -26,7 +27,7 @@ const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${env.NEXT_PUBLIC_VERCEL_URL}`
   : 'http://localhost:3000';
 
-// TODO see if PopupHandler locks up the main thread
+// TODO make sure Gorgias, Cookiebot and Smile works
 export default function IndexRoute({
   children,
   params: { lang }
@@ -39,6 +40,20 @@ export default function IndexRoute({
   return (
     <>
       {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />}
+      {isInProduction && (
+        <Script
+          strategy="lazyOnload"
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
+          type="text/javascript"
+        />
+      )}
+      <Script
+        id="gorgias-chat-widget-install-v3"
+        src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
+        strategy="lazyOnload"
+      />
       <CartContextProvider>
         <Providers>
           <div>

@@ -4,7 +4,6 @@ import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
 import { LangValues } from '@/data/constants';
 import { formatDate } from '@/lib/utils';
 import { createDataAttribute } from 'next-sanity';
-import Script from 'next/script';
 
 interface Props {
   data: LegalPagePayload;
@@ -42,12 +41,12 @@ export function LegalPage({ data, lang }: Props) {
               type="legalPage"
             />
           )}
-          <Script
+          {/* <Script
             id="CookieDeclaration"
             src="https://consent.cookiebot.com/4a61496c-631f-41e9-bf0e-88ecf2de8ad3/cd.js"
             type="text/javascript"
             strategy="afterInteractive"
-          />
+          /> */}
         </div>
       </div>
     </>

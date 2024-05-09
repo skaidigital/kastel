@@ -1,4 +1,4 @@
-import { readOnlyUnlessDeveloper, validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const footer = defineType({
@@ -47,8 +47,7 @@ export const footer = defineType({
       options: {
         rows: 2
       },
-      validation: validateAllStringTranslations,
-      readOnly: readOnlyUnlessDeveloper
+      validation: validateAllStringTranslations
     })
   ]
 });
