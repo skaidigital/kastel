@@ -1,13 +1,28 @@
 'use client';
 
-import { SMILE_DEEP_LINKS } from '@/data/constants';
-
 export function SmileButton({ children }: { children: React.ReactNode }) {
   return (
     <button
-      onClick={() => {
+      // onClick={() => {
+      //   if (window.SmileUI) {
+      //     window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home });
+      //   }
+      // }}
+      onClick={async () => {
         if (window.SmileUI) {
-          window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home });
+          await window.SmileUI.openPanel({
+            deep_link: 'home'
+          }).catch((error: any) => {
+            console.error('Failed to open smile link', error);
+          });
+
+          window.SmileUI.ready().then(() =>
+            window.SmileUI.openPanel({ deep_link: 'home' }).catch((error: any) => {
+              console.error('Failed to open smile link', error);
+            })
+          );
+        } else {
+          console.error('Failed to open smile link');
         }
       }}
     >

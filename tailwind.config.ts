@@ -205,10 +205,8 @@ module.exports = {
       spin: 'spin 0.4s linear infinite',
       blink: 'blink 1.4s both infinite',
       'hotspot-blink': 'hotspot-blink 2.5 cubic-bezier(0, 0, 0.2, 1) infinite',
-      'fade-in-text':
-        'fade-in-text 300ms var(--animation-delay, 0ms) var(--ease-out-quad) forwards',
-      'fade-up-text':
-        'fade-up-text 300ms var(--animation-delay, 0ms) var(--ease-out-quad) forwards',
+      'fade-in-text': 'fade-in-text 500ms var(--animation-delay, 0ms) ease-out forwards',
+      'fade-up-text': 'fade-up-text 500ms var(--animation-delay, 0ms) ease-out forwards',
       'modal-show': 'fade-in 300ms var(--ease-out-quad) forwards',
       'modal-hide': 'fade-out 300ms var(--ease-out-quad) forwards',
       'drawer-right-show': 'drawer-right-show 400ms var(--ease-out-quad)',

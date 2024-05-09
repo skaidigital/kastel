@@ -27,8 +27,8 @@ export function OptionGroup({
   return (
     <dl className="" key={option.name}>
       <dt className="mb-3">
-        <div className="flex justify-between">
-          <Text as="p" size="xs" className="text-brand-dark-grey">
+        <div className="flex items-center justify-between">
+          <Text size="xs" className="text-brand-dark-grey">
             {option.name}: {selectedOption || chooseSizeText}
           </Text>
           {sizeGuide && sizeGuideText && (
@@ -53,7 +53,7 @@ export function OptionGroup({
                 key={value.title}
                 onClick={() => setSelectedOption(value.title)}
                 className={cn(
-                  'flex items-center justify-center rounded-[2px] border border-brand-light-grey py-2.5 text-sm',
+                  'flex items-center justify-center rounded-[2px] border border-brand-light-grey text-sm',
                   isActive && 'bg-brand-primary text-white ',
                   !isActive &&
                     availableForSale &&
