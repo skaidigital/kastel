@@ -16,7 +16,10 @@ interface Props {
   lang: LangValues;
 }
 
-export function Settings({ lang }: Props) {
+/**
+ * Settings for mobile actions bar on search and collection page
+ */
+export function SearchActionsBarSettings({ lang }: Props) {
   const router = useRouter();
 
   const [activeViewNumber, setActiveViewNumber] = useQueryState('view', parseAsInteger);

@@ -1,6 +1,6 @@
-import { Filter } from '@/components/shared/CollectionAndSearchActionsBarMobile/Filter';
-import { Settings } from '@/components/shared/CollectionAndSearchActionsBarMobile/Settings';
-import { Sort } from '@/components/shared/CollectionAndSearchActionsBarMobile/Sort';
+import { FilterSheet } from '@/components/FilterSheet';
+import { SortSheet } from '@/components/SortSheet';
+import { CollectionActionsBarSettings } from '@/components/pages/CollectionPage/ActionsBarMobile/Settings';
 import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 
@@ -12,7 +12,7 @@ interface Props {
   searchGids?: string[];
 }
 
-export function CollectionAndSearchActionsBarMobile({
+export function CollectionActionsBarMobile({
   market,
   lang,
   className,
@@ -26,9 +26,14 @@ export function CollectionAndSearchActionsBarMobile({
         className
       )}
     >
-      <Filter market={market} lang={lang} collectionSlug={collectionSlug} searchGids={searchGids} />
-      <Sort lang={lang} />
-      <Settings lang={lang} />
+      <FilterSheet
+        market={market}
+        lang={lang}
+        collectionSlug={collectionSlug}
+        searchGids={searchGids}
+      />
+      <SortSheet lang={lang} />
+      <CollectionActionsBarSettings lang={lang} />
     </div>
   );
 }

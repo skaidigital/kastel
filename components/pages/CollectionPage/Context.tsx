@@ -1,6 +1,5 @@
 'use client';
 
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { createContext, useContext, useState } from 'react';
 
 export type CollectionContextType = {
@@ -13,9 +12,7 @@ export type CollectionContextType = {
 const CollectionContext = createContext<CollectionContextType | undefined>(undefined);
 
 export const CollectionContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const isDesktop = useIsDesktop();
-
-  const [productsPerRow, setProductsPerRow] = useState<number>(isDesktop ? 4 : 2);
+  const [productsPerRow, setProductsPerRow] = useState<number>(2);
   const [numberOfProducts, setNumberOfProducts] = useState<number>(0);
 
   return (

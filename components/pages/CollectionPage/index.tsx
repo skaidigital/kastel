@@ -23,7 +23,7 @@ export interface PageProps {
   dictionary: Dictionary['collection_page'];
 }
 
-export async function CollectionPage({ slug, market, lang, dictionary, moods }: PageProps) {
+export function CollectionPage({ slug, market, lang, dictionary, moods }: PageProps) {
   const testSearchParams = useSearchParams();
   const paramsObject = Object.fromEntries(testSearchParams.entries());
 
@@ -66,30 +66,30 @@ export async function CollectionPage({ slug, market, lang, dictionary, moods }: 
 
   if (isLoading) return <CollectionProductsLoadingState />;
 
-  const removeInvalidProducts = data?.products.filter((product) => product._id);
-  const productCount = removeInvalidProducts?.length || 0;
-  setNumberOfProducts(productCount);
+  if (data) {
+    const removeInvalidProducts = data?.products.filter((product) => product._id);
+    const productCount = removeInvalidProducts?.length || 0;
+    setNumberOfProducts(productCount);
 
-  const validatedProducts = collectionProductsValidator.safeParse(data);
+    const validatedProducts = collectionProductsValidator.safeParse(data);
 
-  if (!validatedProducts.success) {
-    console.error(validatedProducts.error);
-    notFound();
+    if (!validatedProducts.success) {
+      console.error(validatedProducts.error);
+      notFound();
+    }
+
+    return (
+      <>
+        <CollectionLayout
+          data={validatedProducts.data}
+          productCount={productCount}
+          moods={moods}
+          currentPage={currentPage}
+          dictionary={dictionary}
+        />
+      </>
+    );
   }
-
-  return (
-    <>
-      <CollectionLayout
-        data={validatedProducts.data}
-        productCount={productCount}
-        moods={moods}
-        currentPage={currentPage}
-        market={market}
-        lang={lang}
-        dictionary={dictionary}
-      />
-    </>
-  );
 }
 
 interface FormatParamsValuesProps {

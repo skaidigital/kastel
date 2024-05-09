@@ -1,3 +1,5 @@
+'use client';
+
 import { Dictionary } from '@/app/dictionaries';
 import { Media } from '@/components/Media';
 import { Container } from '@/components/base/Container';
@@ -11,44 +13,42 @@ import {
   CollectionProductsPayload
 } from '@/components/pages/CollectionPage/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
 import '@/styles/externalOverride.css';
+import { useEffect } from 'react';
 
 interface Props {
   data: CollectionProductsPayload;
   moods: CollectionBasePayload['moods'];
   productCount: number;
   currentPage: number;
-  // searchParams?: {
-  //   [key: string]: string | undefined;
-  // };
   dictionary: Dictionary['collection_page'];
-  market: MarketValues;
-  lang: LangValues;
 }
 
-export async function CollectionLayout({
-  data,
-  currentPage,
-  // searchParams,
-  dictionary,
-  productCount,
-  moods,
-  market,
-  lang
-}: Props) {
-  const { products, hasNextPage } = data;
+export function CollectionLayout({ data, currentPage, dictionary, productCount, moods }: Props) {
+  const { products } = data;
 
   const { productsPerRow, setProductsPerRow } = useCollectionContext();
-  console.log({ productsPerRow });
+  const isDesktop = useIsDesktop();
 
-  // const productsPerRow = searchParams?.view || '4';
+  useEffect(() => {
+    if (productsPerRow === 2 && isDesktop && typeof window !== 'undefined') {
+      setProductsPerRow(4);
+    }
+
+    if (
+      (productsPerRow === 3 || productsPerRow === 4) &&
+      !isDesktop &&
+      typeof window !== 'undefined'
+    ) {
+      setProductsPerRow(2);
+    }
+  }, [isDesktop]);
 
   const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 3, moods);
   const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods);
 
-  const pageCount = Math.ceil(productCount / COLLECTION_PAGE_SIZE);
   const hasProducts = productCount !== 0;
 
   const imageSizePerItem = 100 / Number(productsPerRow) + 5;
