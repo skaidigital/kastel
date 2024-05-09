@@ -13,7 +13,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/She
 import { CartItem } from '@/components/shared/Cart/CartItem';
 import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
 import { useCart } from '@/components/shared/Cart/useCart';
-import { useCheckoutUrl } from '@/components/shared/Cart/useCheckoutUrl';
 import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
@@ -40,7 +39,8 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const { isLoggedIn } = useUser();
   const { cartOpen: isOpen, setCartOpen: setIsOpen } = useCartContext();
   const { cart } = useCart();
-  const { checkoutUrl, isLoading: isCheckoutLoading } = useCheckoutUrl(isLoggedIn);
+
+  const checkoutUrl = getCheckoutUrl({ cartCheckoutUrl: cart?.checkoutUrl, isLoggedIn });
 
   const isDesktop = useIsDesktop();
 
@@ -146,7 +146,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                     <Button
                       size="sm"
                       className="w-full"
-                      isLoading={isPending || isCheckoutLoading}
+                      isLoading={isPending}
                       onClick={() => {
                         startTransition(() => {
                           // Vercel Analtyics
@@ -286,7 +286,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                     <Button
                       size="sm"
                       className="w-full"
-                      isLoading={isPending || isCheckoutLoading}
+                      isLoading={isPending}
                       onClick={() => {
                         startTransition(() => {
                           // Vercel Analtyics
@@ -321,4 +321,22 @@ function getCartString(lang: LangValues) {
     default:
       return 'Cart';
   }
+}
+
+function getCheckoutUrl({
+  cartCheckoutUrl,
+  isLoggedIn
+}: {
+  cartCheckoutUrl?: string;
+  isLoggedIn: boolean;
+}) {
+  if (!cartCheckoutUrl) return null;
+
+  const checkoutUrl = new URL(cartCheckoutUrl);
+
+  if (isLoggedIn) {
+    checkoutUrl.searchParams.append('logged_in', 'true');
+  }
+
+  return checkoutUrl.toString();
 }
