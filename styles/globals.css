@@ -75,7 +75,7 @@
 
   body {
     margin: 0;
-
+    padding: 0;
     font-display: swap;
 
     /* * Anti-aliasing to to make fonts smoother */
