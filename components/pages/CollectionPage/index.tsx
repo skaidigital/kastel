@@ -21,11 +21,12 @@ export interface PageProps {
   market: MarketValues;
   lang: LangValues;
   dictionary: Dictionary['collection_page'];
+  pageCount: number;
 }
 
-export function CollectionPage({ slug, market, lang, dictionary, moods }: PageProps) {
-  const testSearchParams = useSearchParams();
-  const paramsObject = Object.fromEntries(testSearchParams.entries());
+export function CollectionPage({ slug, market, lang, dictionary, moods, pageCount }: PageProps) {
+  const searchParams = useSearchParams();
+  const paramsObject = Object.fromEntries(searchParams.entries());
 
   const paramValues = formatSearchParamsValues(paramsObject);
   const { setNumberOfProducts } = useCollectionContext();
@@ -34,7 +35,7 @@ export function CollectionPage({ slug, market, lang, dictionary, moods }: PagePr
   const saleKey = paramsObject?.on_sale;
 
   const prioritizedSortkey = saleKey ? 'on_sale' : sortKey;
-  const currentPage = 1;
+  const currentPage = Number(searchParams.get('page')) || 1;
 
   const collectionFechData = {
     lang,
@@ -86,6 +87,7 @@ export function CollectionPage({ slug, market, lang, dictionary, moods }: PagePr
           moods={moods}
           currentPage={currentPage}
           dictionary={dictionary}
+          pageCount={pageCount}
         />
       </>
     );

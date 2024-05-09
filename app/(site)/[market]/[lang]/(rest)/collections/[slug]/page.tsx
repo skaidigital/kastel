@@ -17,7 +17,7 @@ import {
   getCollectionBaseQuery
 } from '@/components/pages/CollectionPage/hooks';
 import { PageBuilder } from '@/components/shared/PageBuilder';
-import { LangValues, MarketValues } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -92,7 +92,9 @@ export default async function SlugCollectionPage({ params }: Props) {
       loadCollectionProductDataV2({ lang, market, slug, currentPage: 1, sortKey, paramValues })
   });
 
-  const { title, descriptionShort, pageBuilder, descriptionLong, id, moods } = validatedBase.data;
+  const { title, descriptionShort, pageBuilder, descriptionLong, id, moods, productIds } =
+    validatedBase.data;
+  const pageCount = Math.ceil(productIds.length / COLLECTION_PAGE_SIZE) || 0;
 
   return (
     <CollectionContextProvider>
@@ -135,6 +137,7 @@ export default async function SlugCollectionPage({ params }: Props) {
             market={market}
             lang={lang}
             dictionary={collection_page}
+            pageCount={pageCount}
           />
         </Suspense>
       </HydrationBoundary>

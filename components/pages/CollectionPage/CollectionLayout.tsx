@@ -6,6 +6,8 @@ import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
+import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
+import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import {
   CollectionBasePayload,
   CollectionMood,
@@ -16,7 +18,7 @@ import { ProductCard } from '@/components/shared/ProductCard';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
 import '@/styles/externalOverride.css';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 interface Props {
   data: CollectionProductsPayload;
@@ -24,10 +26,18 @@ interface Props {
   productCount: number;
   currentPage: number;
   dictionary: Dictionary['collection_page'];
+  pageCount: number;
 }
 
-export function CollectionLayout({ data, currentPage, dictionary, productCount, moods }: Props) {
-  const { products } = data;
+export function CollectionLayout({
+  data,
+  currentPage,
+  dictionary,
+  productCount,
+  moods,
+  pageCount
+}: Props) {
+  const { products, hasNextPage } = data;
 
   const { productsPerRow, setProductsPerRow } = useCollectionContext();
   const isDesktop = useIsDesktop();
@@ -119,6 +129,23 @@ export function CollectionLayout({ data, currentPage, dictionary, productCount, 
             </CollectionGrid>
           </div>
         )}
+        {hasProducts && (
+          <div className="mt-20 flex flex-col items-center justify-center space-y-8">
+            <div className="flex gap-x-2">
+              <Suspense>
+                <PaginationButton type="previous">Forrige side</PaginationButton>
+              </Suspense>
+              {hasNextPage && (
+                <Suspense>
+                  <PaginationButton type="next">Neste side</PaginationButton>
+                </Suspense>
+              )}
+            </div>
+            <Suspense>
+              <PageCounter pageCount={pageCount} />
+            </Suspense>
+          </div>
+        )}
         {!hasProducts && (
           <Container className="lg:mt-10">
             <Text as="p" size="lg">
@@ -191,7 +218,7 @@ export function CollectionGrid({
   return (
     <div
       className={cn(
-        'overflow-hidden',
+        'overflow-hidden border border-brand-light-grey',
         number === 1 && 'grid grid-cols-1 lg:grid-cols-4',
         number === 2 && 'grid grid-cols-2 lg:grid-cols-4',
         number === 3 && 'grid grid-cols-2 lg:grid-cols-3',
