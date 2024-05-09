@@ -1,13 +1,7 @@
+import LazyLoadedVideo from '@/components/LazyLoadedVideo';
+import Video from '@/components/Video';
+import { SanityImage } from '@/components/sanity/SanityImage';
 import { MediaProps } from '@/lib/sanity/types';
-import dynamic from 'next/dynamic';
-
-const DynamicSanityImage = dynamic(() =>
-  import('@/components/sanity/SanityImage').then((mod) => mod.SanityImage)
-);
-const DynamicVideo = dynamic(() => import('@/components/Video').then((mod) => mod.default));
-const DynamicLazyLoadedVideo = dynamic(() =>
-  import('@/components/LazyLoadedVideo').then((mod) => mod.default)
-);
 
 interface Props {
   media: MediaProps;
@@ -15,6 +9,7 @@ interface Props {
   sizes?: string;
 }
 
+// TODO is it overkill to both have a dynamic import and a lazy load?
 export function Media({ media, loading, sizes }: Props) {
   const { type, sameAssetForMobileAndDesktop } = media;
   const typeIsImage = type === 'image';
@@ -22,7 +17,7 @@ export function Media({ media, loading, sizes }: Props) {
 
   if (typeIsImage && sameAssetForMobileAndDesktop) {
     return (
-      <DynamicSanityImage
+      <SanityImage
         priority={loading === 'eager' ? true : false}
         image={media.image}
         className="absolute inset-0 h-full w-full object-cover"
@@ -35,14 +30,14 @@ export function Media({ media, loading, sizes }: Props) {
   if (typeIsImage && !sameAssetForMobileAndDesktop) {
     return (
       <>
-        <DynamicSanityImage
+        <SanityImage
           priority={loading === 'eager' ? true : false}
           image={media.imageMobile}
           className="absolute inset-0 h-full w-full object-cover lg:hidden"
           sizes={sizes}
           fill
         />
-        <DynamicSanityImage
+        <SanityImage
           priority={loading === 'eager' ? true : false}
           image={media.imageDesktop}
           className="absolute inset-0 hidden h-full w-full object-cover lg:block"
@@ -56,7 +51,7 @@ export function Media({ media, loading, sizes }: Props) {
   if (typeIsVideo && sameAssetForMobileAndDesktop) {
     if (loading === 'lazy') {
       return (
-        <DynamicLazyLoadedVideo
+        <LazyLoadedVideo
           playbackId={media.video}
           controlled={false}
           resolution="HD"
@@ -64,22 +59,20 @@ export function Media({ media, loading, sizes }: Props) {
         />
       );
     }
-    return (
-      <DynamicVideo playbackId={media.video} controlled={false} resolution="HD" loading="eager" />
-    );
+    return <Video playbackId={media.video} controlled={false} resolution="HD" loading="eager" />;
   }
 
   if (typeIsVideo && !sameAssetForMobileAndDesktop) {
     if (loading === 'lazy') {
       <>
-        <DynamicLazyLoadedVideo
+        <LazyLoadedVideo
           playbackId={media.videoMobile}
           controlled={false}
           resolution="HD"
           loading="lazy"
           className="lg:hidden"
         />
-        <DynamicLazyLoadedVideo
+        <LazyLoadedVideo
           playbackId={media.videoDesktop}
           controlled={false}
           resolution="HD"
@@ -90,14 +83,14 @@ export function Media({ media, loading, sizes }: Props) {
     }
     return (
       <>
-        <DynamicVideo
+        <Video
           playbackId={media.videoMobile}
           controlled={false}
           resolution="HD"
           loading="lazy"
           className="lg:hidden"
         />
-        <DynamicVideo
+        <Video
           playbackId={media.videoDesktop}
           controlled={false}
           resolution="HD"
