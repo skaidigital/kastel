@@ -16,10 +16,12 @@ import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 // import { VisualEditing } from 'next-sanity';
 // import { revalidatePath, revalidateTag } from 'next/cache';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
+
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
@@ -55,6 +57,7 @@ export default function IndexRoute({
         src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
         strategy="lazyOnload"
       />
+      <SpeedInsights />
       <CartContextProvider>
         <Providers>
           <div>
