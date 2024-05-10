@@ -16,13 +16,22 @@ export type Combination = {
 interface Props {
   lang: LangValues;
   productId: string;
+  productTitle: string;
   type: Product['type'];
   variants: ProductVariant[];
   sizeGuide?: SizeGuideProps;
   options?: ProductOption[];
 }
 
-export async function ProductForm({ productId, type, sizeGuide, options, variants, lang }: Props) {
+export async function ProductForm({
+  productId,
+  productTitle,
+  type,
+  sizeGuide,
+  options,
+  variants,
+  lang
+}: Props) {
   const { product_page: dictionary } = await getDictionary({ lang });
 
   if (!variants || !productId) return null;
@@ -30,6 +39,7 @@ export async function ProductForm({ productId, type, sizeGuide, options, variant
   return (
     <MobileAddToCartDrawer
       productId={productId}
+      productTitle={productTitle}
       productType={type}
       variants={variants}
       addToCartText={dictionary.add_to_cart}
@@ -49,6 +59,7 @@ export async function ProductForm({ productId, type, sizeGuide, options, variant
         <div className="flex w-full flex-col items-center gap-y-2">
           <AddToCartButton
             productId={productId}
+            productTitle={productTitle}
             productType={type}
             variants={variants}
             addToCartText={dictionary.add_to_cart}

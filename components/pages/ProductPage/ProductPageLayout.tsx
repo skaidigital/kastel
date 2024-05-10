@@ -149,6 +149,7 @@ export async function ProductPageLayout(props: Props) {
                 <ProductForm
                   lang={lang}
                   productId={id}
+                  productTitle={title}
                   type={type}
                   variants={variants}
                   options={options}
