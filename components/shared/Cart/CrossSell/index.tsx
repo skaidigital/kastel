@@ -19,7 +19,7 @@ async function loadCrossSellProducts({
   lang: LangValues;
   gid?: string;
 }) {
-  const query = getCrossSellQuery({ market, lang });
+  const query = getCrossSellQuery({ market, lang, gid });
   return loadQuery<CrossSellProducts>(
     query,
     { gid: gid || null },
