@@ -13,6 +13,7 @@ import { useInView } from 'react-intersection-observer';
 interface Props {
   productId: string;
   productType: Product['type'];
+  productTitle: string;
   variants: ProductVariant[];
   addToCartText: string;
   selectSizeText: string;
@@ -23,6 +24,7 @@ interface Props {
 export function MobileAddToCartDrawer({
   productId,
   productType,
+  productTitle,
   variants,
   addToCartText,
   selectSizeText,
@@ -78,6 +80,7 @@ export function MobileAddToCartDrawer({
             {id ? (
               <AddToCartButton
                 productId={productId}
+                productTitle={productTitle}
                 productType={productType}
                 variants={variants}
                 addToCartText={addToCartText}

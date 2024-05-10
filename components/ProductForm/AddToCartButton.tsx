@@ -7,6 +7,7 @@ import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
+import { EcommerceObject } from '@/lib/gtm';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
@@ -18,6 +19,7 @@ import { useTransition } from 'react';
 interface Props {
   productId: string;
   productType: Product['type'];
+  productTitle: string;
   variants: ProductVariant[];
   addToCartText: string;
   selectSizeText: string;
@@ -26,6 +28,7 @@ interface Props {
 export const AddToCartButton = ({
   productId,
   productType,
+  productTitle,
   variants,
   addToCartText,
   selectSizeText
@@ -62,6 +65,25 @@ export const AddToCartButton = ({
     currency: 'NOK'
   };
 
+  // TODO internationalize
+  const addToCartTrackingData: EcommerceObject = {
+    event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
+    ecommerce: {
+      currency: 'NOK',
+      value: activeVariant?.price || 0,
+      items: [
+        {
+          item_id: productId,
+          item_name: productTitle,
+          item_variant: activeVariant?.id,
+          item_brand: 'Kastel Shoes',
+          price: activeVariant?.price || 0,
+          quantity: 1
+        }
+      ]
+    }
+  };
+
   return (
     <Button
       title={title}
@@ -83,7 +105,8 @@ export const AddToCartButton = ({
           if (response?.success && response.cartId) {
             // Shopify analytic
             sendAddToCart({
-              cartId: response.cartId
+              cartId: response.cartId,
+              totalValue: activeVariant?.price
             });
             // Vercel analytics
             trackEvent({
@@ -91,10 +114,7 @@ export const AddToCartButton = ({
               options: metadata
             });
             // GTM – Analtyics
-            sendGTMEvent({
-              event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
-              ...metadata
-            });
+            sendGTMEvent(addToCartTrackingData);
             // Plausible
             trackAddToCart({ options: metadata });
             setMobileDrawerOpen(false);
