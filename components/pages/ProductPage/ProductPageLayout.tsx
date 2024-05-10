@@ -11,6 +11,7 @@ import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
 import { ProductPageContextProvider } from '@/components/pages/ProductPage/Context';
 import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton';
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
+import { ViewItemEventTrigger } from '@/components/pages/ProductPage/ViewItemEventTrigger';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
 import { MobileCarousel } from '@/components/shared/MobileCarousel';
@@ -71,6 +72,11 @@ export async function ProductPageLayout(props: Props) {
         productId={id}
         title={title}
         image={mainImage ? urlForImage(mainImage).url() : undefined}
+      />
+      <ViewItemEventTrigger
+        productId={id}
+        productTitle={title}
+        price={parseFloat(product.minVariantPrice.amount)}
       />
       {product.galleryFemale && product.galleryFemale.length > 0 && (
         <div className="relative w-full">

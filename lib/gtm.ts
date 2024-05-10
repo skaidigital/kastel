@@ -16,3 +16,18 @@ export type EcommerceObject = {
     items: EcommerceItem[];
   };
 };
+
+export type ViewItemEventObject = {
+  event: string;
+  ecommerce: {
+    currency: string;
+    items: {
+      item_id: string;
+      item_name: string;
+      item_brand: string;
+      item_category?: string;
+      item_variant?: string;
+      price: number;
+    }[];
+  };
+};
