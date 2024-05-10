@@ -1,5 +1,6 @@
 import { formatPrice } from '@/app/api/shopify/utils';
 import { CustomLinkProductCard } from '@/components/CustomLink';
+import { OnSaleBadge } from '@/components/OnSaleBadge';
 import { Colors } from '@/components/shared/ProductCard/Colors';
 import { ProductCardProvider } from '@/components/shared/ProductCard/Context';
 import { ProductCardImage } from '@/components/shared/ProductCard/Image';
@@ -67,6 +68,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                 />
               )}
               <div className="absolute bottom-3 left-3 flex gap-x-1 @xs:bottom-4 @xs:left-4">
+                {biggestDiscount && <OnSaleBadge />}
                 {biggestDiscount && <DiscountBadge discount={Number(biggestDiscount).toFixed(0)} />}
                 {badges && <Badges badges={badges} />}
               </div>
