@@ -57,8 +57,11 @@ export const AddToCartButton = ({
 
   const metadata = {
     ...(productId && { productId }),
-    ...(id && { variantId: id })
+    ...(id && { variantId: id }),
+    ...(activeVariant?.price && { price: activeVariant.price }),
+    currency: 'NOK'
   };
+
   return (
     <Button
       title={title}
@@ -89,7 +92,8 @@ export const AddToCartButton = ({
             });
             // GTM – Analtyics
             sendGTMEvent({
-              event: ANALTYICS_EVENT_NAME.ADD_TO_CART
+              event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
+              ...metadata
             });
             // Plausible
             trackAddToCart({ options: metadata });
