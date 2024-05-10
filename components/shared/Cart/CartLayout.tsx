@@ -16,6 +16,7 @@ import { useCart } from '@/components/shared/Cart/useCart';
 import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
+import { EcommerceObject } from '@/lib/gtm';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
@@ -56,6 +57,42 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
   const cartString = getCartString(lang);
 
+  const viewCartTrackingData: EcommerceObject | undefined = cart
+    ? {
+        event: ANALTYICS_EVENT_NAME.VIEW_CART,
+        ecommerce: {
+          currency: 'NOK',
+          value: parseFloat(cart?.cost.totalAmount.amount) || 0,
+          items: cart?.lines?.map((line) => ({
+            item_id: line.merchandise.id,
+            item_name: line.merchandise.product.title,
+            item_variant: line.merchandise.title,
+            item_brand: 'Kastel Shoes',
+            price: parseFloat(line.cost.subtotalAmount.amount),
+            quantity: line.quantity
+          }))
+        }
+      }
+    : undefined;
+
+  const beginCheckoutTrackingData: EcommerceObject | undefined = cart
+    ? {
+        event: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT,
+        ecommerce: {
+          currency: 'NOK',
+          value: parseFloat(cart?.cost.totalAmount.amount) || 0,
+          items: cart?.lines?.map((line) => ({
+            item_id: line.merchandise.id,
+            item_name: line.merchandise.product.title,
+            item_variant: line.merchandise.title,
+            item_brand: 'Kastel Shoes',
+            price: parseFloat(line.cost.subtotalAmount.amount),
+            quantity: line.quantity
+          }))
+        }
+      }
+    : undefined;
+
   if (isDesktop) {
     return (
       <Drawer isOpen={isOpen} onOpenChange={setIsOpen}>
@@ -65,8 +102,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
         >
           <button
             onClick={() => {
-              // GTM – Analytics
-              sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.VIEW_CART });
+              viewCartTrackingData && sendGTMEvent(viewCartTrackingData);
             }}
             aria-label="Open cart"
             className="text-sm"
@@ -152,7 +188,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                           // Vercel Analtyics
                           trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
                           // GTM – Analytics
-                          sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          beginCheckoutTrackingData && sendGTMEvent(beginCheckoutTrackingData);
                           trackGoToCheckout();
                           router.push(checkoutUrl);
                         });
@@ -292,7 +328,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                           // Vercel Analtyics
                           trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
                           // GTM – Analytics
-                          sendGTMEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          beginCheckoutTrackingData && sendGTMEvent(beginCheckoutTrackingData);
 
                           trackGoToCheckout();
                           router.push(checkoutUrl);
