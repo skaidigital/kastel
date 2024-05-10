@@ -80,16 +80,16 @@ export const product = defineType({
         { type: 'figure', title: 'Image', icon: Image },
         { type: 'mux.video', title: 'Video', icon: Video }
       ],
-      group: 'images',
-      validation: (Rule) => Rule.min(1).max(10)
+      group: 'images'
+      // validation: (Rule) => Rule.min(1).max(10)
     }),
     defineField({
       title: 'Gallery - Male',
       name: 'galleryMale',
       type: 'array',
       of: [{ type: 'figure' }, { type: 'mux.video' }],
-      group: 'images',
-      validation: (Rule) => Rule.min(1).max(10)
+      group: 'images'
+      // validation: (Rule) => Rule.min(1).max(10)
     }),
     defineField({
       title: 'Detail image (optional)',
