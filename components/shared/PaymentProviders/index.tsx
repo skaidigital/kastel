@@ -2,6 +2,7 @@ import { AMEXLogo } from '@/components/icons/AMEXLogo';
 import { AmazonPayLogo } from '@/components/icons/AmazonPayLogo';
 import { ApplePayLogo } from '@/components/icons/ApplePayLogo';
 import { GooglePayLogo } from '@/components/icons/GooglePayLogo';
+import { KlarnaLogo } from '@/components/icons/KlarnaLogo';
 import { MasterCardLogo } from '@/components/icons/MasterCardLogo';
 import { MobilePayLogo } from '@/components/icons/MobilePayLogo';
 import { PayPalLogo } from '@/components/icons/PayPalLogo';
@@ -20,6 +21,8 @@ interface Props {
 
 export async function PaymentProviders({ market, size = 'md' }: Props) {
   const paymentProviders = await loadPaymentProviders(market);
+
+  console.log('paymentProviders', paymentProviders);
 
   if (!paymentProviders.data) return null;
 
@@ -47,6 +50,8 @@ function getPaymentProvider(provider: PaymentProviderType, className?: string) {
       return <ApplePayLogo className={className} />;
     case 'googlePay':
       return <GooglePayLogo className={className} />;
+    case 'klarna':
+      return <KlarnaLogo className={className} />;
     case 'masterCard':
       return <MasterCardLogo className={className} />;
     case 'mobilePay':
