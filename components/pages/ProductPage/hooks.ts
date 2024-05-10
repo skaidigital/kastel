@@ -122,6 +122,7 @@ export const productValidator = z.object({
   title: z.string(),
   subtitle: z.string().optional(),
   slug: z.string().optional(),
+  sku: z.string(),
   descriptionShort: z.string(),
   descriptionLongTitle: z.string(),
   descriptionLongDetails: z.string(),

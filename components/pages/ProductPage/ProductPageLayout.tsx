@@ -57,10 +57,9 @@ export async function ProductPageLayout(props: Props) {
     options,
     typeId,
     pageBuilder,
-    largestDiscount
+    largestDiscount,
+    sku
   } = product;
-
-  const productSku = 'SOL002-002-021-40';
 
   const lifeStyleImageCheck = lifestyleImage?.asset?._ref
     ? (lifestyleImage as SanityImageProps)
@@ -114,7 +113,7 @@ export async function ProductPageLayout(props: Props) {
                       largestDiscount={product.largestDiscount}
                     />
                     <ScrollToRatingsButton>
-                      <Rating sku={productSku} />
+                      <Rating sku={sku} />
                     </ScrollToRatingsButton>
                   </div>
                   <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
@@ -190,7 +189,7 @@ export async function ProductPageLayout(props: Props) {
       <ProductDescriptionAndReviews
         description={product.descriptionLongDetails}
         title={product.descriptionLongTitle}
-        sku={productSku}
+        sku={sku}
       />
       {/* </Suspense> */}
       {pageBuilder &&
