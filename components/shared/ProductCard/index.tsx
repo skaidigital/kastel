@@ -39,6 +39,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
   const hasSizeRange = sizes?.filter((size) => size.type === 'size')[0];
   const lowestSize = hasSizeRange?.options[0];
   const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
+  const foundSizeRange = lowestSize && highestSize ? true : false;
   const sizeRange = `${lowestSize?.title}-${highestSize?.title}`;
 
   const biggestDiscount = product?.largestDiscount;
@@ -88,7 +89,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
               <h3 className="truncate text-xs @xs:text-sm">{title}</h3>
               <PriceAndSizeRange
                 price={formattedMinPrice ? formattedMinPrice : null}
-                hasSizeRange={hasSizeRange}
+                hasSizeRange={foundSizeRange}
                 sizeRange={sizeRange}
               />
             </div>
