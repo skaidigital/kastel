@@ -25,7 +25,7 @@ export async function goToVippsHurtigkasse(activeVariantId: string) {
     })
   });
 
-  // const data = await response.json();
+  const data = await response.json();
 
-  // return data;
+  return data;
 }

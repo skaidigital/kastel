@@ -5,6 +5,7 @@ import { goToVippsHurtigkasse } from '@/components/ProductForm/VippsHurtigkasseB
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 
 export function VippsHurtigkasseButton({ variants, productType, productId, classname }: Props) {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const activeVariant = useActiveVariant({
     variants,
@@ -34,7 +36,10 @@ export function VippsHurtigkasseButton({ variants, productType, productId, class
       onClick={() => {
         if (!availableForSale || !id) return;
         startTransition(async () => {
-          await goToVippsHurtigkasse(id);
+          const response = await goToVippsHurtigkasse(id);
+          if (response) {
+            router.push(response);
+          }
         });
       }}
       disabled={!availableForSale || !id || isPending || inventoryLoading}

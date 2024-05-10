@@ -15,11 +15,9 @@ export async function POST(request: Request) {
   url.searchParams.append('url', 'https://kastel-shoes.myshopify.com/');
   url.searchParams.append('token', 'Z2NwLXVzLWNlbnRyYWwxOjAxSFdNRFhKM1kzVDdDWkU0WVJCUzVKNk1N');
 
-  // return new Response(JSON.stringify(url), {
-  //   headers: {
-  //     'content-type': 'application/json'
-  //   }
-  // });
-  //   //   // redirect to url
-  return Response.redirect(url.toString(), 302);
+  return new Response(JSON.stringify(url), {
+    headers: {
+      'content-type': 'application/json'
+    }
+  });
 }
