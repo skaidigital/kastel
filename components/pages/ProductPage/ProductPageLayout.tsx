@@ -1,5 +1,6 @@
 import { Dictionary } from '@/app/dictionaries';
 import { HotspotImage } from '@/components/HotspotImage';
+import { OnSaleBadge } from '@/components/OnSaleBadge';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
 import { Container } from '@/components/base/Container';
@@ -55,7 +56,8 @@ export async function ProductPageLayout(props: Props) {
     variants,
     options,
     typeId,
-    pageBuilder
+    pageBuilder,
+    largestDiscount
   } = product;
 
   const productSku = 'SOL002-002-021-40';
@@ -105,6 +107,7 @@ export async function ProductPageLayout(props: Props) {
               <div className="flex flex-col">
                 <div className="mb-[10px] flex items-center justify-between">
                   <div className="flex gap-2">
+                    {largestDiscount && <OnSaleBadge />}
                     <DiscountBadge
                       variants={variants}
                       productType={product.type}

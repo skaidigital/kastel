@@ -71,7 +71,7 @@ export const FullBleedMediaSection = ({ data }: Props) => {
           >
             <div
               className={cn(
-                'flex flex-col gap-4 p-6 lg:max-w-3xl lg:gap-6 lg:p-8',
+                'flex flex-col items-center gap-4 p-6 lg:gap-6 lg:p-8',
                 textPlacementDesktop === 'split-bottom' &&
                   'lg:w-full lg:max-w-none lg:flex-row lg:justify-between'
               )}
@@ -79,7 +79,7 @@ export const FullBleedMediaSection = ({ data }: Props) => {
               {title && (
                 <h2
                   className={cn(
-                    'text-heading-lg font-bold uppercase text-white lg:max-w-md lg:text-heading-xl',
+                    'text-pretty text-heading-lg font-bold uppercase text-white lg:max-w-[750px] lg:text-heading-xl',
                     textPlacementDesktop === 'split-bottom' && 'text-left'
                   )}
                 >
@@ -89,7 +89,7 @@ export const FullBleedMediaSection = ({ data }: Props) => {
               {description && (
                 <p
                   className={cn(
-                    'text-md text-brand-light-grey lg:max-w-md lg:text-lg',
+                    'text-md text-brand-light-grey lg:max-w-[580px]  lg:text-lg',
                     textPlacementDesktop === 'split-bottom' && 'text-left'
                   )}
                 >
