@@ -5,10 +5,11 @@ import { useProductCardContext } from './Context';
 
 interface Props {
   price: string | null;
+  hasSizeRange: boolean;
   sizeRange: string;
 }
 
-export function PriceAndSizeRange({ price, sizeRange }: Props) {
+export function PriceAndSizeRange({ price, hasSizeRange, sizeRange }: Props) {
   const { activeColorway } = useProductCardContext();
 
   const formattedMinPrice =
@@ -19,10 +20,11 @@ export function PriceAndSizeRange({ price, sizeRange }: Props) {
     });
 
   const activePrice = activeColorway ? formattedMinPrice : price;
+
   return (
     <div className="flex gap-x-3 text-xs text-brand-mid-grey @xs:gap-x-4 @xs:text-sm">
       <span suppressHydrationWarning>{activePrice}</span>
-      {sizeRange && <span>{sizeRange}</span>}
+      {hasSizeRange && <span>{sizeRange}</span>}
     </div>
   );
 }
