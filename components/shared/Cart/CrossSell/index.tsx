@@ -20,7 +20,6 @@ async function loadCrossSellProducts({
   gid?: string;
 }) {
   const query = getCrossSellQuery({ market, lang });
-
   return loadQuery<CrossSellProducts>(
     query,
     { gid: gid || null },
@@ -41,7 +40,7 @@ export async function CrossSell({ market, lang, className, crossSellItemClassNam
 
   const dict = await getDictionary({ lang });
   const dictionary = dict.cart_drawer.cross_sell;
-  const initial = await loadCrossSellProducts({ market, lang });
+  const initial = await loadCrossSellProducts({ market, lang, gid });
 
   if (!initial.data) {
     return null;
