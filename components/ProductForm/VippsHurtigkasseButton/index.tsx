@@ -37,6 +37,7 @@ export function VippsHurtigkasseButton({ variants, productType, productId, class
         if (!availableForSale || !id) return;
         startTransition(async () => {
           const response = await goToVippsHurtigkasse(id);
+
           if (response) {
             router.push(response);
           }

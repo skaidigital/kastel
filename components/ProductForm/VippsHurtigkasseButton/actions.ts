@@ -15,17 +15,21 @@ export async function goToVippsHurtigkasse(activeVariantId: string) {
 
   const baseUrl = env.BASE_URL;
 
-  const response = await fetch(baseUrl + '/api/vipps/create-checkout', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      items
-    })
-  });
+  try {
+    const response = await fetch(baseUrl + '/api/vipps/create-checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        items
+      })
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  return data;
+    return data;
+  } catch (error) {
+    console.error({ error });
+  }
 }
