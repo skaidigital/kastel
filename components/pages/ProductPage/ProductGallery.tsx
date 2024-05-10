@@ -33,34 +33,36 @@ export function ProductGallery({
 
   return (
     <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
-      <div className="relative">
-        <div className="absolute right-0 top-0 z-10 p-4">
-          <div className="mb-4 flex justify-center gap-x-1">
-            <button
-              onClick={() => setActiveGender('female')}
-              className={cn(
-                'px-4 py-2',
-                activeGender == 'female'
-                  ? 'bg-brand-primary text-white'
-                  : 'bg-brand-light-grey text-black'
-              )}
-            >
-              Female
-            </button>
-            <button
-              onClick={() => setActiveGender('male')}
-              className={cn(
-                'px-4 py-2',
-                activeGender == 'male'
-                  ? 'bg-brand-primary text-white'
-                  : 'bg-brand-light-grey text-black'
-              )}
-            >
-              Male
-            </button>
+      {(galleryFemale || galleryMale) && (
+        <div className="relative">
+          <div className="absolute right-0 top-0 z-10 p-4">
+            <div className="mb-4 flex justify-center gap-x-1">
+              <button
+                onClick={() => setActiveGender('female')}
+                className={cn(
+                  'px-4 py-2',
+                  activeGender == 'female'
+                    ? 'bg-brand-primary text-white'
+                    : 'bg-brand-light-grey text-black'
+                )}
+              >
+                Female
+              </button>
+              <button
+                onClick={() => setActiveGender('male')}
+                className={cn(
+                  'px-4 py-2',
+                  activeGender == 'male'
+                    ? 'bg-brand-primary text-white'
+                    : 'bg-brand-light-grey text-black'
+                )}
+              >
+                Male
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       {mainImage && (
         <div className="aspect-h-4 aspect-w-3 relative h-full w-full">
           <SanityImage

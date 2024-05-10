@@ -123,32 +123,34 @@ export function MobileCarousel({
           }
           return null;
         })}
-      <div className="absolute bottom-2 right-2">
-        <div className="mb-4 flex justify-center gap-x-1 text-sm">
-          <button
-            onClick={() => handleClick('female')}
-            className={cn(
-              'px-4 py-2',
-              activeGender == 'female'
-                ? 'bg-brand-primary text-white'
-                : 'bg-brand-light-grey text-black'
-            )}
-          >
-            Female
-          </button>
-          <button
-            onClick={() => handleClick('male')}
-            className={cn(
-              'px-4 py-2',
-              activeGender == 'male'
-                ? 'bg-brand-primary text-white'
-                : 'bg-brand-light-grey text-black'
-            )}
-          >
-            Male
-          </button>
+      {(galleryFemale || galleryMale) && (
+        <div className="absolute bottom-2 right-2">
+          <div className="mb-4 flex justify-center gap-x-1 text-sm">
+            <button
+              onClick={() => handleClick('female')}
+              className={cn(
+                'px-4 py-2',
+                activeGender == 'female'
+                  ? 'bg-brand-primary text-white'
+                  : 'bg-brand-light-grey text-black'
+              )}
+            >
+              Female
+            </button>
+            <button
+              onClick={() => handleClick('male')}
+              className={cn(
+                'px-4 py-2',
+                activeGender == 'male'
+                  ? 'bg-brand-primary text-white'
+                  : 'bg-brand-light-grey text-black'
+              )}
+            >
+              Male
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       {loaded && instanceRef.current && (
         <div className="absolute bottom-0 flex w-full space-x-1">
           {Array.from(Array(instanceRef.current.track.details.slides.length).keys()).map((idx) => {
