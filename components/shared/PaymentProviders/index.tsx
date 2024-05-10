@@ -22,8 +22,6 @@ interface Props {
 export async function PaymentProviders({ market, size = 'md' }: Props) {
   const paymentProviders = await loadPaymentProviders(market);
 
-  console.log('paymentProviders', paymentProviders);
-
   if (!paymentProviders.data) return null;
 
   return (
