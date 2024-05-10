@@ -39,7 +39,8 @@ export default function IndexRoute({
 
   return (
     <>
-      {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />}
+      {/* {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />} */}
+      <GoogleTagManager gtmId={env.GTM_ID} />
       {isInProduction && (
         <Script
           strategy="lazyOnload"

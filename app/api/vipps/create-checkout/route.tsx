@@ -12,14 +12,14 @@ export async function POST(request: Request) {
 
   url.searchParams.append('shop', shop);
   url.searchParams.append('cart', JSON.stringify(body));
-  url.searchParams.append('url', 'https://kastel.myshopify.com/');
+  url.searchParams.append('url', 'https://kastel-shoes.myshopify.com/');
   url.searchParams.append('token', 'Z2NwLXVzLWNlbnRyYWwxOjAxSFdNRFhKM1kzVDdDWkU0WVJCUzVKNk1N');
 
-  return new Response(JSON.stringify(url), {
-    headers: {
-      'content-type': 'application/json'
-    }
-  });
+  // return new Response(JSON.stringify(url), {
+  //   headers: {
+  //     'content-type': 'application/json'
+  //   }
+  // });
   //   //   // redirect to url
-  //   return Response.redirect(url.toString(), 302);
+  return Response.redirect(url.toString(), 302);
 }
