@@ -77,6 +77,8 @@ export async function ProductPageLayout(props: Props) {
         productId={id}
         productTitle={title}
         price={parseFloat(product.minVariantPrice.amount)}
+        slug={product.slug}
+        imageUrl={urlForImage(mainImage).url()}
       />
       {product.galleryFemale && product.galleryFemale.length > 0 && (
         <div className="relative w-full">

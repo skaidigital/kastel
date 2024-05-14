@@ -41,7 +41,6 @@ export default function IndexRoute({
 
   return (
     <>
-      {/* {isInProduction && <GoogleTagManager gtmId={env.GTM_ID} />} */}
       <GoogleTagManager gtmId={env.GTM_ID} />
       {isInProduction && (
         <Script
@@ -55,6 +54,11 @@ export default function IndexRoute({
       <Script
         id="gorgias-chat-widget-install-v3"
         src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
+        strategy="lazyOnload"
+      />
+      <Script
+        id="klaviyo-on-site-tracking"
+        src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${env.NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY}`}
         strategy="lazyOnload"
       />
       <SpeedInsights />

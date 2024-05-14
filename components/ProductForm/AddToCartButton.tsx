@@ -71,6 +71,25 @@ export const AddToCartButton = ({
     ?.filter((value) => value !== undefined)
     ?.join(',');
 
+  const _learnq = typeof window !== 'undefined' ? window._learnq : [];
+
+  const klaviyoCart = {
+    total_price: activeVariant?.price || 0,
+    $value: activeVariant?.price || 0,
+    // $value: payload.cart.cost.totalAmount.amount,
+    // original_total_price: activeVariant?.price
+    items: [
+      {
+        item_id: activeVariant?.id ? removeVariantGid(activeVariant?.id) : '',
+        item_name: productTitle,
+        item_variant: selectedOptionsValueString,
+        item_brand: 'Kastel Shoes',
+        price: activeVariant?.price || 0,
+        quantity: 1
+      }
+    ]
+  };
+
   // TODO internationalize
   const addToCartTrackingData: EcommerceObject = {
     event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
@@ -122,6 +141,8 @@ export const AddToCartButton = ({
             // GTM – Analtyics
             clearEcommerceInDataLayer();
             sendGTMEvent(addToCartTrackingData);
+            // Klaviyo
+            _learnq.push(['track', 'Added to Cart', klaviyoCart]);
             // Plausible
             trackAddToCart({ options: metadata });
             setMobileDrawerOpen(false);

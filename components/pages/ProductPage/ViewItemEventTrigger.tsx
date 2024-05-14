@@ -1,8 +1,9 @@
 'use client';
 
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
+import { env } from '@/env';
 import { ViewItemEventObject, clearEcommerceInDataLayer } from '@/lib/gtm';
-import { removeVariantGid } from '@/lib/shopify/helpers';
+import { removeProductGid } from '@/lib/shopify/helpers';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { useEffect } from 'react';
 
@@ -10,16 +11,20 @@ interface Props {
   productId: string;
   productTitle: string;
   price: number;
+  slug: string;
+  imageUrl: string;
 }
 
-export function ViewItemEventTrigger({ productId, productTitle, price }: Props) {
+export function ViewItemEventTrigger({ productId, productTitle, price, slug, imageUrl }: Props) {
+  const formattedProductId = removeProductGid(productId);
+
   const viewItemTrackingData: ViewItemEventObject | undefined = {
     event: ANALTYICS_EVENT_NAME.VIEW_ITEM,
     ecommerce: {
       currency: 'NOK',
       items: [
         {
-          item_id: removeVariantGid(productId),
+          item_id: formattedProductId,
           item_name: productTitle,
           item_brand: 'Kastel Shoes',
           price: price
@@ -28,9 +33,26 @@ export function ViewItemEventTrigger({ productId, productTitle, price }: Props) 
     }
   };
 
+  const _learnq = typeof window !== 'undefined' ? window._learnq : [];
+
+  const klaviyoProduct = {
+    Name: productTitle,
+    ProductID: formattedProductId,
+    // Categories:
+    //   payload.product.collections == undefined
+    //     ? null
+    //     : payload.product.collections.edges.map((a) => a.node.title),
+    ImageURL: imageUrl,
+    URL: `${env.BASE_URL}/no/no/products/${slug}`,
+    Brand: 'Kastel Shoes',
+    Price: price
+    // CompareAtPrice: payload.selectedVariant.compareAtPriceV2.amount,
+  };
+
   useEffect(() => {
     clearEcommerceInDataLayer();
     sendGTMEvent(viewItemTrackingData);
+    _learnq.push(['track', 'Viewed Product', klaviyoProduct]);
   }, []);
 
   return null;

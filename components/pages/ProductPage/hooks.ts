@@ -121,7 +121,7 @@ export const productValidator = z.object({
   type: z.union([z.literal('SIMPLE'), z.literal('VARIABLE')]),
   title: z.string(),
   subtitle: z.string().optional(),
-  slug: z.string().optional(),
+  slug: z.string(),
   sku: z.string(),
   descriptionShort: z.string(),
   descriptionLongTitle: z.string(),
