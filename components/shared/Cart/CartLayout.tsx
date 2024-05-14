@@ -16,9 +16,10 @@ import { useCart } from '@/components/shared/Cart/useCart';
 import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
 import { env } from '@/env';
 import { trackEvent } from '@/lib/actions';
-import { EcommerceObject } from '@/lib/gtm';
+import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
+import { removeVariantGid } from '@/lib/shopify/helpers';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { useUser } from '@/lib/useUser';
 import { cn } from '@/lib/utils';
@@ -64,7 +65,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           currency: 'NOK',
           value: parseFloat(cart?.cost.totalAmount.amount) || 0,
           items: cart?.lines?.map((line) => ({
-            item_id: line.merchandise.id,
+            item_id: removeVariantGid(line.merchandise.id),
             item_name: line.merchandise.product.title,
             item_variant: line.merchandise.title,
             item_brand: 'Kastel Shoes',
@@ -82,7 +83,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           currency: 'NOK',
           value: parseFloat(cart?.cost.totalAmount.amount) || 0,
           items: cart?.lines?.map((line) => ({
-            item_id: line.merchandise.id,
+            item_id: removeVariantGid(line.merchandise.id),
             item_name: line.merchandise.product.title,
             item_variant: line.merchandise.title,
             item_brand: 'Kastel Shoes',
@@ -102,7 +103,10 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
         >
           <button
             onClick={() => {
-              viewCartTrackingData && sendGTMEvent(viewCartTrackingData);
+              if (viewCartTrackingData) {
+                clearEcommerceInDataLayer();
+                sendGTMEvent(viewCartTrackingData);
+              }
             }}
             aria-label="Open cart"
             className="text-sm"
@@ -188,7 +192,10 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                           // Vercel Analtyics
                           trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
                           // GTM – Analytics
-                          beginCheckoutTrackingData && sendGTMEvent(beginCheckoutTrackingData);
+                          if (beginCheckoutTrackingData) {
+                            clearEcommerceInDataLayer();
+                            sendGTMEvent(beginCheckoutTrackingData);
+                          }
                           trackGoToCheckout();
                           router.push(checkoutUrl);
                         });

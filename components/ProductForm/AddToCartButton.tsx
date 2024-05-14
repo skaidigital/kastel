@@ -7,8 +7,9 @@ import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
-import { EcommerceObject } from '@/lib/gtm';
+import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
+import { removeVariantGid } from '@/lib/shopify/helpers';
 import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
@@ -65,6 +66,11 @@ export const AddToCartButton = ({
     currency: 'NOK'
   };
 
+  const selectedOptionsValueString = activeVariant?.selectedOptions
+    ?.map((option) => option?.value)
+    ?.filter((value) => value !== undefined)
+    ?.join(',');
+
   // TODO internationalize
   const addToCartTrackingData: EcommerceObject = {
     event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
@@ -73,9 +79,9 @@ export const AddToCartButton = ({
       value: activeVariant?.price || 0,
       items: [
         {
-          item_id: productId,
+          item_id: activeVariant?.id ? removeVariantGid(activeVariant?.id) : '',
           item_name: productTitle,
-          item_variant: activeVariant?.id,
+          item_variant: selectedOptionsValueString,
           item_brand: 'Kastel Shoes',
           price: activeVariant?.price || 0,
           quantity: 1
@@ -114,6 +120,7 @@ export const AddToCartButton = ({
               options: metadata
             });
             // GTM – Analtyics
+            clearEcommerceInDataLayer();
             sendGTMEvent(addToCartTrackingData);
             // Plausible
             trackAddToCart({ options: metadata });

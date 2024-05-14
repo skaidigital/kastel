@@ -1,3 +1,5 @@
+import { sendGTMEvent } from '@next/third-parties/google';
+
 export type EcommerceItem = {
   item_id: string;
   item_name: string;
@@ -31,3 +33,9 @@ export type ViewItemEventObject = {
     }[];
   };
 };
+
+export function clearEcommerceInDataLayer() {
+  sendGTMEvent({
+    ecommerce: null
+  });
+}

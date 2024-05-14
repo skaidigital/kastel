@@ -1,7 +1,8 @@
 'use client';
 
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
-import { ViewItemEventObject } from '@/lib/gtm';
+import { ViewItemEventObject, clearEcommerceInDataLayer } from '@/lib/gtm';
+import { removeVariantGid } from '@/lib/shopify/helpers';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { useEffect } from 'react';
 
@@ -18,7 +19,7 @@ export function ViewItemEventTrigger({ productId, productTitle, price }: Props) 
       currency: 'NOK',
       items: [
         {
-          item_id: productId,
+          item_id: removeVariantGid(productId),
           item_name: productTitle,
           item_brand: 'Kastel Shoes',
           price: price
@@ -28,6 +29,7 @@ export function ViewItemEventTrigger({ productId, productTitle, price }: Props) 
   };
 
   useEffect(() => {
+    clearEcommerceInDataLayer();
     sendGTMEvent(viewItemTrackingData);
   }, []);
 
