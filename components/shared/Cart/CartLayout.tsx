@@ -58,6 +58,8 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
   const cartString = getCartString(lang);
 
+  console.log({ cart });
+
   const viewCartTrackingData: EcommerceObject | undefined = cart
     ? {
         event: ANALTYICS_EVENT_NAME.VIEW_CART,
@@ -93,6 +95,14 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
         }
       }
     : undefined;
+
+  const discountedAmount = cart?.lines
+    ?.reduce(
+      (acc, curr) =>
+        acc + Number(curr.cost.subtotalAmount.amount) - Number(curr.cost.totalAmount.amount),
+      0
+    )
+    ?.toFixed(2);
 
   if (isDesktop) {
     return (
@@ -165,14 +175,19 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                 />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
-                    <div className="flex w-full items-center justify-between text-brand-mid-grey">
-                      <Text size="sm" className="text-brand-mid-grey">
-                        {dictionary.shipping}
-                      </Text>
-                      <Text size="sm" className="font-medium">
-                        {dictionary.calculated_at_checkout}
-                      </Text>
-                    </div>
+                    {discountedAmount && (
+                      <div className="flex w-full items-center justify-between text-brand-mid-grey">
+                        <Text size="sm" className="text-brand-mid-grey">
+                          {dictionary.discount}
+                        </Text>
+                        <Text size="sm" className="font-medium">
+                          {formatPrice({
+                            amount: String(discountedAmount),
+                            currencyCode: currencyCode
+                          })}
+                        </Text>
+                      </div>
+                    )}
                     <div className="flex w-full items-center justify-between">
                       <Text size="sm" className="text-brand-mid-grey">
                         {dictionary.total_incl_vat}
@@ -241,7 +256,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           )}
         >
           {/* Header */}
-          <SheetHeader title={dictionary.cart} className="h-fit px-4">
+          <SheetHeader title={dictionary.cart} className="mb-2 h-fit px-4">
             {freeShippingAmount && currencyCode && (
               <FreeShippingCountdown
                 freeShippingAmount={freeShippingAmount}
@@ -293,7 +308,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
             )}
           </div>
           {/* Footer */}
-          <div className="mt-6 h-fit w-full">
+          <div className="h-fit w-full">
             {!hasCartItems && (
               <Button asChild size="sm" className="w-full">
                 <CustomLink href={ROUTES.HOME}>{dictionary.start_shopping}</CustomLink>
@@ -304,18 +319,23 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                 {children}
                 <DiscountCodeInput
                   discountCodes={cart.discountCodes}
-                  className="bg-white px-4 py-4"
+                  className="bg-white px-4 py-3"
                 />
-                <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
+                <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-4 py-3">
                   <div className="flex w-full flex-col gap-y-2">
-                    <div className="flex w-full items-center justify-between text-brand-mid-grey">
-                      <Text size="sm" className="text-brand-mid-grey">
-                        {dictionary.shipping}
-                      </Text>
-                      <Text size="sm" className="font-medium">
-                        {dictionary.calculated_at_checkout}
-                      </Text>
-                    </div>
+                    {discountedAmount && (
+                      <div className="flex w-full items-center justify-between text-brand-mid-grey">
+                        <Text size="sm" className="text-brand-mid-grey">
+                          {dictionary.discount}
+                        </Text>
+                        <Text size="sm" className="font-medium">
+                          {formatPrice({
+                            amount: String(discountedAmount),
+                            currencyCode: currencyCode
+                          })}
+                        </Text>
+                      </div>
+                    )}
                     <div className="flex w-full items-center justify-between">
                       <Text size="sm" className="text-brand-mid-grey">
                         {dictionary.total_incl_vat}

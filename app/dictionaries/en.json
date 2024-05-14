@@ -135,6 +135,7 @@
     "learn_more": "Privacy policy"
   },
   "cart_drawer": {
+    "discount": "Discount",
     "shipping": "Shipping",
     "total_incl_vat": "Total (incl. VAT)",
     "free": "Free",

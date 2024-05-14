@@ -146,6 +146,7 @@ export interface Dictionary {
     learn_more: string;
   };
   cart_drawer: {
+    discount: string;
     shipping: string;
     total_incl_vat: string;
     free: string;
