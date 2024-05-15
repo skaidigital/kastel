@@ -83,7 +83,7 @@ export const AddToCartButton = ({
           item_name: productTitle,
           item_variant: selectedOptionsValueString,
           item_brand: 'Kastel Shoes',
-          price: activeVariant?.price || 0,
+          price: activeVariant?.discountedPrice || activeVariant?.price || 0,
           quantity: 1
         }
       ]
