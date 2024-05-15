@@ -70,8 +70,12 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                 />
               )}
               <div className="absolute bottom-3 left-3 flex gap-x-1 @xs:bottom-4 @xs:left-4">
-                {biggestDiscount && <OnSaleBadge />}
-                {biggestDiscount && <DiscountBadge discount={Number(biggestDiscount).toFixed(0)} />}
+                <div className="flex flex-col gap-1 @[200px]:flex-row">
+                  {biggestDiscount && <OnSaleBadge className="text-xs lg:text-sm" />}
+                  {biggestDiscount && (
+                    <DiscountBadge discount={Number(biggestDiscount).toFixed(0)} />
+                  )}
+                </div>
                 {badges && <Badges badges={badges} />}
               </div>
               <div className="absolute bottom-3 right-3  @xs:hidden">

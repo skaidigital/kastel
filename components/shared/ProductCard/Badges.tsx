@@ -24,11 +24,5 @@ export function DiscountBadge({ discount }: { discount: string }) {
 
   const activeDiscount = activeColorway ? activeColorway.largestDiscount : discount;
 
-  return (
-    activeDiscount && (
-      <Badge className="mr-2" size="sm" color="red">
-        -{activeDiscount}%
-      </Badge>
-    )
-  );
+  return activeDiscount && <Badge className="mr-2 text-xs lg:text-sm">-{activeDiscount}%</Badge>;
 }
