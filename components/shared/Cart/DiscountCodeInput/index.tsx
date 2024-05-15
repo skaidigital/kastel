@@ -6,7 +6,6 @@ import { addDiscount } from '@/components/shared/Cart/DiscountCodeInput/actions'
 import { Cart } from '@/lib/shopify/types';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useRef, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
@@ -21,7 +20,6 @@ export function DiscountCodeInput({ discountCodes, className }: Props) {
   const [isShown, setIsShown] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   const hasDiscountCodes = discountCodes && discountCodes.length > 0;
@@ -40,7 +38,7 @@ export function DiscountCodeInput({ discountCodes, className }: Props) {
         </button>
       )}
       {isShown && (
-        <form className={'flex w-full flex-col'}>
+        <form className={'flex w-full flex-col focus-within:mb-[120px]'}>
           <div className="flex gap-x-1">
             <input
               ref={inputRef}
@@ -62,6 +60,9 @@ export function DiscountCodeInput({ discountCodes, className }: Props) {
                     queryClient.invalidateQueries({
                       queryKey: ['cart']
                     });
+                    if (inputRef.current) {
+                      inputRef.current.value = '';
+                    }
                     return;
                   }
                   if (!response.success) {
