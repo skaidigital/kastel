@@ -9,7 +9,7 @@ import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
 import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
-import { removeVariantGid } from '@/lib/shopify/helpers';
+import { removeProductGid } from '@/lib/shopify/helpers';
 import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
@@ -79,7 +79,7 @@ export const AddToCartButton = ({
       value: activeVariant?.price || 0,
       items: [
         {
-          item_id: activeVariant?.id ? removeVariantGid(activeVariant?.id) : '',
+          item_id: removeProductGid(productId),
           item_name: productTitle,
           item_variant: selectedOptionsValueString,
           item_brand: 'Kastel Shoes',

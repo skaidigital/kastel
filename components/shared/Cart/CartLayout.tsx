@@ -19,7 +19,7 @@ import { trackEvent } from '@/lib/actions';
 import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { removeVariantGid } from '@/lib/shopify/helpers';
+import { removeProductGid } from '@/lib/shopify/helpers';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { useUser } from '@/lib/useUser';
 import { cn } from '@/lib/utils';
@@ -58,8 +58,6 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
   const cartString = getCartString(lang);
 
-  console.log({ cart });
-
   const viewCartTrackingData: EcommerceObject | undefined = cart
     ? {
         event: ANALTYICS_EVENT_NAME.VIEW_CART,
@@ -67,7 +65,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           currency: 'NOK',
           value: parseFloat(cart?.cost.totalAmount.amount) || 0,
           items: cart?.lines?.map((line) => ({
-            item_id: removeVariantGid(line.merchandise.id),
+            item_id: removeProductGid(line.merchandise.product.id),
             item_name: line.merchandise.product.title,
             item_variant: line.merchandise.title,
             item_brand: 'Kastel Shoes',
@@ -85,7 +83,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           currency: 'NOK',
           value: parseFloat(cart?.cost.totalAmount.amount) || 0,
           items: cart?.lines?.map((line) => ({
-            item_id: removeVariantGid(line.merchandise.id),
+            item_id: removeProductGid(line.merchandise.product.id),
             item_name: line.merchandise.product.title,
             item_variant: line.merchandise.title,
             item_brand: 'Kastel Shoes',

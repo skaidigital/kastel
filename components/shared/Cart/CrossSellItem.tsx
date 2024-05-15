@@ -13,6 +13,8 @@ import { CrossSellProduct } from '@/components/shared/Cart/CrossSell/hooks';
 import { addItem } from '@/components/shared/Cart/actions';
 import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
+import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
+import { removeProductGid } from '@/lib/shopify/helpers';
 import { cn } from '@/lib/utils';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { sendGTMEvent } from '@next/third-parties/google';
@@ -80,10 +82,32 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
           eventName: 'add_to_cart'
         });
 
+        const selectedOptionsValueString = activeVariant?.selectedOptions
+          ?.map((option) => option?.value)
+          ?.filter((value) => value !== undefined)
+          ?.join(',');
+
+        const addToCartTrackingData: EcommerceObject = {
+          event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
+          ecommerce: {
+            currency: 'NOK',
+            value: activeVariant?.price || 0,
+            items: [
+              {
+                item_id: removeProductGid(product.id),
+                item_name: product.title,
+                item_variant: selectedOptionsValueString,
+                item_brand: 'Kastel Shoes',
+                price: activeVariant?.price || 0,
+                quantity: 1
+              }
+            ]
+          }
+        };
+
         // GTM – Analtyics
-        sendGTMEvent({
-          event: ANALTYICS_EVENT_NAME.ADD_TO_CART
-        });
+        clearEcommerceInDataLayer();
+        sendGTMEvent(addToCartTrackingData);
 
         queryClient.invalidateQueries({
           queryKey: ['cart']
