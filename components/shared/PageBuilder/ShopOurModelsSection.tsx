@@ -100,13 +100,15 @@ export const ShopOurModelsSection = ({ data }: Props) => {
                 className="h-fit w-fit gap-4 border-0 pl-0 [&>svg]:size-8"
               >
                 <SelectValue asChild className="rounded-none">
-                  <Heading size="lg">{activeShoe?.title}</Heading>
+                  <Heading size="lg" className="whitespace-break-spaces text-balance text-left">
+                    {activeShoe?.title}
+                  </Heading>
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {shoes?.map((shoe) => (
                   <SelectItem value={shoe.title} key={shoe.title} className="rounded-none">
-                    <Heading size="lg">{shoe.title}</Heading>
+                    <Heading className="text-heading-md lg:text-heading-lg">{shoe.title}</Heading>
                   </SelectItem>
                 ))}
               </SelectContent>
