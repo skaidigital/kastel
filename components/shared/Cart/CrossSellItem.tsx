@@ -91,7 +91,7 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
           event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
           ecommerce: {
             currency: 'NOK',
-            value: activeVariant?.price || 0,
+            value: activeVariant?.discountedPrice || activeVariant?.price || 0,
             items: [
               {
                 item_id: removeProductGid(product.id),
