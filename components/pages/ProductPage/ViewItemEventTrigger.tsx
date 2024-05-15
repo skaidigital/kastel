@@ -23,7 +23,7 @@ export function ViewItemEventTrigger({ productId, productTitle, price, slug, ima
       currency: 'NOK',
       items: [
         {
-          item_id: removeProductGid(productId),
+          item_id: formattedProductId,
           item_name: productTitle,
           item_brand: 'Kastel Shoes',
           price: price
@@ -33,7 +33,6 @@ export function ViewItemEventTrigger({ productId, productTitle, price, slug, ima
   };
 
   const _learnq = typeof window !== 'undefined' ? window._learnq : [];
-  console.log('_learnq', _learnq);
 
   const domain =
     process.env.NODE_ENV === 'production'
@@ -54,13 +53,9 @@ export function ViewItemEventTrigger({ productId, productTitle, price, slug, ima
     // CompareAtPrice: payload.selectedVariant.compareAtPriceV2.amount,
   };
 
-  console.log({ klaviyoProduct });
-
   useEffect(() => {
     clearEcommerceInDataLayer();
     sendGTMEvent(viewItemTrackingData);
-    console.log('learnq before firing event', _learnq);
-
     _learnq?.push(['track', 'Viewed Product', klaviyoProduct]);
   }, []);
 

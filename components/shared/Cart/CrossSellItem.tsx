@@ -87,6 +87,23 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
           ?.filter((value) => value !== undefined)
           ?.join(',');
 
+        const _learnq = typeof window !== 'undefined' ? window._learnq : [];
+
+        const klaviyoCart = {
+          total_price: activeVariant?.price || 0,
+          $value: activeVariant?.price || 0,
+          items: [
+            {
+              item_id: removeProductGid(product.id),
+              item_name: product.title,
+              item_variant: selectedOptionsValueString,
+              item_brand: 'Kastel Shoes',
+              price: activeVariant?.discountedPrice || activeVariant?.price || 0,
+              quantity: 1
+            }
+          ]
+        };
+
         const addToCartTrackingData: EcommerceObject = {
           event: ANALTYICS_EVENT_NAME.ADD_TO_CART,
           ecommerce: {
@@ -108,6 +125,8 @@ export function CrossSellItem({ product, currencyCode, className, dictionary }: 
         // GTM – Analtyics
         clearEcommerceInDataLayer();
         sendGTMEvent(addToCartTrackingData);
+        // Klaviyo - Analytics
+        _learnq?.push(['track', 'Added to Cart', klaviyoCart]);
 
         queryClient.invalidateQueries({
           queryKey: ['cart']

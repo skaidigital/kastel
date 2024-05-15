@@ -9,7 +9,7 @@ import { ANALTYICS_EVENT_NAME } from '@/data/constants';
 import { trackEvent } from '@/lib/actions';
 import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
-import { removeProductGid, removeVariantGid } from '@/lib/shopify/helpers';
+import { removeProductGid } from '@/lib/shopify/helpers';
 import { useShopifyAnalytics } from '@/lib/shopify/useShopifyAnalytics';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { cn } from '@/lib/utils';
@@ -76,21 +76,17 @@ export const AddToCartButton = ({
   const klaviyoCart = {
     total_price: activeVariant?.price || 0,
     $value: activeVariant?.price || 0,
-    // $value: payload.cart.cost.totalAmount.amount,
-    // original_total_price: activeVariant?.price
     items: [
       {
-        item_id: activeVariant?.id ? removeVariantGid(activeVariant?.id) : '',
+        item_id: removeProductGid(productId),
         item_name: productTitle,
         item_variant: selectedOptionsValueString,
         item_brand: 'Kastel Shoes',
-        price: activeVariant?.price || 0,
+        price: activeVariant?.discountedPrice || activeVariant?.price || 0,
         quantity: 1
       }
     ]
   };
-
-  console.log('klaviyoCart', klaviyoCart);
 
   // TODO internationalize
   const addToCartTrackingData: EcommerceObject = {
@@ -144,7 +140,7 @@ export const AddToCartButton = ({
             clearEcommerceInDataLayer();
             sendGTMEvent(addToCartTrackingData);
             // Klaviyo
-            _learnq.push(['track', 'Added to Cart', klaviyoCart]);
+            _learnq?.push(['track', 'Added to Cart', klaviyoCart]);
             // Plausible
             trackAddToCart({ options: metadata });
             setMobileDrawerOpen(false);
