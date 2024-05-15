@@ -58,7 +58,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
   const cartString = getCartString(lang);
 
-  const viewCartTrackingData: EcommerceObject | undefined = cart
+  const viewCartTrackingData: EcommerceObject | undefined = cart?.cost
     ? {
         event: ANALTYICS_EVENT_NAME.VIEW_CART,
         ecommerce: {
@@ -76,7 +76,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
       }
     : undefined;
 
-  const beginCheckoutTrackingData: EcommerceObject | undefined = cart
+  const beginCheckoutTrackingData: EcommerceObject | undefined = cart?.cost
     ? {
         event: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT,
         ecommerce: {
