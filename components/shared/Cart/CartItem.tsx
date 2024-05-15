@@ -80,7 +80,7 @@ export function CartItem({
           </div>
           <RemoveFromCartButton itemId={lineId} />
         </div>
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <div>
             <span className="text-brand-mid-grey">{formattedPrice}</span>
             {isDiscounted && (

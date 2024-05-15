@@ -38,7 +38,7 @@ export function DiscountCodeInput({ discountCodes, className }: Props) {
         </button>
       )}
       {isShown && (
-        <form className={'flex w-full flex-col focus-within:mb-[120px]'}>
+        <form className={'flex w-full flex-col focus-within:mb-[120px] lg:focus-within:mb-0'}>
           <div className="flex gap-x-1">
             <input
               ref={inputRef}

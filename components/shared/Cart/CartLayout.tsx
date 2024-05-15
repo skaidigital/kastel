@@ -94,13 +94,16 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
       }
     : undefined;
 
-  const discountedAmount = cart?.lines
-    ?.reduce(
-      (acc, curr) =>
-        acc + Number(curr.cost.subtotalAmount.amount) - Number(curr.cost.totalAmount.amount),
-      0
-    )
-    ?.toFixed(2);
+  const discountedAmount = cart?.lines?.reduce(
+    (acc, curr) =>
+      acc + Number(curr.cost.subtotalAmount.amount) - Number(curr.cost.totalAmount.amount),
+    0
+  );
+
+  const hasDiscount = discountedAmount && discountedAmount > 0;
+  const formattedDiscountedAmount = hasDiscount
+    ? formatPrice({ amount: String(discountedAmount), currencyCode })
+    : '';
 
   if (isDesktop) {
     return (
@@ -173,19 +176,16 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                 />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
-                    {discountedAmount && (
+                    {hasDiscount ? (
                       <div className="flex w-full items-center justify-between text-brand-mid-grey">
                         <Text size="sm" className="text-brand-mid-grey">
                           {dictionary.discount}
                         </Text>
                         <Text size="sm" className="font-medium">
-                          {formatPrice({
-                            amount: String(discountedAmount),
-                            currencyCode: currencyCode
-                          })}
+                          {formattedDiscountedAmount}
                         </Text>
                       </div>
-                    )}
+                    ) : null}
                     <div className="flex w-full items-center justify-between">
                       <Text size="sm" className="text-brand-mid-grey">
                         {dictionary.total_incl_vat}
@@ -321,19 +321,16 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                 />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-4 py-3">
                   <div className="flex w-full flex-col gap-y-2">
-                    {discountedAmount && (
+                    {hasDiscount ? (
                       <div className="flex w-full items-center justify-between text-brand-mid-grey">
                         <Text size="sm" className="text-brand-mid-grey">
                           {dictionary.discount}
                         </Text>
                         <Text size="sm" className="font-medium">
-                          {formatPrice({
-                            amount: String(discountedAmount),
-                            currencyCode: currencyCode
-                          })}
+                          {formattedDiscountedAmount}
                         </Text>
                       </div>
-                    )}
+                    ) : null}
                     <div className="flex w-full items-center justify-between">
                       <Text size="sm" className="text-brand-mid-grey">
                         {dictionary.total_incl_vat}
