@@ -42,15 +42,6 @@ export default function IndexRoute({
   return (
     <>
       <GoogleTagManager gtmId={env.GTM_ID} />
-      {isInProduction && (
-        <Script
-          strategy="lazyOnload"
-          id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
-          data-cbid={env.COOKIE_BOT_DOMAIN_GROUP_ID}
-          type="text/javascript"
-        />
-      )}
       <Script
         id="gorgias-chat-widget-install-v3"
         src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
