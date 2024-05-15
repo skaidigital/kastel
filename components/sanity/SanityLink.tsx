@@ -10,30 +10,23 @@ interface Props {
   link: LinkProps | LinkWithoutTextProps;
   children: ReactNode;
   className?: string;
-  onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  onClick?: (e: any) => void;
 }
 
 export const SanityLink = ({ link, children, className, onClick }: Props) => {
   if (!link) return null;
 
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    // Call the provided onClick handler if available
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (onClick) {
-      onClick(event);
-    }
-
-    if (link.linkType === 'smile' && window.SmileUI) {
-      event.preventDefault(); // Prevent default link behavior
-      window.SmileUI.openPanel({ deep_link: link.smileLauncher }).catch(() => {
-        console.warn('SmileUI is not loaded and initialized.');
-      });
+      onClick(e);
     }
   };
 
   if (link.linkType === 'internal') {
     const slug = getSlug(link);
+
     return (
-      <CustomLink onClick={handleClick} className={className || ''} href={slug || '#'}>
+      <CustomLink onClick={onClick} className={className || ''} href={slug || '#'}>
         {children}
       </CustomLink>
     );
@@ -43,7 +36,7 @@ export const SanityLink = ({ link, children, className, onClick }: Props) => {
     return (
       <Link
         className={className || ''}
-        onClick={handleClick}
+        onClick={onClick}
         href={link.href}
         target={link.openInNewTab ? '_blank' : '_self'}
       >
@@ -52,10 +45,22 @@ export const SanityLink = ({ link, children, className, onClick }: Props) => {
     );
   }
 
-  // Handle other link types like 'smile'
   if (link.linkType === 'smile') {
+    const deeplinkType = link.smileLauncher;
+
     return (
-      <button className={className || ''} onClick={handleClick}>
+      <button
+        className={className || ''}
+        onClick={async (e) => {
+          if (window.SmileUI) {
+            await window.SmileUI.openPanel({ deep_link: deeplinkType });
+            handleClick(e);
+          } else {
+            console.warn('SmileUI is not loaded and initialized.');
+            handleClick(e);
+          }
+        }}
+      >
         {children}
       </button>
     );
