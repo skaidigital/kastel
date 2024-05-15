@@ -66,14 +66,7 @@ export function MobileMenu({ items }: Props) {
                           link={item}
                           onClick={onCloseMainMenu}
                           className={cn(
-                            'flex translate-y-[-10px] animate-fade-in-text items-center justify-between py-3 text-md font-medium opacity-0 outline-none transition-[opacity,transform]',
-                            index === 0 && '[--animation-delay:600ms]',
-                            index === 1 && '[--animation-delay:700ms]',
-                            index === 2 && '[--animation-delay:800ms]',
-                            index === 3 && '[--animation-delay:950ms]',
-                            index === 4 && '[--animation-delay:1000ms]',
-                            index === 5 && '[--animation-delay:1025ms]',
-                            index === 6 && '[--animation-delay:1050ms]'
+                            'flex items-center justify-between py-3 text-md font-medium outline-none'
                           )}
                         >
                           {item.text}
@@ -85,14 +78,7 @@ export function MobileMenu({ items }: Props) {
                           <DrawerTrigger>
                             <button
                               className={cn(
-                                'flex w-full translate-y-[-10px] animate-fade-in-text items-center justify-between py-3 text-md font-medium opacity-0 outline-none transition-[opacity,transform]',
-                                index === 0 && '[--animation-delay:600ms]',
-                                index === 1 && '[--animation-delay:700ms]',
-                                index === 2 && '[--animation-delay:800ms]',
-                                index === 3 && '[--animation-delay:950ms]',
-                                index === 4 && '[--animation-delay:1000ms]',
-                                index === 5 && '[--animation-delay:1025ms]',
-                                index === 6 && '[--animation-delay:1050ms]'
+                                'flex w-full items-center justify-between py-3 text-md font-medium outline-none '
                               )}
                             >
                               {item.title}
@@ -115,24 +101,12 @@ export function MobileMenu({ items }: Props) {
                                   <ul key={index} className="flex flex-col gap-y-20">
                                     {subItem.links && (
                                       <div>
-                                        <h3 className="mb-2 translate-y-[-10px] animate-fade-in-text text-overline-sm font-medium uppercase text-brand-mid-grey opacity-0 transition-[opacity,transform] [--animation-delay:600ms]">
+                                        <h3 className="mb-2 text-overline-sm font-medium uppercase text-brand-mid-grey">
                                           {subItem.heading}
                                         </h3>
                                         <NavigationMenu.List className="flex flex-col text-md">
                                           {subItem.links.map((link, index) => (
-                                            <NavigationMenu.Item
-                                              key={index}
-                                              className={cn(
-                                                'translate-y-[-10px] animate-fade-in-text py-3 opacity-0 transition-[opacity,transform]',
-                                                index === 0 && '[--animation-delay:600ms]',
-                                                index === 1 && '[--animation-delay:700ms]',
-                                                index === 2 && '[--animation-delay:800ms]',
-                                                index === 3 && '[--animation-delay:950ms]',
-                                                index === 4 && '[--animation-delay:1000ms]',
-                                                index === 5 && '[--animation-delay:1025ms]',
-                                                index === 6 && '[--animation-delay:1050ms]'
-                                              )}
-                                            >
+                                            <NavigationMenu.Item key={index} className={cn('py-3')}>
                                               <NavigationMenu.Link asChild>
                                                 <SanityLink
                                                   link={link.link}
