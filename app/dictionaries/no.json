@@ -135,6 +135,7 @@
     "learn_more": "Personvernregler"
   },
   "cart_drawer": {
+    "discount": "Rabatt",
     "shipping": "Frakt",
     "total_incl_vat": "Totalt (inkl. mva)",
     "free": "Gratis",

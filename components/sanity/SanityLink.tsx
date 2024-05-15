@@ -10,11 +10,17 @@ interface Props {
   link: LinkProps | LinkWithoutTextProps;
   children: ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
 }
 
 export const SanityLink = ({ link, children, className, onClick }: Props) => {
   if (!link) return null;
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (onClick) {
+      onClick(e);
+    }
+  };
 
   if (link.linkType === 'internal') {
     const slug = getSlug(link);
@@ -45,13 +51,13 @@ export const SanityLink = ({ link, children, className, onClick }: Props) => {
     return (
       <button
         className={className || ''}
-        onClick={async () => {
+        onClick={async (e) => {
           if (window.SmileUI) {
             await window.SmileUI.openPanel({ deep_link: deeplinkType });
-            // onClick?.();
+            handleClick(e);
           } else {
             console.warn('SmileUI is not loaded and initialized.');
-            // onClick?.();
+            handleClick(e);
           }
         }}
       >

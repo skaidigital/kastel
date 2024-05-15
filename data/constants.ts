@@ -445,3 +445,30 @@ export const PAYMENT_PROVIDERS: PaymentProvider[] = [
 ];
 
 export const PRODUCT_PAGE_REVIEWS_PAGE_SIZE = 10;
+
+// Params that should not be included in the search params when filtering collections
+export const EXCLUDED_COLLECTION_SEARCH_PARAMS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+  'utm_cid',
+  'utm_name',
+  'utm_term',
+  'utm_content',
+  'utm_cid',
+  'utm_name',
+  'gclid',
+  'gclsrc',
+  'gclsrce',
+  'gclct',
+  'gclcg',
+  'gclmd',
+  'gclsrc',
+  'gclsrce',
+  'gclct',
+  'gclcg',
+  'gclmd',
+  '_kx'
+];

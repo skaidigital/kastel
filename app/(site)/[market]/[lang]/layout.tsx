@@ -59,7 +59,6 @@ export default function IndexRoute({
       <Script
         id="klaviyo-on-site-tracking"
         src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${env.NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY}`}
-        strategy="lazyOnload"
       />
       <SpeedInsights />
       <CartContextProvider>

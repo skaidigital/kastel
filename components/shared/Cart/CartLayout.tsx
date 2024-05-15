@@ -19,7 +19,7 @@ import { trackEvent } from '@/lib/actions';
 import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { removeVariantGid } from '@/lib/shopify/helpers';
+import { removeProductGid } from '@/lib/shopify/helpers';
 import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
 import { useUser } from '@/lib/useUser';
 import { cn } from '@/lib/utils';
@@ -58,14 +58,14 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
   const cartString = getCartString(lang);
 
-  const viewCartTrackingData: EcommerceObject | undefined = cart
+  const viewCartTrackingData: EcommerceObject | undefined = cart?.cost
     ? {
         event: ANALTYICS_EVENT_NAME.VIEW_CART,
         ecommerce: {
           currency: 'NOK',
           value: parseFloat(cart?.cost.totalAmount.amount) || 0,
           items: cart?.lines?.map((line) => ({
-            item_id: removeVariantGid(line.merchandise.id),
+            item_id: removeProductGid(line.merchandise.product.id),
             item_name: line.merchandise.product.title,
             item_variant: line.merchandise.title,
             item_brand: 'Kastel Shoes',
@@ -76,14 +76,14 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
       }
     : undefined;
 
-  const beginCheckoutTrackingData: EcommerceObject | undefined = cart
+  const beginCheckoutTrackingData: EcommerceObject | undefined = cart?.cost
     ? {
         event: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT,
         ecommerce: {
           currency: 'NOK',
           value: parseFloat(cart?.cost.totalAmount.amount) || 0,
           items: cart?.lines?.map((line) => ({
-            item_id: removeVariantGid(line.merchandise.id),
+            item_id: removeProductGid(line.merchandise.product.id),
             item_name: line.merchandise.product.title,
             item_variant: line.merchandise.title,
             item_brand: 'Kastel Shoes',
@@ -93,6 +93,17 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
         }
       }
     : undefined;
+
+  const discountedAmount = cart?.lines?.reduce(
+    (acc, curr) =>
+      acc + Number(curr.cost.subtotalAmount.amount) - Number(curr.cost.totalAmount.amount),
+    0
+  );
+
+  const hasDiscount = discountedAmount && discountedAmount > 0;
+  const formattedDiscountedAmount = hasDiscount
+    ? formatPrice({ amount: String(discountedAmount), currencyCode })
+    : '';
 
   if (isDesktop) {
     return (
@@ -165,14 +176,16 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                 />
                 <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
                   <div className="flex w-full flex-col gap-y-2">
-                    <div className="flex w-full items-center justify-between text-brand-mid-grey">
-                      <Text size="sm" className="text-brand-mid-grey">
-                        {dictionary.shipping}
-                      </Text>
-                      <Text size="sm" className="font-medium">
-                        {dictionary.calculated_at_checkout}
-                      </Text>
-                    </div>
+                    {hasDiscount ? (
+                      <div className="flex w-full items-center justify-between text-brand-mid-grey">
+                        <Text size="sm" className="text-brand-mid-grey">
+                          {dictionary.discount}
+                        </Text>
+                        <Text size="sm" className="font-medium">
+                          {formattedDiscountedAmount}
+                        </Text>
+                      </div>
+                    ) : null}
                     <div className="flex w-full items-center justify-between">
                       <Text size="sm" className="text-brand-mid-grey">
                         {dictionary.total_incl_vat}
@@ -241,7 +254,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           )}
         >
           {/* Header */}
-          <SheetHeader title={dictionary.cart} className="h-fit px-4">
+          <SheetHeader title={dictionary.cart} className="mb-2 h-fit px-4">
             {freeShippingAmount && currencyCode && (
               <FreeShippingCountdown
                 freeShippingAmount={freeShippingAmount}
@@ -293,7 +306,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
             )}
           </div>
           {/* Footer */}
-          <div className="mt-6 h-fit w-full">
+          <div className="h-fit w-full">
             {!hasCartItems && (
               <Button asChild size="sm" className="w-full">
                 <CustomLink href={ROUTES.HOME}>{dictionary.start_shopping}</CustomLink>
@@ -304,18 +317,20 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                 {children}
                 <DiscountCodeInput
                   discountCodes={cart.discountCodes}
-                  className="bg-white px-4 py-4"
+                  className="bg-white px-4 py-3"
                 />
-                <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-6 py-4">
+                <div className="border-brand-border flex w-full flex-col items-center gap-y-4 border-t bg-white px-4 py-3">
                   <div className="flex w-full flex-col gap-y-2">
-                    <div className="flex w-full items-center justify-between text-brand-mid-grey">
-                      <Text size="sm" className="text-brand-mid-grey">
-                        {dictionary.shipping}
-                      </Text>
-                      <Text size="sm" className="font-medium">
-                        {dictionary.calculated_at_checkout}
-                      </Text>
-                    </div>
+                    {hasDiscount ? (
+                      <div className="flex w-full items-center justify-between text-brand-mid-grey">
+                        <Text size="sm" className="text-brand-mid-grey">
+                          {dictionary.discount}
+                        </Text>
+                        <Text size="sm" className="font-medium">
+                          {formattedDiscountedAmount}
+                        </Text>
+                      </div>
+                    ) : null}
                     <div className="flex w-full items-center justify-between">
                       <Text size="sm" className="text-brand-mid-grey">
                         {dictionary.total_incl_vat}
