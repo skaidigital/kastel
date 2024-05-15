@@ -19,11 +19,12 @@ export function ActiveFilters({ className }: Props) {
 
   const urlStateKeys = Object.values(URL_STATE_KEYS);
   const excludedCollectionSearchParams = EXCLUDED_COLLECTION_SEARCH_PARAMS;
-  const exludeKeys = [urlStateKeys, ...excludedCollectionSearchParams];
+  const excludedKeys = [...urlStateKeys, ...excludedCollectionSearchParams];
 
   // remove keys that are not filters
   // const filteredKeys = keys.filter((key) => !Object.values(URL_STATE_KEYS).includes(key));
-  const filteredKeys = keys.filter((key) => !exludeKeys.includes(key));
+  const filteredKeys = keys.filter((key) => !excludedKeys.includes(key));
+
   // filteredKeys.push(URL_STATE_KEYS.onSale);
 
   return (
