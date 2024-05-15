@@ -1,23 +1,31 @@
 'use client';
 
 // context with activeGender
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 
 export type ProductPageContextType = {
   activeGender: string;
   setActiveGender: (gender: string) => void;
+  showProductDescription: boolean;
+  setShowProductDescription: (show: boolean) => void;
 };
 
 const ProductPageContext = createContext<ProductPageContextType | undefined>(undefined);
 
 export const ProductPageContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeGender, setActiveGender] = useState<string>('female');
+  const [showProductDescription, setShowProductDescription] = useState<boolean>(true);
 
-  return (
-    <ProductPageContext.Provider value={{ activeGender, setActiveGender }}>
-      {children}
-    </ProductPageContext.Provider>
-  );
+  const contextValue = useMemo(() => {
+    return {
+      activeGender,
+      setActiveGender,
+      showProductDescription,
+      setShowProductDescription
+    };
+  }, [activeGender, setActiveGender, showProductDescription]);
+
+  return <ProductPageContext.Provider value={contextValue}>{children}</ProductPageContext.Provider>;
 };
 
 export const useProductPageContext = () => {

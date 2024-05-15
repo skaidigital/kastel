@@ -3,6 +3,7 @@ import { HotspotImage } from '@/components/HotspotImage';
 import { OnSaleBadge } from '@/components/OnSaleBadge';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
+import { ProductFormScrollContainer } from '@/components/ProductForm/ScrollContainer';
 import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
@@ -10,6 +11,7 @@ import { Text } from '@/components/base/Text';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
 import { ProductPageContextProvider } from '@/components/pages/ProductPage/Context';
 import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton';
+import { ProductPageShortDescription } from '@/components/pages/ProductPage/ShortDescription';
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
 import { ViewItemEventTrigger } from '@/components/pages/ProductPage/ViewItemEventTrigger';
 import { Product } from '@/components/pages/ProductPage/hooks';
@@ -110,75 +112,83 @@ export async function ProductPageLayout(props: Props) {
           />
           <div className="no-flex-grow sticky top-0 h-fit gap-y-10 lg:max-w-[560px]">
             <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
-            <div className="mt-6 lg:mt-10 lg:px-[84px]">
-              <div className="flex flex-col">
-                <div className="mb-[10px] flex items-center justify-between">
-                  <div className="flex gap-2">
-                    {largestDiscount && <OnSaleBadge />}
-                    <DiscountBadge
-                      variants={variants}
-                      productType={product.type}
-                      largestDiscount={product.largestDiscount}
-                    />
-                    <ScrollToRatingsButton>
-                      <Rating sku={sku} />
-                    </ScrollToRatingsButton>
+            <ProductFormScrollContainer>
+              <div className="mt-6 lg:px-[84px]">
+                <div className="flex flex-col">
+                  <div className="mb-[10px] flex items-center justify-between">
+                    <div className="flex gap-2">
+                      {largestDiscount && <OnSaleBadge />}
+                      <DiscountBadge
+                        variants={variants}
+                        productType={product.type}
+                        largestDiscount={product.largestDiscount}
+                      />
+                      <ScrollToRatingsButton>
+                        <Rating sku={sku} />
+                      </ScrollToRatingsButton>
+                    </div>
+                    <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
                   </div>
-                  <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
+                  {title && (
+                    <Heading as="h1" size="xs" className="mb-1">
+                      {title}
+                    </Heading>
+                  )}
+                  {subtitle && (
+                    <Text as="p" size="sm">
+                      {subtitle}
+                    </Text>
+                  )}
+                  <ProductPrice
+                    currencyCode={product.minVariantPrice.currencyCode}
+                    productType={product.type}
+                    variants={variants}
+                    minVariantPrice={product.minVariantPrice}
+                    maxVariantPrice={product.maxVariantPrice}
+                  />
                 </div>
-                {title && (
-                  <Heading as="h1" size="xs" className="mb-1">
-                    {title}
-                  </Heading>
-                )}
-                {subtitle && (
-                  <Text as="p" size="sm">
-                    {subtitle}
-                  </Text>
-                )}
-                <ProductPrice
-                  currencyCode={product.minVariantPrice.currencyCode}
+                <div className="my-4 flex flex-col gap-8">
+                  {descriptionShort && (
+                    <ProductPageShortDescription
+                      description={descriptionShort}
+                      className="hidden lg:block"
+                    />
+                  )}
+                  {descriptionShort && (
+                    <Text as="p" size="sm" className="lg:hidden">
+                      {descriptionShort}
+                    </Text>
+                  )}
+                  {type === 'VARIABLE' && typeId && (
+                    <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
+                  )}
+                  <ProductForm
+                    lang={lang}
+                    productId={id}
+                    productTitle={title}
+                    type={type}
+                    variants={variants}
+                    options={options}
+                    sizeGuide={product.sizeGuide}
+                  />
+                </div>
+                <PaymentIcons market={market} />
+                <USPCarousel
+                  type="normal"
+                  variants={variants}
                   productType={product.type}
-                  variants={variants}
-                  minVariantPrice={product.minVariantPrice}
-                  maxVariantPrice={product.maxVariantPrice}
-                />
-              </div>
-              <div className="my-4 flex flex-col gap-8">
-                {descriptionShort && (
-                  <Text as="p" size="sm">
-                    {descriptionShort}
-                  </Text>
-                )}
-                {type === 'VARIABLE' && typeId && (
-                  <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
-                )}
-                <ProductForm
                   lang={lang}
-                  productId={id}
-                  productTitle={title}
-                  type={type}
-                  variants={variants}
-                  options={options}
-                  sizeGuide={product.sizeGuide}
+                />
+                {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} />}
+                <CrossSell
+                  market={market}
+                  lang={lang}
+                  gid={product.id}
+                  className="mt-8"
+                  crossSellItemClassName="p-0 lg:p-0 mt-2"
                 />
               </div>
-              <PaymentIcons market={market} />
-              <USPCarousel
-                type="normal"
-                variants={variants}
-                productType={product.type}
-                lang={lang}
-              />
-              {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} />}
-              <CrossSell
-                market={market}
-                lang={lang}
-                gid={product.id}
-                className="mt-8"
-                crossSellItemClassName="p-0 lg:p-0 mt-2"
-              />
-            </div>
+            </ProductFormScrollContainer>
           </div>
         </Container>
       </Section>
