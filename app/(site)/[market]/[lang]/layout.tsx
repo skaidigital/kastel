@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import Providers from '@/components/Providers';
 import PreviewToolbar from '@/components/sanity/PreviewToolbar';
 import { env } from '@/env';
@@ -16,7 +17,6 @@ import { LangValues, MarketValues } from '@/data/constants';
 import { GoogleTagManager } from '@next/third-parties/google';
 // import { VisualEditing } from 'next-sanity';
 // import { revalidatePath, revalidateTag } from 'next/cache';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { draftMode } from 'next/headers';
@@ -47,11 +47,11 @@ export default function IndexRoute({
         src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
         strategy="lazyOnload"
       />
-      <Script
+      <script
         id="klaviyo-on-site-tracking"
         src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${env.NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY}`}
       />
-      <SpeedInsights />
+      {/* <SpeedInsights /> */}
       <CartContextProvider>
         <Providers>
           <div>
