@@ -42,6 +42,8 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const { cartOpen: isOpen, setCartOpen: setIsOpen } = useCartContext();
   const { cart } = useCart();
 
+  console.log({ cart });
+
   const checkoutUrl = getCheckoutUrl({ cartCheckoutUrl: cart?.checkoutUrl, isLoggedIn });
 
   const isDesktop = useIsDesktop();
@@ -94,15 +96,21 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
       }
     : undefined;
 
-  const discountedAmount = cart?.lines?.reduce(
-    (acc, curr) =>
-      acc + Number(curr.cost.subtotalAmount.amount) - Number(curr.cost.totalAmount.amount),
-    0
-  );
+  const cartLevelDiscountAmount =
+    Number(cart?.cost?.subtotalAmount?.amount) - Number(cart?.cost?.totalAmount?.amount);
 
-  const hasDiscount = discountedAmount && discountedAmount > 0;
+  const cartLineDiscountAmount =
+    cart?.lines?.reduce(
+      (acc, curr) =>
+        acc + Number(curr.cost.subtotalAmount.amount) - Number(curr.cost.totalAmount.amount),
+      0
+    ) || 0;
+
+  const totalDiscountedAmount = cartLevelDiscountAmount + cartLineDiscountAmount;
+
+  const hasDiscount = totalDiscountedAmount > 0;
   const formattedDiscountedAmount = hasDiscount
-    ? formatPrice({ amount: String(discountedAmount), currencyCode })
+    ? formatPrice({ amount: String(totalDiscountedAmount), currencyCode })
     : '';
 
   if (isDesktop) {
