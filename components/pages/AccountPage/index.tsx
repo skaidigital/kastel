@@ -1,4 +1,5 @@
 import { AccountPageSchema } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/hooks';
+import { KlaviyoIdentify } from '@/components/klaviyo/Identify';
 import { KastelClubCard } from '@/components/pages/AccountPage/KastelClubCard';
 import { LinkButton } from '@/components/pages/AccountPage/LinkButton';
 import { MyInfoCard } from '@/components/pages/AccountPage/MyInfoCard';
@@ -26,72 +27,81 @@ export async function AccountPage({ data, lang }: Props) {
   const welcomeBackString = getWelcomeBackString(lang);
 
   return (
-    <div className="flex flex-col lg:col-span-8 lg:grid">
-      <div className="mb-20 grid gap-6 lg:hidden">
-        <WelcomeMessage
-          name={customerData.firstName || ''}
-          welcomeBackString={welcomeBackString}
-          content={data.messageFromTheTeam}
+    <>
+      {customerData && (
+        <KlaviyoIdentify
+          email={customerData.emailAddress.emailAddress}
+          firstName={customerData.firstName}
+          lastName={customerData.lastName}
         />
-        <div className="grid grid-cols-2 gap-2">
-          <LinkButton
-            icon={<ShoppingBagIcon className="size-4" />}
-            title="Orders"
-            href={ROUTES.ORDERS}
-          />
-          <LinkButton
-            icon={<MapPinIcon className="size-4" />}
-            title="Addresses"
-            href={ROUTES.ADDRESSES}
-          />
-          <LinkButton
-            icon={<HeartIcon className="size-4" />}
-            title="Wishlist"
-            href={ROUTES.WISHLIST}
-          />
-          <LinkButton
-            icon={<QuestionMarkCircleIcon className="size-4" />}
-            title="Customer service"
-            href={ROUTES.ACCOUNT_CUSTOMER_SERVICE}
-          />
-        </div>
-        <Suspense fallback={null}>
-          <KastelClubCard lang={lang} />
-        </Suspense>
-        <MyInfoCard customerData={customerData} />
-        {data.productDisplay && (
-          <ProductDisplay
-            title={data.productDisplay.title}
-            products={data.productDisplay.products}
-          />
-        )}
-      </div>
-      <div className="hidden lg:block">
-        <div className="grid gap-4 lg:grid-cols-8">
+      )}
+      <div className="flex flex-col lg:col-span-8 lg:grid">
+        <div className="mb-20 grid gap-6 lg:hidden">
           <WelcomeMessage
             name={customerData.firstName || ''}
-            welcomeBackString="Velkommen tilbake"
+            welcomeBackString={welcomeBackString}
             content={data.messageFromTheTeam}
-            className="col-span-5"
           />
-          <div className="relative col-span-3 bg-blue-100">
-            <SanityImage image={data.image} fill />
+          <div className="grid grid-cols-2 gap-2">
+            <LinkButton
+              icon={<ShoppingBagIcon className="size-4" />}
+              title="Orders"
+              href={ROUTES.ORDERS}
+            />
+            <LinkButton
+              icon={<MapPinIcon className="size-4" />}
+              title="Addresses"
+              href={ROUTES.ADDRESSES}
+            />
+            <LinkButton
+              icon={<HeartIcon className="size-4" />}
+              title="Wishlist"
+              href={ROUTES.WISHLIST}
+            />
+            <LinkButton
+              icon={<QuestionMarkCircleIcon className="size-4" />}
+              title="Customer service"
+              href={ROUTES.ACCOUNT_CUSTOMER_SERVICE}
+            />
           </div>
-          <div className="col-span-5">
-            {data.productDisplay && (
-              <ProductDisplay
-                title={data.productDisplay.title}
-                products={data.productDisplay.products}
-              />
-            )}
-          </div>
-          <div className="col-span-3 grid gap-y-4">
+          <Suspense fallback={null}>
             <KastelClubCard lang={lang} />
-            <MyInfoCard customerData={customerData} />
+          </Suspense>
+          <MyInfoCard customerData={customerData} />
+          {data.productDisplay && (
+            <ProductDisplay
+              title={data.productDisplay.title}
+              products={data.productDisplay.products}
+            />
+          )}
+        </div>
+        <div className="hidden lg:block">
+          <div className="grid gap-4 lg:grid-cols-8">
+            <WelcomeMessage
+              name={customerData.firstName || ''}
+              welcomeBackString="Velkommen tilbake"
+              content={data.messageFromTheTeam}
+              className="col-span-5"
+            />
+            <div className="relative col-span-3 bg-blue-100">
+              <SanityImage image={data.image} fill />
+            </div>
+            <div className="col-span-5">
+              {data.productDisplay && (
+                <ProductDisplay
+                  title={data.productDisplay.title}
+                  products={data.productDisplay.products}
+                />
+              )}
+            </div>
+            <div className="col-span-3 grid gap-y-4">
+              <KastelClubCard lang={lang} />
+              <MyInfoCard customerData={customerData} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

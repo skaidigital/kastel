@@ -42,6 +42,7 @@ export type CustomerMetadata = {
   data: {
     customer: {
       id: string;
+      emailAddress: { emailAddress: string };
       firstName: string;
       lastName: string;
       metafield: {
@@ -61,6 +62,9 @@ const getWishlistQuery = /* GraphQL */ `
   query getWishlist($key: String!, $namespace: String!) {
     customer {
       id
+      emailAddress {
+        emailAddress
+      }
       firstName
       lastName
       metafield(key: $key, namespace: $namespace) {

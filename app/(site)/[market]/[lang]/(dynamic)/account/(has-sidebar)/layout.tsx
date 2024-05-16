@@ -59,5 +59,3 @@ export default async function Layout({ params: { lang }, children }: Props) {
     </Container>
   );
 }
-
-function handleLogInState() {}
