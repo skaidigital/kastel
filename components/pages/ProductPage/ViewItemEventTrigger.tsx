@@ -34,9 +34,6 @@ export function ViewItemEventTrigger({ productId, productTitle, price, slug, ima
 
   const _learnq = typeof window !== 'undefined' ? window._learnq : [];
 
-  console.log('in view item event trigger');
-  console.log('_learnq before', _learnq);
-
   const domain =
     process.env.NODE_ENV === 'production'
       ? `https://www.${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
