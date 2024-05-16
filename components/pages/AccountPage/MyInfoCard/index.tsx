@@ -73,6 +73,16 @@ export function MyInfoCard({ customerData }: Props) {
   const colorString = getColorString(lang);
   const editString = getEditString(lang);
 
+  const firstNameString = getFirstNameString(lang);
+  const lastNameString = getLastNameString(lang);
+  const footLengthTitleString = getFootLengthTitleString(lang);
+  const footLengthDescriptionString = getFootLengthDescriptionString(lang);
+  const styleTitleString = getStyleTitleString(lang);
+  const styleDescriptionString = getStyleDescriptionString(lang);
+  const colorPreferenceTitleString = getColorPreferenceTitleString(lang);
+  const colorPreferenceDescriptionString = getColorPreferenceDescriptionString(lang);
+  const submitString = getSubmitString(lang);
+
   const hasFirstNameOrLastName = getValues('firstName') !== '' || getValues('lastName') !== '';
   const hasFootLength = getValues('footLength') !== '';
   const hasStyle = getValues('style') !== '';
@@ -119,37 +129,37 @@ export function MyInfoCard({ customerData }: Props) {
                 control={control}
                 disabled={isSubmitting}
                 name="firstName"
-                label="First name"
+                label={firstNameString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="lastName"
-                label="Last name"
+                label={lastNameString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="footLength"
-                label="Foot length"
-                description="Measure from the base of your foot to something something or another something"
+                label={footLengthTitleString}
+                description={footLengthDescriptionString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="style"
-                label="Style"
-                description="Measure from the base of your foot to something something or another something"
+                label={styleTitleString}
+                description={styleDescriptionString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="color"
-                label="Color preference"
-                description="Measure from the base of your foot to something something or another something"
+                label={colorPreferenceTitleString}
+                description={colorPreferenceDescriptionString}
               />
               <Button type="submit" size="sm" isLoading={isPending} className="w-full">
-                Submit
+                {submitString}
               </Button>
             </form>
           </SheetContent>
@@ -169,37 +179,37 @@ export function MyInfoCard({ customerData }: Props) {
                 control={control}
                 disabled={isSubmitting}
                 name="firstName"
-                label="First name"
+                label={firstNameString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="lastName"
-                label="Last name"
+                label={lastNameString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="footLength"
-                label="Foot length"
-                description="Measure from the base of your foot to something something or another something"
+                label={footLengthTitleString}
+                description={footLengthDescriptionString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="style"
-                label="Style"
-                description="Measure from the base of your foot to something something or another something"
+                label={styleTitleString}
+                description={styleDescriptionString}
               />
               <FormInput
                 control={control}
                 disabled={isSubmitting}
                 name="color"
-                label="Color preference"
-                description="Measure from the base of your foot to something something or another something"
+                label={colorPreferenceTitleString}
+                description={colorPreferenceDescriptionString}
               />
               <Button type="submit" size="sm" isLoading={isPending} className="w-full">
-                Submit
+                {submitString}
               </Button>
             </form>
           </ModalContent>
@@ -261,5 +271,104 @@ function getEditString(lang: LangValues) {
       return 'Endre';
     default:
       return 'Edit';
+  }
+}
+
+function getFirstNameString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'First name';
+    case 'no':
+      return 'Fornavn';
+    default:
+      return 'First name';
+  }
+}
+
+function getLastNameString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Last name';
+    case 'no':
+      return 'Etternavn';
+    default:
+      return 'Last name';
+  }
+}
+
+function getFootLengthTitleString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Foot length';
+    case 'no':
+      return 'Fotlengde';
+    default:
+      return 'Foot length';
+  }
+}
+
+function getFootLengthDescriptionString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Draw your longest foot on a piece of paper and measure from the middle of the heel to the tip of the longest toe.';
+    case 'no':
+      return 'Tegn din lengste fot på et papir og mål fra midten av hælen til tuppen av den lengste tåen.';
+    default:
+      return 'Draw your longest foot on a piece of paper and measure from the middle of the heel to the tip of the longest toe.';
+  }
+}
+
+function getStyleTitleString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Style';
+    case 'no':
+      return 'Stil';
+    default:
+      return 'Style';
+  }
+}
+
+function getStyleDescriptionString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'We’d love to get to know you better. How would you describe your style? Casual, elegant, minimal?';
+    case 'no':
+      return 'Vi ønsker å bli bedre kjent med deg. Hvordan vil du beskrive din stil? Uformell, elegant, minimalistisk?';
+    default:
+      return 'We’d love to get to know you better. How would you describe your style? Casual, elegant, minimal?';
+  }
+}
+
+function getColorPreferenceTitleString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Color preference';
+    case 'no':
+      return 'Fargepreferanse';
+    default:
+      return 'Color preference';
+  }
+}
+
+function getColorPreferenceDescriptionString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Understanding your preferences helps us create products you’ll love. What’s your go-to color when buying shoes?';
+    case 'no':
+      return 'Å forstå dine preferanser hjelper oss å lage produkter du vil elske. Hva er din foretrukne farge når du kjøper sko?';
+    default:
+      return 'Understanding your preferences helps us create products you’ll love. What’s your go-to color when buying shoes?';
+  }
+}
+
+function getSubmitString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Submit';
+    case 'no':
+      return 'Lagre';
+    default:
+      return 'Submit';
   }
 }
