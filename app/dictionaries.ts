@@ -205,7 +205,7 @@ export const getDictionary = async ({ lang }: { lang: LangValues }) => {
   const loader = dictionaries[lang];
 
   if (!loader) {
-    throw new Error(`Error in dictionary`);
+    throw new Error(`Error in dictionary, with lang ${lang} not found.`);
   }
   return loader();
 };

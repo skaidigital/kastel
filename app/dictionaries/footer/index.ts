@@ -34,7 +34,7 @@ export const getFooterDictionary = async (lang: LangValues) => {
   const loader = dictionaries[lang];
 
   if (!loader) {
-    throw new Error(`Error in dictionary`);
+    throw new Error(`Error in footer dictionary for lang: ${lang}`);
   }
   return loader();
 };
