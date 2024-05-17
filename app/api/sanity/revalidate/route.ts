@@ -9,25 +9,37 @@ const revalidateSecret = env.SANITY_REVALIDATE_SECRET;
 // TODO see if we can extend this one
 export async function POST(req: NextRequest) {
   try {
+    console.log('Revalidating cache for Sanity');
+
     const { body, isValidSignature } = await parseBody<{
       _type: string;
       slug?: string | undefined;
     }>(req, revalidateSecret);
 
     if (!isValidSignature) {
+      console.log('Invalid signature');
+
       const message = 'Invalid signature';
       return new Response(message, { status: 401 });
     }
 
     if (!body?._type) {
+      console.log('Missing type');
+
       return new Response('Bad Request', { status: 400 });
     }
 
     if (body._type === SANITY_SINGLETON_DOCUMENT_IDS.USPS) {
+      console.log('Revalidating USPS');
+
       revalidateTag(CACHE_TAGS.USPS);
     } else if (body.slug) {
+      console.log('Revalidating this slug', body.slug);
+
       revalidateTag(`${body._type}:${body.slug}`);
     } else {
+      console.log('Revalidating this type', body._type);
+
       revalidateTag(body._type);
     }
     return NextResponse.json({
