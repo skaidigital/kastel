@@ -42,8 +42,6 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
   const { cartOpen: isOpen, setCartOpen: setIsOpen } = useCartContext();
   const { cart } = useCart();
 
-  console.log({ cart });
-
   const checkoutUrl = getCheckoutUrl({ cartCheckoutUrl: cart?.checkoutUrl, isLoggedIn });
 
   const isDesktop = useIsDesktop();

@@ -82,18 +82,16 @@ export async function ProductPageLayout(props: Props) {
         slug={product.slug}
         imageUrl={urlForImage(mainImage).url()}
       />
-      {product.galleryFemale && product.galleryFemale.length > 0 && (
-        <div className="relative w-full">
-          <MobileCarousel
-            mainImage={mainImage}
-            lifestyleImage={lifeStyleImageCheck}
-            galleryFemale={product.galleryFemale}
-            galleryMale={product.galleryMale}
-            lang={lang}
-          />
-          <Breadcrumbs productName={title} lang={lang} className="absolute left-3 top-3" />
-        </div>
-      )}
+      <div className="relative w-full">
+        <MobileCarousel
+          mainImage={mainImage}
+          lifestyleImage={lifeStyleImageCheck}
+          galleryFemale={product.galleryFemale}
+          galleryMale={product.galleryMale}
+          lang={lang}
+        />
+        <Breadcrumbs productName={title} lang={lang} className="absolute left-3 top-3" />
+      </div>
       <Section
         noTopPadding
         noBottomPadding
