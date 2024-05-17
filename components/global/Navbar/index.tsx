@@ -9,11 +9,7 @@ import { loadQuery } from '@/lib/sanity/store';
 async function loadNavbar({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = getNavbarQuery({ market, lang });
 
-  return loadQuery<NavbarPayload>(
-    query,
-    {},
-    { next: { tags: [CACHE_TAGS.NAVBAR, CACHE_TAGS.ANNOUNCEMENT_BANNER] } }
-  );
+  return loadQuery<NavbarPayload>(query, {}, { next: { tags: [CACHE_TAGS.NAVBAR] } });
 }
 
 interface Props {
