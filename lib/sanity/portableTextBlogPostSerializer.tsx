@@ -345,7 +345,7 @@ export const portableTextBlogPostSerializer = {
   }
 };
 
-function convertAspectRatio(aspectRatio) {
+function convertAspectRatio(aspectRatio: number) {
   if (aspectRatio === 0) return '0:0'; // Handle edge case
 
   // Consider aspect ratio as width/height
@@ -353,7 +353,7 @@ function convertAspectRatio(aspectRatio) {
   const height = 1;
 
   // Function to find the greatest common divisor (GCD) using Euclidean algorithm
-  function gcd(a, b) {
+  function gcd(a: number, b: number): any {
     return b === 0 ? a : gcd(b, a % b);
   }
 
