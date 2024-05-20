@@ -29,11 +29,7 @@ export function BlogPost({ data, lang }: Props) {
   } = data;
 
   return (
-    <Section
-      label="blogPostContent"
-      srHeading="Blog post content"
-      className="article-grid pt-10 lg:pt-20"
-    >
+    <Section label="blogPostContent" srHeading="Blog post content" className="pt-10 lg:pt-20">
       <Container>
         <BlogPostHeader
           title={title}

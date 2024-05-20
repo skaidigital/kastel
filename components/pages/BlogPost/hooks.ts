@@ -8,8 +8,7 @@ import {
   getLinkWithoutText,
   getMedia,
   getProductCard,
-  getQuote,
-  videoSettings
+  getQuote
 } from '@/lib/sanity/fragments';
 import {
   aspectRatiosValidator,
@@ -118,8 +117,8 @@ export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: M
           _type == "video" => {
             "videoUrl": video.asset->.playbackId,
             "aspectRatio": video.asset->.data.aspect_ratio,
-            videoSettings{
-              ${videoSettings},
+            aspectRatioSettings{
+              ${aspectRatioSettings}
             },
             width
           },

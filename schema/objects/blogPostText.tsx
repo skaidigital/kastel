@@ -72,23 +72,14 @@ export const blogPostText = defineField({
         {
           title: 'Normal',
           value: 'normal'
-          // component: ({ children }: any) => {
-          //   return <p className="text-sm text-brand-mid-grey lg:text-md">{children}</p>;
-          // }
         },
         {
           title: 'H2',
           value: 'h2'
-          // component: ({ children }: any) => {
-          //   return <h2 className="text-heading-sm font-bold text-brand-dark-grey">{children}</h2>;
-          // }
         },
         {
           title: 'H3',
           value: 'h3'
-          // component: ({ children }: any) => {
-          //   return <h2 className="text-heading-xs font-bold text-brand-dark-grey">{children}</h2>;
-          // }
         },
         {
           title: 'H4',
@@ -97,16 +88,10 @@ export const blogPostText = defineField({
         {
           title: 'Text (Large)',
           value: 'text-lg'
-          // component: ({ children }: any) => {
-          //   return <p className="text-lg text-brand-mid-grey">{children}</p>;
-          // }
         },
         {
           title: 'Text (Small)',
           value: 'text-sm'
-          // component: ({ children }: any) => {
-          //   return <p className="text-sm text-brand-mid-grey">{children}</p>;
-          // }
         },
         {
           title: 'Quote',
@@ -120,6 +105,14 @@ export const blogPostText = defineField({
       name: 'video',
       title: 'Video',
       icon: Video,
+      preview: {
+        prepare() {
+          return {
+            title: 'Video',
+            subtitle: 'Video'
+          };
+        }
+      },
       fields: [
         defineField({
           title: 'Video',
@@ -128,9 +121,9 @@ export const blogPostText = defineField({
           validation: (Rule) => Rule.required()
         }),
         defineField({
-          title: 'Video settings',
-          name: 'videoSettings',
-          type: 'videoSettings',
+          title: 'Aspect ratio settings',
+          name: 'aspectRatioSettings',
+          type: 'aspectRatioSettings',
           validation: (Rule) => Rule.required()
         }),
         defineField({

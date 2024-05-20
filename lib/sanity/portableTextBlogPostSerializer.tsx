@@ -12,10 +12,10 @@ import {
   HybridTooltipContent,
   HybridTooltipTrigger
 } from '@/components/HybridTooltip';
+import LazyLoadedVideo from '@/components/LazyLoadedVideo';
 import { Media } from '@/components/Media';
 import { Quote } from '@/components/Quote';
 import { TooltipProvider } from '@/components/Tooltip';
-import VideoWithSettings from '@/components/VideoWithSettings';
 import { Container } from '@/components/base/Container';
 import { ListItem } from '@/components/base/ListItem';
 import { OL } from '@/components/base/OL';
@@ -188,17 +188,19 @@ export const portableTextBlogPostSerializer = {
     },
     video: ({ value }: any) => {
       return (
-        <BlogWidthContainer width={value.width}>
-          <div className="aspect-h-9 aspect-w-16 relative mx-auto mt-6 w-full">
-            {value.videoUrl && (
-              <VideoWithSettings
-                playbackId={value.videoUrl}
-                settings={value.videoSettings}
-                aspectRatio={value.aspectRatio}
-                loading="lazy"
-              />
-            )}
-          </div>
+        <BlogWidthContainer width={value.width} className="my-10">
+          {value?.aspectRatioSettings && (
+            <AspectRatio settings={value.aspectRatioSettings}>
+              {value.videoUrl && (
+                <LazyLoadedVideo
+                  playbackId={value.videoUrl}
+                  loading="lazy"
+                  resolution="HD"
+                  controls
+                />
+              )}
+            </AspectRatio>
+          )}
         </BlogWidthContainer>
       );
     },
@@ -206,7 +208,7 @@ export const portableTextBlogPostSerializer = {
       return (
         <BlogWidthContainer width={value.width} className="mt-6">
           {value.aspectRatioSettings && (
-            <AspectRatio settings={value.aspectRatioSettings} className="">
+            <AspectRatio settings={value.aspectRatioSettings}>
               {value.image?.image?.asset?._ref && (
                 <HotspotImage
                   type="hotspotImage"
@@ -278,9 +280,9 @@ export const portableTextBlogPostSerializer = {
                         <CarouselNext />
                       </div>
                     </div>
-                    <CarouselContent className="-ml-0 grid grid-cols-3">
+                    <CarouselContent className="-ml-0">
                       {value?.products?.map((product: ProductCardProps) => (
-                        <CarouselItem className="pl-0" key={product.gid}>
+                        <CarouselItem className="basis-1/3 pl-0" key={product.gid}>
                           <ProductCard product={product} />
                         </CarouselItem>
                       ))}
