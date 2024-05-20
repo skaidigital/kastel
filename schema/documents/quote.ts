@@ -27,6 +27,7 @@ export const quote = defineType({
     }),
     defineField({
       title: 'Quote',
+      description: 'You do not need to add quotation marks',
       name: 'text',
       type: 'i18n.text',
       options: {

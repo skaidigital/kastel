@@ -131,7 +131,7 @@ export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: M
             },
           },
           _type == "products" => {
-            "title": title.${lang},
+            "title": titleProducts.${lang},
             "products": products[]->{
               ${getProductCard(lang, market)}
             },

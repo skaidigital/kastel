@@ -1,11 +1,4 @@
 import { AspectRatio } from '@/components/AspectRatio';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from '@/components/Carousel';
 import { HotspotImage } from '@/components/HotspotImage';
 import {
   HybridTooltip,
@@ -25,7 +18,6 @@ import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContain
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { SanityLink } from '@/components/sanity/SanityLink';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
 
@@ -205,17 +197,23 @@ export const portableTextBlogPostSerializer = {
       );
     },
     hotspotImage: ({ value }: any) => {
+      const aspectRatio: any = convertAspectRatio(value?.image?.image?.aspectRatio);
+
       return (
         <BlogWidthContainer width={value.width} className="mt-6">
-          {value.aspectRatioSettings && (
-            <AspectRatio settings={value.aspectRatioSettings}>
-              {value.image?.image?.asset?._ref && (
-                <HotspotImage
-                  type="hotspotImage"
-                  image={value.image.image}
-                  hotspots={value.image.hotspots}
-                />
-              )}
+          {value.image && value.image.hotspots && (
+            <AspectRatio
+              settings={{
+                aspectRatio,
+                sameAspectRatio: true
+              }}
+            >
+              <HotspotImage
+                type={value.image.type}
+                image={value.image.image}
+                hotspots={value.image.hotspots}
+                sizes="100vw"
+              />
             </AspectRatio>
           )}
         </BlogWidthContainer>
@@ -233,7 +231,7 @@ export const portableTextBlogPostSerializer = {
       if (productCount >= 2) {
         return (
           <>
-            <div className="flex w-full flex-col gap-y-4 lg:hidden lg:gap-y-6">
+            {/* <div className="flex w-full flex-col gap-y-4 lg:hidden lg:gap-y-6">
               {value.title && (
                 <h2 className="mx-4 text-heading-sm font-bold uppercase lg:text-heading-lg">
                   {value.title}
@@ -280,9 +278,12 @@ export const portableTextBlogPostSerializer = {
                         <CarouselNext />
                       </div>
                     </div>
-                    <CarouselContent className="-ml-0">
+                    <CarouselContent className="-ml-0 bg-black">
                       {value?.products?.map((product: ProductCardProps) => (
-                        <CarouselItem className="basis-1/3 pl-0" key={product.gid}>
+                        <CarouselItem
+                          className="grow basis-[33%] bg-pink-200 pl-0"
+                          key={product.gid}
+                        >
                           <ProductCard product={product} />
                         </CarouselItem>
                       ))}
@@ -290,7 +291,18 @@ export const portableTextBlogPostSerializer = {
                   </Carousel>
                 )}
               </div>
-            </BlogWidthContainer>
+            </BlogWidthContainer> */}
+            {/* <BlogWidthContainer width="wide"> */}
+            {/* <Carousel className="">
+              <CarouselContent className="">
+                <CarouselItem className="basis-1/3">
+                  <div className="w-full bg-pink-600">1</div>
+                </CarouselItem>
+                <CarouselItem className="basis-1/3 bg-green-50">2</CarouselItem>
+                <CarouselItem className="basis-1/3 bg-yellow-50">3</CarouselItem>
+              </CarouselContent>
+            </Carousel> */}
+            {/* </BlogWidthContainer> */}
           </>
         );
       }
@@ -332,3 +344,23 @@ export const portableTextBlogPostSerializer = {
     }
   }
 };
+
+function convertAspectRatio(aspectRatio) {
+  if (aspectRatio === 0) return '0:0'; // Handle edge case
+
+  // Consider aspect ratio as width/height
+  const width = aspectRatio;
+  const height = 1;
+
+  // Function to find the greatest common divisor (GCD) using Euclidean algorithm
+  function gcd(a, b) {
+    return b === 0 ? a : gcd(b, a % b);
+  }
+
+  // Simplify the ratio
+  const divisor = gcd(width, height);
+  const simplifiedWidth = width / divisor;
+  const simplifiedHeight = height / divisor;
+
+  return `${simplifiedWidth}:${simplifiedHeight}`;
+}

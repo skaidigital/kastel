@@ -171,7 +171,7 @@ export const blogPostText = defineField({
       fields: [
         defineField({
           title: 'Title',
-          name: 'title',
+          name: 'titleProducts',
           type: 'i18n.string',
           validation: validateAllStringTranslations
         }),

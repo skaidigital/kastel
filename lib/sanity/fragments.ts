@@ -341,7 +341,8 @@ export function getHotspotImage(lang: LangValues, market: MarketValues) {
   return groq`
   "type": _type,
   image{
-    ${getImageBase(lang)}
+    ${getImageBase(lang)},
+    "aspectRatio": asset->.metadata.dimensions.aspectRatio
   },
   hotspots[]{
     ...select(
