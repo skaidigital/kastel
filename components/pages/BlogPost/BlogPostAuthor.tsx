@@ -12,7 +12,7 @@ export function BlogPostAuthor({ name, role, image, description, className }: Pr
     <div
       className={cn('flex flex-col gap-4 bg-nature-lab-beige p-6 lg:flex-row lg:gap-6', className)}
     >
-      <div className="w-[160px]">
+      <div className="w-[160px] shrink-0">
         <div className="aspect-h-1 aspect-w-1 relative">
           <SanityImage image={image} fill className="relative rounded-[2px]" />
         </div>
