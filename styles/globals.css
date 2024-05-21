@@ -362,3 +362,7 @@
 [data-testid='animated-teaser'] {
   opacity: 0 !important;
 }
+
+.sign-in-text {
+  display: none !important;
+}
