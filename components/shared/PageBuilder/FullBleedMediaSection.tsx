@@ -14,8 +14,6 @@ interface Props {
   data: PropsWithExtra;
 }
 
-// TODO: Fix overlay
-// TODO fix w-fit h-fit making mobile ugly
 export const FullBleedMediaSection = ({ data }: Props) => {
   const {
     index,
@@ -45,42 +43,39 @@ export const FullBleedMediaSection = ({ data }: Props) => {
           {media && <Media media={media} loading="lazy" sizes="100vw" />}
           <div
             className={cn(
-              'absolute z-30 h-fit w-fit',
-              textPlacementMobile === 'left-top' && 'left-0 top-0',
-              textPlacementMobile === 'left-center' && 'left-0 top-1/2 -translate-y-1/2 transform',
-              textPlacementMobile === 'left-bottom' && 'left-0 top-0 mt-auto',
-              textPlacementMobile === 'center-top' &&
-                'left-1/2 top-0 -translate-x-1/2 transform text-center',
-              textPlacementMobile === 'center' &&
-                'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center',
-              textPlacementMobile === 'center-bottom' &&
-                'left-1/2 top-0 mt-auto -translate-x-1/2 transform text-center',
-              textPlacementDesktop === 'left-top' && 'lg:left-0 lg:top-0',
+              'absolute z-[2] flex h-full w-full flex-col text-white',
+              textPlacementMobile === 'left-top' && 'items-start justify-start text-left',
+              textPlacementMobile === 'left-center' && 'items-start justify-center text-left',
+              textPlacementMobile === 'left-bottom' && 'items-start justify-end text-left',
+              textPlacementMobile === 'center-top' && 'items-center justify-start text-center',
+              textPlacementMobile === 'center' && 'items-center justify-center text-center',
+              textPlacementMobile === 'center-bottom' && 'items-center justify-end text-center',
+              textPlacementDesktop === 'left-top' && 'lg:items-start lg:justify-start lg:text-left',
               textPlacementDesktop === 'left-center' &&
-                'lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:transform',
+                'lg:items-start lg:justify-center lg:text-left',
               textPlacementDesktop === 'left-bottom' &&
-                'lg:left-0 lg:top-0 lg:mt-auto lg:transform',
+                'lg:items-start lg:justify-end lg:text-left',
               textPlacementDesktop === 'center-top' &&
-                'lg:left-1/2 lg:top-0 lg:-translate-x-1/2 lg:transform lg:text-center',
+                'lg:items-center lg:justify-start lg:text-center',
               textPlacementDesktop === 'center' &&
-                'lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:transform lg:text-center',
+                'lg:items-center lg:justify-center lg:text-center',
               textPlacementDesktop === 'center-bottom' &&
-                'lg:left-1/2 lg:top-0 lg:mt-auto lg:-translate-x-1/2 lg:transform lg:text-center',
-              textPlacementDesktop === 'split-bottom' && 'w-full'
+                'lg:items-center lg:justify-end lg:text-center',
+              textPlacementDesktop === 'split-bottom' && 'lg:w-full lg:justify-end'
             )}
           >
             <div
               className={cn(
-                'flex flex-col items-center gap-4 p-6 lg:gap-6 lg:p-8',
+                'flex flex-col gap-4 p-6 lg:w-fit lg:gap-6 lg:p-8',
                 textPlacementDesktop === 'split-bottom' &&
-                  'lg:w-full lg:max-w-none lg:flex-row lg:justify-between'
+                  'lg:w-full lg:flex-row lg:justify-between'
               )}
             >
               {title && (
                 <h2
                   className={cn(
                     'text-pretty text-heading-lg font-bold uppercase text-white lg:max-w-[750px] lg:text-heading-xl',
-                    textPlacementDesktop === 'split-bottom' && 'text-left'
+                    textPlacementDesktop === 'split-bottom' && 'lg:text-left'
                   )}
                 >
                   {title}
@@ -89,8 +84,8 @@ export const FullBleedMediaSection = ({ data }: Props) => {
               {description && (
                 <p
                   className={cn(
-                    'text-md text-brand-light-grey lg:max-w-[580px]  lg:text-lg',
-                    textPlacementDesktop === 'split-bottom' && 'text-left'
+                    'text-md text-brand-light-grey lg:max-w-[580px] lg:text-lg',
+                    textPlacementDesktop === 'split-bottom' && 'lg:text-left'
                   )}
                 >
                   {description}
@@ -100,7 +95,7 @@ export const FullBleedMediaSection = ({ data }: Props) => {
           </div>
         </AspectRatio>
       )}
-      {hasAnyContent && <div className="absolute left-0 top-0 z-10 h-full w-full bg-black/30" />}
+      {hasAnyContent && <div className="absolute left-0 top-0 z-[1] h-full w-full bg-black/30" />}
     </Section>
   );
 };
