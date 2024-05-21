@@ -20,7 +20,7 @@ function loadHomePage({ market, lang }: { market: MarketValues; lang: LangValues
 }
 
 interface Props {
-  params: { slug: string; market: MarketValues; lang: LangValues };
+  params: { market: MarketValues; lang: LangValues };
 }
 
 export default async function HomePage({ params: { market, lang } }: Props) {

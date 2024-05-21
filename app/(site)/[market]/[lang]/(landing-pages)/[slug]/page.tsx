@@ -13,6 +13,8 @@ import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-static';
+
 export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
   const slugs = await generateStaticSlugs(lang, 'page');
 
