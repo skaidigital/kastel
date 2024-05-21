@@ -33,14 +33,26 @@ export async function POST(req: NextRequest) {
       console.log('Revalidating USPS');
 
       revalidateTag(CACHE_TAGS.USPS);
+
+      setTimeout(() => {
+        revalidateTag(CACHE_TAGS.USPS);
+      }, 2000);
     } else if (body.slug) {
       console.log('Revalidating this slug', body.slug);
 
       revalidateTag(`${body._type}:${body.slug}`);
+
+      setTimeout(() => {
+        revalidateTag(`${body._type}:${body.slug}`);
+      }, 2000);
     } else {
       console.log('Revalidating this type', body._type);
 
       revalidateTag(body._type);
+
+      setTimeout(() => {
+        revalidateTag(body._type);
+      }, 2000);
     }
     return NextResponse.json({
       status: 200,
