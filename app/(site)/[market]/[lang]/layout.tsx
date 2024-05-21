@@ -52,6 +52,22 @@ export default function IndexRoute({
         id="klaviyo-on-site-tracking"
         src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${env.NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY}`}
       />
+      <Script id="lipscore-snippet" strategy="afterInteractive">
+        {`
+        //<![CDATA[
+          window.lipscoreInit = function() {
+              lipscore.init({
+                  apiKey: "${env.LIPSCORE_API_KEY}"
+              });
+          };
+          (function() {
+              var scr = document.createElement('script'); scr.async = 1;
+              scr.src = "//static.lipscore.com/assets/en/lipscore-v1.js";
+              document.getElementsByTagName('head')[0].appendChild(scr);
+          })();
+          //]]>
+      `}
+      </Script>
       <SpeedInsights />
       <CartContextProvider>
         <Providers>
