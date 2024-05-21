@@ -6,7 +6,7 @@ export default function LipscoreInit() {
   useEffect(() => {
     window.lipscoreInit = function () {
       // eslint-disable-next-line no-undef
-      lipscore.init({
+      window.lipscore.init({
         apiKey: '889c3f3e4b6ac67269261324'
       });
     };
