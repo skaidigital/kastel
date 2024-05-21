@@ -145,7 +145,7 @@ export async function ProductPageLayout(props: Props) {
                     maxVariantPrice={product.maxVariantPrice}
                   />
                 </div>
-                <div className="my-4 flex flex-col gap-8">
+                <div className="mt-4 flex flex-col gap-8">
                   {descriptionShort && (
                     <ProductPageShortDescription
                       description={descriptionShort}

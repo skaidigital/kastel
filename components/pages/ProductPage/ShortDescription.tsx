@@ -16,10 +16,11 @@ export function ProductPageShortDescription({
 
   return (
     <motion.div
+      aria-hidden={!showProductDescription}
       animate={showProductDescription ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
       transition={{ duration: 0.3 }}
       style={{ overflow: 'hidden' }}
-      className={cn(!showProductDescription && '-mt-4', className)}
+      className={cn(!showProductDescription && '-mt-6', className)}
     >
       <Text as="p" size="sm">
         {description}

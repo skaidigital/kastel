@@ -47,7 +47,7 @@ export function ProductPrice({
   const minAndMaxPricesAreEqual = formattedMinVariantPrice === formattedMaxVariantPrice;
 
   return (
-    <div className="my-4 flex text-sm">
+    <div className="mt-4 flex text-sm">
       <>
         {formattedDiscountedPrice && (
           <span className="mr-3 " suppressHydrationWarning>
