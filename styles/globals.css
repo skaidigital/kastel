@@ -358,3 +358,7 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+[data-testid='animated-teaser'] {
+  display: none;
+}
