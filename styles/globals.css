@@ -360,5 +360,5 @@
 }
 
 [data-testid='animated-teaser'] {
-  display: none;
+  display: none !important;
 }
