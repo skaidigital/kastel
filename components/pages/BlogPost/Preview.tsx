@@ -1,3 +1,5 @@
+'use client';
+
 import { BlogPost } from '@/components/pages/BlogPost';
 import { BlogPostPayload, getBlogPostQuery } from '@/components/pages/BlogPost/hooks';
 import { LangValues, MarketValues } from '@/data/constants';

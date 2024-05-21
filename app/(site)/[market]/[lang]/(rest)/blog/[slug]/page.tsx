@@ -1,4 +1,5 @@
 import { BlogPost } from '@/components/pages/BlogPost';
+import { BlogPostPreview } from '@/components/pages/BlogPost/Preview';
 import { BlogPostPayload, getBlogPostQuery } from '@/components/pages/BlogPost/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
@@ -7,7 +8,11 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+// import dynamic from 'next/dynamic';
+
+// const DynamicBlostPostPreview = dynamic(() => import('@/components/pages/BlogPost/Preview').then((mod) => mod.BlogPostPreview))
 
 export const dynamic = 'force-static';
 
@@ -17,6 +22,7 @@ export async function generateStaticParams({ params: { lang } }: { params: { lan
   return slugs;
 }
 
+// TODO dynamically load blog post
 function loadBlogPost({
   slug,
   lang,
@@ -41,11 +47,16 @@ interface Props {
 
 export default async function BlogPostSlugRoute({ params }: Props) {
   const { slug, market, lang } = params;
+  const isInDraftMode = draftMode().isEnabled;
 
   const initial = await loadBlogPost({ slug, lang, market });
 
   if (!initial.data) {
     return notFound();
+  }
+
+  if (isInDraftMode) {
+    return <BlogPostPreview post={initial.data} market={market} lang={lang} />;
   }
 
   const pageWithoutNullValues = nullToUndefined(initial.data);

@@ -42,6 +42,7 @@ interface Props {
 export default async function PageSlugRoute({ params }: Props) {
   const { slug, market, lang } = params;
   const initial = await loadPage({ slug, market, lang });
+  // const isInDraftMode = draftMode().isEnabled;
 
   if (!initial.data) {
     return notFound();
@@ -55,6 +56,9 @@ export default async function PageSlugRoute({ params }: Props) {
   // if (!validatedPage.success) {
   //   console.error('Failed to validate page', validatedPage.error);
   //   return notFound();
+  // }
+  // if (isInDraftMode) {
+  //   return <PagePreview page={initial.data} market={market} lang={lang} slug="home" />;
   // }
 
   return <PageLayout data={cleanedPageData} market={market} lang={lang} />;

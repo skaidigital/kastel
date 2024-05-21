@@ -18,11 +18,10 @@ import { GoogleTagManager } from '@next/third-parties/google';
 // import { VisualEditing } from 'next-sanity';
 // import { revalidatePath, revalidateTag } from 'next/cache';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { VisualEditing } from 'next-sanity';
-import { revalidatePath, revalidateTag } from 'next/cache';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
 
+import { VisualEditing } from 'next-sanity';
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
@@ -59,7 +58,8 @@ export default function IndexRoute({
             <PopupHandler lang={lang} />
             <main>
               {children}
-              {draftMode().isEnabled && (
+              {draftMode().isEnabled && <VisualEditing />}
+              {/* {draftMode().isEnabled && (
                 <VisualEditing
                   refresh={async (payload) => {
                     'use server';
@@ -77,7 +77,7 @@ export default function IndexRoute({
                     await revalidatePath('/', 'layout');
                   }}
                 />
-              )}
+              )} */}
               <Analytics />
             </main>
           </div>

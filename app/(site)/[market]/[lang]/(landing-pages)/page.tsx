@@ -10,6 +10,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-static';
 
@@ -25,9 +26,14 @@ interface Props {
 
 export default async function HomePage({ params: { market, lang } }: Props) {
   const initial = await loadHomePage({ market, lang });
+  // const isInDraftMode = draftMode().isEnabled;
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
   const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
+
+  if (!initial.data) {
+    return notFound();
+  }
 
   // const validatedPage = pageValidator.safeParse(cleanedPageData);
 
@@ -37,6 +43,10 @@ export default async function HomePage({ params: { market, lang } }: Props) {
   // }
   // if (draftMode().isEnabled) {
   //   return <PagePreview initial={initial} market={market} lang={lang} />;
+  // }
+
+  // if (isInDraftMode) {
+  //   return <PagePreview page={initial.data} market={market} lang={lang} slug="home" />;
   // }
 
   return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
