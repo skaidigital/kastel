@@ -22,6 +22,7 @@ import {
 } from '@/lib/shopify/mutations';
 import { isCreatedInShopify } from '@/lib/shopify/queries';
 import { sanityQuery } from 'lib/sanity';
+import { revalidateTag } from 'next/cache';
 import { NextRequest } from 'next/server';
 
 //todo Check on response types, for best toast experience in Sanity
@@ -88,6 +89,11 @@ export async function POST(request: NextRequest, res: Response) {
         status: STATUS_CODES.BAD_REQUEST
       });
     }
+    revalidateTag(`product:${sanityProductResponse.data.slug}`);
+
+    setTimeout(() => {
+      revalidateTag(`product:${sanityProductResponse.data.slug}`);
+    }, 2000);
 
     return new Response(JSON.stringify({ success: true, data: productSyncedToShopify }), {
       status: STATUS_CODES.OK

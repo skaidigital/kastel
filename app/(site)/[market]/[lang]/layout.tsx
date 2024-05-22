@@ -20,11 +20,18 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import dynamic from 'next/dynamic';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
 
+import LipscoreInit from '@/components/lipscore/LipscoreInit';
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
+
+// Dynamically import the client-side component that manipulates the DOM
+const ClientSideScript = dynamic(() => import('@/components/lipscore/clientScript'), {
+  ssr: false
+});
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${env.NEXT_PUBLIC_VERCEL_URL}`
@@ -52,6 +59,22 @@ export default function IndexRoute({
         id="klaviyo-on-site-tracking"
         src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${env.NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY}`}
       />
+      {/* <Script id="lipscore-snippet" strategy="afterInteractive">
+        {`
+        //<![CDATA[
+          window.lipscoreInit = function() {
+              lipscore.init({
+                  apiKey: "${env.LIPSCORE_API_KEY}"
+              });
+          };
+          (function() {
+              var scr = document.createElement('script'); scr.async = 1;
+              scr.src = "//static.lipscore.com/assets/en/lipscore-v1.js";
+              document.getElementsByTagName('head')[0].appendChild(scr);
+          })();
+          //]]>
+      `} */}
+      {/* </Script> */}
       <SpeedInsights />
       <CartContextProvider>
         <Providers>
@@ -85,6 +108,8 @@ export default function IndexRoute({
           <MarketPopup lang={lang} />
           {draftMode().isEnabled && <PreviewToolbar />}
           <Smile />
+          <LipscoreInit />
+          {/* <ClientSideScript /> */}
         </Providers>
       </CartContextProvider>
     </>
