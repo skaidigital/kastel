@@ -1,4 +1,11 @@
 import { AspectRatio } from '@/components/AspectRatio';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from '@/components/Carousel';
 import { HotspotImage } from '@/components/HotspotImage';
 import {
   HybridTooltip,
@@ -18,6 +25,7 @@ import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContain
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { SanityLink } from '@/components/sanity/SanityLink';
 import { ProductCard } from '@/components/shared/ProductCard';
+import { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
 
@@ -231,7 +239,7 @@ export const portableTextBlogPostSerializer = {
       if (productCount >= 2) {
         return (
           <>
-            {/* <div className="flex w-full flex-col gap-y-4 lg:hidden lg:gap-y-6">
+            <div className="flex w-full flex-col gap-y-4 lg:hidden lg:gap-y-6">
               {value.title && (
                 <h2 className="mx-4 text-heading-sm font-bold uppercase lg:text-heading-lg">
                   {value.title}
@@ -278,31 +286,19 @@ export const portableTextBlogPostSerializer = {
                         <CarouselNext />
                       </div>
                     </div>
-                    <CarouselContent className="-ml-0 bg-black">
+                    <CarouselContent className="-ml-0 border border-brand-light-grey">
                       {value?.products?.map((product: ProductCardProps) => (
-                        <CarouselItem
-                          className="grow basis-[33%] bg-pink-200 pl-0"
-                          key={product.gid}
-                        >
-                          <ProductCard product={product} />
+                        <CarouselItem className="pl-0 lg:basis-1/3" key={product.gid}>
+                          <div className="m-[-1px]">
+                            <ProductCard product={product} />
+                          </div>
                         </CarouselItem>
                       ))}
                     </CarouselContent>
                   </Carousel>
                 )}
               </div>
-            </BlogWidthContainer> */}
-            {/* <BlogWidthContainer width="wide"> */}
-            {/* <Carousel className="">
-              <CarouselContent className="">
-                <CarouselItem className="basis-1/3">
-                  <div className="w-full bg-pink-600">1</div>
-                </CarouselItem>
-                <CarouselItem className="basis-1/3 bg-green-50">2</CarouselItem>
-                <CarouselItem className="basis-1/3 bg-yellow-50">3</CarouselItem>
-              </CarouselContent>
-            </Carousel> */}
-            {/* </BlogWidthContainer> */}
+            </BlogWidthContainer>
           </>
         );
       }

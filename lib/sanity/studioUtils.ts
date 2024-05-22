@@ -37,18 +37,24 @@ export const listNew = ({ S, title, schemaType }: ListNewProps) =>
 export const singleton = (S: StructureBuilder, title: string, type: string, id: string) =>
   S.listItem().title(title).id(id).child(S.document().schemaType(type).documentId(id));
 
-export function resolveHref(documentType?: string, slug?: string): string | undefined {
+export function resolveHref(
+  documentType?: string,
+  slug?: string,
+  lang?: LangValues
+): string | undefined {
+  const chosenLang = lang || 'no';
+
   switch (documentType) {
     case 'page':
-      return slug ? `/no/no/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/${slug}` : undefined;
     case 'product':
-      return slug ? `/no/no/products/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/products/${slug}` : undefined;
     case 'collection':
-      return slug ? `/no/no/collections/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/collections/${slug}` : undefined;
     case 'legalPage':
-      return slug ? `/no/no/legal/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/legal/${slug}` : undefined;
     case 'blogPost':
-      return slug ? `/no/no/blog/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/blog/${slug}` : undefined;
     default:
       console.warn('Invalid document type:', documentType);
       return undefined;

@@ -7,7 +7,6 @@ import {
   MarketValues
 } from '@/data/constants';
 import { cookies } from 'next/headers';
-import { MarketSelectorButton } from '../MarketSelectorButton';
 
 export default function PreviewToolbar() {
   const previewMarket =
@@ -18,11 +17,11 @@ export default function PreviewToolbar() {
   return (
     <div className="fixed bottom-10 left-1/2 z-20 translate-x-[-50%] bg-white">
       <div className="flex gap-x-2">
-        <MarketSelectorButton
+        {/* <MarketSelectorButton
           currentMarket={previewMarket}
           currentLang={previewLang}
           className="relative w-32"
-        />
+        /> */}
         <ExitDraftModeButton />
       </div>
     </div>

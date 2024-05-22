@@ -18,13 +18,14 @@ const documentTypesWithPreview = [
 export const locate: DocumentLocationResolver = (params, context) => {
   if (documentTypesWithPreview.includes(params.type)) {
     const doc$ = context.documentStore.listenQuery(
-      `*[_id==$id || references($id)]{_type,"slug": slug_no,"title": title_en, internalTitle, "id": _id}`,
+      `*[_id==$id || references($id)]{_type,"slug": slug_no, "slug_en": slug_en,"title": title_en, internalTitle, "id": _id}`,
       params,
       { perspective: 'previewDrafts' }
     ) as Observable<
       | {
           _type: string;
           slug: { current: string };
+          slug_en: { current: string };
           title: string | null;
           internalTitle: string | null;
           id: string;
@@ -55,6 +56,10 @@ export const locate: DocumentLocationResolver = (params, context) => {
                     {
                       title: thisDocument?.internalTitle || thisDocument?.title || 'Untitled',
                       href: `${resolveHref(thisDocument._type, thisDocument?.slug?.current)!}`
+                    },
+                    {
+                      title: thisDocument?.internalTitle || thisDocument?.title || 'Untitled',
+                      href: `${resolveHref(thisDocument._type, thisDocument?.slug_en?.current, 'en')!}`
                     }
                   ]
                 : [],
@@ -107,6 +112,10 @@ export const locate: DocumentLocationResolver = (params, context) => {
                     {
                       title: thisDocument?.internalTitle || thisDocument?.title || 'Untitled',
                       href: `${resolveHref(thisDocument._type, thisDocument?.slug?.current)!}`
+                    },
+                    {
+                      title: thisDocument?.internalTitle || thisDocument?.title || 'Untitled',
+                      href: `${resolveHref(thisDocument._type, thisDocument?.slug_en?.current, 'en')!}`
                     }
                   ]
                 : [],

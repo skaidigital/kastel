@@ -20,7 +20,7 @@ export const page = defineType({
   fieldsets: [
     {
       name: 'settings',
-      title: 'Settings'
+      title: 'settings'
     }
   ],
   fields: [
