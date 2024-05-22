@@ -359,8 +359,11 @@
   user-select: none;
 }
 
-[data-testid='animated-teaser'] {
+/* [data-testid='animated-teaser'] {
   opacity: 0 !important;
+} */
+.go681896951 {
+  display: none !important;
 }
 
 .sign-in-text {
