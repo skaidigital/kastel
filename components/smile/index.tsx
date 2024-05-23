@@ -15,7 +15,7 @@ export function Smile() {
   const idWithoutGid = customerId?.split('gid://shopify/Customer/')[1];
 
   if (!idWithoutGid) {
-    return <SmileInit customerId={undefined} />;
+    return null;
   }
 
   return <SmileInit customerId={idWithoutGid} />;
