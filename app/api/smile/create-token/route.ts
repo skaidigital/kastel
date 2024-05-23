@@ -1,20 +1,20 @@
 import { getCustomerEmail } from '@/components/smile/hooks';
 import { env } from '@/env';
 import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   const { customer_id } = await request.json();
 
   const private_key = env.SMILE_API_KEY;
 
-  const smileJwt = cookies().get('smile_jwt')?.value;
+  // const smileJwt = cookies().get('smile_jwt')?.value;
 
-  if (smileJwt) {
-    return new Response(JSON.stringify({ token: smileJwt }), {
-      status: 200
-    });
-  }
+  // if (smileJwt) {
+  //   return new Response(JSON.stringify({ token: smileJwt }), {
+  //     status: 200
+  //   });
+  // }
+
   try {
     const isValidUser = await checkIfCustomerInSmile();
 
@@ -29,11 +29,11 @@ export async function POST(request: Request) {
 
     const signedJwt = jwt.sign(payload, private_key, { algorithm: 'HS256' });
 
-    cookies().set('smile_jwt', signedJwt, {
-      path: '/',
-      secure: true
-      // httpOnly: true // Uncomment this line for production
-    });
+    // cookies().set('smile_jwt', signedJwt, {
+    //   path: '/',
+    //   secure: true
+    //   // httpOnly: true // Uncomment this line for production
+    // });
     return new Response(JSON.stringify({ token: signedJwt }), {
       status: 200
     });
