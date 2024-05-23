@@ -41,9 +41,9 @@ export async function KastelClubCard({ lang }: Props) {
 function getLearnMoreString(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Les mer';
+      return 'Se belønninger';
     case 'en':
-      return 'Learn more';
+      return 'See rewards';
     default:
       return 'Learn more';
   }
@@ -62,9 +62,9 @@ function getYouHaveString(lang: LangValues) {
 function getJoinString(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Bli med i Kastel Klubb og tjen poeng på hver handel!';
+      return 'Du er med i Kastel Klubb og vil tjen poeng på hver handel!';
     case 'en':
-      return 'Join Kastel Club and earn points on every purchase!';
+      return 'Your in Kastel Club and will earn points on every purchase!';
     default:
       return 'Join Kastel Club and earn points on every purchase!';
   }
