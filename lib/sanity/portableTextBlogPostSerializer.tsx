@@ -322,7 +322,7 @@ export const portableTextBlogPostSerializer = {
         >
           <BlogWidthContainer width="wide">
             <Container className="flex flex-col gap-x-10 lg:flex-row">
-              <div className="flex-1 items-center">
+              <div className="flex flex-1 items-center">
                 {value.content && (
                   <div className="noMarginFirstChild">
                     <PortableText
@@ -332,7 +332,7 @@ export const portableTextBlogPostSerializer = {
                   </div>
                 )}
               </div>
-              <div className="flex-1">
+              <div className="mt-10 flex-1 lg:mt-0">
                 {value.type === 'media' && value.media && value.aspectRatioSettings && (
                   <AspectRatio settings={value.aspectRatioSettings} className="relative">
                     <Media media={value.media} loading="lazy" />
