@@ -152,7 +152,16 @@ export const portableTextBlogPostSerializer = {
       return (
         <BlogWidthContainer width={value.width} className="relative">
           <figure className="my-10">
-            {value?.asset?._ref && <SanityImage image={value} />}
+            {value?.asset?._ref && (
+              <SanityImage
+                image={value}
+                sizes={
+                  value.width === 'wide'
+                    ? '(max-width: 768px) 100vw, 1100px'
+                    : '(max-width: 768px) 100vw, 900px'
+                }
+              />
+            )}
             {value.caption && (
               <Text size="eyebrow" as="p" className="mt-3" asChild>
                 <figcaption>{value.caption}</figcaption>
@@ -313,7 +322,7 @@ export const portableTextBlogPostSerializer = {
         >
           <BlogWidthContainer width="wide">
             <Container className="flex flex-col gap-x-10 lg:flex-row">
-              <div className="flex-1 ">
+              <div className="flex-1 items-center">
                 {value.content && (
                   <div className="noMarginFirstChild">
                     <PortableText
