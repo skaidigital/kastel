@@ -343,6 +343,11 @@ export const blogPostText = defineField({
       ]
     },
     {
+      title: 'Youtube URL',
+      name: 'youtubeEmbed',
+      type: 'youtubeEmbed'
+    },
+    {
       title: 'Hotspot image',
       name: 'hotspotImage',
       type: 'object',

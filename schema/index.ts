@@ -84,6 +84,7 @@ import { ugcSection } from '@/schema/objects/ugcSection';
 import { updateItem } from '@/schema/objects/updateItem';
 import { uspExplainerSection } from '@/schema/objects/uspExplainerSection';
 import { variableText } from '@/schema/objects/variableText';
+import { youtubeEmbed } from '@/schema/objects/youtubeEmbed';
 import { blogPostSection } from '@/schema/pageBuilderBlocks/blogPostSection';
 import { cardSection } from '@/schema/pageBuilderBlocks/cardSection';
 import { emailCapture } from '@/schema/pageBuilderBlocks/emailCapture';
@@ -153,6 +154,7 @@ const schema = [
   richTextNatureLab,
   updateItem,
   timelineItem,
+  youtubeEmbed,
   metadata,
   link,
   linkWithoutText,

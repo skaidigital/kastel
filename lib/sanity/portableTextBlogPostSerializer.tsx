@@ -16,6 +16,7 @@ import LazyLoadedVideo from '@/components/LazyLoadedVideo';
 import { Media } from '@/components/Media';
 import { Quote } from '@/components/Quote';
 import { TooltipProvider } from '@/components/Tooltip';
+import { YouTubeVideo } from '@/components/YouTubeVideo';
 import { Container } from '@/components/base/Container';
 import { ListItem } from '@/components/base/ListItem';
 import { OL } from '@/components/base/OL';
@@ -345,6 +346,17 @@ export const portableTextBlogPostSerializer = {
             </Container>
           </BlogWidthContainer>
         </div>
+      );
+    },
+    youtubeEmbed: ({ value }: any) => {
+      if (!value?.url) return null;
+
+      return (
+        <BlogWidthContainer width="normal" className="my-10 lg:my-20">
+          <div className="aspect-h-9 aspect-w-16 h-0 min-w-full overflow-hidden ">
+            <YouTubeVideo url={value.url} />
+          </div>
+        </BlogWidthContainer>
       );
     }
   }
