@@ -23,6 +23,7 @@ export function serializeShopifyProductInputCreate(product: ProductSyncSchema): 
     input: {
       title: product.title,
       status: product.status,
+      handle: product.slug,
       options: product?.options && product?.options.map((option) => option.title),
       metafields: [newMeta],
       variants: product.variants.map((variant) =>
@@ -46,6 +47,7 @@ export function serializeShopifyProductInputUpdate(product: ProductSyncSchema): 
     input: {
       id: product.gid!,
       title: product.title,
+      handle: product.slug,
       status: product.status,
       options: product?.options && product.options.map((option) => option.title),
       variants: product.variants.map((variant) =>
@@ -59,16 +61,20 @@ export function serializeShopifyProductInputUpdate(product: ProductSyncSchema): 
 function serializeShopifyVariantInput(variant: VariantSyncValidator, trackStock: boolean) {
   const { discountedPrice, price } = variant;
 
-  const options: string[] = [variant.option1, variant.option2, variant.option3].filter(
+  let options: string[] = [variant.option1, variant.option2, variant.option3].filter(
     (option): option is string => option !== null && option !== undefined
   );
+
+  if (options[0] === '') {
+    options = ['Default Title'];
+  }
 
   const serializedVariant = {
     sku: variant.sku,
     price: String(discountedPrice || price),
     compareAtPrice: discountedPrice ? String(price) : undefined,
-    options,
     barcode: variant.barcode,
+    options,
     inventoryItem: {
       tracked: trackStock
     }

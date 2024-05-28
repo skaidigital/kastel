@@ -70,7 +70,9 @@ export async function POST(request: NextRequest, res: Response) {
       });
     }
 
-    const { _id, market } = validatedBody.data;
+    // const { _id, market } = validatedBody.data;
+    const { _id } = validatedBody.data;
+    const market = 'no';
 
     const sanityProductResponse = await getProductFromSanity(_id, market);
 
@@ -195,7 +197,6 @@ async function setProductIdAndGidInSanity(product: ProductSyncSchema, productRes
   }
 
   const response = await transaction.commit();
-  console.log('response', response);
 
   return response;
 }

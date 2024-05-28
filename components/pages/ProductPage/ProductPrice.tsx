@@ -42,6 +42,10 @@ export function ProductPrice({
       })
     : undefined;
 
+  const isAVariantOnSale = variants.some(
+    (variant) => variant.discountedPrice && variant.price && variant.price > variant.discountedPrice
+  );
+
   const formattedMinVariantPrice = formatPrice(minVariantPrice);
   const formattedMaxVariantPrice = formatPrice(maxVariantPrice);
   const minAndMaxPricesAreEqual = formattedMinVariantPrice === formattedMaxVariantPrice;
@@ -64,10 +68,27 @@ export function ProductPrice({
       </>
       {productType === 'VARIABLE' && !activeVariant && (
         <span suppressHydrationWarning>
-          {minAndMaxPricesAreEqual
-            ? formattedMinVariantPrice
-            : `${formattedMinVariantPrice} – ${formattedMaxVariantPrice}
-          `}
+          {isAVariantOnSale ? (
+            <>
+              <span className="mr-3 " suppressHydrationWarning>
+                {formatPrice({
+                  amount: variants[0]?.discountedPrice?.toString() || minVariantPrice.amount,
+                  currencyCode
+                })}
+              </span>
+              <del className="text-brand-mid-grey line-through" suppressHydrationWarning>
+                {formatPrice({
+                  amount: variants[0]?.price?.toString() || maxVariantPrice.amount,
+                  currencyCode
+                })}
+              </del>
+            </>
+          ) : minAndMaxPricesAreEqual ? (
+            formattedMinVariantPrice
+          ) : (
+            `${formattedMinVariantPrice} – ${formattedMaxVariantPrice}
+            `
+          )}
         </span>
       )}
     </div>

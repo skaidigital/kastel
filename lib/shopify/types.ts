@@ -503,6 +503,7 @@ export interface ProductInputCreate {
     status: ShopifyProductStatus;
     options?: string[] | null;
     variants?: VariantInput[];
+    handle: string;
     metafields: {
       namespace: string;
       key: string;
@@ -520,6 +521,7 @@ export interface ProductInputUpdate {
   input: {
     id: string;
     title: string;
+    handle: string;
     status: ShopifyProductStatus;
     options?: string[] | null;
     variants?: VariantInput[];
