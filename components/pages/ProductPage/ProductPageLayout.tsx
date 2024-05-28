@@ -208,13 +208,11 @@ export async function ProductPageLayout(props: Props) {
         </div>
       )}
       <UspsMarquee usps={product.usps} size="lg" />
-      {/* <Suspense> */}
       <ProductDescriptionAndReviews
         description={product.descriptionLongDetails}
         title={product.descriptionLongTitle}
         sku={sku}
       />
-      {/* </Suspense> */}
       {pageBuilder &&
         pageBuilder?.length > 0 &&
         pageBuilder.map((block: PageBuilderBlock, index: number) => (
