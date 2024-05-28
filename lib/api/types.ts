@@ -5,8 +5,8 @@ import { z } from 'zod';
 export const marketType = z.union([z.literal(MARKET.no.id), z.literal(MARKET.sv.id)]);
 
 export const ValidatePayloadBody = z.object({
-  _id: z.string(),
-  market: marketType
+  _id: z.string()
+  // market: marketType
 });
 
 export const productTypes: Record<string, typeUnionSchema> = {
