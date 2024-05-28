@@ -150,6 +150,15 @@ export const productType = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'Main category',
+      description:
+        'Sets the main collection on the model level. This collection will be set for all products in this model that do not have a main category set on the product level',
+      name: 'mainCategory',
+      type: 'mainCategory',
+      group: 'editorial',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
       title: 'Size guide (optional)',
       description:
         'The size guide that will be shown in the product drawer. If you have set a size chart on a product, this size guide not be shown for that product',

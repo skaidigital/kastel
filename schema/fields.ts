@@ -9,6 +9,13 @@ export const alternativeText = defineType({
   type: 'i18n.string'
 });
 
+export const mainCategory = defineType({
+  title: 'Main category',
+  name: 'mainCategory',
+  type: 'reference',
+  to: [{ type: 'collection' }]
+});
+
 export const internalTitle = defineType({
   title: 'Internal title',
   name: 'internalTitle',

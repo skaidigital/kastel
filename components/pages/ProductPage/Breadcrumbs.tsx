@@ -14,10 +14,14 @@ import { ChevronRightIcon } from '@radix-ui/react-icons';
 interface Props {
   productName: string;
   lang: LangValues;
+  category?: {
+    title: string;
+    slug: string;
+  };
   className?: string;
 }
 
-export function Breadcrumbs({ productName, lang, className }: Props) {
+export function Breadcrumbs({ productName, lang, category, className }: Props) {
   const homeString = getHomeString(lang);
 
   return (
@@ -31,6 +35,20 @@ export function Breadcrumbs({ productName, lang, className }: Props) {
         <BreadcrumbSeparator>
           <ChevronRightIcon className="size-3" />
         </BreadcrumbSeparator>
+        {category && (
+          <>
+            <BreadcrumbItem className="text-brand-mid-grey">
+              <BreadcrumbLink asChild>
+                <CustomLink href={`/collections/${category.slug}`} className="capitalize">
+                  {category.title.toLowerCase()}
+                </CustomLink>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator>
+              <ChevronRightIcon className="size-3" />
+            </BreadcrumbSeparator>
+          </>
+        )}
         <BreadcrumbItem>
           <BreadcrumbPage className="capitalize">{productName}</BreadcrumbPage>
         </BreadcrumbItem>

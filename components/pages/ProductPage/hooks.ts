@@ -143,6 +143,12 @@ export const productValidator = z.object({
   minVariantPrice: PriceValidator,
   maxVariantPrice: PriceValidator,
   mainImage: imageValidator,
+  mainCategory: z
+    .object({
+      title: z.string(),
+      slug: z.string()
+    })
+    .optional(),
   lifestyleImage: optionalImageValidator.optional(),
   hotspotImage: hotspotImageValidator.optional(),
   variants: z.array(productVariantValidator),
@@ -201,6 +207,16 @@ export function getProductQuery({
     mainImage{
       ${fragments.getImageBase(lang)}
     },
+    "mainCategory": coalesce(
+      mainCategory->{
+        "title": title.${lang},
+        "slug": slug_${lang}.current
+      },
+      productType->mainCategory->{
+        "title": title.${lang},
+        "slug": slug_${lang}.current
+      },
+    ),
     lifestyleImage{
       ${fragments.getImageBase(lang)}
     },

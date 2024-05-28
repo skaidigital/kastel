@@ -12,6 +12,10 @@ interface Props {
   title: string;
   lang: LangValues;
   mainImage: SanityImageProps;
+  mainCategory?: {
+    title: string;
+    slug: string;
+  };
   lifestyleImage?: SanityImageProps;
   galleryFemale?: ProductGalleryProps;
   galleryMale?: ProductGalleryProps;
@@ -21,6 +25,7 @@ export function ProductGallery({
   title,
   lang,
   mainImage,
+  mainCategory,
   lifestyleImage,
   galleryFemale,
   galleryMale
@@ -72,7 +77,12 @@ export function ProductGallery({
             fill
             className="absolute h-auto w-full object-cover"
           />
-          <Breadcrumbs productName={title} lang={lang} className="absolute left-4 top-4" />
+          <Breadcrumbs
+            productName={title}
+            lang={lang}
+            category={mainCategory}
+            className="absolute left-4 top-4"
+          />
         </div>
       )}
       {hasLifestyleImage && (
