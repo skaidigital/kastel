@@ -480,6 +480,13 @@ export const product = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'Main category (optional)',
+      description: 'Overrides the main category set on the model level',
+      name: 'mainCategory',
+      type: 'mainCategory',
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Size guide (optional)',
       description:
         'The size guide that will be shown in the product drawer. If you have set a size chart on the model, this will be shown instead',

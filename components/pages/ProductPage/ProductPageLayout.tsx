@@ -50,6 +50,7 @@ export async function ProductPageLayout(props: Props) {
 
   const {
     mainImage,
+    mainCategory,
     lifestyleImage,
     title,
     id,
@@ -90,7 +91,12 @@ export async function ProductPageLayout(props: Props) {
           galleryMale={product.galleryMale}
           lang={lang}
         />
-        <Breadcrumbs productName={title} lang={lang} className="absolute left-3 top-3" />
+        <Breadcrumbs
+          productName={title}
+          lang={lang}
+          category={mainCategory}
+          className="absolute left-3 top-3"
+        />
       </div>
       <Section
         noTopPadding
@@ -104,6 +110,7 @@ export async function ProductPageLayout(props: Props) {
             title={title}
             lang={lang}
             mainImage={mainImage}
+            mainCategory={mainCategory}
             galleryFemale={product.galleryFemale}
             galleryMale={product.galleryMale}
             lifestyleImage={lifestyleImage as SanityImageProps}

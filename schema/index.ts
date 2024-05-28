@@ -36,6 +36,7 @@ import {
   figure,
   gallery,
   internalTitle,
+  mainCategory,
   marketAvailability,
   ogImage,
   padding,
@@ -176,6 +177,9 @@ const schema = [
   conditionalLink,
   buttonSettings,
   reccommendedBlogPosts,
+
+  // Other
+  mainCategory,
 
   // Page builder blocks (objects)
   faqSection,
