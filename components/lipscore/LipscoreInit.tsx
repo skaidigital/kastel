@@ -1,20 +1,20 @@
 'use client';
 
+import { env } from '@/env';
 import { useEffect } from 'react';
 
 export default function LipscoreInit() {
   useEffect(() => {
-    window.lipscoreInit = function () {
-      // eslint-disable-next-line no-undef
-      window.lipscore.init({
-        apiKey: '889c3f3e4b6ac67269261324'
-      });
-    };
-
-    // Dynamically load the Lipscore script
+    // Dynamically load the Lipscore script and initialize
     const script = document.createElement('script');
     script.src = '//static.lipscore.com/assets/no/lipscore-v1.js';
     script.async = true;
+    script.onload = () => {
+      window?.lipscore?.init({
+        apiKey: env.NEXT_PUBLIC_LIPSCORE_API_KEY
+      });
+      window?.lipscore?.reInitWidgets(true);
+    };
 
     document.head.appendChild(script);
 
