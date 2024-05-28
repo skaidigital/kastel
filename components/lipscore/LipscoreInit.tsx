@@ -24,5 +24,7 @@ export default function LipscoreInit() {
     };
   }, []); // Empty array ensures this effect runs only once after the initial render
 
+  window.onload = window.lipscore.reInitWidgets(true);
+
   return null;
 }
