@@ -11,7 +11,11 @@ interface Props {
 }
 
 function RatingWrapper({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className="flex items-center gap-x-1 text-xs @[320px]:text-sm">{children}</div>;
+  return (
+    <div className={cn('flex items-center gap-x-1 text-xs @[320px]:text-sm', className)}>
+      {children}
+    </div>
+  );
 }
 
 export function Rating({ sku, className }: Props) {
@@ -44,7 +48,7 @@ interface RatingFallbackProps {
 
 export function RatingFallback({ className }: RatingFallbackProps) {
   return (
-    <RatingWrapper className={cn(className)}>
+    <RatingWrapper className={cn('hidden', className)}>
       <div className="flex items-center gap-x-0.5">
         <StarFilledIcon className="h-[14.4px] w-[14.4px]" />
         <Text size="sm">5.0</Text>

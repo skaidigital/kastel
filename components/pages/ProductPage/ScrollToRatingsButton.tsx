@@ -5,14 +5,17 @@ interface Props {
 }
 
 export function ScrollToRatingsButton({ children }: Props) {
-  return <button onClick={scrollToElement}>{children}</button>;
+  function handleClick() {
+    scrollToElement();
+  }
+
+  return <button onClick={handleClick}>{children}</button>;
 }
 
 function scrollToElement() {
   const element = document.getElementById('reviews');
   if (element) {
     element.scrollIntoView({
-      behavior: 'smooth',
       block: 'center'
     });
     return;

@@ -57,7 +57,6 @@ export function ViewItemEventTrigger({ productId, productTitle, price, slug, ima
     clearEcommerceInDataLayer();
     sendGTMEvent(viewItemTrackingData);
     _learnq?.push(['track', 'Viewed Product', klaviyoProduct]);
-    console.log('_learnq after', _learnq);
   }, []);
 
   return null;

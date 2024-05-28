@@ -12,7 +12,6 @@ interface Props {
   className?: string;
 }
 
-// TODO fix this in the account page
 export function Wishlist({ gid, className }: Props) {
   const { isLoggedIn } = useUser();
 
