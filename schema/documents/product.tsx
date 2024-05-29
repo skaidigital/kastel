@@ -110,15 +110,7 @@ export const product = defineType({
           tooltip: undefined
         }
       },
-      group: 'images',
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.parent.detailImage && !value) {
-            return 'You have to set this field';
-          }
-
-          return true;
-        })
+      group: 'images'
     }),
     defineField({
       title: 'Title',
