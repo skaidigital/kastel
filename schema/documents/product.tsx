@@ -104,6 +104,7 @@ export const product = defineType({
       type: `array`,
       of: [{ type: 'spot' }],
       options: {
+        // @ts-expect-error - this is a bug in the types
         imageHotspot: {
           imagePath: 'detailImage',
           descriptionPath: `type`,

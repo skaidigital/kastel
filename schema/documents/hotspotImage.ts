@@ -37,6 +37,7 @@ export const hotspotImage = defineType({
       type: `array`,
       of: [{ type: 'spot' }],
       options: {
+        // @ts-expect-error - this is a bug in the types
         imageHotspot: {
           imagePath: 'image',
           descriptionPath: `type`,
