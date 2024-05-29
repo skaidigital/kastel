@@ -40,7 +40,7 @@ export const CACHE_TAGS = {
   WISHLIST_PRODUCTS: 'wishlist-products',
   HELP_CENTER: 'help-center',
   CUSTOMER_ADDRESS: 'customer-address',
-  ANNOUNCEMENT_BANNER: 'announcement-banner',
+  ANNOUNCEMENT_BANNER: 'announcementBanner',
   USPS: 'unique-selling-points',
   MERCHANDISING: 'merchandising',
   NOT_FOUND_PAGE: 'pageNotFound',
