@@ -34,20 +34,18 @@ export async function POST(req: NextRequest) {
       console.log('Revalidating this slug', body.slug);
 
       revalidateTag(`${body._type}:${body.slug}`);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // setTimeout(() => {
-      //   revalidateTag(`${body._type}:${body.slug}`);
-      // }, 2000);
+      setTimeout(() => {
+        revalidateTag(`${body._type}:${body.slug}`);
+      }, 2000);
     } else {
       console.log('Revalidating this type', body._type);
 
       revalidateTag(body._type);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // setTimeout(() => {
-      //   revalidateTag(body._type);
-      // }, 2000);
+      setTimeout(() => {
+        revalidateTag(body._type);
+      }, 2000);
     }
     return NextResponse.json({
       status: 200,
