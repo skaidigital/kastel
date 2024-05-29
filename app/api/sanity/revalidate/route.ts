@@ -1,4 +1,3 @@
-import { CACHE_TAGS, SANITY_SINGLETON_DOCUMENT_IDS } from '@/data/constants';
 import { env } from '@/env';
 import { parseBody } from 'next-sanity/webhook';
 import { revalidateTag } from 'next/cache';
@@ -16,6 +15,8 @@ export async function POST(req: NextRequest) {
       slug?: string | undefined;
     }>(req, revalidateSecret);
 
+    console.log('Body', body);
+
     if (!isValidSignature) {
       console.log('Invalid signature');
 
@@ -29,15 +30,7 @@ export async function POST(req: NextRequest) {
       return new Response('Bad Request', { status: 400 });
     }
 
-    if (body._type === SANITY_SINGLETON_DOCUMENT_IDS.USPS) {
-      console.log('Revalidating USPS');
-
-      revalidateTag(CACHE_TAGS.USPS);
-
-      setTimeout(() => {
-        revalidateTag(CACHE_TAGS.USPS);
-      }, 2000);
-    } else if (body.slug) {
+    if (body.slug) {
       console.log('Revalidating this slug', body.slug);
 
       revalidateTag(`${body._type}:${body.slug}`);
