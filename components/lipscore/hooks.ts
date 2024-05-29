@@ -37,7 +37,7 @@ interface LipscoreReview {
  */
 
 export async function getProductRatingBySku(sku: string): Promise<LipscoreReview> {
-  const url = `https://api.lipscore.com/products?fields=rating,votes&api_key=${env.LIPSCORE_API_KEY}`;
+  const url = `https://api.lipscore.com/products?fields=rating,votes&api_key=${env.NEXT_PUBLIC_LIPSCORE_API_KEY}`;
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -72,7 +72,7 @@ export async function getProductRatingBySku(sku: string): Promise<LipscoreReview
 }
 
 export async function getProductIdSku(sku: string) {
-  const productUrl = `https://api.lipscore.com/products?fields=rating,votes&api_key=${env.LIPSCORE_API_KEY}`;
+  const productUrl = `https://api.lipscore.com/products?fields=rating,votes&api_key=${env.NEXT_PUBLIC_LIPSCORE_API_KEY}`;
   const response = await fetch(productUrl, {
     method: 'GET',
     headers: {
@@ -120,7 +120,7 @@ const productReviewsValidator = z.array(productReviewValidator);
  */
 export async function getProductReviews(internalId: string, page: number = 1) {
   const pageSize = PRODUCT_PAGE_REVIEWS_PAGE_SIZE;
-  const reviewUrl = ` https://api.lipscore.com/products/${internalId}/reviews?api_key=${env.LIPSCORE_API_KEY}&page=${page}&per_page=${pageSize}`;
+  const reviewUrl = ` https://api.lipscore.com/products/${internalId}/reviews?api_key=${env.NEXT_PUBLIC_LIPSCORE_API_KEY}&page=${page}&per_page=${pageSize}`;
 
   const response = await fetch(reviewUrl, {
     method: 'GET',
@@ -143,7 +143,7 @@ export async function getProductReviews(internalId: string, page: number = 1) {
 }
 
 export async function getServiceReview() {
-  const serviceReviewUrl = `https://api.lipscore.com/products/9307087?fields=rating,votes&api_key=${env.LIPSCORE_API_KEY}`;
+  const serviceReviewUrl = `https://api.lipscore.com/products/9307087?fields=rating,votes&api_key=${env.NEXT_PUBLIC_LIPSCORE_API_KEY}`;
   const serviceResponse = await fetch(serviceReviewUrl, {
     method: 'GET',
     headers: {
@@ -163,7 +163,7 @@ export async function getServiceReview() {
     };
   }
 
-  const reviewUrl = ` https://api.lipscore.com/products/9307087/reviews?api_key=${env.LIPSCORE_API_KEY}&rating=5`;
+  const reviewUrl = ` https://api.lipscore.com/products/9307087/reviews?api_key=${env.NEXT_PUBLIC_LIPSCORE_API_KEY}&rating=5`;
 
   const response = await fetch(reviewUrl, {
     method: 'GET',

@@ -26,7 +26,7 @@ export const env = createEnv({
     RESEND_API_KEY: z.string().min(1),
     GTM_ID: z.string().min(1),
     SMILE_API_KEY: z.string().min(1),
-    LIPSCORE_API_KEY: z.string().min(1),
+
     LIPSCORE_API_SECRET: z.string().min(1),
     COOKIE_BOT_DOMAIN_GROUP_ID: z.string().min(1),
     GORGIAS_CHAT_ID: z.string().min(1),
@@ -49,9 +49,11 @@ export const env = createEnv({
     //   Other
     NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY: z.string().min(1),
     NEXT_PUBLIC_SMILE_CHANNEL_KEY: z.string().min(1),
-    NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY: z.string().min(1)
+    NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY: z.string().min(1),
+    NEXT_PUBLIC_LIPSCORE_API_KEY: z.string().min(1)
   },
   experimental__runtimeEnv: {
+    NEXT_PUBLIC_LIPSCORE_API_KEY: process.env.NEXT_PUBLIC_LIPSCORE_API_KEY,
     NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
     NEXT_PUBLIC_SHOPIFY_SHOP_ID: process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID,
     NEXT_PUBLIC_SHOPIFY_CURRENCY: process.env.NEXT_PUBLIC_SHOPIFY_CURRENCY,
