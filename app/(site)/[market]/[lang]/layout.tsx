@@ -14,7 +14,6 @@ import { MarketPopup } from '@/components/global/MarketPopup';
 import { PopupHandler } from '@/components/global/PopupHandler';
 import { Smile } from '@/components/smile';
 import { LangValues, MarketValues } from '@/data/constants';
-import { GoogleTagManager } from '@next/third-parties/google';
 // import { VisualEditing } from 'next-sanity';
 // import { revalidatePath, revalidateTag } from 'next/cache';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -49,7 +48,7 @@ export default function IndexRoute({
 
   return (
     <>
-      <GoogleTagManager gtmId={env.GTM_ID} />
+      {/* <GoogleTagManager gtmId={env.GTM_ID} /> */}
       <Script
         id="gorgias-chat-widget-install-v3"
         src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
