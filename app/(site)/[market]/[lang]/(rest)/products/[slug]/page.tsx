@@ -12,6 +12,7 @@ import '@/styles/hideSmile.css';
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { ZodError } from 'zod';
 
 export const dynamic = 'force-static';
 
@@ -82,7 +83,15 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
       />
     );
   } catch (error) {
-    console.error(error);
+    if (error instanceof ZodError) {
+      error.issues.forEach((issue) => {
+        console.log(
+          `Error at ${issue.path.join(' -> ')}: ${issue.message} (validator: productValidator)`
+        );
+      });
+    } else {
+      console.error('Unexpected error:', error);
+    }
     return notFound();
   }
 }

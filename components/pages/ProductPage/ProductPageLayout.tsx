@@ -76,13 +76,15 @@ export async function ProductPageLayout(props: Props) {
         title={title}
         image={mainImage ? urlForImage(mainImage).url() : undefined}
       />
-      <ViewItemEventTrigger
-        productId={id}
-        productTitle={title}
-        price={parseFloat(product.minVariantPrice.amount)}
-        slug={product.slug}
-        imageUrl={urlForImage(mainImage).url()}
-      />
+      {id && (
+        <ViewItemEventTrigger
+          productId={id}
+          productTitle={title}
+          price={product.minVariantPrice ? parseFloat(product.minVariantPrice.amount) : 0}
+          slug={product.slug}
+          imageUrl={urlForImage(mainImage).url()}
+        />
+      )}
       <div className="relative w-full">
         <MobileCarousel
           mainImage={mainImage}
@@ -144,13 +146,17 @@ export async function ProductPageLayout(props: Props) {
                       {subtitle}
                     </Text>
                   )}
-                  <ProductPrice
-                    currencyCode={product.minVariantPrice.currencyCode}
-                    productType={product.type}
-                    variants={variants}
-                    minVariantPrice={product.minVariantPrice}
-                    maxVariantPrice={product.maxVariantPrice}
-                  />
+                  {product.minVariantPrice && (
+                    <ProductPrice
+                      currencyCode={
+                        product.minVariantPrice ? product.minVariantPrice.currencyCode : ''
+                      }
+                      productType={product.type}
+                      variants={variants}
+                      minVariantPrice={product.minVariantPrice}
+                      maxVariantPrice={product.maxVariantPrice}
+                    />
+                  )}
                 </div>
                 <div className="mt-4 flex flex-col gap-8">
                   {descriptionShort && (

@@ -32,7 +32,6 @@ const productFragment = /* GraphQL */ `
 export const createProductMutation = /* GraphQL */ `
   mutation CreateProduct($input: ProductInput!, $media: [CreateMediaInput!]) {
     productCreate(input: $input, media: $media) {
-      product {
       ${productFragment}
       ${ERROR_FRAGMENT}
     }
