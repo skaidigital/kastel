@@ -76,13 +76,13 @@ export function ProductPrice({
             <>
               <span className="mr-3 " suppressHydrationWarning>
                 {formatPrice({
-                  amount: variants[0]?.discountedPrice?.toString() || minVariantPrice.amount,
+                  amount: variants[0]?.discountedPrice?.toString() || '0',
                   currencyCode
                 })}
               </span>
               <del className="text-brand-mid-grey line-through" suppressHydrationWarning>
                 {formatPrice({
-                  amount: variants[0]?.price?.toString() || maxVariantPrice.amount,
+                  amount: variants[0]?.price?.toString() || '0',
                   currencyCode
                 })}
               </del>
