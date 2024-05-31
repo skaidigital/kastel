@@ -42,7 +42,7 @@ function loadProduct({
   return loadQuery<Product | null>(
     query,
     { slug },
-    { next: { tags: [`${CACHE_TAGS.PRODUCT}${slug}`, 'question'] } }
+    { next: { tags: [`${CACHE_TAGS.PRODUCT}${slug}`] } }
   );
 }
 

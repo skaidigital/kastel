@@ -6,6 +6,8 @@ import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 
+export const revalidate = 60;
+
 async function loadNavbar({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = getNavbarQuery({ market, lang });
 
