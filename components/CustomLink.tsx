@@ -3,6 +3,7 @@
 import { ROUTES } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useProductCardContext } from './shared/ProductCard/Context';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
@@ -31,6 +32,7 @@ interface ProductCardProps extends React.HTMLProps<HTMLAnchorElement> {
 }
 
 export function CustomLinkProductCard({ slug, children, ...restLink }: ProductCardProps) {
+  const router = useRouter();
   const { activeColorway } = useProductCardContext();
 
   const { market, lang } = useBaseParams();
@@ -41,7 +43,13 @@ export function CustomLinkProductCard({ slug, children, ...restLink }: ProductCa
   const href = `${ROUTES.PRODUCTS}/${activeSlug}`;
 
   return (
-    <Link href={`/${market}/${lang}${href}`} {...restLink}>
+    <Link
+      href={`/${market}/${lang}${href}`}
+      {...restLink}
+      onMouseEnter={() => {
+        router.prefetch(`/${market}/${lang}${href}`);
+      }}
+    >
       {children}
     </Link>
   );
