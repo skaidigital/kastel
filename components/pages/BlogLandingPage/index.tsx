@@ -37,7 +37,9 @@ export function BlogLandingPage({ data, lang }: Props) {
         )}
       </Container>
       <Container className="grid gap-10 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-16">
-        {posts?.map((post) => <BlogPostCard post={post} key={post.title} />)}
+        {posts?.map((post) => (
+          <BlogPostCard post={post} key={post.title} sizes="(max-width: 768px) 80vw, 33vw" />
+        ))}
       </Container>
     </Section>
   );

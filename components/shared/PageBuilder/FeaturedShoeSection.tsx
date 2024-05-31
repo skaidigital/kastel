@@ -89,6 +89,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
                     image={firstContentItem.image}
                     hotspots={firstContentItem.hotspots}
                     sizes={sizes}
+                    className="relative"
                   />
                 ) : (
                   <Media media={firstContentItem} loading="lazy" sizes={sizes} />
@@ -109,6 +110,7 @@ export const FeaturedShoeSection = ({ data }: Props) => {
                       image={item.image}
                       hotspots={item.hotspots}
                       sizes={sizes}
+                      className="relative"
                     />
                   ) : (
                     <Media media={item} loading="lazy" sizes={sizes} />

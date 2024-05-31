@@ -50,6 +50,7 @@ export function ProductCardImage({
     <div
       onMouseEnter={() => hasHoverImage && setIsHovered(true)}
       onMouseLeave={() => hasHoverImage && setIsHovered(false)}
+      className="relative h-full w-full"
     >
       <SanityImage
         image={isHovered ? chosenHoverImageTyped : chosenFirstImageTyped}

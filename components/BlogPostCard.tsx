@@ -12,9 +12,10 @@ import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
 
 export interface Props {
   post: BlogPostCardProps;
+  sizes?: string;
 }
 
-export function BlogPostCard({ post }: Props) {
+export function BlogPostCard({ post, sizes }: Props) {
   const { title, description, readLength, image, slug } = post;
   const { lang } = useBaseParams();
 
@@ -29,7 +30,7 @@ export function BlogPostCard({ post }: Props) {
     <article className="group">
       <CustomLink href={`${ROUTES.BLOG}/${slug}`} className="relative">
         <div className="aspect-h-4 aspect-w-3 relative mb-4 h-0 w-full bg-[pink]">
-          {image && <SanityImage image={image} fill className="h-full w-full" />}
+          {image && <SanityImage image={image} fill className="h-full w-full" sizes={sizes} />}
         </div>
         <div className="flex flex-col pr-5">
           {readLength && (

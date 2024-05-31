@@ -93,7 +93,7 @@ export function Hero({ data }: Props) {
               variant={buttonSettings.variant}
               className="translate-y-[-10px] animate-fade-in-text  opacity-0 transition-[opacity-color] [--animation-delay:700ms] [--duration:700ms]"
             >
-              <ConditionalSanityLink link={link}>{link.text}</ConditionalSanityLink>
+              <span>{link.text}</span>
             </Button>
           )}
         </Wrapper>

@@ -12,11 +12,12 @@ import { cn } from '@/lib/utils';
 interface Props extends HotspotImageProps {
   children?: React.ReactNode;
   sizes?: string;
+  className?: string;
 }
 
-export function HotspotImage({ image, hotspots, sizes, children }: Props) {
+export function HotspotImage({ image, hotspots, sizes, children, className }: Props) {
   return (
-    <div className="h-full w-full">
+    <div className={cn('h-full w-full', className)}>
       <SanityImage image={image} fill sizes={sizes} className="-z-1 absolute inset-0" />
       <TooltipProvider>
         {hotspots.map((hotspot) => {

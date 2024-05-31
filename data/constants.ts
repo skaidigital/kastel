@@ -59,6 +59,24 @@ export const CACHE_TAGS = {
   KASTEL_CLUB_PAGE: 'kastelClubPage'
 };
 
+export const PAGE_BUILDER_CACHE_TAGS = [
+  'question',
+  'faqBlock',
+  'shopOurModelsBlock',
+  'uspExplainerBlock',
+  'natureLabExplainerBlock',
+  'shopOurModelsSection',
+  'featuredShoeBlock',
+  'hero',
+  'uspExplainerSection',
+  'natureLabInnovationSection',
+  'emailCapture',
+  'timelineBlock',
+  'fullBleedMediaSection',
+  'pageTitle',
+  'meetTheTeamSection'
+];
+
 export const SCHEMA_NAMES = {
   PAGE: 'page',
   PRODUCT: 'product',

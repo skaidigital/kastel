@@ -1,6 +1,7 @@
 'use client';
 
 import Video, { VideoProps } from '@/components/Video';
+import { cn } from '@/lib/utils';
 import Image, { getImageProps } from 'next/image';
 import { preload } from 'react-dom';
 import { useInView } from 'react-intersection-observer';
@@ -32,9 +33,10 @@ export default function LazyLoadedVideo(props: VideoProps) {
           ref={ref}
           alt={'Video poster'}
           src={poster ?? ''}
-          className={props.className}
+          className={cn(props.className)}
+          fill
           loading={'lazy'}
-          layout="fill"
+          sizes="(max-width: 768px) 80vw, 33vw"
         />
       ) : (
         <Video {...props} />

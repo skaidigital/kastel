@@ -1,7 +1,7 @@
 import { getDictionary } from '@/app/dictionaries';
 import { ProductPageLayout } from '@/components/pages/ProductPage/ProductPageLayout';
 import { Product, getProductQuery, productValidator } from '@/components/pages/ProductPage/hooks';
-import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
+import { CACHE_TAGS, LangValues, MarketValues, PAGE_BUILDER_CACHE_TAGS } from '@/data/constants';
 import { loadProductMetadata } from '@/lib/sanity/getProductMetadata';
 import { generateStaticSlugsProducts } from '@/lib/sanity/loader/generateStaticSlugs';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
@@ -41,7 +41,7 @@ function loadProduct({
   return loadQuery<Product | null>(
     query,
     { slug },
-    { next: { tags: [`${CACHE_TAGS.PRODUCT}${slug}`] } }
+    { next: { tags: [`${CACHE_TAGS.PRODUCT}${slug}`, ...PAGE_BUILDER_CACHE_TAGS] } }
   );
 }
 
