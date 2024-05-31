@@ -54,17 +54,6 @@ const selectedOptionValidator = z
   .nullable();
 export type SelectedOption = z.infer<typeof selectedOptionValidator>;
 
-const priceRangeValidator = z.object({
-  minVariantPrice: z.object({
-    amount: z.number().transform((val) => String(val)),
-    currencyCode: z.string()
-  }),
-  maxVariantPrice: z.object({
-    amount: z.number().transform((val) => String(val)),
-    currencyCode: z.string()
-  })
-});
-
 const productVariantValidator = z.object({
   id: z.string(),
   price: z.number(),
@@ -81,11 +70,6 @@ const siblingProductValidator = z.object({
   color: z.string().optional()
 });
 export type SiblingProduct = z.infer<typeof siblingProductValidator>;
-
-const accordionValidator = z.object({
-  title: z.string(),
-  richText: z.array(richTextValidator)
-});
 
 const PriceValidator = z.object({
   amount: z.number().transform((val) => String(val)),
@@ -140,8 +124,8 @@ export const productValidator = z.object({
     .optional(),
   typeId: z.string().optional(),
   largestDiscount: z.string().optional(),
-  minVariantPrice: PriceValidator,
-  maxVariantPrice: PriceValidator,
+  minVariantPrice: PriceValidator.optional(),
+  maxVariantPrice: PriceValidator.optional(),
   mainImage: imageValidator,
   mainCategory: z
     .object({
@@ -176,7 +160,7 @@ export function getProductQuery({
   gender: 'male' | 'female';
 }) {
   const query = groq`
-  *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE" && defined(gid_${market})][0]{
+  *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE"][0]{
     "id": gid_${market},
     "title": title.${lang},
     "subtitle": subtitle.${lang},

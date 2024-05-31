@@ -350,14 +350,7 @@ export const product = defineType({
       type: 'boolean',
       group: 'settings',
       initialValue: false,
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (!value && context.parent?.productType) {
-            return 'You have to set this field';
-          }
-
-          return true;
-        }),
+      validation: (Rule) => Rule.required(),
       description:
         "If this product is a specific color like 'Dusty Blue Sengesett' we will set a color swatch for the product here."
     }),
