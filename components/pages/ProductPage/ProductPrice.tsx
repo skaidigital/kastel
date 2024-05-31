@@ -46,8 +46,12 @@ export function ProductPrice({
     (variant) => variant.discountedPrice && variant.price && variant.price > variant.discountedPrice
   );
 
-  const formattedMinVariantPrice = formatPrice(minVariantPrice);
-  const formattedMaxVariantPrice = formatPrice(maxVariantPrice);
+  const formattedMinVariantPrice = formatPrice(
+    minVariantPrice || { amount: '0', currencyCode: 'nok' }
+  );
+  const formattedMaxVariantPrice = formatPrice(
+    maxVariantPrice || { amount: '0', currencyCode: 'nok' }
+  );
   const minAndMaxPricesAreEqual = formattedMinVariantPrice === formattedMaxVariantPrice;
 
   return (
