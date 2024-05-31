@@ -54,10 +54,11 @@ export default function IndexRoute({
         src={`https://config.gorgias.chat/bundle-loader/${env.GORGIAS_CHAT_ID}`}
         strategy="lazyOnload"
       />
-      <script
+      {/* <script
         id="klaviyo-on-site-tracking"
         src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${env.NEXT_PUBLIC_KLAVIYO_PUBLIC_API_KEY}`}
-      />
+
+      /> */}
       {/* <Script id="lipscore-snippet" strategy="afterInteractive">
         {`
         //<![CDATA[
