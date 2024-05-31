@@ -1,4 +1,5 @@
 import { env } from '@/env';
+import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
 import Script from 'next/script';
 import '../styles/globals.css';
@@ -10,6 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="no">
       <head>
+        <GoogleTagManager gtmId={env.GTM_ID} />
         <PlausibleProvider revenue domain={env.BASE_URL.split('https://').at(1) || ''} />
         {isInProduction && (
           <Script id="hotjar-snippet" strategy="afterInteractive">

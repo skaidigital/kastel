@@ -43,8 +43,20 @@ const STATUS_CODES = {
   OK: 200
 };
 
+const debugging = false;
+
 // request: NextRequest, res: Response
 export async function POST(request: NextRequest, res: Response) {
+  console.log('Request received');
+
+  if (debugging) {
+    const testBody = await request.json();
+
+    return new Response(JSON.stringify({ success: true, body: testBody }), {
+      status: STATUS_CODES.OK
+    });
+  }
+
   // Your secret key (this should be stored in environment variables)
   const secretKey = env.NEXT_PUBLIC_PRODUCT_SYNC_SECRET_KEY;
 
@@ -71,8 +83,11 @@ export async function POST(request: NextRequest, res: Response) {
     }
 
     // const { _id, market } = validatedBody.data;
-    const { _id } = validatedBody.data;
+    const { _id: id } = validatedBody.data;
     const market = 'no';
+
+    // strip draft. from id
+    const _id = id.replace('draft.', '');
 
     const sanityProductResponse = await getProductFromSanity(_id, market);
 

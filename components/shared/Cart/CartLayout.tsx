@@ -128,7 +128,25 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
             aria-label="Open cart"
             className="text-sm"
           >
-            <span className="ml-2 mr-4">{cartString}</span>
+            {/* <span className="ml-2 mr-4">
+              {cartString} {hasCartItems ? `(${cart?.totalQuantity})` : null}
+            </span> */}
+            <span className="ml-2 mr-4">
+              <ShoppingBagIcon className="size-4" />
+              {/* {hasCartItems ? (
+              <div className="absolute -top-1 right-0 h-4 w-4 rounded bg-brand-primary text-center text-[11px] font-medium text-white">
+              {cart.totalQuantity}
+              </div>
+            ) : null} */}
+              {hasCartItems ? (
+                <div
+                  className="absolute -top-1 right-0 flex h-4 w-4 items-center justify-center rounded bg-brand-primary text-[11px] font-medium text-white"
+                  style={{ lineHeight: '1rem' }}
+                >
+                  {cart.totalQuantity}
+                </div>
+              ) : null}
+            </span>
           </button>
         </DrawerTrigger>
         <DrawerContent className="flex max-h-dvh w-full flex-col lg:h-screen">
@@ -251,6 +269,11 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
     <Sheet isOpen={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger aria-label="Open cart" className="pr-4">
         <ShoppingBagIcon className="size-6" />
+        {hasCartItems ? (
+          <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded bg-brand-primary text-[11px] font-medium text-white">
+            {cart.totalQuantity}
+          </div>
+        ) : null}
       </SheetTrigger>
       <SheetContent className="h-[calc(95dvh-32px)]" noPadding>
         <div
