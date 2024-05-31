@@ -85,7 +85,9 @@ export default async function SlugProductPage({ params, searchParams }: Props) {
   } catch (error) {
     if (error instanceof ZodError) {
       error.issues.forEach((issue) => {
-        console.log(`Error at ${issue.path.join(' -> ')}: ${issue.message}`);
+        console.log(
+          `Error at ${issue.path.join(' -> ')}: ${issue.message} (validator: productValidator)`
+        );
       });
     } else {
       console.error('Unexpected error:', error);
