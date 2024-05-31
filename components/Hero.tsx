@@ -26,6 +26,8 @@ export function Hero({ data }: Props) {
 
   const hasAnyContent = title || description || (link.hasLink && link.text) ? true : false;
 
+  const Wrapper = link?.hasLink ? ConditionalSanityLink : 'div';
+
   return (
     <Section
       label="heroSection"
@@ -37,7 +39,8 @@ export function Hero({ data }: Props) {
       <AspectRatio settings={aspectRatioSettings} className="relative">
         {hasAnyContent && <div className="absolute z-[1] h-full w-full bg-black/20" />}
         {media && <Media media={media} loading="eager" sizes="100vw" />}
-        <div
+        <Wrapper
+          link={link}
           className={cn(
             'z-[2] flex h-full w-full grow flex-col p-5 text-white lg:p-10',
             textPositionMobile === 'top-left' && 'items-start justify-start text-left',
@@ -93,7 +96,7 @@ export function Hero({ data }: Props) {
               <ConditionalSanityLink link={link}>{link.text}</ConditionalSanityLink>
             </Button>
           )}
-        </div>
+        </Wrapper>
       </AspectRatio>
     </Section>
   );
