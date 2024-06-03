@@ -489,5 +489,6 @@ export const EXCLUDED_COLLECTION_SEARCH_PARAMS = [
   'gclct',
   'gclcg',
   'gclmd',
-  '_kx'
+  '_kx',
+  'fbclid'
 ];
