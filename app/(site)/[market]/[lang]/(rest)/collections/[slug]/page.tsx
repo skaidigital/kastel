@@ -58,6 +58,13 @@ function loadCollectionBase({
   );
 }
 
+// Building out the new filter keys
+// function fetchUrlParamKeys({ market, lang }: { market: MarkOptions; lang: LangValues }) {
+//   const query = getUrlParamsKeysQuery({});
+
+//   return loadQuery<SanityQueryProps<any>>(query, {}, { next: { tags: ['test'] } });
+// }
+
 interface Props {
   params: { slug: string; market: MarketValues; lang: LangValues };
 }
