@@ -27,6 +27,23 @@ export const collectionProduct = defineType({
       name: 'product',
       type: 'reference',
       to: [{ type: 'product' }],
+      options: {
+        filter: ({ document }: any) => {
+          const productsInCollection = document.products?.map((item: any) => item.product?._ref);
+
+          if (!productsInCollection)
+            return {
+              filter: undefined
+            };
+
+          return {
+            filter: '!(_id in $productsInCollection)',
+            params: {
+              productsInCollection
+            }
+          };
+        }
+      },
       validation: (Rule) => Rule.required()
     }),
     defineField({
