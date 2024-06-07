@@ -4,6 +4,7 @@ import { ProductCount } from '@/components/pages/CollectionPage/CollectionSettin
 import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { ActiveFilters } from '../filter/ActiveFilters';
+import { SearchParamsKeysPayload } from '../hooks';
 import { Filter } from './Filter';
 import { ProductsPerRowSelector } from './ProductsPerRowSelector';
 import { Sort } from './Sort';
@@ -14,6 +15,7 @@ interface Props {
   lang: LangValues;
   className?: string;
   collectionSlug?: string;
+  includedSearchParamsKeys: SearchParamsKeysPayload;
 }
 
 export function CollectionSettingsBarDesktop({
@@ -21,7 +23,8 @@ export function CollectionSettingsBarDesktop({
   market,
   lang,
   className,
-  collectionSlug
+  collectionSlug,
+  includedSearchParamsKeys
 }: Props) {
   return (
     <Container className={cn('flex flex-col space-y-2 pb-8 lg:pb-2', className)}>
@@ -33,7 +36,7 @@ export function CollectionSettingsBarDesktop({
         </div>
       </Row>
       <Row>
-        <ActiveFilters />
+        <ActiveFilters includedSearchParamsKeys={includedSearchParamsKeys} />
         <ProductCount productsString={dictionary.number_of_products} />
       </Row>
     </Container>

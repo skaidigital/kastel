@@ -6,6 +6,7 @@ import { ProductsPerRowSelector } from '@/components/pages/SearchPage/ProductsPe
 import { LangValues, MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { Sort } from '../CollectionPage/CollectionSettingsBarDesktop/Sort';
+import { SearchParamsKeysPayload } from '../CollectionPage/hooks';
 
 interface Props {
   searchParams?: {
@@ -15,9 +16,17 @@ interface Props {
   lang: LangValues;
   className?: string;
   searchGids?: string[];
+  includedSearchParamsKeys: SearchParamsKeysPayload;
 }
 
-export function SearchSettingsBar({ market, lang, searchParams, className, searchGids }: Props) {
+export function SearchSettingsBar({
+  market,
+  lang,
+  searchParams,
+  className,
+  searchGids,
+  includedSearchParamsKeys
+}: Props) {
   return (
     <Container className={cn('flex flex-col space-y-2 pb-8 lg:pb-2', className)}>
       <Row className="items-end">
@@ -28,7 +37,7 @@ export function SearchSettingsBar({ market, lang, searchParams, className, searc
         </div>
       </Row>
       <Row>
-        <ActiveFilters />
+        <ActiveFilters includedSearchParamsKeys={includedSearchParamsKeys} />
       </Row>
     </Container>
   );

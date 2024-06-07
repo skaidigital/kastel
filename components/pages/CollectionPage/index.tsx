@@ -5,16 +5,10 @@ import { useCollectionContext } from '@/components/pages/CollectionPage/Context'
 import { CollectionProductsLoadingState } from '@/components/pages/CollectionPage/LoadingState';
 import {
   CollectionBasePayload,
-  CollectionProductsPayload,
+  SearchParamsKeysPayload,
   collectionProductsValidator
 } from '@/components/pages/CollectionPage/hooks';
-import {
-  EXCLUDED_COLLECTION_SEARCH_PARAMS,
-  LangValues,
-  MarketValues,
-  URL_STATE_KEYS
-} from '@/data/constants';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
+import { LangValues, MarketValues } from '@/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import { notFound, useSearchParams } from 'next/navigation';
 import { CollectionLayout } from './CollectionLayout';
@@ -27,13 +21,22 @@ export interface PageProps {
   lang: LangValues;
   dictionary: Dictionary['collection_page'];
   pageCount: number;
+  includedSearchParamsKeys: SearchParamsKeysPayload;
 }
 
-export function CollectionPage({ slug, market, lang, dictionary, moods, pageCount }: PageProps) {
+export function CollectionPage({
+  slug,
+  market,
+  lang,
+  dictionary,
+  moods,
+  pageCount,
+  includedSearchParamsKeys
+}: PageProps) {
   const searchParams = useSearchParams();
   const paramsObject = Object.fromEntries(searchParams.entries());
 
-  const paramValues = formatSearchParamsValues(paramsObject);
+  const paramValues = formatSearchParamsValues(paramsObject, includedSearchParamsKeys);
   const { setNumberOfProducts } = useCollectionContext();
 
   const sortKey = paramsObject?.sort;
@@ -103,14 +106,13 @@ interface FormatParamsValuesProps {
   [key: string]: string | undefined;
 }
 
-function formatSearchParamsValues(search: FormatParamsValuesProps) {
-  const urlStateKeys = Object.values(URL_STATE_KEYS);
-  const excludedCollectionSearchParams = EXCLUDED_COLLECTION_SEARCH_PARAMS;
-  const exludeKeys = [...urlStateKeys, ...excludedCollectionSearchParams];
-
+function formatSearchParamsValues(
+  search: FormatParamsValuesProps,
+  includedSearchParamsKeys: SearchParamsKeysPayload
+) {
   const paramValues = search
     ? Object.entries(search)
-        .filter(([key]) => !exludeKeys.includes(key))
+        .filter(([key]) => includedSearchParamsKeys.includes(key))
         .flatMap(([_, value]) => value?.split(',') ?? [])
         .filter((value) => value !== undefined)
     : null;
@@ -119,30 +121,4 @@ function formatSearchParamsValues(search: FormatParamsValuesProps) {
     return null;
   }
   return paramValues;
-}
-
-function cleanData(
-  initialProducts: any,
-  inititalProductsData: any,
-  hasNextPage: boolean
-): CollectionProductsPayload {
-  const mergedTestData = initialProducts.map((product: any) => {
-    const productData = inititalProductsData.data.find(
-      (productData: any) => productData._id === product._id
-    );
-
-    return {
-      ...product,
-      ...productData,
-      hasNextPage: hasNextPage
-    };
-  });
-
-  const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
-
-  // const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
-  //   (product: any) => Object.keys(product).length > 1
-  // );
-
-  return collectionProductsWithoutNullValues;
 }

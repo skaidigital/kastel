@@ -1,15 +1,17 @@
 'use client';
 
 import { ActiveFilterGroupItem } from '@/components/pages/CollectionPage/filter/ActiveFilterGroupItem';
-import { EXCLUDED_COLLECTION_SEARCH_PARAMS, URL_STATE_KEYS } from '@/data/constants';
+import { URL_STATE_KEYS } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
+import { SearchParamsKeysPayload } from '../hooks';
 
 interface Props {
   className?: string;
+  includedSearchParamsKeys: SearchParamsKeysPayload;
 }
 
-export function ActiveFilters({ className }: Props) {
+export function ActiveFilters({ className, includedSearchParamsKeys }: Props) {
   const searchParams = useSearchParams();
   const searchParamsKeys = searchParams.keys();
   const keys: string[] = [];
@@ -18,14 +20,11 @@ export function ActiveFilters({ className }: Props) {
   }
 
   const urlStateKeys = Object.values(URL_STATE_KEYS);
-  const excludedCollectionSearchParams = EXCLUDED_COLLECTION_SEARCH_PARAMS;
-  const excludedKeys = [...urlStateKeys, ...excludedCollectionSearchParams];
 
-  // remove keys that are not filters
-  // const filteredKeys = keys.filter((key) => !Object.values(URL_STATE_KEYS).includes(key));
-  const filteredKeys = keys.filter((key) => !excludedKeys.includes(key));
+  // Remove not valid keys
+  const includedKeys = keys.filter((key) => includedSearchParamsKeys.includes(key));
 
-  // filteredKeys.push(URL_STATE_KEYS.onSale);
+  const filteredKeys = [...urlStateKeys, ...includedKeys];
 
   return (
     <div className={cn('flex items-center gap-x-1', className)}>
