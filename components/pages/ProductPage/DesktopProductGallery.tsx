@@ -1,5 +1,7 @@
 'use client';
 
+import { Badge } from '@/components/Badge';
+import { OnSaleBadge } from '@/components/OnSaleBadge';
 import Video from '@/components/Video';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
 import { useProductPageContext } from '@/components/pages/ProductPage/Context';
@@ -19,6 +21,9 @@ interface Props {
   lifestyleImage?: SanityImageProps;
   galleryFemale?: ProductGalleryProps;
   galleryMale?: ProductGalleryProps;
+  badges?: string[];
+  isOnSale?: boolean;
+  discountBadge?: React.ReactNode;
 }
 
 export function DesktopProductGallery({
@@ -28,7 +33,10 @@ export function DesktopProductGallery({
   mainCategory,
   lifestyleImage,
   galleryFemale,
-  galleryMale
+  galleryMale,
+  badges,
+  isOnSale,
+  discountBadge
 }: Props) {
   const hasLifestyleImage = lifestyleImage?.asset?._ref
     ? (lifestyleImage as SanityImageProps)
@@ -54,12 +62,20 @@ export function DesktopProductGallery({
             fill
             className="absolute h-auto w-full object-cover"
           />
-          <Breadcrumbs
-            productName={title}
-            lang={lang}
-            category={mainCategory}
-            className="absolute left-4 top-4"
-          />
+          <div className="absolute left-4 top-4 flex flex-col gap-y-4">
+            <Breadcrumbs productName={title} lang={lang} category={mainCategory} />
+            <div className="flex gap-x-1">
+              {badges && badges.length > 0 && (
+                <div className="gap-x-1">
+                  {badges.map((badge, index) => (
+                    <Badge key={index}>{badge}</Badge>
+                  ))}
+                </div>
+              )}
+              {isOnSale && <OnSaleBadge />}
+              {discountBadge && discountBadge}
+            </div>
+          </div>
         </div>
       )}
       {hasLifestyleImage && (

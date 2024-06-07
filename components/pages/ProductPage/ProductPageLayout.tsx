@@ -1,6 +1,5 @@
 import { Dictionary } from '@/app/dictionaries';
 import { HotspotImage } from '@/components/HotspotImage';
-import { OnSaleBadge } from '@/components/OnSaleBadge';
 import { ProductForm } from '@/components/ProductForm';
 import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
 import { ProductFormScrollContainer } from '@/components/ProductForm/ScrollContainer';
@@ -8,15 +7,14 @@ import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
-import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
 import { ProductPageContextProvider } from '@/components/pages/ProductPage/Context';
+import { MobileProductPageGallery } from '@/components/pages/ProductPage/MobileProductPageGallery';
 import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton';
 import { ProductPageShortDescription } from '@/components/pages/ProductPage/ShortDescription';
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
 import { ViewItemEventTrigger } from '@/components/pages/ProductPage/ViewItemEventTrigger';
 import { Product } from '@/components/pages/ProductPage/hooks';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
-import { MobileCarousel } from '@/components/shared/MobileCarousel';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
 import { Rating } from '@/components/shared/ProductCard/Rating';
@@ -85,21 +83,25 @@ export async function ProductPageLayout(props: Props) {
           imageUrl={urlForImage(mainImage).url()}
         />
       )}
-      <div className="relative w-full">
-        <MobileCarousel
-          mainImage={mainImage}
-          lifestyleImage={lifeStyleImageCheck}
-          galleryFemale={product.galleryFemale}
-          galleryMale={product.galleryMale}
-          lang={lang}
-        />
-        <Breadcrumbs
-          productName={title}
-          lang={lang}
-          category={mainCategory}
-          className="absolute left-3 top-3"
-        />
-      </div>
+      <MobileProductPageGallery
+        title={title}
+        lang={lang}
+        mainCategory={mainCategory}
+        mainImage={mainImage}
+        lifestyleImage={lifeStyleImageCheck}
+        galleryFemale={product.galleryFemale}
+        galleryMale={product.galleryMale}
+        badges={product.badges}
+        isOnSale={largestDiscount ? true : false}
+        discountBadge={
+          <DiscountBadge
+            variants={variants}
+            productType={product.type}
+            largestDiscount={product.largestDiscount}
+          />
+        }
+        className="lg:hidden"
+      />
       <Section
         noTopPadding
         noBottomPadding
@@ -116,6 +118,15 @@ export async function ProductPageLayout(props: Props) {
             galleryFemale={product.galleryFemale}
             galleryMale={product.galleryMale}
             lifestyleImage={lifestyleImage as SanityImageProps}
+            badges={product.badges}
+            isOnSale={largestDiscount ? true : false}
+            discountBadge={
+              <DiscountBadge
+                variants={variants}
+                productType={product.type}
+                largestDiscount={product.largestDiscount}
+              />
+            }
           />
           <div className="no-flex-grow sticky top-0 h-fit gap-y-10 lg:max-w-[560px]">
             <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
@@ -124,12 +135,6 @@ export async function ProductPageLayout(props: Props) {
                 <div className="flex flex-col">
                   <div className="mb-[10px] flex items-center justify-between">
                     <div className="flex gap-2">
-                      {largestDiscount && <OnSaleBadge />}
-                      <DiscountBadge
-                        variants={variants}
-                        productType={product.type}
-                        largestDiscount={product.largestDiscount}
-                      />
                       <ScrollToRatingsButton>
                         <Rating sku={sku} />
                       </ScrollToRatingsButton>

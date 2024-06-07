@@ -110,6 +110,7 @@ export const productValidator = z.object({
   descriptionShort: z.string(),
   descriptionLongTitle: z.string(),
   descriptionLongDetails: z.string(),
+  badges: z.array(z.string()).optional(),
   galleryMale: productGalleryValidator.optional(),
   galleryFemale: productGalleryValidator.optional(),
   gallery: productGalleryValidator.optional(),
@@ -273,6 +274,7 @@ export function getProductQuery({
     "descriptionShort": coalesce(descriptionShort.${lang}, productType->descriptionShort.${lang}),
     "descriptionLongTitle": coalesce(descriptionLongTitle.${lang}, productType->descriptionLongTitle.${lang}),
     "descriptionLongDetails": coalesce(descriptionLongDetails.${lang}, productType->descriptionLongDetails.${lang}),
+    "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
     "faqs": coalesce(
     (
       // Combining FAQs from the main document, productType, and productSettings
