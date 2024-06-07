@@ -13,8 +13,10 @@ import { loadCollectionProductDataV2 } from '@/components/pages/CollectionPage/a
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
 import {
   CollectionBasePayload,
+  SearchParamsKeysPayload,
   collectionBaseValidator,
-  getCollectionBaseQuery
+  getCollectionBaseQuery,
+  getSearchParamsKeysQuery
 } from '@/components/pages/CollectionPage/hooks';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
@@ -58,8 +60,22 @@ function loadCollectionBase({
   );
 }
 
+export function fetchSearchParamsKeys({ lang }: { lang: LangValues }) {
+  const query = getSearchParamsKeysQuery({ lang });
+
+  return loadQuery<SanityQueryProps<SearchParamsKeysPayload>>(
+    query,
+    {},
+    { next: { tags: ['filter'] } }
+  );
+}
+
 interface Props {
-  params: { slug: string; market: MarketValues; lang: LangValues };
+  params: {
+    slug: string;
+    market: MarketValues;
+    lang: LangValues;
+  };
 }
 
 export default async function SlugCollectionPage({ params }: Props) {
@@ -92,6 +108,8 @@ export default async function SlugCollectionPage({ params }: Props) {
       loadCollectionProductDataV2({ lang, market, slug, currentPage: 1, sortKey, paramValues })
   });
 
+  const includedSearchParamsKeys = await fetchSearchParamsKeys({ lang });
+
   const { title, descriptionShort, pageBuilder, descriptionLong, id, moods, productIds } =
     validatedBase.data;
   const pageCount = Math.ceil(productIds.length / COLLECTION_PAGE_SIZE) || 0;
@@ -119,7 +137,10 @@ export default async function SlugCollectionPage({ params }: Props) {
               {descriptionShort}
             </Text>
           )}
-          <ActiveFilters className="mt-3 lg:hidden" />
+          <ActiveFilters
+            className="mt-3 lg:hidden"
+            includedSearchParamsKeys={includedSearchParamsKeys?.data || []}
+          />
         </Container>
       </Section>
       <CollectionSettingsBarDesktop
@@ -128,6 +149,7 @@ export default async function SlugCollectionPage({ params }: Props) {
         lang={lang}
         className="hidden min-h-32 lg:block"
         collectionSlug={slug}
+        includedSearchParamsKeys={includedSearchParamsKeys?.data || []}
       />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense fallback={<CollectionProductsLoadingState />}>
@@ -138,6 +160,7 @@ export default async function SlugCollectionPage({ params }: Props) {
             lang={lang}
             dictionary={collection_page}
             pageCount={pageCount}
+            includedSearchParamsKeys={includedSearchParamsKeys?.data || []}
           />
         </Suspense>
       </HydrationBoundary>

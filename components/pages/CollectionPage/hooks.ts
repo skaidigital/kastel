@@ -43,11 +43,14 @@ export const collectionValidator = z.object({
   moods: z.array(collectionMoodValidator).optional()
 });
 
+export const searchParamsKeysValidator = z.array(z.string());
+
 export type CollectionBasePayload = z.infer<typeof collectionBaseValidator>;
 export type CollectionMood = z.infer<typeof collectionMoodValidator>;
 export type CollectionProductPayload = z.infer<typeof collectionProductValidator>;
 export type CollectionProductsPayload = z.infer<typeof collectionProductsValidator>;
 export type Collection = z.infer<typeof collectionValidator>;
+export type SearchParamsKeysPayload = z.infer<typeof searchParamsKeysValidator>;
 
 export function getCollectionBaseQuery({
   market,
@@ -70,6 +73,14 @@ export function getCollectionBaseQuery({
         ${concatenatePageBuilderQueries({ market, lang })}
       }
     }
+  `;
+
+  return query;
+}
+
+export function getSearchParamsKeysQuery({ lang }: { lang: LangValues }) {
+  const query = groq`
+  *[_type == "filters"].items[]->.slug_${lang}.current
   `;
 
   return query;

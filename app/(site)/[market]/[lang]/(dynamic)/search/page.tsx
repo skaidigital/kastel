@@ -12,15 +12,17 @@ import { CollectionGrid } from '@/components/pages/CollectionPage/CollectionLayo
 import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
 import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
+import { SearchParamsKeysPayload } from '@/components/pages/CollectionPage/hooks';
 import { SearchActionsBarMobile } from '@/components/pages/SearchPage/ActionsBarMobile';
 import { SearchSettingsBar } from '@/components/pages/SearchPage/SetingsBar';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { ProductCardProps } from '@/lib/sanity/types';
 import { productCardValidator } from '@/lib/sanity/validators';
 import { Suspense } from 'react';
+import { fetchSearchParamsKeys } from '../../(rest)/collections/[slug]/page';
 
 export const metadata = {
   title: 'Search',
@@ -75,7 +77,8 @@ export default async function Page({ searchParams, params }: Props) {
   const ProductsInView = searchParams?.view || '4';
   const sortKey = searchParams?.sort || 'default';
 
-  const tagSlugs = formatSearchParams(searchParams);
+  const includedSearchParamsKeys = await fetchSearchParamsKeys({ lang });
+  const tagSlugs = formatSearchParamsValues(searchParams, includedSearchParamsKeys.data);
 
   const { search_page: dictionary, collection_page } = await getDictionary({ lang });
 
@@ -143,7 +146,10 @@ export default async function Page({ searchParams, params }: Props) {
                 {dictionary.search_results}
               </span>
             )}
-            <ActiveFilters className="mt-3 lg:hidden" />
+            <ActiveFilters
+              className="mt-3 lg:hidden"
+              includedSearchParamsKeys={includedSearchParamsKeys.data || []}
+            />
           </div>
           <SearchActionsBarMobile
             market={market}
@@ -158,6 +164,7 @@ export default async function Page({ searchParams, params }: Props) {
           lang={lang}
           searchGids={searchGids}
           className="hidden min-h-32 lg:block"
+          includedSearchParamsKeys={includedSearchParamsKeys.data || []}
         />
       </Section>
       <Section label={dictionary.search_results} srHeading={dictionary.search_results} noTopPadding>
@@ -205,15 +212,32 @@ export default async function Page({ searchParams, params }: Props) {
   );
 }
 
-function formatSearchParams(search: Props['searchParams']) {
+// function formatSearchParams(search: Props['searchParams'], includedSearchParamsKeys: SearchParamsKeysPayload) {
+//   const paramValues = search
+//     ? Object.entries(search)
+//         .filter(([key]) => !Object.values(URL_STATE_KEYS).includes(key))
+//         .flatMap(([_, value]) => value?.split(',') ?? [])
+//         .filter((value) => value !== undefined)
+//     : null;
+
+//   if (paramValues?.length === 0) {
+//     return null;
+//   }
+//   return paramValues;
+// }
+
+function formatSearchParamsValues(
+  search: Props['searchParams'],
+  includedSearchParamsKeys: SearchParamsKeysPayload
+) {
   const paramValues = search
     ? Object.entries(search)
-        .filter(([key]) => !Object.values(URL_STATE_KEYS).includes(key))
+        .filter(([key]) => includedSearchParamsKeys.includes(key))
         .flatMap(([_, value]) => value?.split(',') ?? [])
         .filter((value) => value !== undefined)
     : null;
 
-  if (paramValues?.length === 0) {
+  if (!paramValues || paramValues?.length === 0 || paramValues[0] === '') {
     return null;
   }
   return paramValues;
