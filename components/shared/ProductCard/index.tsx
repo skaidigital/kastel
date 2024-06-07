@@ -69,7 +69,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                   sizes={imageSizes}
                 />
               )}
-              <div className="absolute bottom-3 left-3 flex gap-x-1 @xs:bottom-4 @xs:left-4">
+              <div className="absolute left-3 top-3 flex gap-x-1 @xs:left-4 @xs:top-4">
                 <div className="flex flex-col gap-1 @[200px]:flex-row">
                   {biggestDiscount && <OnSaleBadge className="text-xs lg:text-sm" />}
                   {biggestDiscount && (
@@ -78,14 +78,12 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                 </div>
                 {badges && <Badges badges={badges} />}
               </div>
-              <div className="absolute bottom-3 right-3  @xs:hidden">
-                {sku && (
-                  <Rating
-                    sku={sku}
-                    className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
-                  />
-                )}
-              </div>
+              {sku && (
+                <Rating
+                  sku={sku}
+                  className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
+                />
+              )}
             </ImageContainer>
           </div>
           <div className="flex flex-col justify-center gap-y-2 bg-white p-3 @xs:flex-row @xs:justify-between @xs:p-4">
