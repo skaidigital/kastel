@@ -16,11 +16,39 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
  */
 export function CustomLink({ href, children, noScroll, ...restLink }: Props) {
   const { market, lang } = useBaseParams();
+  const router = useRouter();
 
   if (!href || !children) return null;
 
+  const conditionalPrefetch = () => {
+    if (href) {
+      router.prefetch(href);
+    }
+  };
+
   return (
-    <Link href={`/${market}/${lang}${href}`} {...restLink} scroll={noScroll ? false : undefined}>
+    <Link
+      href={`/${market}/${lang}${href}`}
+      {...restLink}
+      prefetch={false}
+      scroll={noScroll ? false : undefined}
+      onMouseEnter={(e) => {
+        conditionalPrefetch();
+        return restLink.onMouseEnter?.(e);
+      }}
+      onPointerEnter={(e) => {
+        conditionalPrefetch();
+        return restLink.onPointerEnter?.(e);
+      }}
+      onTouchStart={(e) => {
+        conditionalPrefetch();
+        return restLink.onTouchStart?.(e);
+      }}
+      onFocus={(e) => {
+        conditionalPrefetch();
+        return restLink.onFocus?.(e);
+      }}
+    >
       {children}
     </Link>
   );
@@ -42,12 +70,32 @@ export function CustomLinkProductCard({ slug, children, ...restLink }: ProductCa
   const activeSlug = activeColorway?.slug || slug;
   const href = `${ROUTES.PRODUCTS}/${activeSlug}`;
 
+  const conditionalPrefetch = () => {
+    if (href) {
+      void router.prefetch(`/${market}/${lang}${href}`);
+    }
+  };
+
   return (
     <Link
       href={`/${market}/${lang}${href}`}
       {...restLink}
-      onMouseEnter={() => {
-        router.prefetch(`/${market}/${lang}${href}`);
+      prefetch={false}
+      onMouseEnter={(e) => {
+        conditionalPrefetch();
+        return restLink.onMouseEnter?.(e);
+      }}
+      onPointerEnter={(e) => {
+        conditionalPrefetch();
+        return restLink.onPointerEnter?.(e);
+      }}
+      onTouchStart={(e) => {
+        conditionalPrefetch();
+        return restLink.onTouchStart?.(e);
+      }}
+      onFocus={(e) => {
+        conditionalPrefetch();
+        return restLink.onFocus?.(e);
       }}
     >
       {children}
