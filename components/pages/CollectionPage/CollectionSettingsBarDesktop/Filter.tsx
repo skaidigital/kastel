@@ -12,6 +12,7 @@ import {
   filterGroupsValidator,
   getFilterQuery
 } from '@/components/pages/CollectionPage/filter/hooks';
+import { OnSaleCheckbox } from '@/components/shared/CollectionAndSearchActionsBarMobile/OnSaleCheckbox';
 import { LangValues, MarketValues } from '@/data/constants';
 import { loadQuery } from '@/lib/sanity/storeServer';
 import { PlusIcon } from '@radix-ui/react-icons';
@@ -58,25 +59,31 @@ export async function Filter({ market, lang, collectionSlug, searchGids }: Props
         <DrawerHeader title={'Filter'} />
         <div className="flex flex-col gap-y-8 px-6">
           <FilterLayout filterGroupKeys={filterGroupKeys}>
-            <Accordion
-              defaultValue={defaultOpen}
-              type="multiple"
-              className="lg:col-span-5 lg:col-start-7"
-            >
-              {filterGroup.map((item) => (
-                <AccordionItem value={item.id} key={item.id} className="border-none lg:py-4">
-                  <AccordionTrigger className="mb-4">{item.title}</AccordionTrigger>
-                  <AccordionContent>
-                    <FilterGroupItem
-                      item={item}
-                      market={market}
-                      collectionSlug={collectionSlug}
-                      searchGids={searchGids}
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <div>
+              <Accordion
+                defaultValue={defaultOpen}
+                type="multiple"
+                className="lg:col-span-5 lg:col-start-7"
+              >
+                {filterGroup.map((item) => (
+                  <AccordionItem value={item.id} key={item.id} className="border-none lg:py-4">
+                    <AccordionTrigger className="mb-4 text-md">{item.title}</AccordionTrigger>
+                    <AccordionContent>
+                      <FilterGroupItem
+                        item={item}
+                        market={market}
+                        collectionSlug={collectionSlug}
+                        searchGids={searchGids}
+                      />
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+              <OnSaleCheckbox
+                lang={lang}
+                className="cursor-pointer py-4 font-medium text-brand-dark-grey lg:text-md"
+              />
+            </div>
           </FilterLayout>
         </div>
       </DrawerContent>

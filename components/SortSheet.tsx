@@ -54,10 +54,7 @@ export function SortSheet({ lang }: Props) {
                   asChild
                   className="flex items-center justify-between gap-x-2"
                 >
-                  <label
-                    htmlFor={option.value}
-                    className={cn(!isChecked ? 'text-brand-mid-grey' : '')}
-                  >
+                  <label htmlFor={option.value} className={cn(!isChecked && 'text-brand-mid-grey')}>
                     {option.title}
                     <RadioGroupItem
                       value={option.value}
