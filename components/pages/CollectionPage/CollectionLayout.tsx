@@ -87,7 +87,7 @@ export function CollectionLayout({
                 return (
                   <div key={index} className="m-[-1px]">
                     <ProductCard
-                      priority={priorityIndices.includes(index)}
+                      priority={priorityIndices.includes(index) ? true : false}
                       product={item}
                       imageSizes={sizes}
                     />
@@ -119,7 +119,7 @@ export function CollectionLayout({
                   <div className="m-[-1px]" key={index}>
                     <ProductCard
                       key={index}
-                      priority={priorityIndices.includes(index)}
+                      priority={priorityIndices.includes(index) ? true : false}
                       product={item}
                       imageSizes={sizes}
                     />

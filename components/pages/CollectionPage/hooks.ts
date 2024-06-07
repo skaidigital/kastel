@@ -124,7 +124,7 @@ export function getSortQuery(sortKey: string | undefined) {
     case 'newest':
       return '_createdAt desc';
     case 'on_sale':
-      return 'largestDiscount desc';
+      return 'largestDiscount asc';
     default:
       return null;
   }

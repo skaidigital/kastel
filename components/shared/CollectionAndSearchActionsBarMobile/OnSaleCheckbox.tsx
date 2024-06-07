@@ -8,9 +8,10 @@ import { parseAsBoolean, useQueryState } from 'nuqs';
 
 interface Props {
   lang: LangValues;
+  className?: string;
 }
 
-export function OnSaleCheckbox({ lang }: Props) {
+export function OnSaleCheckbox({ lang, className }: Props) {
   const [isOnSale, setIsOnSale] = useQueryState('on_sale', parseAsBoolean);
   const router = useRouter();
 
@@ -22,7 +23,11 @@ export function OnSaleCheckbox({ lang }: Props) {
   const onSaleString = getOnSaleString(lang);
 
   return (
-    <Text size="sm" className="flex items-center justify-between text-brand-mid-grey" asChild>
+    <Text
+      size="sm"
+      className={cn('flex items-center justify-between text-brand-mid-grey', className)}
+      asChild
+    >
       <label htmlFor="onSale">
         {onSaleString}
         <input
