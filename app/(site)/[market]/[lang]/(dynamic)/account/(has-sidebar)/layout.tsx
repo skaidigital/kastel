@@ -3,7 +3,7 @@ import { getDictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
 import { COOKIE_NAMES, LangValues, ROUTES } from '@/data/constants';
 import { getExpiryTime } from '@/lib/getExpiryTime';
-import { getRefreshToken } from '@/lib/getRefreshToken';
+import { handleRefreshToken } from '@/lib/getRefreshToken';
 import { logIn, logOut } from '@/lib/shopify/customer/actions';
 import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
@@ -19,7 +19,8 @@ export default async function Layout({ params: { lang }, children }: Props) {
   const { account_layout: dictionary } = await getDictionary({ lang });
 
   if (!expiredCoockie && refreshToken) {
-    const updatedToken = await getRefreshToken();
+    const updatedToken = await handleRefreshToken();
+
     if (!updatedToken) {
       await logIn();
     }

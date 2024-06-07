@@ -103,6 +103,8 @@ export async function getExchangedAccessToken(accessToken: string) {
 export async function refreshAccessToken(refreshToken: string): Promise<AccessTokenResponse> {
   const body = new URLSearchParams();
 
+  console.log(refreshToken);
+
   body.append('grant_type', 'refresh_token');
   body.append('client_id', clientId);
   body.append('refresh_token', refreshToken);
@@ -116,9 +118,19 @@ export async function refreshAccessToken(refreshToken: string): Promise<AccessTo
     body
   });
 
-  const { access_token, expires_in, id_token, refresh_token } = await response.json();
+  const jsonResponse = await response.json();
 
-  return { access_token, expires_in, id_token, refresh_token };
+  console.log(jsonResponse);
+
+  // const { access_token, expires_in, refresh_token } = jsonResponse;
+
+  // // cookies().set(COOKIE_NAMES.SHOPIFY.ID_TOKEN, id_token);
+  // cookies().set(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN, access_token);
+  // cookies().set(COOKIE_NAMES.SHOPIFY.EXPIRES_IN, expires_in);
+  // cookies().set(COOKIE_NAMES.SHOPIFY.REFRESH_TOKEN, refresh_token);
+  // cookies().set('test', 'test1');
+
+  return jsonResponse;
 }
 
 export async function logOut() {
