@@ -72,7 +72,7 @@ export function Hero({ data }: Props) {
             <Heading
               as="h1"
               className={cn(
-                'mb-4 translate-y-[-10px] animate-fade-in-text text-pretty text-[48px] italic leading-[40px] opacity-0 transition-[opacity,color] [--animation-delay:500ms] lg:mb-6 lg:max-w-3xl lg:text-heading-2xl '
+                'mb-4 translate-y-[-10px] animate-fade-in-text text-pretty text-[48px] italic leading-[40px] opacity-0 transition-[opacity,color] [--animation-delay:500ms] lg:mb-6 lg:max-w-3xl lg:text-heading-2xl'
               )}
             >
               {title}
@@ -81,7 +81,7 @@ export function Hero({ data }: Props) {
           {description && (
             <Text
               className={cn(
-                'mb-8 translate-y-[-10px] animate-fade-in-text  text-balance text-md opacity-0 transition-[opacity,color] [--animation-delay:550ms] lg:mb-10 lg:max-w-lg lg:text-lg'
+                'mb-8 translate-y-[-10px] animate-fade-in-text text-balance text-md opacity-0 transition-[opacity,color] [--animation-delay:550ms] lg:mb-10 lg:max-w-lg lg:text-lg'
               )}
             >
               {description}
@@ -91,7 +91,7 @@ export function Hero({ data }: Props) {
             <Button
               asChild
               variant={buttonSettings.variant}
-              className="translate-y-[-10px] animate-fade-in-text  opacity-0 transition-[opacity-color] [--animation-delay:700ms] [--duration:700ms]"
+              className="translate-y-[-10px] animate-fade-in-text opacity-0 transition-[opacity-color] [--animation-delay:700ms] [--duration:700ms]"
             >
               <span>{link.text}</span>
             </Button>

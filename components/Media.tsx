@@ -55,11 +55,18 @@ export function Media({ media, loading, sizes }: Props) {
           playbackId={media.video}
           controlled={false}
           resolution="HD"
-          loading="lazy"
+          loading={loading}
         />
       );
     }
-    return <Video playbackId={media.video} controlled={false} resolution="HD" loading="eager" />;
+    return (
+      <Video
+        playbackId={media.video}
+        controlled={false}
+        resolution="HD"
+        loading={loading === 'eager' ? 'eager' : 'lazy'}
+      />
+    );
   }
 
   if (typeIsVideo && !sameAssetForMobileAndDesktop) {
@@ -87,14 +94,14 @@ export function Media({ media, loading, sizes }: Props) {
           playbackId={media.videoMobile}
           controlled={false}
           resolution="HD"
-          loading="lazy"
+          loading={loading === 'eager' ? 'eager' : 'lazy'}
           className="lg:hidden"
         />
         <Video
           playbackId={media.videoDesktop}
           controlled={false}
           resolution="HD"
-          loading="lazy"
+          loading={loading === 'eager' ? 'eager' : 'lazy'}
           className="hidden lg:block"
         />
       </>

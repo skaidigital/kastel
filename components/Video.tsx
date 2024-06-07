@@ -52,7 +52,7 @@ export default function Video({
       controls={controls === true ? true : false}
       muted={!controlled}
       poster={poster}
-      preload="none"
+      preload={loading === 'eager' ? 'auto' : 'none'}
       className={cn('absolute h-full w-full overflow-hidden object-cover', className)}
     >
       <source src={mp4Url} type="video/mp4" />
