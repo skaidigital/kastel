@@ -120,7 +120,7 @@ export const COOKIE_NAMES = {
   COOKIE_CONSENT: 'CookieConsent',
   POPUP: 'has_seen_popup',
   REQUEST_COUNTRY: 'request_country',
-  RECCOMMENDED_MARKET: 'reccommended_market',
+  RECOMMENDED_MARKET: 'recommended_market',
   HAS_CHOSEN_MARKET: 'has_chosen_market',
   MARKET: 'market',
   PREVIEW_MARKET: 'previewMarket',
