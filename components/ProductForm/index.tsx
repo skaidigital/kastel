@@ -1,6 +1,5 @@
 import { getDictionary } from '@/app/dictionaries';
 import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
-import { VippsHurtigkasseButton } from '@/components/ProductForm/VippsHurtigkasseButton';
 import { VariantSelector } from '@/components/VariantSelector';
 import { MobileAddToCartDrawer } from '@/components/pages/ProductPage/MobileAddToCartDrawer';
 import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
@@ -56,25 +55,14 @@ export async function ProductForm({
             dictionary={dictionary}
           />
         )}
-        <div className="flex w-full flex-col items-center gap-y-2">
-          <AddToCartButton
-            productId={productId}
-            productTitle={productTitle}
-            productType={type}
-            variants={variants}
-            addToCartText={dictionary.add_to_cart}
-            selectSizeText={dictionary.choose_size}
-          />
-          <span className="text-sm">Eller</span>
-          <div className="w-full">
-            <VippsHurtigkasseButton
-              variants={variants}
-              productType={type}
-              productId={productId}
-              classname="w-full"
-            />
-          </div>
-        </div>
+        <AddToCartButton
+          productId={productId}
+          productTitle={productTitle}
+          productType={type}
+          variants={variants}
+          addToCartText={dictionary.add_to_cart}
+          selectSizeText={dictionary.choose_size}
+        />
       </div>
     </MobileAddToCartDrawer>
   );

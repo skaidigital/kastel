@@ -29,7 +29,7 @@ interface Props {
   lang: LangValues;
 }
 
-export async function ColorSelectLayout({ typeId, market, lang }: Props) {
+export async function ColorSelector({ typeId, market, lang }: Props) {
   const initial = await loadSiblingProducts({ typeId, market, lang });
 
   if (!initial.data) {

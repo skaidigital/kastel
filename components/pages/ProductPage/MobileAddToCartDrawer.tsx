@@ -74,7 +74,7 @@ export function MobileAddToCartDrawer({
           <div
             aria-hidden={!isOpen}
             data-state={isOpen ? 'open' : 'closed'}
-            className="fixed bottom-0 left-0 isolate z-20 w-full border-t border-brand-light-grey bg-white p-4 transition-all data-[state=closed]:animate-drawer-bottom-hide data-[state=open]:animate-drawer-bottom-show"
+            className="fixed left-0 top-0 isolate z-20 w-full border-b border-brand-light-grey bg-white p-4 transition-all data-[state=closed]:animate-drawer-top-hide data-[state=open]:animate-drawer-top-show"
             style={{ transform: isOpen ? 'translateY(0)' : 'translateY(100%)' }}
           >
             {id ? (

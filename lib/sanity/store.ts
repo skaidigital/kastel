@@ -15,6 +15,9 @@ export const loadQuery = ((query, params = {}, options = {}) => {
   return queryStore.loadQuery(query, params, {
     ...options,
     perspective,
-    stega
+    stega,
+    next: {
+      revalidate: 60 || options.next?.revalidate
+    }
   });
 }) satisfies typeof queryStore.loadQuery;

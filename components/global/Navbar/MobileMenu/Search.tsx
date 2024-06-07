@@ -57,7 +57,7 @@ export function MobileMenuSearch({ onClose, className }: Props) {
         autoComplete="off"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
-        className="grow bg-transparent py-4 text-sm leading-[14px] text-brand-dark-grey placeholder:text-sm placeholder:leading-[14px] placeholder:text-brand-dark-grey"
+        className="grow bg-transparent py-4 text-[16px] leading-[16px] text-brand-dark-grey placeholder:text-sm placeholder:leading-[14px] placeholder:text-brand-dark-grey md:text-sm md:leading-[14px]"
         placeholder="Search"
       />
     </form>

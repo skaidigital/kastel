@@ -127,6 +127,14 @@ module.exports = {
         from: { transform: 'translateY(0)' },
         to: { transform: 'translateY(100%)' }
       },
+      'drawer-top-show': {
+        from: { transform: 'translateY(-100%)' },
+        to: { transform: 'translateY(0)' }
+      },
+      'drawer-top-hide': {
+        from: { transform: 'translateY(0)' },
+        to: { transform: 'translateY(-100%)' }
+      },
       'modal-show': {
         from: { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
         to: { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
@@ -216,6 +224,8 @@ module.exports = {
       'drawer-left-hide': 'drawer-left-hide 500ms var(--ease-out-expo)',
       'drawer-bottom-show': 'drawer-bottom-show 400ms var(--ease-out-quad)',
       'drawer-bottom-hide': 'drawer-bottom-hide 400ms var(--ease-out-quad)',
+      'drawer-top-show': 'drawer-top-show 400ms var(--ease-out-quad)',
+      'drawer-top-hide': 'drawer-top-hide 400ms var(--ease-out-quad)',
       'fade-in': 'fade-in var(--animation-delay, 150ms) ease forwards',
       'fade-out': 'fade-out var(--animation-delay, 150ms) ease',
       'slide-up-and-fade': 'slide-up-and-fade 300ms ease',
