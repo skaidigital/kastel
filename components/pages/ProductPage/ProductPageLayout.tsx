@@ -26,7 +26,7 @@ import { LangValues, MarketValues } from '@/data/constants';
 import { urlForImage } from '@/lib/sanity/image';
 import { SanityImageProps } from '@/lib/sanity/types';
 import { SearchParams } from '@/lib/types';
-import { ColorSelectLayout } from './ColorSelectLayout';
+import { ColorSelector } from './ColorSelector';
 import { DiscountBadge } from './DiscountBadge';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
@@ -171,7 +171,7 @@ export async function ProductPageLayout(props: Props) {
                     </Text>
                   )}
                   {type === 'VARIABLE' && typeId && (
-                    <ColorSelectLayout typeId={typeId} market={market} lang={lang} />
+                    <ColorSelector typeId={typeId} market={market} lang={lang} />
                   )}
                   <ProductForm
                     lang={lang}

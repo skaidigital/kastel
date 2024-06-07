@@ -22,7 +22,7 @@ export function CustomLink({ href, children, noScroll, ...restLink }: Props) {
 
   const conditionalPrefetch = () => {
     if (href) {
-      router.prefetch(href);
+      router.prefetch(`/${market}/${lang}${href}`);
     }
   };
 
