@@ -353,7 +353,7 @@ export const portableTextBlogPostSerializer = {
 
       return (
         <BlogWidthContainer width="normal" className="my-10 lg:my-20">
-          <div className="aspect-h-9 aspect-w-16 h-0 min-w-full overflow-hidden ">
+          <div className="aspect-h-9 aspect-w-16 h-0 min-w-full overflow-hidden">
             <YouTubeVideo url={value.url} />
           </div>
         </BlogWidthContainer>

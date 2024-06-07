@@ -2,6 +2,7 @@
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/Popover';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/Tooltip';
+import { useCloseOnScroll } from '@/lib/hooks/useCloseOnScroll';
 import { PopoverContentProps, PopoverProps, PopoverTriggerProps } from '@radix-ui/react-popover';
 import { TooltipContentProps, TooltipProps, TooltipTriggerProps } from '@radix-ui/react-tooltip';
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
@@ -23,8 +24,15 @@ export const TouchProvider = (props: PropsWithChildren) => {
 
 export const HybridTooltip = (props: TooltipProps & PopoverProps) => {
   const isTouch = useTouch();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  return isTouch ? <Popover {...props} /> : <Tooltip {...props} />;
+  useCloseOnScroll(isOpen, setIsOpen);
+
+  return isTouch ? (
+    <Popover {...props} open={isOpen} onOpenChange={setIsOpen} />
+  ) : (
+    <Tooltip {...props} open={isOpen} onOpenChange={setIsOpen} />
+  );
 };
 
 export const HybridTooltipTrigger = (props: TooltipTriggerProps & PopoverTriggerProps) => {
