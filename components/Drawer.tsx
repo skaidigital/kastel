@@ -22,7 +22,7 @@ export function DrawerContent({ children, placement = 'right', className, ref }:
       <Dialog.Content
         forceMount
         className={cn(
-          'border-brand-border fixed z-30 flex h-screen w-full max-w-md flex-col rounded-project bg-white transition-[transform,opacity]  will-change-[transform,opacity] focus:outline-none',
+          'border-brand-border fixed z-30 flex h-screen w-full max-w-md flex-col overflow-y-auto rounded-project bg-white transition-[transform,opacity] will-change-[transform,opacity] focus:outline-none',
           placement === 'bottom' &&
             'bottom-0 left-0 border-t data-[state=closed]:animate-drawer-bottom-hide data-[state=open]:animate-drawer-bottom-show',
           placement === 'left' &&
