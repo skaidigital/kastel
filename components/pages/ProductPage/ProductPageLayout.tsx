@@ -27,11 +27,11 @@ import { urlForImage } from '@/lib/sanity/image';
 import { SanityImageProps } from '@/lib/sanity/types';
 import { SearchParams } from '@/lib/types';
 import { ColorSelector } from './ColorSelector';
+import { DesktopProductGallery } from './DesktopProductGallery';
 import { DiscountBadge } from './DiscountBadge';
 import { PaymentIcons } from './PaymentIcons';
 import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
 import { ProductFAQs } from './ProductFAQs';
-import { ProductGallery } from './ProductGallery';
 import { ProductPrice } from './ProductPrice';
 import { UspsMarquee } from './Usps';
 
@@ -108,7 +108,7 @@ export async function ProductPageLayout(props: Props) {
         className="border-brand-border gap-y-5 border-b bg-white pb-9 lg:flex lg:pb-20"
       >
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:mt-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
-          <ProductGallery
+          <DesktopProductGallery
             title={title}
             lang={lang}
             mainImage={mainImage}

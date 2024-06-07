@@ -3,10 +3,10 @@
 import Video from '@/components/Video';
 import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
 import { useProductPageContext } from '@/components/pages/ProductPage/Context';
+import { GenderGalleryButtons } from '@/components/pages/ProductPage/GenderGalleryButtons';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { LangValues } from '@/data/constants';
 import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
 
 interface Props {
   title: string;
@@ -21,7 +21,7 @@ interface Props {
   galleryMale?: ProductGalleryProps;
 }
 
-export function ProductGallery({
+export function DesktopProductGallery({
   title,
   lang,
   mainImage,
@@ -34,37 +34,14 @@ export function ProductGallery({
     ? (lifestyleImage as SanityImageProps)
     : undefined;
 
-  const { activeGender, setActiveGender } = useProductPageContext();
+  const { activeGender } = useProductPageContext();
 
   return (
-    <div className="hidden flex-grow justify-start lg:flex lg:flex-col ">
+    <div className="hidden flex-grow justify-start lg:flex lg:flex-col">
       {(galleryFemale || galleryMale) && (
         <div className="relative">
           <div className="absolute right-0 top-0 z-10 p-4">
-            <div className="mb-4 flex justify-center gap-x-1">
-              <button
-                onClick={() => setActiveGender('female')}
-                className={cn(
-                  'px-4 py-2',
-                  activeGender == 'female'
-                    ? 'bg-brand-primary text-white'
-                    : 'bg-brand-light-grey text-black'
-                )}
-              >
-                Female
-              </button>
-              <button
-                onClick={() => setActiveGender('male')}
-                className={cn(
-                  'px-4 py-2',
-                  activeGender == 'male'
-                    ? 'bg-brand-primary text-white'
-                    : 'bg-brand-light-grey text-black'
-                )}
-              >
-                Male
-              </button>
-            </div>
+            <GenderGalleryButtons />
           </div>
         </div>
       )}

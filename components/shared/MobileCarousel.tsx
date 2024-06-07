@@ -5,6 +5,7 @@ import {
   ProductPageContextType,
   useProductPageContext
 } from '@/components/pages/ProductPage/Context';
+import { GenderGalleryButtons } from '@/components/pages/ProductPage/GenderGalleryButtons';
 import { SanityImage } from '@/components/sanity/SanityImage';
 import { LangValues } from '@/data/constants';
 import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
@@ -125,30 +126,7 @@ export function MobileCarousel({
         })}
       {(galleryFemale || galleryMale) && (
         <div className="absolute bottom-2 right-2">
-          <div className="mb-4 flex justify-center gap-x-1 text-sm">
-            <button
-              onClick={() => handleClick('female')}
-              className={cn(
-                'px-4 py-2',
-                activeGender == 'female'
-                  ? 'bg-brand-primary text-white'
-                  : 'bg-brand-light-grey text-black'
-              )}
-            >
-              Female
-            </button>
-            <button
-              onClick={() => handleClick('male')}
-              className={cn(
-                'px-4 py-2',
-                activeGender == 'male'
-                  ? 'bg-brand-primary text-white'
-                  : 'bg-brand-light-grey text-black'
-              )}
-            >
-              Male
-            </button>
-          </div>
+          <GenderGalleryButtons className="text-sm" />
         </div>
       )}
       {loaded && instanceRef.current && (
