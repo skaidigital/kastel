@@ -3,7 +3,6 @@ import { CACHE_TAGS, COOKIE_NAMES, LangValues, MarketValues } from '@/data/const
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { logIn } from '@/lib/shopify/customer/actions';
-import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { AccountPageValidator, getAccountQuery } from './hooks';
 
@@ -26,18 +25,14 @@ export default async function Page({ params }: Props) {
   if (!isLoggedIn) {
     await logIn();
   }
+
   const inital = await loadAccountPage({ lang, market });
 
   const nonNullData = nullToUndefined(inital.data);
-
   const validatedData = AccountPageValidator.parse(nonNullData);
 
   return <AccountPage data={validatedData} lang={lang} />;
 }
-
-export const metadata: Metadata = {
-  title: getTitle()
-};
 
 // TODO get market from params
 function getTitle() {

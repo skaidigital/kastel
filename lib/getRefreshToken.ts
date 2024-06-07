@@ -20,8 +20,6 @@ export async function handleRefreshToken() {
     body: JSON.stringify({ refreshToken })
   });
 
-  // console.log(response);
-
   const status = response.status;
   if (status === 200) {
     return true;

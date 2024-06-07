@@ -27,7 +27,7 @@ interface CardContentProps {
 }
 
 export function CardContent({ children }: CardContentProps) {
-  return <div className="flex flex-col rounded-t-[4px] bg-white p-6">{children}</div>;
+  return <div className="flex grow flex-col rounded-t-[4px] bg-white p-6">{children}</div>;
 }
 
 interface CardButtonProps {

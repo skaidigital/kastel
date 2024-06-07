@@ -5,7 +5,7 @@ export const LoadingSpinner = ({ className }: { className?: string }) => {
     <svg
       aria-hidden="true"
       role="status"
-      className={cn('animate-spin inline h-4 w-4 text-inherit', className)}
+      className={cn('inline h-4 w-4 animate-spin text-brand-primary', className)}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

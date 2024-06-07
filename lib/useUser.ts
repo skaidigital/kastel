@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-async function getIsLoggedIn() {
+async function getIsLoggedInStatus() {
   const response = await fetch('/api/isLoggedIn');
   const { isLoggedIn } = await response.json();
 
@@ -13,7 +13,7 @@ export function useUser() {
   const { data: isLoggedIn } = useQuery({
     queryKey: ['isLoggedIn'],
     queryFn: async () => {
-      return getIsLoggedIn();
+      return getIsLoggedInStatus();
     }
   });
 
