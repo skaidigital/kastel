@@ -39,6 +39,11 @@ export async function Filter({ market, lang, collectionSlug, searchGids }: Props
 
   const filterGroupKeys = filterGroup.map((item) => item.slug);
 
+  console.log(initial);
+  console.log(filterGroupResponse);
+  console.log(filterGroup);
+  console.log(filterGroupKeys);
+
   // Get the id of the first two filter group.s Remove undefined values
   const defaultOpen = filterGroup
     .slice(0, 2)

@@ -56,7 +56,7 @@ export function CollectionLayout({
     }
   }, [isDesktop]);
 
-  const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 3, moods);
+  const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 5, moods);
   const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods);
 
   const hasProducts = productCount !== 0;
@@ -173,13 +173,9 @@ function insertMoodsDesktop(
   const moodsToInsert = moods.slice(baseIndex, baseIndex + 3);
 
   moodsToInsert.forEach((mood, index) => {
-    let insertIndex = 0;
-    if (index === 1) {
-      insertIndex = 9;
-    } else if (index === 2) {
-      insertIndex = 14;
-    }
-    insertIndex = Math.min(insertIndex, result.length);
+    const indexIsOdd = index % 2 === 1;
+    const indexJump = indexIsOdd ? 11 : 8;
+    const insertIndex = Math.min(index * indexJump, result.length);
     result.splice(insertIndex, 0, mood);
   });
 
@@ -196,10 +192,10 @@ function insertMoodsMobile(
   }
 
   const result: ProductOrMood[] = [...products];
-  const moodsToInsert = moods.slice(baseIndex, baseIndex + 3);
+  const moodsToInsert = moods.slice(baseIndex, baseIndex + 5);
 
   moodsToInsert.forEach((mood, index) => {
-    const insertIndex = Math.min(4 + index * 5, result.length);
+    const insertIndex = Math.min(index * 5, result.length);
     result.splice(insertIndex, 0, mood);
   });
 
