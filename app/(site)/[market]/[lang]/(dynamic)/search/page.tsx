@@ -16,7 +16,7 @@ import { SearchParamsKeysPayload } from '@/components/pages/CollectionPage/hooks
 import { SearchActionsBarMobile } from '@/components/pages/SearchPage/ActionsBarMobile';
 import { SearchSettingsBar } from '@/components/pages/SearchPage/SetingsBar';
 import { ProductCard } from '@/components/shared/ProductCard';
-import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { ProductCardProps } from '@/lib/sanity/types';
@@ -230,9 +230,12 @@ function formatSearchParamsValues(
   search: Props['searchParams'],
   includedSearchParamsKeys: SearchParamsKeysPayload
 ) {
+  const excludeParams = Object.values(URL_STATE_KEYS);
+
   const paramValues = search
     ? Object.entries(search)
         .filter(([key]) => includedSearchParamsKeys.includes(key))
+        .filter(([key]) => !excludeParams.includes(key))
         .flatMap(([_, value]) => value?.split(',') ?? [])
         .filter((value) => value !== undefined)
     : null;

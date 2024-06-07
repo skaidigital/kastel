@@ -8,7 +8,7 @@ import {
   SearchParamsKeysPayload,
   collectionProductsValidator
 } from '@/components/pages/CollectionPage/hooks';
-import { LangValues, MarketValues } from '@/data/constants';
+import { LangValues, MarketValues, URL_STATE_KEYS } from '@/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import { notFound, useSearchParams } from 'next/navigation';
 import { CollectionLayout } from './CollectionLayout';
@@ -110,9 +110,12 @@ function formatSearchParamsValues(
   search: FormatParamsValuesProps,
   includedSearchParamsKeys: SearchParamsKeysPayload
 ) {
+  const excludeParams = Object.values(URL_STATE_KEYS);
+
   const paramValues = search
     ? Object.entries(search)
         .filter(([key]) => includedSearchParamsKeys.includes(key))
+        .filter(([key]) => !excludeParams.includes(key))
         .flatMap(([_, value]) => value?.split(',') ?? [])
         .filter((value) => value !== undefined)
     : null;
