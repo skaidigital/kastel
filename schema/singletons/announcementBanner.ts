@@ -17,6 +17,8 @@ export const announcementBanner = defineType({
   fields: [
     defineField({
       title: 'Show banner?',
+      description:
+        'For the home page and landing pages, if you want to hide/show the banner, you also need to set this property on that page',
       name: 'isShown',
       type: 'boolean',
       initialValue: true,
