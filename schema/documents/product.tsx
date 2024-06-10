@@ -675,6 +675,7 @@ export const product = defineType({
       name: 'varaints',
       type: 'string',
       group: 'variants',
+      hidden: ({ parent }) => parent?.type === 'SIMPLE',
       components: {
         // eslint-disable-next-line no-undef
         input: BulkVariantEditForm
