@@ -1,3 +1,4 @@
+import { BulkVariantEditForm } from '@/components/sanity/customComponents/bulkVariantEditForm';
 import { MARKETS, PRODUCT_TYPES } from '@/data/constants';
 import {
   filterAlreadyAddedReferences,
@@ -38,6 +39,10 @@ export const product = defineType({
       icon: Gear,
       name: 'settings',
       title: 'Settings'
+    },
+    {
+      name: 'variants',
+      title: 'Variants'
     }
   ],
   fieldsets: [
@@ -664,7 +669,17 @@ export const product = defineType({
       fieldset: 'shopify',
       group: market.id,
       readOnly: readOnlyUnlessDeveloper
-    }))
+    })),
+    defineField({
+      title: 'Variants',
+      name: 'varaints',
+      type: 'string',
+      group: 'variants',
+      components: {
+        // eslint-disable-next-line no-undef
+        input: BulkVariantEditForm
+      }
+    })
   ],
   orderings: [
     {
