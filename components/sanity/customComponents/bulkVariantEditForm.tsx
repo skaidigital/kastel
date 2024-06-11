@@ -83,20 +83,20 @@ export const BulkVariantEditForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <table className="w-full table-auto border-collapse border border-gray-300 text-[14px]">
+      <table className="w-full table-auto border-collapse border border-gray-300 text-[13px]">
         <thead>
           <tr className="bg-gray-100">
-            <th className="border border-gray-300 p-2">SKU</th>
-            <th className="border border-gray-300 p-2">Price (No)</th>
-            <th className="border border-gray-300 p-2">Price (Sv)</th>
-            <th className="border border-gray-300 p-2">Stock</th>
+            <th className="border border-gray-300 px-2 py-1">SKU</th>
+            <th className="border border-gray-300 px-2 py-1">Price (No)</th>
+            <th className="border border-gray-300 px-2 py-1">Price (Sv)</th>
+            <th className="border border-gray-300 px-2 py-1">Stock</th>
             {/* <th className="border border-gray-300 p-2">Variant</th> */}
           </tr>
         </thead>
         <tbody>
           {variants.map((variant) => (
-            <tr key={variant._id} className="hover:bg-gray-50">
-              <td className="w-1/3 border border-gray-300 p-2">
+            <tr key={variant._id} className="hover:bg-gray-100">
+              <td className="w-1/3 border border-gray-300 px-2 py-1">
                 <input
                   type="string"
                   className="form-input w-full rounded-md border-gray-300"
@@ -106,7 +106,7 @@ export const BulkVariantEditForm = () => {
                   }
                 />
               </td>
-              <td className="border border-gray-300 p-2">
+              <td className="border border-gray-300 px-2 py-1">
                 <input
                   type="number"
                   className="form-input w-full rounded-md border-gray-300"
@@ -116,7 +116,7 @@ export const BulkVariantEditForm = () => {
                   }
                 />
               </td>
-              <td className="border border-gray-300 p-2">
+              <td className="border border-gray-300 px-2 py-1">
                 <input
                   type="number"
                   className="form-input w-full rounded-md border-gray-300"
@@ -126,7 +126,7 @@ export const BulkVariantEditForm = () => {
                   }
                 />
               </td>
-              <td className="border border-gray-300 p-2">
+              <td className="border border-gray-300 px-2 py-1">
                 <input
                   type="number"
                   className="form-input w-full rounded-md border-gray-300"
@@ -148,7 +148,7 @@ export const BulkVariantEditForm = () => {
           //   type="submit"
           onClick={handleSubmit}
           disabled={Object.keys(variantChanges).length === 0} // Re-enable conditional disabling
-          className="rounded-sm bg-black px-4 py-2 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          className="rounded-sm bg-black px-2 py-1 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
           Save
         </button>
