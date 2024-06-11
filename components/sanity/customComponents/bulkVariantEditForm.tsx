@@ -20,6 +20,7 @@ export interface VariantChanges {
     price_no?: number;
     price_sv?: number;
     stock?: number;
+    sku?: string;
     // Add other fields as needed
   };
 }
@@ -95,7 +96,16 @@ export const BulkVariantEditForm = () => {
         <tbody>
           {variants.map((variant) => (
             <tr key={variant._id} className="hover:bg-gray-50">
-              <td className="w-1/3 border border-gray-300 p-2">{variant.sku}</td>
+              <td className="w-1/3 border border-gray-300 p-2">
+                <input
+                  type="string"
+                  className="form-input w-full rounded-md border-gray-300"
+                  value={variantChanges[variant._id]?.sku ?? variant.sku}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleInputChange(variant._id, 'sku', String(e.target.value))
+                  }
+                />
+              </td>
               <td className="border border-gray-300 p-2">
                 <input
                   type="number"
