@@ -10,6 +10,8 @@ interface ProductVariant {
   name: string;
   price_no: number; // Price in 'No'
   price_sv: number; // Price in 'Sv'
+  discountedPrice_no?: number; // Price in 'No' with discount
+  discountedPrice_sv?: number; // Price in 'Sv' with discount
   stock: number;
   sku: string;
   // Add other fields as needed
@@ -19,6 +21,8 @@ export interface VariantChanges {
   [key: string]: {
     price_no?: number;
     price_sv?: number;
+    discountedPrice_no?: number;
+    discountedPrice_sv?: number;
     stock?: number;
     sku?: string;
     // Add other fields as needed
@@ -40,6 +44,8 @@ export const BulkVariantEditForm = () => {
       {}
     );
   }, [documentStore, docId]);
+
+  console.log(results);
 
   useEffect(() => {
     if (results) {
@@ -85,7 +91,11 @@ export const BulkVariantEditForm = () => {
           <tr className="bg-gray-100">
             <th className="border border-gray-300 px-2 py-1">SKU</th>
             <th className="border border-gray-300 px-2 py-1">Price (No)</th>
+            <th className="border border-gray-300 px-2 py-1">Discounted (No)</th>
+
             <th className="border border-gray-300 px-2 py-1">Price (Sv)</th>
+            <th className="border border-gray-300 px-2 py-1">Discounted (Sv)</th>
+
             <th className="border border-gray-300 px-2 py-1">Stock</th>
             {/* <th className="border border-gray-300 p-2">Variant</th> */}
           </tr>
@@ -117,7 +127,31 @@ export const BulkVariantEditForm = () => {
                 <input
                   type="number"
                   className="form-input w-full rounded-md border-gray-300"
+                  value={
+                    variantChanges[variant._id]?.discountedPrice_no ?? variant.discountedPrice_no
+                  }
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleInputChange(variant._id, 'price_no', Number(e.target.value))
+                  }
+                />
+              </td>
+              <td className="border border-gray-300 px-2 py-1">
+                <input
+                  type="number"
+                  className="form-input w-full rounded-md border-gray-300"
                   value={variantChanges[variant._id]?.price_sv ?? variant.price_sv}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleInputChange(variant._id, 'price_sv', Number(e.target.value))
+                  }
+                />
+              </td>
+              <td className="border border-gray-300 px-2 py-1">
+                <input
+                  type="number"
+                  className="form-input w-full rounded-md border-gray-300"
+                  value={
+                    variantChanges[variant._id]?.discountedPrice_sv ?? variant.discountedPrice_sv
+                  }
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleInputChange(variant._id, 'price_sv', Number(e.target.value))
                   }
