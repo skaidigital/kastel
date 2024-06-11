@@ -41,8 +41,6 @@ export const BulkVariantEditForm = () => {
     );
   }, [documentStore, docId]);
 
-  console.log(variantChanges);
-
   useEffect(() => {
     if (results) {
       setVariants(results);
@@ -70,7 +68,6 @@ export const BulkVariantEditForm = () => {
         return;
       }
 
-      console.log('Transaction committed successfully');
       toast.push(successToast);
       setVariantChanges({});
       // Optionally, you can refresh the data or give feedback to the user
