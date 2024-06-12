@@ -78,7 +78,9 @@ export const product = defineType({
       description: 'This image will be shown when the user hovers over the product card'
     }),
     defineField({
-      title: 'Gallery - Female',
+      title: 'Gallery - Female/Default',
+      description:
+        'Default gallery images if male gallery is not set. If both are set, this will be the female gallery.',
       name: 'galleryFemale',
       type: 'array',
       of: [

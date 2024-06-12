@@ -46,7 +46,7 @@ export function DesktopProductGallery({
 
   return (
     <div className="hidden flex-grow justify-start lg:flex lg:flex-col">
-      {(galleryFemale || galleryMale) && (
+      {galleryFemale && galleryMale && (
         <div className="relative">
           <div className="absolute right-0 top-0 z-10 p-4">
             <GenderGalleryButtons />
