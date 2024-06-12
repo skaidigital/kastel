@@ -1,4 +1,5 @@
 import { env } from '@/env';
+import '@/lib/_suppressLogs';
 import { GoogleTagManager } from '@next/third-parties/google';
 import PlausibleProvider from 'next-plausible';
 import Script from 'next/script';
