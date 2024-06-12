@@ -310,7 +310,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
             {hasCartItems && (
               <div>
                 <div className="flex grow flex-col bg-black">
-                  <div className="flex h-0 flex-grow flex-col ">
+                  <div className="flex h-0 flex-grow flex-col">
                     <div className="flex flex-col">
                       {cart?.lines?.map((line) => (
                         <CartItem

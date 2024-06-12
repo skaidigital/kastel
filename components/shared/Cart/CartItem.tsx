@@ -61,7 +61,7 @@ export function CartItem({
           <div className="flex flex-col gap-y-1">
             <h3 className="font-medium">{title}</h3>
             <div className="flex flex-col gap-y-1">
-              {option1 && (
+              {option1 && option1.name !== 'Title' && (
                 <span>
                   {option1.name}: {option1.value}
                 </span>
