@@ -84,6 +84,7 @@ export default async function SlugCollectionPage({ params }: Props) {
 
   const sortKey = undefined;
   const paramValues = null;
+  const onSale = false;
 
   const initialBase = await loadCollectionBase({ slug, market, lang });
 
@@ -105,7 +106,15 @@ export default async function SlugCollectionPage({ params }: Props) {
   await queryClient.prefetchQuery({
     queryKey: ['collectionProducts', slug, lang, market, 1, undefined, null],
     queryFn: () =>
-      loadCollectionProductDataV2({ lang, market, slug, currentPage: 1, sortKey, paramValues })
+      loadCollectionProductDataV2({
+        lang,
+        market,
+        slug,
+        currentPage: 1,
+        sortKey,
+        paramValues,
+        onSale
+      })
   });
 
   const includedSearchParamsKeys = await fetchSearchParamsKeys({ lang });

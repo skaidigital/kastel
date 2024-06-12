@@ -103,8 +103,6 @@ export async function getExchangedAccessToken(accessToken: string) {
 export async function refreshAccessToken(refreshToken: string): Promise<AccessTokenResponse> {
   const body = new URLSearchParams();
 
-  console.log(refreshToken);
-
   body.append('grant_type', 'refresh_token');
   body.append('client_id', clientId);
   body.append('refresh_token', refreshToken);
@@ -119,8 +117,6 @@ export async function refreshAccessToken(refreshToken: string): Promise<AccessTo
   });
 
   const jsonResponse = await response.json();
-
-  console.log(jsonResponse);
 
   // const { access_token, expires_in, refresh_token } = jsonResponse;
 

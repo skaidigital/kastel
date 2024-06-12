@@ -86,7 +86,11 @@ export function getSearchParamsKeysQuery({ lang }: { lang: LangValues }) {
   return query;
 }
 
-export function getProductIdsByOrder(market: LangValues, sortKey: string | undefined) {
+export function getProductIdsByOrder(
+  market: LangValues,
+  onSale: boolean,
+  sortKey: string | undefined
+) {
   const query = groq`
     {
       "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[] {
@@ -97,7 +101,8 @@ export function getProductIdsByOrder(market: LangValues, sortKey: string | undef
             _createdAt,
             "largestDiscount": largestDiscount_${market},
             "minPrice" : minVariantPrice_${market}.amount,
-            "maxPrice": maxVariantPrice_${market}.amount
+            "maxPrice": maxVariantPrice_${market}.amount,
+             "onSale": largestDiscount_${market}
           },
           ${fragments.productsNotInTag},
           ${fragments.productsWithoutTags} {
@@ -105,10 +110,11 @@ export function getProductIdsByOrder(market: LangValues, sortKey: string | undef
             _createdAt,
             "largestDiscount": largestDiscount_${market},
             "minPrice" : minVariantPrice_${market}.amount,
-            "maxPrice": maxVariantPrice_${market}.amount
+            "maxPrice": maxVariantPrice_${market}.amount,
+             "onSale": largestDiscount_${market}
           }
-        }
-      } | order(${getSortQuery(sortKey)})
+        } 
+      } ${onSale ? '[defined(onSale)]' : '[]'} | order(${getSortQuery(sortKey)})
     } 
   `;
 

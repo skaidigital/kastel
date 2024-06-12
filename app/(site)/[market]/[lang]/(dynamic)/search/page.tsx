@@ -39,6 +39,7 @@ interface LoadSearchProps {
   searchQuery: string;
   page: number;
   tagSlugs: string[] | null;
+  onSale: boolean;
   sortKey?: string;
 }
 
@@ -48,9 +49,10 @@ async function loadSearchResults({
   searchQuery,
   page,
   tagSlugs,
+  onSale,
   sortKey
 }: LoadSearchProps) {
-  const sanityQuery = getSearchResultQuery(lang, market, page, sortKey);
+  const sanityQuery = getSearchResultQuery(lang, market, onSale, page, sortKey);
 
   return loadQuery<SearchResult | null>(
     sanityQuery,
@@ -76,6 +78,7 @@ export default async function Page({ searchParams, params }: Props) {
   const currentPage = Number(page) || 1;
   const ProductsInView = searchParams?.view || '4';
   const sortKey = searchParams?.sort || 'default';
+  const onSale = searchParams?.on_sale === 'true';
 
   const includedSearchParamsKeys = await fetchSearchParamsKeys({ lang });
   const tagSlugs = formatSearchParamsValues(searchParams, includedSearchParamsKeys.data);
@@ -88,6 +91,7 @@ export default async function Page({ searchParams, params }: Props) {
     searchQuery: searchValue || '',
     page: currentPage,
     tagSlugs,
+    onSale,
     sortKey
   });
 

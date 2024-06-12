@@ -40,9 +40,9 @@ export function CollectionPage({
   const { setNumberOfProducts } = useCollectionContext();
 
   const sortKey = paramsObject?.sort;
-  const saleKey = paramsObject?.on_sale;
+  const onSale = paramsObject?.on_sale ? true : false;
 
-  const prioritizedSortkey = saleKey ? 'on_sale' : sortKey;
+  const prioritizedSortkey = onSale ? 'on_sale' : sortKey;
   const currentPage = Number(searchParams.get('page')) || 1;
 
   const collectionFechData = {
@@ -50,20 +50,13 @@ export function CollectionPage({
     market,
     slug,
     currentPage,
-    sortKey: prioritizedSortkey,
-    paramValues
+    sortKey,
+    paramValues,
+    onSale
   };
 
   const { data, error, isLoading } = useQuery({
-    queryKey: [
-      'collectionProducts',
-      slug,
-      lang,
-      market,
-      currentPage,
-      prioritizedSortkey,
-      paramValues
-    ],
+    queryKey: ['collectionProducts', slug, lang, market, currentPage, sortKey, paramValues, onSale],
     queryFn: () => loadCollectionProductDataV2(collectionFechData),
     placeholderData: (prev) => prev
   });

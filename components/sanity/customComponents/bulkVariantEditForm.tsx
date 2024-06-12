@@ -45,8 +45,6 @@ export const BulkVariantEditForm = () => {
     );
   }, [documentStore, docId]);
 
-  console.log(results);
-
   useEffect(() => {
     if (results) {
       setVariants(results);

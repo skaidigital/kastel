@@ -17,9 +17,10 @@ export async function loadCollectionProductsOrder(
   slug: string,
   lang: LangValues,
   tagSlugs: string[] | null,
+  onSale: boolean,
   sortKey?: string
 ) {
-  const query = getProductIdsByOrder(lang, sortKey);
+  const query = getProductIdsByOrder(lang, onSale, sortKey);
 
   return loadQuery<SanityQueryProps<CollectionProductsPayload>>(query, { slug, tagSlugs });
 }
@@ -48,6 +49,7 @@ interface CollectionProductDataProps {
   currentPage: number;
   sortKey?: string;
   paramValues: string[] | null;
+  onSale: boolean;
 }
 
 export async function loadCollectionProductDataV2({
@@ -56,9 +58,16 @@ export async function loadCollectionProductDataV2({
   slug,
   currentPage,
   sortKey,
-  paramValues
+  paramValues,
+  onSale
 }: CollectionProductDataProps) {
-  const initialProducts = await loadCollectionProductsOrder(slug, lang, paramValues, sortKey);
+  const initialProducts = await loadCollectionProductsOrder(
+    slug,
+    lang,
+    paramValues,
+    onSale,
+    sortKey
+  );
 
   const removeInvalidProducts = initialProducts.data.products.filter((product) => product._id);
   const currentStart = (currentPage - 1) * COLLECTION_PAGE_SIZE;

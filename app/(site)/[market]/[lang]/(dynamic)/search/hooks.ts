@@ -15,6 +15,7 @@ export type SearchResult = z.infer<typeof searchResultValidator>;
 export function getSearchResultQuery(
   lang: LangValues,
   market: MarketValues,
+  onSale: boolean,
   pageIndex: number = 1,
   sortKey?: string
 ) {
@@ -34,16 +35,20 @@ export function getSearchResultQuery(
           ${fragments.getProductCard(lang, market)},
           _createdAt,
           "minPrice" : minVariantPrice_no.amount,
-          "maxPrice": maxVariantPrice_no.amount
+          "maxPrice": maxVariantPrice_no.amount,
+          "onSale": largestDiscount_${market}
+
         },
         ${fragments.productsNotInTag},
         ${fragments.productsWithoutTags} {
           ${fragments.getProductCard(lang, market)},
           _createdAt,
           "minPrice" : minVariantPrice_no.amount,
-          "maxPrice": maxVariantPrice_no.amount
+          "maxPrice": maxVariantPrice_no.amount,
+          "onSale": largestDiscount_${market}
+
         }
-      } | order(${getSortQuery(sortKey)}),
+      } ${onSale ? '[defined(onSale)]' : '[]'} | order(${getSortQuery(sortKey)}),
       "productCount": count(${productQuery}),
       "hasNextPage": count(${productQuery}[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
       }
