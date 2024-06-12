@@ -348,11 +348,11 @@ export const SORT_OPTIONS: SortOptionsMap = {
     {
       title: 'Newest',
       value: 'newest'
-    },
-    {
-      title: 'Highest discount',
-      value: 'discount_highest'
     }
+    // {
+    //   title: 'Highest discount',
+    //   value: 'discount_highest'
+    // }
   ],
   no: [
     {
@@ -370,11 +370,11 @@ export const SORT_OPTIONS: SortOptionsMap = {
     {
       title: 'Nyeste',
       value: 'newest'
-    },
-    {
-      title: 'Størst rabatt',
-      value: 'discount_highest'
     }
+    // {
+    //   title: 'Størst rabatt',
+    //   value: 'discount_highest'
+    // }
   ]
 };
 
