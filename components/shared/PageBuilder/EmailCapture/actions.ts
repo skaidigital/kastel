@@ -6,7 +6,7 @@ import {
 } from '@/components/shared/PageBuilder/EmailCapture/hooks';
 import { env } from '@/env';
 
-export async function submitEmailCaptureForm(data: EmailCaptureForm) {
+export async function submitEmailCaptureForm(data: EmailCaptureForm, listId: string) {
   const validatedData = emailCaptureFormValidator.safeParse(data);
 
   if (!validatedData.success) {
@@ -17,7 +17,6 @@ export async function submitEmailCaptureForm(data: EmailCaptureForm) {
   }
 
   const email = data.email;
-  const listId = env.KLAVIYO_NEWSLETTER_LIST_ID;
   const apiKey = env.KLAVIYO_API_KEY;
 
   const bodyData = {

@@ -285,6 +285,7 @@ const emailCaptureValidator = z.object({
   type: z.literal('natureLabInnovationsSection'),
   key: z.string(),
   title: z.string(),
+  klaviyoListId: z.string(),
   media: mediaValidator,
   badge: z.string().optional(),
   description: portableTextValidator,
@@ -698,6 +699,7 @@ export const PAGE_BUILDER_TYPES: {
   emailCapture: (lang) => groq`
     ${fragments.base},
     "title": title.${lang},
+    klaviyoListId,
     "media": media{
       ${fragments.getMedia(lang)}
     },

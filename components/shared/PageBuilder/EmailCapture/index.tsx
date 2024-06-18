@@ -33,7 +33,7 @@ interface Props {
 }
 
 export const EmailCapture = ({ data }: Props) => {
-  const { index, pageId, pageType, title, description, badge, buttonText, media } = data;
+  const { title, description, badge, buttonText, media, klaviyoListId } = data;
   const [isPending, startTransition] = useTransition();
   const { lang } = useBaseParams();
 
@@ -53,7 +53,7 @@ export const EmailCapture = ({ data }: Props) => {
 
   const onSubmit: SubmitHandler<EmailCaptureForm> = (data) => {
     startTransition(async () => {
-      const response = await submitEmailCaptureForm(data);
+      const response = await submitEmailCaptureForm(data, klaviyoListId);
 
       if (!response.success) {
         toast.error(response.message);

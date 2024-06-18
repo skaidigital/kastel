@@ -23,6 +23,13 @@ export const emailCapture = defineType({
       validation: validateAllStringTranslations
     }),
     defineField({
+      title: 'Klaviyo List ID',
+      name: 'klaviyoListId',
+      description: "I.e. 'SB4wxx'",
+      type: 'string',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
       title: 'Image / Video',
       name: 'media',
       type: 'media',
