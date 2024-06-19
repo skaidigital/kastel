@@ -1,7 +1,12 @@
 import { serilizeProductByShopifyIdInput } from '../api/serializers';
 import { ProductExsistInShopifyValidator } from '../api/types';
 import { shopifyAdminQuery } from './admin';
-import { getProductByShopifyId, getStockForProductVariant } from './queries/product';
+import { removeProductGid } from './helpers';
+import {
+  getProductByShopifyId,
+  getProductsByShopifyId,
+  getStockForProductVariant
+} from './queries/product';
 
 const getProductFromShopifyBySanityId = async (gid: string) => {
   const serializedInput = serilizeProductByShopifyIdInput(gid);
@@ -23,6 +28,32 @@ const getProductFromShopifyBySanityId = async (gid: string) => {
   }
 
   return { success: true, product: validatedResponse.data.product };
+};
+
+export const getProductsFromShopifyByGids = async (gids: string[]) => {
+  const strippedGids = gids.map((gid) => removeProductGid(gid));
+  const serializedInput = { ids: strippedGids.join(' OR ') };
+
+  const response = await shopifyAdminQuery(getProductsByShopifyId, serializedInput).catch(
+    (error) => {
+      console.error('Shopifylib - admin ', error);
+    }
+  );
+
+  console.log(response);
+
+  if (!response) {
+    return { success: false, error: 'No response from Shopify' };
+  }
+
+  return response.data;
+  // const validatedResponse = ProductExsistInShopifyValidator.safeParse(response.data);
+
+  // if (!validatedResponse.success) {
+  //   return { success: false, error: validatedResponse.error };
+  // }
+
+  // return { success: true, product: validatedResponse.data.product };
 };
 
 export async function isCreatedInShopify(_id: string, gid: string | undefined | null) {

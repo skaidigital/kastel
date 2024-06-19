@@ -99,6 +99,7 @@ export function getProductIdsByOrder(
           ${fragments.productsInTag}{
             _id,
             _createdAt,
+            "gid": gid_${market},
             "largestDiscount": largestDiscount_${market},
             "minPrice" : minVariantPrice_${market}.amount,
             "maxPrice": maxVariantPrice_${market}.amount,
@@ -108,6 +109,7 @@ export function getProductIdsByOrder(
           ${fragments.productsWithoutTags} {
             _id,
             _createdAt,
+            "gid": gid_${market},
             "largestDiscount": largestDiscount_${market},
             "minPrice" : minVariantPrice_${market}.amount,
             "maxPrice": maxVariantPrice_${market}.amount,
