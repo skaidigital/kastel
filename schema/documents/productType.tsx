@@ -202,6 +202,12 @@ export const productType = defineType({
       ],
       validation: (Rule) => Rule.max(12),
       group: 'settings'
+    }),
+    defineField({
+      title: 'HS number',
+      name: 'hsNumber',
+      type: 'number',
+      group: 'settings'
     })
   ]
 });

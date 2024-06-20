@@ -682,6 +682,12 @@ export const product = defineType({
         // eslint-disable-next-line no-undef
         input: BulkVariantEditForm
       }
+    }),
+    defineField({
+      title: 'HS number',
+      name: 'hsNumber',
+      type: 'number',
+      group: 'settings'
     })
   ],
   orderings: [
