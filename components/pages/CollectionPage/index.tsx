@@ -35,7 +35,6 @@ export function CollectionPage({
 }: PageProps) {
   const searchParams = useSearchParams();
   const paramsObject = Object.fromEntries(searchParams.entries());
-  console.log(paramsObject);
 
   const paramValues = formatSearchParamsValues(paramsObject, includedSearchParamsKeys);
   const { setNumberOfProducts } = useCollectionContext();
@@ -52,8 +51,8 @@ export function CollectionPage({
     slug,
     currentPage,
     sortKey,
-    paramValues,
-    onSale
+    onSale,
+    paramsObject
   };
 
   const { data, error, isLoading } = useQuery({
