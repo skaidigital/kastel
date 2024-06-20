@@ -9,6 +9,7 @@ import { Container } from '@/components/base/Container';
 import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
+import { TableOfContents } from '@/components/pages/HelpCenterPage/TableOfContents';
 import {
   HelpCenterPagePayload,
   getHelpCenterPageQuery,
@@ -50,6 +51,8 @@ export async function HelpCenterPage({ lang }: Props) {
     return null;
   }
 
+  const faqTitles = page.faqBlocks.map((block) => block.title);
+
   return (
     <Container className="mb-20 mt-6 lg:mt-10 lg:grid lg:grid-cols-12">
       <div className="lg:col-span-10 lg:col-start-2 lg:grid">
@@ -71,24 +74,22 @@ export async function HelpCenterPage({ lang }: Props) {
           size="sm"
           noTopPadding
           hasBottomBorder={false}
-          className="grid gap-y-20"
+          className="grid gap-y-20 lg:grid-cols-12"
         >
+          <div className="lg:sticky lg:top-10 lg:col-span-4">
+            <TableOfContents titles={faqTitles} />
+          </div>
           {page?.faqBlocks.map((block) => (
             <div
               key={block.title}
-              className="flex flex-col gap-y-3 lg:grid lg:grid-cols-12 lg:justify-between lg:gap-y-0"
+              id={block.title}
+              className="flex flex-col gap-y-3 lg:col-span-5 lg:col-start-7 lg:justify-between"
             >
-              <Header
-                title={block.title}
-                description={block.description}
-                badge={block.badge}
-                className="lg:col-span-5"
-              />
+              <Header title={block.title} description={block.description} badge={block.badge} />
               <Accordion
                 collapsible
                 type="single"
                 defaultValue={block.items?.at(0)?.question || undefined}
-                className="lg:col-span-5 lg:col-start-7"
               >
                 {block.items?.map((item) => (
                   <AccordionItem
