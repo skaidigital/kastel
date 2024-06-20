@@ -1,10 +1,13 @@
 'use client';
 
 import { Badge } from '@/components/Badge';
+import { CustomLink } from '@/components/CustomLink';
+import { Logo } from '@/components/Logo';
 import { Container } from '@/components/base/Container';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
+import { ROUTES } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
@@ -19,6 +22,11 @@ export function DesktopMenu({ items, className }: Props) {
   return (
     <NavigationMenu.Root delayDuration={0} className={cn('z-20 flex justify-center', className)}>
       <NavigationMenu.List className="center m-0 flex list-none items-center">
+        <NavigationMenu.Item className="pr-5" asChild>
+          <CustomLink href={ROUTES.HOME}>
+            <Logo className="w-20" />
+          </CustomLink>
+        </NavigationMenu.Item>
         {items?.map((item) => {
           if (item.type === 'link') {
             return (
