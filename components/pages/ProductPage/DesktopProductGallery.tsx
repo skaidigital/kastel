@@ -54,13 +54,13 @@ export function DesktopProductGallery({
         </div>
       )}
       {mainImage && (
-        <div className="aspect-h-4 aspect-w-3 relative h-full w-full">
+        <div className="aspect-h-1 aspect-w-1 relative h-full w-full">
           <SanityImage
             priority
             image={mainImage}
             sizes="(max-width: 1024px) 100vw, 70vw"
             fill
-            className="absolute h-auto w-full object-cover"
+            className="absolute h-auto w-full object-cover object-center"
           />
           <div className="absolute left-4 top-4 flex flex-col gap-y-4">
             <Breadcrumbs productName={title} lang={lang} category={mainCategory} />
