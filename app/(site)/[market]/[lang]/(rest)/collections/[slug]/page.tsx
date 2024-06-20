@@ -1,13 +1,12 @@
 import { getDictionary } from '@/app/dictionaries';
 import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
 import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
 import { CollectionPage } from '@/components/pages/CollectionPage';
 import { CollectionActionsBarMobile } from '@/components/pages/CollectionPage/ActionsBarMobile';
 import { Breadcrumbs } from '@/components/pages/CollectionPage/Breadcrumbs';
 import { CollectionSettingsBarDesktop } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop';
 import { CollectionContextProvider } from '@/components/pages/CollectionPage/Context';
+import { ExpandableText } from '@/components/pages/CollectionPage/ExpandableDescription';
 import { CollectionProductsLoadingState } from '@/components/pages/CollectionPage/LoadingState';
 import { loadCollectionProductDataV2 } from '@/components/pages/CollectionPage/actions';
 import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
@@ -130,22 +129,18 @@ export default async function SlugCollectionPage({ params }: Props) {
         label="collection-hero"
         srHeading="Collection hero"
         hasBottomBorder={false}
-        className="pb-8 pt-10 lg:pt-10"
+        className="py-4 lg:pb-8 lg:pt-10"
       >
         <Container className="mb-2 lg:mb-4">
           <Breadcrumbs collectionName={title} lang={lang} />
         </Container>
         <Container className="flex flex-col justify-between gap-y-3 lg:flex-row lg:gap-y-0">
           {title && (
-            <Heading as="h1" size="xl" className="max-w-lg font-bold">
+            <h1 className="max-w-lg text-heading-xs font-bold uppercase lg:text-heading-lg">
               {title}
-            </Heading>
+            </h1>
           )}
-          {descriptionShort && (
-            <Text as="p" className="h-fit max-w-sm text-brand-mid-grey">
-              {descriptionShort}
-            </Text>
-          )}
+          {descriptionShort && <ExpandableText>{descriptionShort}</ExpandableText>}
           <ActiveFilters
             className="mt-3 lg:hidden"
             includedSearchParamsKeys={includedSearchParamsKeys?.data || []}
