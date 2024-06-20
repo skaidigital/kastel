@@ -8,11 +8,12 @@ import {
 } from '@/components/Accordion';
 import { Button } from '@/components/Button';
 import { getProductReviews } from '@/components/lipscore/hooks';
+import { useProductPageContext } from '@/components/pages/ProductPage/Context';
 import { ReviewItem } from '@/components/pages/ProductPage/ProductReviews/ReviewItem';
 import { LangValues, PRODUCT_PAGE_REVIEWS_PAGE_SIZE } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   lipscoreProductId: string;
@@ -21,6 +22,17 @@ interface Props {
 export function ProductReviews({ lipscoreProductId }: Props) {
   const [page, setPage] = useState(1);
   const { lang } = useBaseParams();
+  const { showProductReviews, setShowProductReviews } = useProductPageContext();
+  const [activeItem, setActiveItem] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (showProductReviews) {
+      setActiveItem('reviews');
+    }
+    if (!showProductReviews) {
+      setActiveItem(undefined);
+    }
+  }, [showProductReviews]);
 
   const { data, error, isFetching } = useQuery({
     queryKey: ['productReviews', page],
@@ -42,11 +54,32 @@ export function ProductReviews({ lipscoreProductId }: Props) {
   const previousString = getPreviousString(lang);
   const nextString = getNextString(lang);
 
+  const toggleItem = (item: string) => {
+    console.log({ item });
+
+    setActiveItem((prevItem) => (prevItem === item ? undefined : item));
+  };
+
+  const handleValueChange = (value: string) => {
+    setActiveItem(value);
+    if (value === 'reviews') {
+      setShowProductReviews(true);
+    } else {
+      setShowProductReviews(false);
+    }
+  };
+
   return (
     <div className="w-full">
-      <Accordion type="single" id="reviews" collapsible>
+      <Accordion
+        type="single"
+        id="reviews"
+        collapsible
+        value={activeItem}
+        onValueChange={handleValueChange}
+      >
         <AccordionItem value="reviews">
-          <AccordionTrigger>
+          <AccordionTrigger onClick={() => toggleItem('reviews')}>
             <h1>{reviewsString}</h1>
           </AccordionTrigger>
           <AccordionContent>

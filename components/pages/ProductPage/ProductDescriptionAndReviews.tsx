@@ -26,7 +26,7 @@ export async function ProductDescriptionAndReviews({ title, description, sku }: 
       srHeading="Product Description"
       label="product-description"
       hasBottomBorder={false}
-      className="my-10 lg:mx-auto "
+      className="my-10 lg:mx-auto"
     >
       <Container className="lg:max-w-[720px]">
         <h2 className="leaing-[24px] text-pretty text-center text-[20px] font-bold uppercase text-brand-primary lg:text-heading-sm">

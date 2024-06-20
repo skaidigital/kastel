@@ -1,11 +1,16 @@
 'use client';
 
+import { useProductPageContext } from '@/components/pages/ProductPage/Context';
+
 interface Props {
   children: React.ReactNode;
 }
 
 export function ScrollToRatingsButton({ children }: Props) {
+  const { setShowProductReviews } = useProductPageContext();
+
   function handleClick() {
+    setShowProductReviews(true);
     scrollToElement();
   }
 
@@ -16,7 +21,7 @@ function scrollToElement() {
   const element = document.getElementById('reviews');
   if (element) {
     element.scrollIntoView({
-      block: 'center'
+      block: 'start'
     });
     return;
   }

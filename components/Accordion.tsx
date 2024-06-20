@@ -6,7 +6,15 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 
-const Accordion = AccordionPrimitive.Root;
+// const Accordion = AccordionPrimitive.Root;
+
+const Accordion = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <AccordionPrimitive.Root ref={ref} className={cn('space-y-2', className)} {...props} />
+));
+Accordion.displayName = AccordionPrimitive.Root.displayName;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,

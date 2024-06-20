@@ -8,6 +8,8 @@ export type ProductPageContextType = {
   setActiveGender: (gender: string) => void;
   showProductDescription: boolean;
   setShowProductDescription: (show: boolean) => void;
+  showProductReviews: boolean;
+  setShowProductReviews: (show: boolean) => void;
 };
 
 const ProductPageContext = createContext<ProductPageContextType | undefined>(undefined);
@@ -15,15 +17,25 @@ const ProductPageContext = createContext<ProductPageContextType | undefined>(und
 export const ProductPageContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeGender, setActiveGender] = useState<string>('female');
   const [showProductDescription, setShowProductDescription] = useState<boolean>(true);
+  const [showProductReviews, setShowProductReviews] = useState<boolean>(true);
 
   const contextValue = useMemo(() => {
     return {
       activeGender,
       setActiveGender,
       showProductDescription,
-      setShowProductDescription
+      setShowProductDescription,
+      showProductReviews,
+      setShowProductReviews
     };
-  }, [activeGender, setActiveGender, showProductDescription]);
+  }, [
+    activeGender,
+    setActiveGender,
+    showProductDescription,
+    setShowProductDescription,
+    showProductReviews,
+    setShowProductReviews
+  ]);
 
   return <ProductPageContext.Provider value={contextValue}>{children}</ProductPageContext.Provider>;
 };
