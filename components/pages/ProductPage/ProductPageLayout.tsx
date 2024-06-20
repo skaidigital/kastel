@@ -9,6 +9,7 @@ import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { ProductPageContextProvider } from '@/components/pages/ProductPage/Context';
 import { MobileProductPageGallery } from '@/components/pages/ProductPage/MobileProductPageGallery';
+import { ProductPageRating } from '@/components/pages/ProductPage/Rating';
 import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton';
 import { ProductPageShortDescription } from '@/components/pages/ProductPage/ShortDescription';
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
@@ -17,7 +18,6 @@ import { Product } from '@/components/pages/ProductPage/hooks';
 import { CrossSell } from '@/components/shared/Cart/CrossSell';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
-import { Rating } from '@/components/shared/ProductCard/Rating';
 import { Wishlist } from '@/components/shared/ProductCard/Wishlist';
 import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
 import { LangValues, MarketValues } from '@/data/constants';
@@ -136,7 +136,7 @@ export async function ProductPageLayout(props: Props) {
                   <div className="mb-[10px] flex items-center justify-between">
                     <div className="flex gap-2">
                       <ScrollToRatingsButton>
-                        <Rating sku={sku} />
+                        <ProductPageRating sku={sku} />
                       </ScrollToRatingsButton>
                     </div>
                     <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
