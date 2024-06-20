@@ -5,11 +5,13 @@ import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '@/components/
 import { Logo } from '@/components/Logo';
 import { Text } from '@/components/base/Text';
 import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
+import { NavbarMarketSelector } from '@/components/global/Navbar/MarketSelector';
 import { AccountButton } from '@/components/global/Navbar/MobileMenu/AccountButton';
 import { MobileMenuSearch } from '@/components/global/Navbar/MobileMenu/Search';
 import { WishlistButton } from '@/components/global/Navbar/MobileMenu/WishlistButton';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
 import { SanityLink } from '@/components/sanity/SanityLink';
+import { MarketValues } from '@/data/constants';
 import { cn } from '@/lib/utils';
 import { Bars2Icon } from '@heroicons/react/24/outline';
 import { ChevronLeftIcon, ChevronRightIcon, Cross1Icon } from '@radix-ui/react-icons';
@@ -17,10 +19,11 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { Suspense, useState } from 'react';
 
 interface Props {
+  market: MarketValues;
   items: NavbarPayload['items'];
 }
 
-export function MobileMenu({ items }: Props) {
+export function MobileMenu({ items, market }: Props) {
   const [mainMenuIsOpen, setMainMenuIsOpen] = useState<boolean>(false);
   const [secondaryMenuIsOpen, setSecondaryMenuIsOpen] = useState<boolean>(false);
 
@@ -78,7 +81,7 @@ export function MobileMenu({ items }: Props) {
                           <DrawerTrigger>
                             <button
                               className={cn(
-                                'flex w-full items-center justify-between py-3 text-md font-medium outline-none '
+                                'flex w-full items-center justify-between py-3 text-md font-medium outline-none'
                               )}
                             >
                               {item.title}
@@ -159,6 +162,13 @@ export function MobileMenu({ items }: Props) {
                 </li>
                 <li className="py-2">
                   <AccountButton />
+                </li>
+                <li className="py-2">
+                  <NavbarMarketSelector
+                    title="Market"
+                    className="text-sm font-medium text-brand-mid-grey"
+                    market={market}
+                  />
                 </li>
               </ul>
             </div>

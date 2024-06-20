@@ -31,7 +31,7 @@ export async function Navbar({ market, lang, className }: Props) {
   // const navbar = isDraftMode ? withoutNullValues : validatedData?.data;
 
   return (
-    <NavbarLayout data={withoutNullValues} className={className}>
+    <NavbarLayout market={market} data={withoutNullValues} className={className}>
       <Cart market={market} lang={lang}>
         <CrossSell
           market={market}

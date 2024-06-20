@@ -5,19 +5,21 @@ import { DesktopMenu } from '@/components/global/Navbar/DesktopMenu';
 import { SearchButton } from '@/components/global/Navbar/DesktopMenu/SearchButton';
 import { WishlistButton } from '@/components/global/Navbar/DesktopMenu/WishlistButton';
 import { AccountButton } from '@/components/global/Navbar/DesktopMenuAccountButton';
+import { NavbarMarketSelector } from '@/components/global/Navbar/MarketSelector';
 import { MobileMenu } from '@/components/global/Navbar/MobileMenu';
 import { NavbarPayload } from '@/components/global/Navbar/hooks';
-import { ROUTES } from '@/data/constants';
+import { MarketValues, ROUTES } from '@/data/constants';
 import { cn } from '@/lib/utils';
 
 interface Props {
+  market: MarketValues;
   data: NavbarPayload;
   children: React.ReactNode;
   className?: string;
   hasTransparentHeader?: boolean;
 }
 
-export function NavbarLayout({ data, children, className, hasTransparentHeader }: Props) {
+export function NavbarLayout({ market, data, children, className }: Props) {
   const items = data?.items;
 
   if (!items) return null;
@@ -27,7 +29,7 @@ export function NavbarLayout({ data, children, className, hasTransparentHeader }
       <nav className={cn('relative flex h-14 w-full items-center lg:h-11', className)}>
         <Container className="flex w-full items-center justify-between p-0 text-center lg:px-4">
           <div className="flex items-center gap-x-2 lg:hidden">
-            <MobileMenu items={items} />
+            <MobileMenu market={market} items={items} />
             <SearchButton />
           </div>
           <DesktopMenu items={items} className="hidden lg:block lg:w-fit" />
@@ -43,6 +45,7 @@ export function NavbarLayout({ data, children, className, hasTransparentHeader }
               <SearchButton />
               <WishlistButton />
               <AccountButton />
+              <NavbarMarketSelector market={market} />
             </div>
             {children}
           </div>
