@@ -4,6 +4,7 @@ import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { logIn } from '@/lib/shopify/customer/actions';
 import { cookies } from 'next/headers';
+import { Suspense } from 'react';
 import { AccountPageValidator, getAccountQuery } from './hooks';
 
 function loadAccountPage({ lang, market }: { lang: LangValues; market: MarketValues }) {
@@ -31,7 +32,11 @@ export default async function Page({ params }: Props) {
   const nonNullData = nullToUndefined(inital.data);
   const validatedData = AccountPageValidator.parse(nonNullData);
 
-  return <AccountPage data={validatedData} lang={lang} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AccountPage data={validatedData} lang={lang} />
+    </Suspense>
+  );
 }
 
 // TODO get market from params
