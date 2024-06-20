@@ -1,8 +1,13 @@
 'use client';
 
 import { Heading } from '@/components/base/Heading';
+import { LangValues } from '@/data/constants';
+import { useBaseParams } from '@/lib/hooks/useBaseParams';
 
 export function TableOfContents({ titles }: { titles: string[] }) {
+  const { lang } = useBaseParams();
+  const contentString = getContentString(lang);
+
   function handleClick(id: string) {
     const element = document.getElementById(id);
     if (element) {
@@ -12,10 +17,11 @@ export function TableOfContents({ titles }: { titles: string[] }) {
       });
     }
   }
+
   return (
     <nav>
       <Heading as="h3" size="xs" className="mb-4">
-        Innhold
+        {contentString}
       </Heading>
       <ul className="flex flex-col gap-y-2">
         {titles.map((title) => (
@@ -31,4 +37,15 @@ export function TableOfContents({ titles }: { titles: string[] }) {
       </ul>
     </nav>
   );
+}
+
+function getContentString(lang: LangValues) {
+  switch (lang) {
+    case 'en':
+      return 'Content';
+    case 'no':
+      return 'Innhold';
+    default:
+      return 'Innhold';
+  }
 }
