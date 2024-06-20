@@ -6,7 +6,7 @@ import { useBaseParams } from '@/lib/hooks/useBaseParams';
 import { logIn } from '@/lib/shopify/customer/actions';
 import { useUser } from '@/lib/useUser';
 
-export async function AccountButton() {
+export function AccountButton() {
   const { lang } = useBaseParams();
   const accountString = getAccountString(lang);
   const { isLoggedIn } = useUser();
