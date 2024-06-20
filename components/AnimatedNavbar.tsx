@@ -21,11 +21,15 @@ export function AnimatedNavbar({ hasAnnouncementBanner, children }: Props) {
 
   useMotionValueEvent(yTransform, 'change', (latest) => {
     if (latest >= 32) {
-      setShouldAnimateOffset(false);
+      if (hasAnnouncementBanner) {
+        setShouldAnimateOffset(false);
+      }
       setShouldAnimate(true);
     }
     if (latest < 32) {
-      setShouldAnimateOffset(true);
+      if (hasAnnouncementBanner) {
+        setShouldAnimateOffset(true);
+      }
       setShouldAnimate(false);
     }
   });
