@@ -78,12 +78,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                 </div>
                 {badges && <Badges badges={badges} />}
               </div>
-              {sku && (
-                <Rating
-                  sku={sku}
-                  className="absolute bottom-3 right-3 @[320px]:bottom-4 @[320px]:right-4"
-                />
-              )}
+              {sku && <Rating sku={sku} className="absolute bottom-3 right-3 @xs:hidden" />}
             </ImageContainer>
           </div>
           <div className="flex flex-col justify-center gap-y-2 bg-white p-3 @xs:flex-row @xs:justify-between @xs:p-4">
