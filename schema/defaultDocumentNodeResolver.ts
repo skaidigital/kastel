@@ -84,6 +84,18 @@ export const defaultDocumentNodeResolver = (): DefaultDocumentNodeResolver => {
             })
             .title('References')
         ]);
+      case 'productOptionType':
+        return S.document().views([
+          form,
+          S.view
+            .component(DocumentsPane)
+            .options({
+              query: `*[references($id)]`,
+              params: { id: '_id' },
+              options: { perspective: 'previewDrafts' }
+            })
+            .title('References')
+        ]);
       default:
         return S.document();
     }

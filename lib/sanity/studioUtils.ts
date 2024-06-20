@@ -245,6 +245,7 @@ export function i18nSlug({ schemaType, validation }: { schemaType: string; valid
 
         return false;
       },
+
       options: {
         source: `title_${market.id}`,
         isUnique: (slug, context) =>

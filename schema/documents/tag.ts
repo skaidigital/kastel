@@ -101,12 +101,14 @@ export const tag = defineType({
             context
           })
       },
-      validation: (Rule) =>
-        Rule.custom(async (value, context: any) => {
-          if (!value) {
+      validation: (Rule: any) =>
+        Rule.custom((value: any) => {
+          if (!value?.current) {
             return 'Slug is required';
           }
-
+          if (value?.current?.includes(' ')) {
+            return 'Slug cannot contain spaces';
+          }
           return true;
         })
     }),
@@ -124,12 +126,14 @@ export const tag = defineType({
             context
           })
       },
-      validation: (Rule) =>
-        Rule.custom(async (value, context: any) => {
-          if (!value) {
+      validation: (Rule: any) =>
+        Rule.custom((value: any) => {
+          if (!value?.current) {
             return 'Slug is required';
           }
-
+          if (value?.current?.includes(' ')) {
+            return 'Slug cannot contain spaces';
+          }
           return true;
         })
     })

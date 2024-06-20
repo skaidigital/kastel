@@ -25,7 +25,7 @@ export const blogLandingPage = defineType({
       name: 'description',
       type: 'i18n.text',
       options: {
-        rows: 4
+        rows: 6
       },
       validation: validateAllStringTranslations
     })

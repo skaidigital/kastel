@@ -86,7 +86,16 @@ export const phase3BlogPost = defineType({
             context
           })
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule: any) =>
+        Rule.custom((value: any) => {
+          if (!value?.current) {
+            return 'Slug is required';
+          }
+          if (value?.current?.includes(' ')) {
+            return 'Slug cannot contain spaces';
+          }
+          return true;
+        }),
       group: 'settings'
     }),
     defineField({
@@ -103,7 +112,16 @@ export const phase3BlogPost = defineType({
             context
           })
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule: any) =>
+        Rule.custom((value: any) => {
+          if (!value?.current) {
+            return 'Slug is required';
+          }
+          if (value?.current?.includes(' ')) {
+            return 'Slug cannot contain spaces';
+          }
+          return true;
+        }),
       group: 'settings'
     }),
     defineField({
