@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import Providers from '@/components/Providers';
-import PreviewToolbar from '@/components/sanity/PreviewToolbar';
 import { env } from '@/env';
 import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
@@ -18,12 +17,12 @@ import { LangValues, MarketValues } from '@/data/constants';
 // import { revalidatePath, revalidateTag } from 'next/cache';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { VisualEditing } from 'next-sanity';
-import { revalidatePath, revalidateTag } from 'next/cache';
 import dynamic from 'next/dynamic';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
 
 import LipscoreInit from '@/components/lipscore/LipscoreInit';
+import VisualEditingToolbar from '@/components/sanity/VisualEditingToolbar';
 import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
@@ -82,30 +81,16 @@ export default function IndexRoute({
             <main>
               {children}
               {draftMode().isEnabled && (
-                <VisualEditing
-                  refresh={async (payload) => {
-                    'use server';
-                    if (!draftMode().isEnabled) {
-                      console.debug('Skipped manual refresh because draft mode is not enabled');
-                      return;
-                    }
-                    if (payload.source === 'mutation') {
-                      if (payload.document.slug?.current) {
-                        const tag = `${payload.document._type}:${payload.document.slug.current}`;
-                        await revalidateTag(tag);
-                      }
-                      return revalidateTag(payload.document._type);
-                    }
-                    await revalidatePath('/', 'layout');
-                  }}
-                />
+                <>
+                  <VisualEditing />
+                  <VisualEditingToolbar />
+                </>
               )}
               <Analytics />
             </main>
           </div>
           <ShopifyAnalytics hasConsent />
           <MarketPopup lang={lang} />
-          {draftMode().isEnabled && <PreviewToolbar />}
           <Smile />
           <LipscoreInit />
           {/* <ClientSideScript /> */}

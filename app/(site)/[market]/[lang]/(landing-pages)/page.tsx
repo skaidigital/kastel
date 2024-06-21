@@ -13,6 +13,7 @@ import { Metadata } from 'next';
 
 export const dynamic = 'force-static';
 
+// TODO dynamic import preview
 function loadHomePage({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = getPageQuery({ market, lang });
 
@@ -34,9 +35,6 @@ export default async function HomePage({ params: { market, lang } }: Props) {
   // if (!validatedPage.success) {
   //   console.error('Failed to validate page', validatedPage.error);
   //   return notFound();
-  // }
-  // if (draftMode().isEnabled) {
-  //   return <PagePreview initial={initial} market={market} lang={lang} />;
   // }
 
   return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
