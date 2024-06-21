@@ -53,7 +53,8 @@ const config = definePlugin({
     I18nFields({
       locales: [
         { code: 'no', title: 'Norway', label: '🇧🇻', default: true },
-        { code: 'en', title: 'English', label: '🇬🇧' }
+        { code: 'en', title: 'English', label: '🇬🇧' },
+        { code: 'sv', title: 'Swedish', label: '🇸🇪' }
       ]
     }),
     imageHotspotArrayPlugin(),
