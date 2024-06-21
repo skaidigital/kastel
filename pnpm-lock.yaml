@@ -294,8 +294,8 @@ dependencies:
     specifier: ^0.33.2
     version: 0.33.3
   sonner:
-    specifier: ^1.0.3
-    version: 1.4.41(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^1.5.0
+    version: 1.5.0(react-dom@18.3.1)(react@18.3.1)
   styled-components:
     specifier: ^5.2 || ^6
     version: 6.1.10(react-dom@18.3.1)(react@18.3.1)
@@ -15147,8 +15147,8 @@ packages:
       is-fullwidth-code-point: 4.0.0
     dev: true
 
-  /sonner@1.4.41(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-uG511ggnnsw6gcn/X+YKkWPo5ep9il9wYi3QJxHsYe7yTZ4+cOd1wuodOUmOpFuXL+/RE3R04LczdNCDygTDgQ==}
+  /sonner@1.5.0(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-FBjhG/gnnbN6FY0jaNnqZOMmB73R+5IiyYAw8yBj7L54ER7HB3fOSE5OFiQiE2iXWxeXKvg6fIP4LtVppHEdJA==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0

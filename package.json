@@ -136,7 +136,7 @@
     "sanity-plugin-webhooks": "^1.0.0",
     "server-only": "0.0.1",
     "sharp": "^0.33.2",
-    "sonner": "^1.0.3",
+    "sonner": "^1.5.0",
     "styled-components": "^5.2 || ^6",
     "tailwind-merge": "^2.3.0",
     "tailwind-variants": "^0.1.20",
