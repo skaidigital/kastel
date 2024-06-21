@@ -32,6 +32,11 @@ export const sizeChart = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Description 🇸🇪',
+      name: 'description_sv',
+      type: 'richText'
+    }),
+    defineField({
       title: 'Description',
       description: 'The description below the "Size Guide" text in the drawer on the product page',
       name: 'description',
@@ -52,6 +57,11 @@ export const sizeChart = defineType({
       name: 'chart_en',
       type: 'table',
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Chart 🇸🇪',
+      name: 'chart_sv',
+      type: 'table'
     })
   ]
 });

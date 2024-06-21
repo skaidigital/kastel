@@ -100,6 +100,21 @@ export const productOptionType = defineType({
           }
           return true;
         })
+    }),
+    defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        source: 'title.sv',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'productOptionType',
+            lang: 'sv',
+            context
+          })
+      }
     })
   ]
 });

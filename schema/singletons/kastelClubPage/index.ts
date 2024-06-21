@@ -101,6 +101,11 @@ export const kastelClubPage = defineType({
           name: 'table_en',
           type: 'table',
           validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          title: 'Table 🇸🇪',
+          name: 'table_sv',
+          type: 'table'
         })
       ]
     }),
@@ -141,6 +146,11 @@ export const kastelClubPage = defineType({
           name: 'table_en',
           type: 'table',
           validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          title: 'Table 🇸🇪',
+          name: 'table_sv',
+          type: 'table'
         })
       ]
     }),

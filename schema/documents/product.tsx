@@ -629,6 +629,22 @@ export const product = defineType({
         }),
       group: 'settings'
     }),
+    defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        source: 'title.sv',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'product',
+            lang: 'sv',
+            context
+          })
+      },
+      group: 'settings'
+    }),
     ...i18nField({
       title: 'Created at',
       name: 'createdAt',

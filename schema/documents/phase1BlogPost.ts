@@ -191,6 +191,21 @@ export const phase1BlogPost = defineType({
       group: 'settings'
     }),
     defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        source: 'title.sv',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'phase1BlogPost',
+            lang: 'sv',
+            context
+          })
+      }
+    }),
+    defineField({
       title: 'Metadata',
       name: 'metadata',
       type: 'metadata',

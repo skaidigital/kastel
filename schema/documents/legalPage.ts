@@ -53,6 +53,11 @@ export const legalPage = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Content 🇸🇪',
+      name: 'content_sv',
+      type: 'legalPageText'
+    }),
+    defineField({
       title: 'Slug 🇧🇻',
       name: 'slug_no',
       type: 'slug',
@@ -101,6 +106,21 @@ export const legalPage = defineType({
           }
           return true;
         })
+    }),
+    defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        source: 'title.sv',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'legalPage',
+            lang: 'sv',
+            context
+          })
+      }
     }),
     defineField({
       title: 'Metadata',

@@ -26,6 +26,11 @@ export const accountPage = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Message from the team 🇸🇪',
+      name: 'messageFromTheTeam_sv',
+      type: 'richText'
+    }),
+    defineField({
       title: 'Products display (optional)',
       name: 'productDisplay',
       type: 'productDisplay'

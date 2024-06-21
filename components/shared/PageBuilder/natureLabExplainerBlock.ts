@@ -83,6 +83,11 @@ export const natureLabExplainerBlock = defineType({
               validation: (Rule) => Rule.required()
             }),
             defineField({
+              title: 'Content 🇸🇪',
+              name: 'content_sv',
+              type: 'richText'
+            }),
+            defineField({
               title: 'Image',
               description: 'Image to the right on desktop and below the text on mobile',
               name: 'image',

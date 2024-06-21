@@ -55,6 +55,13 @@ export const spot = defineType({
       hidden: ({ parent }) => parent?.type && parent?.type !== 'text'
     }),
     defineField({
+      title: 'Description 🇸🇪',
+      name: 'description_sv',
+      type: 'text',
+      rows: 3,
+      hidden: ({ parent }) => parent?.type && parent?.type !== 'text'
+    }),
+    defineField({
       title: 'Product',
       name: 'product',
       type: 'reference',

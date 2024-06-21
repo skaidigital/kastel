@@ -35,9 +35,22 @@ export const footer = defineType({
       validation: (Rule) => Rule.required().min(1).max(4)
     }),
     defineField({
+      title: 'Items (Swedish market)',
+      name: 'items_sv',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'headingAndLinks'
+        })
+      ]
+    }),
+    defineField({
       title: 'Newsletter form label',
       name: 'newsletterLabel',
-      type: 'i18n.string',
+      type: 'i18n.text',
+      options: {
+        rows: 3
+      },
       validation: validateAllStringTranslations
     }),
     defineField({

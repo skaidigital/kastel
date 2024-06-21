@@ -82,6 +82,21 @@ export const aboutPage = defineType({
       hidden: true
     }),
     defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'page',
+            lang: 'sv',
+            context
+          })
+      },
+      hidden: true
+    }),
+    defineField({
       title: 'Metadata',
       name: 'metadata',
       type: 'metadata'

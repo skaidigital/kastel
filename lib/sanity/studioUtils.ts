@@ -337,7 +337,7 @@ export async function slugIsUniqueForMarketAndSchemaType({
 interface SlugIsUniqueForLangAndSchemaTypeProps {
   slug: string;
   schemaType: string;
-  lang: LangValues;
+  lang: LangValues | 'sv';
   context: SlugValidationContext;
 }
 

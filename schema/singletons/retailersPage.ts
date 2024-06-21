@@ -30,6 +30,13 @@ export const retailersPage = defineType({
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'retailer' }] }],
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Retailers 🇸🇪',
+      description: 'Select retailers to display on the retailers page for the Swedish market.',
+      name: 'retailers_sv',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'retailer' }] }]
     })
   ]
 });

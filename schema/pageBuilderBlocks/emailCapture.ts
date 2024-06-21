@@ -54,6 +54,11 @@ export const emailCapture = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      title: 'Description 🇸🇪',
+      name: 'description_sv',
+      type: 'richText'
+    }),
+    defineField({
       title: 'Button text',
       name: 'buttonText',
       type: 'i18n.string',

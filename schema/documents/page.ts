@@ -82,6 +82,21 @@ export const page = defineType({
       hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
     defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'page',
+            lang: 'sv',
+            context
+          })
+      },
+      hidden: ({ document }: { document: any }) => document._id.endsWith('home')
+    }),
+    defineField({
       title: 'Page builder',
       name: 'pageBuilder',
       type: 'pageBuilder',

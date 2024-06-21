@@ -35,6 +35,11 @@ export const question = defineType({
       name: 'answer_en',
       type: 'richText',
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Answer 🇸🇪',
+      name: 'answer_sv',
+      type: 'richText'
     })
   ]
 });

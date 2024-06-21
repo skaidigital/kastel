@@ -120,6 +120,22 @@ export const collection = defineType({
       group: 'settings'
     }),
     defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        source: 'title.sv',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'collection',
+            lang: 'sv',
+            context
+          })
+      },
+      group: 'settings'
+    }),
+    defineField({
       title: 'Products',
       name: 'products',
       type: 'array',

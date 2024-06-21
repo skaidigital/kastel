@@ -73,6 +73,12 @@ export const blogPost = defineType({
       group: 'editorial'
     }),
     defineField({
+      title: 'Content 🇸🇪',
+      name: 'content_sv',
+      type: 'blogPostText',
+      group: 'editorial'
+    }),
+    defineField({
       title: 'Desktop image',
       name: 'imageDesktop',
       type: 'figure',
@@ -158,6 +164,21 @@ export const blogPost = defineType({
       },
       validation: (Rule) => Rule.required(),
       group: 'settings'
+    }),
+    defineField({
+      title: 'Slug 🇸🇪',
+      name: 'slug_sv',
+      type: 'slug',
+      options: {
+        source: 'title.sv',
+        isUnique: (slug, context) =>
+          slugIsUniqueForLangAndSchemaType({
+            slug,
+            schemaType: 'blogPost',
+            lang: 'sv',
+            context
+          })
+      }
     }),
     defineField({
       title: 'Metadata',
