@@ -1,6 +1,6 @@
 import { AboutPage } from '@/components/pages/AboutPage';
 import { AboutPagePayload, getAboutPageQuery } from '@/components/pages/AboutPage/hooks';
-import { removeEmptyPageBuilderObjects } from '@/components/pages/PageLayout/hooks';
+import { removeEmptyPageBuilderObjects } from '@/components/pages/DynamicPage/hooks';
 import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';

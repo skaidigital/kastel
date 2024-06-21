@@ -1,9 +1,9 @@
-import { PageLayout } from '@/components/pages/PageLayout';
+import { DynamicPage } from '@/components/pages/DynamicPage';
 import {
   PagePayload,
   getPageQuery,
   removeEmptyPageBuilderObjects
-} from '@/components/pages/PageLayout/hooks';
+} from '@/components/pages/DynamicPage/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
@@ -57,7 +57,7 @@ export default async function PageSlugRoute({ params }: Props) {
   //   return notFound();
   // }
 
-  return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
+  return <DynamicPage data={cleanedPageData} market={market} lang={lang} />;
 }
 
 export async function generateMetadata({

@@ -1,15 +1,17 @@
-import { PageLayout } from '@/components/pages/PageLayout';
+import { DynamicPage } from '@/components/pages/DynamicPage';
+import { PagePreview } from '@/components/pages/DynamicPage/Preview';
 import {
   PagePayload,
   getPageQuery,
   removeEmptyPageBuilderObjects
-} from '@/components/pages/PageLayout/hooks';
+} from '@/components/pages/DynamicPage/hooks';
 import { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
 import { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 
 export const dynamic = 'force-static';
 
@@ -36,8 +38,13 @@ export default async function HomePage({ params: { market, lang } }: Props) {
   //   console.error('Failed to validate page', validatedPage.error);
   //   return notFound();
   // }
+  if (draftMode().isEnabled) {
+    console.log('In draft mode');
 
-  return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
+    return <PagePreview initial={initial} market={market} lang={lang} />;
+  }
+
+  return <DynamicPage data={cleanedPageData} market={market} lang={lang} />;
 }
 
 export async function generateMetadata({

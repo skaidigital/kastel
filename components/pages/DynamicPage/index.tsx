@@ -3,7 +3,7 @@ import { AnimatedNavbar } from '@/components/AnimatedNavbar';
 import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
 import { Footer } from '@/components/global/Footer';
 import { Navbar } from '@/components/global/Navbar';
-import { PagePayload } from '@/components/pages/PageLayout/hooks';
+import { PagePayload } from '@/components/pages/DynamicPage/hooks';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { LangValues, MarketValues } from '@/data/constants';
 
@@ -13,7 +13,7 @@ export interface PageProps {
   lang: LangValues;
 }
 
-export function PageLayout({ data, market, lang }: PageProps) {
+export function DynamicPage({ data, market, lang }: PageProps) {
   return (
     <>
       {data?.showAnnouncementBanner && (

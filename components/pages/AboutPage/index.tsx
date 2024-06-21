@@ -1,4 +1,4 @@
-import { PagePayload } from '@/components/pages/PageLayout/hooks';
+import { PagePayload } from '@/components/pages/DynamicPage/hooks';
 import { PageBuilder } from '@/components/shared/PageBuilder';
 import { LangValues, MarketValues } from '@/data/constants';
 
