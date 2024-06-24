@@ -89,38 +89,58 @@ export function getSearchParamsKeysQuery({ lang }: { lang: LangValues }) {
 export function getProductIdsByOrder(
   market: LangValues,
   onSale: boolean,
-  sortKey: string | undefined
+  sortKey: string | undefined,
+  paramsObject?: {
+    [k: string]: string;
+  }
 ) {
   const query = groq`
-    {
-      "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[] {
-        firstImage,
-        ...product->{
-          ${fragments.productsInTag}{
-            _id,
-            _createdAt,
-            "largestDiscount": largestDiscount_${market},
-            "minPrice" : minVariantPrice_${market}.amount,
-            "maxPrice": maxVariantPrice_${market}.amount,
-             "onSale": largestDiscount_${market}
-          },
-          ${fragments.productsNotInTag},
-          ${fragments.productsWithoutTags} {
-            _id,
-            _createdAt,
-            "largestDiscount": largestDiscount_${market},
-            "minPrice" : minVariantPrice_${market}.amount,
-            "maxPrice": maxVariantPrice_${market}.amount,
-             "onSale": largestDiscount_${market}
-          }
-        } 
-      } ${onSale ? '[defined(onSale)]' : '[]'} | order(${getSortQuery(sortKey)})
-    } 
-  `;
+  {
+    "products": *[_type == "collection" && slug_${market}.current == $slug][0].products[] {
+      firstImage,
+      ...product->{
+         _id,
+        _createdAt,
+        "gid": gid_no,
+        "largestDiscount": largestDiscount_no,
+        "minPrice": minVariantPrice_no.amount,
+        "maxPrice": maxVariantPrice_no.amount,
+        "onSale": largestDiscount_no,
+        "allTags": array::compact([...tags[]->slug_no.current, ...productType->tags[]->slug_no.current])
+      } 
+    } ${paramsObject || onSale ? getParamFilters(onSale, paramsObject) : '[]'} | order(${getSortQuery(sortKey)})
+  } 
+`;
 
   return query;
 }
 
+function getParamFilters(onSale: boolean, paramsObject?: { [k: string]: string }) {
+  const conditions: any[] = [];
+
+  if (onSale) {
+    conditions.push(`defined(onSale)`);
+  }
+
+  if (!paramsObject) {
+    // If paramsObject is empty or not provided, return only the onSale condition if it exists
+    return `[${conditions.join(' && ')}]`;
+  }
+
+  for (const [key, value] of Object.entries(paramsObject)) {
+    const tags = value.split(',');
+    if (tags.length > 0) {
+      const condition = tags.map((tag) => `'${tag.trim()}' in allTags`).join(' || ');
+      conditions.push(`(${condition})`);
+    }
+  }
+
+  if (conditions.length === 0) {
+    return `[]`;
+  }
+
+  return `[${conditions.join(' && ')}]`;
+}
 export function getSortQuery(sortKey: string | undefined) {
   switch (sortKey) {
     case 'price_lowest':

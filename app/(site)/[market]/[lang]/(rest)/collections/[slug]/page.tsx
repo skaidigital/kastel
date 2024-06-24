@@ -111,7 +111,6 @@ export default async function SlugCollectionPage({ params }: Props) {
         slug,
         currentPage: 1,
         sortKey,
-        paramValues,
         onSale
       })
   });

@@ -51,8 +51,8 @@ export function CollectionPage({
     slug,
     currentPage,
     sortKey,
-    paramValues,
-    onSale
+    onSale,
+    paramsObject
   };
 
   const { data, error, isLoading } = useQuery({

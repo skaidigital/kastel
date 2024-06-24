@@ -43,6 +43,27 @@ export const getProductByShopifyId = /* GraphQL */ `
   }
 `;
 
+export const getProductsByShopifyId = /* GraphQL */ `
+  query getProductsByShopifyId($ids: String!) {
+    products(first: 100, query: $ids) {
+      nodes {
+        id
+        totalInventory
+        variants(first: 20) {
+          nodes {
+            title
+            availableForSale
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const getStockForProductVariant = /* GraphQL */ `
   query getStockForProductVariant($id: ID!) {
     productVariant(id: $id) {
