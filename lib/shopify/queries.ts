@@ -40,8 +40,6 @@ export const getProductsFromShopifyByGids = async (gids: string[]) => {
     }
   );
 
-  console.log(response);
-
   if (!response) {
     return { success: false, error: 'No response from Shopify' };
   }
