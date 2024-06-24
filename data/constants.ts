@@ -56,7 +56,10 @@ export const CACHE_TAGS = {
   COOKIE_CONSENT: 'cookieConsent',
   PRODUCT_SETTINGS: 'productSettings',
   ABOUT_PAGE: 'aboutPage',
-  KASTEL_CLUB_PAGE: 'kastelClubPage'
+  KASTEL_CLUB_PAGE: 'kastelClubPage',
+  NATURE_LAB: {
+    PHASE_1_BLOG_POST: 'natureLabInnovationPhase1BlogPost'
+  }
 };
 
 export const PAGE_BUILDER_CACHE_TAGS = [

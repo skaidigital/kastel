@@ -88,6 +88,20 @@ export const validateAllStringTranslations = (Rule: any) =>
     return true;
   });
 
+// TODO make it proper
+export const validateAllSlugsBasedOnLang = (Rule: any) =>
+  Rule.custom((value: any) => {
+    const norwegianSlug = value?.no?.current;
+    const englishSlug = value?.no?.current;
+
+    if (!norwegianSlug || !englishSlug) {
+      return [
+        !norwegianSlug && { message: 'You must provide a Norwegian slug', paths: ['no.current'] },
+        !englishSlug && { message: 'You must provide an English slug', paths: ['en.current'] }
+      ];
+    }
+  });
+
 export const readOnlyUnlessDeveloper = ({ currentUser }: any) =>
   !currentUser?.roles.some((role: any) => role.name === 'developer');
 

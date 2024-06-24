@@ -19,7 +19,6 @@ import { LangValues, MarketValues } from '@/data/constants';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { VisualEditing } from 'next-sanity';
 import { revalidatePath, revalidateTag } from 'next/cache';
-import dynamic from 'next/dynamic';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
 
@@ -28,9 +27,9 @@ import '../../../../styles/MyWebfontsKit.css';
 import '../../../../styles/globals.css';
 
 // Dynamically import the client-side component that manipulates the DOM
-const ClientSideScript = dynamic(() => import('@/components/lipscore/clientScript'), {
-  ssr: false
-});
+// const ClientSideScript = dynamic(() => import('@/components/lipscore/clientScript'), {
+//   ssr: false
+// });
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${env.NEXT_PUBLIC_VERCEL_URL}`

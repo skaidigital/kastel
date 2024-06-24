@@ -102,7 +102,7 @@ export function generateObjectFields({
   schemaType,
   type
 }: {
-  schemaType: 'string' | 'richText';
+  schemaType: 'string' | 'richText' | 'slug';
   type: 'lang' | 'market';
 }) {
   if (type === 'lang') {
