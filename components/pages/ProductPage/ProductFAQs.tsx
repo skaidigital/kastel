@@ -38,7 +38,10 @@ export function ProductFAQs({ faqs, lang }: Props) {
           </button>
         </DrawerTrigger>
         <DrawerContent className="lg:max-w-[--drawer-width-lg]">
-          <DrawerHeader title="Frequently Asked Questions" />
+          <DrawerHeader
+            title="Frequently Asked Questions"
+            description="Answers to common questions about the product"
+          />
           <Accordion
             type="single"
             collapsible

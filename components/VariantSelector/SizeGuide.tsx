@@ -28,14 +28,14 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
           {sizeGuideText}
         </DrawerTrigger>
         <DrawerContent className="max-h-dvh overflow-y-auto lg:max-w-[--drawer-width-lg]">
-          <DrawerHeader title={sizeGuideText} />
+          <DrawerHeader title={sizeGuideText} description="Size guide for the product page" />
           {description && (
-            <div className="noMarginFirstChild px-6 text-brand-mid-grey ">
+            <div className="noMarginFirstChild px-6 text-brand-mid-grey">
               <PortableText value={description} components={portableTextSerializer} />
             </div>
           )}
-          <table className="mt-6  min-w-full divide-y divide-gray-200">
-            <tbody className="divide-y divide-gray-200  bg-white">
+          <table className="mt-6 min-w-full divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 bg-white">
               {chart?.rows?.map((row, rowIndex) => (
                 <tr
                   key={`row-${rowIndex}`}
@@ -75,7 +75,7 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
               <PortableTextRenderer value={description} type="normal" />
             </div>
           )}
-          <div className="flex flex-col ">
+          <div className="flex flex-col">
             <table className="mt-4 min-w-full divide-y divide-gray-200">
               <tbody className="divide-y divide-gray-200 bg-white">
                 {chart?.rows?.map((row, rowIndex) => (

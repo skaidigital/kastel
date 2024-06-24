@@ -1,5 +1,6 @@
 'use client';
 
+import { VisuallyHidden } from '@/components/VisuallyHidden';
 import { SearchBar } from '@/components/global/Navbar/SearchBar';
 import { LangValues } from '@/data/constants';
 import { useBaseParams } from '@/lib/hooks/useBaseParams';
@@ -33,6 +34,10 @@ export function SearchButton({ className }: Props) {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-20 bg-gray-100 bg-opacity-10 backdrop-blur" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full -translate-x-1/2 px-4 lg:px-0">
+            <VisuallyHidden>
+              <Dialog.Title>{searchString}</Dialog.Title>
+              <Dialog.Description>Search for a product</Dialog.Description>
+            </VisuallyHidden>
             <div className="border-brand-border mx-auto w-full max-w-md rounded-project border bg-white p-6 lg:p-8">
               <Suspense>
                 <SearchBar onClose={onClose} />

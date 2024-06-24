@@ -7,9 +7,7 @@ import { Heading } from '@/components/base/Heading';
 import { USPExplainerSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { cn } from '@/lib/utils';
 import { PlusIcon } from '@radix-ui/react-icons';
-import { useScroll, useTransform } from 'framer-motion';
 import { createDataAttribute } from 'next-sanity';
-import { useRef } from 'react';
 
 interface PropsWithExtra extends USPExplainerSectionProps {
   index: number;
@@ -23,7 +21,7 @@ interface Props {
 
 // TODO carousel / animation
 export const USPExplainerSection = ({ data }: Props) => {
-  const { index, pageId, pageType, content, sectionSettings } = data;
+  const { index, pageId, pageType, content } = data;
 
   return (
     <div className="w-full">
@@ -42,13 +40,13 @@ interface SlideProps {
 }
 
 function Slide({ item, pageId, pageType, index }: SlideProps) {
-  const container = useRef(null);
+  // const container = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'start start']
-  });
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  // const { scrollYProgress } = useScroll({
+  //   target: container,
+  //   offset: ['start end', 'start start']
+  // });
+  // const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
 
   const dataAttribute = createDataAttribute({
     id: pageId,

@@ -157,7 +157,11 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
             )}
           >
             <>
-              <DrawerHeader title={dictionary.cart} className="mb-0 bg-white">
+              <DrawerHeader
+                title={dictionary.cart}
+                description="The cart is where you can see all the products you have added to your cart"
+                className="mb-0 bg-white"
+              >
                 {freeShippingAmount && currencyCode && (
                   <FreeShippingCountdown
                     freeShippingAmount={freeShippingAmount}

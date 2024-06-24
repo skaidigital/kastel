@@ -11,8 +11,11 @@ interface Props {
 export function EmptyState({ cartText, cartIsEmptyText, startShoppingText }: Props) {
   return (
     <div className="flex grow flex-col">
-      <DrawerHeader title={cartText} />
-      <div className="flex h-full grow flex-col  items-center justify-center space-y-5 lg:space-y-10">
+      <DrawerHeader
+        title={cartText}
+        description="The cart is where you can see all the products you have added to your cart"
+      />
+      <div className="flex h-full grow flex-col items-center justify-center space-y-5 lg:space-y-10">
         <Heading as="h2" size="xs">
           {cartIsEmptyText}
         </Heading>

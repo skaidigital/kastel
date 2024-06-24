@@ -56,7 +56,7 @@ export async function Filter({ market, lang, collectionSlug, searchGids }: Props
         </DrawerTrigger>
       </Text>
       <DrawerContent placement="left">
-        <DrawerHeader title={'Filter'} />
+        <DrawerHeader title={'Filter'} description="Filters the products in the collection" />
         <div className="flex flex-col gap-y-8 px-6">
           <FilterLayout filterGroupKeys={filterGroupKeys}>
             <div>

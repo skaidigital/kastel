@@ -8,11 +8,11 @@ import {
 } from '@/components/Carousel';
 import { HotspotImage } from '@/components/HotspotImage';
 import { Media } from '@/components/Media';
-import { SectionHeader } from '@/components/SectionHeader';
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { Text } from '@/components/base/Text';
 import { SanityLink } from '@/components/sanity/SanityLink';
+import { SectionHeader } from '@/components/shared/PageBuilder/FeaturedShoeSection/SectionHeader';
 import { FeaturedShoeSectionProps } from '@/components/shared/PageBuilder/hooks';
 import { ProductCard } from '@/components/shared/ProductCard';
 
@@ -27,18 +27,7 @@ interface Props {
 }
 
 export const FeaturedShoeSection = ({ data }: Props) => {
-  const {
-    index,
-    pageId,
-    pageType,
-    title,
-    description,
-    link,
-    badge,
-    product,
-    content,
-    sectionSettings
-  } = data;
+  const { title, description, link, badge, product, content, sectionSettings } = data;
 
   const firstContentItem = content?.[0];
   const restContentItems = content?.slice(1);

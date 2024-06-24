@@ -1,7 +1,6 @@
 'use client';
 
 import { Dictionary } from '@/app/dictionaries';
-import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
 import { CollectionProductsLoadingState } from '@/components/pages/CollectionPage/LoadingState';
 import {
   CollectionBasePayload,
@@ -37,7 +36,6 @@ export function CollectionPage({
   const paramsObject = Object.fromEntries(searchParams.entries());
 
   const paramValues = formatSearchParamsValues(paramsObject, includedSearchParamsKeys);
-  const { setNumberOfProducts } = useCollectionContext();
 
   const sortKey = paramsObject?.sort;
   const onSale = paramsObject?.on_sale ? true : false;
@@ -71,7 +69,6 @@ export function CollectionPage({
   if (data) {
     const removeInvalidProducts = data?.products.filter((product) => product._id);
     const productCount = removeInvalidProducts?.length || 0;
-    setNumberOfProducts(productCount);
 
     const validatedProducts = collectionProductsValidator.safeParse(data);
 

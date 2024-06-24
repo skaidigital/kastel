@@ -2,7 +2,8 @@
 
 import { Overlay } from '@/components/Overlay';
 import { TouchTarget } from '@/components/TouchTarget';
-import { Heading } from '@/components/base/Heading';
+import { VisuallyHidden } from '@/components/VisuallyHidden';
+import { headingStyles } from '@/components/base/Heading';
 import { cn } from '@/lib/utils';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -81,19 +82,21 @@ export function DrawerClose({ children }: DrawerCloseProps) {
 
 interface DrawerHeaderProps {
   title: string;
+  description: string;
   children?: ReactNode;
   className?: string;
 }
 
-export function DrawerHeader({ title, children, className }: DrawerHeaderProps) {
+export function DrawerHeader({ title, description, children, className }: DrawerHeaderProps) {
   return (
     <div className={cn('border-brand-border mb-8 border-b px-6 py-4', className)}>
       <div className="flex items-center justify-between">
         <Dialog.Title asChild>
-          <Heading as="h3" size="xs">
-            {title}
-          </Heading>
+          <h3 className={headingStyles({ size: 'xs' })}>{title}</h3>
         </Dialog.Title>
+        <VisuallyHidden>
+          <Dialog.Description>{description}</Dialog.Description>
+        </VisuallyHidden>
         <DrawerClose>
           <button>
             <TouchTarget>

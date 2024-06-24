@@ -39,8 +39,14 @@ export function CollectionLayout({
 }: Props) {
   const { products, hasNextPage } = data;
 
-  const { productsPerRow, setProductsPerRow } = useCollectionContext();
+  const { productsPerRow, setProductsPerRow, setNumberOfProducts } = useCollectionContext();
   const isDesktop = useIsDesktop();
+
+  useEffect(() => {
+    if (productCount) {
+      setNumberOfProducts(productCount);
+    }
+  }, [productCount]);
 
   useEffect(() => {
     if (productsPerRow === 2 && isDesktop && typeof window !== 'undefined') {
