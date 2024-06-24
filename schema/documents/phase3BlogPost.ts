@@ -1,7 +1,8 @@
 import {
-  slugIsUniqueForLangAndSchemaType,
-  validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
+  InternationalizedObjectField,
+  generateObjectFields
+} from '@/components/sanity/InternationalizedObjectField';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { Article } from '@phosphor-icons/react';
 import { defineField, defineType } from 'sanity';
 
@@ -50,13 +51,18 @@ export const phase3BlogPost = defineType({
       group: 'settings'
     }),
     defineField({
-      title: 'Image',
-      description:
-        "The image that is shown in the Nature Lab landing page and the 'blog posts' page for Nature Lab",
-      name: 'image',
+      title: 'Desktop image',
+      name: 'imageDesktop',
       type: 'figure',
       validation: (Rule) => Rule.required(),
-      group: 'settings'
+      group: 'editorial'
+    }),
+    defineField({
+      title: 'Mobile image',
+      name: 'imageMobile',
+      type: 'figure',
+      validation: (Rule) => Rule.required(),
+      group: 'editorial'
     }),
     defineField({
       title: 'Content 🇧🇻',
@@ -73,71 +79,26 @@ export const phase3BlogPost = defineType({
       group: 'editorial'
     }),
     defineField({
-      title: 'Slug 🇧🇻',
-      name: 'slug_no',
-      type: 'slug',
-      options: {
-        source: 'title.no',
-        isUnique: (slug, context) =>
-          slugIsUniqueForLangAndSchemaType({
-            slug,
-            schemaType: 'phase3BlogPost',
-            lang: 'no',
-            context
-          })
+      title: 'Content',
+      name: 'content',
+      type: 'object',
+      fields: generateObjectFields({ schemaType: 'richText', type: 'lang' }),
+      components: {
+        field: InternationalizedObjectField
       },
-      validation: (Rule: any) =>
-        Rule.custom((value: any) => {
-          if (!value?.current) {
-            return 'Slug is required';
-          }
-          if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
-          }
-          return true;
-        }),
-      group: 'settings'
+      group: 'editorial',
+      validation: validateAllStringTranslations
     }),
     defineField({
-      title: 'Slug 🇬🇧',
-      name: 'slug_en',
-      type: 'slug',
-      options: {
-        source: 'title.en',
-        isUnique: (slug, context) =>
-          slugIsUniqueForLangAndSchemaType({
-            slug,
-            schemaType: 'phase3BlogPost',
-            lang: 'en',
-            context
-          })
+      title: 'Slug',
+      name: 'slug',
+      type: 'object',
+      fields: generateObjectFields({ schemaType: 'slug', type: 'lang' }),
+      components: {
+        field: InternationalizedObjectField
       },
-      validation: (Rule: any) =>
-        Rule.custom((value: any) => {
-          if (!value?.current) {
-            return 'Slug is required';
-          }
-          if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
-          }
-          return true;
-        }),
-      group: 'settings'
-    }),
-    defineField({
-      title: 'Slug 🇸🇪',
-      name: 'slug_sv',
-      type: 'slug',
-      options: {
-        source: 'title.sv',
-        isUnique: (slug, context) =>
-          slugIsUniqueForLangAndSchemaType({
-            slug,
-            schemaType: 'phase3BlogPost',
-            lang: 'sv',
-            context
-          })
-      }
+      group: 'settings',
+      validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Metadata',

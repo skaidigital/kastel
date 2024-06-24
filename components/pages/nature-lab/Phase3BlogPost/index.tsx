@@ -1,21 +1,19 @@
 import { Container } from '@/components/base/Container';
 import { Section } from '@/components/base/Section';
 import { HeroImage } from '@/components/pages/nature-lab/HeroImage';
-import { Comments } from '@/components/pages/nature-lab/Phase1BlogPost/Comments';
-import { Summary } from '@/components/pages/nature-lab/Phase1BlogPost/Summary';
-import { Update } from '@/components/pages/nature-lab/Phase1BlogPost/Update';
-import { Phase1BlogPostPayload } from '@/components/pages/nature-lab/Phase1BlogPost/hooks';
+import { Summary } from '@/components/pages/nature-lab/Phase3BlogPost/Summary';
+import { Phase3BlogPostPayload } from '@/components/pages/nature-lab/Phase3BlogPost/hooks';
 import { LangValues } from '@/data/constants';
 import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer';
 import { PortableText } from '@portabletext/react';
 
 interface Props {
-  data: Phase1BlogPostPayload;
+  data: Phase3BlogPostPayload;
   lang: LangValues;
   slug: string;
 }
 
-export function Phase1BlogPost({ data, lang, slug }: Props) {
+export function Phase3BlogPost({ data, lang, slug }: Props) {
   const titleString = getTitleTranslation(lang);
 
   return (
@@ -36,23 +34,11 @@ export function Phase1BlogPost({ data, lang, slug }: Props) {
       </Container>
       <HeroImage imageMobile={data.imageMobile} imageDesktop={data.imageDesktop} />
       <Summary data={data.summary} lang={lang} />
-      <Container size="natureLab">
-        {data?.callout && (
-          <div className="noMarginFirstChild mt-10 border border-neutral-400 px-6 py-8">
-            <PortableText value={data.callout} components={portableTextNatureLabSerializer} />
-          </div>
-        )}
-        {data?.updates && (
-          <div className="mt-10 flex flex-col gap-y-20 lg:mt-20 lg:gap-y-24">
-            {data.updates.map((update) => (
-              <Update data={update} key={update.title} lang={lang} />
-            ))}
-          </div>
-        )}
-      </Container>
-      <Container size="natureLab">
-        <Comments documentId={data.id} slug={slug} comments={data.comments} lang={lang} />
-      </Container>
+      {data?.content && (
+        <Container size="natureLab" className="noMarginFirstChild mt-10">
+          <PortableText value={data.content} components={portableTextNatureLabSerializer} />
+        </Container>
+      )}
     </Section>
   );
 }

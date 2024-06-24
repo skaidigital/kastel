@@ -8,7 +8,8 @@ const container = cva({
     size: {
       sm: 'max-w-[500px]',
       md: 'max-w-[750px]',
-      lg: 'max-w-[1540px]'
+      lg: 'max-w-[1540px]',
+      natureLab: 'max-w-[480px] px-6'
     }
   },
 

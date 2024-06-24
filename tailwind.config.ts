@@ -67,7 +67,9 @@ module.exports = {
       'nature-lab-sm': ['12px', { lineHeight: '18px' }],
       'nature-lab-md': ['14px', { lineHeight: '18px' }],
       'nature-lab-lg': ['18px', { lineHeight: '24px' }],
-      'nature-lab-heading-sm': ['20px', { lineHeight: '40px', letterSpacing: '0.4px' }],
+      'nature-lab-heading-xs': ['18', { lineHeight: '20px', letterSpacing: '0.4px' }],
+      'nature-lab-heading-sm': ['20px', { lineHeight: '24px', letterSpacing: '0.4px' }],
+      'nature-lab-heading-md': ['24px', { lineHeight: '28px', letterSpacing: '0.4px' }],
       'nature-lab-heading-lg': ['32px', { lineHeight: '36px', letterSpacing: '0.4px' }],
       'nature-lab-heading-xl': ['40px', { lineHeight: '48px', letterSpacing: '0.4px' }],
       'overline-sm': ['10px', { lineHeight: '10px', letterSpacing: '0.4px' }],
@@ -272,7 +274,7 @@ module.exports = {
         },
         'nature-lab': {
           'dark-grey': '#151517',
-          beige: '#F0EFE7'
+          beige: '#FDF5E6'
         }
       },
       borderRadius: {

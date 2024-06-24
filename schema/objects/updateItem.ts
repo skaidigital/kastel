@@ -1,3 +1,7 @@
+import {
+  InternationalizedObjectField,
+  generateObjectFields
+} from '@/components/sanity/InternationalizedObjectField';
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
 import { defineField, defineType } from 'sanity';
 
@@ -36,6 +40,16 @@ export const updateItem = defineType({
       name: 'date',
       type: 'date',
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      title: 'Content',
+      name: 'content',
+      type: 'object',
+      fields: generateObjectFields({ schemaType: 'richText', type: 'lang' }),
+      components: {
+        field: InternationalizedObjectField
+      },
+      validation: validateAllStringTranslations
     }),
     defineField({
       title: 'Content 🇧🇻',

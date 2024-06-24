@@ -58,7 +58,8 @@ export const CACHE_TAGS = {
   ABOUT_PAGE: 'aboutPage',
   KASTEL_CLUB_PAGE: 'kastelClubPage',
   NATURE_LAB: {
-    PHASE_1_BLOG_POST: 'natureLabInnovationPhase1BlogPost'
+    PHASE_1_BLOG_POST: 'phase1BlogPost',
+    PHASE_3_BLOG_POST: 'phase3BlogPost'
   }
 };
 
