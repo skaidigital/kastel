@@ -1,5 +1,5 @@
-import { Video } from '@phosphor-icons/react';
-import { defineType } from 'sanity';
+import { Video } from '@phosphor-icons/react'
+import { defineType } from 'sanity'
 
 export const youtubeEmbed = defineType({
   name: 'youtubeEmbed',
@@ -14,4 +14,4 @@ export const youtubeEmbed = defineType({
       validation: (Rule) => Rule.required()
     }
   ]
-});
+})

@@ -1,5 +1,5 @@
-import { PAYMENT_PROVIDERS } from '@/data/constants';
-import { defineField, defineType } from 'sanity';
+import { PAYMENT_PROVIDERS } from '@/data/constants'
+import { defineField, defineType } from 'sanity'
 
 export const paymentProvider = defineType({
   title: 'Payment provider',
@@ -10,14 +10,14 @@ export const paymentProvider = defineType({
       provider: 'paymentProvider'
     },
     prepare({ provider }) {
-      const prov = PAYMENT_PROVIDERS.find((p) => p.value === provider);
-      const title = prov ? prov.title : 'Ikke valgt enda';
-      const icon = prov ? prov.icon : null;
+      const prov = PAYMENT_PROVIDERS.find((p) => p.value === provider)
+      const title = prov ? prov.title : 'Ikke valgt enda'
+      const icon = prov ? prov.icon : null
       return {
         title: title || 'Not selected',
         subtitle: 'Payment provider',
         media: icon ? icon : null
-      };
+      }
     }
   },
   fields: [
@@ -30,4 +30,4 @@ export const paymentProvider = defineType({
       }
     })
   ]
-});
+})

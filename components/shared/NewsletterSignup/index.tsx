@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { Text } from '@/components/base/Text';
-import { subscribeToNewsletter } from '@/components/shared/NewsletterSignup/actions';
+import { Dictionary } from '@/app/dictionaries'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { Text } from '@/components/base/Text'
+import { subscribeToNewsletter } from '@/components/shared/NewsletterSignup/actions'
 import {
   NewsletterFormSchema,
   newsletterFormSchema
-} from '@/components/shared/NewsletterSignup/hooks';
-import { LangValues } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
-import { useTransition } from 'react';
-import { useForm } from 'react-hook-form';
+} from '@/components/shared/NewsletterSignup/hooks'
+import { LangValues } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { cn } from '@/lib/utils'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRightIcon } from '@radix-ui/react-icons'
+import { useTransition } from 'react'
+import { useForm } from 'react-hook-form'
 
 interface Props {
-  className?: string;
-  dictionary: Dictionary['footer']['sign_up'];
-  labelText: string;
-  descriptionText: string;
+  className?: string
+  dictionary: Dictionary['footer']['sign_up']
+  labelText: string
+  descriptionText: string
 }
 
 export const NewsletterSignup = ({ className, labelText, descriptionText }: Props) => {
-  const [isPending, startTransition] = useTransition();
-  const { lang } = useBaseParams();
+  const [isPending, startTransition] = useTransition()
+  const { lang } = useBaseParams()
 
   const { handleSubmit, register, reset } = useForm<NewsletterFormSchema>({
     resolver: zodResolver(newsletterFormSchema),
@@ -33,35 +33,35 @@ export const NewsletterSignup = ({ className, labelText, descriptionText }: Prop
     defaultValues: {
       email: ''
     }
-  });
+  })
 
-  const toastSuccessTitle = getSuccessToastTitle(lang);
-  const toastSuccessDescription = getSuccessToastDescription(lang);
-  const toastErrorTitle = getErrorToastTitle(lang);
-  const toastErrorDescription = getErrorToastDescription(lang);
+  const toastSuccessTitle = getSuccessToastTitle(lang)
+  const toastSuccessDescription = getSuccessToastDescription(lang)
+  const toastErrorTitle = getErrorToastTitle(lang)
+  const toastErrorDescription = getErrorToastDescription(lang)
 
   async function onSubmit(data: NewsletterFormSchema) {
     startTransition(async () => {
-      const response = await subscribeToNewsletter({ email: data.email });
-      const toast = (await import('sonner')).toast;
+      const response = await subscribeToNewsletter({ email: data.email })
+      const toast = (await import('sonner')).toast
 
       if (response.success) {
         toast.success(toastSuccessTitle, {
           description: toastSuccessDescription
-        });
-        reset();
-        return;
+        })
+        reset()
+        return
       }
       toast.error(toastErrorTitle, {
         description: toastErrorDescription
-      });
-      reset();
-      return;
-    });
+      })
+      reset()
+      return
+    })
   }
 
-  const emailString = getYourEmailString(lang);
-  const subscribeString = getSubscribeString(lang);
+  const emailString = getYourEmailString(lang)
+  const subscribeString = getSubscribeString(lang)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col gap-y-4', className)}>
@@ -88,71 +88,71 @@ export const NewsletterSignup = ({ className, labelText, descriptionText }: Prop
         </Text>
       )}
     </form>
-  );
-};
+  )
+}
 
 function getSubscribeString(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Abonner';
+      return 'Abonner'
     case 'en':
-      return 'Subscribe';
+      return 'Subscribe'
     default:
-      return 'Subscribe';
+      return 'Subscribe'
   }
 }
 
 function getYourEmailString(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Din e-post';
+      return 'Din e-post'
     case 'en':
-      return 'Your email';
+      return 'Your email'
     default:
-      return 'Your email';
+      return 'Your email'
   }
 }
 
 function getSuccessToastTitle(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Du har blitt registrert på vår nyhetsbrev!';
+      return 'Du har blitt registrert på vår nyhetsbrev!'
     case 'en':
-      return 'You have successfully signed up for our newsletter!';
+      return 'You have successfully signed up for our newsletter!'
     default:
-      return 'You have successfully signed up for our newsletter!';
+      return 'You have successfully signed up for our newsletter!'
   }
 }
 
 function getSuccessToastDescription(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Vennligst sjekk innboksen din for en bekreftelses-e-post.';
+      return 'Vennligst sjekk innboksen din for en bekreftelses-e-post.'
     case 'en':
-      return 'Please check your inbox for a confirmation email.';
+      return 'Please check your inbox for a confirmation email.'
     default:
-      return 'Please check your inbox for a confirmation email.';
+      return 'Please check your inbox for a confirmation email.'
   }
 }
 
 function getErrorToastTitle(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Det oppstod en feil';
+      return 'Det oppstod en feil'
     case 'en':
-      return 'There was an error signing up for our newsletter. Please try again later.';
+      return 'There was an error signing up for our newsletter. Please try again later.'
     default:
-      return 'There was an error signing up for our newsletter. Please try again later.';
+      return 'There was an error signing up for our newsletter. Please try again later.'
   }
 }
 
 function getErrorToastDescription(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Vennligst prøv igjen senere.';
+      return 'Vennligst prøv igjen senere.'
     case 'en':
-      return 'Please try again later.';
+      return 'Please try again later.'
     default:
-      return 'Please try again later.';
+      return 'Please try again later.'
   }
 }

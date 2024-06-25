@@ -1,6 +1,6 @@
-import { slugIsUniqueForLangAndSchemaType } from '@/lib/sanity/studioUtils';
-import { Pencil2Icon } from '@radix-ui/react-icons';
-import { defineField, defineType } from 'sanity';
+import { slugIsUniqueForLangAndSchemaType } from '@/lib/sanity/studioUtils'
+import { Pencil2Icon } from '@radix-ui/react-icons'
+import { defineField, defineType } from 'sanity'
 
 export const page = defineType({
   title: 'Page',
@@ -14,7 +14,7 @@ export const page = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled'
-      };
+      }
     }
   },
   fieldsets: [
@@ -47,12 +47,12 @@ export const page = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         }),
       hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
@@ -72,12 +72,12 @@ export const page = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         }),
       hidden: ({ document }: { document: any }) => document._id.endsWith('home')
     }),
@@ -101,18 +101,18 @@ export const page = defineType({
       name: 'pageBuilder',
       type: 'pageBuilder',
       validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
+        Rule.custom((value: any) => {
           if (!value?.length) {
-            return 'You need to add at least one section';
+            return 'You need to add at least one section'
           }
 
-          const firstComponent = value[0];
+          const firstComponent = value[0]
 
           if (firstComponent._type !== 'hero' && firstComponent._type !== 'emailCapture') {
-            return 'The first section must be a hero or email capture';
+            return 'The first section must be a hero or email capture'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -148,4 +148,4 @@ export const page = defineType({
       type: 'metadata'
     })
   ]
-});
+})

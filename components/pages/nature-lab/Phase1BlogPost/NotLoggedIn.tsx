@@ -1,9 +1,9 @@
-import { Button } from '@/components/Button';
-import { logIn } from '@/lib/shopify/customer/actions';
+import { Button } from '@/components/Button'
+import { logIn } from '@/lib/shopify/customer/actions'
 
 export function NotLoggedIn() {
   async function handleLogIn() {
-    await logIn();
+    await logIn()
   }
 
   return (
@@ -13,5 +13,5 @@ export function NotLoggedIn() {
         Login
       </Button>
     </div>
-  );
+  )
 }

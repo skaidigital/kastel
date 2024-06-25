@@ -1,5 +1,5 @@
-import { Subtitles } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Subtitles } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const fullBleedMediaSection = defineType({
   title: 'Full bleed media section',
@@ -14,7 +14,7 @@ export const fullBleedMediaSection = defineType({
       return {
         title: title || 'No title defined',
         subtitle: 'Full Bleed Media section'
-      };
+      }
     }
   },
   fields: [
@@ -31,4 +31,4 @@ export const fullBleedMediaSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

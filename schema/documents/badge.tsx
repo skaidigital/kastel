@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Tag } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Tag } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const badge = defineType({
   title: 'Badge',
@@ -15,7 +15,7 @@ export const badge = defineType({
       return {
         title,
         icon: Tag
-      };
+      }
     }
   },
   fields: [
@@ -36,4 +36,4 @@ export const badge = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

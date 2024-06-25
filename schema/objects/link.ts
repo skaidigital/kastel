@@ -3,10 +3,10 @@ import {
   LINK_TYPES,
   SMILE_DEEP_LINKS,
   SMILE_DEEP_LINK_OPTIONS
-} from '@/data/constants';
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Link } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/data/constants'
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Link } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const link = defineType({
   title: 'Link',
@@ -20,11 +20,11 @@ export const link = defineType({
       href: 'href'
     },
     prepare(value) {
-      const { text, to, href } = value;
+      const { text, to, href } = value
       return {
         title: text || to || href || 'No title',
         subtitle: 'Link'
-      };
+      }
     }
   },
   fields: [
@@ -53,9 +53,9 @@ export const link = defineType({
       validation: (Rule) =>
         Rule.custom((linkTo, context: any) => {
           if (context.parent?.type === 'internal' && !linkTo) {
-            return 'Internal link requires a link to a page';
+            return 'Internal link requires a link to a page'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -71,9 +71,9 @@ export const link = defineType({
       validation: (Rule) =>
         Rule.custom((linkToSmileLancher, context: any) => {
           if (context.parent?.type === 'smile' && !linkToSmileLancher) {
-            return 'Smile link requires a link to a place in the Smile Launcher';
+            return 'Smile link requires a link to a place in the Smile Launcher'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -85,9 +85,9 @@ export const link = defineType({
       validation: (Rule) =>
         Rule.custom((href, context: any) => {
           if (context.parent?.type === 'external' && !href) {
-            return 'External link requires a link to a page';
+            return 'External link requires a link to a page'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -99,10 +99,10 @@ export const link = defineType({
       validation: (Rule) =>
         Rule.custom((openInNewTab, context: any) => {
           if (context.parent?.type === 'external' && openInNewTab === undefined) {
-            return 'You have to choose if the link should open in a new tab or not';
+            return 'You have to choose if the link should open in a new tab or not'
           }
-          return true;
+          return true
         })
     })
   ]
-});
+})

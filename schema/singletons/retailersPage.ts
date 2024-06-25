@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const retailersPage = defineType({
   title: 'Retailers page',
@@ -13,7 +13,7 @@ export const retailersPage = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Retailers page'
-      };
+      }
     }
   },
   fields: [
@@ -39,4 +39,4 @@ export const retailersPage = defineType({
       of: [{ type: 'reference', to: [{ type: 'retailer' }] }]
     })
   ]
-});
+})

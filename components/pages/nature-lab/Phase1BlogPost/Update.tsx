@@ -1,20 +1,20 @@
-import { UpdateProps } from '@/components/pages/nature-lab/Phase1BlogPost/hooks';
-import { ValuePair } from '@/components/pages/nature-lab/ValuePair';
-import { LangValues } from '@/data/constants';
-import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer';
-import { formatDate } from '@/lib/utils';
-import { PortableText } from '@portabletext/react';
+import { UpdateProps } from '@/components/pages/nature-lab/Phase1BlogPost/hooks'
+import { ValuePair } from '@/components/pages/nature-lab/ValuePair'
+import { LangValues } from '@/data/constants'
+import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer'
+import { formatDate } from '@/lib/utils'
+import { PortableText } from '@portabletext/react'
 
 interface Props {
-  data: UpdateProps;
-  lang: LangValues;
+  data: UpdateProps
+  lang: LangValues
 }
 
 export function Update({ data, lang }: Props) {
-  const { title, author, date, content } = data;
+  const { title, author, date, content } = data
 
-  const authorString = getAuthorTranslation(lang);
-  const dateString = getDateTranslation(lang);
+  const authorString = getAuthorTranslation(lang)
+  const dateString = getDateTranslation(lang)
 
   return (
     <div className="flex flex-col gap-y-8 lg:gap-y-6">
@@ -40,27 +40,27 @@ export function Update({ data, lang }: Props) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
 function getAuthorTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Forfatter';
+      return 'Forfatter'
     case 'en':
-      return 'Author';
+      return 'Author'
     default:
-      return 'Author';
+      return 'Author'
   }
 }
 
 function getDateTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Dato';
+      return 'Dato'
     case 'en':
-      return 'Date';
+      return 'Date'
     default:
-      return 'Date';
+      return 'Date'
   }
 }

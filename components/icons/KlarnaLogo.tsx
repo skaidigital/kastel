@@ -15,4 +15,4 @@ export const KlarnaLogo = (props: React.SVGProps<SVGSVGElement>) => (
       fill="black"
     />
   </svg>
-);
+)

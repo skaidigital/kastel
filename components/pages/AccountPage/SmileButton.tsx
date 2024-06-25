@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 export function SmileButton({ children }: { children: React.ReactNode }) {
   return (
@@ -8,16 +8,16 @@ export function SmileButton({ children }: { children: React.ReactNode }) {
           await window.SmileUI.openPanel({
             deep_link: 'home'
           }).catch((error: any) => {
-            console.error('Failed to open smile link', error);
-          });
+            console.error('Failed to open smile link', error)
+          })
 
           window.SmileUI.ready().then(() =>
             window.SmileUI.openPanel({ deep_link: 'home' }).catch((error: any) => {
-              console.error('Failed to open smile link', error);
+              console.error('Failed to open smile link', error)
             })
-          );
+          )
         } else {
-          console.error('Failed to open smile link');
+          console.error('Failed to open smile link')
         }
       }}
 
@@ -41,5 +41,5 @@ export function SmileButton({ children }: { children: React.ReactNode }) {
     >
       {children}
     </button>
-  );
+  )
 }

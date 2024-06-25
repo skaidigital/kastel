@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const accountPage = defineType({
   title: 'Account page',
@@ -9,7 +9,7 @@ export const accountPage = defineType({
       return {
         title: 'Account page',
         subtitle: 'Account page'
-      };
+      }
     }
   },
   fields: [
@@ -43,4 +43,4 @@ export const accountPage = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

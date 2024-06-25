@@ -1,5 +1,5 @@
-import { Square } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Square } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const cardBlock = defineType({
   title: 'Card block',
@@ -14,7 +14,7 @@ export const cardBlock = defineType({
       return {
         title: title,
         subtitle: 'Card block'
-      };
+      }
     }
   },
   fields: [
@@ -38,4 +38,4 @@ export const cardBlock = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

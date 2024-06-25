@@ -1,5 +1,5 @@
-import { Package } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Package } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const featuredCollectionSection = defineType({
   title: 'Featured Collection section',
@@ -14,7 +14,7 @@ export const featuredCollectionSection = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Featured Collection section'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const featuredCollectionSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

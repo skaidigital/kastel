@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Star } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Star } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const uspExplainerBlock = defineType({
   title: 'USP Explainer block',
@@ -72,4 +72,4 @@ export const uspExplainerBlock = defineType({
       ]
     })
   ]
-});
+})

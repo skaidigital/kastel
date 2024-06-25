@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const spot = defineType({
   name: 'spot',
@@ -31,10 +31,10 @@ export const spot = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context?.parent?.type === 'text' && !value) {
-            return 'Description is required';
+            return 'Description is required'
           }
 
-          return true;
+          return true
         }),
       rows: 3,
       hidden: ({ parent }) => parent?.type && parent?.type !== 'text'
@@ -46,10 +46,10 @@ export const spot = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context?.parent?.type === 'text' && !value) {
-            return 'Description is required';
+            return 'Description is required'
           }
 
-          return true;
+          return true
         }),
       rows: 3,
       hidden: ({ parent }) => parent?.type && parent?.type !== 'text'
@@ -74,9 +74,9 @@ export const spot = defineType({
             context.parent?.type === 'productCard' &&
             !value
           ) {
-            return 'Product is required';
+            return 'Product is required'
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.type && parent?.type !== 'productCard'
     }),
@@ -106,11 +106,11 @@ export const spot = defineType({
       y: 'y'
     },
     prepare({ type, details, product, x, y }) {
-      const title = type === 'productCard' ? product : details;
+      const title = type === 'productCard' ? product : details
       return {
         title: title || 'Untitled',
         subtitle: x && y ? `${x}% x ${y}%` : `No position set`
-      };
+      }
     }
   }
-});
+})

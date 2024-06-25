@@ -1,33 +1,33 @@
-import { AspectRatio } from '@/components/AspectRatio';
-import { Media } from '@/components/Media';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { ConditionalSanityLink } from '@/components/sanity/ConditionalSanityLink';
-import { CardSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { cn } from '@/lib/utils';
-import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
-import { createDataAttribute } from 'next-sanity';
+import { AspectRatio } from '@/components/AspectRatio'
+import { Media } from '@/components/Media'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { ConditionalSanityLink } from '@/components/sanity/ConditionalSanityLink'
+import { CardSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { cn } from '@/lib/utils'
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
+import { createDataAttribute } from 'next-sanity'
 
 interface PropsWithExtra extends CardSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const CardSection = ({ data }: Props) => {
-  const { index, pageId, pageType, cards, aspectRatioSettings, sectionSettings } = data;
+  const { index, pageId, pageType, cards, aspectRatioSettings, sectionSettings } = data
 
-  const cardCount = cards?.length;
-  const lgColCount = `lg:grid-cols-${cardCount}`;
+  const cardCount = cards?.length
+  const lgColCount = `lg:grid-cols-${cardCount}`
 
   const dataAttribute = createDataAttribute({
     id: pageId,
     type: pageType
-  });
+  })
 
   return (
     <Section
@@ -39,8 +39,8 @@ export const CardSection = ({ data }: Props) => {
     >
       <Container className={cn('grid grid-cols-1 gap-4', lgColCount)}>
         {cards?.map((card) => {
-          const { link, media } = card;
-          const Wrapper = link.hasLink === true ? ConditionalSanityLink : 'div';
+          const { link, media } = card
+          const Wrapper = link.hasLink === true ? ConditionalSanityLink : 'div'
 
           return (
             <Wrapper data-sanity={dataAttribute?.(['pageBuilder', index])} key={index} link={link}>
@@ -63,9 +63,9 @@ export const CardSection = ({ data }: Props) => {
                 )}
               </AspectRatio>
             </Wrapper>
-          );
+          )
         })}
       </Container>
     </Section>
-  );
-};
+  )
+}

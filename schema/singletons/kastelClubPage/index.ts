@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { HandCoins } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { HandCoins } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 // TODO make the internal title hidden once it's set in both datasets
 export const kastelClubPage = defineType({
@@ -13,7 +13,7 @@ export const kastelClubPage = defineType({
       return {
         title: 'Kastel Club page',
         subtitle: 'Kastel Club page'
-      };
+      }
     }
   },
   fields: [
@@ -44,7 +44,7 @@ export const kastelClubPage = defineType({
             prepare({ title }) {
               return {
                 title: title || 'Untitled'
-              };
+              }
             }
           },
           fields: [
@@ -176,4 +176,4 @@ export const kastelClubPage = defineType({
       ]
     })
   ]
-});
+})

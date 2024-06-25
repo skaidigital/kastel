@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { useCustomerId } from '@/components/smile/useCustomerId';
-import SmileInit from './SmileInit';
+import { useCustomerId } from '@/components/smile/useCustomerId'
+import SmileInit from './SmileInit'
 
 export function Smile() {
-  const { data, isLoading } = useCustomerId();
+  const { data, isLoading } = useCustomerId()
 
-  const customerId = data?.customerId;
+  const customerId = data?.customerId
 
   if (isLoading) {
-    return null;
+    return null
   }
 
-  const idWithoutGid = customerId?.split('gid://shopify/Customer/')[1];
+  const idWithoutGid = customerId?.split('gid://shopify/Customer/')[1]
 
   if (!idWithoutGid) {
-    return null;
+    return null
   }
 
-  return <SmileInit customerId={idWithoutGid} />;
+  return <SmileInit customerId={idWithoutGid} />
 }

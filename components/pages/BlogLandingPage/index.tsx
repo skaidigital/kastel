@@ -1,22 +1,22 @@
-import { BlogPostCard } from '@/components/BlogPostCard';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { BlogPostLandingPagePayload } from '@/components/pages/BlogLandingPage/hooks';
-import { LangValues } from '@/data/constants';
+import { BlogPostCard } from '@/components/BlogPostCard'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { BlogPostLandingPagePayload } from '@/components/pages/BlogLandingPage/hooks'
+import { LangValues } from '@/data/constants'
 
 export interface Props {
-  data: BlogPostLandingPagePayload;
-  lang: LangValues;
+  data: BlogPostLandingPagePayload
+  lang: LangValues
 }
 
 // TODO få Petter til å adde pagination. Ikke viktig siden det ikke er så mange blog posts
 // F.eks adde hasNextPage og sånne ting i query. Lar det utegå enn gå lenge
-export function BlogLandingPage({ data, lang }: Props) {
-  if (!data) return null;
+export function BlogLandingPage({ data }: Props) {
+  if (!data) return null
 
-  const { title, description, posts } = data;
+  const { title, description, posts } = data
 
   return (
     <Section
@@ -42,5 +42,5 @@ export function BlogLandingPage({ data, lang }: Props) {
         ))}
       </Container>
     </Section>
-  );
+  )
 }

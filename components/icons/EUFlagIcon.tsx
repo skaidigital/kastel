@@ -34,5 +34,5 @@ export function EUFlagIcon({ className }: { className?: string }) {
         <use xlinkHref="#eu-e" width="100%" height="100%" transform="scale(-1 1)" />
       </g>
     </svg>
-  );
+  )
 }

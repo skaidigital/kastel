@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { ListBullets } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { ListBullets } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const usp = defineType({
   title: 'USP',
@@ -17,7 +17,7 @@ export const usp = defineType({
         title: title || 'No title defined',
         subtitle: 'USP',
         media: image || ListBullets
-      };
+      }
     }
   },
   fields: [
@@ -38,4 +38,4 @@ export const usp = defineType({
       type: 'figure'
     })
   ]
-});
+})

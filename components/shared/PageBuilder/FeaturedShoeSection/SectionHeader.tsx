@@ -1,13 +1,13 @@
-import { Badge } from '@/components/Badge';
-import { Heading } from '@/components/base/Heading';
-import { Text } from '@/components/base/Text';
-import { cn } from '@/lib/utils';
+import { Badge } from '@/components/Badge'
+import { Heading } from '@/components/base/Heading'
+import { Text } from '@/components/base/Text'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  title: string;
-  badge?: string;
-  description?: string;
-  className?: string;
+  title: string
+  badge?: string
+  description?: string
+  className?: string
 }
 
 export function SectionHeader({ title, badge, description, className }: Props) {
@@ -21,5 +21,5 @@ export function SectionHeader({ title, badge, description, className }: Props) {
       )}
       {description && <Text className="text-balance text-brand-mid-grey">{description}</Text>}
     </div>
-  );
+  )
 }

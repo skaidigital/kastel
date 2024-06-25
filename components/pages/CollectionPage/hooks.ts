@@ -1,20 +1,20 @@
 import {
   concatenatePageBuilderQueries,
   pageBuilderValidator
-} from '@/components/shared/PageBuilder/hooks';
-import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
-import * as fragments from '@/lib/sanity/fragments';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
-import { mediaValidator, productCardValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+} from '@/components/shared/PageBuilder/hooks'
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants'
+import * as fragments from '@/lib/sanity/fragments'
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined'
+import { mediaValidator, productCardValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const collectionProductValidator = productCardValidator.extend({
   firstImage: z.union([z.literal('product'), z.literal('lifestyle')]),
   _id: z.string()
-});
+})
 
-const collectionMoodValidator = mediaValidator;
+const collectionMoodValidator = mediaValidator
 
 export const collectionBaseValidator = z.object({
   id: z.string(),
@@ -24,12 +24,12 @@ export const collectionBaseValidator = z.object({
   descriptionShort: z.string().optional(),
   descriptionLong: z.string().optional(),
   pageBuilder: pageBuilderValidator.optional()
-});
+})
 
 export const collectionProductsValidator = z.object({
   products: z.array(collectionProductValidator),
   hasNextPage: z.boolean()
-});
+})
 
 export const collectionValidator = z.object({
   id: z.string(),
@@ -41,23 +41,23 @@ export const collectionValidator = z.object({
   productCount: z.number(),
   hasNextPage: z.boolean(),
   moods: z.array(collectionMoodValidator).optional()
-});
+})
 
-export const searchParamsKeysValidator = z.array(z.string());
+export const searchParamsKeysValidator = z.array(z.string())
 
-export type CollectionBasePayload = z.infer<typeof collectionBaseValidator>;
-export type CollectionMood = z.infer<typeof collectionMoodValidator>;
-export type CollectionProductPayload = z.infer<typeof collectionProductValidator>;
-export type CollectionProductsPayload = z.infer<typeof collectionProductsValidator>;
-export type Collection = z.infer<typeof collectionValidator>;
-export type SearchParamsKeysPayload = z.infer<typeof searchParamsKeysValidator>;
+export type CollectionBasePayload = z.infer<typeof collectionBaseValidator>
+export type CollectionMood = z.infer<typeof collectionMoodValidator>
+export type CollectionProductPayload = z.infer<typeof collectionProductValidator>
+export type CollectionProductsPayload = z.infer<typeof collectionProductsValidator>
+export type Collection = z.infer<typeof collectionValidator>
+export type SearchParamsKeysPayload = z.infer<typeof searchParamsKeysValidator>
 
 export function getCollectionBaseQuery({
   market,
   lang
 }: {
-  market: MarketValues;
-  lang: LangValues;
+  market: MarketValues
+  lang: LangValues
 }) {
   const query = groq`
     *[_type == "collection" && slug_${lang}.current == $slug][0]{
@@ -73,17 +73,17 @@ export function getCollectionBaseQuery({
         ${concatenatePageBuilderQueries({ market, lang })}
       }
     }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 export function getSearchParamsKeysQuery({ lang }: { lang: LangValues }) {
   const query = groq`
   *[_type == "filters"].items[]->.slug_${lang}.current
-  `;
+  `
 
-  return query;
+  return query
 }
 
 export function getProductIdsByOrder(
@@ -91,7 +91,7 @@ export function getProductIdsByOrder(
   onSale: boolean,
   sortKey: string | undefined,
   paramsObject?: {
-    [k: string]: string;
+    [k: string]: string
   }
 ) {
   const query = groq`
@@ -110,49 +110,49 @@ export function getProductIdsByOrder(
       } 
     } ${paramsObject || onSale ? getParamFilters(onSale, paramsObject) : '[]'} | order(${getSortQuery(sortKey)})
   } 
-`;
+`
 
-  return query;
+  return query
 }
 
 function getParamFilters(onSale: boolean, paramsObject?: { [k: string]: string }) {
-  const conditions: any[] = [];
+  const conditions: any[] = []
 
   if (onSale) {
-    conditions.push(`defined(onSale)`);
+    conditions.push(`defined(onSale)`)
   }
 
   if (!paramsObject) {
     // If paramsObject is empty or not provided, return only the onSale condition if it exists
-    return `[${conditions.join(' && ')}]`;
+    return `[${conditions.join(' && ')}]`
   }
 
-  for (const [key, value] of Object.entries(paramsObject)) {
-    const tags = value.split(',');
+  for (const [_, value] of Object.entries(paramsObject)) {
+    const tags = value.split(',')
     if (tags.length > 0) {
-      const condition = tags.map((tag) => `'${tag.trim()}' in allTags`).join(' || ');
-      conditions.push(`(${condition})`);
+      const condition = tags.map((tag) => `'${tag.trim()}' in allTags`).join(' || ')
+      conditions.push(`(${condition})`)
     }
   }
 
   if (conditions.length === 0) {
-    return `[]`;
+    return `[]`
   }
 
-  return `[${conditions.join(' && ')}]`;
+  return `[${conditions.join(' && ')}]`
 }
 export function getSortQuery(sortKey: string | undefined) {
   switch (sortKey) {
     case 'price_lowest':
-      return 'minPrice asc';
+      return 'minPrice asc'
     case 'price_highest':
-      return 'maxPrice desc';
+      return 'maxPrice desc'
     case 'newest':
-      return '_createdAt desc';
+      return '_createdAt desc'
     case 'discount_highest':
-      return 'largestDiscount asc';
+      return 'largestDiscount asc'
     default:
-      return null;
+      return null
   }
 }
 
@@ -162,9 +162,9 @@ export function getCollectionProductData(lang: LangValues, market: MarketValues)
       _id,
     ${fragments.getProductCard(lang, market)}
   }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 export function getCollectionProductsQuery(
@@ -172,8 +172,8 @@ export function getCollectionProductsQuery(
   market: MarketValues,
   pageIndex: number = 1
 ) {
-  const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
-  const end = pageIndex * COLLECTION_PAGE_SIZE;
+  const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE
+  const end = pageIndex * COLLECTION_PAGE_SIZE
 
   const query = groq`
     {
@@ -191,9 +191,9 @@ export function getCollectionProductsQuery(
     },
     "hasNextPage": count(*[_type == "collection" && slug_${lang}.current == $slug][0].products[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
     }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 export function mergeCollectionBaseAndProducts(
@@ -215,7 +215,7 @@ export function mergeCollectionBaseAndProducts(
     products: products.products,
     productCount: productCount || 0,
     hasNextPage: products.hasNextPage
-  };
+  }
 }
 
 export function cleanData(
@@ -226,20 +226,20 @@ export function cleanData(
   const mergedTestData = initialProducts.map((product: any) => {
     const productData = inititalProductsData.data.find(
       (productData: any) => productData._id === product._id
-    );
+    )
 
     return {
       ...product,
       ...productData,
       hasNextPage: hasNextPage
-    };
-  });
+    }
+  })
 
-  const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData);
+  const collectionProductsWithoutNullValues = nullToUndefined(mergedTestData)
 
   // const filteredCollectionProducts = collectionProductsWithoutNullValues.products.filter(
   //   (product: any) => Object.keys(product).length > 1
   // );
 
-  return { products: collectionProductsWithoutNullValues, hasNextPage };
+  return { products: collectionProductsWithoutNullValues, hasNextPage }
 }

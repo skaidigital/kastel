@@ -5,6 +5,6 @@ const moneyFragment = /* GraphQL */ `
       currencyCode
     }
   }
-`;
+`
 
-export default moneyFragment;
+export default moneyFragment

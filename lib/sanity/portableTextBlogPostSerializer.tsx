@@ -1,34 +1,34 @@
-import { AspectRatio } from '@/components/AspectRatio';
+import { AspectRatio } from '@/components/AspectRatio'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from '@/components/Carousel';
-import { HotspotImage } from '@/components/HotspotImage';
+} from '@/components/Carousel'
+import { HotspotImage } from '@/components/HotspotImage'
 import {
   HybridTooltip,
   HybridTooltipContent,
   HybridTooltipTrigger
-} from '@/components/HybridTooltip';
-import LazyLoadedVideo from '@/components/LazyLoadedVideo';
-import { Media } from '@/components/Media';
-import { Quote } from '@/components/Quote';
-import { TooltipProvider } from '@/components/Tooltip';
-import { YouTubeVideo } from '@/components/YouTubeVideo';
-import { Container } from '@/components/base/Container';
-import { ListItem } from '@/components/base/ListItem';
-import { OL } from '@/components/base/OL';
-import { Text } from '@/components/base/Text';
-import { UL } from '@/components/base/UL';
-import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContainer';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { ProductCard } from '@/components/shared/ProductCard';
-import { ProductCardProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
-import { PortableText } from 'next-sanity';
+} from '@/components/HybridTooltip'
+import LazyLoadedVideo from '@/components/LazyLoadedVideo'
+import { Media } from '@/components/Media'
+import { Quote } from '@/components/Quote'
+import { TooltipProvider } from '@/components/Tooltip'
+import { YouTubeVideo } from '@/components/YouTubeVideo'
+import { Container } from '@/components/base/Container'
+import { ListItem } from '@/components/base/ListItem'
+import { OL } from '@/components/base/OL'
+import { Text } from '@/components/base/Text'
+import { UL } from '@/components/base/UL'
+import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContainer'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { ProductCard } from '@/components/shared/ProductCard'
+import { ProductCardProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
+import { PortableText } from 'next-sanity'
 
 export const portableTextBlogPostSerializer = {
   block: {
@@ -81,7 +81,7 @@ export const portableTextBlogPostSerializer = {
   },
   list: {
     bullet: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
 
       return (
         <UL
@@ -90,10 +90,10 @@ export const portableTextBlogPostSerializer = {
         >
           {children}
         </UL>
-      );
+      )
     },
     number: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
 
       return (
         <OL
@@ -102,25 +102,25 @@ export const portableTextBlogPostSerializer = {
         >
           {children}
         </OL>
-      );
+      )
     }
   },
   listItem: {
     bullet: ({ children, value, index }: any) => {
-      const { level } = value;
+      const { level } = value
       return (
         <ListItem level={level} className={cn('pt-0 text-brand-mid-grey', index === 0 && 'mt-4')}>
           {children}
         </ListItem>
-      );
+      )
     },
     number: ({ children, value, index }: any) => {
-      const { level } = value;
+      const { level } = value
       return (
         <ListItem level={level} className={cn('pt-0 text-brand-mid-grey', index === 0 && 'mt-4')}>
           {children}
         </ListItem>
-      );
+      )
     }
   },
 
@@ -145,7 +145,7 @@ export const portableTextBlogPostSerializer = {
             </HybridTooltipContent>
           </HybridTooltip>
         </TooltipProvider>
-      );
+      )
     }
   },
   types: {
@@ -170,7 +170,7 @@ export const portableTextBlogPostSerializer = {
             )}
           </figure>
         </BlogWidthContainer>
-      );
+      )
     },
     imageGrid: ({ value }: any) => {
       return (
@@ -194,7 +194,7 @@ export const portableTextBlogPostSerializer = {
             </figure>
           ))}
         </BlogWidthContainer>
-      );
+      )
     },
     video: ({ value }: any) => {
       return (
@@ -212,10 +212,10 @@ export const portableTextBlogPostSerializer = {
             </AspectRatio>
           )}
         </BlogWidthContainer>
-      );
+      )
     },
     hotspotImage: ({ value }: any) => {
-      const aspectRatio: any = convertAspectRatio(value?.image?.image?.aspectRatio);
+      const aspectRatio: any = convertAspectRatio(value?.image?.image?.aspectRatio)
 
       return (
         <BlogWidthContainer width={value.width} className="mt-6">
@@ -235,15 +235,15 @@ export const portableTextBlogPostSerializer = {
             </AspectRatio>
           )}
         </BlogWidthContainer>
-      );
+      )
     },
     quote: ({ value }: any) => <Quote quote={value} />,
     // TODO turn this into a component? Getting a bit big
     products: ({ value }: any) => {
-      const productCount = value?.products?.length;
+      const productCount = value?.products?.length
 
       if (productCount === 0 || productCount === 1) {
-        return null;
+        return null
       }
 
       if (productCount >= 2) {
@@ -310,7 +310,7 @@ export const portableTextBlogPostSerializer = {
               </div>
             </BlogWidthContainer>
           </>
-        );
+        )
       }
     },
     standout: ({ value }: any) => {
@@ -346,10 +346,10 @@ export const portableTextBlogPostSerializer = {
             </Container>
           </BlogWidthContainer>
         </div>
-      );
+      )
     },
     youtubeEmbed: ({ value }: any) => {
-      if (!value?.url) return null;
+      if (!value?.url) return null
 
       return (
         <BlogWidthContainer width="normal" className="my-10 lg:my-20">
@@ -357,27 +357,27 @@ export const portableTextBlogPostSerializer = {
             <YouTubeVideo url={value.url} />
           </div>
         </BlogWidthContainer>
-      );
+      )
     }
   }
-};
+}
 
 function convertAspectRatio(aspectRatio: number) {
-  if (aspectRatio === 0) return '0:0'; // Handle edge case
+  if (aspectRatio === 0) return '0:0' // Handle edge case
 
   // Consider aspect ratio as width/height
-  const width = aspectRatio;
-  const height = 1;
+  const width = aspectRatio
+  const height = 1
 
   // Function to find the greatest common divisor (GCD) using Euclidean algorithm
   function gcd(a: number, b: number): any {
-    return b === 0 ? a : gcd(b, a % b);
+    return b === 0 ? a : gcd(b, a % b)
   }
 
   // Simplify the ratio
-  const divisor = gcd(width, height);
-  const simplifiedWidth = width / divisor;
-  const simplifiedHeight = height / divisor;
+  const divisor = gcd(width, height)
+  const simplifiedWidth = width / divisor
+  const simplifiedHeight = height / divisor
 
-  return `${simplifiedWidth}:${simplifiedHeight}`;
+  return `${simplifiedWidth}:${simplifiedHeight}`
 }

@@ -3,34 +3,34 @@ import {
   formatPrice,
   getOrderFinancialStatusBadgeVariant,
   getOrderFullfillmentStatusBadgeVariant
-} from '@/app/api/shopify/utils';
-import { getDictionary } from '@/app/dictionaries';
-import { Badge } from '@/components/Badge';
-import { CustomLink } from '@/components/CustomLink';
-import { Pagination } from '@/components/Pagination';
-import { AccountPageHeader } from '@/components/account/AccountPageHeader';
-import { EmptyState } from '@/components/account/EmptyState';
-import { TD } from '@/components/shared/TD';
-import { TH } from '@/components/shared/TH';
-import { LangValues, ROUTES } from '@/data/constants';
-import { getOrderCursors } from '@/lib/shopify/customer/getOrderCursors';
-import { getOrders } from '@/lib/shopify/customer/getOrders';
-import { capitalizeFirstLetter, cn, formatDate, getOrderIcon } from '@/lib/utils';
-import { ShoppingBagIcon } from '@heroicons/react/20/solid';
-import { Suspense } from 'react';
+} from '@/app/api/shopify/utils'
+import { getDictionary } from '@/app/dictionaries'
+import { Badge } from '@/components/Badge'
+import { CustomLink } from '@/components/CustomLink'
+import { Pagination } from '@/components/Pagination'
+import { AccountPageHeader } from '@/components/account/AccountPageHeader'
+import { EmptyState } from '@/components/account/EmptyState'
+import { TD } from '@/components/shared/TD'
+import { TH } from '@/components/shared/TH'
+import { LangValues, ROUTES } from '@/data/constants'
+import { getOrderCursors } from '@/lib/shopify/customer/getOrderCursors'
+import { getOrders } from '@/lib/shopify/customer/getOrders'
+import { capitalizeFirstLetter, cn, formatDate, getOrderIcon } from '@/lib/utils'
+import { ShoppingBagIcon } from '@heroicons/react/20/solid'
+import { Suspense } from 'react'
 
 interface Props {
-  currentPage: number;
-  lang: LangValues;
+  currentPage: number
+  lang: LangValues
 }
 
 export async function OrdersPage({ currentPage, lang }: Props) {
-  const lastCursor = await getOrderCursors(currentPage);
-  const correctCursor = currentPage === 1 ? undefined : lastCursor;
-  const { account_page: dictionary } = await getDictionary({ lang });
-  const { orders, pageInfo } = await getOrders(correctCursor);
+  const lastCursor = await getOrderCursors(currentPage)
+  const correctCursor = currentPage === 1 ? undefined : lastCursor
+  const { account_page: dictionary } = await getDictionary({ lang })
+  const { orders, pageInfo } = await getOrders(correctCursor)
 
-  const hasOrders = orders && orders.length > 0;
+  const hasOrders = orders && orders.length > 0
 
   return (
     <>
@@ -119,5 +119,5 @@ export async function OrdersPage({ currentPage, lang }: Props) {
         </div>
       )}
     </>
-  );
+  )
 }

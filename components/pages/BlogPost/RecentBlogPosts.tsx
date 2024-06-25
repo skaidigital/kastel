@@ -1,25 +1,25 @@
-import { BlogPostCard } from '@/components/BlogPostCard';
-import { Button } from '@/components/Button';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { CustomLink } from '@/components/CustomLink';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { BlogPostsProps } from '@/components/pages/BlogPost/hooks';
-import { LangValues, ROUTES } from '@/data/constants';
+import { BlogPostCard } from '@/components/BlogPostCard'
+import { Button } from '@/components/Button'
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel'
+import { CustomLink } from '@/components/CustomLink'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { BlogPostsProps } from '@/components/pages/BlogPost/hooks'
+import { LangValues, ROUTES } from '@/data/constants'
 
 interface Props {
-  lang: LangValues;
-  data: BlogPostsProps;
+  lang: LangValues
+  data: BlogPostsProps
 }
 
 export function RecentBlogPosts({ lang, data }: Props) {
-  const { type, posts } = data;
+  const { type, posts } = data
 
-  const isMostRecent = type === 'mostRecent';
+  const isMostRecent = type === 'mostRecent'
 
-  const mostRecentBlogPostsString = getRecentBlogPostsString(lang);
-  const checkOutTheBlogString = getCheckOutTheBlogString(lang);
+  const mostRecentBlogPostsString = getRecentBlogPostsString(lang)
+  const checkOutTheBlogString = getCheckOutTheBlogString(lang)
 
   return (
     <Section label="blogPostSection" srHeading={`Section of blog posts`} noTopPadding>
@@ -60,30 +60,32 @@ export function RecentBlogPosts({ lang, data }: Props) {
           </Button>
         </div>
         <div className="grid grid-cols-3 gap-x-4">
-          {posts?.map((post) => <BlogPostCard key={post.title} post={post} />)}
+          {posts?.map((post) => (
+            <BlogPostCard key={post.title} post={post} />
+          ))}
         </div>
       </Container>
     </Section>
-  );
+  )
 }
 
 function getRecentBlogPostsString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Recent blog posts';
+      return 'Recent blog posts'
     case 'no':
-      return 'Nylige blogginnlegg';
+      return 'Nylige blogginnlegg'
     default:
-      return 'Recent blog posts';
+      return 'Recent blog posts'
   }
 }
 function getCheckOutTheBlogString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Check out the blog';
+      return 'Check out the blog'
     case 'no':
-      return 'Sjekk ut bloggen';
+      return 'Sjekk ut bloggen'
     default:
-      return 'Check out the blog';
+      return 'Check out the blog'
   }
 }

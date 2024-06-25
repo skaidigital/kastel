@@ -1,16 +1,16 @@
-import { CACHE_TAGS, MarketValues } from '@/data/constants';
-import { loadQuery } from '@/lib/sanity/store';
-import { imageValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { CACHE_TAGS, MarketValues } from '@/data/constants'
+import { loadQuery } from '@/lib/sanity/store'
+import { imageValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const defaultMetadataValidator = z.object({
   metaTitle: z.string(),
   metaDescription: z.string(),
   ogImage: imageValidator
-});
+})
 
-export type DefaultMetadataPayload = z.infer<typeof defaultMetadataValidator>;
+export type DefaultMetadataPayload = z.infer<typeof defaultMetadataValidator>
 
 export function getDefaultMetadataQuery(market: MarketValues) {
   const query = groq`
@@ -18,19 +18,19 @@ export function getDefaultMetadataQuery(market: MarketValues) {
      "metaTitle": metaTitle.${market},
      "metaDescription": metaDescription.${market},
      ogImage
-    }`;
+    }`
 
-  return query;
+  return query
 }
 
 export async function loadDefaultMetadata(market: MarketValues) {
-  const defaultMetadataQuery = getDefaultMetadataQuery(market);
+  const defaultMetadataQuery = getDefaultMetadataQuery(market)
 
   const defaultMetadata = await loadQuery<DefaultMetadataPayload | null>(
     defaultMetadataQuery,
     {},
     { next: { tags: [CACHE_TAGS.METADATA] } }
-  );
+  )
 
-  return defaultMetadata.data;
+  return defaultMetadata.data
 }

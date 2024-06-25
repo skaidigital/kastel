@@ -1,48 +1,48 @@
-'use client';
+'use client'
 
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/Carousel';
-import LazyLoadedVideo from '@/components/LazyLoadedVideo';
-import { Section } from '@/components/base/Section';
-import { UGCSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { cn } from '@/lib/utils';
-import { useEffect, useState } from 'react';
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/Carousel'
+import LazyLoadedVideo from '@/components/LazyLoadedVideo'
+import { Section } from '@/components/base/Section'
+import { UGCSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { cn } from '@/lib/utils'
+import { useEffect, useState } from 'react'
 
 interface PropsWithExtra extends UGCSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const UGCSection = ({ data }: Props) => {
-  const { videos, sectionSettings } = data;
+  const { videos, sectionSettings } = data
 
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     if (!api) {
-      return;
+      return
     }
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap() + 1)
 
     api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+      setCurrent(api.selectedScrollSnap() + 1)
+    })
+  }, [api])
 
   function setActive(index: number) {
     if (!api) {
-      return;
+      return
     }
 
-    api.scrollTo(index);
+    api.scrollTo(index)
   }
 
   return (
@@ -79,8 +79,8 @@ export const UGCSection = ({ data }: Props) => {
         <ScrollDots current={current} count={count} onClick={setActive} className="mt-10" />
       </Carousel>
     </Section>
-  );
-};
+  )
+}
 
 function ScrollDots({
   current,
@@ -88,10 +88,10 @@ function ScrollDots({
   onClick,
   className
 }: {
-  current: number;
-  count: number;
-  onClick: (index: number) => void;
-  className?: string;
+  current: number
+  count: number
+  onClick: (index: number) => void
+  className?: string
 }) {
   return (
     <div className={cn('flex w-full justify-center gap-2', className)}>
@@ -107,5 +107,5 @@ function ScrollDots({
         />
       ))}
     </div>
-  );
+  )
 }

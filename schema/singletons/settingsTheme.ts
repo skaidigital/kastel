@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const settingsTheme = defineType({
   title: 'Theme settings',
@@ -8,7 +8,7 @@ export const settingsTheme = defineType({
     prepare() {
       return {
         title: 'Theme settings'
-      };
+      }
     }
   },
   fields: [
@@ -18,4 +18,4 @@ export const settingsTheme = defineType({
       type: 'string'
     })
   ]
-});
+})

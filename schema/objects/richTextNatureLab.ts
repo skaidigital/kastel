@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Image, Link, Quotes, Sneaker, Video } from '@phosphor-icons/react';
-import { defineArrayMember, defineField } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Image, Link, Quotes, Sneaker, Video } from '@phosphor-icons/react'
+import { defineArrayMember, defineField } from 'sanity'
 
 export const richTextNatureLab = defineField({
   name: 'richTextNatureLab',
@@ -121,7 +121,7 @@ export const richTextNatureLab = defineField({
           return {
             title,
             subtitle: 'Product grid'
-          };
+          }
         }
       },
       fields: [
@@ -153,4 +153,4 @@ export const richTextNatureLab = defineField({
       icon: Quotes
     }
   ]
-});
+})

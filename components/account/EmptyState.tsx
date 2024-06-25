@@ -1,11 +1,11 @@
-import { Button } from '@/components/Button';
-import { CustomLink } from '@/components/CustomLink';
+import { Button } from '@/components/Button'
+import { CustomLink } from '@/components/CustomLink'
 
 interface Props {
-  icon: React.ReactNode;
-  heading: string;
-  text: string;
-  href: string;
+  icon: React.ReactNode
+  heading: string
+  text: string
+  href: string
 }
 
 export function EmptyState({ icon, heading, text, href }: Props) {
@@ -21,5 +21,5 @@ export function EmptyState({ icon, heading, text, href }: Props) {
         </Button>
       </div>
     </>
-  );
+  )
 }

@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { Badge } from '@/components/Badge';
-import { CustomLink } from '@/components/CustomLink';
-import { Card, CardButton, CardContent } from '@/components/account/Card';
-import { Text } from '@/components/base/Text';
-import { ROUTES } from '@/data/constants';
-import { Address } from '@/lib/shopify/types';
+import { Dictionary } from '@/app/dictionaries'
+import { Badge } from '@/components/Badge'
+import { CustomLink } from '@/components/CustomLink'
+import { Card, CardButton, CardContent } from '@/components/account/Card'
+import { Text } from '@/components/base/Text'
+import { ROUTES } from '@/data/constants'
+import { Address } from '@/lib/shopify/types'
 
 interface Props {
-  address: Address;
-  isPrimary?: boolean;
-  dictionary: Dictionary['address_page'];
+  address: Address
+  isPrimary?: boolean
+  dictionary: Dictionary['address_page']
 }
 
 export function AddressCard({ address, isPrimary, dictionary }: Props) {
-  const addressIdWithoutGid = removeGid(address.id);
-  const editAddressHref = ROUTES.EDIT_ADDRESS.replace(':id', addressIdWithoutGid);
+  const addressIdWithoutGid = removeGid(address.id)
+  const editAddressHref = ROUTES.EDIT_ADDRESS.replace(':id', addressIdWithoutGid)
 
   return (
     <Card>
@@ -37,9 +37,9 @@ export function AddressCard({ address, isPrimary, dictionary }: Props) {
         <CardButton>{dictionary.update_address}</CardButton>
       </CustomLink>
     </Card>
-  );
+  )
 }
 
 export function removeGid(id: string) {
-  return id.replace('gid://shopify/CustomerAddress/', '');
+  return id.replace('gid://shopify/CustomerAddress/', '')
 }

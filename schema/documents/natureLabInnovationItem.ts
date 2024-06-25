@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Leaf } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Leaf } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const natureLabInnovationItem = defineType({
   title: 'Nature Lab Innovation Item',
@@ -14,7 +14,7 @@ export const natureLabInnovationItem = defineType({
     prepare(selection) {
       return {
         title: selection.title
-      };
+      }
     }
   },
   fields: [
@@ -70,4 +70,4 @@ export const natureLabInnovationItem = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

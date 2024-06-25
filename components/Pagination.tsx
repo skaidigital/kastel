@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import { cn } from '@/lib/utils';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 interface Props {
-  hasPreviousPage?: boolean;
-  hasNextPage?: boolean;
-  className?: string;
+  hasPreviousPage?: boolean
+  hasNextPage?: boolean
+  className?: string
 }
 
 export function Pagination({ hasPreviousPage, hasNextPage, className }: Props) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const currentPage = Number(searchParams.get('page')) || 1
 
   const createPageURL = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams)
 
     if (pageNumber === 1) {
-      params.delete('page');
-      return `${pathname}?${params.toString()}`;
+      params.delete('page')
+      return `${pathname}?${params.toString()}`
     }
-    params.set('page', pageNumber.toString());
-    return `${pathname}?${params.toString()}`;
-  };
+    params.set('page', pageNumber.toString())
+    return `${pathname}?${params.toString()}`
+  }
 
   return (
     <div className={cn('text-eyebrow flex space-x-1 uppercase', className)}>
@@ -51,13 +51,13 @@ export function Pagination({ hasPreviousPage, hasNextPage, className }: Props) {
         <ChevronRightIcon className="mt-0.5 h-3 w-3 text-brand-dark-grey" />
       </Link>
     </div>
-  );
+  )
 }
 
 interface PageButtonProps {
-  pageNumber: number;
-  href: string;
-  isCurrent?: boolean;
+  pageNumber: number
+  href: string
+  isCurrent?: boolean
 }
 
 // function PageButton({ pageNumber, href, isCurrent }: PageButtonProps) {
@@ -84,5 +84,5 @@ function PageButton({ pageNumber, href, isCurrent }: PageButtonProps) {
     >
       {pageNumber}
     </Link>
-  );
+  )
 }

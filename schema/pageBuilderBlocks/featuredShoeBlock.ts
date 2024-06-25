@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Star } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Star } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const featuredShoeBlock = defineType({
   title: 'Featured Shoe block',
@@ -62,10 +62,14 @@ export const featuredShoeBlock = defineType({
       name: 'content',
       type: 'array',
       of: [
-        { type: 'reference', title: 'Hotspot image', to: [{ type: 'hotspotImage' }] },
+        {
+          type: 'reference',
+          title: 'Hotspot image',
+          to: [{ type: 'hotspotImage' }]
+        },
         { type: 'media', title: 'Image / Video' }
       ],
       validation: (Rule) => Rule.required().min(2).max(5)
     })
   ]
-});
+})

@@ -1,29 +1,29 @@
-'use client';
+'use client'
 
-import { Badge } from '@/components/Badge';
-import { OnSaleBadge } from '@/components/OnSaleBadge';
-import Video from '@/components/Video';
-import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
-import { useProductPageContext } from '@/components/pages/ProductPage/Context';
-import { GenderGalleryButtons } from '@/components/pages/ProductPage/GenderGalleryButtons';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { LangValues } from '@/data/constants';
-import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
+import { Badge } from '@/components/Badge'
+import { OnSaleBadge } from '@/components/OnSaleBadge'
+import Video from '@/components/Video'
+import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs'
+import { useProductPageContext } from '@/components/pages/ProductPage/Context'
+import { GenderGalleryButtons } from '@/components/pages/ProductPage/GenderGalleryButtons'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { LangValues } from '@/data/constants'
+import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types'
 
 interface Props {
-  title: string;
-  lang: LangValues;
-  mainImage: SanityImageProps;
+  title: string
+  lang: LangValues
+  mainImage: SanityImageProps
   mainCategory?: {
-    title: string;
-    slug: string;
-  };
-  lifestyleImage?: SanityImageProps;
-  galleryFemale?: ProductGalleryProps;
-  galleryMale?: ProductGalleryProps;
-  badges?: string[];
-  isOnSale?: boolean;
-  discountBadge?: React.ReactNode;
+    title: string
+    slug: string
+  }
+  lifestyleImage?: SanityImageProps
+  galleryFemale?: ProductGalleryProps
+  galleryMale?: ProductGalleryProps
+  badges?: string[]
+  isOnSale?: boolean
+  discountBadge?: React.ReactNode
 }
 
 export function DesktopProductGallery({
@@ -40,9 +40,9 @@ export function DesktopProductGallery({
 }: Props) {
   const hasLifestyleImage = lifestyleImage?.asset?._ref
     ? (lifestyleImage as SanityImageProps)
-    : undefined;
+    : undefined
 
-  const { activeGender } = useProductPageContext();
+  const { activeGender } = useProductPageContext()
 
   return (
     <div className="hidden flex-grow justify-start lg:flex lg:flex-col">
@@ -110,7 +110,7 @@ export function DesktopProductGallery({
                   />
                 )}
               </div>
-            );
+            )
           }
           if (item.type === 'mux.video') {
             return (
@@ -126,9 +126,9 @@ export function DesktopProductGallery({
                   />
                 )}
               </div>
-            );
+            )
           }
-          return null;
+          return null
         })}
       {activeGender === 'male' &&
         galleryMale &&
@@ -151,7 +151,7 @@ export function DesktopProductGallery({
                   />
                 )}
               </div>
-            );
+            )
           }
           if (item.type === 'mux.video') {
             return (
@@ -167,10 +167,10 @@ export function DesktopProductGallery({
                   />
                 )}
               </div>
-            );
+            )
           }
-          return null;
+          return null
         })}
     </div>
-  );
+  )
 }

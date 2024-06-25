@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Calendar } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Calendar } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const timelineBlock = defineType({
   title: 'Timeline block',
@@ -15,7 +15,7 @@ export const timelineBlock = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Timeline section'
-      };
+      }
     }
   },
   fields: [
@@ -48,4 +48,4 @@ export const timelineBlock = defineType({
       validation: (Rule) => Rule.required().min(1).max(12)
     })
   ]
-});
+})

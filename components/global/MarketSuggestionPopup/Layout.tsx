@@ -1,58 +1,58 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { Button } from '@/components/Button';
-import { Modal, ModalContent, ModalHeader } from '@/components/Modal';
-import { Sheet, SheetContent, SheetHeader } from '@/components/Sheet';
-import { Text } from '@/components/base/Text';
-import { NorwegianFlagIcon } from '@/components/icons/NorwegianFlagIcon';
-import { MarketItem } from '@/components/shared/MarketItem';
-import countries from '@/data/countries';
-import { handleHasChosenMarket } from '@/lib/actions';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { useRouter } from 'next/navigation';
-import { parseAsBoolean, useQueryState } from 'nuqs';
-import { useEffect, useState } from 'react';
+import { Dictionary } from '@/app/dictionaries'
+import { Button } from '@/components/Button'
+import { Modal, ModalContent, ModalHeader } from '@/components/Modal'
+import { Sheet, SheetContent, SheetHeader } from '@/components/Sheet'
+import { Text } from '@/components/base/Text'
+import { NorwegianFlagIcon } from '@/components/icons/NorwegianFlagIcon'
+import { MarketItem } from '@/components/shared/MarketItem'
+import countries from '@/data/countries'
+import { handleHasChosenMarket } from '@/lib/actions'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { useRouter } from 'next/navigation'
+import { parseAsBoolean, useQueryState } from 'nuqs'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  requestCountry: string;
-  reccommendedMarket: string;
-  dictionary: Dictionary['market_suggestion_popup'];
+  requestCountry: string
+  reccommendedMarket: string
+  dictionary: Dictionary['market_suggestion_popup']
 }
 
 // TODO make it more sophisticated once we have more markets
 export function MarketSuggestionPopupLayout({ dictionary, requestCountry }: Props) {
-  const [_, setMarketPopupIsOpen] = useQueryState('market_popup', parseAsBoolean);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const { market, lang } = useBaseParams();
+  const [_, setMarketPopupIsOpen] = useQueryState('market_popup', parseAsBoolean)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const { market, lang } = useBaseParams()
 
-  const onClose = () => setIsOpen(false);
-  const router = useRouter();
+  const onClose = () => setIsOpen(false)
+  const router = useRouter()
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   function handleOpenMoreLocations() {
-    onClose();
-    setMarketPopupIsOpen(true).then(() => router.refresh());
+    onClose()
+    setMarketPopupIsOpen(true).then(() => router.refresh())
   }
 
   async function handleClick(href: string) {
-    await handleHasChosenMarket();
-    router.push(href);
-    onClose();
+    await handleHasChosenMarket()
+    router.push(href)
+    onClose()
   }
 
   useEffect(() => {
     async function handleSetHasChosenMarket() {
-      await handleHasChosenMarket();
+      await handleHasChosenMarket()
     }
     if (!isOpen) {
-      handleSetHasChosenMarket();
+      handleSetHasChosenMarket()
     }
-  }, [isOpen]);
+  }, [isOpen])
 
-  const countryName = countries.find((country) => country.value === requestCountry)?.label;
+  const countryName = countries.find((country) => country.value === requestCountry)?.label
 
   if (isDesktop) {
     return (
@@ -96,7 +96,7 @@ export function MarketSuggestionPopupLayout({ dictionary, requestCountry }: Prop
           </Button>
         </ModalContent>
       </Modal>
-    );
+    )
   }
 
   return (
@@ -138,5 +138,5 @@ export function MarketSuggestionPopupLayout({ dictionary, requestCountry }: Prop
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }

@@ -1,24 +1,27 @@
-'use client';
+'use client'
 
-import { CarouselItem } from '@/components/Carousel';
-import { TestimonialCarousel } from '@/components/SiteReviews/TestimonialCarousel';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { getServiceReview } from '@/components/lipscore/hooks';
-import { ReviewItem } from '@/components/pages/ProductPage/ProductReviews/ReviewItem';
-import { LangValues } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { useQuery } from '@tanstack/react-query';
-import Image from 'next/image';
+import { CarouselItem } from '@/components/Carousel'
+import { TestimonialCarousel } from '@/components/SiteReviews/TestimonialCarousel'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { getServiceReview } from '@/components/lipscore/hooks'
+import { ReviewItem } from '@/components/pages/ProductPage/ProductReviews/ReviewItem'
+import { LangValues } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
 
 export function SiteReviewsLayout() {
-  const { data } = useQuery({ queryKey: ['siteReviews'], queryFn: getServiceReview });
-  const { lang } = useBaseParams();
+  const { data } = useQuery({
+    queryKey: ['siteReviews'],
+    queryFn: getServiceReview
+  })
+  const { lang } = useBaseParams()
 
-  const formattedRating = Number(data?.rating)?.toFixed(1);
+  const formattedRating = Number(data?.rating)?.toFixed(1)
 
-  const basedOnString = getBasedOnString(lang);
-  const votesString = getVotesString(lang);
+  const basedOnString = getBasedOnString(lang)
+  const votesString = getVotesString(lang)
 
   return (
     <Section label="siteReviews" srHeading="Site reviews" size="sm">
@@ -48,27 +51,27 @@ export function SiteReviewsLayout() {
         </div>
       </Container>
     </Section>
-  );
+  )
 }
 
 function getBasedOnString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Based on';
+      return 'Based on'
     case 'no':
-      return 'Basert på';
+      return 'Basert på'
     default:
-      return 'Based on';
+      return 'Based on'
   }
 }
 
 function getVotesString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'votes';
+      return 'votes'
     case 'no':
-      return 'stemmer';
+      return 'stemmer'
     default:
-      return 'votes';
+      return 'votes'
   }
 }

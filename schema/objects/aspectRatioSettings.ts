@@ -1,5 +1,5 @@
-import { ASPECT_RATIOS } from '@/data/constants';
-import { defineField, defineType } from 'sanity';
+import { ASPECT_RATIOS } from '@/data/constants'
+import { defineField, defineType } from 'sanity'
 
 export const aspectRatioSettings = defineType({
   title: 'Aspect Ratio Settings',
@@ -23,13 +23,13 @@ export const aspectRatioSettings = defineType({
       },
       validation: (Rule) =>
         Rule.custom((aspectRatio, context: any) => {
-          const sameAspectRatio = context.parent?.sameAspectRatio;
+          const sameAspectRatio = context.parent?.sameAspectRatio
 
           if (sameAspectRatio && !aspectRatio) {
-            return 'Aspect ratio is required';
+            return 'Aspect ratio is required'
           }
 
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.sameAspectRatio === false
     }),
@@ -43,13 +43,13 @@ export const aspectRatioSettings = defineType({
       },
       validation: (Rule) =>
         Rule.custom((aspectRatioDesktop, context: any) => {
-          const sameAspectRatio = context.parent?.sameAspectRatio;
+          const sameAspectRatio = context.parent?.sameAspectRatio
 
           if (!sameAspectRatio && !aspectRatioDesktop) {
-            return 'Aspect ratio is required';
+            return 'Aspect ratio is required'
           }
 
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.sameAspectRatio === true
     }),
@@ -63,15 +63,15 @@ export const aspectRatioSettings = defineType({
       },
       validation: (Rule) =>
         Rule.custom((aspectRatioDesktop, context: any) => {
-          const sameAspectRatio = context.parent?.sameAspectRatio;
+          const sameAspectRatio = context.parent?.sameAspectRatio
 
           if (!sameAspectRatio && !aspectRatioDesktop) {
-            return 'Aspect ratio is required';
+            return 'Aspect ratio is required'
           }
 
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.sameAspectRatio === true
     })
   ]
-});
+})

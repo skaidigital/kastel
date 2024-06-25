@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { Text } from '@/components/base/Text';
-import { useProductRating } from '@/components/lipscore/useProductRating';
-import { cn } from '@/lib/utils';
-import { StarFilledIcon } from '@radix-ui/react-icons';
+import { Text } from '@/components/base/Text'
+import { useProductRating } from '@/components/lipscore/useProductRating'
+import { cn } from '@/lib/utils'
+import { StarFilledIcon } from '@radix-ui/react-icons'
 
 interface Props {
-  sku: string;
-  className?: string;
+  sku: string
+  className?: string
 }
 
 function RatingWrapper({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -15,21 +15,21 @@ function RatingWrapper({ children, className }: { children: React.ReactNode; cla
     <div className={cn('flex items-center gap-x-1 text-xs @[320px]:text-sm', className)}>
       {children}
     </div>
-  );
+  )
 }
 
 export function Rating({ sku, className }: Props) {
-  const { data: response, isLoading } = useProductRating(sku);
+  const { data: response, isLoading } = useProductRating(sku)
 
   if (isLoading) {
-    return <RatingFallback />;
+    return <RatingFallback />
   }
 
   if (!response || !response.rating || !response.votes) {
-    return null;
+    return null
   }
 
-  const formattedRating = Number(response.rating).toFixed(1);
+  const formattedRating = Number(response.rating).toFixed(1)
 
   return (
     <RatingWrapper className={cn('', className)}>
@@ -39,11 +39,11 @@ export function Rating({ sku, className }: Props) {
       </div>
       <Text size="sm">({response.votes})</Text>
     </RatingWrapper>
-  );
+  )
 }
 
 interface RatingFallbackProps {
-  className?: string;
+  className?: string
 }
 
 export function RatingFallback({ className }: RatingFallbackProps) {
@@ -55,5 +55,5 @@ export function RatingFallback({ className }: RatingFallbackProps) {
       </div>
       <Text size="sm">(00)</Text>
     </RatingWrapper>
-  );
+  )
 }

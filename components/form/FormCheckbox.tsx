@@ -1,15 +1,15 @@
-import { Checkbox } from '@/components/Checkbox';
-import { FormLabel } from '@/components/form/FormLabel';
-import { cn } from '@/lib/utils';
-import type { Control } from 'react-hook-form';
-import { useController } from 'react-hook-form';
+import { Checkbox } from '@/components/Checkbox'
+import { FormLabel } from '@/components/form/FormLabel'
+import { cn } from '@/lib/utils'
+import type { Control } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  control: Control<any>;
-  name: string;
-  label: string;
-  description?: string;
-  className?: string;
+  control: Control<any>
+  name: string
+  label: string
+  description?: string
+  className?: string
 }
 
 export const FormCheckbox = ({ control, name, label, description, className }: InputProps) => {
@@ -19,7 +19,7 @@ export const FormCheckbox = ({ control, name, label, description, className }: I
   } = useController({
     name,
     control
-  });
+  })
 
   return (
     <div className={cn('flex flex-col space-y-1', className)}>
@@ -35,5 +35,5 @@ export const FormCheckbox = ({ control, name, label, description, className }: I
         </p>
       )}
     </div>
-  );
-};
+  )
+}

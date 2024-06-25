@@ -1,10 +1,10 @@
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { NatureLabInnovationSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { NatureLabInnovationSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
 
 interface Props {
-  item: NatureLabInnovationSectionProps['innovations'][0];
+  item: NatureLabInnovationSectionProps['innovations'][0]
 }
 
 export function NatureLabInnovationItem({ item }: Props) {
@@ -43,5 +43,5 @@ export function NatureLabInnovationItem({ item }: Props) {
         </SanityLink>
       )}
     </article>
-  );
+  )
 }

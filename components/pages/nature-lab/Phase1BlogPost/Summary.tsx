@@ -1,21 +1,21 @@
-import { Container } from '@/components/base/Container';
-import { Phase1BlogPostPayload } from '@/components/pages/nature-lab/Phase1BlogPost/hooks';
-import { ValuePair } from '@/components/pages/nature-lab/ValuePair';
-import { LangValues } from '@/data/constants';
-import { formatDate } from '@/lib/utils';
+import { Container } from '@/components/base/Container'
+import { Phase1BlogPostPayload } from '@/components/pages/nature-lab/Phase1BlogPost/hooks'
+import { ValuePair } from '@/components/pages/nature-lab/ValuePair'
+import { LangValues } from '@/data/constants'
+import { formatDate } from '@/lib/utils'
 
 interface Props {
-  data: Phase1BlogPostPayload['summary'];
-  lang: LangValues;
+  data: Phase1BlogPostPayload['summary']
+  lang: LangValues
 }
 
 export function Summary({ data, lang }: Props) {
-  const { experimentId, startDate, status } = data;
+  const { experimentId, startDate, status } = data
 
-  const experimentString = getExperimentTranslation(lang);
-  const experimentIdString = getExperimentIdTranslation(lang);
-  const startDateString = getStartDateTranslation(lang);
-  const statusString = getStatusTranslation(lang);
+  const experimentString = getExperimentTranslation(lang)
+  const experimentIdString = getExperimentIdTranslation(lang)
+  const startDateString = getStartDateTranslation(lang)
+  const statusString = getStatusTranslation(lang)
 
   return (
     <div className="border-y border-neutral-400 py-3 lg:py-4">
@@ -28,49 +28,49 @@ export function Summary({ data, lang }: Props) {
         </div>
       </Container>
     </div>
-  );
+  )
 }
 
 function getExperimentTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'EKSPERIMENT';
+      return 'EKSPERIMENT'
     case 'en':
-      return 'EXPERIMENT';
+      return 'EXPERIMENT'
     default:
-      return 'EXPERIMENT';
+      return 'EXPERIMENT'
   }
 }
 
 function getExperimentIdTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Eksperiment-ID';
+      return 'Eksperiment-ID'
     case 'en':
-      return 'Experiment ID';
+      return 'Experiment ID'
     default:
-      return 'Experiment ID';
+      return 'Experiment ID'
   }
 }
 
 function getStartDateTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Startdato';
+      return 'Startdato'
     case 'en':
-      return 'Start date';
+      return 'Start date'
     default:
-      return 'Start date';
+      return 'Start date'
   }
 }
 
 function getStatusTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Status';
+      return 'Status'
     case 'en':
-      return 'Status';
+      return 'Status'
     default:
-      return 'Status';
+      return 'Status'
   }
 }

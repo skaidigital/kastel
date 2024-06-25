@@ -1,9 +1,9 @@
 import {
   filterAlreadyAddedReferences,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Question } from '@phosphor-icons/react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Question } from '@phosphor-icons/react'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const helpCenter = defineType({
   title: 'Help center',
@@ -18,7 +18,7 @@ export const helpCenter = defineType({
       return {
         title: title || 'No title defined',
         subtitle: 'Help center'
-      };
+      }
     }
   },
   fields: [
@@ -59,4 +59,4 @@ export const helpCenter = defineType({
       validation: (Rule) => Rule.min(1)
     })
   ]
-});
+})

@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { useProductCardContext } from '@/components/shared/ProductCard/Context';
-import { OptionalSanityImageProps, SanityImageProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { useProductCardContext } from '@/components/shared/ProductCard/Context'
+import { OptionalSanityImageProps, SanityImageProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  mainImage: SanityImageProps;
-  lifestyleImage?: OptionalSanityImageProps;
-  firstImage?: 'product' | 'lifestyle';
-  priority?: boolean;
-  sizes?: string;
+  mainImage: SanityImageProps
+  lifestyleImage?: OptionalSanityImageProps
+  firstImage?: 'product' | 'lifestyle'
+  priority?: boolean
+  sizes?: string
 }
 
 export function ProductCardImage({
@@ -20,19 +20,19 @@ export function ProductCardImage({
   priority,
   sizes
 }: Props) {
-  const { isHovered, setIsHovered, activeColorway } = useProductCardContext();
+  const { isHovered, setIsHovered, activeColorway } = useProductCardContext()
 
   // Apply activeColorway override if available
-  const effectiveMainImage = activeColorway?.image || mainImage;
+  const effectiveMainImage = activeColorway?.image || mainImage
 
   const hasLifestyleImage =
-    lifestyleImage && lifestyleImage.asset && lifestyleImage.asset?._ref ? true : false;
+    lifestyleImage && lifestyleImage.asset && lifestyleImage.asset?._ref ? true : false
 
   // Determine the first image based on the firstImage prop and available images
   const chosenFirstImage =
-    firstImage === 'lifestyle' && hasLifestyleImage ? lifestyleImage : effectiveMainImage;
+    firstImage === 'lifestyle' && hasLifestyleImage ? lifestyleImage : effectiveMainImage
 
-  const chosenFirstImageTyped = chosenFirstImage as SanityImageProps;
+  const chosenFirstImageTyped = chosenFirstImage as SanityImageProps
 
   // Determine the hover image. It should be the opposite unless only one image is available
   const chosenHoverImage =
@@ -40,11 +40,11 @@ export function ProductCardImage({
       ? effectiveMainImage
       : hasLifestyleImage
         ? lifestyleImage
-        : effectiveMainImage;
+        : effectiveMainImage
 
-  const chosenHoverImageTyped = chosenHoverImage as SanityImageProps;
+  const chosenHoverImageTyped = chosenHoverImage as SanityImageProps
 
-  const hasHoverImage = chosenHoverImage !== chosenFirstImageTyped;
+  const hasHoverImage = chosenHoverImage !== chosenFirstImageTyped
 
   return (
     <div
@@ -60,5 +60,5 @@ export function ProductCardImage({
         priority={priority}
       />
     </div>
-  );
+  )
 }

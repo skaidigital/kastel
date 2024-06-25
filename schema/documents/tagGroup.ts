@@ -1,10 +1,10 @@
-import { TAG_OPTIONS } from '@/data/constants';
+import { TAG_OPTIONS } from '@/data/constants'
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Folders } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Folders } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const tagGroup = defineType({
   title: 'Tag group',
@@ -19,7 +19,7 @@ export const tagGroup = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Tag group'
-      };
+      }
     }
   },
   fields: [
@@ -89,4 +89,4 @@ export const tagGroup = defineType({
       }
     })
   ]
-});
+})

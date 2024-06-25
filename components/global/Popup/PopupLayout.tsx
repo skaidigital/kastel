@@ -1,44 +1,44 @@
-'use client';
+'use client'
 
-import { Badge } from '@/components/Badge';
-import { Button } from '@/components/Button';
-import { Logo } from '@/components/Logo';
-import { Modal, ModalContent } from '@/components/Modal';
-import { Sheet, SheetContent } from '@/components/Sheet';
-import { Text } from '@/components/base/Text';
-import { NewsletterSignupForm } from '@/components/global/Popup/NewsletterSignupForm';
-import { hasSeenPopup } from '@/components/global/Popup/actions';
-import { PopupPayload } from '@/components/global/Popup/hooks';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { LinkProps } from '@/lib/sanity/types';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import * as Dialog from '@radix-ui/react-dialog';
-import { useEffect, useState } from 'react';
+import { Badge } from '@/components/Badge'
+import { Button } from '@/components/Button'
+import { Logo } from '@/components/Logo'
+import { Modal, ModalContent } from '@/components/Modal'
+import { Sheet, SheetContent } from '@/components/Sheet'
+import { Text } from '@/components/base/Text'
+import { NewsletterSignupForm } from '@/components/global/Popup/NewsletterSignupForm'
+import { hasSeenPopup } from '@/components/global/Popup/actions'
+import { PopupPayload } from '@/components/global/Popup/hooks'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { LinkProps } from '@/lib/sanity/types'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import * as Dialog from '@radix-ui/react-dialog'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  data: PopupPayload;
+  data: PopupPayload
 }
 
 // TODO translate the messages
 // TODO vertically center the loading spinner
 export function PopupLayout({ data }: Props) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
-  const { title, content, image, badge, type } = data;
+  const { title, content, image, badge, type } = data
 
   async function handlePopupClose() {
-    await hasSeenPopup();
-    setIsOpen(false);
+    await hasSeenPopup()
+    setIsOpen(false)
   }
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   useEffect(() => {
     if (!isOpen) {
-      hasSeenPopup();
+      hasSeenPopup()
     }
-  }, [isOpen]);
+  }, [isOpen])
 
   if (isDesktop) {
     return (
@@ -81,7 +81,7 @@ export function PopupLayout({ data }: Props) {
           </div>
         </ModalContent>
       </Modal>
-    );
+    )
   }
 
   return (
@@ -105,7 +105,7 @@ export function PopupLayout({ data }: Props) {
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
 
 function MainContent({
@@ -113,9 +113,9 @@ function MainContent({
   content,
   badge
 }: {
-  title: string;
-  content: string;
-  badge?: string;
+  title: string
+  content: string
+  badge?: string
 }) {
   return (
     <div className="mb-4 flex flex-col items-center gap-y-2 text-center lg:mb-0 lg:items-start lg:gap-y-4 lg:text-left">
@@ -135,7 +135,7 @@ function MainContent({
         </Text>
       )}
     </div>
-  );
+  )
 }
 
 function InfoLink({ link, children }: { link: LinkProps; children: React.ReactNode }) {
@@ -143,5 +143,5 @@ function InfoLink({ link, children }: { link: LinkProps; children: React.ReactNo
     <Button asChild size="sm">
       <SanityLink link={link}>{children}</SanityLink>
     </Button>
-  );
+  )
 }

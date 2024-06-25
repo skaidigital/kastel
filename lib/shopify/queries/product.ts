@@ -1,4 +1,4 @@
-import productFragment from '../fragments/product';
+import productFragment from '../fragments/product'
 
 export const getProductQuery = /* GraphQL */ `
   query getProduct($handle: String!) {
@@ -7,7 +7,7 @@ export const getProductQuery = /* GraphQL */ `
     }
   }
   ${productFragment}
-`;
+`
 
 export const getProductsQuery = /* GraphQL */ `
   query getProducts($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {
@@ -20,7 +20,7 @@ export const getProductsQuery = /* GraphQL */ `
     }
   }
   ${productFragment}
-`;
+`
 
 export const getProductRecommendationsQuery = /* GraphQL */ `
   query getProductRecommendations($productId: ID!) {
@@ -29,7 +29,7 @@ export const getProductRecommendationsQuery = /* GraphQL */ `
     }
   }
   ${productFragment}
-`;
+`
 
 export const getProductByShopifyId = /* GraphQL */ `
   query getProductByShopifyId($id: ID!, $namespace: String!, $key: String!) {
@@ -41,7 +41,7 @@ export const getProductByShopifyId = /* GraphQL */ `
       }
     }
   }
-`;
+`
 
 export const getProductsByShopifyId = /* GraphQL */ `
   query getProductsByShopifyId($ids: String!) {
@@ -62,7 +62,7 @@ export const getProductsByShopifyId = /* GraphQL */ `
       }
     }
   }
-`;
+`
 
 export const getStockForProductVariant = /* GraphQL */ `
   query getStockForProductVariant($id: ID!) {
@@ -70,4 +70,4 @@ export const getStockForProductVariant = /* GraphQL */ `
       inventoryQuantity
     }
   }
-`;
+`

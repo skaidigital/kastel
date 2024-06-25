@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { motion, useScroll } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll } from 'framer-motion'
+import { useRef } from 'react'
 
 export function Timeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll({
     container: containerRef
-  });
+  })
   //   const { scrollYProgress } = useScroll();
   //   const scaleX = useSpring(scrollYProgress, {
   //     stiffness: 100,
@@ -21,5 +21,5 @@ export function Timeline() {
 
       <div className="h-full w-full bg-blue-50">other content</div>
     </div>
-  );
+  )
 }

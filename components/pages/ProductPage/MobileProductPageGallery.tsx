@@ -1,23 +1,23 @@
-import { Badge } from '@/components/Badge';
-import { OnSaleBadge } from '@/components/OnSaleBadge';
-import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs';
-import { MobileCarousel } from '@/components/shared/MobileCarousel';
-import { LangValues } from '@/data/constants';
-import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
+import { Badge } from '@/components/Badge'
+import { OnSaleBadge } from '@/components/OnSaleBadge'
+import { Breadcrumbs } from '@/components/pages/ProductPage/Breadcrumbs'
+import { MobileCarousel } from '@/components/shared/MobileCarousel'
+import { LangValues } from '@/data/constants'
+import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  title: string;
-  lang: LangValues;
-  mainCategory?: { title: string; slug: string };
-  mainImage: SanityImageProps;
-  lifestyleImage?: SanityImageProps;
-  galleryFemale?: ProductGalleryProps;
-  galleryMale?: ProductGalleryProps;
-  badges?: string[];
-  isOnSale?: boolean;
-  discountBadge?: React.ReactNode;
-  className?: string;
+  title: string
+  lang: LangValues
+  mainCategory?: { title: string; slug: string }
+  mainImage: SanityImageProps
+  lifestyleImage?: SanityImageProps
+  galleryFemale?: ProductGalleryProps
+  galleryMale?: ProductGalleryProps
+  badges?: string[]
+  isOnSale?: boolean
+  discountBadge?: React.ReactNode
+  className?: string
 }
 
 export function MobileProductPageGallery({
@@ -57,5 +57,5 @@ export function MobileProductPageGallery({
         </div>
       </div>
     </div>
-  );
+  )
 }

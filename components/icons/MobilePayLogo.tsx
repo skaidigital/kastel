@@ -104,4 +104,4 @@ export const MobilePayLogo = (props: React.SVGProps<SVGSVGElement>) => (
       </linearGradient>
     </defs>
   </svg>
-);
+)

@@ -1,10 +1,10 @@
-import { composeTailwindRenderProps, focusRing } from '@/lib/rac';
-import React from 'react';
-import { Switch as AriaSwitch, SwitchProps as AriaSwitchProps } from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+import { composeTailwindRenderProps, focusRing } from '@/lib/rac'
+import React from 'react'
+import { Switch as AriaSwitch, SwitchProps as AriaSwitchProps } from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
 export interface SwitchProps extends Omit<AriaSwitchProps, 'children'> {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const track = tv({
@@ -20,7 +20,7 @@ const track = tv({
       true: 'bg-gray-200 dark:bg-zinc-700 forced-colors:group-selected:!bg-[GrayText] forced-colors:border-[GrayText]'
     }
   }
-});
+})
 
 const handle = tv({
   base: 'h-3 w-3 transform rounded-full bg-white dark:bg-zinc-900 outline outline-1 -outline-offset-1 outline-transparent shadow transition duration-200 ease-in-out',
@@ -33,7 +33,7 @@ const handle = tv({
       true: 'forced-colors:outline-[GrayText]'
     }
   }
-});
+})
 
 export function Switch({ children, ...props }: SwitchProps) {
   return (
@@ -53,5 +53,5 @@ export function Switch({ children, ...props }: SwitchProps) {
         </>
       )}
     </AriaSwitch>
-  );
+  )
 }

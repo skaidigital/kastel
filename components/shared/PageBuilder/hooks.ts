@@ -1,5 +1,5 @@
-import { LangValues, MarketValues } from '@/data/constants';
-import * as fragments from '@/lib/sanity/fragments';
+import { LangValues, MarketValues } from '@/data/constants'
+import * as fragments from '@/lib/sanity/fragments'
 import {
   aspectRatioSettingsValidator,
   blogPostCardValidator,
@@ -12,18 +12,18 @@ import {
   portableTextValidator,
   productCardValidator,
   uspValidator
-} from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+} from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
-const paddingValidator = z.union([z.literal('sm'), z.literal('md'), z.literal('lg')]);
+const paddingValidator = z.union([z.literal('sm'), z.literal('md'), z.literal('lg')])
 
 export const sectionSettingsValidator = z.object({
   padding: paddingValidator,
   hasTopPadding: z.boolean(),
   hasBottomPadding: z.boolean(),
   hasBottomBorder: z.boolean()
-});
+})
 
 const featuredCollectionValidator = z.object({
   type: z.literal('featuredCollectionSection'),
@@ -35,7 +35,7 @@ const featuredCollectionValidator = z.object({
   buttonText: z.string(),
   slug: z.string(),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const cardSectionValidator = z.object({
   type: z.literal('cardSection'),
@@ -48,7 +48,7 @@ const cardSectionValidator = z.object({
   ),
   aspectRatioSettings: aspectRatioSettingsValidator,
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const blogPostSectionValidator = z.object({
   type: z.literal('blogPostSection'),
@@ -57,7 +57,7 @@ const blogPostSectionValidator = z.object({
   buttonText: z.string(),
   posts: z.array(blogPostCardValidator),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const FAQSectionValidator = z.object({
   type: z.literal('faqSection'),
@@ -72,7 +72,7 @@ const FAQSectionValidator = z.object({
     })
   ),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const shoePickerValidator = z.object({
   type: z.literal('shoePicker'),
@@ -85,14 +85,14 @@ const shoePickerValidator = z.object({
     })
   ),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const ugcSectionValidator = z.object({
   type: z.literal('ugcSection'),
   key: z.string(),
   videos: z.array(z.string()),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const kastelClubStepValidator = z.object({
   titleFront: z.string(),
@@ -108,7 +108,7 @@ const kastelClubStepValidator = z.object({
       })
     )
     .optional()
-});
+})
 
 const kastelClubSectionValidator = z.object({
   type: z.literal('kastelClubSection'),
@@ -120,7 +120,7 @@ const kastelClubSectionValidator = z.object({
   steps: z.array(kastelClubStepValidator),
   lastSlide: mediaValidator,
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const natureLabExplainerSectionValidator = z.object({
   type: z.literal('natureLabExplainerSection'),
@@ -136,7 +136,7 @@ const natureLabExplainerSectionValidator = z.object({
     })
   ),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const shopOurModelsSectionValidator = z.object({
   type: z.literal('shopOurModelsSection'),
@@ -166,7 +166,7 @@ const shopOurModelsSectionValidator = z.object({
     })
   ),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const featuredShoeSectionValidator = z.object({
   type: z.literal('featuredShoeSection'),
@@ -178,7 +178,7 @@ const featuredShoeSectionValidator = z.object({
   link: linkValidator,
   content: z.array(z.union([mediaValidator, hotspotImageValidator])),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const textPlacementValidator = z.union([
   z.literal('top-left'),
@@ -193,7 +193,7 @@ const textPlacementValidator = z.union([
   z.literal('split-top'),
   z.literal('split-center'),
   z.literal('split-bottom')
-]);
+])
 
 export const heroValidator = z.object({
   type: z.literal('hero'),
@@ -206,7 +206,7 @@ export const heroValidator = z.object({
   textPositionMobile: textPlacementValidator,
   textPositionDesktop: textPlacementValidator,
   buttonSettings: buttonSettingsValidator
-});
+})
 
 const uspExplainerSectionValidator = z.object({
   type: z.literal('uspExplainerSection'),
@@ -220,7 +220,7 @@ const uspExplainerSectionValidator = z.object({
     })
   ),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const cardBaseValidator = z.object({
   title: z.string().optional(),
@@ -248,22 +248,22 @@ const cardBaseValidator = z.object({
     z.literal('bottom-center'),
     z.literal('bottom-right')
   ])
-});
+})
 
 const imageCardValidator = z.object({
   type: z.literal('image'),
   image: imageValidator
-});
+})
 
 const videoCardValidator = z.object({
   type: z.literal('video'),
   video: z.string()
-});
+})
 
 export const cardValidator = z.discriminatedUnion('type', [
   cardBaseValidator.merge(imageCardValidator),
   cardBaseValidator.merge(videoCardValidator)
-]);
+])
 
 const natureLabInnovationItemValidator = z.object({
   title: z.string(),
@@ -271,7 +271,7 @@ const natureLabInnovationItemValidator = z.object({
   image: imageValidator,
   link: linkValidator,
   keyFeatures: z.array(z.string())
-});
+})
 
 const natureLabInnovationSectionValidator = z.object({
   type: z.literal('natureLabInnovationsSection'),
@@ -279,7 +279,7 @@ const natureLabInnovationSectionValidator = z.object({
   title: z.string(),
   description: z.string().optional(),
   innovations: z.array(natureLabInnovationItemValidator)
-});
+})
 
 const emailCaptureValidator = z.object({
   type: z.literal('natureLabInnovationsSection'),
@@ -290,7 +290,7 @@ const emailCaptureValidator = z.object({
   badge: z.string().optional(),
   description: portableTextValidator,
   buttonText: z.string()
-});
+})
 
 const timelineItemValidator = z.object({
   label: z.string(),
@@ -298,7 +298,7 @@ const timelineItemValidator = z.object({
   description: z.string(),
   media: mediaValidator,
   aspectRatioSettings: aspectRatioSettingsValidator
-});
+})
 
 const timelineSectionValidator = z.object({
   type: z.literal('timelineSection'),
@@ -308,7 +308,7 @@ const timelineSectionValidator = z.object({
   badge: z.string().optional(),
   timeline: z.array(timelineItemValidator),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const fullBleedMediaSectionValidator = z.object({
   type: z.literal('fullBleedMediaSection'),
@@ -334,14 +334,14 @@ const fullBleedMediaSectionValidator = z.object({
   ]),
   media: mediaValidator,
   aspectRatioSettings: aspectRatioSettingsValidator
-});
+})
 
 const pageTitleValidator = z.object({
   type: z.literal('pageTitle'),
   key: z.string(),
   title: z.string(),
   description: z.string()
-});
+})
 
 const meetTheTeamSectionValidator = z.object({
   type: z.literal('meetTheTeamSection'),
@@ -356,13 +356,13 @@ const meetTheTeamSectionValidator = z.object({
     })
   ),
   sectionSettings: sectionSettingsValidator
-});
+})
 
 const siteReviewsValidator = z.object({
   type: z.literal('siteReviews'),
   key: z.string(),
   isEnabled: z.literal(true)
-});
+})
 
 export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   featuredCollectionValidator,
@@ -383,38 +383,38 @@ export const pageBuilderBlockValidator = z.discriminatedUnion('type', [
   pageTitleValidator,
   meetTheTeamSectionValidator,
   siteReviewsValidator
-]);
+])
 
-export const pageBuilderValidator = z.array(pageBuilderBlockValidator);
+export const pageBuilderValidator = z.array(pageBuilderBlockValidator)
 
 // Start new validators
-export type CardProps = z.infer<typeof cardValidator>;
-export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>;
-export type CardSectionProps = z.infer<typeof cardSectionValidator>;
-export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>;
-export type FAQSectionProps = z.infer<typeof FAQSectionValidator>;
-export type ShoePickerProps = z.infer<typeof shoePickerValidator>;
-export type UGCSectionProps = z.infer<typeof ugcSectionValidator>;
-export type KastelClubStepProps = z.infer<typeof kastelClubStepValidator>;
-export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>;
-export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>;
-export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>;
-export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>;
-export type HeroProps = z.infer<typeof heroValidator>;
-export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>;
-export type NatureLabInnovationSectionProps = z.infer<typeof natureLabInnovationSectionValidator>;
-export type EmailCaptureProps = z.infer<typeof emailCaptureValidator>;
-export type TimelineItemProps = z.infer<typeof timelineItemValidator>;
-export type TimelineSectionProps = z.infer<typeof timelineSectionValidator>;
-export type FullBleedMediaSectionProps = z.infer<typeof fullBleedMediaSectionValidator>;
-export type PageTitleProps = z.infer<typeof pageTitleValidator>;
-export type MeetTheTeamSectionProps = z.infer<typeof meetTheTeamSectionValidator>;
-export type PageBuilder = z.infer<typeof pageBuilderValidator>;
-export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>;
+export type CardProps = z.infer<typeof cardValidator>
+export type FeaturedCollectionProps = z.infer<typeof featuredCollectionValidator>
+export type CardSectionProps = z.infer<typeof cardSectionValidator>
+export type BlogPostSectionProps = z.infer<typeof blogPostSectionValidator>
+export type FAQSectionProps = z.infer<typeof FAQSectionValidator>
+export type ShoePickerProps = z.infer<typeof shoePickerValidator>
+export type UGCSectionProps = z.infer<typeof ugcSectionValidator>
+export type KastelClubStepProps = z.infer<typeof kastelClubStepValidator>
+export type KastelClubSectionProps = z.infer<typeof kastelClubSectionValidator>
+export type NatureLabExplainerSectionProps = z.infer<typeof natureLabExplainerSectionValidator>
+export type ShopOurModelsSectionProps = z.infer<typeof shopOurModelsSectionValidator>
+export type FeaturedShoeSectionProps = z.infer<typeof featuredShoeSectionValidator>
+export type HeroProps = z.infer<typeof heroValidator>
+export type USPExplainerSectionProps = z.infer<typeof uspExplainerSectionValidator>
+export type NatureLabInnovationSectionProps = z.infer<typeof natureLabInnovationSectionValidator>
+export type EmailCaptureProps = z.infer<typeof emailCaptureValidator>
+export type TimelineItemProps = z.infer<typeof timelineItemValidator>
+export type TimelineSectionProps = z.infer<typeof timelineSectionValidator>
+export type FullBleedMediaSectionProps = z.infer<typeof fullBleedMediaSectionValidator>
+export type PageTitleProps = z.infer<typeof pageTitleValidator>
+export type MeetTheTeamSectionProps = z.infer<typeof meetTheTeamSectionValidator>
+export type PageBuilder = z.infer<typeof pageBuilderValidator>
+export type PageBuilderBlock = z.infer<typeof pageBuilderBlockValidator>
 
 export const PAGE_BUILDER_TYPES: {
   // eslint-disable-next-line no-unused-vars
-  [key: string]: (lang: LangValues, market: MarketValues) => string;
+  [key: string]: (lang: LangValues, market: MarketValues) => string
 } = {
   pageTitle: (lang) => `
     ${fragments.base},
@@ -539,7 +539,7 @@ export const PAGE_BUILDER_TYPES: {
      ${fragments.sectionSettings}
     }
   `,
-  ugcSection: (lang) => groq`
+  ugcSection: () => groq`
     ${fragments.base},
     ...ugcBlock->{
       "videos": videos[].asset->.playbackId,
@@ -765,30 +765,30 @@ export const PAGE_BUILDER_TYPES: {
     ${fragments.base},
     isEnabled,
   `
-};
+}
 
 export const concatenatePageBuilderQueries = ({
   market,
   lang
 }: {
-  market: MarketValues;
-  lang: LangValues;
+  market: MarketValues
+  lang: LangValues
 }) => {
-  const keys = Object.keys(PAGE_BUILDER_TYPES);
+  const keys = Object.keys(PAGE_BUILDER_TYPES)
 
   const queryStrings = keys.map((key: string) => {
-    const pageBuilderFunction = PAGE_BUILDER_TYPES[key];
+    const pageBuilderFunction = PAGE_BUILDER_TYPES[key]
     if (typeof pageBuilderFunction === 'function') {
       return `
         _type == "${key}" && (!defined(marketAvailability) || !("${market}" in marketAvailability)) => {
           ${pageBuilderFunction(lang, market)}
         },
-      `;
+      `
     }
-    return '';
-  });
+    return ''
+  })
 
-  const joinedQueryStrings = queryStrings.join('');
+  const joinedQueryStrings = queryStrings.join('')
 
-  return joinedQueryStrings;
-};
+  return joinedQueryStrings
+}

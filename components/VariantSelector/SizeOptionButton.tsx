@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import { Badge } from '@/components/Badge';
-import { textProps } from '@/components/base/Text';
-import { cn } from '@/lib/utils';
+import { Badge } from '@/components/Badge'
+import { textProps } from '@/components/base/Text'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  value: string;
-  optionName: string;
-  isAvailableForSale: boolean;
-  isFeatured: boolean;
-  reccommendedText: string;
-  isActive: boolean;
-  setSelectedSize: (value: string) => void;
+  value: string
+  optionName: string
+  isAvailableForSale: boolean
+  isFeatured: boolean
+  reccommendedText: string
+  isActive: boolean
+  setSelectedSize: (value: string) => void
 }
 
 export function SizeOptionButton({
@@ -43,5 +43,5 @@ export function SizeOptionButton({
         </Badge>
       )}
     </button>
-  );
+  )
 }

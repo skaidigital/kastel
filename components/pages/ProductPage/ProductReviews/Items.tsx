@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { Button } from '@/components/Button';
-import { Text } from '@/components/base/Text';
-import { StarRating } from '@/components/pages/ProductPage/StarRating';
-import { accordionItemAnimation } from '@/lib/animations';
-import { motion } from 'framer-motion';
+import { Button } from '@/components/Button'
+import { Text } from '@/components/base/Text'
+import { StarRating } from '@/components/pages/ProductPage/StarRating'
+import { accordionItemAnimation } from '@/lib/animations'
+import { motion } from 'framer-motion'
 
 interface Props {
-  data: ReviewItemProps[];
-  onClick: () => void;
-  amount: number;
+  data: ReviewItemProps[]
+  onClick: () => void
+  amount: number
 }
 
 export const Items = ({ data, onClick }: Props) => {
@@ -18,31 +18,31 @@ export const Items = ({ data, onClick }: Props) => {
       <div className="flex justify-center text-center">
         <Text size="eyebrow">Ingen anmeldelser passer dette søket</Text>
       </div>
-    );
+    )
   }
 
   return (
     <>
       {data?.map((review, index) => {
-        return <ReviewItem {...review} key={index} />;
+        return <ReviewItem {...review} key={index} />
       })}
       <Button type="button" onClick={onClick}>
         Hent flere anmeldelser
       </Button>
     </>
-  );
-};
+  )
+}
 
 export interface ReviewItemProps {
-  rating: number;
-  isReccommended: boolean;
-  title: string;
-  body: string;
-  created_at: string;
+  rating: number
+  isReccommended: boolean
+  title: string
+  body: string
+  created_at: string
   customer: {
-    first_name: string;
-  };
-  verified_buyer: boolean;
+    first_name: string
+  }
+  verified_buyer: boolean
 }
 
 const ReviewItem = ({
@@ -54,12 +54,12 @@ const ReviewItem = ({
   customer,
   verified_buyer
 }: ReviewItemProps) => {
-  const date = new Date(created_at);
+  const date = new Date(created_at)
   const formattedCreatedAt = date?.toLocaleDateString('no-NO', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-  });
+  })
 
   return (
     <motion.div
@@ -90,5 +90,5 @@ const ReviewItem = ({
         </div>
       </div>
     </motion.div>
-  );
-};
+  )
+}

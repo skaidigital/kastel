@@ -1,6 +1,6 @@
-import { slugIsUniqueForLangAndSchemaType } from '@/lib/sanity/studioUtils';
-import { BookOpenText } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { slugIsUniqueForLangAndSchemaType } from '@/lib/sanity/studioUtils'
+import { BookOpenText } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 // TODO make the internal title hidden once it's set in both datasets
 export const aboutPage = defineType({
@@ -13,7 +13,7 @@ export const aboutPage = defineType({
       return {
         title: 'About page',
         subtitle: 'About page'
-      };
+      }
     }
   },
   fields: [
@@ -29,22 +29,22 @@ export const aboutPage = defineType({
       name: 'pageBuilder',
       type: 'pageBuilder',
       validation: (Rule) =>
-        Rule.custom((value: any, context: any) => {
+        Rule.custom((value: any) => {
           if (!value?.length) {
-            return 'You need to add at least one section';
+            return 'You need to add at least one section'
           }
 
-          const firstComponent = value[0];
+          const firstComponent = value[0]
 
           if (
             firstComponent._type !== 'hero' &&
             firstComponent._type !== 'emailCapture' &&
             firstComponent._type !== 'pageTitle'
           ) {
-            return 'The first section must be a hero, email capture or page title';
+            return 'The first section must be a hero, email capture or page title'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -102,4 +102,4 @@ export const aboutPage = defineType({
       type: 'metadata'
     })
   ]
-});
+})

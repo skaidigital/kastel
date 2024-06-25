@@ -1,11 +1,11 @@
-import * as Switch from '@radix-ui/react-switch';
-import type { Control } from 'react-hook-form';
-import { useController } from 'react-hook-form';
+import * as Switch from '@radix-ui/react-switch'
+import type { Control } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 
 interface Props extends React.InputHTMLAttributes<HTMLButtonElement> {
-  control: Control<any>;
-  name: string;
-  label: string;
+  control: Control<any>
+  name: string
+  label: string
 }
 
 export const FormSwitch = ({ control, name, label }: Props) => {
@@ -14,7 +14,7 @@ export const FormSwitch = ({ control, name, label }: Props) => {
   } = useController({
     name,
     control
-  });
+  })
 
   return (
     <div className="flex items-center gap-x-4 rounded-[2px] border border-brand-light-grey bg-brand-sand p-4">
@@ -30,5 +30,5 @@ export const FormSwitch = ({ control, name, label }: Props) => {
         {label}
       </label>
     </div>
-  );
-};
+  )
+}

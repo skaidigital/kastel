@@ -1,38 +1,38 @@
-'use client';
+'use client'
 
-import { Heading } from '@/components/base/Heading';
-import { Text } from '@/components/base/Text';
-import { cn } from '@/lib/utils';
+import { Heading } from '@/components/base/Heading'
+import { Text } from '@/components/base/Text'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }
 export function Card({ children, className }: Props) {
   return (
     <div className={cn('flex flex-col border border-brand-light-grey', className)}>{children}</div>
-  );
+  )
 }
 
 interface CardTitleProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function CardTitle({ children }: CardTitleProps) {
-  return <Heading className="mb-4 text-md normal-case">{children}</Heading>;
+  return <Heading className="mb-4 text-md normal-case">{children}</Heading>
 }
 
 interface CardContentProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function CardContent({ children }: CardContentProps) {
-  return <div className="flex grow flex-col rounded-t-[4px] bg-white p-6">{children}</div>;
+  return <div className="flex grow flex-col rounded-t-[4px] bg-white p-6">{children}</div>
 }
 
 interface CardButtonProps {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }
 
 // TODO find out why it is not rounded
@@ -48,5 +48,5 @@ export function CardButton({ children, className }: CardButtonProps) {
         {children}
       </Text>
     </div>
-  );
+  )
 }

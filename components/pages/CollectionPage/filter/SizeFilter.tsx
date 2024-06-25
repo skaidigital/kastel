@@ -1,35 +1,35 @@
-'use client';
-import { Text } from '@/components/base/Text';
-import { cn } from '@/lib/utils';
-import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
-import { FilterItemSchema } from './hooks';
+'use client'
+import { Text } from '@/components/base/Text'
+import { cn } from '@/lib/utils'
+import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs'
+import { FilterItemSchema } from './hooks'
 
 interface SizeFilterProps {
-  filter: FilterItemSchema;
-  parentKey: string;
+  filter: FilterItemSchema
+  parentKey: string
 }
 
 export function SizeFilter({ filter, parentKey }: SizeFilterProps) {
-  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString));
+  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString))
 
   function handleOnClick() {
-    const newState: string[] = [];
+    const newState: string[] = []
     if (!state) {
-      setState([filter.slug!]);
-      return;
+      setState([filter.slug!])
+      return
     }
     if (state.includes(filter.slug!)) {
-      const filteredState = state.filter((slug) => slug !== filter.slug);
-      newState.push(...filteredState);
+      const filteredState = state.filter((slug) => slug !== filter.slug)
+      newState.push(...filteredState)
     } else {
-      newState.push(...state, filter.slug!);
+      newState.push(...state, filter.slug!)
     }
 
     if (newState.length === 0) {
-      setState(null);
-      return;
+      setState(null)
+      return
     }
-    setState(newState);
+    setState(newState)
   }
 
   return (
@@ -49,5 +49,5 @@ export function SizeFilter({ filter, parentKey }: SizeFilterProps) {
         </button>
       </Text>
     </>
-  );
+  )
 }

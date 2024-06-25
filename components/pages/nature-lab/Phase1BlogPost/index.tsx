@@ -1,22 +1,22 @@
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { HeroImage } from '@/components/pages/nature-lab/HeroImage';
-import { Comments } from '@/components/pages/nature-lab/Phase1BlogPost/Comments';
-import { Summary } from '@/components/pages/nature-lab/Phase1BlogPost/Summary';
-import { Update } from '@/components/pages/nature-lab/Phase1BlogPost/Update';
-import { Phase1BlogPostPayload } from '@/components/pages/nature-lab/Phase1BlogPost/hooks';
-import { LangValues } from '@/data/constants';
-import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer';
-import { PortableText } from '@portabletext/react';
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { HeroImage } from '@/components/pages/nature-lab/HeroImage'
+import { Comments } from '@/components/pages/nature-lab/Phase1BlogPost/Comments'
+import { Summary } from '@/components/pages/nature-lab/Phase1BlogPost/Summary'
+import { Update } from '@/components/pages/nature-lab/Phase1BlogPost/Update'
+import { Phase1BlogPostPayload } from '@/components/pages/nature-lab/Phase1BlogPost/hooks'
+import { LangValues } from '@/data/constants'
+import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer'
+import { PortableText } from '@portabletext/react'
 
 interface Props {
-  data: Phase1BlogPostPayload;
-  lang: LangValues;
-  slug: string;
+  data: Phase1BlogPostPayload
+  lang: LangValues
+  slug: string
 }
 
 export function Phase1BlogPost({ data, lang, slug }: Props) {
-  const titleString = getTitleTranslation(lang);
+  const titleString = getTitleTranslation(lang)
 
   return (
     <Section
@@ -54,16 +54,16 @@ export function Phase1BlogPost({ data, lang, slug }: Props) {
         <Comments documentId={data.id} slug={slug} comments={data.comments} lang={lang} />
       </Container>
     </Section>
-  );
+  )
 }
 
 function getTitleTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Tittel';
+      return 'Tittel'
     case 'en':
-      return 'Title';
+      return 'Title'
     default:
-      return 'Title';
+      return 'Title'
   }
 }

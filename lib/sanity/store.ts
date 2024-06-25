@@ -1,16 +1,16 @@
-import * as queryStore from '@sanity/react-loader';
+import * as queryStore from '@sanity/react-loader'
 
-import { client } from '@/lib/sanity/client';
-import { token } from '@/lib/sanity/token';
-import { draftMode } from 'next/headers';
+import { client } from '@/lib/sanity/client'
+import { token } from '@/lib/sanity/token'
+import { draftMode } from 'next/headers'
 
-queryStore.setServerClient(client.withConfig({ token }));
+queryStore.setServerClient(client.withConfig({ token }))
 
 export const loadQuery = ((query, params = {}, options = {}) => {
   const {
     perspective = draftMode().isEnabled ? 'previewDrafts' : 'published',
     stega = { enabled: draftMode().isEnabled }
-  } = options;
+  } = options
 
   return queryStore.loadQuery(query, params, {
     ...options,
@@ -19,5 +19,5 @@ export const loadQuery = ((query, params = {}, options = {}) => {
     next: {
       revalidate: 60 || options.next?.revalidate
     }
-  });
-}) satisfies typeof queryStore.loadQuery;
+  })
+}) satisfies typeof queryStore.loadQuery

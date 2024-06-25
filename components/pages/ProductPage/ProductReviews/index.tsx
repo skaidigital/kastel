@@ -1,73 +1,73 @@
-'use client';
+'use client'
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Button } from '@/components/Button';
-import { getProductReviews } from '@/components/lipscore/hooks';
-import { useProductPageContext } from '@/components/pages/ProductPage/Context';
-import { ReviewItem } from '@/components/pages/ProductPage/ProductReviews/ReviewItem';
-import { LangValues, PRODUCT_PAGE_REVIEWS_PAGE_SIZE } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+} from '@/components/Accordion'
+import { Button } from '@/components/Button'
+import { getProductReviews } from '@/components/lipscore/hooks'
+import { useProductPageContext } from '@/components/pages/ProductPage/Context'
+import { ReviewItem } from '@/components/pages/ProductPage/ProductReviews/ReviewItem'
+import { LangValues, PRODUCT_PAGE_REVIEWS_PAGE_SIZE } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { useQuery } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  lipscoreProductId: string;
+  lipscoreProductId: string
 }
 
 export function ProductReviews({ lipscoreProductId }: Props) {
-  const [page, setPage] = useState(1);
-  const { lang } = useBaseParams();
-  const { showProductReviews, setShowProductReviews } = useProductPageContext();
-  const [activeItem, setActiveItem] = useState<string | undefined>(undefined);
+  const [page, setPage] = useState(1)
+  const { lang } = useBaseParams()
+  const { showProductReviews, setShowProductReviews } = useProductPageContext()
+  const [activeItem, setActiveItem] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     if (showProductReviews) {
-      setActiveItem('reviews');
+      setActiveItem('reviews')
     }
     if (!showProductReviews) {
-      setActiveItem(undefined);
+      setActiveItem(undefined)
     }
-  }, [showProductReviews]);
+  }, [showProductReviews])
 
   const { data, error, isFetching } = useQuery({
     queryKey: ['productReviews', page],
     queryFn: () => getProductReviews(lipscoreProductId, page),
     placeholderData: (prev) => prev
-  });
+  })
 
   if (error) {
-    console.error(error);
-    return null;
+    console.error(error)
+    return null
   }
 
-  const pageSize = PRODUCT_PAGE_REVIEWS_PAGE_SIZE;
-  const hasPreviousPage = page > 1;
-  const hasNextPage = data && data?.length >= pageSize;
+  const pageSize = PRODUCT_PAGE_REVIEWS_PAGE_SIZE
+  const hasPreviousPage = page > 1
+  const hasNextPage = data && data?.length >= pageSize
 
-  const reviewsString = getReviewsString(lang);
-  const pageString = getPageString(lang);
-  const previousString = getPreviousString(lang);
-  const nextString = getNextString(lang);
+  const reviewsString = getReviewsString(lang)
+  const pageString = getPageString(lang)
+  const previousString = getPreviousString(lang)
+  const nextString = getNextString(lang)
 
   const toggleItem = (item: string) => {
-    console.log({ item });
+    console.log({ item })
 
-    setActiveItem((prevItem) => (prevItem === item ? undefined : item));
-  };
+    setActiveItem((prevItem) => (prevItem === item ? undefined : item))
+  }
 
   const handleValueChange = (value: string) => {
-    setActiveItem(value);
+    setActiveItem(value)
     if (value === 'reviews') {
-      setShowProductReviews(true);
+      setShowProductReviews(true)
     } else {
-      setShowProductReviews(false);
+      setShowProductReviews(false)
     }
-  };
+  }
 
   return (
     <div className="w-full">
@@ -121,49 +121,49 @@ export function ProductReviews({ lipscoreProductId }: Props) {
         </AccordionItem>
       </Accordion>
     </div>
-  );
+  )
 }
 
 function getReviewsString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Reviews';
+      return 'Reviews'
     case 'no':
-      return 'Anmeldelser';
+      return 'Anmeldelser'
     default:
-      return 'Reviews';
+      return 'Reviews'
   }
 }
 
 function getPageString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Page';
+      return 'Page'
     case 'no':
-      return 'Side';
+      return 'Side'
     default:
-      return 'Page';
+      return 'Page'
   }
 }
 
 function getPreviousString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Previous';
+      return 'Previous'
     case 'no':
-      return 'Forrige';
+      return 'Forrige'
     default:
-      return 'Previous';
+      return 'Previous'
   }
 }
 
 function getNextString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Next';
+      return 'Next'
     case 'no':
-      return 'Neste';
+      return 'Neste'
     default:
-      return 'Next';
+      return 'Next'
   }
 }

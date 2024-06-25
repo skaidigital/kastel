@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Article } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Article } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const blogPostSection = defineType({
   title: 'Blog post section',
@@ -12,7 +12,7 @@ export const blogPostSection = defineType({
       return {
         title: 'Blog posts',
         subtitle: 'Blog posts'
-      };
+      }
     }
   },
   fields: [
@@ -55,9 +55,9 @@ export const blogPostSection = defineType({
       validation: (Rule) =>
         Rule.custom((posts: any, context: any) => {
           if (context?.parent?.type === 'selected' && !posts.length) {
-            return 'Please select at least one blog post';
+            return 'Please select at least one blog post'
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.type === 'mostRecent'
     }),
@@ -73,4 +73,4 @@ export const blogPostSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

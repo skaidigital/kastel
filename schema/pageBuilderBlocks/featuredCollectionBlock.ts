@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Package } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Package } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 // TODO rename to featuredCollectionBlock
 export const featuredCollectionBlock = defineType({
@@ -16,7 +16,7 @@ export const featuredCollectionBlock = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Featured Collection'
-      };
+      }
     }
   },
   fields: [
@@ -55,15 +55,15 @@ export const featuredCollectionBlock = defineType({
       of: [{ type: 'reference', to: [{ type: 'product' }], title: 'Product' }],
       validation: (Rule) =>
         Rule.custom((field: any, context: any) => {
-          const isManual = context.parent?.isManual;
+          const isManual = context.parent?.isManual
 
           if (isManual && (field?.length < 1 || field?.length > 8 || !field)) {
-            return 'When "Choose products manually" is enabled, you must select between 1 and 8 products.';
+            return 'When "Choose products manually" is enabled, you must select between 1 and 8 products.'
           }
 
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.isManual === false
     })
   ]
-});
+})

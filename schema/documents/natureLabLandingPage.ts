@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const natureLabLandingPage = defineType({
   title: 'Nature Lab landing page',
@@ -13,4 +13,4 @@ export const natureLabLandingPage = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

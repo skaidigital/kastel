@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { SpeakerLoudIcon } from '@radix-ui/react-icons';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { SpeakerLoudIcon } from '@radix-ui/react-icons'
+import { defineField, defineType } from 'sanity'
 
 export const announcementBanner = defineType({
   title: 'Announcement banner',
@@ -11,7 +11,7 @@ export const announcementBanner = defineType({
     prepare() {
       return {
         title: 'Announcement banner'
-      };
+      }
     }
   },
   fields: [
@@ -57,9 +57,9 @@ export const announcementBanner = defineType({
               validation: (Rule) =>
                 Rule.custom((field, context: any) => {
                   if (context?.parent?.hasLink && !field) {
-                    return 'Link is required';
+                    return 'Link is required'
                   }
-                  return true;
+                  return true
                 }),
               hidden: ({ parent }) => !parent?.hasLink
             })
@@ -69,13 +69,13 @@ export const announcementBanner = defineType({
       validation: (Rule) =>
         Rule.custom((field: any, context: any) => {
           if (context?.parent?.isShown && (field?.length < 1 || field === undefined)) {
-            return 'Please add at least item to the content array';
+            return 'Please add at least item to the content array'
           }
           if (context?.parent?.isShown && (field?.length > 4 || field === undefined)) {
-            return 'Max 4 items allowed';
+            return 'Max 4 items allowed'
           }
-          return true;
+          return true
         })
     })
   ]
-});
+})

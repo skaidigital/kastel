@@ -1,3 +1,3 @@
 export const HtmlDescription = ({ children }: { children: React.ReactNode }) => {
-  return children || '';
-};
+  return children || ''
+}

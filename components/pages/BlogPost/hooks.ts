@@ -1,4 +1,4 @@
-import { LangValues, MarketValues } from '@/data/constants';
+import { LangValues, MarketValues } from '@/data/constants'
 import {
   aspectRatioSettings,
   getAuthor,
@@ -9,32 +9,32 @@ import {
   getMedia,
   getProductCard,
   getQuote
-} from '@/lib/sanity/fragments';
+} from '@/lib/sanity/fragments'
 import {
   aspectRatiosValidator,
   authorValidator,
   blogPostCardValidator,
   imageValidator,
   portableTextValidator
-} from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+} from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
-const blogWidthValidator = z.union([z.literal('normal'), z.literal('wide')]);
+const blogWidthValidator = z.union([z.literal('normal'), z.literal('wide')])
 
 const mostRecentBlogPosts = z.object({
   type: z.literal('mostRecent'),
   posts: z.array(blogPostCardValidator)
-});
+})
 
 const selectedBlogPosts = z.object({
   type: z.literal('selected'),
   title: z.string(),
   buttonText: z.string(),
   posts: z.array(blogPostCardValidator)
-});
+})
 
-const blogPostsValidator = z.discriminatedUnion('type', [mostRecentBlogPosts, selectedBlogPosts]);
+const blogPostsValidator = z.discriminatedUnion('type', [mostRecentBlogPosts, selectedBlogPosts])
 
 export const blogPostValidator = z.object({
   id: z.string(),
@@ -48,11 +48,11 @@ export const blogPostValidator = z.object({
   imageDesktop: imageValidator,
   blogPosts: blogPostsValidator,
   content: portableTextValidator
-});
+})
 
-export type BlogWidth = z.infer<typeof blogWidthValidator>;
-export type BlogPostsProps = z.infer<typeof blogPostsValidator>;
-export type BlogPostPayload = z.infer<typeof blogPostValidator>;
+export type BlogWidth = z.infer<typeof blogWidthValidator>
+export type BlogPostsProps = z.infer<typeof blogPostsValidator>
+export type BlogPostPayload = z.infer<typeof blogPostValidator>
 
 export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: MarketValues }) {
   const query = groq`
@@ -161,7 +161,7 @@ export function getBlogPostQuery({ lang, market }: { lang: LangValues; market: M
           }
         }
       }
-  `;
+  `
 
-  return query;
+  return query
 }

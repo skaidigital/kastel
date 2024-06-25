@@ -1,8 +1,8 @@
-import { HtmlDescription } from '@/components/sanity/HtmlDescription';
-import { LANGS } from '@/data/constants';
-import { getLangFlag } from '@/lib/utils';
-import { Signpost } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { HtmlDescription } from '@/components/sanity/HtmlDescription'
+import { LANGS } from '@/data/constants'
+import { getLangFlag } from '@/lib/utils'
+import { Signpost } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const redirect = defineType({
   title: 'Redirect',
@@ -17,11 +17,11 @@ export const redirect = defineType({
       lang: 'lang'
     },
     prepare({ source, destination, permanent, lang }) {
-      const marketFlag = getLangFlag(lang);
+      const marketFlag = getLangFlag(lang)
       return {
         title: `/${source} → /${destination} ${permanent ? '(permanent)' : ''}`,
         subtitle: lang ? marketFlag : 'Language not set'
-      };
+      }
     }
   },
   fields: [
@@ -101,4 +101,4 @@ export const redirect = defineType({
       by: [{ field: 'market', direction: 'asc' }]
     }
   ]
-});
+})

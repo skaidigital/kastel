@@ -10,5 +10,5 @@ export function DenmarkFlagIcon({ className }: { className?: string }) {
       <path fill="#fff" d="M144 0h73.1v512H144z" />
       <path fill="#fff" d="M0 219.4h512.1v73.2H0z" />
     </svg>
-  );
+  )
 }

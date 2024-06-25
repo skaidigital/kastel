@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
-let init = false;
+let init = false
 
 interface Props {
-  email: string;
-  firstName: string;
-  lastName: string;
+  email: string
+  firstName: string
+  lastName: string
 }
 
 export function KlaviyoIdentify({ email, firstName, lastName }: Props) {
   useEffect(() => {
     if (!init) {
-      init = true;
-      const _learnq = window._learnq || [];
+      init = true
+      const _learnq = window._learnq || []
       _learnq.push([
         'identify',
         {
@@ -22,8 +22,8 @@ export function KlaviyoIdentify({ email, firstName, lastName }: Props) {
           $first_name: firstName,
           $last_name: lastName
         }
-      ]);
+      ])
     }
-  });
-  return null;
+  })
+  return null
 }

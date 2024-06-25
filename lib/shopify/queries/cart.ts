@@ -1,4 +1,4 @@
-import cartFragment from '../fragments/cart';
+import cartFragment from '../fragments/cart'
 
 export const getCartQuery = /* GraphQL */ `
   query getCart($cartId: ID!) {
@@ -7,7 +7,7 @@ export const getCartQuery = /* GraphQL */ `
     }
   }
   ${cartFragment}
-`;
+`
 
 export const getCartAttributesQuery = /* GraphQL */ `
   query getCart($cartId: ID!) {
@@ -18,4 +18,4 @@ export const getCartAttributesQuery = /* GraphQL */ `
       }
     }
   }
-`;
+`

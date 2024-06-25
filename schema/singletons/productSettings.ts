@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Check, Gear } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Check, Gear } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const productSettings = defineType({
   title: 'Product settings',
@@ -12,7 +12,7 @@ export const productSettings = defineType({
       return {
         title: 'Product settings',
         subtitle: 'Product settings'
-      };
+      }
     }
   },
   fields: [
@@ -78,4 +78,4 @@ export const productSettings = defineType({
       ]
     })
   ]
-});
+})

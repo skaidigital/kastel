@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { cn } from '@/lib/utils';
-import React from 'react';
+import { cn } from '@/lib/utils'
+import React from 'react'
 
 interface Props {
-  flag: React.ReactNode;
-  market: string;
-  language: string;
-  href: string;
-  isSelected: boolean;
-  onClick: (e: any) => void;
+  flag: React.ReactNode
+  market: string
+  language: string
+  href: string
+  isSelected: boolean
+  onClick: (e: any) => void
 }
 
 export function MarketItem({ flag, market, language, onClick, isSelected }: Props) {
@@ -31,5 +31,5 @@ export function MarketItem({ flag, market, language, onClick, isSelected }: Prop
         </div>
       </div>
     </button>
-  );
+  )
 }

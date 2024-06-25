@@ -1,37 +1,37 @@
-'use client';
+'use client'
 
-import { colorWaySchema } from '@/lib/sanity/validators';
-import { cn } from '@/lib/utils';
-import { useProductCardContext } from './Context';
+import { colorWaySchema } from '@/lib/sanity/validators'
+import { cn } from '@/lib/utils'
+import { useProductCardContext } from './Context'
 
 interface Props {
-  className?: string;
-  colorways: colorWaySchema[] | undefined;
-  productSlug: string;
+  className?: string
+  colorways: colorWaySchema[] | undefined
+  productSlug: string
 }
 
 export function Colors({ className, colorways, productSlug }: Props) {
-  const { activeColorway, setActiveColorway } = useProductCardContext();
+  const { activeColorway, setActiveColorway } = useProductCardContext()
 
   if (!colorways) {
-    return null;
+    return null
   }
 
-  const hasLessThan2Colors = colorways.length < 2;
+  const hasLessThan2Colors = colorways.length < 2
 
   if (hasLessThan2Colors) {
-    return null;
+    return null
   }
 
-  const colorBySlug = colorways.find((colorway) => colorway.slug === productSlug);
+  const colorBySlug = colorways.find((colorway) => colorway.slug === productSlug)
 
   return (
     <div className={cn('flex gap-x-1', className)}>
       {colorways?.map((colorway) => (
         <button
           onClick={(e) => {
-            e.preventDefault();
-            setActiveColorway(colorway);
+            e.preventDefault()
+            setActiveColorway(colorway)
           }}
           aria-label={colorway.title}
           className={cn(
@@ -45,5 +45,5 @@ export function Colors({ className, colorways, productSlug }: Props) {
         />
       ))}
     </div>
-  );
+  )
 }

@@ -1,30 +1,30 @@
-'use client';
+'use client'
 
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import { parseAsInteger, useQueryState } from 'nuqs';
-import { useEffect } from 'react';
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { parseAsInteger, useQueryState } from 'nuqs'
+import { useEffect } from 'react'
 
 export function ProductsPerRowSelector() {
-  const router = useRouter();
-  const isDesktop = useIsDesktop();
+  const router = useRouter()
+  const isDesktop = useIsDesktop()
 
-  const [active, setActive] = useQueryState('view', parseAsInteger);
+  const [active, setActive] = useQueryState('view', parseAsInteger)
 
   function handleOnClick(number: number) {
-    setActive(number).then(() => router.refresh());
+    setActive(number).then(() => router.refresh())
   }
 
   useEffect(() => {
     if (active === 2 && isDesktop && typeof window !== 'undefined') {
-      handleOnClick(4);
+      handleOnClick(4)
     }
 
     if ((active === 3 || active === 4) && !isDesktop && typeof window !== 'undefined') {
-      handleOnClick(2);
+      handleOnClick(2)
     }
-  }, [isDesktop]);
+  }, [isDesktop])
 
   return (
     <div className="flex space-x-2">
@@ -35,11 +35,11 @@ export function ProductsPerRowSelector() {
         <ViewProductNumber cols={4} active={active} />
       </button>
     </div>
-  );
+  )
 }
 
 function ViewProductNumber({ cols, active }: { cols: 3 | 4; active: number | null }) {
-  const validatedActive = active ? Number(active) : 4;
+  const validatedActive = active ? Number(active) : 4
 
   return (
     <div className="flex space-x-[2px]">
@@ -53,5 +53,5 @@ function ViewProductNumber({ cols, active }: { cols: 3 | 4; active: number | nul
         />
       ))}
     </div>
-  );
+  )
 }

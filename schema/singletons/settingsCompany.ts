@@ -1,4 +1,4 @@
-import { defineType } from 'sanity';
+import { defineType } from 'sanity'
 
 export const settingsCompany = defineType({
   title: 'Company',
@@ -8,7 +8,7 @@ export const settingsCompany = defineType({
     prepare() {
       return {
         title: 'Company'
-      };
+      }
     }
   },
   fields: [
@@ -47,4 +47,4 @@ export const settingsCompany = defineType({
     //   document.hasPhysicalLocation !== true,
     // }),
   ]
-});
+})

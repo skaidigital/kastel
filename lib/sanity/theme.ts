@@ -1,10 +1,10 @@
-import { buildLegacyTheme } from 'sanity';
+import { buildLegacyTheme } from 'sanity'
 
 const props = {
   '--my-white': '#d3d3d3',
   '--my-black': 'black',
   '--primary': '#cbbddf'
-};
+}
 
 export const defaultTheme = buildLegacyTheme({
   // Base theme colors
@@ -34,4 +34,4 @@ export const defaultTheme = buildLegacyTheme({
   // --main-navigation-color--inverted
 
   // --focus-color
-});
+})

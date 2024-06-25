@@ -3,7 +3,7 @@ export const MONEY_FRAGMENT = `#graphql
         amount
         currencyCode
     }
-`;
+`
 
 export const ADDRESS_FRAGMENT = `#graphql
     fragment Address on CustomerAddress {
@@ -18,14 +18,14 @@ export const ADDRESS_FRAGMENT = `#graphql
         zip
         zoneCode
     }
-`;
+`
 
 export const ERROR_FRAGMENT = `#graphql
     userErrors {
         field
         message
     }
-`;
+`
 
 // const API_ALL_PRODUCTS_QUERY = `#graphql
 //   query ApiAllProducts(

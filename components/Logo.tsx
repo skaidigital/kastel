@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
 export function Logo({ className }: Props) {
@@ -41,5 +41,5 @@ export function Logo({ className }: Props) {
         </defs>
       </svg>
     </div>
-  );
+  )
 }

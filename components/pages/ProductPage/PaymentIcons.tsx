@@ -1,8 +1,8 @@
-import { PaymentProviders } from '@/components/shared/PaymentProviders';
-import { MarketValues } from '@/data/constants';
+import { PaymentProviders } from '@/components/shared/PaymentProviders'
+import { MarketValues } from '@/data/constants'
 
 interface Props {
-  market: MarketValues;
+  market: MarketValues
 }
 
 export function PaymentIcons({ market }: Props) {
@@ -12,5 +12,5 @@ export function PaymentIcons({ market }: Props) {
       <PaymentProviders market={market} size="sm" />
       {/* </Suspense> */}
     </div>
-  );
+  )
 }

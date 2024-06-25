@@ -1,5 +1,5 @@
-import { LangValues } from '@/data/constants';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { z } from 'zod'
 
 const footerDictionaryValidator = z.object({
   made_with: z.string(),
@@ -15,26 +15,26 @@ const footerDictionaryValidator = z.object({
     error_message: z.string(),
     error_description: z.string()
   })
-});
+})
 
-export type FooterDictionary = z.infer<typeof footerDictionaryValidator>;
+export type FooterDictionary = z.infer<typeof footerDictionaryValidator>
 
-type DictionaryLoader = () => Promise<FooterDictionary>;
+type DictionaryLoader = () => Promise<FooterDictionary>
 
 const dictionaries: Record<string, DictionaryLoader> = {
   en: () => import('./en.json').then((module) => module.default),
   no: () => import('./no.json').then((module) => module.default)
-};
+}
 
 export const getFooterDictionary = async (lang: LangValues) => {
   if (!lang && lang !== 'no' && lang !== 'en') {
-    throw new Error('Not supported language');
+    throw new Error('Not supported language')
   }
 
-  const loader = dictionaries[lang];
+  const loader = dictionaries[lang]
 
   if (!loader) {
-    throw new Error(`Error in footer dictionary for lang: ${lang}`);
+    throw new Error(`Error in footer dictionary for lang: ${lang}`)
   }
-  return loader();
-};
+  return loader()
+}

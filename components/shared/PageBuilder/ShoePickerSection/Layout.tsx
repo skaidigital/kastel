@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import {
   Carousel,
@@ -6,38 +6,31 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from '@/components/Carousel';
-import { Media } from '@/components/Media';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { useShoePickerContext } from '@/components/shared/PageBuilder/ShoePickerSection/Context';
-import { TypeSelector } from '@/components/shared/PageBuilder/ShoePickerSection/TypeSelector';
-import { ShoePickerProps } from '@/components/shared/PageBuilder/hooks';
-import { ProductCard } from '@/components/shared/ProductCard';
+} from '@/components/Carousel'
+import { Media } from '@/components/Media'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { useShoePickerContext } from '@/components/shared/PageBuilder/ShoePickerSection/Context'
+import { TypeSelector } from '@/components/shared/PageBuilder/ShoePickerSection/TypeSelector'
+import { ShoePickerProps } from '@/components/shared/PageBuilder/hooks'
+import { ProductCard } from '@/components/shared/ProductCard'
 
 interface Props {
-  index: number;
-  pageId: string;
-  pageType: string;
-  title: string;
-  types: ShoePickerProps['types'];
-  sectionSettings: ShoePickerProps['sectionSettings'];
+  index: number
+  pageId: string
+  pageType: string
+  title: string
+  types: ShoePickerProps['types']
+  sectionSettings: ShoePickerProps['sectionSettings']
 }
 
-export function ShoePickerLayout({
-  index,
-  pageId,
-  pageType,
-  title,
-  types,
-  sectionSettings
-}: Props) {
-  const firstTwoWordsInTitle = title?.split(' ').slice(0, 2).join(' ');
-  const restOfTitle = title?.split(' ').slice(2).join(' ');
+export function ShoePickerLayout({ title, types, sectionSettings }: Props) {
+  const firstTwoWordsInTitle = title?.split(' ').slice(0, 2).join(' ')
+  const restOfTitle = title?.split(' ').slice(2).join(' ')
 
-  const { activeTypeName } = useShoePickerContext();
-  const activeType = types.find((type) => type.title === activeTypeName);
+  const { activeTypeName } = useShoePickerContext()
+  const activeType = types.find((type) => type.title === activeTypeName)
 
   return (
     <Section
@@ -83,7 +76,7 @@ export function ShoePickerLayout({
                     imageSizes="(max-width: 1024px) 80vw, 30vw"
                   />
                 </CarouselItem>
-              );
+              )
             }
             return (
               <CarouselItem
@@ -92,10 +85,10 @@ export function ShoePickerLayout({
               >
                 <Media media={item} loading="lazy" sizes="(max-width: 1024px) 80vw, 30vw" />
               </CarouselItem>
-            );
+            )
           })}
         </CarouselContent>
       </Carousel>
     </Section>
-  );
+  )
 }

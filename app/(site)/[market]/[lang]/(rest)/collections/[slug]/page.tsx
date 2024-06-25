@@ -1,44 +1,44 @@
-import { getDictionary } from '@/app/dictionaries';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { CollectionPage } from '@/components/pages/CollectionPage';
-import { CollectionActionsBarMobile } from '@/components/pages/CollectionPage/ActionsBarMobile';
-import { Breadcrumbs } from '@/components/pages/CollectionPage/Breadcrumbs';
-import { CollectionSettingsBarDesktop } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop';
-import { CollectionContextProvider } from '@/components/pages/CollectionPage/Context';
-import { ExpandableText } from '@/components/pages/CollectionPage/ExpandableDescription';
-import { CollectionProductsLoadingState } from '@/components/pages/CollectionPage/LoadingState';
-import { loadCollectionProductDataV2 } from '@/components/pages/CollectionPage/actions';
-import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters';
+import { getDictionary } from '@/app/dictionaries'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { CollectionPage } from '@/components/pages/CollectionPage'
+import { CollectionActionsBarMobile } from '@/components/pages/CollectionPage/ActionsBarMobile'
+import { Breadcrumbs } from '@/components/pages/CollectionPage/Breadcrumbs'
+import { CollectionSettingsBarDesktop } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop'
+import { CollectionContextProvider } from '@/components/pages/CollectionPage/Context'
+import { ExpandableText } from '@/components/pages/CollectionPage/ExpandableDescription'
+import { CollectionProductsLoadingState } from '@/components/pages/CollectionPage/LoadingState'
+import { loadCollectionProductDataV2 } from '@/components/pages/CollectionPage/actions'
+import { ActiveFilters } from '@/components/pages/CollectionPage/filter/ActiveFilters'
 import {
   CollectionBasePayload,
   SearchParamsKeysPayload,
   collectionBaseValidator,
   getCollectionBaseQuery,
   getSearchParamsKeysQuery
-} from '@/components/pages/CollectionPage/hooks';
-import { PageBuilder } from '@/components/shared/PageBuilder';
-import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
-import { loadMetadata } from '@/lib/sanity/getMetadata';
-import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
-import { loadQuery } from '@/lib/sanity/storeServer';
-import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
+} from '@/components/pages/CollectionPage/hooks'
+import { PageBuilder } from '@/components/shared/PageBuilder'
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants'
+import { loadMetadata } from '@/lib/sanity/getMetadata'
+import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs'
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined'
+import { loadQuery } from '@/lib/sanity/storeServer'
+import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage'
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-static'
 
 export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
-  const slugs = await generateStaticSlugs(lang, 'collection');
+  const slugs = await generateStaticSlugs(lang, 'collection')
 
-  return slugs;
+  return slugs
 }
 
 interface SanityQueryProps<T> {
-  data: T;
+  data: T
 }
 
 function loadCollectionBase({
@@ -46,61 +46,61 @@ function loadCollectionBase({
   market,
   lang
 }: {
-  slug: string;
-  market: MarketValues;
-  lang: LangValues;
+  slug: string
+  market: MarketValues
+  lang: LangValues
 }) {
-  const query = getCollectionBaseQuery({ market, lang });
+  const query = getCollectionBaseQuery({ market, lang })
 
   return loadQuery<SanityQueryProps<CollectionBasePayload | null>>(
     query,
     { slug },
     { next: { tags: [`collection:${slug}`] } }
-  );
+  )
 }
 
 export function fetchSearchParamsKeys({ lang }: { lang: LangValues }) {
-  const query = getSearchParamsKeysQuery({ lang });
+  const query = getSearchParamsKeysQuery({ lang })
 
   return loadQuery<SanityQueryProps<SearchParamsKeysPayload>>(
     query,
     {},
     { next: { tags: ['filter'] } }
-  );
+  )
 }
 
 interface Props {
   params: {
-    slug: string;
-    market: MarketValues;
-    lang: LangValues;
-  };
+    slug: string
+    market: MarketValues
+    lang: LangValues
+  }
 }
 
 export default async function SlugCollectionPage({ params }: Props) {
-  const { market, lang, slug } = params;
-  const queryClient = new QueryClient();
+  const { market, lang, slug } = params
+  const queryClient = new QueryClient()
 
-  const sortKey = undefined;
-  const paramValues = null;
-  const onSale = false;
+  const sortKey = undefined
+  // const paramValues = null
+  const onSale = false
 
-  const initialBase = await loadCollectionBase({ slug, market, lang });
+  const initialBase = await loadCollectionBase({ slug, market, lang })
 
   if (!initialBase) {
-    console.error('No collection found');
-    notFound();
+    console.error('No collection found')
+    notFound()
   }
 
-  const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data);
-  const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues);
+  const collectionBaseWithoutNullValues = nullToUndefined(initialBase.data)
+  const validatedBase = collectionBaseValidator.safeParse(collectionBaseWithoutNullValues)
 
   if (!validatedBase.success) {
-    console.error(validatedBase.error);
-    notFound();
+    console.error(validatedBase.error)
+    notFound()
   }
 
-  const { collection_page } = await getDictionary({ lang });
+  const { collection_page } = await getDictionary({ lang })
 
   await queryClient.prefetchQuery({
     queryKey: ['collectionProducts', slug, lang, market, 1, undefined, null],
@@ -113,13 +113,13 @@ export default async function SlugCollectionPage({ params }: Props) {
         sortKey,
         onSale
       })
-  });
+  })
 
-  const includedSearchParamsKeys = await fetchSearchParamsKeys({ lang });
+  const includedSearchParamsKeys = await fetchSearchParamsKeys({ lang })
 
   const { title, descriptionShort, pageBuilder, descriptionLong, id, moods, productIds } =
-    validatedBase.data;
-  const pageCount = Math.ceil(productIds.length / COLLECTION_PAGE_SIZE) || 0;
+    validatedBase.data
+  const pageCount = Math.ceil(productIds.length / COLLECTION_PAGE_SIZE) || 0
 
   return (
     <CollectionContextProvider>
@@ -182,7 +182,9 @@ export default async function SlugCollectionPage({ params }: Props) {
             {descriptionLong && (
               <p
                 className="text-md lg:text-lg"
-                dangerouslySetInnerHTML={{ __html: descriptionLong.replace(/\n/g, '<br />') }}
+                dangerouslySetInnerHTML={{
+                  __html: descriptionLong.replace(/\n/g, '<br />')
+                }}
               />
             )}
           </div>
@@ -200,26 +202,26 @@ export default async function SlugCollectionPage({ params }: Props) {
         />
       ))}
     </CollectionContextProvider>
-  );
+  )
 }
 
 export async function generateMetadata({
   params: { slug, lang }
 }: {
-  params: { slug: string; lang: LangValues };
+  params: { slug: string; lang: LangValues }
 }): Promise<Metadata> {
   const metadata = await loadMetadata({
     lang,
     slug,
     schemaType: 'collection'
-  });
+  })
 
-  const title = metadata?.metaTitle;
-  const description = metadata?.metaDescription;
-  const shouldIndex = !metadata?.noIndex;
-  const shouldFollow = !metadata?.noFollow;
-  const ogImage = metadata?.ogImage;
-  const ogImageUrl = ogImage ? urlForOpenGraphImage(ogImage) : undefined;
+  const title = metadata?.metaTitle
+  const description = metadata?.metaDescription
+  const shouldIndex = !metadata?.noIndex
+  const shouldFollow = !metadata?.noFollow
+  const ogImage = metadata?.ogImage
+  const ogImageUrl = ogImage ? urlForOpenGraphImage(ogImage) : undefined
 
   return {
     ...(title && { title }),
@@ -237,5 +239,5 @@ export async function generateMetadata({
         follow: shouldFollow
       }
     }
-  };
+  }
 }

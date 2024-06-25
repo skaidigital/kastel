@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { formatPrice } from '@/app/api/shopify/utils';
-import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
-import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
+import { formatPrice } from '@/app/api/shopify/utils'
+import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks'
+import { useActiveVariant } from '@/lib/hooks/useActiveVariant'
 
 interface Props {
-  productType: Product['type'];
-  variants: ProductVariant[];
-  currencyCode: string;
-  minVariantPrice: Product['minVariantPrice'];
-  maxVariantPrice: Product['maxVariantPrice'];
+  productType: Product['type']
+  variants: ProductVariant[]
+  currencyCode: string
+  minVariantPrice: Product['minVariantPrice']
+  maxVariantPrice: Product['maxVariantPrice']
 }
 
 export function ProductPrice({
@@ -22,37 +22,37 @@ export function ProductPrice({
   const activeVariant = useActiveVariant({
     productType,
     variants
-  });
+  })
 
-  const price = activeVariant?.price;
-  const discountedPrice = activeVariant?.discountedPrice;
-  const isOnSale = discountedPrice && price && price > discountedPrice;
+  const price = activeVariant?.price
+  const discountedPrice = activeVariant?.discountedPrice
+  const isOnSale = discountedPrice && price && price > discountedPrice
 
   const formattedPrice = price
     ? formatPrice({
         amount: price.toString(),
         currencyCode
       })
-    : undefined;
+    : undefined
 
   const formattedDiscountedPrice = discountedPrice
     ? formatPrice({
         amount: discountedPrice.toString(),
         currencyCode
       })
-    : undefined;
+    : undefined
 
   const isAVariantOnSale = variants.some(
     (variant) => variant.discountedPrice && variant.price && variant.price > variant.discountedPrice
-  );
+  )
 
   const formattedMinVariantPrice = formatPrice(
     minVariantPrice || { amount: '0', currencyCode: 'nok' }
-  );
+  )
   const formattedMaxVariantPrice = formatPrice(
     maxVariantPrice || { amount: '0', currencyCode: 'nok' }
-  );
-  const minAndMaxPricesAreEqual = formattedMinVariantPrice === formattedMaxVariantPrice;
+  )
+  const minAndMaxPricesAreEqual = formattedMinVariantPrice === formattedMaxVariantPrice
 
   return (
     <div className="mt-4 flex text-sm">
@@ -96,5 +96,5 @@ export function ProductPrice({
         </span>
       )}
     </div>
-  );
+  )
 }

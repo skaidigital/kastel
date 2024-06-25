@@ -1,19 +1,19 @@
-import LazyLoadedVideo from '@/components/LazyLoadedVideo';
-import Video from '@/components/Video';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { MediaProps } from '@/lib/sanity/types';
+import LazyLoadedVideo from '@/components/LazyLoadedVideo'
+import Video from '@/components/Video'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { MediaProps } from '@/lib/sanity/types'
 
 interface Props {
-  media: MediaProps;
-  loading: 'lazy' | 'eager';
-  sizes?: string;
+  media: MediaProps
+  loading: 'lazy' | 'eager'
+  sizes?: string
 }
 
 // TODO is it overkill to both have a dynamic import and a lazy load?
 export function Media({ media, loading, sizes }: Props) {
-  const { type, sameAssetForMobileAndDesktop } = media;
-  const typeIsImage = type === 'image';
-  const typeIsVideo = type === 'video';
+  const { type, sameAssetForMobileAndDesktop } = media
+  const typeIsImage = type === 'image'
+  const typeIsVideo = type === 'video'
 
   if (typeIsImage && sameAssetForMobileAndDesktop) {
     return (
@@ -24,7 +24,7 @@ export function Media({ media, loading, sizes }: Props) {
         sizes={sizes}
         fill
       />
-    );
+    )
   }
 
   if (typeIsImage && !sameAssetForMobileAndDesktop) {
@@ -45,7 +45,7 @@ export function Media({ media, loading, sizes }: Props) {
           fill
         />
       </>
-    );
+    )
   }
 
   if (typeIsVideo && sameAssetForMobileAndDesktop) {
@@ -57,7 +57,7 @@ export function Media({ media, loading, sizes }: Props) {
           resolution="HD"
           loading={loading}
         />
-      );
+      )
     }
     return (
       <Video
@@ -66,12 +66,12 @@ export function Media({ media, loading, sizes }: Props) {
         resolution="HD"
         loading={loading === 'eager' ? 'eager' : 'lazy'}
       />
-    );
+    )
   }
 
   if (typeIsVideo && !sameAssetForMobileAndDesktop) {
     if (loading === 'lazy') {
-      <>
+      ;<>
         <LazyLoadedVideo
           playbackId={media.videoMobile}
           controlled={false}
@@ -86,7 +86,7 @@ export function Media({ media, loading, sizes }: Props) {
           loading="lazy"
           className="hidden lg:block"
         />
-      </>;
+      </>
     }
     return (
       <>
@@ -105,8 +105,8 @@ export function Media({ media, loading, sizes }: Props) {
           className="hidden lg:block"
         />
       </>
-    );
+    )
   }
 
-  return null;
+  return null
 }

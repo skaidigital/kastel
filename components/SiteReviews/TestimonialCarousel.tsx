@@ -1,37 +1,37 @@
-'use client';
+'use client'
 
-import { Carousel, CarouselApi, CarouselContent } from '@/components/Carousel';
-import { cn } from '@/lib/utils';
-import Autoplay from 'embla-carousel-autoplay';
-import { useEffect, useState } from 'react';
+import { Carousel, CarouselApi, CarouselContent } from '@/components/Carousel'
+import { cn } from '@/lib/utils'
+import Autoplay from 'embla-carousel-autoplay'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  children: React.ReactNode;
-  count: number;
+  children: React.ReactNode
+  count: number
 }
 
 export function TestimonialCarousel({ children, count }: Props) {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
 
   useEffect(() => {
     if (!api) {
-      return;
+      return
     }
 
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap() + 1)
 
     api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+      setCurrent(api.selectedScrollSnap() + 1)
+    })
+  }, [api])
 
   function setActive(index: number) {
     if (!api) {
-      return;
+      return
     }
 
-    api.scrollTo(index);
+    api.scrollTo(index)
   }
 
   return (
@@ -55,7 +55,7 @@ export function TestimonialCarousel({ children, count }: Props) {
         className="flex justify-start"
       />
     </Carousel>
-  );
+  )
 }
 
 function ScrollDots({
@@ -64,10 +64,10 @@ function ScrollDots({
   onClick,
   className
 }: {
-  current: number;
-  count: number;
-  onClick: (index: number) => void;
-  className?: string;
+  current: number
+  count: number
+  onClick: (index: number) => void
+  className?: string
 }) {
   return (
     <div className={cn('flex justify-center gap-1.5', className)}>
@@ -83,5 +83,5 @@ function ScrollDots({
         />
       ))}
     </div>
-  );
+  )
 }

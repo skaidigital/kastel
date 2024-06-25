@@ -7,4 +7,4 @@ export const productVariantBasedOnProduct = {
   value: (params: any) => ({
     parentProduct: { _type: 'reference', _ref: params._id }
   })
-};
+}

@@ -1,7 +1,7 @@
-import { Container } from '@/components/base/Container';
-import { Grid } from '@/components/base/Grid';
-import { Section } from '@/components/base/Section';
-import { Skeleton } from '@/components/Skeleton';
+import { Skeleton } from '@/components/Skeleton'
+import { Container } from '@/components/base/Container'
+import { Grid } from '@/components/base/Grid'
+import { Section } from '@/components/base/Section'
 
 export default function Loading() {
   return (
@@ -25,7 +25,7 @@ export default function Loading() {
         </Grid>
       </Section>
     </Container>
-  );
+  )
 }
 
 function Card() {
@@ -37,5 +37,5 @@ function Card() {
         <Skeleton className="h-5 w-14" />
       </div>
     </div>
-  );
+  )
 }

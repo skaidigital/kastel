@@ -1,18 +1,18 @@
-import { urlForImage } from '@/lib/sanity/image';
-import { SanityImageProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
-import { getImageDimensions } from '@sanity/asset-utils';
-import Image from 'next/image';
+import { urlForImage } from '@/lib/sanity/image'
+import { SanityImageProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
+import { getImageDimensions } from '@sanity/asset-utils'
+import Image from 'next/image'
 
 interface Props {
-  image: SanityImageProps;
-  className?: string;
-  sizes?: string;
-  fill?: boolean;
-  width?: number;
-  height?: number;
-  priority?: boolean;
-  noPlaceholder?: boolean;
+  image: SanityImageProps
+  className?: string
+  sizes?: string
+  fill?: boolean
+  width?: number
+  height?: number
+  priority?: boolean
+  noPlaceholder?: boolean
 }
 
 export const SanityImage = ({
@@ -25,13 +25,13 @@ export const SanityImage = ({
   height,
   noPlaceholder
 }: Props) => {
-  if (!image?.asset?._ref) return null;
+  if (!image?.asset?._ref) return null
 
-  const altText = image.altText || '';
-  const dimensions = getImageDimensions(image);
+  const altText = image.altText || ''
+  const dimensions = getImageDimensions(image)
 
-  const widthProp = width ?? dimensions.width;
-  const heightProp = height ?? dimensions.height;
+  const widthProp = width ?? dimensions.width
+  const heightProp = height ?? dimensions.height
 
   return (
     <>
@@ -51,5 +51,5 @@ export const SanityImage = ({
         />
       )}
     </>
-  );
-};
+  )
+}

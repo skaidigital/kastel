@@ -1,4 +1,4 @@
-import { ERROR_FRAGMENT } from '../fragments';
+import { ERROR_FRAGMENT } from '../fragments'
 
 const productFragment = /* GraphQL */ `
       product {
@@ -27,7 +27,7 @@ const productFragment = /* GraphQL */ `
           }
         }
       }
-      `;
+      `
 
 export const createProductMutation = /* GraphQL */ `
   mutation CreateProduct($input: ProductInput!, $media: [CreateMediaInput!]) {
@@ -36,7 +36,7 @@ export const createProductMutation = /* GraphQL */ `
       ${ERROR_FRAGMENT}
     }
   }
-`;
+`
 
 export const updateProductMutation = /* GraphQL */ `
   mutation UpdateProduct($input: ProductInput!) {
@@ -45,7 +45,7 @@ export const updateProductMutation = /* GraphQL */ `
       ${ERROR_FRAGMENT}
     }
   }
-`;
+`
 
 export const publishablePublishMutation = /* GraphQL */ `
   mutation publishablePublish($id: ID!, $input: [PublicationInput!]!) {
@@ -62,4 +62,4 @@ export const publishablePublishMutation = /* GraphQL */ `
       }
     }
   }
-`;
+`

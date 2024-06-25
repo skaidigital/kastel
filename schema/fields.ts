@@ -1,20 +1,20 @@
-import PageBuilderModal from '@/components/sanity/PageBuilderModal';
-import { MARKETS } from '@/data/constants';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import PageBuilderModal from '@/components/sanity/PageBuilderModal'
+import { MARKETS } from '@/data/constants'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const alternativeText = defineType({
   title: 'Descriptive text for screen readers and search engines',
   description: 'Optional but highly reccommended to make the content more accessible',
   name: 'altText',
   type: 'i18n.string'
-});
+})
 
 export const mainCategory = defineType({
   title: 'Main category',
   name: 'mainCategory',
   type: 'reference',
   to: [{ type: 'collection' }]
-});
+})
 
 export const internalTitle = defineType({
   title: 'Internal title',
@@ -22,14 +22,14 @@ export const internalTitle = defineType({
   description: 'This title is only visible in Sanity',
   type: 'string',
   validation: (Rule) => Rule.required()
-});
+})
 
 export const title = defineType({
   title: 'Tittel',
   name: 'title',
   type: 'string',
   validation: (Rule) => Rule.required()
-});
+})
 
 export const ogImage = defineType({
   title: 'Open Graph Image',
@@ -40,7 +40,7 @@ export const ogImage = defineType({
     hotspot: true
   },
   validation: (Rule) => Rule.required()
-});
+})
 
 export const blogWidthSettings = defineType({
   title: 'Width',
@@ -55,7 +55,7 @@ export const blogWidthSettings = defineType({
   },
   initialValue: 'normal',
   validation: (Rule) => Rule.required()
-});
+})
 
 export const videoSettings = defineType({
   title: 'Video settings',
@@ -70,7 +70,7 @@ export const videoSettings = defineType({
     })
   ],
   validation: (Rule) => Rule.required()
-});
+})
 
 export const figure = defineType({
   title: 'Image',
@@ -86,7 +86,7 @@ export const figure = defineType({
       name: 'altText'
     })
   ]
-});
+})
 
 export const padding = defineType({
   title: 'Padding',
@@ -101,7 +101,7 @@ export const padding = defineType({
       { title: 'Large', value: 'lg' }
     ]
   }
-});
+})
 
 export const topPadding = defineType({
   title: 'Top padding',
@@ -109,7 +109,7 @@ export const topPadding = defineType({
   type: 'boolean',
   initialValue: true,
   validation: (Rule) => Rule.required()
-});
+})
 
 export const bottomPadding = defineType({
   title: 'Bottom padding',
@@ -117,7 +117,7 @@ export const bottomPadding = defineType({
   type: 'boolean',
   initialValue: true,
   validation: (Rule) => Rule.required()
-});
+})
 
 export const bottomBorder = defineType({
   title: 'Bottom border',
@@ -125,7 +125,7 @@ export const bottomBorder = defineType({
   type: 'boolean',
   initialValue: true,
   validation: (Rule) => Rule.required()
-});
+})
 
 export const gallery = defineType({
   title: 'Gallery',
@@ -149,7 +149,7 @@ export const gallery = defineType({
   options: {
     layout: 'grid'
   }
-});
+})
 
 export const pageBuilder = defineType({
   title: 'Page builder',
@@ -274,7 +274,7 @@ export const pageBuilder = defineType({
       type: 'siteReviews'
     })
   ]
-});
+})
 
 export const marketAvailability = defineType({
   title: 'Disable / Hide this block from specific markets (optional)',
@@ -292,4 +292,4 @@ export const marketAvailability = defineType({
       }
     }
   ]
-});
+})

@@ -1,30 +1,30 @@
-'use client';
+'use client'
 
-import { Text } from '@/components/base/Text';
-import { useEffect, useState } from 'react';
+import { Text } from '@/components/base/Text'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  sku: string;
-  expectedBackInStockText: string;
+  sku: string
+  expectedBackInStockText: string
 }
 
 export async function BackInStockDate({ sku, expectedBackInStockText }: Props) {
-  const [backInStockDate, setBackInStockDate] = useState<string | null>(null);
+  const [backInStockDate, setBackInStockDate] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!sku) return;
+    if (!sku) return
     getBackInStockDate(sku).then((data) => {
-      setBackInStockDate(data.backInStockDate);
-    });
-  }, []);
+      setBackInStockDate(data.backInStockDate)
+    })
+  }, [])
 
-  if (!backInStockDate) return null;
+  if (!backInStockDate) return null
 
   return (
     <Text className="italic">
       {expectedBackInStockText} {backInStockDate}
     </Text>
-  );
+  )
 }
 
 async function getBackInStockDate(sku: string) {
@@ -35,12 +35,12 @@ async function getBackInStockDate(sku: string) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ sku })
-    });
+    })
 
-    const data = await response.json();
+    const data = await response.json()
 
-    return data;
+    return data
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
 }

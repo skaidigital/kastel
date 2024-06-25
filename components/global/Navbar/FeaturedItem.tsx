@@ -1,15 +1,15 @@
-import { Heading } from '@/components/base/Heading';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { LinkProps, SanityImageProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
+import { Heading } from '@/components/base/Heading'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { LinkProps, SanityImageProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
 
 interface FeaturedItemProps {
-  title: string;
-  image: SanityImageProps;
-  link: LinkProps;
-  className?: string;
-  onClick?: () => void;
+  title: string
+  image: SanityImageProps
+  link: LinkProps
+  className?: string
+  onClick?: () => void
 }
 
 export const FeaturedItem = ({ title, image, link, className, onClick }: FeaturedItemProps) => {
@@ -30,5 +30,5 @@ export const FeaturedItem = ({ title, image, link, className, onClick }: Feature
         <Heading size="md">{title}</Heading>
       </div>
     </SanityLink>
-  );
-};
+  )
+}

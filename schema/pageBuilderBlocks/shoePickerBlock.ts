@@ -1,9 +1,9 @@
 import {
   filterAlreadyAddedReferences,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Image, Sneaker } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Image, Sneaker } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const shoePickerBlock = defineType({
   title: 'Shoe Picker block',
@@ -75,4 +75,4 @@ export const shoePickerBlock = defineType({
       ]
     })
   ]
-});
+})

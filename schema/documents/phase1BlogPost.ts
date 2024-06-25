@@ -1,10 +1,10 @@
 import {
   InternationalizedObjectField,
   generateObjectFields
-} from '@/components/sanity/InternationalizedObjectField';
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Article } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/components/sanity/InternationalizedObjectField'
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Article } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 // TODO Validate everything in the question based on the boolean
 // TODO add metadata
@@ -24,7 +24,7 @@ export const phase1BlogPost = defineType({
       return {
         title: title || 'No title defined',
         subtitle: 'Phase 1 blog post'
-      };
+      }
     }
   },
   groups: [
@@ -156,4 +156,4 @@ export const phase1BlogPost = defineType({
       group: 'settings'
     })
   ]
-});
+})

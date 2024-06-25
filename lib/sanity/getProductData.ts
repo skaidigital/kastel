@@ -1,7 +1,7 @@
-import { MarketValues } from '@/data/constants';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
-import { imageValidator } from './validators';
+import { MarketValues } from '@/data/constants'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
+import { imageValidator } from './validators'
 
 const optionGroupValidator = z.object({
   optionType: z.any(),
@@ -11,13 +11,13 @@ const optionGroupValidator = z.object({
       image: imageValidator
     })
   )
-});
+})
 
 const variableProductDataValidator = z.object({
   options: z.array(optionGroupValidator)
-});
+})
 
-export type VariableProductDataPayload = z.infer<typeof variableProductDataValidator>;
+export type VariableProductDataPayload = z.infer<typeof variableProductDataValidator>
 
 export function getVariableProductOptionsDataQuery(markets: string[]) {
   const query = groq`
@@ -27,8 +27,8 @@ export function getVariableProductOptionsDataQuery(markets: string[]) {
     }
   }
   
-  `;
-  return query;
+  `
+  return query
 }
 
 export function getVariableProductVariantsDataQuery(markets: string[]) {
@@ -46,8 +46,8 @@ export function getVariableProductVariantsDataQuery(markets: string[]) {
       ${markets.map((market) => `"title_${market}":title_${market}`)}
     },
   }
-  `;
-  return query;
+  `
+  return query
 }
 
 export function getProductFromSanityQuery(market: MarketValues) {
@@ -73,8 +73,8 @@ export function getProductFromSanityQuery(market: MarketValues) {
     },
     "variants": select(type == "VARIABLE" => ${variableProductVariants(market)}, type == 'SIMPLE' => ${simpleProductVariants(market)})
   }
-  `;
-  return query;
+  `
+  return query
 }
 
 //todo move to a global place if used sevaral places
@@ -91,8 +91,8 @@ export function variableProductVariants(market: MarketValues) {
     "discountedPrice": discountedPrice_${market},
     "gid": gid_${market}
   }
-  `;
-  return query;
+  `
+  return query
 }
 
 //todo move to a global place if used sevaral places
@@ -106,6 +106,6 @@ export function simpleProductVariants(market: MarketValues) {
   "option3": "",
   "price": price_${market},
   "discountedPrice": discountedPrice_${market},
-}]`;
-  return query;
+}]`
+  return query
 }

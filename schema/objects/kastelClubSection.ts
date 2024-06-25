@@ -1,5 +1,5 @@
-import { Trophy } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Trophy } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const kastelClubSection = defineType({
   title: 'Kastel Club section',
@@ -14,7 +14,7 @@ export const kastelClubSection = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Kastel Club section'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const kastelClubSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

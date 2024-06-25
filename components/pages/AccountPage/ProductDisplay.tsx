@@ -1,12 +1,12 @@
-import { productAccountSchema } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/hooks';
-import { Badge } from '@/components/Badge';
-import { CustomLink } from '@/components/CustomLink';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { ROUTES } from '@/data/constants';
+import { productAccountSchema } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/hooks'
+import { Badge } from '@/components/Badge'
+import { CustomLink } from '@/components/CustomLink'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { ROUTES } from '@/data/constants'
 
 interface Props {
-  title?: string;
-  products?: productAccountSchema[];
+  title?: string
+  products?: productAccountSchema[]
 }
 
 export function ProductDisplay({ title, products }: Props) {
@@ -40,5 +40,5 @@ export function ProductDisplay({ title, products }: Props) {
         </div>
       )}
     </div>
-  );
+  )
 }

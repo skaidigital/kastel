@@ -1,6 +1,6 @@
-import { type QueryParams, type UseQueryOptionsDefinedInitial } from '@sanity/react-loader/rsc';
+import { type QueryParams, type UseQueryOptionsDefinedInitial } from '@sanity/react-loader/rsc'
 
-import { queryStore } from './createQueryStore';
+import { queryStore } from './createQueryStore'
 
 /**
  * Exports to be used in client-only or components that render both server and client
@@ -14,12 +14,12 @@ export const useQuery = <QueryResponseResult = unknown, QueryResponseError = unk
     query,
     params,
     options
-  );
+  )
 
   // Always throw errors if there are any
   if (snapshot.error) {
-    throw snapshot.error;
+    throw snapshot.error
   }
 
-  return snapshot;
-};
+  return snapshot
+}

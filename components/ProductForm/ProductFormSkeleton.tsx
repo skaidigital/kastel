@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/Skeleton';
+import { Skeleton } from '@/components/Skeleton'
 
 export function ProductFormSkeleton() {
   return (
@@ -16,5 +16,5 @@ export function ProductFormSkeleton() {
       <Skeleton className="h-5 w-24" />
       <Skeleton className="h-[44px] w-full" />
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const contact = defineType({
   title: 'Ansatt',
@@ -95,4 +95,4 @@ export const contact = defineType({
       hidden: ({ parent }) => parent.shopifyId !== undefined
     })
   ]
-});
+})

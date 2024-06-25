@@ -1,5 +1,5 @@
-import { ThumbsUp } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { ThumbsUp } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const siteReviews = defineType({
   title: 'Site reviews',
@@ -11,7 +11,7 @@ export const siteReviews = defineType({
       return {
         title: 'Enabled',
         subtitle: 'Site reviews'
-      };
+      }
     }
   },
   fields: [
@@ -32,4 +32,4 @@ export const siteReviews = defineType({
       hidden: true
     })
   ]
-});
+})

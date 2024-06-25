@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Subtitles } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Subtitles } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const fullBleedMediaBlock = defineType({
   title: 'Full Bleed Media',
@@ -15,7 +15,7 @@ export const fullBleedMediaBlock = defineType({
       return {
         title: title || 'No title defined',
         subtitle: 'Full Bleed Media'
-      };
+      }
     }
   },
   fields: [
@@ -88,4 +88,4 @@ export const fullBleedMediaBlock = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

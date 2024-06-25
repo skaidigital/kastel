@@ -1,15 +1,15 @@
-import { AMEXLogo } from '@/components/icons/AMEXLogo';
-import { AmazonPayLogo } from '@/components/icons/AmazonPayLogo';
-import { ApplePayLogo } from '@/components/icons/ApplePayLogo';
-import { GooglePayLogo } from '@/components/icons/GooglePayLogo';
-import { KlarnaLogo } from '@/components/icons/KlarnaLogo';
-import { MasterCardLogo } from '@/components/icons/MasterCardLogo';
-import { MobilePayLogo } from '@/components/icons/MobilePayLogo';
-import { PayPalLogo } from '@/components/icons/PayPalLogo';
-import { SamsungPayLogo } from '@/components/icons/SamsungPayLogo';
-import { VippsLogo } from '@/components/icons/VippsLogo';
-import { VisaLogo } from '@/components/icons/VisaLogo';
-import { AspectRatios } from '@/lib/sanity/types';
+import { AMEXLogo } from '@/components/icons/AMEXLogo'
+import { AmazonPayLogo } from '@/components/icons/AmazonPayLogo'
+import { ApplePayLogo } from '@/components/icons/ApplePayLogo'
+import { GooglePayLogo } from '@/components/icons/GooglePayLogo'
+import { KlarnaLogo } from '@/components/icons/KlarnaLogo'
+import { MasterCardLogo } from '@/components/icons/MasterCardLogo'
+import { MobilePayLogo } from '@/components/icons/MobilePayLogo'
+import { PayPalLogo } from '@/components/icons/PayPalLogo'
+import { SamsungPayLogo } from '@/components/icons/SamsungPayLogo'
+import { VippsLogo } from '@/components/icons/VippsLogo'
+import { VisaLogo } from '@/components/icons/VisaLogo'
+import { AspectRatios } from '@/lib/sanity/types'
 
 // Routes
 export const ROUTES = {
@@ -33,7 +33,7 @@ export const ROUTES = {
   RESET_PASSWORD: '/reset-password',
   SHOP: '/shop',
   STORE_LOCATOR: '/stores'
-};
+}
 
 export const CACHE_TAGS = {
   CART: 'cart',
@@ -61,7 +61,7 @@ export const CACHE_TAGS = {
     PHASE_1_BLOG_POST: 'phase1BlogPost',
     PHASE_3_BLOG_POST: 'phase3BlogPost'
   }
-};
+}
 
 export const PAGE_BUILDER_CACHE_TAGS = [
   'question',
@@ -79,17 +79,17 @@ export const PAGE_BUILDER_CACHE_TAGS = [
   'fullBleedMediaSection',
   'pageTitle',
   'meetTheTeamSection'
-];
+]
 
 export const SCHEMA_NAMES = {
   PAGE: 'page',
   PRODUCT: 'product',
   COLLECTION: 'collection'
-};
+}
 
 export const EMAILS = {
   CONTACT: 'support@kastelshoes.com'
-};
+}
 
 export const ANALTYICS_EVENT_NAME = {
   VIEW_ITEM: 'view_item',
@@ -97,21 +97,21 @@ export const ANALTYICS_EVENT_NAME = {
   BEGIN_CHECKOUT: 'begin_checkout',
   VIEW_CART: 'view_cart',
   CONSENT: 'consent'
-};
+}
 
 export const META_ANALYTICS_EVENT_NAME = {
   VIEW_ITEM: 'ViewContent',
   ADD_TO_CART: 'AddToCart',
   BEGIN_CHECKOUT: '-InitiateCheckout',
   VIEW_CART: 'ViewCart'
-};
+}
 
 export const SNAPCHAT_ANALYTICS_EVENT_NAME = {
   VIEW_ITEM: 'View Content',
   ADD_TO_CART: 'Add Cart',
   BEGIN_CHECKOUT: 'Start Checkout',
   VIEW_CART: 'View Cart'
-};
+}
 
 export const COOKIE_NAMES = {
   SHOPIFY: {
@@ -132,13 +132,13 @@ export const COOKIE_NAMES = {
   SHOE_PICKER_ACTIVE_TYPE_NAME: 'shoe_picker_active_type_name',
   CUSTOMER_EMAIL: 'customer_email',
   SMILE_TOKEN: 'smile_jwt'
-};
+}
 
 export const TEMPLATES = {
   SHOPIFY: {
     ORDER: 'gid://shopify/Order'
   }
-};
+}
 
 export const API_ROUTES = {
   base: {
@@ -148,66 +148,66 @@ export const API_ROUTES = {
     RESET_PASSWORD: '/api/shopify/reset-password',
     ACTIVATE_CUSTOMER: '/api/shopify/customerActivate'
   }
-};
+}
 
 export const LOGIN = {
   error_codes: {
     multiple_users: 'multiple_users',
     no_users: 'no_users'
   }
-};
+}
 
 export const SANITY_SINGLETON_DOCUMENT_IDS = {
   GENERAL_SETTINGS: 'settingsGeneral',
   USPS: 'usps',
   NOT_FOUND_PAGE: 'pageNotFound'
-};
+}
 
-export const HOME_ROUTE = '/';
-export const ACCOUNT_ROUTE = '/account';
+export const HOME_ROUTE = '/'
+export const ACCOUNT_ROUTE = '/account'
 
-export const IGNORED_PAGE_IDS = ['homePage'];
+export const IGNORED_PAGE_IDS = ['homePage']
 
 // Slugs
-export const HOME_SLUG = 'home';
+export const HOME_SLUG = 'home'
 
-export const FALLBACK_LOCALE = 'eu';
+export const FALLBACK_LOCALE = 'eu'
 
 export type Market = {
-  id: MarketValues;
-  name: string;
-  flag: string;
-};
+  id: MarketValues
+  name: string
+  flag: string
+}
 export type Lang = {
-  id: LangValues;
-  name: string;
-  flag: string;
-};
+  id: LangValues
+  name: string
+  flag: string
+}
 
-export type MarketValues = 'no' | 'sv';
-export type LangValues = 'en' | 'no';
+export type MarketValues = 'no' | 'sv'
+export type LangValues = 'en' | 'no'
 
-export const FALLBACK_MARKET: MarketValues = 'no';
-export const FALLBACK_LANG: LangValues = 'no';
+export const FALLBACK_MARKET: MarketValues = 'no'
+export const FALLBACK_LANG: LangValues = 'no'
 
 export const MARKET: Record<MarketValues, Market> = {
   no: { id: 'no', name: 'Norway', flag: '🇧🇻' },
   sv: { id: 'sv', name: 'Sweden', flag: '🇸🇪' }
-};
-export const MARKETS = Object.values(MARKET);
+}
+export const MARKETS = Object.values(MARKET)
 
 export const LANG: Record<LangValues, Lang> = {
   en: { id: 'en', name: 'English', flag: '🇬🇧' },
   no: { id: 'no', name: 'Norsk', flag: '🇧🇻' }
-};
-export const LANGS = Object.values(LANG);
+}
+export const LANGS = Object.values(LANG)
 
-export const DEFAULT_CURRENCY_CODE = 'NOK';
+export const DEFAULT_CURRENCY_CODE = 'NOK'
 
 export const SITE_URLS: Record<MarketValues, string> = {
   no: '/no/no/',
   sv: '/sv/en/'
-};
+}
 
 // type ProductType = Record<'SIMPLE', 'simple'> | Record<'VARIABLE', 'variable'>;
 
@@ -224,57 +224,57 @@ export const SITE_URLS: Record<MarketValues, string> = {
 
 // Product type
 
-export const COLLECTION_PAGE_SIZE = 20;
+export const COLLECTION_PAGE_SIZE = 20
 
-export const ACCOUNT_PAGE_ORDERS_PAGE_SIZE = 10;
+export const ACCOUNT_PAGE_ORDERS_PAGE_SIZE = 10
 
-type ProductTypeName = 'simple' | 'variable';
+type ProductTypeName = 'simple' | 'variable'
 
 type ProductTypeValues = {
-  name: string;
-  id: string;
-};
+  name: string
+  id: string
+}
 
 export const PRODUCT_TYPE: Record<ProductTypeName, ProductTypeValues> = {
   simple: { name: 'Simple', id: 'SIMPLE' },
   variable: { name: 'Variable', id: 'VARIABLE' }
-};
+}
 
-export const PRODUCT_TYPES = Object.values(PRODUCT_TYPE);
+export const PRODUCT_TYPES = Object.values(PRODUCT_TYPE)
 
 // Product options
 
 // export type ProductOptionName = 'color' | 'size' | 'text';
-export type ProductOptionName = 'size' | 'text';
+export type ProductOptionName = 'size' | 'text'
 
 type ProductOptionValues = {
-  name: string;
-  id: ProductOptionName;
-};
+  name: string
+  id: ProductOptionName
+}
 
 export const PRODUCT_OPTION: Record<ProductOptionName, ProductOptionValues> = {
   size: { name: 'Size', id: 'size' },
   text: { name: 'Text', id: 'text' }
-};
+}
 
-export const PRODUCT_OPTIONS = Object.values(PRODUCT_OPTION);
+export const PRODUCT_OPTIONS = Object.values(PRODUCT_OPTION)
 
-export type TagTypeName = 'size' | 'color' | 'text';
+export type TagTypeName = 'size' | 'color' | 'text'
 
 type TagValues = {
-  name: string;
-  id: TagTypeName;
-};
+  name: string
+  id: TagTypeName
+}
 
 export const TAG_TYPE: Record<TagTypeName, TagValues> = {
   size: { name: 'Size', id: 'size' },
   color: { name: 'Color', id: 'color' },
   text: { name: 'Text', id: 'text' }
-};
+}
 
-export const TAG_OPTIONS = Object.values(TAG_TYPE);
+export const TAG_OPTIONS = Object.values(TAG_TYPE)
 
-export const SKAI_URL = 'https://skaidigital.com';
+export const SKAI_URL = 'https://skaidigital.com'
 
 export const METAFIELDS = {
   product: {
@@ -295,21 +295,21 @@ export const METAFIELDS = {
       type: 'json'
     }
   }
-};
+}
 
-export const SANITY_STUDIO_API_VERSION = 'v2023-08-01';
+export const SANITY_STUDIO_API_VERSION = 'v2023-08-01'
 
 // export const HEADLESS_PUBLICATION_ID = 'gid://shopify/Publication/121492766949'; // development
-export const HEADLESS_PUBLICATION_ID = 'gid://shopify/Publication/127663407354';
+export const HEADLESS_PUBLICATION_ID = 'gid://shopify/Publication/127663407354'
 
 export const SMILE_DEEP_LINKS = {
   home: 'home',
   points_activity_rules: 'points_activity_rules',
   points_products: 'points_products',
   referral_program_details: 'referral_program_details'
-} as const;
+} as const
 
-export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_LINKS];
+export type SmileDeepLinks = (typeof SMILE_DEEP_LINKS)[keyof typeof SMILE_DEEP_LINKS]
 
 export const URL_STATE_KEYS = {
   sort: 'sort',
@@ -317,23 +317,23 @@ export const URL_STATE_KEYS = {
   page: 'page',
   search: 'q',
   onSale: 'on_sale'
-};
+}
 export const ASPECT_RATIOS: { title: AspectRatios; value: AspectRatios }[] = [
   { title: '16:9', value: '16:9' },
   { title: '4:3', value: '4:3' },
   { title: '21:9', value: '21:9' },
   { title: '9:16', value: '9:16' },
   { title: '3:4', value: '3:4' }
-];
+]
 
 export interface SortOption {
-  title: string;
-  value: string;
+  title: string
+  value: string
 }
 
 type SortOptionsMap = {
-  [lang in LangValues]: SortOption[];
-};
+  [lang in LangValues]: SortOption[]
+}
 
 export const SORT_OPTIONS: SortOptionsMap = {
   en: [
@@ -380,7 +380,7 @@ export const SORT_OPTIONS: SortOptionsMap = {
     //   value: 'discount_highest'
     // }
   ]
-};
+}
 
 // export const SORT_OPTIONS = [
 //   {
@@ -406,7 +406,7 @@ export const LINK_TYPES = [
   { title: 'To a page made in Sanity', value: 'internal' },
   { title: 'To an external page', value: 'external' },
   { title: 'Smile deep link', value: 'smile' }
-];
+]
 
 // ? The different types of pages that can be linked to in Sanity.
 export const INTERNAL_LINK_OPTIONS = [
@@ -420,7 +420,7 @@ export const INTERNAL_LINK_OPTIONS = [
   { type: 'retailersPage', title: 'Retailers page' },
   { type: 'aboutPage', title: 'About page' },
   { type: 'kastelClubPage', title: 'Kastel Club page' }
-];
+]
 
 // ? The different types of pages that can be linked to in Sanity.
 export const SMILE_DEEP_LINK_OPTIONS = [
@@ -440,7 +440,7 @@ export const SMILE_DEEP_LINK_OPTIONS = [
     title: 'Referral program details',
     value: SMILE_DEEP_LINKS.referral_program_details
   }
-];
+]
 
 export type PaymentProviderType =
   | 'amazonPay'
@@ -453,13 +453,13 @@ export type PaymentProviderType =
   | 'payPal'
   | 'samsungPay'
   | 'vipps'
-  | 'visa';
+  | 'visa'
 
 type PaymentProvider = {
-  title: string;
-  value: PaymentProviderType;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
-};
+  title: string
+  value: PaymentProviderType
+  icon: React.FC<React.SVGProps<SVGSVGElement>>
+}
 
 export const PAYMENT_PROVIDERS: PaymentProvider[] = [
   { title: 'Amazon Pay', value: 'amazonPay', icon: AmazonPayLogo },
@@ -473,9 +473,9 @@ export const PAYMENT_PROVIDERS: PaymentProvider[] = [
   { title: 'Samsung Pay', value: 'samsungPay', icon: SamsungPayLogo },
   { title: 'Vipps', value: 'vipps', icon: VippsLogo },
   { title: 'Visa', value: 'visa', icon: VisaLogo }
-];
+]
 
-export const PRODUCT_PAGE_REVIEWS_PAGE_SIZE = 10;
+export const PRODUCT_PAGE_REVIEWS_PAGE_SIZE = 10
 
 // Params that should not be included in the search params when filtering collections
 export const EXCLUDED_COLLECTION_SEARCH_PARAMS = [
@@ -504,4 +504,4 @@ export const EXCLUDED_COLLECTION_SEARCH_PARAMS = [
   'utm_id',
   'campaign_id',
   'ad_id'
-];
+]

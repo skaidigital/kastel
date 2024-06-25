@@ -1,8 +1,8 @@
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { QuoteProps } from '@/lib/sanity/types';
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { QuoteProps } from '@/lib/sanity/types'
 
 interface Props {
-  quote: QuoteProps;
+  quote: QuoteProps
 }
 
 export function Quote({ quote }: Props) {
@@ -32,5 +32,5 @@ export function Quote({ quote }: Props) {
         </figcaption>
       )}
     </figure>
-  );
+  )
 }

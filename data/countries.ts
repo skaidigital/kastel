@@ -242,6 +242,6 @@ const countries = [
   { label: 'Yemen', value: 'YE' },
   { label: 'Zambia', value: 'ZM' },
   { label: 'Zimbabwe', value: 'ZW' }
-];
+]
 
-export default countries;
+export default countries

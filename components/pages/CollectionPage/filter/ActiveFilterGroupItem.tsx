@@ -1,23 +1,23 @@
-'use client';
+'use client'
 
-import { Text } from '@/components/base/Text';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/navigation';
-import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
+import { Text } from '@/components/base/Text'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/navigation'
+import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs'
 
 interface Props {
-  parentKey: string;
+  parentKey: string
 }
 
 export function ActiveFilterGroupItem({ parentKey }: Props) {
-  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString));
-  const router = useRouter();
+  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString))
+  const router = useRouter()
 
   function handleRemoveFilter(value: string) {
-    if (!state) return;
-    const newFilterState = state.filter((filter) => filter !== value);
+    if (!state) return
+    const newFilterState = state.filter((filter) => filter !== value)
 
-    setState(newFilterState.length ? newFilterState : null).then(() => router.refresh());
+    setState(newFilterState.length ? newFilterState : null).then(() => router.refresh())
   }
 
   return (
@@ -27,8 +27,8 @@ export function ActiveFilterGroupItem({ parentKey }: Props) {
           state.length > 0 &&
           state.map((value) => {
             const capitalizedFiltername =
-              parentKey !== 'on_sale' ? value.charAt(0).toUpperCase() + value.slice(1) : 'Sale';
-            const replaceDashWithSpace = capitalizedFiltername.replace(/-/g, ' ');
+              parentKey !== 'on_sale' ? value.charAt(0).toUpperCase() + value.slice(1) : 'Sale'
+            const replaceDashWithSpace = capitalizedFiltername.replace(/-/g, ' ')
 
             return (
               <button key={value} onClick={() => handleRemoveFilter(value)}>
@@ -41,9 +41,9 @@ export function ActiveFilterGroupItem({ parentKey }: Props) {
                   <XMarkIcon className="size-4" />
                 </Text>
               </button>
-            );
+            )
           })}
       </div>
     )
-  );
+  )
 }

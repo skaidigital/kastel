@@ -45,4 +45,4 @@ export const ApplePayLogo = (props: React.SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
-);
+)

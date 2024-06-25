@@ -1,5 +1,5 @@
-import { Star } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Star } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const uspExplainerSection = defineType({
   title: 'USP Explainer section',
@@ -14,7 +14,7 @@ export const uspExplainerSection = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'USP Explainer section'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const uspExplainerSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

@@ -1,5 +1,5 @@
-import { Crosshair } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Crosshair } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const hotspotImage = defineType({
   title: 'Hotspot image',
@@ -47,4 +47,4 @@ export const hotspotImage = defineType({
       validation: (Rule) => Rule.min(1)
     })
   ]
-});
+})

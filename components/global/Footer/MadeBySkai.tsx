@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 export function MadeBySkai() {
   return (
@@ -8,5 +8,5 @@ export function MadeBySkai() {
         Skai Digital
       </Link>
     </div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import { CommentProps } from '@/components/pages/nature-lab/Phase1BlogPost/hooks';
-import { cn } from '@/lib/utils';
+import { CommentProps } from '@/components/pages/nature-lab/Phase1BlogPost/hooks'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  comment: CommentProps;
-  className?: string;
+  comment: CommentProps
+  className?: string
 }
 
 export function Comment({ comment, className }: Props) {
@@ -14,5 +14,5 @@ export function Comment({ comment, className }: Props) {
       </span>
       <p className="font-nature-lab-body text-nature-lab-md text-brand-mid-grey">{comment.text}</p>
     </div>
-  );
+  )
 }

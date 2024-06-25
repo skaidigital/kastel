@@ -1,84 +1,84 @@
-import { adminClient } from '@/lib/sanity/adminClient';
-import { shopifyAdminQuery } from '@/lib/shopify/admin';
-import { removeProductGid, removeVariantGid } from '@/lib/shopify/helpers';
+import { adminClient } from '@/lib/sanity/adminClient'
+import { shopifyAdminQuery } from '@/lib/shopify/admin'
+import { removeProductGid, removeVariantGid } from '@/lib/shopify/helpers'
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
-    const response = await getProducts();
+    const response = await getProducts()
 
-    const serializedData = serializeData(response);
+    const serializedData = serializeData(response)
 
-    const filteredData = serializedData.filter((product: any) => product.status_no === 'ACTIVE');
-    const fileredData2 = filteredData.filter((product: any) => product._id !== '8618935648485');
+    const filteredData = serializedData.filter((product: any) => product.status_no === 'ACTIVE')
+    const fileredData2 = filteredData.filter((product: any) => product._id !== '8618935648485')
 
-    const data = fileredData2;
+    const data = fileredData2
 
-    const transaction = adminClient.transaction();
+    const transaction = adminClient.transaction()
 
-    syncToSanityHandler(data, transaction);
+    syncToSanityHandler(data, transaction)
 
-    const transactionResponse = await transaction.commit();
-    console.log(transactionResponse);
+    const transactionResponse = await transaction.commit()
+    console.log(transactionResponse)
 
-    const responseData = JSON.stringify(fileredData2);
+    const responseData = JSON.stringify(fileredData2)
 
     return new Response(responseData, {
       status: 200
-    });
+    })
   } catch (error: any) {
     return new Response(error, {
       status: 500
-    });
+    })
   }
 }
 
 function syncToSanityHandler(data: any, transaction: any) {
   data.forEach((product: any) => {
-    const syncProduct = JSON.parse(JSON.stringify(product));
-    delete syncProduct.variants;
+    const syncProduct = JSON.parse(JSON.stringify(product))
+    delete syncProduct.variants
     if (product.type === 'VARIABLE') {
       // delete keys that are not needed
-      delete syncProduct.price_no;
-      delete syncProduct.discountedPrice_no;
-      delete syncProduct.variantGid_no;
-      delete syncProduct.sku;
+      delete syncProduct.price_no
+      delete syncProduct.discountedPrice_no
+      delete syncProduct.variantGid_no
+      delete syncProduct.sku
     }
     if (product.type === 'SIMPLE') {
       if (product.discountedPrice_no === null || product.discountedPrice_no === 0) {
-        delete syncProduct.discountedPrice_no;
+        delete syncProduct.discountedPrice_no
       }
-      delete syncProduct.options;
+      delete syncProduct.options
     }
-    transaction.createIfNotExists(syncProduct);
+    transaction.createIfNotExists(syncProduct)
 
     if (product.variants) {
       product.variants.forEach((variant: any) => {
-        const syncVariant = JSON.parse(JSON.stringify(variant));
+        const syncVariant = JSON.parse(JSON.stringify(variant))
 
         if (!variant.option2) {
-          delete syncVariant.option2;
+          delete syncVariant.option2
         }
 
         if (!variant.option3) {
-          delete syncVariant.option3;
+          delete syncVariant.option3
         }
 
         if (!variant.discountedPrice_no) {
-          delete syncVariant.discountedPrice_no;
+          delete syncVariant.discountedPrice_no
         }
 
-        delete syncVariant.title_no;
+        delete syncVariant.title_no
 
-        transaction.createIfNotExists(syncVariant);
-      });
+        transaction.createIfNotExists(syncVariant)
+      })
     }
-  });
+  })
 }
 
 async function getProducts() {
-  const productData: any[] = [];
-  let hasNextPage = true;
-  let cursor = null;
+  const productData: any[] = []
+  let hasNextPage = true
+  let cursor = null
 
   while (hasNextPage) {
     const query: string = /* GraphQL */ `
@@ -127,27 +127,27 @@ async function getProducts() {
         }
       }
     }
-  `;
-    console.log('Fetching products, new round');
+  `
+    console.log('Fetching products, new round')
 
-    const response = await shopifyAdminQuery(query, {}, 'no-store');
+    const response = await shopifyAdminQuery(query, {}, 'no-store')
 
-    const products = response?.data?.products;
+    const products = response?.data?.products
 
-    hasNextPage = products?.pageInfo.hasNextPage;
-    cursor = products?.pageInfo.endCursor;
+    hasNextPage = products?.pageInfo.hasNextPage
+    cursor = products?.pageInfo.endCursor
 
     if (products?.edges.length > 0) {
-      productData.push(...products?.edges);
+      productData.push(...products?.edges)
     }
   }
-  return productData;
+  return productData
 }
 
 function serializeData(data: any) {
   return data.map((product: any) => {
-    const sanityParentId = removeProductGid(product.node.id);
-    const isVariableProduct = product.node.variants.nodes.length > 1;
+    const sanityParentId = removeProductGid(product.node.id)
+    const isVariableProduct = product.node.variants.nodes.length > 1
 
     return {
       _id: sanityParentId,
@@ -185,15 +185,15 @@ function serializeData(data: any) {
       variants: serializeVariants(product.node.variants.nodes, sanityParentId),
       trackStock: product.node.tracksInventory,
       type: isVariableProduct ? 'VARIABLE' : 'SIMPLE'
-    };
-  });
+    }
+  })
 }
 
 function serializeVariants(variants: any, parentId: string) {
-  if (!variants || variants.length < 2) return null;
+  if (!variants || variants.length < 2) return null
 
   return variants.map((variant: any) => {
-    const discountedPrice = getDiscountedPrice(variant);
+    const discountedPrice = getDiscountedPrice(variant)
 
     return {
       _id: removeVariantGid(variant.id),
@@ -221,67 +221,65 @@ function serializeVariants(variants: any, parentId: string) {
         _type: 'reference',
         _ref: parentId
       }
-    };
-  });
+    }
+  })
 }
 
 function getPrice(variant: any) {
   return variant.compareAtPrice !== null && variant.compareAtPrice !== '0.00'
     ? variant.compareAtPrice
-    : variant.price;
+    : variant.price
 }
 
 function getDiscountedPrice(variant: any) {
-  return variant.compareAtPrice !== null && variant.compareAtPrice !== '0.00'
-    ? variant.price
-    : null;
+  return variant.compareAtPrice !== null && variant.compareAtPrice !== '0.00' ? variant.price : null
 }
 
 interface OptionProps {
-  optionValue: string;
-  optionType: string;
+  optionValue: string
+  optionType: string
 }
 
 function getOptionReference({ optionValue, optionType }: OptionProps) {
-  if (!optionValue) return null;
-  if (!optionType) return null;
+  if (!optionValue) return null
+  if (!optionType) return null
   if (optionType === 'Size') {
     return {
       _type: 'reference',
       _ref: getOptionRef(optionValue)
-    };
+    }
   }
 
-  return { _type: 'FEIL', _ref: optionValue };
+  return { _type: 'FEIL', _ref: optionValue }
 }
 
 //! Prod
 function getOptionRef(optionValue: string) {
   switch (optionValue) {
     case '36':
-      return 'af15ea6a-c981-401c-a4c9-0bb69bc62119';
+      return 'af15ea6a-c981-401c-a4c9-0bb69bc62119'
     case '37':
-      return '484e99cb-dbc4-4454-8245-27136b0557e8';
+      return '484e99cb-dbc4-4454-8245-27136b0557e8'
     case '38':
-      return 'b3b9a8ef-6a8e-474f-b3b7-74c5597bac3e';
+      return 'b3b9a8ef-6a8e-474f-b3b7-74c5597bac3e'
     case '39':
-      return '6f2a2d40-7474-4c82-b2fb-66f20b4de083';
+      return '6f2a2d40-7474-4c82-b2fb-66f20b4de083'
     case '40':
-      return '7ca73c4e-b3f1-48fb-9c91-dce4a32d1cc6';
+      return '7ca73c4e-b3f1-48fb-9c91-dce4a32d1cc6'
     case '41':
-      return '8a741f24-bfbf-423c-b0ae-b85cd22dc882';
+      return '8a741f24-bfbf-423c-b0ae-b85cd22dc882'
     case '42':
-      return 'b6741f66-4b83-46f3-afcf-bbb5623a9d60';
+      return 'b6741f66-4b83-46f3-afcf-bbb5623a9d60'
     case '43':
-      return '694d42eb-d71b-4733-8af9-2e55f05ba54d';
+      return '694d42eb-d71b-4733-8af9-2e55f05ba54d'
     case '44':
-      return 'd60a39b2-cd44-4d06-8ec7-052b697efed7';
+      return 'd60a39b2-cd44-4d06-8ec7-052b697efed7'
     case '45':
-      return '58e9e3a9-427a-47a5-845b-af20e07ae4c4';
+      return '58e9e3a9-427a-47a5-845b-af20e07ae4c4'
     case '46':
-      return '4572f640-96f7-40ef-89aa-ee8018b9e8d7';
+      return '4572f640-96f7-40ef-89aa-ee8018b9e8d7'
     default:
-      return null;
+      return null
   }
 }
 
@@ -316,18 +314,18 @@ function getOptionRef(optionValue: string) {
 
 interface ParentOptionProps {
   options: {
-    name: string;
-    values: string[];
-  };
+    name: string
+    values: string[]
+  }
 }
 
 function getParentOptionRef({ options }: ParentOptionProps) {
-  const optionRef = parentOptionRef(options?.name);
+  const optionRef = parentOptionRef(options?.name)
 
-  if (!optionRef) return null;
+  if (!optionRef) return null
 
   if (options.name === 'Size') {
-    const keyCounter = Math.floor(Math.random() * 10000);
+    const keyCounter = Math.floor(Math.random() * 10000)
 
     return [
       {
@@ -338,24 +336,24 @@ function getParentOptionRef({ options }: ParentOptionProps) {
           _ref: optionRef
         },
         options: options?.values.map((optionValue: string) => {
-          const keyCounter = Math.floor(Math.random() * 10000);
+          const keyCounter = Math.floor(Math.random() * 10000)
           return {
             _key: String(keyCounter),
             _type: 'option',
             _ref: getOptionRef(optionValue)
-          };
+          }
         })
       }
-    ];
+    ]
   }
 }
 
 function parentOptionRef(optionValue: string) {
   switch (optionValue) {
     case 'Size':
-      return 'c4758b40-69c1-4960-8f6d-126e684c859d';
+      return 'c4758b40-69c1-4960-8f6d-126e684c859d'
     default:
-      return null;
+      return null
   }
 }
 

@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const headingAndLinks = defineType({
   title: 'Heading and links',
@@ -11,11 +11,11 @@ export const headingAndLinks = defineType({
       links: 'links'
     },
     prepare(value) {
-      const { heading } = value;
+      const { heading } = value
       return {
         title: heading || 'No title',
         subtitle: 'Heading and links'
-      };
+      }
     }
   },
   fields: [
@@ -37,10 +37,10 @@ export const headingAndLinks = defineType({
               title: 'link.text.en'
             },
             prepare(value) {
-              const { title } = value;
+              const { title } = value
               return {
                 title: title || 'No title'
-              };
+              }
             }
           },
           fields: [
@@ -62,4 +62,4 @@ export const headingAndLinks = defineType({
       validation: (Rule) => Rule.required().min(1)
     })
   ]
-});
+})

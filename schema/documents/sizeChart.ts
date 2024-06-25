@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Table } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Table } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const sizeChart = defineType({
   title: 'Size chart',
@@ -64,4 +64,4 @@ export const sizeChart = defineType({
       type: 'table'
     })
   ]
-});
+})

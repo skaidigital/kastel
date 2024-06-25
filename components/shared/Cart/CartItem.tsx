@@ -1,24 +1,24 @@
-import { formatPrice } from '@/app/api/shopify/utils';
-import EditItemQuantityButton from '@/components/shared/Cart/EditQuantityButton';
-import RemoveFromCartButton from '@/components/shared/Cart/RemoveFromCartButton';
-import { Money, SelectedOption, ShopifyImage } from '@/lib/shopify/types';
-import { cn } from '@/lib/utils';
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
-import Image from 'next/image';
+import { formatPrice } from '@/app/api/shopify/utils'
+import EditItemQuantityButton from '@/components/shared/Cart/EditQuantityButton'
+import RemoveFromCartButton from '@/components/shared/Cart/RemoveFromCartButton'
+import { Money, SelectedOption, ShopifyImage } from '@/lib/shopify/types'
+import { cn } from '@/lib/utils'
+import { AspectRatio } from '@radix-ui/react-aspect-ratio'
+import Image from 'next/image'
 
 interface Props {
-  lineId: string;
-  variantId: string;
-  title: string;
-  option1?: SelectedOption;
-  option2?: SelectedOption;
-  option3?: SelectedOption;
-  quantity: number;
-  subtotal: Money;
-  totalAmount: Money;
-  image: ShopifyImage;
-  variantDescription?: string;
-  className?: string;
+  lineId: string
+  variantId: string
+  title: string
+  option1?: SelectedOption
+  option2?: SelectedOption
+  option3?: SelectedOption
+  quantity: number
+  subtotal: Money
+  totalAmount: Money
+  image: ShopifyImage
+  variantDescription?: string
+  className?: string
 }
 
 export function CartItem({
@@ -34,9 +34,9 @@ export function CartItem({
   image,
   className
 }: Props) {
-  const formattedPrice = formatPrice(totalAmount);
-  const formattedSubTotal = formatPrice(subtotal);
-  const isDiscounted = totalAmount.amount !== subtotal.amount;
+  const formattedPrice = formatPrice(totalAmount)
+  const formattedSubTotal = formatPrice(subtotal)
+  const isDiscounted = totalAmount.amount !== subtotal.amount
 
   return (
     <div
@@ -107,5 +107,5 @@ export function CartItem({
         </div>
       </div>
     </div>
-  );
+  )
 }

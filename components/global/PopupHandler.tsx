@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { LangValues } from '@/data/constants';
-import { useQuery } from '@tanstack/react-query';
-import dynamic from 'next/dynamic';
+import { LangValues } from '@/data/constants'
+import { useQuery } from '@tanstack/react-query'
+import dynamic from 'next/dynamic'
 
 const DynamicMarketSuggestionPopup = dynamic(
   () =>
@@ -10,10 +10,10 @@ const DynamicMarketSuggestionPopup = dynamic(
   {
     ssr: false
   }
-);
+)
 const DynamicPopup = dynamic(() => import('@/components/global/Popup').then((mod) => mod.Popup), {
   ssr: false
-});
+})
 
 function usePopupCookies() {
   return useQuery({
@@ -24,35 +24,35 @@ function usePopupCookies() {
         headers: {
           'Content-Type': 'application/json'
         }
-      });
+      })
 
-      const data = await response.json();
+      const data = await response.json()
 
-      return data;
+      return data
     }
-  });
+  })
 }
 
 interface Props {
-  lang: LangValues;
+  lang: LangValues
 }
 
 export function PopupHandler({ lang }: Props) {
-  const isProduction = process.env.NODE_ENV === 'production';
+  const isProduction = process.env.NODE_ENV === 'production'
 
-  const { data: cookies, isLoading } = usePopupCookies();
+  const { data: cookies, isLoading } = usePopupCookies()
 
-  const hasChosenMarket = cookies?.hasChosenMarket;
-  const hasConsent = cookies?.hasConsent;
-  const hasSeenPopupInLastDay = cookies?.hasSeenPopupInLastDay;
-  const reccommendedMarket = cookies?.reccommendedMarket;
-  const requestCountry = cookies?.requestCountry;
+  const hasChosenMarket = cookies?.hasChosenMarket
+  const hasConsent = cookies?.hasConsent
+  const hasSeenPopupInLastDay = cookies?.hasSeenPopupInLastDay
+  const reccommendedMarket = cookies?.reccommendedMarket
+  const requestCountry = cookies?.requestCountry
 
-  const productionConsent = isProduction && hasConsent;
-  const productionConcentOrNotProduction = productionConsent || !isProduction;
+  const productionConsent = isProduction && hasConsent
+  const productionConcentOrNotProduction = productionConsent || !isProduction
 
   if (isLoading) {
-    return null;
+    return null
   }
 
   if (
@@ -67,12 +67,12 @@ export function PopupHandler({ lang }: Props) {
         requestCountry={requestCountry}
         reccommendedMarket={reccommendedMarket}
       />
-    );
+    )
   }
 
   if (productionConcentOrNotProduction && !hasSeenPopupInLastDay) {
-    return <DynamicPopup lang={lang} />;
+    return <DynamicPopup lang={lang} />
   }
 
-  return null;
+  return null
 }

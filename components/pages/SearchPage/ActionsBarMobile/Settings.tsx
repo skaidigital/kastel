@@ -1,37 +1,37 @@
-'use client';
+'use client'
 
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
-import { Text } from '@/components/base/Text';
-import { LangValues } from '@/data/constants';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import { parseAsInteger, useQueryState } from 'nuqs';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet'
+import { Text } from '@/components/base/Text'
+import { LangValues } from '@/data/constants'
+import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { parseAsInteger, useQueryState } from 'nuqs'
 
 const VIEW_OPTIONS = [
   { label: '1', value: '1' },
   { label: '2', value: '2' }
-];
+]
 
 interface Props {
-  lang: LangValues;
+  lang: LangValues
 }
 
 /**
  * Settings for mobile actions bar on search and collection page
  */
 export function SearchActionsBarSettings({ lang }: Props) {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [activeViewNumber, setActiveViewNumber] = useQueryState('view', parseAsInteger);
+  const [activeViewNumber, setActiveViewNumber] = useQueryState('view', parseAsInteger)
 
   function handleOnClick(number: number) {
-    setActiveViewNumber(number).then(() => router.refresh());
+    setActiveViewNumber(number).then(() => router.refresh())
   }
 
-  const viewValue = activeViewNumber || VIEW_OPTIONS[0]?.value;
+  const viewValue = activeViewNumber || VIEW_OPTIONS[0]?.value
 
-  const settingsString = getSettingsString(lang);
-  const viewString = getViewString(lang);
+  const settingsString = getSettingsString(lang)
+  const viewString = getViewString(lang)
 
   return (
     <Sheet>
@@ -46,7 +46,7 @@ export function SearchActionsBarSettings({ lang }: Props) {
           <h3 className="text-sm font-medium">{viewString}</h3>
           <div className="flex gap-x-1">
             {VIEW_OPTIONS.map((option) => {
-              const isActive = Number(option.value) === viewValue;
+              const isActive = Number(option.value) === viewValue
 
               return (
                 <Text
@@ -72,33 +72,33 @@ export function SearchActionsBarSettings({ lang }: Props) {
                     />
                   </label>
                 </Text>
-              );
+              )
             })}
           </div>
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
 
 function getSettingsString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Settings';
+      return 'Settings'
     case 'no':
-      return 'Innstillinger';
+      return 'Innstillinger'
     default:
-      return 'Settings';
+      return 'Settings'
   }
 }
 
 function getViewString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'View';
+      return 'View'
     case 'no':
-      return 'Vis';
+      return 'Vis'
     default:
-      return 'View';
+      return 'View'
   }
 }

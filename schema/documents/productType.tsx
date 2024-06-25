@@ -1,9 +1,9 @@
 import {
   filterAlreadyAddedReferences,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Gear, PaintBrush, Question, Square } from '@phosphor-icons/react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Gear, PaintBrush, Question, Square } from '@phosphor-icons/react'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const productType = defineType({
   title: 'Model',
@@ -17,7 +17,7 @@ export const productType = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled'
-      };
+      }
     }
   },
   groups: [
@@ -210,4 +210,4 @@ export const productType = defineType({
       group: 'settings'
     })
   ]
-});
+})

@@ -1,30 +1,30 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import Providers from '@/components/Providers';
-import PreviewToolbar from '@/components/sanity/PreviewToolbar';
-import { env } from '@/env';
-import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata';
-import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
-import { Analytics } from '@vercel/analytics/react';
-import { Metadata } from 'next';
-import { ReactNode } from 'react';
+import Providers from '@/components/Providers'
+import PreviewToolbar from '@/components/sanity/PreviewToolbar'
+import { env } from '@/env'
+import { loadDefaultMetadata } from '@/lib/sanity/getDefaultMetadata'
+import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage'
+import { Analytics } from '@vercel/analytics/react'
+import { Metadata } from 'next'
+import { ReactNode } from 'react'
 
-import { CartContextProvider } from '@/components/CartContext';
-import ShopifyAnalytics from '@/components/ShopifyAnalytics';
-import { MarketPopup } from '@/components/global/MarketPopup';
-import { PopupHandler } from '@/components/global/PopupHandler';
-import { Smile } from '@/components/smile';
-import { LangValues, MarketValues } from '@/data/constants';
+import { CartContextProvider } from '@/components/CartContext'
+import ShopifyAnalytics from '@/components/ShopifyAnalytics'
+import { MarketPopup } from '@/components/global/MarketPopup'
+import { PopupHandler } from '@/components/global/PopupHandler'
+import { Smile } from '@/components/smile'
+import { LangValues, MarketValues } from '@/data/constants'
 // import { VisualEditing } from 'next-sanity';
 // import { revalidatePath, revalidateTag } from 'next/cache';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { VisualEditing } from 'next-sanity';
-import { revalidatePath, revalidateTag } from 'next/cache';
-import { draftMode } from 'next/headers';
-import Script from 'next/script';
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { VisualEditing } from 'next-sanity'
+import { revalidatePath, revalidateTag } from 'next/cache'
+import { draftMode } from 'next/headers'
+import Script from 'next/script'
 
-import LipscoreInit from '@/components/lipscore/LipscoreInit';
-import '../../../../styles/MyWebfontsKit.css';
-import '../../../../styles/globals.css';
+import LipscoreInit from '@/components/lipscore/LipscoreInit'
+import '../../../../styles/MyWebfontsKit.css'
+import '../../../../styles/globals.css'
 
 // Dynamically import the client-side component that manipulates the DOM
 // const ClientSideScript = dynamic(() => import('@/components/lipscore/clientScript'), {
@@ -33,17 +33,17 @@ import '../../../../styles/globals.css';
 
 const baseUrl = env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
+  : 'http://localhost:3000'
 
 // TODO make sure Gorgias, Cookiebot and Smile works
 export default function IndexRoute({
   children,
   params: { lang }
 }: {
-  children: ReactNode;
-  params: { lang: LangValues };
+  children: ReactNode
+  params: { lang: LangValues }
 }) {
-  const isInProduction = process.env.NODE_ENV === 'production';
+  // const isInProduction = process.env.NODE_ENV === 'production'
 
   return (
     <>
@@ -83,19 +83,19 @@ export default function IndexRoute({
               {draftMode().isEnabled && (
                 <VisualEditing
                   refresh={async (payload) => {
-                    'use server';
+                    'use server'
                     if (!draftMode().isEnabled) {
-                      console.debug('Skipped manual refresh because draft mode is not enabled');
-                      return;
+                      console.debug('Skipped manual refresh because draft mode is not enabled')
+                      return
                     }
                     if (payload.source === 'mutation') {
                       if (payload.document.slug?.current) {
-                        const tag = `${payload.document._type}:${payload.document.slug.current}`;
-                        await revalidateTag(tag);
+                        const tag = `${payload.document._type}:${payload.document.slug.current}`
+                        await revalidateTag(tag)
                       }
-                      return revalidateTag(payload.document._type);
+                      return revalidateTag(payload.document._type)
                     }
-                    await revalidatePath('/', 'layout');
+                    await revalidatePath('/', 'layout')
                   }}
                 />
               )}
@@ -111,16 +111,16 @@ export default function IndexRoute({
         </Providers>
       </CartContextProvider>
     </>
-  );
+  )
 }
 
 export async function generateMetadata({
   params: { market }
 }: {
-  params: { market: MarketValues };
+  params: { market: MarketValues }
 }): Promise<Metadata> {
-  const defaultMetadata = await loadDefaultMetadata(market);
-  const ogImage = urlForOpenGraphImage(defaultMetadata?.ogImage);
+  const defaultMetadata = await loadDefaultMetadata(market)
+  const ogImage = urlForOpenGraphImage(defaultMetadata?.ogImage)
 
   return {
     metadataBase: new URL(baseUrl),
@@ -135,5 +135,5 @@ export async function generateMetadata({
       type: 'website',
       images: ogImage ? [ogImage] : []
     }
-  };
+  }
 }

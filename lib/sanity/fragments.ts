@@ -1,18 +1,18 @@
-import { LangValues, MarketValues } from '@/data/constants';
-import { groq } from 'next-sanity';
+import { LangValues, MarketValues } from '@/data/constants'
+import { groq } from 'next-sanity'
 
-export const slug = groq`"slug": slug.current`;
+export const slug = groq`"slug": slug.current`
 
-const smileLink = groq`"smileLauncher": linkToSmileLancher`;
+const smileLink = groq`"smileLauncher": linkToSmileLancher`
 
 export function getSlug(lang: LangValues) {
-  return groq`"slug": slug_${lang}.current`;
+  return groq`"slug": slug_${lang}.current`
 }
 
 export const base = groq`
   "type": _type,
   "key": _key
-`;
+`
 
 export const image = groq`
   image{
@@ -21,9 +21,9 @@ export const image = groq`
       metadata
     }
   }
-`;
+`
 
-export const video = 'videoMobile.asset->.playbackId';
+export const video = 'videoMobile.asset->.playbackId'
 
 export function getImageBase(lang: LangValues) {
   return groq`
@@ -36,7 +36,7 @@ export function getImageBase(lang: LangValues) {
   "altText": altText.${lang},
   crop,
   hotspot
-`;
+`
 }
 
 export function getGallery(market: MarketValues) {
@@ -55,7 +55,7 @@ export function getGallery(market: MarketValues) {
     hotspot,
     width
   }
-`;
+`
 }
 
 export function getGalleryMale(market: MarketValues) {
@@ -81,7 +81,7 @@ export function getGalleryMale(market: MarketValues) {
     "videoUrl": asset->.playbackId,
   }
 }
-`;
+`
 }
 
 export function getGalleryFemale(market: MarketValues) {
@@ -107,7 +107,7 @@ export function getGalleryFemale(market: MarketValues) {
       "videoUrl": asset->.playbackId,
     }
   }
-`;
+`
 }
 
 export const linkTo = groq`
@@ -115,14 +115,14 @@ export const linkTo = groq`
     "type": _type,
     "slug": slug.current,
   }
-`;
+`
 
 export const getLinkTo = (lang: LangValues) => groq`
   "linkTo": linkTo->{
     "type": _type,
     "slug": slug_${lang}.current,
   }
-`;
+`
 
 export const simpleLink = groq`
   "type": _type,
@@ -135,7 +135,7 @@ export const simpleLink = groq`
     href,
     openInNewTab
   }
-`;
+`
 
 export function getLink(lang: LangValues) {
   return groq`
@@ -153,7 +153,7 @@ export function getLink(lang: LangValues) {
   type == "smile" => {
     ${smileLink}
   }
-`;
+`
 }
 
 // TODO its own object and expanded with hasLink. See to merge these later. Also uses i18n.string so _ is replaced with . for the text
@@ -169,7 +169,7 @@ export function getLinkHero(lang: LangValues) {
     href,
     openInNewTab
   }
-`;
+`
 }
 
 export function getLinkWithoutText(lang: LangValues) {
@@ -186,7 +186,7 @@ export function getLinkWithoutText(lang: LangValues) {
   type == "smile" => {
     ${smileLink}
   }
-`;
+`
 }
 
 export const metadata = groq`
@@ -196,7 +196,7 @@ export const metadata = groq`
     noIndex,
     noFollow
   }
-`;
+`
 
 export function getMetadata(market: MarketValues) {
   return groq`
@@ -206,7 +206,7 @@ export function getMetadata(market: MarketValues) {
     noIndex,
     noFollow
   }
-`;
+`
 }
 
 export const productLimited = groq`
@@ -218,7 +218,7 @@ export const productLimited = groq`
     ...,
     }, 
 }
-`;
+`
 
 // TODO should take both lang and market
 export function getProductCard(lang: LangValues, market: MarketValues) {
@@ -254,7 +254,7 @@ export function getProductCard(lang: LangValues, market: MarketValues) {
       "title": title.no
     } | order(title asc)
   } 
-  `;
+  `
 }
 
 export const collectionProduct = groq`
@@ -267,12 +267,12 @@ export const collectionProduct = groq`
       ...,
     }
   }
-`;
+`
 
 export const collectionImage = groq`
   "type": _type,
   "image": ${image},
-`;
+`
 
 export function getMedia(lang: LangValues) {
   return groq`
@@ -290,7 +290,7 @@ export function getMedia(lang: LangValues) {
   },
   'videoMobile': videoMobile.asset->.playbackId,
   'videoDesktop': videoDesktop.asset->.playbackId
-`;
+`
 }
 
 export const sectionSettings = groq`
@@ -298,14 +298,14 @@ export const sectionSettings = groq`
   hasTopPadding,
   hasBottomPadding,
   hasBottomBorder
-`;
+`
 
 export const aspectRatioSettings = groq`
   sameAspectRatio,
   aspectRatio,
   aspectRatioMobile,
   aspectRatioDesktop
-`;
+`
 
 export function getConditionalLink(lang: LangValues) {
   return groq`
@@ -322,7 +322,7 @@ export function getConditionalLink(lang: LangValues) {
       ${smileLink}
     },
     openInNewTab
-`;
+`
 }
 
 export function getBlogPostCard(lang: LangValues) {
@@ -334,7 +334,7 @@ export function getBlogPostCard(lang: LangValues) {
   },
   "slug": slug_${lang}.current,
   "readLength": coalesce(round(length(pt::text(content + "_" + market)) / 5 / 180 ), 1)
-`;
+`
 }
 
 export function getHotspotImage(lang: LangValues, market: MarketValues) {
@@ -360,16 +360,16 @@ export function getHotspotImage(lang: LangValues, market: MarketValues) {
     x,
     y,
   }
-  `;
+  `
 }
 
 export const buttonSettings = groq`
   variant
-`;
+`
 
 export const videoSettings = groq`
   autoPlay
-`;
+`
 
 export function getAuthor(lang: LangValues) {
   return groq`
@@ -379,7 +379,7 @@ export function getAuthor(lang: LangValues) {
   "image": image{
     ${getImageBase(lang)}
   }
-`;
+`
 }
 
 export function getQuestionAndAnswer(lang: LangValues) {
@@ -388,7 +388,7 @@ export function getQuestionAndAnswer(lang: LangValues) {
   "answer": answer_${lang}[]{
     ${getPortableText(lang)}
   }
-`;
+`
 }
 
 export function getFAQBlock(lang: LangValues) {
@@ -399,20 +399,20 @@ export function getFAQBlock(lang: LangValues) {
   "items": items[]->{
     ${getQuestionAndAnswer(lang)}
   }
-  `;
+  `
 }
 
 export const table = groq`
   rows[]{
     cells
   }
-`;
+`
 
 export const productsInTag =
-  'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>';
+  'defined($tagSlugs) && count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) =>'
 export const productsNotInTag =
-  'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null';
-export const productsWithoutTags = '!defined($tagSlugs) =>';
+  'defined($tagSlugs) && !count(([...tags[]->slug_no.current,...productType->.tags[]->slug_no.current])[@ in $tagSlugs]) == count($tagSlugs) => null'
+export const productsWithoutTags = '!defined($tagSlugs) =>'
 
 export function getSizeGuide(lang: LangValues) {
   return groq`
@@ -422,7 +422,7 @@ export function getSizeGuide(lang: LangValues) {
   "chart": chart_${lang}{
     ${table}
   } 
-  `;
+  `
 }
 
 export function getColorWays(lang: LangValues, market: MarketValues) {
@@ -441,7 +441,7 @@ export function getColorWays(lang: LangValues, market: MarketValues) {
     },
     "badges": [...badges[]->.title.${lang}, ...productType->badges[]->title.${lang}],
   }
-  `;
+  `
 }
 
 export function getHelpCenter(lang: LangValues) {
@@ -455,7 +455,7 @@ export function getHelpCenter(lang: LangValues) {
         }
       }
     }  
-  `;
+  `
 }
 
 export function getPortableText(lang: LangValues) {
@@ -469,7 +469,7 @@ export function getPortableText(lang: LangValues) {
         },
       },
     }
-  `;
+  `
 }
 
 export function getQuote(lang: LangValues) {
@@ -487,5 +487,5 @@ export function getQuote(lang: LangValues) {
       },
       "role": role.${lang}
     }
-  `;
+  `
 }

@@ -1,21 +1,21 @@
-import { useTransition } from 'react';
+import { useTransition } from 'react'
 
-import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { removeItem, updateItemQuantity } from '@/components/shared/Cart/actions';
-import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import { useQueryClient } from '@tanstack/react-query';
-import clsx from 'clsx';
+import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { removeItem, updateItemQuantity } from '@/components/shared/Cart/actions'
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { useQueryClient } from '@tanstack/react-query'
+import clsx from 'clsx'
 
 interface Props {
-  lineId: string;
-  variantId: string;
-  quantity: number;
-  type: 'plus' | 'minus';
+  lineId: string
+  variantId: string
+  quantity: number
+  type: 'plus' | 'minus'
 }
 
 export default function EditItemQuantityButton({ lineId, variantId, quantity, type }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const queryClient = useQueryClient();
+  const [isPending, startTransition] = useTransition()
+  const queryClient = useQueryClient()
 
   return (
     <button
@@ -29,17 +29,17 @@ export default function EditItemQuantityButton({ lineId, variantId, quantity, ty
                   lineId,
                   variantId,
                   quantity: type === 'plus' ? quantity + 1 : quantity - 1
-                });
+                })
 
           if (error) {
             // Trigger the error boundary in the root error.js
-            throw new Error(error.toString());
+            throw new Error(error.toString())
           }
 
           queryClient.invalidateQueries({
             queryKey: ['cart']
-          });
-        });
+          })
+        })
       }}
       disabled={isPending}
       className={clsx(
@@ -58,5 +58,5 @@ export default function EditItemQuantityButton({ lineId, variantId, quantity, ty
         <MinusIcon className="size-4 dark:text-neutral-500" />
       )}
     </button>
-  );
+  )
 }

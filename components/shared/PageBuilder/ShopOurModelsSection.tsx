@@ -1,74 +1,74 @@
-'use client';
+'use client'
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Badge } from '@/components/Badge';
-import { Button } from '@/components/Button';
-import { Carousel } from '@/components/Carousel';
-import { CustomLink } from '@/components/CustomLink';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { ShopOurModelsSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { ROUTES } from '@/data/constants';
-import { cn } from '@/lib/utils';
-import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
+} from '@/components/Accordion'
+import { Badge } from '@/components/Badge'
+import { Button } from '@/components/Button'
+import { Carousel } from '@/components/Carousel'
+import { CustomLink } from '@/components/CustomLink'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { ShopOurModelsSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { ROUTES } from '@/data/constants'
+import { cn } from '@/lib/utils'
+import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons'
+import { useEffect, useState } from 'react'
 
 interface PropsWithExtra extends ShopOurModelsSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const ShopOurModelsSection = ({ data }: Props) => {
-  const { badge, shoes, buttonText, sectionSettings } = data;
+  const { badge, shoes, buttonText, sectionSettings } = data
 
-  const [activeShoeTitle, setActiveShoeTitle] = useState<string | undefined>(shoes?.at(0)?.title);
-  const activeShoe = shoes?.find((shoe) => shoe.title === activeShoeTitle);
+  const [activeShoeTitle, setActiveShoeTitle] = useState<string | undefined>(shoes?.at(0)?.title)
+  const activeShoe = shoes?.find((shoe) => shoe.title === activeShoeTitle)
 
   const firstShoeOrFirstIndex =
     activeShoe?.colorWays?.find((as) => as.slug === activeShoe.firstShoeSlug)?.slug ||
-    activeShoe?.colorWays?.at(0)?.slug;
+    activeShoe?.colorWays?.at(0)?.slug
   const [activeColorwaySlug, setActiveColorwaySlug] = useState<string | undefined>(
     firstShoeOrFirstIndex
-  );
+  )
   const activeColorway = activeShoe?.colorWays?.find(
     (colorway) => colorway.slug === activeColorwaySlug
-  );
+  )
 
-  const slug = activeColorway?.slug;
-  const shoeCount = shoes?.length;
-  const currentShoeNumber = activeShoe ? shoes?.indexOf(activeShoe) + 1 : undefined;
+  const slug = activeColorway?.slug
+  const shoeCount = shoes?.length
+  const currentShoeNumber = activeShoe ? shoes?.indexOf(activeShoe) + 1 : undefined
 
   function setNextActiveShoe() {
-    if (!shoes || !activeShoe) return;
+    if (!shoes || !activeShoe) return
 
     if (shoes.indexOf(activeShoe) === shoes.length - 1) {
-      setActiveShoeTitle(shoes[0]?.title);
+      setActiveShoeTitle(shoes[0]?.title)
     } else {
-      setActiveShoeTitle(shoes[shoes.indexOf(activeShoe) + 1]?.title);
+      setActiveShoeTitle(shoes[shoes.indexOf(activeShoe) + 1]?.title)
     }
   }
 
   function setPrevActiveShoe() {
-    if (!shoes || !activeShoe) return;
+    if (!shoes || !activeShoe) return
 
     if (shoes.indexOf(activeShoe) === 0) {
-      setActiveShoeTitle(shoes[shoes.length - 1]?.title);
+      setActiveShoeTitle(shoes[shoes.length - 1]?.title)
     } else {
-      setActiveShoeTitle(shoes[shoes.indexOf(activeShoe) - 1]?.title);
+      setActiveShoeTitle(shoes[shoes.indexOf(activeShoe) - 1]?.title)
     }
   }
 
@@ -76,11 +76,11 @@ export const ShopOurModelsSection = ({ data }: Props) => {
     if (activeShoe) {
       const firstShoeOrFirstIndex =
         activeShoe?.colorWays?.find((as) => as.slug === activeShoe.firstShoeSlug)?.slug ||
-        activeShoe?.colorWays?.at(0)?.slug;
+        activeShoe?.colorWays?.at(0)?.slug
 
-      setActiveColorwaySlug(firstShoeOrFirstIndex);
+      setActiveColorwaySlug(firstShoeOrFirstIndex)
     }
-  }, [activeShoe]);
+  }, [activeShoe])
 
   return (
     <Section
@@ -286,5 +286,5 @@ export const ShopOurModelsSection = ({ data }: Props) => {
         </div>
       </Container>
     </Section>
-  );
-};
+  )
+}

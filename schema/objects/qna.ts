@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const qna = defineType({
   title: 'Spørsmål og svar',
@@ -38,4 +38,4 @@ export const qna = defineType({
       ]
     })
   ]
-});
+})

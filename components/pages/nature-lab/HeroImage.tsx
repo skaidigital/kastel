@@ -1,15 +1,15 @@
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityImageProps } from '@/lib/sanity/types';
-import { cn, getAspectRatioString } from '@/lib/utils';
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SanityImageProps } from '@/lib/sanity/types'
+import { cn, getAspectRatioString } from '@/lib/utils'
 
 interface Props {
-  imageMobile: SanityImageProps;
-  imageDesktop: SanityImageProps;
+  imageMobile: SanityImageProps
+  imageDesktop: SanityImageProps
 }
 
 export function HeroImage({ imageMobile, imageDesktop }: Props) {
-  const mobileAspectRatio = getAspectRatioString('4:3');
-  const desktopAspectRatio = getAspectRatioString('21:9');
+  const mobileAspectRatio = getAspectRatioString('4:3')
+  const desktopAspectRatio = getAspectRatioString('21:9')
 
   return (
     <div className="mt-6">
@@ -20,5 +20,5 @@ export function HeroImage({ imageMobile, imageDesktop }: Props) {
         {imageDesktop && <SanityImage image={imageDesktop} fill sizes="95vw" />}
       </div>
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Image } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Image } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const media = defineType({
   title: 'Media',
@@ -19,12 +19,12 @@ export const media = defineType({
     },
     prepare: ({ title, image, video, imageMobile, imageDesktop, videoMobile, videoDesktop }) => {
       const mediaPreview =
-        image || video || imageMobile || imageDesktop || videoMobile || videoDesktop;
+        image || video || imageMobile || imageDesktop || videoMobile || videoDesktop
 
       return {
         title: title || 'Untitled',
         media: mediaPreview
-      };
+      }
     }
   },
   fields: [
@@ -53,14 +53,14 @@ export const media = defineType({
         parent?.sameAssetForMobileAndDesktop === false || parent?.type !== 'image',
       validation: (Rule) =>
         Rule.custom((image, context: any) => {
-          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
-          const type = context.parent?.type;
+          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop
+          const type = context.parent?.type
 
           if (sameAssetForMobileAndDesktop && type === 'image' && !image) {
-            return 'Image is required';
+            return 'Image is required'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -71,14 +71,14 @@ export const media = defineType({
         parent?.sameAssetForMobileAndDesktop === false || parent?.type !== 'video',
       validation: (Rule) =>
         Rule.custom((video, context: any) => {
-          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
-          const type = context.parent?.type;
+          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop
+          const type = context.parent?.type
 
           if (sameAssetForMobileAndDesktop && type === 'video' && !video) {
-            return 'Video is required';
+            return 'Video is required'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -89,14 +89,14 @@ export const media = defineType({
         parent?.sameAssetForMobileAndDesktop === true || parent?.type !== 'image',
       validation: (Rule) =>
         Rule.custom((image, context: any) => {
-          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
-          const type = context.parent?.type;
+          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop
+          const type = context.parent?.type
 
           if (!sameAssetForMobileAndDesktop && type === 'image' && !image) {
-            return 'Image is required';
+            return 'Image is required'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -107,14 +107,14 @@ export const media = defineType({
         parent?.sameAssetForMobileAndDesktop === true || parent?.type !== 'image',
       validation: (Rule) =>
         Rule.custom((image, context: any) => {
-          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
-          const type = context.parent?.type;
+          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop
+          const type = context.parent?.type
 
           if (!sameAssetForMobileAndDesktop && type === 'image' && !image) {
-            return 'Image is required';
+            return 'Image is required'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -125,14 +125,14 @@ export const media = defineType({
         parent?.sameAssetForMobileAndDesktop === true || parent?.type !== 'video',
       validation: (Rule) =>
         Rule.custom((video, context: any) => {
-          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
-          const type = context.parent?.type;
+          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop
+          const type = context.parent?.type
 
           if (!sameAssetForMobileAndDesktop && type === 'video' && !video) {
-            return 'Video is required';
+            return 'Video is required'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -143,15 +143,15 @@ export const media = defineType({
         parent?.sameAssetForMobileAndDesktop === true || parent?.type !== 'video',
       validation: (Rule) =>
         Rule.custom((video, context: any) => {
-          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop;
-          const type = context.parent?.type;
+          const sameAssetForMobileAndDesktop = context.parent?.sameAssetForMobileAndDesktop
+          const type = context.parent?.type
 
           if (!sameAssetForMobileAndDesktop && type === 'video' && !video) {
-            return 'Video is required';
+            return 'Video is required'
           }
 
-          return true;
+          return true
         })
     })
   ]
-});
+})

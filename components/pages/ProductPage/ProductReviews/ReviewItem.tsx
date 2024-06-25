@@ -1,13 +1,13 @@
-import { Badge } from '@/components/Badge';
-import { ProductReview } from '@/components/lipscore/hooks';
-import { RatingStars } from '@/components/pages/ProductPage/ProductReviews/RatingStars';
-import { LangValues } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { cn } from '@/lib/utils';
+import { Badge } from '@/components/Badge'
+import { ProductReview } from '@/components/lipscore/hooks'
+import { RatingStars } from '@/components/pages/ProductPage/ProductReviews/RatingStars'
+import { LangValues } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { cn } from '@/lib/utils'
 
 export function ReviewItem({ review, className }: { review: ProductReview; className?: string }) {
-  const { lang } = useBaseParams();
-  const verifiedString = getVerifiedString(lang);
+  const { lang } = useBaseParams()
+  const verifiedString = getVerifiedString(lang)
 
   return (
     <div className={cn('flex flex-col gap-y-4', className)}>
@@ -24,16 +24,16 @@ export function ReviewItem({ review, className }: { review: ProductReview; class
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function getVerifiedString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Verified buyer';
+      return 'Verified buyer'
     case 'no':
-      return 'Bekreftet kjøp';
+      return 'Bekreftet kjøp'
     default:
-      return 'Verified buyer';
+      return 'Verified buyer'
   }
 }

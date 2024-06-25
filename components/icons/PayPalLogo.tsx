@@ -45,4 +45,4 @@ export const PayPalLogo = (props: React.SVGProps<SVGSVGElement>) => (
       fill="#009CDE"
     />
   </svg>
-);
+)

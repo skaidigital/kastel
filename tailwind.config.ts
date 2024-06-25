@@ -298,16 +298,15 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/container-queries'),
     require('tailwindcss-animate'),
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    function ({ addComponents }: { addComponents: Function }) {
+    function ({ addComponents }: { addComponents: (utilities: object) => void }) {
       const newUtilities = {
         '.transition-brand': {
           transition: 'all',
           transitionDuration: '300ms',
           transitionTimingFunction: 'ease-in-out'
         }
-      };
-      addComponents(newUtilities);
+      }
+      addComponents(newUtilities)
     }
   ]
-};
+}

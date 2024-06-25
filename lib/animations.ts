@@ -8,7 +8,7 @@ export const containerAnimation = {
       duration: 0.3
     }
   }
-};
+}
 
 export const rightFadeAnimation = {
   hidden: {
@@ -27,7 +27,7 @@ export const rightFadeAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}
 
 export const leftFadeAnimation = {
   hidden: {
@@ -46,7 +46,7 @@ export const leftFadeAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}
 
 export const dropdownIconAnimation = {
   open: {
@@ -64,7 +64,7 @@ export const dropdownIconAnimation = {
       ease: 'easeOut'
     }
   }
-};
+}
 
 export const accordionItemAnimation = {
   show: {
@@ -85,7 +85,7 @@ export const accordionItemAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}
 
 export const staggerChildrenAnimation = {
   show: {
@@ -105,7 +105,7 @@ export const staggerChildrenAnimation = {
       delay: 0.5
     }
   }
-};
+}
 
 export const fadeAnimation = {
   show: {
@@ -124,7 +124,7 @@ export const fadeAnimation = {
       when: 'beforeChildren'
     }
   }
-};
+}
 
 export const popupAnimation = {
   show: {
@@ -143,7 +143,7 @@ export const popupAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}
 
 export const slightFadeAndMoveUpAnimation = (index: number) => {
   if (index) {
@@ -166,7 +166,7 @@ export const slightFadeAndMoveUpAnimation = (index: number) => {
           when: 'beforeChildren'
         }
       }
-    };
+    }
   } else {
     return {
       show: {
@@ -187,9 +187,9 @@ export const slightFadeAndMoveUpAnimation = (index: number) => {
           when: 'beforeChildren'
         }
       }
-    };
+    }
   }
-};
+}
 
 export const leftDrawerAnimation = {
   show: {
@@ -206,7 +206,7 @@ export const leftDrawerAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}
 
 export const rightDrawerAnimation = {
   show: {
@@ -223,7 +223,7 @@ export const rightDrawerAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}
 
 export const bottomDrawerAnimation = {
   show: {
@@ -240,7 +240,7 @@ export const bottomDrawerAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}
 
 export const backdropAnimation = {
   show: {
@@ -257,4 +257,4 @@ export const backdropAnimation = {
       ease: [0.19, 1.0, 0.22, 1.0]
     }
   }
-};
+}

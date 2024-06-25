@@ -1,11 +1,11 @@
-import { Button } from '@/components/Button';
-import { DrawerClose, DrawerHeader } from '@/components/Drawer';
-import { Heading } from '@/components/base/Heading';
+import { Button } from '@/components/Button'
+import { DrawerClose, DrawerHeader } from '@/components/Drawer'
+import { Heading } from '@/components/base/Heading'
 
 interface Props {
-  cartText: string;
-  cartIsEmptyText: string;
-  startShoppingText: string;
+  cartText: string
+  cartIsEmptyText: string
+  startShoppingText: string
 }
 
 export function EmptyState({ cartText, cartIsEmptyText, startShoppingText }: Props) {
@@ -26,5 +26,5 @@ export function EmptyState({ cartText, cartIsEmptyText, startShoppingText }: Pro
         </DrawerClose>
       </div>
     </div>
-  );
+  )
 }

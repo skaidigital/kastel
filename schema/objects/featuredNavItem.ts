@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const featuredNavItem = defineType({
   title: 'Featured Nav Item',
@@ -13,7 +13,7 @@ export const featuredNavItem = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Featured Nav Item'
-      };
+      }
     }
   },
   fields: [
@@ -36,4 +36,4 @@ export const featuredNavItem = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

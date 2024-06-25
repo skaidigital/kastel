@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import { Heading } from '@/components/base/Heading';
-import { LangValues } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
+import { Heading } from '@/components/base/Heading'
+import { LangValues } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
 
 export function TableOfContents({ titles }: { titles: string[] }) {
-  const { lang } = useBaseParams();
-  const contentString = getContentString(lang);
+  const { lang } = useBaseParams()
+  const contentString = getContentString(lang)
 
   function handleClick(id: string) {
-    const element = document.getElementById(id);
+    const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({
         block: 'center',
         behavior: 'smooth'
-      });
+      })
     }
   }
 
@@ -36,16 +36,16 @@ export function TableOfContents({ titles }: { titles: string[] }) {
         ))}
       </ul>
     </nav>
-  );
+  )
 }
 
 function getContentString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Content';
+      return 'Content'
     case 'no':
-      return 'Innhold';
+      return 'Innhold'
     default:
-      return 'Innhold';
+      return 'Innhold'
   }
 }

@@ -1,5 +1,5 @@
-import { Square } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Square } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const card = defineType({
   title: 'Card',
@@ -18,17 +18,17 @@ export const card = defineType({
     },
     prepare({ type, image, video, imageMobile, imageDesktop, videoMobile, videoDesktop }) {
       const mediaPreview =
-        image || video || imageMobile || imageDesktop || videoMobile || videoDesktop;
+        image || video || imageMobile || imageDesktop || videoMobile || videoDesktop
 
       const typeToTitleCase = (type: string) => {
-        return type.charAt(0).toUpperCase() + type.slice(1);
-      };
-      const formattedType = typeToTitleCase(type);
+        return type.charAt(0).toUpperCase() + type.slice(1)
+      }
+      const formattedType = typeToTitleCase(type)
 
       return {
         title: formattedType || 'Card',
         media: mediaPreview
-      };
+      }
     }
   },
   fields: [
@@ -45,4 +45,4 @@ export const card = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

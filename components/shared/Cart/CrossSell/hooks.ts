@@ -1,8 +1,8 @@
-import { LangValues } from '@/data/constants';
-import { getImageBase } from '@/lib/sanity/fragments';
-import { imageValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { getImageBase } from '@/lib/sanity/fragments'
+import { imageValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const crossSellProductValidator = z.object({
   id: z.string(),
@@ -26,23 +26,23 @@ const crossSellProductValidator = z.object({
         .optional()
     })
   )
-});
+})
 
-export const crossSellProductsValidator = z.array(crossSellProductValidator).optional();
+export const crossSellProductsValidator = z.array(crossSellProductValidator).optional()
 
-export type CrossSellProduct = z.infer<typeof crossSellProductValidator>;
-export type CrossSellProducts = z.infer<typeof crossSellProductsValidator>;
+export type CrossSellProduct = z.infer<typeof crossSellProductValidator>
+export type CrossSellProducts = z.infer<typeof crossSellProductsValidator>
 
 export function getCrossSellQuery({
   market,
   lang,
   gid
 }: {
-  market: string;
-  lang: LangValues;
-  gid?: string;
+  market: string
+  lang: LangValues
+  gid?: string
 }) {
-  let query;
+  let query
   if (gid) {
     // Query when `gid` is provided
     query = groq`
@@ -59,7 +59,7 @@ export function getCrossSellQuery({
           }  
         )
       }.crossSellProducts
-    `;
+    `
   } else {
     // Query when `gid` is not provided
     query = groq`
@@ -68,10 +68,10 @@ export function getCrossSellQuery({
           ${crossSellProductQuery({ market, lang })}
         }
       }.crossSellProducts
-    `;
+    `
   }
 
-  return query;
+  return query
 }
 
 function crossSellProductQuery({ market, lang }: { market: string; lang: LangValues }) {
@@ -109,9 +109,9 @@ function crossSellProductQuery({ market, lang }: { market: string; lang: LangVal
         "discountedPrice": compareAtPrice_${market},
       }]
     )
-    `;
+    `
 
-  return query;
+  return query
 }
 
 // const query = groq`

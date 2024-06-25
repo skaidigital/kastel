@@ -1,26 +1,32 @@
-import { MegaphoneSimple } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { MegaphoneSimple } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const validateAllStringsIfTypeIs = (type: string) => (Rule: any) =>
   Rule.custom((value: any, context: any) => {
     if (context?.parent?.isShown === false) {
-      return true;
+      return true
     }
 
     if (context?.parent?.type === type) {
-      const hasNo = value?.no;
-      const hasEn = value?.en;
+      const hasNo = value?.no
+      const hasEn = value?.en
 
       if (!hasNo || !hasEn) {
         return [
-          !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-          !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
-        ].filter(Boolean);
+          !hasNo && {
+            message: 'You must provide a Norwegian translation',
+            paths: ['no']
+          },
+          !hasEn && {
+            message: 'You must provide an English translation',
+            paths: ['en']
+          }
+        ].filter(Boolean)
       }
     }
 
-    return true;
-  });
+    return true
+  })
 
 export const popup = defineType({
   title: 'Popup',
@@ -31,7 +37,7 @@ export const popup = defineType({
     prepare() {
       return {
         title: 'Popup'
-      };
+      }
     }
   },
   groups: [
@@ -97,14 +103,14 @@ export const popup = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context?.parent?.isShown === false) {
-            return true;
+            return true
           }
 
           if (context.parent.type === 'info' && !value) {
-            return 'Required';
+            return 'Required'
           }
 
-          return true;
+          return true
         }),
       group: 'info'
     }),
@@ -125,14 +131,14 @@ export const popup = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context?.parent?.isShown === false) {
-            return true;
+            return true
           }
 
           if (context.parent.type === 'info' && !value) {
-            return 'Required';
+            return 'Required'
           }
 
-          return true;
+          return true
         }),
       group: 'info'
     }),
@@ -143,14 +149,14 @@ export const popup = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context?.parent?.isShown === false) {
-            return true;
+            return true
           }
 
           if (context.parent.type === 'newsletter' && !value) {
-            return 'Required';
+            return 'Required'
           }
 
-          return true;
+          return true
         }),
       group: 'newsletter'
     }),
@@ -172,4 +178,4 @@ export const popup = defineType({
       group: 'newsletter'
     })
   ]
-});
+})

@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import { Text } from '@/components/base/Text';
-import { LangValues } from '@/data/constants';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import { parseAsBoolean, useQueryState } from 'nuqs';
+import { Text } from '@/components/base/Text'
+import { LangValues } from '@/data/constants'
+import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { parseAsBoolean, useQueryState } from 'nuqs'
 
 interface Props {
-  lang: LangValues;
-  className?: string;
+  lang: LangValues
+  className?: string
 }
 
 export function OnSaleCheckbox({ lang, className }: Props) {
-  const [isOnSale, setIsOnSale] = useQueryState('on_sale', parseAsBoolean);
-  const router = useRouter();
+  const [isOnSale, setIsOnSale] = useQueryState('on_sale', parseAsBoolean)
+  const router = useRouter()
 
   function handleClick(shouldBeOnSale: boolean) {
-    setIsOnSale(shouldBeOnSale === true ? true : null).then(() => router.refresh());
+    setIsOnSale(shouldBeOnSale === true ? true : null).then(() => router.refresh())
   }
 
-  const onSaleValue = isOnSale || false;
-  const onSaleString = getOnSaleString(lang);
+  const onSaleValue = isOnSale || false
+  const onSaleString = getOnSaleString(lang)
 
   return (
     <Text
@@ -40,16 +40,16 @@ export function OnSaleCheckbox({ lang, className }: Props) {
         />
       </label>
     </Text>
-  );
+  )
 }
 
 function getOnSaleString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'On sale';
+      return 'On sale'
     case 'no':
-      return 'På salg';
+      return 'På salg'
     default:
-      return 'On sale';
+      return 'On sale'
   }
 }

@@ -1,29 +1,29 @@
-import { COOKIE_NAMES, METAFIELDS } from '@/data/constants';
-import { cookies } from 'next/headers';
-import { customerAccountFetch } from '../customer';
+import { COOKIE_NAMES, METAFIELDS } from '@/data/constants'
+import { cookies } from 'next/headers'
+import { customerAccountFetch } from '../customer'
 
 export interface CustomerData {
-  firstName?: string;
-  lastName?: string;
+  firstName?: string
+  lastName?: string
   metafield: {
-    isPrompted: boolean;
-    footLength?: string;
-    style?: string;
-    color?: string;
-  } | null;
+    isPrompted: boolean
+    footLength?: string
+    style?: string
+    color?: string
+  } | null
 }
 
 export async function getCustomerData() {
-  const customerDataResponse = await getCustomDataForUser();
+  const customerDataResponse = await getCustomDataForUser()
 
-  return customerDataResponse;
+  return customerDataResponse
 }
 
 async function getCustomDataForUser() {
-  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value
 
   if (!accessToken) {
-    throw new Error('No access token');
+    throw new Error('No access token')
   }
 
   const wishlistResponse = await customerAccountFetch<CustomerMetadata>({
@@ -33,30 +33,30 @@ async function getCustomDataForUser() {
       namespace: METAFIELDS.customer.customer_data.namespace
     },
     cache: 'no-store'
-  });
+  })
 
-  return wishlistResponse.body.data?.customer;
+  return wishlistResponse.body.data?.customer
 }
 
 export type CustomerMetadata = {
   data: {
     customer: {
-      id: string;
-      emailAddress: { emailAddress: string };
-      firstName: string;
-      lastName: string;
+      id: string
+      emailAddress: { emailAddress: string }
+      firstName: string
+      lastName: string
       metafield: {
-        id: string;
-        key: string;
-        value: string;
-      };
-    };
-  };
+        id: string
+        key: string
+        value: string
+      }
+    }
+  }
   variables: {
-    key: string;
-    namespace: string;
-  };
-};
+    key: string
+    namespace: string
+  }
+}
 
 const getWishlistQuery = /* GraphQL */ `
   query getWishlist($key: String!, $namespace: String!) {
@@ -74,4 +74,4 @@ const getWishlistQuery = /* GraphQL */ `
       }
     }
   }
-`;
+`

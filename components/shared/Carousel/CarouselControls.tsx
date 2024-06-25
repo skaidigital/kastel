@@ -1,11 +1,11 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
 interface Props {
-  canScrollPrev: boolean;
-  canScrollNext: boolean;
-  onPrev: () => void;
-  onNext: () => void;
-  className?: string;
+  canScrollPrev: boolean
+  canScrollNext: boolean
+  onPrev: () => void
+  onNext: () => void
+  className?: string
 }
 
 export function CarouselControls({
@@ -20,7 +20,7 @@ export function CarouselControls({
       <button
         onClick={() => {
           if (canScrollPrev) {
-            onPrev();
+            onPrev()
           }
         }}
         disabled={!canScrollPrev}
@@ -35,7 +35,7 @@ export function CarouselControls({
       <button
         onClick={() => {
           if (canScrollNext) {
-            onNext();
+            onNext()
           }
         }}
         disabled={!canScrollNext}
@@ -48,5 +48,5 @@ export function CarouselControls({
         Next
       </button>
     </div>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Check } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Check } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const usps = defineType({
   title: 'USPs above footer',
@@ -11,7 +11,7 @@ export const usps = defineType({
     prepare() {
       return {
         title: 'USPs'
-      };
+      }
     }
   },
   fields: [
@@ -21,7 +21,13 @@ export const usps = defineType({
         "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
       name: 'productForm',
       type: 'array',
-      of: [{ type: 'i18n.string', validation: validateAllStringTranslations, icon: Check }],
+      of: [
+        {
+          type: 'i18n.string',
+          validation: validateAllStringTranslations,
+          icon: Check
+        }
+      ],
       validation: (Rule) => Rule.min(1).max(4)
     }),
     defineField({
@@ -30,8 +36,14 @@ export const usps = defineType({
         "You do not need to add the 'Earn X Kastel Points', we will add this automatically",
       name: 'productFormNatureLab',
       type: 'array',
-      of: [{ type: 'i18n.string', validation: validateAllStringTranslations, icon: Check }],
+      of: [
+        {
+          type: 'i18n.string',
+          validation: validateAllStringTranslations,
+          icon: Check
+        }
+      ],
       validation: (Rule) => Rule.min(1).max(4)
     })
   ]
-});
+})

@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Mailbox } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Mailbox } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const emailCapture = defineType({
   title: 'Email capture',
@@ -12,7 +12,7 @@ export const emailCapture = defineType({
       return {
         title: 'Email capture',
         subtitle: 'Email capture'
-      };
+      }
     }
   },
   fields: [
@@ -65,4 +65,4 @@ export const emailCapture = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

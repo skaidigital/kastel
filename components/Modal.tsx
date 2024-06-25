@@ -1,18 +1,18 @@
-import { TouchTarget } from '@/components/TouchTarget';
-import { Heading } from '@/components/base/Heading';
-import { cn } from '@/lib/utils';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import * as Dialog from '@radix-ui/react-dialog';
-import { ReactNode } from 'react';
+import { TouchTarget } from '@/components/TouchTarget'
+import { Heading } from '@/components/base/Heading'
+import { cn } from '@/lib/utils'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import * as Dialog from '@radix-ui/react-dialog'
+import { ReactNode } from 'react'
 
 interface ModalRootProps {
-  children: ReactNode;
-  isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  children: ReactNode
+  isOpen?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 export function Modal({ children, isOpen, onOpenChange }: ModalRootProps) {
-  const isControlled = isOpen !== undefined;
+  const isControlled = isOpen !== undefined
 
   return (
     <Dialog.Root
@@ -21,15 +21,15 @@ export function Modal({ children, isOpen, onOpenChange }: ModalRootProps) {
     >
       {children}
     </Dialog.Root>
-  );
+  )
 }
 
 interface ModalContentProps {
-  children: ReactNode;
-  label: string;
-  size?: 'sm' | 'md' | 'lg' | 'none';
-  onClose?: (e: any) => void;
-  className?: string;
+  children: ReactNode
+  label: string
+  size?: 'sm' | 'md' | 'lg' | 'none'
+  onClose?: (e: any) => void
+  className?: string
 }
 
 export function ModalContent({
@@ -61,22 +61,22 @@ export function ModalContent({
         {children}
       </Dialog.Content>
     </Dialog.Portal>
-  );
+  )
 }
 
 interface ModalTriggerProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export function ModalTrigger({ children }: ModalTriggerProps) {
-  return <Dialog.Trigger asChild>{children}</Dialog.Trigger>;
+  return <Dialog.Trigger asChild>{children}</Dialog.Trigger>
 }
 
 interface ModalHeaderProps {
-  title: string;
-  className?: string;
-  children?: ReactNode;
-  onClose?: (e: any) => void;
+  title: string
+  className?: string
+  children?: ReactNode
+  onClose?: (e: any) => void
 }
 
 export function ModalHeader({ title, className, children, onClose }: ModalHeaderProps) {
@@ -96,7 +96,7 @@ export function ModalHeader({ title, className, children, onClose }: ModalHeader
       </div>
       {children}
     </div>
-  );
+  )
 }
 
 export function ModalClose({ children }: ModalTriggerProps) {
@@ -104,5 +104,5 @@ export function ModalClose({ children }: ModalTriggerProps) {
     <Dialog.Close asChild>
       <button>{children}</button>
     </Dialog.Close>
-  );
+  )
 }

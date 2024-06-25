@@ -1,32 +1,32 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { Media } from '@/components/Media';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
-import { PageCounter } from '@/components/pages/CollectionPage/PageCounter';
-import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton';
+import { Dictionary } from '@/app/dictionaries'
+import { Media } from '@/components/Media'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { useCollectionContext } from '@/components/pages/CollectionPage/Context'
+import { PageCounter } from '@/components/pages/CollectionPage/PageCounter'
+import { PaginationButton } from '@/components/pages/CollectionPage/PaginationButton'
 import {
   CollectionBasePayload,
   CollectionMood,
   CollectionProductPayload,
   CollectionProductsPayload
-} from '@/components/pages/CollectionPage/hooks';
-import { ProductCard } from '@/components/shared/ProductCard';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { cn } from '@/lib/utils';
-import '@/styles/externalOverride.css';
-import { Suspense, useEffect } from 'react';
+} from '@/components/pages/CollectionPage/hooks'
+import { ProductCard } from '@/components/shared/ProductCard'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { cn } from '@/lib/utils'
+import '@/styles/externalOverride.css'
+import { Suspense, useEffect } from 'react'
 
 interface Props {
-  data: CollectionProductsPayload;
-  moods: CollectionBasePayload['moods'];
-  productCount: number;
-  currentPage: number;
-  dictionary: Dictionary['collection_page'];
-  pageCount: number;
+  data: CollectionProductsPayload
+  moods: CollectionBasePayload['moods']
+  productCount: number
+  currentPage: number
+  dictionary: Dictionary['collection_page']
+  pageCount: number
 }
 
 export function CollectionLayout({
@@ -37,20 +37,20 @@ export function CollectionLayout({
   moods,
   pageCount
 }: Props) {
-  const { products, hasNextPage } = data;
+  const { products, hasNextPage } = data
 
-  const { productsPerRow, setProductsPerRow, setNumberOfProducts } = useCollectionContext();
-  const isDesktop = useIsDesktop();
+  const { productsPerRow, setProductsPerRow, setNumberOfProducts } = useCollectionContext()
+  const isDesktop = useIsDesktop()
 
   useEffect(() => {
     if (productCount) {
-      setNumberOfProducts(productCount);
+      setNumberOfProducts(productCount)
     }
-  }, [productCount]);
+  }, [productCount])
 
   useEffect(() => {
     if (productsPerRow === 2 && isDesktop && typeof window !== 'undefined') {
-      setProductsPerRow(4);
+      setProductsPerRow(4)
     }
 
     if (
@@ -58,17 +58,17 @@ export function CollectionLayout({
       !isDesktop &&
       typeof window !== 'undefined'
     ) {
-      setProductsPerRow(2);
+      setProductsPerRow(2)
     }
-  }, [isDesktop]);
+  }, [isDesktop])
 
-  const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 5, moods);
-  const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods);
+  const mobileItems = insertMoodsMobile(products, (currentPage - 1) * 5, moods)
+  const desktopItems = insertMoodsDesktop(products, (currentPage - 1) * 3, moods)
 
-  const hasProducts = productCount !== 0;
+  const hasProducts = productCount !== 0
 
-  const imageSizePerItem = 100 / Number(productsPerRow) + 5;
-  const sizes = `${imageSizePerItem}vw`;
+  const imageSizePerItem = 100 / Number(productsPerRow) + 5
+  const sizes = `${imageSizePerItem}vw`
 
   return (
     <>
@@ -87,9 +87,9 @@ export function CollectionLayout({
                     >
                       <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
                     </div>
-                  );
+                  )
                 }
-                const priorityIndices = [0, 1, 2];
+                const priorityIndices = [0, 1, 2]
                 return (
                   <div key={index} className="m-[-1px]">
                     <ProductCard
@@ -98,7 +98,7 @@ export function CollectionLayout({
                       imageSizes={sizes}
                     />
                   </div>
-                );
+                )
               })}
             </CollectionGrid>
           </div>
@@ -117,10 +117,10 @@ export function CollectionLayout({
                     >
                       <Media media={item} loading={index === 0 ? 'eager' : 'lazy'} sizes={sizes} />
                     </div>
-                  );
+                  )
                 }
 
-                const priorityIndices = [0, 1, 2];
+                const priorityIndices = [0, 1, 2]
                 return (
                   <div className="m-[-1px]" key={index}>
                     <ProductCard
@@ -130,7 +130,7 @@ export function CollectionLayout({
                       imageSizes={sizes}
                     />
                   </div>
-                );
+                )
               })}
             </CollectionGrid>
           </div>
@@ -161,10 +161,10 @@ export function CollectionLayout({
         )}
       </Section>
     </>
-  );
+  )
 }
 
-type ProductOrMood = CollectionProductPayload | CollectionMood;
+type ProductOrMood = CollectionProductPayload | CollectionMood
 
 function insertMoodsDesktop(
   products: CollectionProductPayload[],
@@ -172,20 +172,20 @@ function insertMoodsDesktop(
   moods?: CollectionMood[]
 ): ProductOrMood[] {
   if (!moods || moods.length === 0) {
-    return products;
+    return products
   }
 
-  const result: ProductOrMood[] = [...products];
-  const moodsToInsert = moods.slice(baseIndex, baseIndex + 3);
+  const result: ProductOrMood[] = [...products]
+  const moodsToInsert = moods.slice(baseIndex, baseIndex + 3)
 
   moodsToInsert.forEach((mood, index) => {
-    const indexIsOdd = index % 2 === 1;
-    const indexJump = indexIsOdd ? 11 : 8;
-    const insertIndex = Math.min(index * indexJump, result.length);
-    result.splice(insertIndex, 0, mood);
-  });
+    const indexIsOdd = index % 2 === 1
+    const indexJump = indexIsOdd ? 11 : 8
+    const insertIndex = Math.min(index * indexJump, result.length)
+    result.splice(insertIndex, 0, mood)
+  })
 
-  return result;
+  return result
 }
 
 function insertMoodsMobile(
@@ -194,18 +194,18 @@ function insertMoodsMobile(
   moods?: CollectionMood[]
 ): ProductOrMood[] {
   if (!moods || moods.length === 0) {
-    return products;
+    return products
   }
 
-  const result: ProductOrMood[] = [...products];
-  const moodsToInsert = moods.slice(baseIndex, baseIndex + 5);
+  const result: ProductOrMood[] = [...products]
+  const moodsToInsert = moods.slice(baseIndex, baseIndex + 5)
 
   moodsToInsert.forEach((mood, index) => {
-    const insertIndex = Math.min(index * 5, result.length);
-    result.splice(insertIndex, 0, mood);
-  });
+    const insertIndex = Math.min(index * 5, result.length)
+    result.splice(insertIndex, 0, mood)
+  })
 
-  return result;
+  return result
 }
 
 export function CollectionGrid({
@@ -213,9 +213,9 @@ export function CollectionGrid({
   children,
   className
 }: {
-  number: number;
-  children: React.ReactNode;
-  className?: string;
+  number: number
+  children: React.ReactNode
+  className?: string
 }) {
   return (
     <div
@@ -230,5 +230,5 @@ export function CollectionGrid({
     >
       {children}
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const createAddressFormInputValidator = z.object({
   firstName: z.string().min(2),
@@ -10,9 +10,9 @@ export const createAddressFormInputValidator = z.object({
   city: z.string().min(2),
   territoryCode: z.string().min(2),
   defaultAddress: z.boolean()
-});
+})
 
-export type CreateAddressFormInput = z.infer<typeof createAddressFormInputValidator>;
+export type CreateAddressFormInput = z.infer<typeof createAddressFormInputValidator>
 
 export const customerAddressCreateInputValidator = z.object({
   firstName: z.string(),
@@ -23,7 +23,7 @@ export const customerAddressCreateInputValidator = z.object({
   zip: z.string(),
   city: z.string(),
   territoryCode: z.string()
-});
+})
 
 const customerAddressCreateResponseValidator = z.object({
   data: z.object({
@@ -45,9 +45,9 @@ const customerAddressCreateResponseValidator = z.object({
     address: customerAddressCreateInputValidator,
     defaultAddress: z.boolean()
   })
-});
+})
 
-export type CustomerAddressCreateResponse = z.infer<typeof customerAddressCreateResponseValidator>;
+export type CustomerAddressCreateResponse = z.infer<typeof customerAddressCreateResponseValidator>
 
 export const customerAddressCreateMutation = /* GraphQL */ `
   mutation customerAddressCreate($address: CustomerAddressInput!, $defaultAddress: Boolean) {
@@ -61,4 +61,4 @@ export const customerAddressCreateMutation = /* GraphQL */ `
       }
     }
   }
-`;
+`

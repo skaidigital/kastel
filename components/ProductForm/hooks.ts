@@ -1,38 +1,38 @@
-import { shopifyFetch } from '@/lib/shopify';
+import { shopifyFetch } from '@/lib/shopify'
 
 type ShopifyProductOperation = {
   data: {
     product: {
-      availableForSale: boolean;
-      totalInventory: number;
+      availableForSale: boolean
+      totalInventory: number
       priceRange: {
         minVariantPrice: {
-          amount: string;
-          currencyCode: string;
-        };
+          amount: string
+          currencyCode: string
+        }
         maxVariantPrice: {
-          amount: string;
-          currencyCode: string;
-        };
-      };
+          amount: string
+          currencyCode: string
+        }
+      }
       variants: {
         edges: {
           node: {
-            id: string;
-            availableForSale: boolean;
-            quantityAvailable: number;
-          };
-        }[];
-      };
-    };
-  };
-  errors: any[];
+            id: string
+            availableForSale: boolean
+            quantityAvailable: number
+          }
+        }[]
+      }
+    }
+  }
+  errors: any[]
   variables: {
-    id: string;
-  };
-};
+    id: string
+  }
+}
 
-export type ProductInventoryResponse = ShopifyProductOperation['data']['product'];
+export type ProductInventoryResponse = ShopifyProductOperation['data']['product']
 
 export const getProductInventoryQuery = /* GraphQL */ `
   query getProductById($id: ID!) {
@@ -60,23 +60,23 @@ export const getProductInventoryQuery = /* GraphQL */ `
       }
     }
   }
-`;
+`
 
 type ShopifyVariantsOperation = {
   data: {
     productVariants: {
       nodes: {
-        sku: string;
-        availableForSale: boolean;
-        inventoryQuantity: number;
-      }[];
-    };
-  };
-  errors: any[];
+        sku: string
+        availableForSale: boolean
+        inventoryQuantity: number
+      }[]
+    }
+  }
+  errors: any[]
   variables: {
-    query: string;
-  };
-};
+    query: string
+  }
+}
 
 export const getProductVariantInventoryQuery = /* GraphQL */ `
   query getvariants($query: String!) {
@@ -88,30 +88,30 @@ export const getProductVariantInventoryQuery = /* GraphQL */ `
       }
     }
   }
-`;
+`
 
 export async function getProductInventory(productId: string) {
-  if (!productId) return undefined;
+  if (!productId) return undefined
 
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductInventoryQuery,
     variables: { id: productId },
     cache: 'no-store'
-  });
+  })
 
-  return res.body?.data?.product || undefined;
+  return res.body?.data?.product || undefined
 }
 
 export async function getProductVariantInventoryBySku(skus: string[]) {
-  if (!skus) return undefined;
+  if (!skus) return undefined
 
-  const queryString = skus.map((sku) => `sku:${sku}`).join(' OR ');
+  const queryString = skus.map((sku) => `sku:${sku}`).join(' OR ')
 
   const res = await shopifyFetch<ShopifyVariantsOperation>({
     query: getProductVariantInventoryQuery,
     variables: { query: queryString },
     cache: 'no-store'
-  });
+  })
 
-  return res.body?.data?.productVariants?.nodes || undefined;
+  return res.body?.data?.productVariants?.nodes || undefined
 }

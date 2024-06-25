@@ -1,5 +1,5 @@
-import { SANITY_STUDIO_API_VERSION } from '@/data/constants';
-import { group, list, listNew, singleton } from '@/lib/sanity/studioUtils';
+import { SANITY_STUDIO_API_VERSION } from '@/data/constants'
+import { group, list, listNew, singleton } from '@/lib/sanity/studioUtils'
 import {
   ArrowLineUp,
   Article,
@@ -44,10 +44,10 @@ import {
   User,
   UserCircle,
   VideoCamera
-} from '@phosphor-icons/react';
-import type { StructureBuilder, StructureResolver } from 'sanity/structure';
+} from '@phosphor-icons/react'
+import type { StructureBuilder, StructureResolver } from 'sanity/structure'
 
-const EXCLUDED_PAGE_IDS = ['home', 'drafts.home'];
+const EXCLUDED_PAGE_IDS = ['home', 'drafts.home']
 
 export const structure: StructureResolver = (S: StructureBuilder) => {
   return S.list()
@@ -112,10 +112,26 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
       S.divider(),
       group(S, '🚧 Nature Lab', [
-        listNew({ S, title: 'Landing page', schemaType: 'natureLabLandingPage' }).icon(File),
-        listNew({ S, title: 'Phase 1 blog posts', schemaType: 'phase1BlogPost' }).icon(File),
-        listNew({ S, title: 'Phase 2 products', schemaType: 'phase2Product' }).icon(Sneaker),
-        listNew({ S, title: 'Phase 3 blog posts', schemaType: 'phase3BlogPost' }).icon(File),
+        listNew({
+          S,
+          title: 'Landing page',
+          schemaType: 'natureLabLandingPage'
+        }).icon(File),
+        listNew({
+          S,
+          title: 'Phase 1 blog posts',
+          schemaType: 'phase1BlogPost'
+        }).icon(File),
+        listNew({
+          S,
+          title: 'Phase 2 products',
+          schemaType: 'phase2Product'
+        }).icon(Sneaker),
+        listNew({
+          S,
+          title: 'Phase 3 blog posts',
+          schemaType: 'phase3BlogPost'
+        }).icon(File),
         singleton(S, 'Settings', 'natureLabSettings', 'natureLabSettings').icon(Gear)
       ]).icon(Recycle),
       group(S, 'Help Center', [
@@ -134,8 +150,16 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       group(S, 'Reusable content blocks', [
         listNew({ S, title: 'FAQ', schemaType: 'faqBlock' }).icon(List),
         listNew({ S, title: 'Cards', schemaType: 'cardBlock' }).icon(GridFour),
-        listNew({ S, title: 'Shoe picker', schemaType: 'shoePickerBlock' }).icon(Sneaker),
-        listNew({ S, title: 'Kastel Club', schemaType: 'kastelClubBlock' }).icon(Trophy),
+        listNew({
+          S,
+          title: 'Shoe picker',
+          schemaType: 'shoePickerBlock'
+        }).icon(Sneaker),
+        listNew({
+          S,
+          title: 'Kastel Club',
+          schemaType: 'kastelClubBlock'
+        }).icon(Trophy),
         listNew({
           S,
           title: 'USP Explainer',
@@ -147,20 +171,34 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
           schemaType: 'natureLabExplainerBlock'
         }).icon(Recycle),
         listNew({ S, title: 'Timeline', schemaType: 'timelineBlock' }).icon(Calendar),
-        listNew({ S, title: 'Shop Our Models', schemaType: 'shopOurModelsBlock' }).icon(Slideshow),
+        listNew({
+          S,
+          title: 'Shop Our Models',
+          schemaType: 'shopOurModelsBlock'
+        }).icon(Slideshow),
         listNew({ S, title: 'UGC', schemaType: 'ugcBlock' }).icon(VideoCamera),
-        listNew({ S, title: 'Featured Shoe', schemaType: 'featuredShoeBlock' }).icon(Star),
-        listNew({ S, title: 'Featured Collection', schemaType: 'featuredCollectionBlock' }).icon(
-          Star
-        ),
+        listNew({
+          S,
+          title: 'Featured Shoe',
+          schemaType: 'featuredShoeBlock'
+        }).icon(Star),
+        listNew({
+          S,
+          title: 'Featured Collection',
+          schemaType: 'featuredCollectionBlock'
+        }).icon(Star),
         listNew({ S, title: 'Quotes', schemaType: 'quote' }).icon(Quotes),
         listNew({ S, title: 'Hotspot image', schemaType: 'hotspotImage' }).icon(Crosshair),
-        listNew({ S, title: 'Full bleed media', schemaType: 'fullBleedMediaBlock' }).icon(
-          Subtitles
-        ),
-        listNew({ S, title: 'Nature Lab Innovation', schemaType: 'natureLabInnovationItem' }).icon(
-          Leaf
-        )
+        listNew({
+          S,
+          title: 'Full bleed media',
+          schemaType: 'fullBleedMediaBlock'
+        }).icon(Subtitles),
+        listNew({
+          S,
+          title: 'Nature Lab Innovation',
+          schemaType: 'natureLabInnovationItem'
+        }).icon(Leaf)
       ]).icon(Recycle),
       group(S, 'Retailers', [
         singleton(S, 'Retailers page', 'retailersPage', 'retailersPage').icon(File),
@@ -190,5 +228,5 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
         listNew({ S, title: 'Size charts', schemaType: 'sizeChart' }).icon(Table),
         singleton(S, 'Product settings', 'productSettings', 'productSettings').icon(Gear)
       ]).icon(Gear)
-    ]);
-};
+    ])
+}

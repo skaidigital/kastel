@@ -1,44 +1,44 @@
-import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { cn, createUrl } from '@/lib/utils';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState, useTransition } from 'react';
+import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { cn, createUrl } from '@/lib/utils'
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useRef, useState, useTransition } from 'react'
 
 interface Props {
-  onClose: () => void;
-  className?: string;
+  onClose: () => void
+  className?: string
 }
 
 export function MobileMenuSearch({ onClose, className }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const { market, lang } = useBaseParams();
-  const searchParams = useSearchParams();
-  const [searchValue, setSearchValue] = useState('');
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+  const { market, lang } = useBaseParams()
+  const searchParams = useSearchParams()
+  const [searchValue, setSearchValue] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    setSearchValue(searchParams?.get('q') || '');
-  }, [searchParams, setSearchValue]);
+    setSearchValue(searchParams?.get('q') || '')
+  }, [searchParams, setSearchValue])
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     startTransition(async () => {
-      e.preventDefault();
+      e.preventDefault()
 
-      const val = e.target as HTMLFormElement;
-      const search = val.search as HTMLInputElement;
-      const newParams = new URLSearchParams();
+      const val = e.target as HTMLFormElement
+      const search = val.search as HTMLInputElement
+      const newParams = new URLSearchParams()
 
       if (search.value) {
-        newParams.set('q', search.value);
+        newParams.set('q', search.value)
       } else {
-        newParams.delete('q');
+        newParams.delete('q')
       }
 
-      router.push(createUrl(`/${market}/${lang}/search`, newParams));
-      onClose();
-    });
+      router.push(createUrl(`/${market}/${lang}/search`, newParams))
+      onClose()
+    })
   }
 
   return (
@@ -61,5 +61,5 @@ export function MobileMenuSearch({ onClose, className }: Props) {
         placeholder="Search"
       />
     </form>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
-type Size = 'sm' | 'md';
+type Size = 'sm' | 'md'
 
 interface Props {
-  size?: Size;
-  className?: string;
+  size?: Size
+  className?: string
 }
 
 const LoadingDots = ({ size = 'sm', className }: Props) => {
@@ -20,12 +20,12 @@ const LoadingDots = ({ size = 'sm', className }: Props) => {
       <Dot size={size} className={cn('animation-delay-[200ms]', className)} />
       <Dot size={size} className={cn('animation-delay-[400ms]', className)} />
     </span>
-  );
-};
+  )
+}
 
 interface DotProps {
-  size: Size;
-  className?: string;
+  size: Size
+  className?: string
 }
 
 function Dot({ size = 'sm', className }: DotProps) {
@@ -38,7 +38,7 @@ function Dot({ size = 'sm', className }: DotProps) {
         className
       )}
     />
-  );
+  )
 }
 
-export default LoadingDots;
+export default LoadingDots

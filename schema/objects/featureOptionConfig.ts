@@ -1,5 +1,5 @@
-import { FeaturedOptionField } from '@/components/sanity/CustomField';
-import { defineField, defineType } from 'sanity';
+import { FeaturedOptionField } from '@/components/sanity/CustomField'
+import { defineField, defineType } from 'sanity'
 
 export const featureOptionConfig = defineType({
   title: 'Feature option config',
@@ -11,11 +11,11 @@ export const featureOptionConfig = defineType({
       options: 'options'
     },
     prepare: ({ title, options }) => {
-      const optionCount = options?.length || 0;
+      const optionCount = options?.length || 0
 
       return {
         title: `${title} (${optionCount})`
-      };
+      }
     }
   },
   fields: [
@@ -37,22 +37,22 @@ export const featureOptionConfig = defineType({
             filter: ({ document, parentPath }: any) => {
               const optionType = document.options?.find(
                 (option: any) => option._key === parentPath[1]?._key
-              )?.optionType;
-              const optionTypeRef = optionType?._ref;
+              )?.optionType
+              const optionTypeRef = optionType?._ref
 
               if (!optionTypeRef) {
-                return {};
+                return {}
               }
 
-              const filter = `type._ref == "${optionTypeRef}"`;
+              const filter = `type._ref == "${optionTypeRef}"`
 
               return {
                 filter
-              };
+              }
             }
           }
         })
       ]
     })
   ]
-});
+})

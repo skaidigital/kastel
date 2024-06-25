@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const navbar = defineType({
   title: 'Navbar',
@@ -8,7 +8,7 @@ export const navbar = defineType({
     prepare() {
       return {
         title: 'Navbar'
-      };
+      }
     }
   },
   fields: [
@@ -27,4 +27,4 @@ export const navbar = defineType({
     //   validation: (Rule) => Rule.required().min(1).max(6)
     // })
   ]
-});
+})

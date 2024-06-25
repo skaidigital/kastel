@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const settingsGeneral = defineType({
   title: 'General settings',
@@ -8,7 +8,7 @@ export const settingsGeneral = defineType({
     prepare() {
       return {
         title: 'General settings'
-      };
+      }
     }
   },
   fields: [
@@ -62,4 +62,4 @@ export const settingsGeneral = defineType({
     //   hidden: ({ document }) => document?.hasPhysicalLocation !== true
     // })
   ]
-});
+})

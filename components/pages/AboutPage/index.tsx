@@ -1,11 +1,11 @@
-import { PagePayload } from '@/components/pages/PageLayout/hooks';
-import { PageBuilder } from '@/components/shared/PageBuilder';
-import { LangValues, MarketValues } from '@/data/constants';
+import { PagePayload } from '@/components/pages/PageLayout/hooks'
+import { PageBuilder } from '@/components/shared/PageBuilder'
+import { LangValues, MarketValues } from '@/data/constants'
 
 export interface PageProps {
-  data: PagePayload;
-  market: MarketValues;
-  lang: LangValues;
+  data: PagePayload
+  market: MarketValues
+  lang: LangValues
 }
 
 export function AboutPage({ data, market, lang }: PageProps) {
@@ -23,5 +23,5 @@ export function AboutPage({ data, market, lang }: PageProps) {
         />
       ))}
     </>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { MARKETS } from '@/data/constants';
+import { MARKETS } from '@/data/constants'
 import {
   i18nField,
   i18nNumber,
   i18nString,
   skuIsUniqueForSchemaType
-} from '@/lib/sanity/studioUtils';
-import { Sneaker } from '@phosphor-icons/react';
-import { SanityDocument, groq } from 'next-sanity';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Sneaker } from '@phosphor-icons/react'
+import { SanityDocument, groq } from 'next-sanity'
+import { defineField, defineType } from 'sanity'
 
 export const productVariant = defineType({
   title: 'Produktvariant',
@@ -50,14 +50,13 @@ export const productVariant = defineType({
       title: 'title',
       option1: 'option1.title.en',
       option2: 'option2.title.en',
-      option3: 'option3.title.en',
-      parentTitle: 'parentProduct'
+      option3: 'option3.title.en'
     },
-    prepare({ option1, option2, option3, parentTitle }) {
+    prepare({ option1, option2, option3 }) {
       return {
         title: `${option1 ? option1 : ''} ${option2 ? option2 : ''} ${option3 ? option3 : ''}`
         // subtitle: parentTitle ? parentTitle : 'Product not set'
-      };
+      }
     }
   },
   fields: [
@@ -103,15 +102,15 @@ export const productVariant = defineType({
       group: 'shared',
       options: {
         filter: async ({ document, getClient }) => {
-          const client = getClient({ apiVersion: '2024-01-08' });
+          const client = getClient({ apiVersion: '2024-01-08' })
 
           const newFilter = await getOptionFilter({
             client,
             document,
             optionNumber: 1
-          });
+          })
 
-          return newFilter;
+          return newFilter
         }
       }
     }),
@@ -123,30 +122,30 @@ export const productVariant = defineType({
       group: 'shared',
       validation: (Rule) =>
         Rule.custom(async (value, context: any) => {
-          const client = context.getClient({ apiVersion: '2024-01-08' });
-          const parentId = context.document.parentProduct?._ref;
+          const client = context.getClient({ apiVersion: '2024-01-08' })
+          const parentId = context.document.parentProduct?._ref
 
           const parentHasTwoOptions = await client.fetch(
             `*[_id == "${parentId}"][0].options[1].optionType._ref`
-          );
+          )
 
           if (!value && parentHasTwoOptions) {
-            return 'This field is required';
+            return 'This field is required'
           }
 
-          return true;
+          return true
         }),
       options: {
         filter: async ({ document, getClient }) => {
-          const client = getClient({ apiVersion: '2024-01-08' });
+          const client = getClient({ apiVersion: '2024-01-08' })
 
           const newFilter = await getOptionFilter({
             client,
             document,
             optionNumber: 2
-          });
+          })
 
-          return newFilter;
+          return newFilter
         }
       }
     }),
@@ -158,30 +157,30 @@ export const productVariant = defineType({
       group: 'shared',
       validation: (Rule) =>
         Rule.custom(async (value, context: any) => {
-          const client = context.getClient({ apiVersion: '2024-01-08' });
-          const parentId = context.document.parentProduct?._ref;
+          const client = context.getClient({ apiVersion: '2024-01-08' })
+          const parentId = context.document.parentProduct?._ref
 
           const parentHasThreeOptions = await client.fetch(
             `*[_id == "${parentId}"][0].options[2].optionType._ref`
-          );
+          )
 
           if (!value && parentHasThreeOptions) {
-            return 'This field is required';
+            return 'This field is required'
           }
 
-          return true;
+          return true
         }),
       options: {
         filter: async ({ document, getClient }) => {
-          const client = getClient({ apiVersion: '2024-01-08' });
+          const client = getClient({ apiVersion: '2024-01-08' })
 
           const newFilter = await getOptionFilter({
             client,
             document,
             optionNumber: 3
-          });
+          })
 
-          return newFilter;
+          return newFilter
         }
       }
     }),
@@ -193,20 +192,20 @@ export const productVariant = defineType({
       validation: (Rule) =>
         Rule.custom(async (value, context: any) => {
           if (!value) {
-            return 'This field is required';
+            return 'This field is required'
           }
 
           const result = await skuIsUniqueForSchemaType({
             sku: value || '',
             schemaType: 'productVariant',
             context
-          });
+          })
 
           if (!result) {
-            return 'SKU must be unique';
+            return 'SKU must be unique'
           }
 
-          return result;
+          return result
         })
     }),
     defineField({
@@ -238,31 +237,31 @@ export const productVariant = defineType({
       by: [{ field: 'price_no', direction: 'asc' }]
     }
   ]
-});
+})
 
 interface ParentProductOption {
-  ref: string;
+  ref: string
   options?: {
-    _ref: string;
-  }[];
+    _ref: string
+  }[]
 }
 
 interface ParentProductOptions {
-  option1: ParentProductOption;
-  option2: ParentProductOption;
-  option3: ParentProductOption;
+  option1: ParentProductOption
+  option2: ParentProductOption
+  option3: ParentProductOption
 }
 
 interface OptionFilterProps {
-  client: any;
-  document: SanityDocument;
-  optionNumber: number;
+  client: any
+  document: SanityDocument
+  optionNumber: number
 }
 
 interface Variant {
-  option1?: string;
-  option2?: string;
-  option3?: string;
+  option1?: string
+  option2?: string
+  option3?: string
 }
 
 async function getOptionFilter({ client, document, optionNumber }: OptionFilterProps) {
@@ -282,7 +281,7 @@ async function getOptionFilter({ client, document, optionNumber }: OptionFilterP
         "options": options[2].options
       }
     }`
-  );
+  )
 
   const currentVariant: ParentProductOptions = {
     option1: {
@@ -294,33 +293,33 @@ async function getOptionFilter({ client, document, optionNumber }: OptionFilterP
     option3: {
       ref: document?.option3?._ref
     }
-  };
+  }
 
-  const optionKey = `option${optionNumber}` as keyof ParentProductOptions;
+  const optionKey = `option${optionNumber}` as keyof ParentProductOptions
 
   // Access the option from the parent
-  const parentOption = parent[optionKey];
+  const parentOption = parent[optionKey]
 
   // Retrieve valid options from the parent option
-  const validOptionRefs = parentOption.options?.map((option) => option._ref);
+  const validOptionRefs = parentOption.options?.map((option) => option._ref)
 
   // Construct the filter
   const filter = `type._ref == "${
     parentOption.ref
-  }" && (_id in [${validOptionRefs?.map((o: string) => `"${o}"`)}])`;
+  }" && (_id in [${validOptionRefs?.map((o: string) => `"${o}"`)}])`
 
   const numSetOptionsInParent = ['option1', 'option2', 'option3'].filter(
     (key) => parent[key as keyof ParentProductOptions]?.ref != null
-  ).length;
+  ).length
 
   const numSelectedOptionsInVariant = ['option1', 'option2', 'option3'].filter(
     (key) => currentVariant[key as keyof ParentProductOptions]?.ref != null
-  ).length;
+  ).length
 
-  const isLastChoice = numSetOptionsInParent === numSelectedOptionsInVariant + 1;
+  const isLastChoice = numSetOptionsInParent === numSelectedOptionsInVariant + 1
 
   if (isLastChoice) {
-    const currentDocumentId = document._id.replace('drafts.', '');
+    const currentDocumentId = document._id.replace('drafts.', '')
     // Fetch variants with the same options as the current variant
     const allVariants = await client.fetch(
       groq`*[_type == "productVariant" && references("${document.parentProduct?._ref}") && _id != "${currentDocumentId}" && !(_id in path("drafts.**"))]{
@@ -329,7 +328,7 @@ async function getOptionFilter({ client, document, optionNumber }: OptionFilterP
         "option2": option2._ref,
         "option3": option3._ref
       }`
-    );
+    )
 
     // Collect references of already selected options in the current variant
     const uniqueFilter = findUniquePermutation(
@@ -338,7 +337,7 @@ async function getOptionFilter({ client, document, optionNumber }: OptionFilterP
       validOptionRefs,
       optionNumber,
       numSetOptionsInParent
-    );
+    )
 
     // const filter = `type._ref == "${
     //   parentOption.ref
@@ -351,13 +350,13 @@ async function getOptionFilter({ client, document, optionNumber }: OptionFilterP
 
     const filter = `type._ref == "${
       parentOption.ref
-    }" && (_id in [${uniqueFilter?.map((o: string) => `"${o}"`)}])`;
+    }" && (_id in [${uniqueFilter?.map((o: string) => `"${o}"`)}])`
 
     return {
       filter
-    };
+    }
   }
-  return { filter };
+  return { filter }
 }
 
 function findUniquePermutation(
@@ -370,25 +369,25 @@ function findUniquePermutation(
   numberOfOptions: number // Total number of options available in the parent
 ) {
   if (!validOptionRefs) {
-    return [];
+    return []
   }
 
   const filter = validOptionRefs.filter((optionRef) => {
     return !allVariants.some((variant: any) => {
-      let matches = 0;
+      let matches = 0
 
       for (let i = 1; i <= numberOfOptions; i++) {
         if (i !== optionNumber) {
           // Skip the current option
           if (variant[`option${i}`] === currentVariant[`option${i}`]?.ref) {
-            matches++;
+            matches++
           }
         }
       }
 
-      return matches === numberOfOptions - 1 && variant[`option${optionNumber}`] === optionRef;
-    });
-  });
+      return matches === numberOfOptions - 1 && variant[`option${optionNumber}`] === optionRef
+    })
+  })
 
-  return filter;
+  return filter
 }

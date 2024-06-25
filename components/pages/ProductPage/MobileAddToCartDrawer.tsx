@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { Button } from '@/components/Button';
-import { useCartContext } from '@/components/CartContext';
-import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
-import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
-import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import * as Portal from '@radix-ui/react-portal';
-import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { Button } from '@/components/Button'
+import { useCartContext } from '@/components/CartContext'
+import { AddToCartButton } from '@/components/ProductForm/AddToCartButton'
+import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks'
+import { useActiveVariant } from '@/lib/hooks/useActiveVariant'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import * as Portal from '@radix-ui/react-portal'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 interface Props {
-  productId: string;
-  productType: Product['type'];
-  productTitle: string;
-  variants: ProductVariant[];
-  addToCartText: string;
-  selectSizeText: string;
+  productId: string
+  productType: Product['type']
+  productTitle: string
+  variants: ProductVariant[]
+  addToCartText: string
+  selectSizeText: string
 
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function MobileAddToCartDrawer({
@@ -32,38 +32,38 @@ export function MobileAddToCartDrawer({
 }: Props) {
   const { ref, inView } = useInView({
     rootMargin: '200px 0px 600px 0px'
-  });
-  const { mobileDrawerOpen: isOpen, setMobileDrawerOpen: setIsOpen } = useCartContext();
-  const isDesktop = useIsDesktop();
+  })
+  const { mobileDrawerOpen: isOpen, setMobileDrawerOpen: setIsOpen } = useCartContext()
+  const isDesktop = useIsDesktop()
 
   useEffect(() => {
     if (inView === false) {
-      setIsOpen(true);
+      setIsOpen(true)
     }
     if (inView === true) {
-      setIsOpen(false);
+      setIsOpen(false)
     }
-  }, [inView]);
+  }, [inView])
 
   const activeVariant = useActiveVariant({
     variants,
     productType
-  });
+  })
 
-  const id = activeVariant?.id;
+  const id = activeVariant?.id
 
   function handleSizeSelectionClick() {
-    const sizeSelectionElement = document.getElementById('product-form');
+    const sizeSelectionElement = document.getElementById('product-form')
     if (sizeSelectionElement) {
       sizeSelectionElement.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
-      });
+      })
     }
   }
 
   if (isDesktop) {
-    return <>{children}</>;
+    return <>{children}</>
   }
 
   return (
@@ -95,5 +95,5 @@ export function MobileAddToCartDrawer({
         </Portal.Root>
       )}
     </div>
-  );
+  )
 }

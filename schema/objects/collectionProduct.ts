@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const collectionProduct = defineType({
   title: 'Collection product',
@@ -12,13 +12,13 @@ export const collectionProduct = defineType({
       firstImage: 'firstImage'
     },
     prepare({ title, image, firstImage, lifeStyleImage }) {
-      const subtitle = firstImage === 'lifestyle' ? 'Lifestyle image' : 'Product image';
-      const media = firstImage === 'lifestyle' ? lifeStyleImage : image;
+      const subtitle = firstImage === 'lifestyle' ? 'Lifestyle image' : 'Product image'
+      const media = firstImage === 'lifestyle' ? lifeStyleImage : image
       return {
         title: title || 'No title defined',
         subtitle,
         media
-      };
+      }
     }
   },
   fields: [
@@ -29,19 +29,19 @@ export const collectionProduct = defineType({
       to: [{ type: 'product' }],
       options: {
         filter: ({ document }: any) => {
-          const productsInCollection = document.products?.map((item: any) => item.product?._ref);
+          const productsInCollection = document.products?.map((item: any) => item.product?._ref)
 
           if (!productsInCollection)
             return {
               filter: undefined
-            };
+            }
 
           return {
             filter: '!(_id in $productsInCollection)',
             params: {
               productsInCollection
             }
-          };
+          }
         }
       },
       validation: (Rule) => Rule.required()
@@ -62,4 +62,4 @@ export const collectionProduct = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { Text } from '@/components/base/Text';
-import { useProductPageContext } from '@/components/pages/ProductPage/Context';
-import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { Text } from '@/components/base/Text'
+import { useProductPageContext } from '@/components/pages/ProductPage/Context'
+import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
 
 export function ProductPageShortDescription({
   description,
   className
 }: {
-  description: string;
-  className?: string;
+  description: string
+  className?: string
 }) {
-  const { showProductDescription } = useProductPageContext();
+  const { showProductDescription } = useProductPageContext()
 
   return (
     <motion.div
@@ -26,5 +26,5 @@ export function ProductPageShortDescription({
         {description}
       </Text>
     </motion.div>
-  );
+  )
 }

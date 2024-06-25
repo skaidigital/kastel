@@ -1,48 +1,48 @@
-'use client';
+'use client'
 
-import { cn } from '@/lib/utils';
-import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import { cn } from '@/lib/utils'
+import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion'
+import React, { useEffect, useRef, useState } from 'react'
 
 export const TracingBeam = ({
   children,
   className
 }: {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start center', 'end center']
-  });
+  })
 
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [hasScrolledPast, setHasScrolledPast] = useState(false);
-  const [svgHeight, setSvgHeight] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [hasScrolledPast, setHasScrolledPast] = useState(false)
+  const [svgHeight, setSvgHeight] = useState(0)
 
   // Use Transform & Spring for animated properties
-  const yTrans = useTransform(scrollYProgress, [0, 1], [0, svgHeight]);
+  const yTrans = useTransform(scrollYProgress, [0, 1], [0, svgHeight])
   const ySpring = useSpring(yTrans, {
     stiffness: 100,
     damping: 20
-  });
+  })
 
-  const yEnd = useTransform(ySpring, (value) => value + 20);
+  const yEnd = useTransform(ySpring, (value) => value + 20)
 
   // Observing scroll progress and updating state
   useMotionValueEvent(scrollYProgress, 'change', (latestValue) => {
     if (latestValue >= 0.8 && !hasScrolledPast) {
-      setHasScrolledPast(true);
+      setHasScrolledPast(true)
     }
-  });
+  })
 
   // Handle dynamic SVG height based on content
   useEffect(() => {
     if (contentRef.current) {
-      setSvgHeight(contentRef.current.offsetHeight);
+      setSvgHeight(contentRef.current.offsetHeight)
     }
-  }, []);
+  }, [])
 
   return (
     <motion.div ref={ref} className={cn('relative w-full', className)}>
@@ -71,5 +71,5 @@ export const TracingBeam = ({
         {children}
       </div>
     </motion.div>
-  );
-};
+  )
+}

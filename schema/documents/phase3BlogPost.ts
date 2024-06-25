@@ -1,10 +1,10 @@
 import {
   InternationalizedObjectField,
   generateObjectFields
-} from '@/components/sanity/InternationalizedObjectField';
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Article } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/components/sanity/InternationalizedObjectField'
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Article } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const phase3BlogPost = defineType({
   title: 'Nature Lab phase 3 blog post',
@@ -20,7 +20,7 @@ export const phase3BlogPost = defineType({
       return {
         title,
         subtitle: 'Phase 3 blog post'
-      };
+      }
     }
   },
   groups: [
@@ -107,4 +107,4 @@ export const phase3BlogPost = defineType({
       group: 'settings'
     })
   ]
-});
+})

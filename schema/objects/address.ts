@@ -1,5 +1,5 @@
-import countries from '@/data/countries';
-import { defineField, defineType } from 'sanity';
+import countries from '@/data/countries'
+import { defineField, defineType } from 'sanity'
 
 export const address = defineType({
   title: 'Address',
@@ -23,9 +23,9 @@ export const address = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.document.differentInvoiceAddress && !value) {
-            return 'Gateadresse er påkrevd';
+            return 'Gateadresse er påkrevd'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -42,9 +42,9 @@ export const address = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.document.differentInvoiceAddress && !value) {
-            return 'Postnummer er påkrevd';
+            return 'Postnummer er påkrevd'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -55,9 +55,9 @@ export const address = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.document.differentInvoiceAddress && !value) {
-            return 'By / Sted er påkrevd';
+            return 'By / Sted er påkrevd'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -75,10 +75,10 @@ export const address = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.document.differentInvoiceAddress && !value) {
-            return 'Land er påkrevd';
+            return 'Land er påkrevd'
           }
-          return true;
+          return true
         })
     })
   ]
-});
+})

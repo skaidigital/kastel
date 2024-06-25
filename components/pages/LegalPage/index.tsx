@@ -1,23 +1,23 @@
-import { Badge } from '@/components/Badge';
-import { LegalPagePayload } from '@/components/pages/LegalPage/hooks';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { LangValues } from '@/data/constants';
-import { formatDate } from '@/lib/utils';
-import { createDataAttribute } from 'next-sanity';
+import { Badge } from '@/components/Badge'
+import { LegalPagePayload } from '@/components/pages/LegalPage/hooks'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { LangValues } from '@/data/constants'
+import { formatDate } from '@/lib/utils'
+import { createDataAttribute } from 'next-sanity'
 
 interface Props {
-  data: LegalPagePayload;
-  lang: LangValues;
+  data: LegalPagePayload
+  lang: LangValues
 }
 
 // TODO fix not being able to click portable text
 export function LegalPage({ data, lang }: Props) {
-  const { id, title, subtitle, updatedAt, content } = data;
+  const { id, title, subtitle, updatedAt, content } = data
 
   const dataAttribute = createDataAttribute({
     id: id,
     type: 'legalPage'
-  });
+  })
 
   return (
     <>
@@ -50,16 +50,16 @@ export function LegalPage({ data, lang }: Props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 function getLastUpdatedString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Last updated at';
+      return 'Last updated at'
     case 'no':
-      return 'Sist oppdatert';
+      return 'Sist oppdatert'
     default:
-      return 'Last updated at';
+      return 'Last updated at'
   }
 }

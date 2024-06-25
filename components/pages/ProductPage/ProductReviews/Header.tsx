@@ -1,20 +1,20 @@
-import { Button } from '@/components/Button';
-import { Heading } from '@/components/base/Heading';
-import { getProductReviewLinkJunip } from '@/components/pages/ProductPage/ProductReviews/ProductReviews.hooks';
-import { StarRating } from '@/components/pages/ProductPage/StarRating';
+import { Button } from '@/components/Button'
+import { Heading } from '@/components/base/Heading'
+import { getProductReviewLinkJunip } from '@/components/pages/ProductPage/ProductReviews/ProductReviews.hooks'
+import { StarRating } from '@/components/pages/ProductPage/StarRating'
 
 export interface ReviewHeaderProps {
   data: {
-    rating_average: number;
-    rating_count: number;
+    rating_average: number
+    rating_count: number
     rating_distribution: {
-      [key: number]: number;
-    };
-  };
+      [key: number]: number
+    }
+  }
 }
 
 export const Header = ({ data }: ReviewHeaderProps) => {
-  const { rating_average, rating_count, rating_distribution } = data;
+  const { rating_average, rating_count, rating_distribution } = data
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -29,12 +29,12 @@ export const Header = ({ data }: ReviewHeaderProps) => {
       </div>
       <WriteReviewButton />
     </div>
-  );
-};
+  )
+}
 
 interface RatingSummaryProps {
-  averageScore: number;
-  amount: number;
+  averageScore: number
+  amount: number
 }
 
 const RatingSummary = ({ averageScore, amount }: RatingSummaryProps) => {
@@ -50,14 +50,14 @@ const RatingSummary = ({ averageScore, amount }: RatingSummaryProps) => {
       )}
       <span className="text-paragraph-small mt-8">{amount} anmeldelser</span>
     </div>
-  );
-};
+  )
+}
 
 interface RatingDistributionProps {
   data: {
-    [key: number]: number;
-  };
-  amount: number;
+    [key: number]: number
+  }
+  amount: number
 }
 
 const RatingDistribution = ({ data, amount }: RatingDistributionProps) => {
@@ -69,17 +69,17 @@ const RatingDistribution = ({ data, amount }: RatingDistributionProps) => {
       {data[2] && <RatingLine rating={2} amount={data[2]} total={amount} />}
       {data[1] && <RatingLine rating={1} amount={data[1]} total={amount} />}
     </div>
-  );
-};
+  )
+}
 
 interface RatingLineProps {
-  rating: number;
-  amount: number;
-  total: number;
+  rating: number
+  amount: number
+  total: number
 }
 
 const RatingLine = ({ rating, amount, total }: RatingLineProps) => {
-  const percentage = Number((amount / total) * 100).toFixed(2);
+  const percentage = Number((amount / total) * 100).toFixed(2)
 
   return (
     <div className="flex items-center gap-x-8">
@@ -91,19 +91,19 @@ const RatingLine = ({ rating, amount, total }: RatingLineProps) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const WriteReviewButton = () => {
   const handleWriteReview = async () => {
     await getProductReviewLinkJunip('2784333').then((response) => {
-      window.open(response, '_blank');
-    });
-  };
+      window.open(response, '_blank')
+    })
+  }
 
   return (
     <Button type="button" onClick={handleWriteReview}>
       Skriv en anmeldelse
     </Button>
-  );
-};
+  )
+}

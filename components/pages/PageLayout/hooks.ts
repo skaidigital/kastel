@@ -1,10 +1,10 @@
 import {
   concatenatePageBuilderQueries,
   pageBuilderValidator
-} from '@/components/shared/PageBuilder/hooks';
-import { LangValues, MarketValues } from '@/data/constants';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+} from '@/components/shared/PageBuilder/hooks'
+import { LangValues, MarketValues } from '@/data/constants'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 export const pageValidator = z.object({
   id: z.string(),
@@ -15,9 +15,9 @@ export const pageValidator = z.object({
   showAnnouncementBanner: z.boolean(),
   showNavbar: z.boolean(),
   showFooter: z.boolean()
-});
+})
 
-export type PagePayload = z.infer<typeof pageValidator>;
+export type PagePayload = z.infer<typeof pageValidator>
 
 export function getPageQuery({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = groq`
@@ -33,14 +33,14 @@ export function getPageQuery({ market, lang }: { market: MarketValues; lang: Lan
       showNavbar,
       showFooter,
     }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 export function removeEmptyPageBuilderObjects(page: PagePayload) {
   return {
     ...page,
     pageBuilder: page?.pageBuilder?.filter((section) => Object.keys(section).length > 0)
-  };
+  }
 }

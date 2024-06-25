@@ -1,13 +1,13 @@
-import { Text } from '../base/Text';
-import { getProductRatingBySku } from './hooks';
+import { Text } from '../base/Text'
+import { getProductRatingBySku } from './hooks'
 
 export async function ProductRating({ sku }: { sku: string }) {
-  const productRating = await getProductRatingBySku(sku);
+  const productRating = await getProductRatingBySku(sku)
 
-  const roundedRating = Number(productRating.rating).toFixed(1);
+  const roundedRating = Number(productRating.rating).toFixed(1)
   return (
     <Text as="span" size="sm">
       (star) {roundedRating} ({productRating.votes})
     </Text>
-  );
+  )
 }

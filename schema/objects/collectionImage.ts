@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const collectionImage = defineType({
   title: 'Kolleksjonsbilde',
@@ -14,7 +14,7 @@ export const collectionImage = defineType({
         title: title || 'No title defined',
         subtitle: 'Image',
         media: image
-      };
+      }
     }
   },
   fields: [
@@ -32,4 +32,4 @@ export const collectionImage = defineType({
     //   validation: (Rule) => Rule.required()
     // }),
   ]
-});
+})

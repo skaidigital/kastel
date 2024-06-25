@@ -1,34 +1,34 @@
-'use client';
+'use client'
 
-import { Badge } from '@/components/Badge';
-import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '@/components/Drawer';
-import { Logo } from '@/components/Logo';
-import { Text } from '@/components/base/Text';
-import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
-import { NavbarMarketSelector } from '@/components/global/Navbar/MarketSelector';
-import { AccountButton } from '@/components/global/Navbar/MobileMenu/AccountButton';
-import { MobileMenuSearch } from '@/components/global/Navbar/MobileMenu/Search';
-import { WishlistButton } from '@/components/global/Navbar/MobileMenu/WishlistButton';
-import { NavbarPayload } from '@/components/global/Navbar/hooks';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { MarketValues } from '@/data/constants';
-import { cn } from '@/lib/utils';
-import { Bars2Icon } from '@heroicons/react/24/outline';
-import { ChevronLeftIcon, ChevronRightIcon, Cross1Icon } from '@radix-ui/react-icons';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { Suspense, useState } from 'react';
+import { Badge } from '@/components/Badge'
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '@/components/Drawer'
+import { Logo } from '@/components/Logo'
+import { Text } from '@/components/base/Text'
+import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem'
+import { NavbarMarketSelector } from '@/components/global/Navbar/MarketSelector'
+import { AccountButton } from '@/components/global/Navbar/MobileMenu/AccountButton'
+import { MobileMenuSearch } from '@/components/global/Navbar/MobileMenu/Search'
+import { WishlistButton } from '@/components/global/Navbar/MobileMenu/WishlistButton'
+import { NavbarPayload } from '@/components/global/Navbar/hooks'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { MarketValues } from '@/data/constants'
+import { cn } from '@/lib/utils'
+import { Bars2Icon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon, Cross1Icon } from '@radix-ui/react-icons'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { Suspense, useState } from 'react'
 
 interface Props {
-  market: MarketValues;
-  items: NavbarPayload['items'];
+  market: MarketValues
+  items: NavbarPayload['items']
 }
 
 export function MobileMenu({ items, market }: Props) {
-  const [mainMenuIsOpen, setMainMenuIsOpen] = useState<boolean>(false);
-  const [secondaryMenuIsOpen, setSecondaryMenuIsOpen] = useState<boolean>(false);
+  const [mainMenuIsOpen, setMainMenuIsOpen] = useState<boolean>(false)
+  const [secondaryMenuIsOpen, setSecondaryMenuIsOpen] = useState<boolean>(false)
 
-  const onCloseMainMenu = () => setMainMenuIsOpen(false);
-  const onCloseSecondaryMenu = () => setSecondaryMenuIsOpen(false);
+  const onCloseMainMenu = () => setMainMenuIsOpen(false)
+  const onCloseSecondaryMenu = () => setSecondaryMenuIsOpen(false)
 
   return (
     <NavigationMenu.Root>
@@ -114,8 +114,8 @@ export function MobileMenu({ items, market }: Props) {
                                                 <SanityLink
                                                   link={link.link}
                                                   onClick={() => {
-                                                    onCloseMainMenu();
-                                                    onCloseSecondaryMenu();
+                                                    onCloseMainMenu()
+                                                    onCloseSecondaryMenu()
                                                   }}
                                                   className="flex items-center gap-x-2"
                                                 >
@@ -131,7 +131,7 @@ export function MobileMenu({ items, market }: Props) {
                                       </div>
                                     )}
                                   </ul>
-                                );
+                                )
                               })}
                             </NavigationMenu.Sub>
                             <div className="hidden grid-cols-2 gap-5 pt-0 lg:grid">
@@ -139,8 +139,8 @@ export function MobileMenu({ items, market }: Props) {
                                 <NavigationMenu.Link key={featuredItem.title + index} asChild>
                                   <FeaturedItem
                                     onClick={() => {
-                                      onCloseMainMenu();
-                                      onCloseSecondaryMenu();
+                                      onCloseMainMenu()
+                                      onCloseSecondaryMenu()
                                     }}
                                     title={featuredItem.title}
                                     link={featuredItem.link}
@@ -176,5 +176,5 @@ export function MobileMenu({ items, market }: Props) {
         </Drawer>
       </NavigationMenu.List>
     </NavigationMenu.Root>
-  );
+  )
 }

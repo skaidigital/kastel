@@ -1,12 +1,12 @@
-import { LayoutUSPMarqueePayload } from '@/components/global/LayoutUSPMarquee/hooks';
-import Marquee from 'react-fast-marquee';
+import { LayoutUSPMarqueePayload } from '@/components/global/LayoutUSPMarquee/hooks'
+import Marquee from 'react-fast-marquee'
 
 interface Props {
-  data: LayoutUSPMarqueePayload;
+  data: LayoutUSPMarqueePayload
 }
 
 export function LayoutUSPMarqueeLayout({ data }: Props) {
-  const { items } = data;
+  const { items } = data
 
   return (
     <Marquee autoFill pauseOnHover className="py-4 lg:py-6">
@@ -19,5 +19,5 @@ export function LayoutUSPMarqueeLayout({ data }: Props) {
         </span>
       ))}
     </Marquee>
-  );
+  )
 }

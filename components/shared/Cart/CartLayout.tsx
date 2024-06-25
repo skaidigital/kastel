@@ -1,62 +1,63 @@
-'use client';
+'use client'
 
-import { formatPrice } from '@/app/api/shopify/utils';
-import { Dictionary } from '@/app/dictionaries';
-import { Text } from '@/components/base/Text';
-import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCountdown';
+import { formatPrice } from '@/app/api/shopify/utils'
+import { Dictionary } from '@/app/dictionaries'
+import { Text } from '@/components/base/Text'
+import { FreeShippingCountdown } from '@/components/shared/Cart/FreeShippingCountdown'
 
-import { Button } from '@/components/Button';
-import { useCartContext } from '@/components/CartContext';
-import { CustomLink } from '@/components/CustomLink';
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
-import { CartItem } from '@/components/shared/Cart/CartItem';
-import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput';
-import { useCart } from '@/components/shared/Cart/useCart';
-import { ANALTYICS_EVENT_NAME, LangValues, ROUTES } from '@/data/constants';
-import { env } from '@/env';
-import { trackEvent } from '@/lib/actions';
-import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { removeProductGid } from '@/lib/shopify/helpers';
-import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics';
-import { useUser } from '@/lib/useUser';
-import { cn } from '@/lib/utils';
-import { ShoppingBagIcon as ShoppingBagIconFilled } from '@heroicons/react/20/solid';
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
-import { sendGTMEvent } from '@next/third-parties/google';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { Button } from '@/components/Button'
+import { useCartContext } from '@/components/CartContext'
+import { CustomLink } from '@/components/CustomLink'
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer'
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet'
+import { CartItem } from '@/components/shared/Cart/CartItem'
+import { DiscountCodeInput } from '@/components/shared/Cart/DiscountCodeInput'
+import { useCart } from '@/components/shared/Cart/useCart'
+import { ANALTYICS_EVENT_NAME, ROUTES } from '@/data/constants'
+import { env } from '@/env'
+import { trackEvent } from '@/lib/actions'
+import { EcommerceObject, clearEcommerceInDataLayer } from '@/lib/gtm'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { removeProductGid } from '@/lib/shopify/helpers'
+import { usePlausibleAnalytics } from '@/lib/usePlausibleAnalytics'
+import { useUser } from '@/lib/useUser'
+import { cn } from '@/lib/utils'
+import { ShoppingBagIcon as ShoppingBagIconFilled } from '@heroicons/react/20/solid'
+import { ShoppingBagIcon } from '@heroicons/react/24/outline'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 
 interface Props {
-  dictionary: Dictionary['cart_drawer'];
-  children: React.ReactNode;
-  freeShippingAmount?: number;
+  dictionary: Dictionary['cart_drawer']
+  children: React.ReactNode
+  freeShippingAmount?: number
 }
 
 // TODO consider making the cart content into its own component if all the content is the same
 export function CartLayout({ dictionary, children, freeShippingAmount }: Props) {
-  const { lang } = useBaseParams();
-  const { isLoggedIn } = useUser();
-  const { cartOpen: isOpen, setCartOpen: setIsOpen } = useCartContext();
-  const { cart } = useCart();
+  const { isLoggedIn } = useUser()
+  const { cartOpen: isOpen, setCartOpen: setIsOpen } = useCartContext()
+  const { cart } = useCart()
 
-  const checkoutUrl = getCheckoutUrl({ cartCheckoutUrl: cart?.checkoutUrl, isLoggedIn });
+  const checkoutUrl = getCheckoutUrl({
+    cartCheckoutUrl: cart?.checkoutUrl,
+    isLoggedIn
+  })
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
-  const { trackGoToCheckout } = usePlausibleAnalytics();
+  const { trackGoToCheckout } = usePlausibleAnalytics()
 
-  const totalAmount = cart ? Number(cart?.cost?.totalAmount?.amount) : undefined;
-  const formattedTotal = cart ? formatPrice(cart?.cost?.totalAmount) : undefined;
+  const totalAmount = cart ? Number(cart?.cost?.totalAmount?.amount) : undefined
+  const formattedTotal = cart ? formatPrice(cart?.cost?.totalAmount) : undefined
 
-  const hasCartItems = cart && cart?.totalQuantity > 0;
-  const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY;
-  const cartString = getCartString(lang);
+  const hasCartItems = cart && cart?.totalQuantity > 0
+  const currencyCode = env.NEXT_PUBLIC_SHOPIFY_CURRENCY
+  // const cartString = getCartString(lang)
 
   const viewCartTrackingData: EcommerceObject | undefined = cart?.cost
     ? {
@@ -74,7 +75,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           }))
         }
       }
-    : undefined;
+    : undefined
 
   const beginCheckoutTrackingData: EcommerceObject | undefined = cart?.cost
     ? {
@@ -92,24 +93,24 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           }))
         }
       }
-    : undefined;
+    : undefined
 
   const cartLevelDiscountAmount =
-    Number(cart?.cost?.subtotalAmount?.amount) - Number(cart?.cost?.totalAmount?.amount);
+    Number(cart?.cost?.subtotalAmount?.amount) - Number(cart?.cost?.totalAmount?.amount)
 
   const cartLineDiscountAmount =
     cart?.lines?.reduce(
       (acc, curr) =>
         acc + Number(curr.cost.subtotalAmount.amount) - Number(curr.cost.totalAmount.amount),
       0
-    ) || 0;
+    ) || 0
 
-  const totalDiscountedAmount = cartLevelDiscountAmount + cartLineDiscountAmount;
+  const totalDiscountedAmount = cartLevelDiscountAmount + cartLineDiscountAmount
 
-  const hasDiscount = totalDiscountedAmount > 0;
+  const hasDiscount = totalDiscountedAmount > 0
   const formattedDiscountedAmount = hasDiscount
     ? formatPrice({ amount: String(totalDiscountedAmount), currencyCode })
-    : '';
+    : ''
 
   if (isDesktop) {
     return (
@@ -121,8 +122,8 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           <button
             onClick={() => {
               if (viewCartTrackingData) {
-                clearEcommerceInDataLayer();
-                sendGTMEvent(viewCartTrackingData);
+                clearEcommerceInDataLayer()
+                sendGTMEvent(viewCartTrackingData)
               }
             }}
             aria-label="Open cart"
@@ -231,15 +232,17 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                       onClick={() => {
                         startTransition(() => {
                           // Vercel Analtyics
-                          trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          trackEvent({
+                            eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT
+                          })
                           // GTM – Analytics
                           if (beginCheckoutTrackingData) {
-                            clearEcommerceInDataLayer();
-                            sendGTMEvent(beginCheckoutTrackingData);
+                            clearEcommerceInDataLayer()
+                            sendGTMEvent(beginCheckoutTrackingData)
                           }
-                          trackGoToCheckout();
-                          router.push(checkoutUrl);
-                        });
+                          trackGoToCheckout()
+                          router.push(checkoutUrl)
+                        })
                       }}
                     >
                       {dictionary.checkout}
@@ -266,7 +269,7 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
           </div>
         </DrawerContent>
       </Drawer>
-    );
+    )
   }
 
   return (
@@ -381,13 +384,15 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
                       onClick={() => {
                         startTransition(() => {
                           // Vercel Analtyics
-                          trackEvent({ eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT });
+                          trackEvent({
+                            eventName: ANALTYICS_EVENT_NAME.BEGIN_CHECKOUT
+                          })
                           // GTM – Analytics
-                          beginCheckoutTrackingData && sendGTMEvent(beginCheckoutTrackingData);
+                          beginCheckoutTrackingData && sendGTMEvent(beginCheckoutTrackingData)
 
-                          trackGoToCheckout();
-                          router.push(checkoutUrl);
-                        });
+                          trackGoToCheckout()
+                          router.push(checkoutUrl)
+                        })
                       }}
                     >
                       {dictionary.checkout}
@@ -400,34 +405,34 @@ export function CartLayout({ dictionary, children, freeShippingAmount }: Props) 
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
 
-function getCartString(lang: LangValues) {
-  switch (lang) {
-    case 'en':
-      return 'Cart';
-    case 'no':
-      return 'Handlekurv';
-    default:
-      return 'Cart';
-  }
-}
+// function getCartString(lang: LangValues) {
+//   switch (lang) {
+//     case 'en':
+//       return 'Cart'
+//     case 'no':
+//       return 'Handlekurv'
+//     default:
+//       return 'Cart'
+//   }
+// }
 
 function getCheckoutUrl({
   cartCheckoutUrl,
   isLoggedIn
 }: {
-  cartCheckoutUrl?: string;
-  isLoggedIn: boolean;
+  cartCheckoutUrl?: string
+  isLoggedIn: boolean
 }) {
-  if (!cartCheckoutUrl) return null;
+  if (!cartCheckoutUrl) return null
 
-  const checkoutUrl = new URL(cartCheckoutUrl);
+  const checkoutUrl = new URL(cartCheckoutUrl)
 
   if (isLoggedIn) {
-    checkoutUrl.searchParams.append('logged_in', 'true');
+    checkoutUrl.searchParams.append('logged_in', 'true')
   }
 
-  return checkoutUrl.toString();
+  return checkoutUrl.toString()
 }

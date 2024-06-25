@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { cn } from '@/lib/utils';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-import * as SelectPrimitive from '@radix-ui/react-select';
-import React from 'react';
+import { cn } from '@/lib/utils'
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons'
+import * as SelectPrimitive from '@radix-ui/react-select'
+import React from 'react'
 
-const Select = SelectPrimitive.Root;
+const Select = SelectPrimitive.Root
 
-const SelectValue = SelectPrimitive.Value;
+const SelectValue = SelectPrimitive.Value
 
-const SelectIcon = SelectPrimitive.Icon;
+const SelectIcon = SelectPrimitive.Icon
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
@@ -28,8 +28,8 @@ const SelectTrigger = React.forwardRef<
       <CaretSortIcon className="size-4 shrink-0" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
-));
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+))
+SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
@@ -60,9 +60,9 @@ const SelectContent = React.forwardRef<
       {/* <SelectScrollDownButton /> */}
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
-));
+))
 
-SelectContent.displayName = SelectPrimitive.Content.displayName;
+SelectContent.displayName = SelectPrimitive.Content.displayName
 
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
@@ -83,7 +83,7 @@ const SelectItem = React.forwardRef<
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
-));
-SelectItem.displayName = SelectPrimitive.Item.displayName;
+))
+SelectItem.displayName = SelectPrimitive.Item.displayName
 
-export { Select, SelectContent, SelectIcon, SelectItem, SelectTrigger, SelectValue };
+export { Select, SelectContent, SelectIcon, SelectItem, SelectTrigger, SelectValue }

@@ -1,16 +1,16 @@
-import { getProductInventory } from './hooks';
+import { getProductInventory } from './hooks'
 
 interface Props {
-  productId: string;
-  title: string;
-  description?: string;
-  image?: string;
+  productId: string
+  title: string
+  description?: string
+  image?: string
 }
 
 export async function ProductJsonLd({ productId, title, description, image }: Props) {
-  const response = await getProductInventory(productId);
+  const response = await getProductInventory(productId)
 
-  if (!response) return null;
+  if (!response) return null
 
   const productJsonLd = {
     '@context': 'https://schema.org',
@@ -27,7 +27,7 @@ export async function ProductJsonLd({ productId, title, description, image }: Pr
       highPrice: response.priceRange.maxVariantPrice?.amount,
       lowPrice: response.priceRange.minVariantPrice?.amount
     }
-  };
+  }
 
   return (
     <script
@@ -36,5 +36,5 @@ export async function ProductJsonLd({ productId, title, description, image }: Pr
         __html: JSON.stringify(productJsonLd)
       }}
     />
-  );
+  )
 }

@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
-import { FeaturedOptionField } from '@/components/sanity/CustomField';
-import { LangValues, MARKETS, MarketValues, SANITY_STUDIO_API_VERSION } from '@/data/constants';
-import { groq } from 'next-sanity';
+import { FeaturedOptionField } from '@/components/sanity/CustomField'
+import { LangValues, MARKETS, MarketValues, SANITY_STUDIO_API_VERSION } from '@/data/constants'
+import { groq } from 'next-sanity'
 import {
-  CurrentUser,
-  defineField,
   type BooleanRule,
+  CurrentUser,
   type RuleBuilder,
   type SlugValidationContext,
-  type StringRule
-} from 'sanity';
-import type { StructureBuilder } from 'sanity/structure';
+  type StringRule,
+  defineField
+} from 'sanity'
+import type { StructureBuilder } from 'sanity/structure'
 
 export const group = (S: StructureBuilder, title: string, list: any[]) =>
-  S.listItem().title(title).child(S.list().title(title).items(list));
+  S.listItem().title(title).child(S.list().title(title).items(list))
 
 export const list = (S: StructureBuilder, title: string, filter: any, params?: any) =>
   S.listItem()
@@ -24,102 +24,114 @@ export const list = (S: StructureBuilder, title: string, filter: any, params?: a
         .apiVersion(SANITY_STUDIO_API_VERSION)
         .filter(filter)
         .params(params)
-    );
+    )
 
 interface ListNewProps {
-  S: StructureBuilder;
-  title: string;
-  schemaType: string;
+  S: StructureBuilder
+  title: string
+  schemaType: string
 }
 export const listNew = ({ S, title, schemaType }: ListNewProps) =>
-  S.listItem().title(title).child(S.documentTypeList({ schemaType }).title(title));
+  S.listItem().title(title).child(S.documentTypeList({ schemaType }).title(title))
 
 export const singleton = (S: StructureBuilder, title: string, type: string, id: string) =>
-  S.listItem().title(title).id(id).child(S.document().schemaType(type).documentId(id));
+  S.listItem().title(title).id(id).child(S.document().schemaType(type).documentId(id))
 
 export function resolveHref(
   documentType?: string,
   slug?: string,
   lang?: LangValues
 ): string | undefined {
-  const chosenLang = lang || 'no';
+  const chosenLang = lang || 'no'
 
   switch (documentType) {
     case 'page':
-      return slug ? `/no/${chosenLang}/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/${slug}` : undefined
     case 'product':
-      return slug ? `/no/${chosenLang}/products/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/products/${slug}` : undefined
     case 'collection':
-      return slug ? `/no/${chosenLang}/collections/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/collections/${slug}` : undefined
     case 'legalPage':
-      return slug ? `/no/${chosenLang}/legal/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/legal/${slug}` : undefined
     case 'blogPost':
-      return slug ? `/no/${chosenLang}/blog/${slug}` : undefined;
+      return slug ? `/no/${chosenLang}/blog/${slug}` : undefined
     default:
-      console.warn('Invalid document type:', documentType);
-      return undefined;
+      console.warn('Invalid document type:', documentType)
+      return undefined
   }
 }
 
 export function filterAlreadyAddedReferences(filter: any) {
-  const thisObject = filter.parent;
-  const parentRefs = thisObject?.map((item: any) => item._ref);
-  const parentRefsWithoutUndefined = parentRefs.filter((item: any) => item !== undefined);
+  const thisObject = filter.parent
+  const parentRefs = thisObject?.map((item: any) => item._ref)
+  const parentRefsWithoutUndefined = parentRefs.filter((item: any) => item !== undefined)
 
   return {
     filter: '!(_id in $selectedItems)',
     params: {
       selectedItems: parentRefsWithoutUndefined
     }
-  };
+  }
 }
 
 export const validateAllStringTranslations = (Rule: any) =>
   Rule.custom((value: any) => {
-    const hasNo = value?.no;
-    const hasEn = value?.en;
+    const hasNo = value?.no
+    const hasEn = value?.en
 
     if (!hasNo || !hasEn) {
       return [
-        !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-        !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
-      ].filter(Boolean);
+        !hasNo && {
+          message: 'You must provide a Norwegian translation',
+          paths: ['no']
+        },
+        !hasEn && {
+          message: 'You must provide an English translation',
+          paths: ['en']
+        }
+      ].filter(Boolean)
     }
-    return true;
-  });
+    return true
+  })
 
 // TODO make it proper
 export const validateAllSlugsBasedOnLang = (Rule: any) =>
   Rule.custom((value: any) => {
-    const norwegianSlug = value?.no?.current;
-    const englishSlug = value?.no?.current;
+    const norwegianSlug = value?.no?.current
+    const englishSlug = value?.no?.current
 
     if (!norwegianSlug || !englishSlug) {
       return [
-        !norwegianSlug && { message: 'You must provide a Norwegian slug', paths: ['no.current'] },
-        !englishSlug && { message: 'You must provide an English slug', paths: ['en.current'] }
-      ];
+        !norwegianSlug && {
+          message: 'You must provide a Norwegian slug',
+          paths: ['no.current']
+        },
+        !englishSlug && {
+          message: 'You must provide an English slug',
+          paths: ['en.current']
+        }
+      ]
     }
-  });
+  })
 
 export const readOnlyUnlessDeveloper = ({ currentUser }: any) =>
-  !currentUser?.roles.some((role: any) => role.name === 'developer');
+  !currentUser?.roles.some((role: any) => role.name === 'developer')
 
 export const hiddenUnlessDeveloper = ({ currentUser }: any) =>
-  !currentUser?.roles.some((role: any) => role.name === 'developer');
+  !currentUser?.roles.some((role: any) => role.name === 'developer')
 
 interface Props {
-  title: string;
-  name: string;
-  type: string;
-  validation?: any;
-  hidden?: any;
-  initialValue?: any;
-  fieldset?: string;
-  options?: any;
-  description?: string;
-  readOnly?: boolean;
-  rows?: number;
+  title: string
+  name: string
+  type: string
+  validation?: any
+  hidden?: any
+  initialValue?: any
+  fieldset?: string
+  options?: any
+  description?: string
+  readOnly?: boolean
+  rows?: number
 }
 
 // TODO hent options fra Sanity field i stedet
@@ -154,21 +166,21 @@ export function i18nField({
       readOnly: ({ currentUser }) =>
         readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
-  );
+  )
 }
 
 interface i18nStringProps {
-  title: string;
-  name: string;
+  title: string
+  name: string
   // eslint-disable-next-line no-unused-vars
-  validation?: (rule: StringRule) => RuleBuilder<StringRule, string>;
-  hidden?: any;
-  initialValue?: any;
-  fieldset?: string;
-  options?: any;
-  description?: string;
-  activeValidation?: boolean;
-  readOnly?: boolean;
+  validation?: (rule: StringRule) => RuleBuilder<StringRule, string>
+  hidden?: any
+  initialValue?: any
+  fieldset?: string
+  options?: any
+  description?: string
+  activeValidation?: boolean
+  readOnly?: boolean
 }
 
 export function i18nString({
@@ -197,20 +209,20 @@ export function i18nString({
       readOnly: ({ currentUser }) =>
         readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
-  );
+  )
 }
 
 interface i18nNumberProps {
-  title: string;
-  name: string;
-  validation?: (Rule: BooleanRule) => RuleBuilder<BooleanRule, boolean> | any;
-  hidden?: any;
-  initialValue?: any;
-  fieldset?: string;
-  options?: any;
-  description?: string;
-  activeValidation?: boolean;
-  readOnly?: boolean;
+  title: string
+  name: string
+  validation?: (Rule: BooleanRule) => RuleBuilder<BooleanRule, boolean> | any
+  hidden?: any
+  initialValue?: any
+  fieldset?: string
+  options?: any
+  description?: string
+  activeValidation?: boolean
+  readOnly?: boolean
 }
 
 export function i18nNumber({
@@ -239,7 +251,7 @@ export function i18nNumber({
       readOnly: ({ currentUser }) =>
         readOnly && readOnlyUnlessDeveloper(currentUser) ? true : false
     })
-  );
+  )
 }
 
 export function i18nSlug({ schemaType, validation }: { schemaType: string; validation?: any }) {
@@ -251,13 +263,13 @@ export function i18nSlug({ schemaType, validation }: { schemaType: string; valid
       validation,
       title: 'Slug',
       hidden: (context: any) => {
-        const thisSlug = context.document[`slug_${market.id}`]?.current;
+        const thisSlug = context.document[`slug_${market.id}`]?.current
 
         if (thisSlug === 'home') {
-          return true;
+          return true
         }
 
-        return false;
+        return false
       },
 
       options: {
@@ -271,7 +283,7 @@ export function i18nSlug({ schemaType, validation }: { schemaType: string; valid
           })
       }
     })
-  );
+  )
 }
 
 export function i18nfeaturedOptions() {
@@ -294,36 +306,36 @@ export function i18nfeaturedOptions() {
             filter: ({ document, parentPath }: any) => {
               const availableOptions = document.options
                 ?.map((option: any) => option.options.map((o: any) => o._ref))
-                .flat();
+                .flat()
 
-              const exsistingOptions = document[parentPath[0]].map((o: any) => o._ref);
+              const exsistingOptions = document[parentPath[0]].map((o: any) => o._ref)
 
               const filteredid = availableOptions.filter(
                 (id: any) => !exsistingOptions.includes(id)
-              );
+              )
 
-              const filter = `_id in $ids`;
+              const filter = `_id in $ids`
               const params = {
                 ids: filteredid
-              };
+              }
 
               return {
                 filter,
                 params
-              };
+              }
             }
           }
         })
       ]
     })
-  );
+  )
 }
 
 interface SlugIsUniqueForMarketAndSchemaTypeProps {
-  slug: string;
-  schemaType: string;
-  market: MarketValues;
-  context: SlugValidationContext;
+  slug: string
+  schemaType: string
+  market: MarketValues
+  context: SlugValidationContext
 }
 
 export async function slugIsUniqueForMarketAndSchemaType({
@@ -332,27 +344,27 @@ export async function slugIsUniqueForMarketAndSchemaType({
   market,
   context
 }: SlugIsUniqueForMarketAndSchemaTypeProps) {
-  const { document, getClient } = context;
+  const { document, getClient } = context
 
-  const client = getClient({ apiVersion: '2022-12-07' });
-  const id = document?._id?.replace(/^drafts\./, '');
+  const client = getClient({ apiVersion: '2022-12-07' })
+  const id = document?._id?.replace(/^drafts\./, '')
   const params = {
     draft: `drafts.${id}`,
     published: id,
     slug,
     type: schemaType
-  };
-  const query = groq`!defined(*[!(_id in [$draft, $published]) && slug_${market}.current == $slug && _type == $type][0]._id)`;
-  const result = await client.fetch(query, params);
+  }
+  const query = groq`!defined(*[!(_id in [$draft, $published]) && slug_${market}.current == $slug && _type == $type][0]._id)`
+  const result = await client.fetch(query, params)
 
-  return result;
+  return result
 }
 
 interface SlugIsUniqueForLangAndSchemaTypeProps {
-  slug: string;
-  schemaType: string;
-  lang: LangValues | 'sv';
-  context: SlugValidationContext;
+  slug: string
+  schemaType: string
+  lang: LangValues | 'sv'
+  context: SlugValidationContext
 }
 
 export async function slugIsUniqueForLangAndSchemaType({
@@ -361,26 +373,26 @@ export async function slugIsUniqueForLangAndSchemaType({
   lang,
   context
 }: SlugIsUniqueForLangAndSchemaTypeProps) {
-  const { document, getClient } = context;
+  const { document, getClient } = context
 
-  const client = getClient({ apiVersion: '2022-12-07' });
-  const id = document?._id?.replace(/^drafts\./, '');
+  const client = getClient({ apiVersion: '2022-12-07' })
+  const id = document?._id?.replace(/^drafts\./, '')
   const params = {
     draft: `drafts.${id}`,
     published: id,
     slug,
     type: schemaType
-  };
-  const query = groq`!defined(*[!(_id in [$draft, $published]) && slug_${lang}.current == $slug && _type == $type][0]._id)`;
-  const result = await client.fetch(query, params);
+  }
+  const query = groq`!defined(*[!(_id in [$draft, $published]) && slug_${lang}.current == $slug && _type == $type][0]._id)`
+  const result = await client.fetch(query, params)
 
-  return result;
+  return result
 }
 
 interface SlugIsUniqueForSchemaTypeProps {
-  slug: string;
-  schemaType: string;
-  context: SlugValidationContext;
+  slug: string
+  schemaType: string
+  context: SlugValidationContext
 }
 
 export async function slugIsUniqueForSchemaType({
@@ -388,26 +400,26 @@ export async function slugIsUniqueForSchemaType({
   schemaType,
   context
 }: SlugIsUniqueForSchemaTypeProps) {
-  const { document, getClient } = context;
+  const { document, getClient } = context
 
-  const client = getClient({ apiVersion: '2022-12-07' });
-  const id = document?._id?.replace(/^drafts\./, '');
+  const client = getClient({ apiVersion: '2022-12-07' })
+  const id = document?._id?.replace(/^drafts\./, '')
   const params = {
     draft: `drafts.${id}`,
     published: id,
     slug,
     type: schemaType
-  };
-  const query = groq`!defined(*[!(_id in [$draft, $published]) && slug.current == $slug && _type == $type][0]._id)`;
-  const result = await client.fetch(query, params);
+  }
+  const query = groq`!defined(*[!(_id in [$draft, $published]) && slug.current == $slug && _type == $type][0]._id)`
+  const result = await client.fetch(query, params)
 
-  return result;
+  return result
 }
 
 interface SkuIsUniqueForSchemaTypeProps {
-  sku: string;
-  schemaType: string;
-  context: any;
+  sku: string
+  schemaType: string
+  context: any
 }
 
 export async function skuIsUniqueForSchemaType({
@@ -415,69 +427,69 @@ export async function skuIsUniqueForSchemaType({
   schemaType,
   context
 }: SkuIsUniqueForSchemaTypeProps) {
-  const { document, getClient } = context;
+  const { document, getClient } = context
 
-  const client = getClient({ apiVersion: '2022-12-07' });
-  const id = document?._id?.replace(/^drafts\./, '');
+  const client = getClient({ apiVersion: '2022-12-07' })
+  const id = document?._id?.replace(/^drafts\./, '')
   const params = {
     draft: `drafts.${id}`,
     published: id,
     sku,
     type: schemaType
-  };
-  const query = groq`!defined(*[!(_id in [$draft, $published]) && sku == $sku && _type == $type][0]._id)`;
-  const result = await client.fetch(query, params);
+  }
+  const query = groq`!defined(*[!(_id in [$draft, $published]) && sku == $sku && _type == $type][0]._id)`
+  const result = await client.fetch(query, params)
 
-  return result;
+  return result
 }
 
 export function checkActiveMarket(market: MarketValues, activeMarkets: MarketValues[]) {
-  return activeMarkets.includes(market);
+  return activeMarkets.includes(market)
 }
 
 export function randomKey(length: number) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  const charactersLength = characters.length;
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let result = ''
+  const charactersLength = characters.length
   for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
   }
-  return result;
+  return result
 }
 
 export function onlyEditableByAdmin(currentUser: CurrentUser) {
-  const isAdmin = currentUser?.roles?.some((role) => role.name === 'administrator');
+  const isAdmin = currentUser?.roles?.some((role) => role.name === 'administrator')
 
-  return !isAdmin;
+  return !isAdmin
 }
 
 export const isActiveProductValidation = (Rule: any) =>
   Rule.custom((value: any, context: any) => {
-    const { parent, path } = context;
+    const { parent, path } = context
 
-    const marketId = path[0].split('_')[1]; // Assuming the first part of the path denotes the market ID
-    const statusField = `status_${marketId}`;
-    const isProductActive = parent[statusField] === 'ACTIVE';
+    const marketId = path[0].split('_')[1] // Assuming the first part of the path denotes the market ID
+    const statusField = `status_${marketId}`
+    const isProductActive = parent[statusField] === 'ACTIVE'
 
     if (!isProductActive) {
-      return true;
+      return true
     }
 
     if ((!value || value.length === 0) && isProductActive) {
-      return 'Market ' + marketId + ' is active, this field is required.';
+      return 'Market ' + marketId + ' is active, this field is required.'
     }
-    return true;
-  });
+    return true
+  })
 
-export const hiddenBasedOnLink = ({ parent }: { parent: any }) => !parent?.hasLink;
+export const hiddenBasedOnLink = ({ parent }: { parent: any }) => !parent?.hasLink
 
 export const validateLinkType = (Rule: any) =>
   Rule.custom((field: any, context: any) => {
-    const hasLink = context.parent?.hasLink;
+    const hasLink = context.parent?.hasLink
 
     if (hasLink && !field) {
-      return 'This field is required';
+      return 'This field is required'
     }
 
-    return true;
-  });
+    return true
+  })

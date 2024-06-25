@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const reccommendedBlogPosts = defineType({
   title: 'Reccommended blog posts',
@@ -46,11 +46,11 @@ export const reccommendedBlogPosts = defineType({
       validation: (Rule) =>
         Rule.custom((posts: any, context: any) => {
           if (context?.parent?.type === 'selected' && !posts.length) {
-            return 'Please select at least one blog post';
+            return 'Please select at least one blog post'
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.type === 'mostRecent'
     })
   ]
-});
+})

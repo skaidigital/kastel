@@ -1,22 +1,22 @@
-import { LangValues } from '@/data/constants';
-import { getAuthor, getImageBase } from '@/lib/sanity/fragments';
-import { authorValidator, imageValidator, portableTextValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { getAuthor, getImageBase } from '@/lib/sanity/fragments'
+import { authorValidator, imageValidator, portableTextValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const commentValidator = z.object({
   id: z.string(),
   name: z.string().min(1),
   email: z.string().email(),
   text: z.string().min(1)
-});
+})
 
 const updateValidator = z.object({
   title: z.string(),
   author: authorValidator,
   date: z.date(),
   content: portableTextValidator
-});
+})
 
 const phase1BlogPostValidator = z.object({
   id: z.string(),
@@ -31,11 +31,11 @@ const phase1BlogPostValidator = z.object({
   imageDesktop: imageValidator,
   updates: z.array(updateValidator).optional(),
   comments: z.array(commentValidator).optional()
-});
+})
 
-export type CommentProps = z.infer<typeof commentValidator>;
-export type UpdateProps = z.infer<typeof updateValidator>;
-export type Phase1BlogPostPayload = z.infer<typeof phase1BlogPostValidator>;
+export type CommentProps = z.infer<typeof commentValidator>
+export type UpdateProps = z.infer<typeof updateValidator>
+export type Phase1BlogPostPayload = z.infer<typeof phase1BlogPostValidator>
 
 export function getPhase1BlogPost({ lang }: { lang: LangValues }) {
   const query = groq`
@@ -72,7 +72,7 @@ export function getPhase1BlogPost({ lang }: { lang: LangValues }) {
         email,
         text
       }
-    }`;
+    }`
 
-  return query;
+  return query
 }

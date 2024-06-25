@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
-import { SizeGuideProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
-import { PortableText } from 'next-sanity';
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '../Drawer';
+import { Dictionary } from '@/app/dictionaries'
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer'
+import { SizeGuideProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
+import { PortableText } from 'next-sanity'
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '../Drawer'
 
 interface Props {
-  sizeGuide: SizeGuideProps;
-  sizeGuideText: Dictionary['product_page']['size_guide'];
+  sizeGuide: SizeGuideProps
+  sizeGuideText: Dictionary['product_page']['size_guide']
 }
 
 export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
-  const chart = sizeGuide?.chart;
-  const description = sizeGuide?.description;
+  const chart = sizeGuide?.chart
+  const description = sizeGuide?.description
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   if (isDesktop) {
     return (
@@ -59,7 +59,7 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
           </table>
         </DrawerContent>
       </Drawer>
-    );
+    )
   }
 
   return (
@@ -103,5 +103,5 @@ export function SizeGuide({ sizeGuide, sizeGuideText }: Props) {
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }

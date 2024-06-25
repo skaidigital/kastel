@@ -1,33 +1,33 @@
-import { PageLayout } from '@/components/pages/PageLayout';
+import { PageLayout } from '@/components/pages/PageLayout'
 import {
   PagePayload,
   getPageQuery,
   removeEmptyPageBuilderObjects
-} from '@/components/pages/PageLayout/hooks';
-import { LangValues, MarketValues } from '@/data/constants';
-import { loadMetadata } from '@/lib/sanity/getMetadata';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
-import { loadQuery } from '@/lib/sanity/store';
-import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
-import { Metadata } from 'next';
+} from '@/components/pages/PageLayout/hooks'
+import { LangValues, MarketValues } from '@/data/constants'
+import { loadMetadata } from '@/lib/sanity/getMetadata'
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined'
+import { loadQuery } from '@/lib/sanity/store'
+import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage'
+import { Metadata } from 'next'
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-static'
 
 function loadHomePage({ market, lang }: { market: MarketValues; lang: LangValues }) {
-  const query = getPageQuery({ market, lang });
+  const query = getPageQuery({ market, lang })
 
-  return loadQuery<PagePayload | null>(query, { slug: 'home' }, { next: { tags: ['page:home'] } });
+  return loadQuery<PagePayload | null>(query, { slug: 'home' }, { next: { tags: ['page:home'] } })
 }
 
 interface Props {
-  params: { market: MarketValues; lang: LangValues };
+  params: { market: MarketValues; lang: LangValues }
 }
 
 export default async function HomePage({ params: { market, lang } }: Props) {
-  const initial = await loadHomePage({ market, lang });
+  const initial = await loadHomePage({ market, lang })
 
-  const pageWithoutNullValues = nullToUndefined(initial.data);
-  const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
+  const pageWithoutNullValues = nullToUndefined(initial.data)
+  const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues)
 
   // const validatedPage = pageValidator.safeParse(cleanedPageData);
 
@@ -39,22 +39,26 @@ export default async function HomePage({ params: { market, lang } }: Props) {
   //   return <PagePreview initial={initial} market={market} lang={lang} />;
   // }
 
-  return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
+  return <PageLayout data={cleanedPageData} market={market} lang={lang} />
 }
 
 export async function generateMetadata({
   params: { lang }
 }: {
-  params: { lang: LangValues };
+  params: { lang: LangValues }
 }): Promise<Metadata> {
-  const metadata = await loadMetadata({ lang, slug: 'home', schemaType: 'page' });
+  const metadata = await loadMetadata({
+    lang,
+    slug: 'home',
+    schemaType: 'page'
+  })
 
-  const title = metadata?.metaTitle;
-  const description = metadata?.metaDescription;
-  const shouldIndex = !metadata?.noIndex;
-  const shouldFollow = !metadata?.noFollow;
-  const ogImage = metadata?.ogImage;
-  const ogImageUrl = ogImage ? urlForOpenGraphImage(ogImage) : undefined;
+  const title = metadata?.metaTitle
+  const description = metadata?.metaDescription
+  const shouldIndex = !metadata?.noIndex
+  const shouldFollow = !metadata?.noFollow
+  const ogImage = metadata?.ogImage
+  const ogImageUrl = ogImage ? urlForOpenGraphImage(ogImage) : undefined
 
   return {
     ...(title && { title }),
@@ -72,5 +76,5 @@ export async function generateMetadata({
         follow: shouldFollow
       }
     }
-  };
+  }
 }

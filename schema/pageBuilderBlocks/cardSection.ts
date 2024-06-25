@@ -1,5 +1,5 @@
-import { GridFour } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { GridFour } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const cardSection = defineType({
   title: 'Card section',
@@ -11,7 +11,7 @@ export const cardSection = defineType({
       return {
         title: 'Card section',
         subtitle: 'Card section'
-      };
+      }
     }
   },
   fields: [
@@ -34,4 +34,4 @@ export const cardSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

@@ -1,8 +1,8 @@
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const color = defineType({
   title: 'Color',
@@ -17,7 +17,7 @@ export const color = defineType({
       return {
         title: title || 'Untitled',
         media: () => <div style={{ backgroundColor: color, width: '100%', height: '100%' }} />
-      };
+      }
     }
   },
   fields: [
@@ -53,12 +53,12 @@ export const color = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -78,12 +78,12 @@ export const color = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -102,4 +102,4 @@ export const color = defineType({
       }
     })
   ]
-});
+})

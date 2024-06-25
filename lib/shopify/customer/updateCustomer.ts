@@ -1,25 +1,25 @@
-import { UserError } from '@/app/api/shopify/types';
-import { customerAccountFetch } from '@/lib/shopify/customer';
+import { UserError } from '@/app/api/shopify/types'
+import { customerAccountFetch } from '@/lib/shopify/customer'
 
 type Input = {
-  firstName: string;
-  lastName: string;
-};
+  firstName: string
+  lastName: string
+}
 
 type ShopifyResponse = {
   data: {
     customerUpdate: {
       customer: {
-        firstName: string;
-        lastName: string;
-      };
-      userErrors: UserError[];
-    };
-  };
+        firstName: string
+        lastName: string
+      }
+      userErrors: UserError[]
+    }
+  }
   variables: {
-    input: Input;
-  };
-};
+    input: Input
+  }
+}
 
 const customerUpdateMutation = /* GraphQL */ `
   mutation customerUpdate($input: CustomerUpdateInput!) {
@@ -33,7 +33,7 @@ const customerUpdateMutation = /* GraphQL */ `
       }
     }
   }
-`;
+`
 
 // Function to execute the mutation
 export async function updateCustomer(input: Input) {
@@ -43,7 +43,7 @@ export async function updateCustomer(input: Input) {
       input
     },
     cache: 'no-store'
-  });
+  })
 
-  return res.body.data.customerUpdate.customer || null;
+  return res.body.data.customerUpdate.customer || null
 }

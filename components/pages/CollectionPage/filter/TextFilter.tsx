@@ -1,37 +1,37 @@
-'use client';
-import { cn } from '@/lib/utils';
-import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
-import { FilterTextSchema } from './hooks';
+'use client'
+import { cn } from '@/lib/utils'
+import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs'
+import { FilterTextSchema } from './hooks'
 
 interface TextFilterProps {
-  filter: FilterTextSchema;
-  parentKey: string;
+  filter: FilterTextSchema
+  parentKey: string
 }
 
 export function TextFilter({ filter, parentKey }: TextFilterProps) {
-  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString));
+  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString))
 
   function handleOnClick() {
-    const newState: string[] = [];
+    const newState: string[] = []
     if (!state) {
-      setState([filter.slug!]);
-      return;
+      setState([filter.slug!])
+      return
     }
     if (state.includes(filter.slug!)) {
-      const filteredState = state.filter((slug) => slug !== filter.slug);
-      newState.push(...filteredState);
+      const filteredState = state.filter((slug) => slug !== filter.slug)
+      newState.push(...filteredState)
     } else {
-      newState.push(...state, filter.slug!);
+      newState.push(...state, filter.slug!)
     }
 
     if (newState.length === 0) {
-      setState(null);
-      return;
+      setState(null)
+      return
     }
-    setState(newState);
+    setState(newState)
   }
 
-  const isActive = state?.includes(filter.slug!);
+  const isActive = state?.includes(filter.slug!)
 
   return (
     <button
@@ -45,5 +45,5 @@ export function TextFilter({ filter, parentKey }: TextFilterProps) {
     >
       {filter.title}
     </button>
-  );
+  )
 }

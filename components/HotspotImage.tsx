@@ -2,17 +2,17 @@ import {
   HybridTooltip,
   HybridTooltipContent,
   HybridTooltipTrigger
-} from '@/components/HybridTooltip';
-import { TooltipProvider } from '@/components/Tooltip';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { ProductCard } from '@/components/shared/ProductCard';
-import { HotspotImageProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
+} from '@/components/HybridTooltip'
+import { TooltipProvider } from '@/components/Tooltip'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { ProductCard } from '@/components/shared/ProductCard'
+import { HotspotImageProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
 
 interface Props extends HotspotImageProps {
-  children?: React.ReactNode;
-  sizes?: string;
-  className?: string;
+  children?: React.ReactNode
+  sizes?: string
+  className?: string
 }
 
 export function HotspotImage({ image, hotspots, sizes, children, className }: Props) {
@@ -50,10 +50,10 @@ export function HotspotImage({ image, hotspots, sizes, children, className }: Pr
                 </HybridTooltipContent>
               </HybridTooltip>
             </div>
-          );
+          )
         })}
       </TooltipProvider>
       {children}
     </div>
-  );
+  )
 }

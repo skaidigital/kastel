@@ -1,7 +1,7 @@
-import { isShopifyError } from '@/app/api/shopify/utils';
-import { env } from '@/env';
-import { ensureStartsWith } from '@/lib/utils';
-import { cookies } from 'next/headers';
+import { isShopifyError } from '@/app/api/shopify/utils'
+import { env } from '@/env'
+import { ensureStartsWith } from '@/lib/utils'
+import { cookies } from 'next/headers'
 import {
   addToCartMutation,
   applyDiscountToCartMutation,
@@ -10,8 +10,8 @@ import {
   customerAccessTokenCreateMutation,
   editCartItemsMutation,
   removeFromCartMutation
-} from './mutations/cart';
-import { getCartAttributesQuery, getCartQuery } from './queries/cart';
+} from './mutations/cart'
+import { getCartAttributesQuery, getCartQuery } from './queries/cart'
 import {
   Cart,
   Connection,
@@ -26,15 +26,15 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartAttributesOperation,
   ShopifyUpdateCartOperation
-} from './types';
+} from './types'
 
 const domain = env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(env.SHOPIFY_STORE_DOMAIN, 'https://')
-  : '';
-const endpoint = `${domain}${env.SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+  : ''
+const endpoint = `${domain}${env.SHOPIFY_GRAPHQL_API_ENDPOINT}`
+const key = env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!
 
-type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
+type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never
 
 export async function shopifyFetch<T>({
   cache = 'force-cache',
@@ -43,11 +43,11 @@ export async function shopifyFetch<T>({
   tags,
   variables
 }: {
-  cache?: RequestCache;
-  headers?: HeadersInit;
-  query: string;
-  tags?: string[];
-  variables?: ExtractVariables<T>;
+  cache?: RequestCache
+  headers?: HeadersInit
+  query: string
+  tags?: string[]
+  variables?: ExtractVariables<T>
 }): Promise<{ status: number; body: T } | never> {
   try {
     const result = await fetch(endpoint, {
@@ -63,21 +63,21 @@ export async function shopifyFetch<T>({
       }),
       cache,
       ...(tags && { next: { tags } })
-    });
+    })
 
-    const body = await result.json();
+    const body = await result.json()
 
     if (body.errors) {
-      throw body.errors[0];
+      throw body.errors[0]
     }
 
     return {
       status: result.status,
       body
-    };
+    }
   } catch (e) {
-    console.error('Shopify fetch error:');
-    console.error(JSON.stringify(e));
+    console.error('Shopify fetch error:')
+    console.error(JSON.stringify(e))
 
     if (isShopifyError(e)) {
       throw {
@@ -85,33 +85,33 @@ export async function shopifyFetch<T>({
         status: e.status || 500,
         message: e.message,
         query
-      };
+      }
     }
 
     throw {
       error: JSON.stringify(e),
       query
-    };
+    }
   }
 }
 
 const removeEdgesAndNodes = (array: Connection<any>) => {
-  return array.edges.map((edge) => edge?.node);
-};
+  return array.edges.map((edge) => edge?.node)
+}
 
 const reshapeCart = (cart: ShopifyCart): Cart => {
   if (!cart.cost?.totalTaxAmount) {
     cart.cost.totalTaxAmount = {
       amount: '0.0',
       currencyCode: 'USD'
-    };
+    }
   }
 
   return {
     ...cart,
     lines: removeEdgesAndNodes(cart.lines)
-  };
-};
+  }
+}
 
 // TODO fix types
 export async function createCustomerAccessToken(
@@ -125,18 +125,18 @@ export async function createCustomerAccessToken(
       email,
       password
     }
-  });
+  })
 
-  return res.body.data.customerAccessTokenCreate.customerAccessToken;
+  return res.body.data.customerAccessTokenCreate.customerAccessToken
 }
 
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
     cache: 'no-store'
-  });
+  })
 
-  return reshapeCart(res.body.data.cartCreate.cart);
+  return reshapeCart(res.body.data.cartCreate.cart)
 }
 
 export async function addToCart(
@@ -144,8 +144,8 @@ export async function addToCart(
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
   // Required to be able to track in Shopify analytics
-  const shopifyY = cookies()?.get('_shopify_y')?.value;
-  const shopifyS = cookies()?.get('_shopify_s')?.value;
+  const shopifyY = cookies()?.get('_shopify_y')?.value
+  const shopifyS = cookies()?.get('_shopify_s')?.value
 
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
@@ -154,12 +154,15 @@ export async function addToCart(
       lines
     },
     headers: {
-      ...(shopifyY && shopifyS && { cookie: `_shopify_y=${shopifyY}; _shopify_s=${shopifyS};` })
+      ...(shopifyY &&
+        shopifyS && {
+          cookie: `_shopify_y=${shopifyY}; _shopify_s=${shopifyS};`
+        })
     },
     cache: 'no-store'
-  });
+  })
 
-  return reshapeCart(res.body.data.cartLinesAdd.cart);
+  return reshapeCart(res.body.data.cartLinesAdd.cart)
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
@@ -170,9 +173,9 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
       lineIds
     },
     cache: 'no-store'
-  });
+  })
 
-  return reshapeCart(res.body.data.cartLinesRemove.cart);
+  return reshapeCart(res.body.data.cartLinesRemove.cart)
 }
 
 export async function updateCart(
@@ -186,9 +189,9 @@ export async function updateCart(
       lines
     },
     cache: 'no-store'
-  });
+  })
 
-  return reshapeCart(res.body.data.cartLinesUpdate.cart);
+  return reshapeCart(res.body.data.cartLinesUpdate.cart)
 }
 
 export async function updateCartAttributes(
@@ -202,9 +205,9 @@ export async function updateCartAttributes(
       attributes
     },
     cache: 'no-store'
-  });
+  })
 
-  return reshapeCart(res.body.data.cartAttributesUpdate.cart);
+  return reshapeCart(res.body.data.cartAttributesUpdate.cart)
 }
 
 export async function getCart(cartId: string): Promise<Cart | undefined> {
@@ -212,14 +215,14 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
     query: getCartQuery,
     variables: { cartId },
     cache: 'no-store'
-  });
+  })
 
   // Old carts becomes `null` when you checkout.
   if (!res.body.data.cart) {
-    return undefined;
+    return undefined
   }
 
-  return reshapeCart(res.body.data.cart);
+  return reshapeCart(res.body.data.cart)
 }
 
 export async function getCartAttributes(cartId: string) {
@@ -227,14 +230,14 @@ export async function getCartAttributes(cartId: string) {
     query: getCartAttributesQuery,
     variables: { cartId },
     cache: 'no-store'
-  });
+  })
 
   // Old carts becomes `null` when you checkout.
   if (!res.body.data.cart) {
-    return undefined;
+    return undefined
   }
 
-  return res.body.data.cart;
+  return res.body.data.cart
 }
 
 export async function applyDiscountToCart(cartId: string, discountCodes: string[]): Promise<Cart> {
@@ -246,7 +249,7 @@ export async function applyDiscountToCart(cartId: string, discountCodes: string[
       discountCodes
     },
     cache: 'no-store'
-  });
+  })
 
-  return reshapeCart(res.body.data.cartDiscountCodesUpdate.cart);
+  return reshapeCart(res.body.data.cartDiscountCodesUpdate.cart)
 }

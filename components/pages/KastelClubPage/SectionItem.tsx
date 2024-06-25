@@ -1,8 +1,8 @@
-import { KastelClubSectionItemProps } from '@/components/pages/KastelClubPage/hooks';
-import { SanityImage } from '@/components/sanity/SanityImage';
+import { KastelClubSectionItemProps } from '@/components/pages/KastelClubPage/hooks'
+import { SanityImage } from '@/components/sanity/SanityImage'
 
 interface Props {
-  item: KastelClubSectionItemProps;
+  item: KastelClubSectionItemProps
 }
 
 export function SectionItem({ item }: Props) {
@@ -18,5 +18,5 @@ export function SectionItem({ item }: Props) {
         <p className="mt-3 text-balance text-md text-brand-mid-grey">{item.description}</p>
       )}
     </div>
-  );
+  )
 }

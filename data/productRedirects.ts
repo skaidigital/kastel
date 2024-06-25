@@ -284,6 +284,6 @@ const productRedirects = [
     destination: '/no/no/products/impregnering',
     permanent: true
   }
-];
+]
 
-export default productRedirects;
+export default productRedirects

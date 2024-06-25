@@ -1,16 +1,16 @@
-import { ColorFilter } from '@/components/pages/CollectionPage/filter/ColorFilter';
-import { SizeFilter } from '@/components/pages/CollectionPage/filter/SizeFilter';
-import { TextFilter } from '@/components/pages/CollectionPage/filter/TextFilter';
-import { MarketValues } from '@/data/constants';
-import { loadQuery } from '@/lib/sanity/store';
+import { ColorFilter } from '@/components/pages/CollectionPage/filter/ColorFilter'
+import { SizeFilter } from '@/components/pages/CollectionPage/filter/SizeFilter'
+import { TextFilter } from '@/components/pages/CollectionPage/filter/TextFilter'
+import { MarketValues } from '@/data/constants'
+import { loadQuery } from '@/lib/sanity/store'
 import {
   FilterGroupSchema,
   FilterItemSchema,
   FilterItemsValidator,
   getFilterItemQuery
-} from './hooks';
+} from './hooks'
 
-type filterType = 'text' | 'color' | 'size';
+type filterType = 'text' | 'color' | 'size'
 
 function loadFilterItem(
   market: MarketValues,
@@ -19,20 +19,24 @@ function loadFilterItem(
   collectionSlug?: string,
   searchGids?: string[]
 ) {
-  const query = getFilterItemQuery(market, type, collectionSlug, searchGids);
+  const query = getFilterItemQuery(market, type, collectionSlug, searchGids)
 
   return loadQuery<any>(
     query,
-    { parentId, collectionSlug: collectionSlug || null, searchGids: searchGids || null },
+    {
+      parentId,
+      collectionSlug: collectionSlug || null,
+      searchGids: searchGids || null
+    },
     { next: { tags: ['filter'] } }
-  );
+  )
 }
 
 interface FilterItemProps {
-  item: FilterGroupSchema;
-  market: MarketValues;
-  collectionSlug?: string;
-  searchGids?: string[];
+  item: FilterGroupSchema
+  market: MarketValues
+  collectionSlug?: string
+  searchGids?: string[]
 }
 
 export async function FilterGroupItem({
@@ -47,11 +51,11 @@ export async function FilterGroupItem({
     filterGroup.id,
     collectionSlug,
     searchGids
-  );
+  )
 
-  const filterGroupResponse = initial?.data;
+  const filterGroupResponse = initial?.data
 
-  const filterGroups = FilterItemsValidator.parse(filterGroupResponse);
+  const filterGroups = FilterItemsValidator.parse(filterGroupResponse)
 
   return (
     <>
@@ -77,5 +81,5 @@ export async function FilterGroupItem({
         </div>
       )}
     </>
-  );
+  )
 }

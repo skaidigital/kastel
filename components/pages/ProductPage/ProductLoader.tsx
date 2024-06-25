@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/Skeleton';
+import { Skeleton } from '@/components/Skeleton'
 
 export function ProductLoader() {
   return (
@@ -25,5 +25,5 @@ export function ProductLoader() {
         <Skeleton className="h-10 w-full" />
       </div>
     </div>
-  );
+  )
 }

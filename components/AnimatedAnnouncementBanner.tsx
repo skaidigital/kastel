@@ -1,27 +1,27 @@
-'use client';
+'use client'
 
-import { cn } from '@/lib/utils';
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { useState } from 'react';
+import { cn } from '@/lib/utils'
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import { useState } from 'react'
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function AnimatedAnnouncementBanner({ children }: Props) {
-  const { scrollY } = useScroll();
-  const [shouldShow, setShouldShow] = useState<boolean>(true);
+  const { scrollY } = useScroll()
+  const [shouldShow, setShouldShow] = useState<boolean>(true)
 
-  const animateThresholdHeight = 32;
+  const animateThresholdHeight = 32
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     if (latest >= animateThresholdHeight) {
-      setShouldShow(false);
+      setShouldShow(false)
     }
     if (latest < animateThresholdHeight) {
-      setShouldShow(true);
+      setShouldShow(true)
     }
-  });
+  })
 
   return (
     <motion.div
@@ -34,5 +34,5 @@ export function AnimatedAnnouncementBanner({ children }: Props) {
     >
       {children}
     </motion.div>
-  );
+  )
 }

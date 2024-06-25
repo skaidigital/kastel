@@ -1,55 +1,55 @@
-import { bulkUpdateVariants } from '@/lib/sanity/actions';
-import { ToastParams, useToast } from '@sanity/ui';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { bulkUpdateVariants } from '@/lib/sanity/actions'
+import { ToastParams, useToast } from '@sanity/ui'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useMemoObservable } from 'react-rx';
-import { useDocumentStore, useFormValue } from 'sanity';
+import { useMemoObservable } from 'react-rx'
+import { useDocumentStore, useFormValue } from 'sanity'
 
 interface ProductVariant {
-  _id: string;
-  name: string;
-  price_no: number; // Price in 'No'
-  price_sv: number; // Price in 'Sv'
-  discountedPrice_no?: number; // Price in 'No' with discount
-  discountedPrice_sv?: number; // Price in 'Sv' with discount
-  stock: number;
-  sku: string;
+  _id: string
+  name: string
+  price_no: number // Price in 'No'
+  price_sv: number // Price in 'Sv'
+  discountedPrice_no?: number // Price in 'No' with discount
+  discountedPrice_sv?: number // Price in 'Sv' with discount
+  stock: number
+  sku: string
   // Add other fields as needed
 }
 
 export interface VariantChanges {
   [key: string]: {
-    price_no?: number;
-    price_sv?: number;
-    discountedPrice_no?: number;
-    discountedPrice_sv?: number;
-    stock?: number;
-    sku?: string;
+    price_no?: number
+    price_sv?: number
+    discountedPrice_no?: number
+    discountedPrice_sv?: number
+    stock?: number
+    sku?: string
     // Add other fields as needed
-  };
+  }
 }
 
 export const BulkVariantEditForm = () => {
-  const toast = useToast();
-  const docId = useFormValue(['_id']) as string;
-  const documentStore = useDocumentStore();
+  const toast = useToast()
+  const docId = useFormValue(['_id']) as string
+  const documentStore = useDocumentStore()
 
-  const [variants, setVariants] = useState<ProductVariant[]>([]);
-  const [variantChanges, setVariantChanges] = useState<VariantChanges>({}); // Track changes for each variant
+  const [variants, setVariants] = useState<ProductVariant[]>([])
+  const [variantChanges, setVariantChanges] = useState<VariantChanges>({}) // Track changes for each variant
 
   const results = useMemoObservable(() => {
     return documentStore.listenQuery(
       `*[_type == 'productVariant' && references($currentDoc, "drafts." + $currentDoc)]`,
       { currentDoc: docId },
       {}
-    );
-  }, [documentStore, docId]);
+    )
+  }, [documentStore, docId])
 
   useEffect(() => {
     if (results) {
-      setVariants(results);
+      setVariants(results)
     }
-  }, [results]);
+  }, [results])
 
   const handleInputChange = (id: string, field: keyof ProductVariant, value: any) => {
     setVariantChanges((prevState) => ({
@@ -58,29 +58,29 @@ export const BulkVariantEditForm = () => {
         ...prevState[id],
         [field]: value
       }
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      const success = await bulkUpdateVariants(variantChanges);
+      const success = await bulkUpdateVariants(variantChanges)
       if (!success) {
-        console.error('Transaction failed: ');
-        toast.push(errorToast);
-        return;
+        console.error('Transaction failed: ')
+        toast.push(errorToast)
+        return
       }
 
-      toast.push(successToast);
-      setVariantChanges({});
+      toast.push(successToast)
+      setVariantChanges({})
       // Optionally, you can refresh the data or give feedback to the user
     } catch (error) {
-      console.error('Transaction failed: ', error);
-      toast.push(errorToast);
+      console.error('Transaction failed: ', error)
+      toast.push(errorToast)
       // Optionally, handle the error, e.g., show a notification
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -183,8 +183,8 @@ export const BulkVariantEditForm = () => {
         </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
 const errorToast: ToastParams = {
   status: 'error',
@@ -192,7 +192,7 @@ const errorToast: ToastParams = {
   description: 'There was an issue updating the variants. Please try again later.',
   duration: 9999,
   closable: true
-};
+}
 
 const successToast: ToastParams = {
   status: 'success',
@@ -200,4 +200,4 @@ const successToast: ToastParams = {
   description: 'The variants have been successfully updated.',
   duration: 9999,
   closable: true
-};
+}

@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Check } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Check } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const layoutUspMarquee = defineType({
   title: 'Layout USP Marquee',
@@ -11,7 +11,7 @@ export const layoutUspMarquee = defineType({
     prepare() {
       return {
         title: 'Layout UPS Marquee'
-      };
+      }
     }
   },
   fields: [
@@ -52,4 +52,4 @@ export const layoutUspMarquee = defineType({
       validation: (Rule) => Rule.required().min(1).max(4)
     })
   ]
-});
+})

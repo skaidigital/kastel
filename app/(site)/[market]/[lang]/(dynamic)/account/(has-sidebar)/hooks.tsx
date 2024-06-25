@@ -1,8 +1,8 @@
-import { LangValues, MarketValues } from '@/data/constants';
-import { getImageBase, getPortableText } from '@/lib/sanity/fragments';
-import { imageValidator, richTextValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues, MarketValues } from '@/data/constants'
+import { getImageBase, getPortableText } from '@/lib/sanity/fragments'
+import { imageValidator, richTextValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 export function getAccountQuery({ lang, market }: { lang: LangValues; market: MarketValues }) {
   const query = groq`
@@ -28,9 +28,9 @@ export function getAccountQuery({ lang, market }: { lang: LangValues; market: Ma
             ${getImageBase(lang)}
         }
     }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 const productValidator = z.object({
@@ -41,18 +41,18 @@ const productValidator = z.object({
     slug: z.string(),
     image: imageValidator
   })
-});
+})
 
 const productDisplayValidator = z.object({
   title: z.string(),
   products: z.array(productValidator)
-});
+})
 
 export const AccountPageValidator = z.object({
   messageFromTheTeam: richTextValidator,
   productDisplay: productDisplayValidator.optional(),
   image: imageValidator
-});
+})
 
-export type productAccountSchema = z.infer<typeof productValidator>;
-export type AccountPageSchema = z.infer<typeof AccountPageValidator>;
+export type productAccountSchema = z.infer<typeof productValidator>
+export type AccountPageSchema = z.infer<typeof AccountPageValidator>

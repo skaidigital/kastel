@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import * as React from 'react';
+import * as AccordionPrimitive from '@radix-ui/react-accordion'
+import * as React from 'react'
 
-import { cn } from '@/lib/utils';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { cn } from '@/lib/utils'
+import { ChevronDownIcon } from '@radix-ui/react-icons'
 
 // const Accordion = AccordionPrimitive.Root;
 
@@ -13,8 +13,8 @@ const Accordion = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Root ref={ref} className={cn('space-y-2', className)} {...props} />
-));
-Accordion.displayName = AccordionPrimitive.Root.displayName;
+))
+Accordion.displayName = AccordionPrimitive.Root.displayName
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
@@ -25,8 +25,8 @@ const AccordionItem = React.forwardRef<
     className={cn('border-b py-4 lg:py-6', className)}
     {...props}
   />
-));
-AccordionItem.displayName = 'AccordionItem';
+))
+AccordionItem.displayName = 'AccordionItem'
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
@@ -45,8 +45,8 @@ const AccordionTrigger = React.forwardRef<
       <ChevronDownIcon className="h-4 w-4 shrink-0 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
-));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
+))
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
@@ -59,8 +59,8 @@ const AccordionContent = React.forwardRef<
   >
     <div className={cn('py-4', className)}>{children}</div>
   </AccordionPrimitive.Content>
-));
+))
 
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger }

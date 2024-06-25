@@ -1,13 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { cn } from '@/lib/utils';
-import Marquee from 'react-fast-marquee';
-import { Product } from './hooks';
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { cn } from '@/lib/utils'
+import Marquee from 'react-fast-marquee'
+import { Product } from './hooks'
 
 interface Props {
-  usps: Product['usps'];
-  size: 'sm' | 'lg';
-  className?: string;
+  usps: Product['usps']
+  size: 'sm' | 'lg'
+  className?: string
 }
 
 export function UspsMarquee({ usps, size, className }: Props) {
@@ -23,7 +23,7 @@ export function UspsMarquee({ usps, size, className }: Props) {
       >
         <Marquee autoFill>
           {usps.map((usp, index) => {
-            const iconSize = size === 'sm' ? 24 : 32;
+            const iconSize = size === 'sm' ? 24 : 32
 
             return (
               <div key={usp.icon.asset._ref + index} className="mr-24 flex items-center gap-2">
@@ -32,10 +32,10 @@ export function UspsMarquee({ usps, size, className }: Props) {
                   {usp.title}
                 </span>
               </div>
-            );
+            )
           })}
         </Marquee>
       </div>
     )
-  );
+  )
 }

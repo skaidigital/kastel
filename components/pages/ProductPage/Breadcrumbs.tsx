@@ -5,24 +5,24 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from '@/components/Breadcrumb';
-import { CustomLink } from '@/components/CustomLink';
-import { LangValues, ROUTES } from '@/data/constants';
-import { cn } from '@/lib/utils';
-import { ChevronRightIcon } from '@radix-ui/react-icons';
+} from '@/components/Breadcrumb'
+import { CustomLink } from '@/components/CustomLink'
+import { LangValues, ROUTES } from '@/data/constants'
+import { cn } from '@/lib/utils'
+import { ChevronRightIcon } from '@radix-ui/react-icons'
 
 interface Props {
-  productName: string;
-  lang: LangValues;
+  productName: string
+  lang: LangValues
   category?: {
-    title: string;
-    slug: string;
-  };
-  className?: string;
+    title: string
+    slug: string
+  }
+  className?: string
 }
 
 export function Breadcrumbs({ productName, lang, category, className }: Props) {
-  const homeString = getHomeString(lang);
+  const homeString = getHomeString(lang)
 
   return (
     <Breadcrumb className={cn(className)}>
@@ -54,16 +54,16 @@ export function Breadcrumbs({ productName, lang, category, className }: Props) {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-  );
+  )
 }
 
 function getHomeString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Home';
+      return 'Home'
     case 'no':
-      return 'Hjem';
+      return 'Hjem'
     default:
-      return 'Home';
+      return 'Home'
   }
 }

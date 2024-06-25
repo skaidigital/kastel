@@ -1,32 +1,32 @@
-'use client';
+'use client'
 
-import { RadioGroup, RadioGroupItem } from '@/components/RadioGroup';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
-import { Text } from '@/components/base/Text';
-import { LangValues } from '@/data/constants';
-import { cn, getSortOptions } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import { parseAsString, useQueryState } from 'nuqs';
+import { RadioGroup, RadioGroupItem } from '@/components/RadioGroup'
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet'
+import { Text } from '@/components/base/Text'
+import { LangValues } from '@/data/constants'
+import { cn, getSortOptions } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { parseAsString, useQueryState } from 'nuqs'
 
 interface Props {
-  lang: LangValues;
+  lang: LangValues
 }
 
 /**
  * Sorts the products in the collection and search page
  */
 export function SortSheet({ lang }: Props) {
-  const router = useRouter();
-  const [sort, setSort] = useQueryState('sort', parseAsString);
+  const router = useRouter()
+  const [sort, setSort] = useQueryState('sort', parseAsString)
 
   function handleChange(e: string) {
-    setSort(e).then(() => router.refresh());
+    setSort(e).then(() => router.refresh())
   }
 
-  const sortOptions = getSortOptions(lang);
+  const sortOptions = getSortOptions(lang)
 
-  const sortValue = sort || sortOptions[0]?.value;
-  const sortString = getSortString(lang);
+  const sortValue = sort || sortOptions[0]?.value
+  const sortString = getSortString(lang)
 
   return (
     <Sheet>
@@ -39,14 +39,14 @@ export function SortSheet({ lang }: Props) {
         <SheetHeader title={sortString} />
         <RadioGroup
           onValueChange={(e) => {
-            handleChange(e);
+            handleChange(e)
           }}
           defaultValue={sort || sortOptions[0]?.value}
           className="gap-y-4"
         >
           {sortOptions &&
             sortOptions.map((option) => {
-              const isChecked = option.value === sortValue;
+              const isChecked = option.value === sortValue
               return (
                 <Text
                   key={option.value}
@@ -65,21 +65,21 @@ export function SortSheet({ lang }: Props) {
                     </RadioGroupItem>
                   </label>
                 </Text>
-              );
+              )
             })}
         </RadioGroup>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
 
 function getSortString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Sort';
+      return 'Sort'
     case 'no':
-      return 'Sorter';
+      return 'Sorter'
     default:
-      return 'Sort';
+      return 'Sort'
   }
 }

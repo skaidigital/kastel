@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const footer = defineType({
   title: 'Footer',
@@ -9,7 +9,7 @@ export const footer = defineType({
     prepare() {
       return {
         title: 'Footer'
-      };
+      }
     }
   },
   fields: [
@@ -63,4 +63,4 @@ export const footer = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

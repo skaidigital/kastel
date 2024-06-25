@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { withSentryConfig } = require('@sentry/nextjs');
-const { createClient } = require('next-sanity');
-const createJITI = require('jiti');
-const { withPlausibleProxy } = require('next-plausible');
-const withBundleAnalyzer = require('@next/bundle-analyzer')();
-var jiti = createJITI(__filename);
+const { withSentryConfig } = require('@sentry/nextjs')
+const { createClient } = require('next-sanity')
+const createJITI = require('jiti')
+const { withPlausibleProxy } = require('next-plausible')
+const withBundleAnalyzer = require('@next/bundle-analyzer')()
+var jiti = createJITI(__filename)
 
-jiti('./env');
+jiti('./env')
 
 const productRedirects = [
   {
@@ -294,30 +294,30 @@ const productRedirects = [
     destination: '/no/no/products/impregnering',
     permanent: true
   }
-];
+]
 
 const client = createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   useCdn: false,
   apiVersion: '2022-06-28'
-});
+})
 
 // TODO introduce markets here once we implement them
 async function fetchSanityRedirects() {
   const redirectDocs = await client.fetch(
     `*[_type == "redirect"]{ source, destination, permanent, lang }`
-  );
+  )
 
   const redirects = redirectDocs.map((redirect) => {
     return {
       source: `/${redirect.source}`,
       destination: `/no/${redirect.lang}/${redirect.destination}`,
       permanent: redirect.permanent
-    };
-  });
+    }
+  })
 
-  return redirects;
+  return redirects
 }
 
 /** @type {import('next').NextConfig} */
@@ -348,16 +348,16 @@ const nextConfig = {
     }
   },
   async redirects() {
-    const sanityRedirects = await fetchSanityRedirects();
-    return [...sanityRedirects, ...productRedirects];
+    const sanityRedirects = await fetchSanityRedirects()
+    return [...sanityRedirects, ...productRedirects]
   }
-};
+}
 
 const SentryWebpackPluginOptions = {
   silent: true,
   org: 'skai-digital',
   project: 'abate'
-};
+}
 
 const SentryOptions = {
   widenClientFileUpload: true,
@@ -366,19 +366,15 @@ const SentryOptions = {
   hideSourceMaps: true,
   disableLogger: true,
   automaticVercelMonitors: true
-};
+}
 
-const nextConfigWithSentry = withSentryConfig(
-  nextConfig,
-  SentryWebpackPluginOptions,
-  SentryOptions
-);
+const nextConfigWithSentry = withSentryConfig(nextConfig, SentryWebpackPluginOptions, SentryOptions)
 
 const nextConfigWithPlausibleProxy = withPlausibleProxy()({
   ...nextConfigWithSentry
-});
+})
 
 module.exports =
   process.env.ANALYZE === 'true'
     ? withBundleAnalyzer(nextConfigWithPlausibleProxy)
-    : nextConfigWithPlausibleProxy;
+    : nextConfigWithPlausibleProxy

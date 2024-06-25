@@ -1,58 +1,58 @@
-'use client';
+'use client'
 
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { Text } from '@/components/base/Text';
-import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
-import { cn } from '@/lib/utils';
-import Autoplay from 'embla-carousel-autoplay';
-import { useEffect, useState } from 'react';
-import { Product, ProductVariant } from '../hooks';
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/Carousel'
+import { Text } from '@/components/base/Text'
+import { useActiveVariant } from '@/lib/hooks/useActiveVariant'
+import { cn } from '@/lib/utils'
+import Autoplay from 'embla-carousel-autoplay'
+import { useEffect, useState } from 'react'
+import { Product, ProductVariant } from '../hooks'
 
 interface Props {
-  productType: Product['type'];
-  variants: ProductVariant[];
-  type: 'normal' | 'natureLab';
-  items: string[];
+  productType: Product['type']
+  variants: ProductVariant[]
+  type: 'normal' | 'natureLab'
+  items: string[]
 }
 
 export function USPCarouselLayout({ productType, variants, type, items }: Props) {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
 
   useEffect(() => {
     if (!api) {
-      return;
+      return
     }
 
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap() + 1)
 
     api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+      setCurrent(api.selectedScrollSnap() + 1)
+    })
+  }, [api])
 
   const activeVariant = useActiveVariant({
     productType,
     variants
-  });
+  })
 
-  const price = activeVariant?.price;
-  const discountedPrice = activeVariant?.discountedPrice;
-  const isOnSale = discountedPrice && price && price > discountedPrice;
+  const price = activeVariant?.price
+  const discountedPrice = activeVariant?.discountedPrice
+  const isOnSale = discountedPrice && price && price > discountedPrice
 
-  const lowestPrice = isOnSale ? discountedPrice : price;
+  const lowestPrice = isOnSale ? discountedPrice : price
 
-  const kastelPointsEarned = getKastelPoints(lowestPrice || 0, type);
+  const kastelPointsEarned = getKastelPoints(lowestPrice || 0, type)
 
-  const kastelPointsEarnedString = `Earn ${kastelPointsEarned} Kastel points`;
-  const formattedItems = kastelPointsEarned > 0 ? [kastelPointsEarnedString, ...items] : items;
+  const kastelPointsEarnedString = `Earn ${kastelPointsEarned} Kastel points`
+  const formattedItems = kastelPointsEarned > 0 ? [kastelPointsEarnedString, ...items] : items
 
   function setActive(index: number) {
     if (!api) {
-      return;
+      return
     }
 
-    api.scrollTo(index);
+    api.scrollTo(index)
   }
 
   return (
@@ -88,7 +88,7 @@ export function USPCarouselLayout({ productType, variants, type, items }: Props)
         className="pl-2"
       />
     </div>
-  );
+  )
 }
 
 function ScrollDots({
@@ -97,10 +97,10 @@ function ScrollDots({
   onClick,
   className
 }: {
-  current: number;
-  count: number;
-  onClick: (index: number) => void;
-  className?: string;
+  current: number
+  count: number
+  onClick: (index: number) => void
+  className?: string
 }) {
   return (
     <div className={cn('flex justify-center gap-1', className)}>
@@ -115,13 +115,13 @@ function ScrollDots({
         />
       ))}
     </div>
-  );
+  )
 }
 
 function getKastelPoints(price: number, type?: 'normal' | 'natureLab') {
   if (type === 'natureLab') {
-    return price * 12;
+    return price * 12
   }
 
-  return price * 6;
+  return price * 6
 }

@@ -1,11 +1,11 @@
-import { cookies } from 'next/headers';
+import { cookies } from 'next/headers'
 
 export async function GET() {
-  const refreshToken = cookies().get('refreshToken');
+  const refreshToken = cookies().get('refreshToken')
   if (!refreshToken) {
-    return new Response('No refresh token', { status: 401 });
+    return new Response('No refresh token', { status: 401 })
   }
-  return new Response('Hello world - Get ');
+  return new Response('Hello world - Get ')
 }
 
 export async function POST() {
@@ -14,6 +14,6 @@ export async function POST() {
     secure: true,
     path: '/',
     sameSite: 'lax'
-  });
-  return new Response('Hello world - Post');
+  })
+  return new Response('Hello world - Post')
 }

@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
-import { AnnouncementBannerPayload } from '@/components/global/AnnouncementBanner/hooks';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { cn } from '@/lib/utils';
-import Marquee from 'react-fast-marquee';
+import { AnnouncementBannerPayload } from '@/components/global/AnnouncementBanner/hooks'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { cn } from '@/lib/utils'
+import Marquee from 'react-fast-marquee'
 
 interface Props {
-  data: AnnouncementBannerPayload;
-  className?: string;
+  data: AnnouncementBannerPayload
+  className?: string
 }
 
 export function AnnouncementBannerLayout(props: Props) {
-  const { data: announcementBanner, className } = props;
+  const { data: announcementBanner, className } = props
 
-  if (!announcementBanner) return null;
+  if (!announcementBanner) return null
 
-  const { isShown } = announcementBanner;
+  const { isShown } = announcementBanner
 
-  if (!isShown) return null;
+  if (!isShown) return null
 
-  const { items } = announcementBanner;
+  const { items } = announcementBanner
 
   const classNames =
-    'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden text-overline-sm font-medium uppercase lg:gap-x-36';
+    'flex h-[--announcement-bar-height] w-full items-center justify-center overflow-hidden text-overline-sm font-medium uppercase lg:gap-x-36'
 
   return (
     <Marquee autoFill pauseOnHover className={className}>
@@ -32,14 +32,14 @@ export function AnnouncementBannerLayout(props: Props) {
             <SanityLink link={usp.link} key={usp.content} className={cn(classNames)}>
               {usp.content && <span className="mr-10 font-bold lg:mr-32">{usp.content}</span>}
             </SanityLink>
-          );
+          )
         }
         return (
           <span key={usp.content} className={cn('mr-10 font-bold lg:mr-32', classNames)}>
             {usp.content}
           </span>
-        );
+        )
       })}
     </Marquee>
-  );
+  )
 }

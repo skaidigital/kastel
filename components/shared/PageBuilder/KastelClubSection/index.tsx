@@ -1,41 +1,31 @@
-'use client';
+'use client'
 
-import { Button } from '@/components/Button';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { Media } from '@/components/Media';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SignInLink } from '@/components/shared/PageBuilder/KastelClubSection/SignInLink';
-import { KastelClubSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { SMILE_DEEP_LINKS } from '@/data/constants';
-import { SanityImageProps } from '@/lib/sanity/types';
+import { Button } from '@/components/Button'
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel'
+import { Media } from '@/components/Media'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SignInLink } from '@/components/shared/PageBuilder/KastelClubSection/SignInLink'
+import { KastelClubSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { SMILE_DEEP_LINKS } from '@/data/constants'
+import { SanityImageProps } from '@/lib/sanity/types'
 
 interface PropsWithExtra extends KastelClubSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const KastelClubSection = ({ data }: Props) => {
-  const {
-    index,
-    pageId,
-    pageType,
-    title,
-    description,
-    buttonText,
-    backgroundImage,
-    steps,
-    lastSlide,
-    sectionSettings
-  } = data;
+  const { title, description, buttonText, backgroundImage, steps, lastSlide, sectionSettings } =
+    data
 
   return (
     <Section
@@ -99,14 +89,14 @@ export const KastelClubSection = ({ data }: Props) => {
         )}
       </Container>
     </Section>
-  );
-};
+  )
+}
 
 interface IntroProps {
-  title: string;
-  buttonText: string;
-  backgroundImage: SanityImageProps;
-  description?: string;
+  title: string
+  buttonText: string
+  backgroundImage: SanityImageProps
+  description?: string
 }
 
 function Intro({ title, description, buttonText, backgroundImage }: IntroProps) {
@@ -125,18 +115,18 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
                     await window.SmileUI.openPanel({
                       deep_link: 'home'
                     }).catch((error: any) => {
-                      console.error('Failed to open smile link', error);
-                    });
+                      console.error('Failed to open smile link', error)
+                    })
 
                     window.SmileUI.ready().then(() =>
-                      window.SmileUI.openPanel({ deep_link: SMILE_DEEP_LINKS.home }).catch(
-                        (error: any) => {
-                          console.error('Failed to open smile link', error);
-                        }
-                      )
-                    );
+                      window.SmileUI.openPanel({
+                        deep_link: SMILE_DEEP_LINKS.home
+                      }).catch((error: any) => {
+                        console.error('Failed to open smile link', error)
+                      })
+                    )
                   } else {
-                    console.error('Failed to open smile link');
+                    console.error('Failed to open smile link')
                   }
                 }}
                 size="sm"
@@ -159,13 +149,13 @@ function Intro({ title, description, buttonText, backgroundImage }: IntroProps) 
         />
       )}
     </div>
-  );
+  )
 }
 
 interface BackCardProps {
-  title: string;
-  description: string;
-  descriptionList?: { descriptionTerm: string; descriptionDetails: string }[];
+  title: string
+  description: string
+  descriptionList?: { descriptionTerm: string; descriptionDetails: string }[]
 }
 
 function BackCard({ title, description, descriptionList }: BackCardProps) {
@@ -190,16 +180,16 @@ function BackCard({ title, description, descriptionList }: BackCardProps) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 interface DesktopCardProps {
-  titleFront: string;
-  descriptionFront: string;
-  linkText: string;
-  titleBack: string;
-  descriptionBack: string;
-  descriptionList?: { descriptionTerm: string; descriptionDetails: string }[];
+  titleFront: string
+  descriptionFront: string
+  linkText: string
+  titleBack: string
+  descriptionBack: string
+  descriptionList?: { descriptionTerm: string; descriptionDetails: string }[]
 }
 
 function DesktopCard({
@@ -249,5 +239,5 @@ function DesktopCard({
         </div>
       </div>
     </div>
-  );
+  )
 }

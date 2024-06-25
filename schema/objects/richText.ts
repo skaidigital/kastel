@@ -1,4 +1,4 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
 import {
   Crosshair,
   Image,
@@ -8,8 +8,8 @@ import {
   Sneaker,
   TextColumns,
   Video
-} from '@phosphor-icons/react';
-import { defineArrayMember, defineField } from 'sanity';
+} from '@phosphor-icons/react'
+import { defineArrayMember, defineField } from 'sanity'
 
 export const richText = defineField({
   name: 'richText',
@@ -182,7 +182,7 @@ export const richText = defineField({
           return {
             title: selection.title[0].children[0].text,
             subtitle: 'Standout section'
-          };
+          }
         }
       },
       fields: [
@@ -219,9 +219,9 @@ export const richText = defineField({
           validation: (Rule) =>
             Rule.custom((value, context: any) => {
               if (context.parent?.type === 'media' && !value) {
-                return 'Media is required';
+                return 'Media is required'
               }
-              return true;
+              return true
             }),
           hidden: ({ parent }) => parent?.type !== 'media'
         }),
@@ -232,9 +232,9 @@ export const richText = defineField({
           validation: (Rule) =>
             Rule.custom((value, context: any) => {
               if (context.parent?.type === 'media' && !value) {
-                return 'Aspect ratio settings are required';
+                return 'Aspect ratio settings are required'
               }
-              return true;
+              return true
             }),
           hidden: ({ parent }) => parent?.type !== 'media'
         }),
@@ -246,9 +246,9 @@ export const richText = defineField({
           validation: (Rule) =>
             Rule.custom((value, context: any) => {
               if (context.parent?.type === 'product' && !value) {
-                return 'Product is required';
+                return 'Product is required'
               }
-              return true;
+              return true
             }),
           hidden: ({ parent }) => parent?.type !== 'product'
         })
@@ -267,7 +267,7 @@ export const richText = defineField({
           return {
             title: selection.images ? `${selection.images.length} images` : 'No images',
             subtitle: 'Image grid'
-          };
+          }
         }
       },
       fields: [
@@ -316,4 +316,4 @@ export const richText = defineField({
       icon: Crosshair
     }
   ]
-});
+})

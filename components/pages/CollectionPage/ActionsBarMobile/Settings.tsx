@@ -1,29 +1,29 @@
-'use client';
+'use client'
 
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
-import { Text } from '@/components/base/Text';
-import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
-import { LangValues } from '@/data/constants';
-import { cn } from '@/lib/utils';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet'
+import { Text } from '@/components/base/Text'
+import { useCollectionContext } from '@/components/pages/CollectionPage/Context'
+import { LangValues } from '@/data/constants'
+import { cn } from '@/lib/utils'
 
 const VIEW_OPTIONS = [
   { label: '1', value: '1' },
   { label: '2', value: '2' }
-];
+]
 
 interface Props {
-  lang: LangValues;
+  lang: LangValues
 }
 
 export function CollectionActionsBarSettings({ lang }: Props) {
-  const { productsPerRow, setProductsPerRow } = useCollectionContext();
+  const { productsPerRow, setProductsPerRow } = useCollectionContext()
 
   function handleOnClick(number: number) {
-    setProductsPerRow(number);
+    setProductsPerRow(number)
   }
 
-  const settingsString = getSettingsString(lang);
-  const viewString = getViewString(lang);
+  const settingsString = getSettingsString(lang)
+  const viewString = getViewString(lang)
 
   return (
     <Sheet>
@@ -38,7 +38,7 @@ export function CollectionActionsBarSettings({ lang }: Props) {
           <h3 className="text-sm font-medium">{viewString}</h3>
           <div className="flex gap-x-1">
             {VIEW_OPTIONS.map((option) => {
-              const isActive = Number(option.value) === productsPerRow;
+              const isActive = Number(option.value) === productsPerRow
 
               return (
                 <Text
@@ -64,33 +64,33 @@ export function CollectionActionsBarSettings({ lang }: Props) {
                     />
                   </label>
                 </Text>
-              );
+              )
             })}
           </div>
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
 
 function getSettingsString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Settings';
+      return 'Settings'
     case 'no':
-      return 'Innstillinger';
+      return 'Innstillinger'
     default:
-      return 'Settings';
+      return 'Settings'
   }
 }
 
 function getViewString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'View';
+      return 'View'
     case 'no':
-      return 'Vis';
+      return 'Vis'
     default:
-      return 'View';
+      return 'View'
   }
 }

@@ -3,47 +3,47 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
-import { Text } from '@/components/base/Text';
-import { FilterGroupItem } from '@/components/pages/CollectionPage/filter/FilterGroupItem';
-import { FilterLayout } from '@/components/pages/CollectionPage/filter/FilterLayout';
+} from '@/components/Accordion'
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer'
+import { Text } from '@/components/base/Text'
+import { FilterGroupItem } from '@/components/pages/CollectionPage/filter/FilterGroupItem'
+import { FilterLayout } from '@/components/pages/CollectionPage/filter/FilterLayout'
 import {
   filterGroupsValidator,
   getFilterQuery
-} from '@/components/pages/CollectionPage/filter/hooks';
-import { OnSaleCheckbox } from '@/components/shared/CollectionAndSearchActionsBarMobile/OnSaleCheckbox';
-import { LangValues, MarketValues } from '@/data/constants';
-import { loadQuery } from '@/lib/sanity/storeServer';
-import { PlusIcon } from '@radix-ui/react-icons';
+} from '@/components/pages/CollectionPage/filter/hooks'
+import { OnSaleCheckbox } from '@/components/shared/CollectionAndSearchActionsBarMobile/OnSaleCheckbox'
+import { LangValues, MarketValues } from '@/data/constants'
+import { loadQuery } from '@/lib/sanity/storeServer'
+import { PlusIcon } from '@radix-ui/react-icons'
 
 // TODO move into a separate file since it's used in multiple places
 export function loadFilter(lang: LangValues) {
-  const query = getFilterQuery(lang);
+  const query = getFilterQuery(lang)
 
-  return loadQuery<any>(query, {}, { next: { tags: ['filters'] } });
+  return loadQuery<any>(query, {}, { next: { tags: ['filters'] } })
 }
 
 interface Props {
-  market: MarketValues;
-  lang: LangValues;
-  collectionSlug?: string;
-  searchGids?: string[];
+  market: MarketValues
+  lang: LangValues
+  collectionSlug?: string
+  searchGids?: string[]
 }
 
 export async function Filter({ market, lang, collectionSlug, searchGids }: Props) {
-  const initial = await loadFilter(lang);
+  const initial = await loadFilter(lang)
 
-  const filterGroupResponse = initial?.data?.items;
-  const filterGroup = filterGroupsValidator.parse(filterGroupResponse);
+  const filterGroupResponse = initial?.data?.items
+  const filterGroup = filterGroupsValidator.parse(filterGroupResponse)
 
-  const filterGroupKeys = filterGroup.map((item) => item.slug);
+  const filterGroupKeys = filterGroup.map((item) => item.slug)
 
   // Get the id of the first two filter group.s Remove undefined values
   const defaultOpen = filterGroup
     .slice(0, 2)
     .map((item) => item.id)
-    .filter((item) => item !== undefined);
+    .filter((item) => item !== undefined)
 
   return (
     <Drawer>
@@ -88,5 +88,5 @@ export async function Filter({ market, lang, collectionSlug, searchGids }: Props
         </div>
       </DrawerContent>
     </Drawer>
-  );
+  )
 }

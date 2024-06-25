@@ -1,5 +1,5 @@
-import { Calendar } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Calendar } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const timelineSection = defineType({
   title: 'Timeline section',
@@ -14,7 +14,7 @@ export const timelineSection = defineType({
       return {
         title,
         subtitle: 'Timeline section'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const timelineSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

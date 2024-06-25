@@ -1,10 +1,16 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const sectionSettings = defineType({
   title: 'Section settings',
   name: 'sectionSettings',
   type: 'object',
-  fieldsets: [{ name: 'paddingSettings', title: 'Padding settings', options: { columns: 2 } }],
+  fieldsets: [
+    {
+      name: 'paddingSettings',
+      title: 'Padding settings',
+      options: { columns: 2 }
+    }
+  ],
   fields: [
     defineField({
       title: 'Padding',
@@ -35,4 +41,4 @@ export const sectionSettings = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

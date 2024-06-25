@@ -1,14 +1,14 @@
-'use server';
+'use server'
 
-import { ExtractVariables } from '@/app/api/shopify/types';
-import { isShopifyError } from '@/app/api/shopify/utils';
-import { COOKIE_NAMES } from '@/data/constants';
-import { env } from '@/env';
-import { cookies } from 'next/headers';
-import { logIn } from './actions';
+import { ExtractVariables } from '@/app/api/shopify/types'
+import { isShopifyError } from '@/app/api/shopify/utils'
+import { COOKIE_NAMES } from '@/data/constants'
+import { env } from '@/env'
+import { cookies } from 'next/headers'
+import { logIn } from './actions'
 
-const shopId = env.SHOPIFY_CUSTOMER_SHOP_ID;
-const endpoint = `https://shopify.com/${shopId}/account/customer/api/2024-04/graphql`;
+const shopId = env.SHOPIFY_CUSTOMER_SHOP_ID
+const endpoint = `https://shopify.com/${shopId}/account/customer/api/2024-04/graphql`
 
 export async function customerAccountFetch<T>({
   cache = 'force-cache',
@@ -17,13 +17,13 @@ export async function customerAccountFetch<T>({
   tags,
   variables
 }: {
-  cache?: RequestCache;
-  headers?: HeadersInit;
-  query: string;
-  tags?: string[];
-  variables?: ExtractVariables<T>;
+  cache?: RequestCache
+  headers?: HeadersInit
+  query: string
+  tags?: string[]
+  variables?: ExtractVariables<T>
 }): Promise<{ status: number; body: T } | never> {
-  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value;
+  const accessToken = cookies().get(COOKIE_NAMES.SHOPIFY.ACCESS_TOKEN)?.value
 
   try {
     const result = await fetch(endpoint, {
@@ -39,21 +39,21 @@ export async function customerAccountFetch<T>({
       }),
       cache,
       ...(tags && { next: { tags } })
-    });
+    })
 
-    const body = await result.json();
+    const body = await result.json()
 
     if (body.errors) {
-      throw body.errors[0];
+      throw body.errors[0]
     }
 
     return {
       status: result.status,
       body
-    };
+    }
   } catch (e: any) {
     if (e.message === 'Not a valid access token') {
-      await logIn();
+      await logIn()
     }
     if (isShopifyError(e)) {
       throw {
@@ -61,12 +61,12 @@ export async function customerAccountFetch<T>({
         status: e.status || 500,
         message: e.message,
         query
-      };
+      }
     }
 
     throw {
       error: e,
       query
-    };
+    }
   }
 }

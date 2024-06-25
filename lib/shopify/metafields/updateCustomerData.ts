@@ -1,18 +1,18 @@
-import { METAFIELDS } from '@/data/constants';
-import { shopifyAdminQuery } from '../admin';
-import { customerAccountFetch } from '../customer';
-import { metafieldsSetMutation } from './query';
+import { METAFIELDS } from '@/data/constants'
+import { shopifyAdminQuery } from '../admin'
+import { customerAccountFetch } from '../customer'
+import { metafieldsSetMutation } from './query'
 
 interface CustomerData {
-  customerGid: string;
+  customerGid: string
   data: {
-    firstName: string;
-    lastName: string;
-    isPrompted?: boolean;
-    footLength?: string;
-    style?: string;
-    color?: string;
-  };
+    firstName: string
+    lastName: string
+    isPrompted?: boolean
+    footLength?: string
+    style?: string
+    color?: string
+  }
 }
 
 export async function updateCustomerData({ customerGid, data }: CustomerData) {
@@ -29,27 +29,27 @@ export async function updateCustomerData({ customerGid, data }: CustomerData) {
         color: data.color
       })
     }
-  ];
-  let success: boolean = true;
+  ]
+  let success: boolean = true
   // Update first and last name
-  const updateCustomerNameResponse = await updateCustomerName(data.firstName, data.lastName);
+  const updateCustomerNameResponse = await updateCustomerName(data.firstName, data.lastName)
 
   if (!updateCustomerNameResponse) {
-    console.error('Error updating customer name', updateCustomerNameResponse);
-    success = false;
+    console.error('Error updating customer name', updateCustomerNameResponse)
+    success = false
   }
 
   // Update customer metadata for user
-  const updateCustomerDataResponse = await shopifyAdminQuery(metafieldsSetMutation, { metafields });
+  const updateCustomerDataResponse = await shopifyAdminQuery(metafieldsSetMutation, { metafields })
 
   if (!updateCustomerDataResponse) {
-    success = false;
+    success = false
   }
 
   const updatedMetaData =
     (updateCustomerDataResponse?.data.metafieldsSet &&
       JSON.parse(updateCustomerDataResponse?.data.metafieldsSet?.metafields[0]?.value)) ||
-    {};
+    {}
 
   const responseForm: CustomerData['data'] = {
     firstName: updateCustomerNameResponse.firstName || '',
@@ -58,9 +58,9 @@ export async function updateCustomerData({ customerGid, data }: CustomerData) {
     footLength: updatedMetaData.footLength || '',
     style: updatedMetaData.style || '',
     color: updatedMetaData.color || ''
-  };
+  }
 
-  return { success, responseForm };
+  return { success, responseForm }
 }
 
 async function updateCustomerName(fistName: string, lastName: string) {
@@ -73,9 +73,9 @@ async function updateCustomerName(fistName: string, lastName: string) {
       }
     },
     cache: 'no-store'
-  });
+  })
 
-  return res.body.data?.customerUpdate?.customer || null;
+  return res.body.data?.customerUpdate?.customer || null
 }
 
 const updateCustomerInformation = /* GraphQL */ `
@@ -92,27 +92,27 @@ const updateCustomerInformation = /* GraphQL */ `
       }
     }
   }
-`;
+`
 
 type CustomerUpdateData = {
   data: {
     customerUpdate: {
       customer: {
-        id: string;
-        firstName: string;
-        lastName: string;
-      };
+        id: string
+        firstName: string
+        lastName: string
+      }
       customerUserErrors: {
-        code: string;
-        field: string;
-        message: string;
-      };
-    };
-  };
+        code: string
+        field: string
+        message: string
+      }
+    }
+  }
   variables: {
     customer: {
-      firstName: string;
-      lastName: string;
-    };
-  };
-};
+      firstName: string
+      lastName: string
+    }
+  }
+}

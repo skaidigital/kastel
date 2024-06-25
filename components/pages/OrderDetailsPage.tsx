@@ -2,36 +2,36 @@ import {
   formatPrice,
   getOrderFinancialStatusBadgeVariant,
   getOrderFullfillmentStatusBadgeVariant
-} from '@/app/api/shopify/utils';
-import { getDictionary } from '@/app/dictionaries';
-import { Badge } from '@/components/Badge';
-import { AccountPageHeader } from '@/components/account/AccountPageHeader';
-import { Heading } from '@/components/base/Heading';
-import { Text } from '@/components/base/Text';
-import { LangValues } from '@/data/constants';
-import { getOrder } from '@/lib/shopify/customer/getOrder';
-import { capitalizeFirstLetter, cn, getOrderIcon } from '@/lib/utils';
-import { ArrowTopRightIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
-import Link from 'next/link';
+} from '@/app/api/shopify/utils'
+import { getDictionary } from '@/app/dictionaries'
+import { Badge } from '@/components/Badge'
+import { AccountPageHeader } from '@/components/account/AccountPageHeader'
+import { Heading } from '@/components/base/Heading'
+import { Text } from '@/components/base/Text'
+import { LangValues } from '@/data/constants'
+import { getOrder } from '@/lib/shopify/customer/getOrder'
+import { capitalizeFirstLetter, cn, getOrderIcon } from '@/lib/utils'
+import { ArrowTopRightIcon } from '@radix-ui/react-icons'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface Props {
-  orderId: string;
-  lang: LangValues;
+  orderId: string
+  lang: LangValues
 }
 
 export async function OrderDetailsPage({ orderId, lang }: Props) {
-  const order = await getOrder(orderId);
-  const { order_details_page: dictionary } = await getDictionary({ lang });
+  const order = await getOrder(orderId)
+  const { order_details_page: dictionary } = await getDictionary({ lang })
 
-  const subtotal = formatPrice(order.subtotal);
-  const shipping = formatPrice(order.totalShipping);
-  const tax = formatPrice(order.totalTax);
-  const total = formatPrice(order.totalPrice);
+  const subtotal = formatPrice(order.subtotal)
+  const shipping = formatPrice(order.totalShipping)
+  const tax = formatPrice(order.totalTax)
+  const total = formatPrice(order.totalPrice)
 
-  const fulfillmentStatus = order.fulfillments?.nodes[0]?.status;
+  const fulfillmentStatus = order.fulfillments?.nodes[0]?.status
 
-  const trackingUrl = order.fulfillments?.nodes?.at(0)?.trackingInformation?.at(0)?.url;
+  const trackingUrl = order.fulfillments?.nodes?.at(0)?.trackingInformation?.at(0)?.url
 
   return (
     <div className="grid gap-4 lg:col-span-7">
@@ -74,15 +74,15 @@ export async function OrderDetailsPage({ orderId, lang }: Props) {
             {dictionary.product}
           </Heading>
           <div className="flex flex-col gap-y-4">
-            {order.lineItems.edges.map((lineItem, index) => {
-              const title = lineItem.node.title;
-              const variantTitle = lineItem.node.variantTitle;
-              const quantity = lineItem.node.quantity;
-              const currentPrice = formatPrice(lineItem.node.currentTotalPrice);
-              const originalPrice = formatPrice(lineItem.node.totalPrice);
-              const hasDiscount = currentPrice !== originalPrice;
+            {order.lineItems.edges.map((lineItem) => {
+              const title = lineItem.node.title
+              const variantTitle = lineItem.node.variantTitle
+              const quantity = lineItem.node.quantity
+              const currentPrice = formatPrice(lineItem.node.currentTotalPrice)
+              const originalPrice = formatPrice(lineItem.node.totalPrice)
+              const hasDiscount = currentPrice !== originalPrice
 
-              const image = lineItem.node.image;
+              const image = lineItem.node.image
 
               return (
                 <div key={title} className="flex gap-x-3">
@@ -112,7 +112,7 @@ export async function OrderDetailsPage({ orderId, lang }: Props) {
                     </div>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -157,7 +157,7 @@ export async function OrderDetailsPage({ orderId, lang }: Props) {
         </ItemContainer>
       </div>
     </div>
-  );
+  )
 }
 
 function ItemContainer({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -165,5 +165,5 @@ function ItemContainer({ children, className }: { children: React.ReactNode; cla
     <div className={cn('w-full rounded-[4px] border border-brand-light-grey p-6', className)}>
       {children}
     </div>
-  );
+  )
 }

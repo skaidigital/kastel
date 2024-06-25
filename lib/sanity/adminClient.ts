@@ -1,6 +1,6 @@
-import { env } from '@/env';
-import { apiVersion, dataset, projectId, studioUrl } from '@/lib/sanity/api';
-import { createClient } from '@sanity/client/stega';
+import { env } from '@/env'
+import { apiVersion, dataset, projectId, studioUrl } from '@/lib/sanity/api'
+import { createClient } from '@sanity/client/stega'
 
 export const adminClient = createClient({
   projectId,
@@ -15,4 +15,4 @@ export const adminClient = createClient({
     studioUrl
     // logger: console,
   }
-});
+})

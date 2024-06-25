@@ -1,9 +1,9 @@
-import { Slot } from '@radix-ui/react-slot';
-import { cva, type VariantProps } from 'cva';
-import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot'
+import { type VariantProps, cva } from 'cva'
+import * as React from 'react'
 
-import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { cn } from '@/lib/utils';
+import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { cn } from '@/lib/utils'
 
 export const buttonProps = cva({
   base: 'inline-flex duration-100 ease items-center justify-center whitespace-nowrap font-bold uppercase ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -32,29 +32,29 @@ export const buttonProps = cva({
     variant: 'primary',
     size: 'default'
   }
-});
+})
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonProps> {
-  asChild?: boolean;
-  isLoading?: boolean;
+  asChild?: boolean
+  isLoading?: boolean
 }
 
 // TODO fix loading state
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, isLoading, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button';
+    const Comp = asChild ? Slot : 'button'
     return (
       <Comp className={cn(buttonProps({ variant, size, className }))} ref={ref} {...props}>
         {isLoading ? <LoadingSpinner /> : props.children}
       </Comp>
-    );
+    )
   }
-);
-Button.displayName = 'Button';
+)
+Button.displayName = 'Button'
 
-export { Button, buttonProps as buttonVariants };
+export { Button, buttonProps as buttonVariants }
 
 {
   /* {props.children ? 'Loading...' : props.children} */

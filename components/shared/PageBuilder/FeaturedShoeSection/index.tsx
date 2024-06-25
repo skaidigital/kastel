@@ -1,38 +1,38 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/Button'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from '@/components/Carousel';
-import { HotspotImage } from '@/components/HotspotImage';
-import { Media } from '@/components/Media';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { SectionHeader } from '@/components/shared/PageBuilder/FeaturedShoeSection/SectionHeader';
-import { FeaturedShoeSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { ProductCard } from '@/components/shared/ProductCard';
+} from '@/components/Carousel'
+import { HotspotImage } from '@/components/HotspotImage'
+import { Media } from '@/components/Media'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { SectionHeader } from '@/components/shared/PageBuilder/FeaturedShoeSection/SectionHeader'
+import { FeaturedShoeSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { ProductCard } from '@/components/shared/ProductCard'
 
 interface PropsWithExtra extends FeaturedShoeSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const FeaturedShoeSection = ({ data }: Props) => {
-  const { title, description, link, badge, product, content, sectionSettings } = data;
+  const { title, description, link, badge, product, content, sectionSettings } = data
 
-  const firstContentItem = content?.[0];
-  const restContentItems = content?.slice(1);
+  const firstContentItem = content?.[0]
+  const restContentItems = content?.slice(1)
 
-  const sizes = '(max-width: 1024px) 80vw, 40vw';
+  const sizes = '(max-width: 1024px) 80vw, 40vw'
 
   return (
     <Section
@@ -116,5 +116,5 @@ export const FeaturedShoeSection = ({ data }: Props) => {
         </Container>
       </Carousel>
     </Section>
-  );
-};
+  )
+}

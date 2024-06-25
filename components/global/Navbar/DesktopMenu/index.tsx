@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import { Badge } from '@/components/Badge';
-import { CustomLink } from '@/components/CustomLink';
-import { Logo } from '@/components/Logo';
-import { Container } from '@/components/base/Container';
-import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem';
-import { NavbarPayload } from '@/components/global/Navbar/hooks';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { ROUTES } from '@/data/constants';
-import { cn } from '@/lib/utils';
-import { CaretDownIcon } from '@radix-ui/react-icons';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import { Badge } from '@/components/Badge'
+import { CustomLink } from '@/components/CustomLink'
+import { Logo } from '@/components/Logo'
+import { Container } from '@/components/base/Container'
+import { FeaturedItem } from '@/components/global/Navbar/FeaturedItem'
+import { NavbarPayload } from '@/components/global/Navbar/hooks'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { ROUTES } from '@/data/constants'
+import { cn } from '@/lib/utils'
+import { CaretDownIcon } from '@radix-ui/react-icons'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
 interface Props {
-  items: NavbarPayload['items'];
-  className?: string;
+  items: NavbarPayload['items']
+  className?: string
 }
 
 // TODO animate height
@@ -37,7 +37,7 @@ export function DesktopMenu({ items, className }: Props) {
                   </SanityLink>
                 </NavigationMenu.Link>
               </NavigationMenu.Item>
-            );
+            )
           }
           if (item.type === 'meganav') {
             return (
@@ -101,10 +101,10 @@ export function DesktopMenu({ items, className }: Props) {
                   </Container>
                 </NavigationMenu.Content>
               </NavigationMenu.Item>
-            );
+            )
           }
 
-          return null;
+          return null
         })}
       </NavigationMenu.List>
 
@@ -115,5 +115,5 @@ export function DesktopMenu({ items, className }: Props) {
         />
       </div>
     </NavigationMenu.Root>
-  );
+  )
 }

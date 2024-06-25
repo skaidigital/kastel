@@ -1,15 +1,15 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 type Address = {
-  territoryCode: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  address1: string;
-  zip: string;
-  city: string;
-  address2?: string | undefined;
-};
+  territoryCode: string
+  firstName: string
+  lastName: string
+  phoneNumber: string
+  address1: string
+  zip: string
+  city: string
+  address2?: string | undefined
+}
 
 export const updateAddressFormValidator = z.object({
   firstName: z.string().min(2),
@@ -21,23 +21,23 @@ export const updateAddressFormValidator = z.object({
   city: z.string().min(2),
   territoryCode: z.string().min(2),
   defaultAddress: z.boolean().optional()
-});
+})
 
-export type UpdateAddressFormProps = z.infer<typeof updateAddressFormValidator>;
+export type UpdateAddressFormProps = z.infer<typeof updateAddressFormValidator>
 
 export type CustomerAddressUpdateResponse = {
   data: {
     customerAddressUpdate: {
-      customerAddress: { id: string } | null;
-      userErrors: { field: string; message: string }[];
-    };
-  };
+      customerAddress: { id: string } | null
+      userErrors: { field: string; message: string }[]
+    }
+  }
   variables: {
-    addressId: string;
-    address: Address;
-    defaultAddress: boolean;
-  };
-};
+    addressId: string
+    address: Address
+    defaultAddress: boolean
+  }
+}
 
 export const customerAddressUpdateMutation = /* GraphQL */ `
   mutation customerAddressUpdate(
@@ -59,4 +59,4 @@ export const customerAddressUpdateMutation = /* GraphQL */ `
       }
     }
   }
-`;
+`

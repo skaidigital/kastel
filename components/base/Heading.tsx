@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
-import { cva, type VariantProps } from 'cva';
-import React from 'react';
+import { cn } from '@/lib/utils'
+import { type VariantProps, cva } from 'cva'
+import React from 'react'
 
 export const headingStyles = cva({
   base: '',
@@ -18,14 +18,14 @@ export const headingStyles = cva({
   defaultVariants: {
     size: 'lg'
   }
-});
+})
 
 interface HeadingProps extends VariantProps<typeof headingStyles> {
-  children: React.ReactNode | null;
-  as?: React.ElementType;
-  className?: string;
+  children: React.ReactNode | null
+  as?: React.ElementType
+  className?: string
 }
 
 export const Heading = ({ size, as: Component = 'h2', children, className }: HeadingProps) => {
-  return <Component className={cn(headingStyles({ size, className }))}>{children}</Component>;
-};
+  return <Component className={cn(headingStyles({ size, className }))}>{children}</Component>
+}

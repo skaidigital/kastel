@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import { dropdownIconAnimation } from '@/lib/animations';
-import { motion } from 'framer-motion';
+import { dropdownIconAnimation } from '@/lib/animations'
+import { motion } from 'framer-motion'
 
 interface Props {
-  isOpen: boolean;
+  isOpen: boolean
 }
 
 export const AnimatedChevron = ({ isOpen }: Props) => {
@@ -26,5 +26,5 @@ export const AnimatedChevron = ({ isOpen }: Props) => {
         d="M19 9l-7 7-7-7"
       />
     </svg>
-  );
-};
+  )
+}

@@ -1,9 +1,9 @@
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Square } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Square } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const productOption = defineType({
   title: 'Option',
@@ -17,11 +17,11 @@ export const productOption = defineType({
       internal: 'internalUsedFor'
     },
     prepare({ title, type, internal }) {
-      const subTitle = internal || type;
+      const subTitle = internal || type
       return {
         title: title || 'No title set',
         subtitle: subTitle || 'No subtitle set'
-      };
+      }
     }
   },
   fields: [
@@ -71,12 +71,12 @@ export const productOption = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -96,12 +96,12 @@ export const productOption = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -127,13 +127,13 @@ export const productOption = defineType({
       hidden: ({ document }) => document?.type !== 'color',
       validation: (Rule) =>
         Rule.custom((value, context) => {
-          const { document } = context;
+          const { document } = context
           if (document?.type === 'color' && !value) {
-            return 'You have to set this field';
+            return 'You have to set this field'
           }
 
-          return true;
+          return true
         })
     })
   ]
-});
+})

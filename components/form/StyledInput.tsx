@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils';
-import { forwardRef } from 'react';
-import type { FieldError } from 'react-hook-form';
+import { cn } from '@/lib/utils'
+import { forwardRef } from 'react'
+import type { FieldError } from 'react-hook-form'
 
 type StyledInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  error?: FieldError;
-};
+  error?: FieldError
+}
 
 /**
  * StyledInput is a component that wraps the native input element.
@@ -32,8 +32,8 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
           </p>
         )}
       </div>
-    );
+    )
   }
-);
+)
 
-StyledInput.displayName = 'StyledInput';
+StyledInput.displayName = 'StyledInput'

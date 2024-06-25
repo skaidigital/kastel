@@ -1,27 +1,24 @@
-'use client';
+'use client'
 
-import LazyLoadedVideo from '@/components/LazyLoadedVideo';
-import {
-  ProductPageContextType,
-  useProductPageContext
-} from '@/components/pages/ProductPage/Context';
-import { GenderGalleryButtons } from '@/components/pages/ProductPage/GenderGalleryButtons';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { LangValues } from '@/data/constants';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
-import 'keen-slider/keen-slider.min.css';
-import { useKeenSlider } from 'keen-slider/react';
-import { useEffect, useState } from 'react';
+import LazyLoadedVideo from '@/components/LazyLoadedVideo'
+import { useProductPageContext } from '@/components/pages/ProductPage/Context'
+import { GenderGalleryButtons } from '@/components/pages/ProductPage/GenderGalleryButtons'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { LangValues } from '@/data/constants'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { ProductGalleryProps, SanityImageProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
+import 'keen-slider/keen-slider.min.css'
+import { useKeenSlider } from 'keen-slider/react'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  mainImage: SanityImageProps;
-  galleryFemale?: ProductGalleryProps;
-  galleryMale?: ProductGalleryProps;
-  lifestyleImage?: SanityImageProps;
-  className?: string;
-  lang?: LangValues;
+  mainImage: SanityImageProps
+  galleryFemale?: ProductGalleryProps
+  galleryMale?: ProductGalleryProps
+  lifestyleImage?: SanityImageProps
+  className?: string
+  lang?: LangValues
 }
 
 export function MobileCarousel({
@@ -31,8 +28,8 @@ export function MobileCarousel({
   lifestyleImage,
   className
 }: Props) {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const [loaded, setLoaded] = useState<boolean>(false);
+  const [currentSlide, setCurrentSlide] = useState<number>(0)
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   const [ref, instanceRef] = useKeenSlider<HTMLDivElement>({
     slides: {
@@ -40,36 +37,36 @@ export function MobileCarousel({
     },
     loop: true,
     slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
+      setCurrentSlide(slider.track.details.rel)
     },
     created() {
-      setLoaded(true);
+      setLoaded(true)
     }
-  });
+  })
 
   useEffect(() => {
-    setCurrentSlide(0);
-  }, []);
+    setCurrentSlide(0)
+  }, [])
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
-  const { activeGender, setActiveGender } = useProductPageContext();
+  const { activeGender } = useProductPageContext()
 
   // ? Updates the carousel when we change the gender
   useEffect(() => {
-    setCurrentSlide(0);
-    instanceRef.current?.update();
-  }, [mainImage, lifestyleImage, galleryFemale, galleryMale, activeGender]);
+    setCurrentSlide(0)
+    instanceRef.current?.update()
+  }, [mainImage, lifestyleImage, galleryFemale, galleryMale, activeGender])
 
-  if (isDesktop) return null;
+  if (isDesktop) return null
 
   // set gender and scroll to the first image
-  function handleClick(gender: ProductPageContextType['activeGender']) {
-    setActiveGender(gender);
-    setCurrentSlide(0);
-  }
+  // function handleClick(gender: ProductPageContextType['activeGender']) {
+  //   setActiveGender(gender)
+  //   setCurrentSlide(0)
+  // }
 
-  const activeGallery = activeGender === 'female' ? galleryFemale : galleryMale;
+  const activeGallery = activeGender === 'female' ? galleryFemale : galleryMale
 
   return (
     <div ref={ref} className={cn('keen-slider', className)}>
@@ -90,7 +87,7 @@ export function MobileCarousel({
       {activeGallery &&
         activeGallery.length > 0 &&
         activeGallery.map((item, index) => {
-          const slideName = `number-slide-${index + 2}`;
+          const slideName = `number-slide-${index + 2}`
           if (item.type === 'figure') {
             return (
               <div
@@ -102,7 +99,7 @@ export function MobileCarousel({
               >
                 <SanityImage image={item} fill className="absolute object-cover" sizes="100vw" />
               </div>
-            );
+            )
           }
           if (item.type === 'mux.video') {
             return (
@@ -120,9 +117,9 @@ export function MobileCarousel({
                   className="absolute object-cover"
                 />
               </div>
-            );
+            )
           }
-          return null;
+          return null
         })}
       {(galleryFemale || galleryMale) && (
         <div className="absolute bottom-2 right-2">
@@ -136,17 +133,17 @@ export function MobileCarousel({
               <button
                 key={idx}
                 onClick={() => {
-                  instanceRef.current?.moveToIdx(idx);
+                  instanceRef.current?.moveToIdx(idx)
                 }}
                 className={cn(
                   'h-2 w-full cursor-pointer border border-none p-1',
                   currentSlide === idx ? 'bg-brand-primary' : 'bg-[#CCE5E5]'
                 )}
               />
-            );
+            )
           })}
         </div>
       )}
     </div>
-  );
+  )
 }

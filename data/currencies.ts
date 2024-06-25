@@ -1,1 +1,1 @@
-export const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP', 'NOK'];
+export const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP', 'NOK']

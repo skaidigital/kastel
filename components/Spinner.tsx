@@ -1,5 +1,5 @@
 interface Props {
-  size?: 'small' | 'medium';
+  size?: 'small' | 'medium'
 }
 
 // TODO see if we can't just replace with LoadingSpiner.tsx
@@ -16,7 +16,7 @@ export const Spinner = ({ size }: Props) => {
         >
           {path}
         </svg>
-      );
+      )
     default:
       return (
         <svg
@@ -28,9 +28,9 @@ export const Spinner = ({ size }: Props) => {
         >
           {path}
         </svg>
-      );
+      )
   }
-};
+}
 
 const path = (
   <>
@@ -43,4 +43,4 @@ const path = (
       fill="currentFill"
     />
   </>
-);
+)

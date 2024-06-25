@@ -1,10 +1,10 @@
-import { PRODUCT_OPTIONS } from '@/data/constants';
+import { PRODUCT_OPTIONS } from '@/data/constants'
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { GridFour } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { GridFour } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const productOptionType = defineType({
   title: 'Option group',
@@ -19,7 +19,7 @@ export const productOptionType = defineType({
       return {
         title: title || 'Missing title',
         subtitle: 'Option group'
-      };
+      }
     }
   },
   fields: [
@@ -68,12 +68,12 @@ export const productOptionType = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -93,12 +93,12 @@ export const productOptionType = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -117,4 +117,4 @@ export const productOptionType = defineType({
       }
     })
   ]
-});
+})

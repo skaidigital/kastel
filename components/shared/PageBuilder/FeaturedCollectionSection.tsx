@@ -1,43 +1,32 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/Button'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from '@/components/Carousel';
-import { CustomLink } from '@/components/CustomLink';
-import { Media } from '@/components/Media';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { FeaturedCollectionProps } from '@/components/shared/PageBuilder/hooks';
-import { ProductCard } from '@/components/shared/ProductCard';
+} from '@/components/Carousel'
+import { CustomLink } from '@/components/CustomLink'
+import { Media } from '@/components/Media'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { FeaturedCollectionProps } from '@/components/shared/PageBuilder/hooks'
+import { ProductCard } from '@/components/shared/ProductCard'
 
 interface PropsWithExtra extends FeaturedCollectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const FeaturedCollectionSection = ({ data }: Props) => {
-  const {
-    index,
-    pageId,
-    pageType,
-    title,
-    description,
-    media,
-    slug,
-    buttonText,
-    products,
-    sectionSettings
-  } = data;
+  const { title, description, media, slug, buttonText, products, sectionSettings } = data
 
   return (
     <Section
@@ -67,7 +56,7 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
                       />
                     </div>
                   </CarouselItem>
-                );
+                )
               })}
             </CarouselContent>
           </Carousel>
@@ -111,7 +100,7 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
                         <ProductCard product={product} firstImage={'product'} />
                       </div>
                     </CarouselItem>
-                  );
+                  )
                 })}
               </CarouselContent>
             </div>
@@ -119,17 +108,17 @@ export const FeaturedCollectionSection = ({ data }: Props) => {
         </Carousel>
       </Container>
     </Section>
-  );
-};
+  )
+}
 
 function MediaContent({
   title,
   description,
   media
 }: {
-  title: string;
-  description: string;
-  media: FeaturedCollectionProps['media'];
+  title: string
+  description: string
+  media: FeaturedCollectionProps['media']
 }) {
   return (
     <div className="lg:basis-1/2">
@@ -147,5 +136,5 @@ function MediaContent({
         </div>
       </div>
     </div>
-  );
+  )
 }

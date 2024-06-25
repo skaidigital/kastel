@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { Button } from '@/components/Button';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { Container } from '@/components/base/Container';
-import { SectionItem } from '@/components/pages/KastelClubPage/SectionItem';
-import { KastelClubSectionProps } from '@/components/pages/KastelClubPage/hooks';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/Button'
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel'
+import { Container } from '@/components/base/Container'
+import { SectionItem } from '@/components/pages/KastelClubPage/SectionItem'
+import { KastelClubSectionProps } from '@/components/pages/KastelClubPage/hooks'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  section: KastelClubSectionProps;
-  className?: string;
+  section: KastelClubSectionProps
+  className?: string
 }
 
 // TODO add section tags
 export function KastelClubPageSection({ section, className }: Props) {
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   if (isDesktop) {
     return (
@@ -37,10 +37,12 @@ export function KastelClubPageSection({ section, className }: Props) {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-          {section.items?.map((item) => <SectionItem key={item.title} item={item} />)}
+          {section.items?.map((item) => (
+            <SectionItem key={item.title} item={item} />
+          ))}
         </div>
       </Container>
-    );
+    )
   }
 
   return (
@@ -80,5 +82,5 @@ export function KastelClubPageSection({ section, className }: Props) {
         </Button>
       </Container>
     </div>
-  );
+  )
 }

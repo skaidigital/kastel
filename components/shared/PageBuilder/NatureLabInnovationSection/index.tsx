@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
-import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { NatureLabInnovationItem } from '@/components/shared/PageBuilder/NatureLabInnovationSection/NatureLabInnovationItem';
-import { NatureLabInnovationSectionProps } from '@/components/shared/PageBuilder/hooks';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { NatureLabInnovationItem } from '@/components/shared/PageBuilder/NatureLabInnovationSection/NatureLabInnovationItem'
+import { NatureLabInnovationSectionProps } from '@/components/shared/PageBuilder/hooks'
 
 interface PropsWithExtra extends NatureLabInnovationSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 // TODO will make a variant for Nature Lab headings
 // ? Add section settingsn
 export const NatureLabInnovationSection = ({ data }: Props) => {
-  const { index, pageId, pageType, title, description, innovations } = data;
+  const { title, description, innovations } = data
 
   return (
     <Section
@@ -62,5 +62,5 @@ export const NatureLabInnovationSection = ({ data }: Props) => {
         ))}
       </Container>
     </Section>
-  );
-};
+  )
+}

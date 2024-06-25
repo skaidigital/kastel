@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
+import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function ImageContainer({ children }: Props) {
@@ -11,5 +11,5 @@ export function ImageContainer({ children }: Props) {
     <AspectRatio ratio={3 / 4} className="relative w-full overflow-hidden">
       {children}
     </AspectRatio>
-  );
+  )
 }

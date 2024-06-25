@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
-import { cva, type VariantProps } from 'cva';
-import { HTMLAttributes } from 'react';
+import { cn } from '@/lib/utils'
+import { type VariantProps, cva } from 'cva'
+import { HTMLAttributes } from 'react'
 
 const container = cva({
   base: 'px-4 lg:px-8 w-full mx-auto',
@@ -16,12 +16,12 @@ const container = cva({
   defaultVariants: {
     // size: 'lg'
   }
-});
+})
 
 export interface ContainerProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof container> {}
 
 export const Container = ({ size, className, ...props }: ContainerProps) => {
-  return <div className={cn(container({ size, className }))} {...props} />;
-};
+  return <div className={cn(container({ size, className }))} {...props} />
+}

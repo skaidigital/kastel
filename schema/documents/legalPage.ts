@@ -1,9 +1,9 @@
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Gavel } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Gavel } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const legalPage = defineType({
   title: 'Legal page',
@@ -18,7 +18,7 @@ export const legalPage = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Legal page'
-      };
+      }
     }
   },
   fields: [
@@ -74,12 +74,12 @@ export const legalPage = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -99,12 +99,12 @@ export const legalPage = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -128,4 +128,4 @@ export const legalPage = defineType({
       type: 'metadata'
     })
   ]
-});
+})

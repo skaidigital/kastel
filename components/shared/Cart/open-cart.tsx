@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 
 export default function OpenCart({
   className,
   quantity
 }: {
-  className?: string;
-  quantity?: number;
+  className?: string
+  quantity?: number
 }) {
   return (
     <button
@@ -23,5 +23,5 @@ export default function OpenCart({
         </div>
       ) : null}
     </button>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { VariantProps, cva } from 'cva';
-import { HTMLAttributes } from 'react';
+import { VariantProps, cva } from 'cva'
+import { HTMLAttributes } from 'react'
 
 const badgeProps = cva({
   base: 'rounded-[4px] w-fit',
@@ -24,12 +24,12 @@ const badgeProps = cva({
     variant: 'brand',
     size: 'sm'
   }
-});
+})
 
 export interface BadgeProps
   extends HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof badgeProps> {}
 
 export function Badge({ className, variant, size, children }: BadgeProps) {
-  return <span className={badgeProps({ variant, size, className })}>{children}</span>;
+  return <span className={badgeProps({ variant, size, className })}>{children}</span>
 }

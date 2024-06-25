@@ -1,6 +1,6 @@
-import { resolveHref } from '@/lib/sanity/studioUtils';
-import { Observable, map } from 'rxjs';
-import { DocumentLocationResolver, DocumentLocationsState } from 'sanity/presentation';
+import { resolveHref } from '@/lib/sanity/studioUtils'
+import { Observable, map } from 'rxjs'
+import { DocumentLocationResolver, DocumentLocationsState } from 'sanity/presentation'
 
 const documentTypesWithPreview = [
   'page',
@@ -13,7 +13,7 @@ const documentTypesWithPreview = [
   'retailersPage',
   'aboutPage',
   'kastelClubPage'
-];
+]
 
 export const locate: DocumentLocationResolver = (params, context) => {
   if (documentTypesWithPreview.includes(params.type)) {
@@ -23,18 +23,18 @@ export const locate: DocumentLocationResolver = (params, context) => {
       { perspective: 'previewDrafts' }
     ) as Observable<
       | {
-          _type: string;
-          slug: { current: string };
-          slug_en: { current: string };
-          title: string | null;
-          internalTitle: string | null;
-          id: string;
+          _type: string
+          slug: { current: string }
+          slug_en: { current: string }
+          title: string | null
+          internalTitle: string | null
+          id: string
         }[]
       | null
-    >;
+    >
     return doc$.pipe(
       map((docs) => {
-        const thisDocument = docs?.find((doc) => doc.id === params.id);
+        const thisDocument = docs?.find((doc) => doc.id === params.id)
 
         switch (params.type) {
           case 'page':
@@ -48,7 +48,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 ],
                 tone: 'positive',
                 message: 'Open preview'
-              } satisfies DocumentLocationsState;
+              } satisfies DocumentLocationsState
             }
             return {
               locations: thisDocument
@@ -65,7 +65,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 : [],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'product':
             return {
               locations: thisDocument
@@ -78,7 +78,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 : [],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'collection':
             return {
               locations: thisDocument
@@ -91,7 +91,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 : [],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'legalPage':
             return {
               locations: thisDocument
@@ -104,7 +104,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 : [],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'blogPost':
             return {
               locations: thisDocument
@@ -121,7 +121,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 : [],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'blogLandingPage':
             return {
               locations: [
@@ -132,7 +132,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
               ],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'helpCenter':
             return {
               locations: [
@@ -143,7 +143,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
               ],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'retailersPage':
             return {
               locations: [
@@ -154,7 +154,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
               ],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'aboutPage':
             return {
               locations: [
@@ -165,7 +165,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
               ],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           case 'kastelClubPage':
             return {
               locations: [
@@ -176,16 +176,16 @@ export const locate: DocumentLocationResolver = (params, context) => {
               ],
               tone: 'positive',
               message: 'Open preview'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
           default:
             return {
               message: 'Unable to map document type to locations',
               tone: 'critical'
-            } satisfies DocumentLocationsState;
+            } satisfies DocumentLocationsState
         }
       })
-    );
+    )
   }
 
-  return null;
-};
+  return null
+}

@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Slideshow } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Slideshow } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const shopOurModelsBlock = defineType({
   title: 'Shop Our Models block',
@@ -15,7 +15,7 @@ export const shopOurModelsBlock = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Shop Our Models block'
-      };
+      }
     }
   },
   fields: [
@@ -53,7 +53,7 @@ export const shopOurModelsBlock = defineType({
               return {
                 title: title || 'No title defined',
                 media: media || undefined
-              };
+              }
             }
           },
           fields: [
@@ -78,15 +78,15 @@ export const shopOurModelsBlock = defineType({
                 filter: ({ document, parentPath }: any) => {
                   const thisObject = document?.shoes?.find(
                     (item: any) => item._key === parentPath[1]?._key
-                  );
-                  const shoeRef = thisObject?.shoe?._ref;
+                  )
+                  const shoeRef = thisObject?.shoe?._ref
 
                   return {
                     filter: 'productType._ref == $shoeRef',
                     params: {
                       shoeRef
                     }
-                  };
+                  }
                 }
               }
             }),
@@ -120,7 +120,7 @@ export const shopOurModelsBlock = defineType({
                     prepare({ title }) {
                       return {
                         title: title || 'No title defined'
-                      };
+                      }
                     }
                   },
                   fields: [
@@ -149,4 +149,4 @@ export const shopOurModelsBlock = defineType({
       ]
     })
   ]
-});
+})

@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import Video, { VideoProps } from '@/components/Video';
-import { cn } from '@/lib/utils';
-import Image, { getImageProps } from 'next/image';
-import { preload } from 'react-dom';
-import { useInView } from 'react-intersection-observer';
+import Video, { VideoProps } from '@/components/Video'
+import { cn } from '@/lib/utils'
+import Image, { getImageProps } from 'next/image'
+import { preload } from 'react-dom'
+import { useInView } from 'react-intersection-observer'
 
 export default function LazyLoadedVideo(props: VideoProps) {
-  const { ref, inView } = useInView({ triggerOnce: true });
+  const { ref, inView } = useInView({ triggerOnce: true })
 
   // Use `getImgProps` to convert the video poster image to WebP
   const {
@@ -16,14 +16,14 @@ export default function LazyLoadedVideo(props: VideoProps) {
     src: `https://image.mux.com/${props.playbackId}/thumbnail.webp?fit_mode=smartcrop&time=0`,
     alt: '',
     fill: true
-  });
+  })
 
   // Preload the poster when applicable
   if (props.loading === 'eager') {
     preload(poster, {
       as: 'image',
       fetchPriority: 'high'
-    });
+    })
   }
 
   return (
@@ -42,5 +42,5 @@ export default function LazyLoadedVideo(props: VideoProps) {
         <Video {...props} />
       )}
     </>
-  );
+  )
 }

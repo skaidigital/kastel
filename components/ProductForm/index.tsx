@@ -1,25 +1,25 @@
-import { getDictionary } from '@/app/dictionaries';
-import { AddToCartButton } from '@/components/ProductForm/AddToCartButton';
-import { VariantSelector } from '@/components/VariantSelector';
-import { MobileAddToCartDrawer } from '@/components/pages/ProductPage/MobileAddToCartDrawer';
-import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
-import { LangValues } from '@/data/constants';
-import { SizeGuideProps } from '@/lib/sanity/types';
+import { getDictionary } from '@/app/dictionaries'
+import { AddToCartButton } from '@/components/ProductForm/AddToCartButton'
+import { VariantSelector } from '@/components/VariantSelector'
+import { MobileAddToCartDrawer } from '@/components/pages/ProductPage/MobileAddToCartDrawer'
+import { Product, ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks'
+import { LangValues } from '@/data/constants'
+import { SizeGuideProps } from '@/lib/sanity/types'
 
 export type Combination = {
-  id: string;
-  availableForSale: boolean;
-  [key: string]: string | boolean;
-};
+  id: string
+  availableForSale: boolean
+  [key: string]: string | boolean
+}
 
 interface Props {
-  lang: LangValues;
-  productId: string;
-  productTitle: string;
-  type: Product['type'];
-  variants: ProductVariant[];
-  sizeGuide?: SizeGuideProps;
-  options?: ProductOption[];
+  lang: LangValues
+  productId: string
+  productTitle: string
+  type: Product['type']
+  variants: ProductVariant[]
+  sizeGuide?: SizeGuideProps
+  options?: ProductOption[]
 }
 
 export async function ProductForm({
@@ -31,9 +31,9 @@ export async function ProductForm({
   variants,
   lang
 }: Props) {
-  const { product_page: dictionary } = await getDictionary({ lang });
+  const { product_page: dictionary } = await getDictionary({ lang })
 
-  if (!variants || !productId) return null;
+  if (!variants || !productId) return null
 
   return (
     <MobileAddToCartDrawer
@@ -65,5 +65,5 @@ export async function ProductForm({
         />
       </div>
     </MobileAddToCartDrawer>
-  );
+  )
 }

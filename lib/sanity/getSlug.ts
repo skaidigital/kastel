@@ -1,90 +1,90 @@
-import { ROUTES } from '@/data/constants';
-import { ConditionalLinkProps, LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types';
+import { ROUTES } from '@/data/constants'
+import { ConditionalLinkProps, LinkProps, LinkWithoutTextProps } from '@/lib/sanity/types'
 
 export const getSlug = (link: LinkProps | LinkWithoutTextProps) => {
-  const linkType = link.linkType;
+  const linkType = link.linkType
 
   if (linkType === 'external') {
-    return link.href || '#';
+    return link.href || '#'
   }
 
   if (linkType === 'smile') {
-    return '#';
+    return '#'
   }
 
   if (!link.linkTo) {
-    return '#';
+    return '#'
   }
 
-  const internalLinkType = link.linkTo.type;
+  const internalLinkType = link.linkTo.type
 
   if (internalLinkType === 'page' && link.linkTo.slug === 'home') {
-    return `/`;
+    return `/`
   }
 
   switch (internalLinkType) {
     case 'page':
-      return `/${link.linkTo.slug}`;
+      return `/${link.linkTo.slug}`
     case 'product':
-      return `${ROUTES.PRODUCTS}/${link.linkTo.slug}`;
+      return `${ROUTES.PRODUCTS}/${link.linkTo.slug}`
     case 'collection':
-      return `${ROUTES.COLLECTIONS}/${link.linkTo.slug}`;
+      return `${ROUTES.COLLECTIONS}/${link.linkTo.slug}`
     case 'retailersPage':
-      return `/stores`;
+      return `/stores`
     case 'blogLandingPage':
-      return `${ROUTES.BLOG}`;
+      return `${ROUTES.BLOG}`
     case 'blogPost':
-      return `${ROUTES.BLOG}/${link.linkTo.slug}`;
+      return `${ROUTES.BLOG}/${link.linkTo.slug}`
     case 'helpCenter':
-      return `${ROUTES.HELP_CENTER}`;
+      return `${ROUTES.HELP_CENTER}`
     case 'legalPage':
-      return `${ROUTES.LEGAL}/${link.linkTo.slug}`;
+      return `${ROUTES.LEGAL}/${link.linkTo.slug}`
     default:
-      return '/';
+      return '/'
   }
-};
+}
 
 export const getSlugConditionalLink = (link: ConditionalLinkProps) => {
-  if (!link.hasLink) return '#';
+  if (!link.hasLink) return '#'
 
-  const linkType = link.type;
+  const linkType = link.type
 
   if (linkType === 'external') {
-    return link.href || '#';
+    return link.href || '#'
   }
 
   if (linkType === 'smile') {
-    return '#';
+    return '#'
   }
 
   if (!link.linkTo) {
-    return '#';
+    return '#'
   }
 
-  const internalLinkType = link.linkTo.type;
+  const internalLinkType = link.linkTo.type
 
   if (internalLinkType === 'page' && link.linkTo.slug === 'home') {
-    return `/`;
+    return `/`
   }
 
   switch (internalLinkType) {
     case 'page':
-      return `/${link.linkTo.slug}`;
+      return `/${link.linkTo.slug}`
     case 'product':
-      return `${ROUTES.PRODUCTS}/${link.linkTo.slug}`;
+      return `${ROUTES.PRODUCTS}/${link.linkTo.slug}`
     case 'collection':
-      return `${ROUTES.COLLECTIONS}/${link.linkTo.slug}`;
+      return `${ROUTES.COLLECTIONS}/${link.linkTo.slug}`
     case 'retailersPage':
-      return `/stores`;
+      return `/stores`
     case 'blogLandingPage':
-      return `${ROUTES.BLOG}`;
+      return `${ROUTES.BLOG}`
     case 'blogPost':
-      return `${ROUTES.BLOG}/${link.linkTo.slug}`;
+      return `${ROUTES.BLOG}/${link.linkTo.slug}`
     case 'helpCenter':
-      return `${ROUTES.HELP_CENTER}`;
+      return `${ROUTES.HELP_CENTER}`
     case 'legalPage':
-      return `${ROUTES.LEGAL}/${link.linkTo.slug}`;
+      return `${ROUTES.LEGAL}/${link.linkTo.slug}`
     default:
-      return '/';
+      return '/'
   }
-};
+}

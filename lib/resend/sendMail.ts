@@ -1,25 +1,25 @@
-'use server';
+'use server'
 
-import { EMAILS } from '@/data/constants';
-import { env } from '@/env';
-import { ReactElement } from 'react';
-import { Resend } from 'resend';
-import NatureLabEmailTemplate from './NatureLabQuestionairlTemplate';
+import { EMAILS } from '@/data/constants'
+import { env } from '@/env'
+import { ReactElement } from 'react'
+import { Resend } from 'resend'
+import NatureLabEmailTemplate from './NatureLabQuestionairlTemplate'
 
-const resend = new Resend(env.RESEND_API_KEY);
+const resend = new Resend(env.RESEND_API_KEY)
 
 export interface NatureLabEmailTemplateProps {
-  name: string;
-  email: string;
-  natureLabTitle: string;
-  questionResponse: { question: string; answer: string }[];
+  name: string
+  email: string
+  natureLabTitle: string
+  questionResponse: { question: string; answer: string }[]
 }
 
 export async function sendNatureLabEmail(data: NatureLabEmailTemplateProps) {
-  const { name, email, natureLabTitle, questionResponse } = data;
+  const { name, email, natureLabTitle, questionResponse } = data
 
-  const isProduction = process.env.NODE_ENV === 'production';
-  const to = isProduction ? EMAILS.CONTACT : 'hello@skaidigital.com';
+  const isProduction = process.env.NODE_ENV === 'production'
+  const to = isProduction ? EMAILS.CONTACT : 'hello@skaidigital.com'
 
   try {
     const { error } = await resend.emails.send({
@@ -32,10 +32,10 @@ export async function sendNatureLabEmail(data: NatureLabEmailTemplateProps) {
         natureLabTitle,
         questionResponse
       }) as ReactElement
-    });
+    })
 
-    if (error) console.error(error);
+    if (error) console.error(error)
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
 }

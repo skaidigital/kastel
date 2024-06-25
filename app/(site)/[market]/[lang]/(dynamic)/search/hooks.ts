@@ -1,16 +1,16 @@
-import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants';
-import * as fragments from '@/lib/sanity/fragments';
-import { productCardValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { COLLECTION_PAGE_SIZE, LangValues, MarketValues } from '@/data/constants'
+import * as fragments from '@/lib/sanity/fragments'
+import { productCardValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 export const searchResultValidator = z.object({
   products: z.array(productCardValidator).optional(),
   productCount: z.number().optional(),
   hasNextPage: z.boolean()
-});
+})
 
-export type SearchResult = z.infer<typeof searchResultValidator>;
+export type SearchResult = z.infer<typeof searchResultValidator>
 
 export function getSearchResultQuery(
   lang: LangValues,
@@ -19,12 +19,12 @@ export function getSearchResultQuery(
   pageIndex: number = 1,
   sortKey?: string
 ) {
-  const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE;
-  const end = pageIndex * COLLECTION_PAGE_SIZE;
+  const start = (pageIndex - 1) * COLLECTION_PAGE_SIZE
+  const end = pageIndex * COLLECTION_PAGE_SIZE
 
   const productQuery = groq`
     *[_type == "product" && defined(slug_${lang}.current) && title.${lang} match $searchQuery]
-  `;
+  `
 
   const query = groq`
       {
@@ -52,20 +52,20 @@ export function getSearchResultQuery(
       "productCount": count(${productQuery}),
       "hasNextPage": count(${productQuery}[${start + 1}...${end + 1}]) >= ${COLLECTION_PAGE_SIZE}
       }
-    `;
+    `
 
-  return query;
+  return query
 }
 
 export function getSortQuery(sortKey: string | undefined) {
   switch (sortKey) {
     case 'price_lowest':
-      return 'minPrice asc';
+      return 'minPrice asc'
     case 'price_highest':
-      return 'maxPrice desc';
+      return 'maxPrice desc'
     case 'newest':
-      return '_createdAt desc';
+      return '_createdAt desc'
     default:
-      return '_score desc';
+      return '_score desc'
   }
 }

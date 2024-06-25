@@ -1,38 +1,38 @@
-'use client';
+'use client'
 
-import { cn } from '@/lib/utils';
-import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
-import { useState } from 'react';
+import { cn } from '@/lib/utils'
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
+import { useState } from 'react'
 
 interface Props {
-  hasAnnouncementBanner: boolean;
-  children: React.ReactNode;
+  hasAnnouncementBanner: boolean
+  children: React.ReactNode
 }
 
 export function AnimatedNavbar({ hasAnnouncementBanner, children }: Props) {
-  const { scrollY } = useScroll();
-  const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
+  const { scrollY } = useScroll()
+  const [shouldAnimate, setShouldAnimate] = useState<boolean>(false)
 
   const [shouldAnimateOffset, setShouldAnimateOffset] = useState<boolean>(
     hasAnnouncementBanner ? true : false
-  );
+  )
 
-  const yTransform = useTransform(scrollY, [32, 0], [32, 0]);
+  const yTransform = useTransform(scrollY, [32, 0], [32, 0])
 
   useMotionValueEvent(yTransform, 'change', (latest) => {
     if (latest >= 32) {
       if (hasAnnouncementBanner) {
-        setShouldAnimateOffset(false);
+        setShouldAnimateOffset(false)
       }
-      setShouldAnimate(true);
+      setShouldAnimate(true)
     }
     if (latest < 32) {
       if (hasAnnouncementBanner) {
-        setShouldAnimateOffset(true);
+        setShouldAnimateOffset(true)
       }
-      setShouldAnimate(false);
+      setShouldAnimate(false)
     }
-  });
+  })
 
   return (
     <motion.div
@@ -50,5 +50,5 @@ export function AnimatedNavbar({ hasAnnouncementBanner, children }: Props) {
     >
       {children}
     </motion.div>
-  );
+  )
 }

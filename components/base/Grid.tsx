@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
-import { VariantProps, cva } from 'cva';
-import { HTMLAttributes } from 'react';
+import { cn } from '@/lib/utils'
+import { VariantProps, cva } from 'cva'
+import { HTMLAttributes } from 'react'
 
 const gridProps = cva({
   base: 'grid',
@@ -16,10 +16,10 @@ const gridProps = cva({
     spacing: 'default',
     type: 'normal'
   }
-});
+})
 
 interface GridProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof gridProps> {}
 
 export const Grid = ({ type, spacing, className, ...props }: GridProps) => {
-  return <div className={cn(gridProps({ type, spacing, className }))} {...props} />;
-};
+  return <div className={cn(gridProps({ type, spacing, className }))} {...props} />
+}

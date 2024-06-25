@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const settingsPaymentProviders = defineType({
   title: 'Payment providers',
@@ -8,7 +8,7 @@ export const settingsPaymentProviders = defineType({
     prepare() {
       return {
         title: 'Payment providers'
-      };
+      }
     }
   },
   fields: [
@@ -41,4 +41,4 @@ export const settingsPaymentProviders = defineType({
       ]
     })
   ]
-});
+})

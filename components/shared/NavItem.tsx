@@ -1,13 +1,13 @@
-import { Text, TextProps } from '@/components/base/Text';
-import { LinkProps } from '@/lib/sanity/types';
-import type { ReactNode } from 'react';
-import { SanityLink } from '../sanity/SanityLink';
+import { Text, TextProps } from '@/components/base/Text'
+import { LinkProps } from '@/lib/sanity/types'
+import type { ReactNode } from 'react'
+import { SanityLink } from '../sanity/SanityLink'
 
 interface Props {
-  link: LinkProps;
-  children: ReactNode;
-  size?: TextProps['size'];
-  className?: string;
+  link: LinkProps
+  children: ReactNode
+  size?: TextProps['size']
+  className?: string
 }
 
 export const NavItem = ({ children, link, size, className }: Props) => {
@@ -17,5 +17,5 @@ export const NavItem = ({ children, link, size, className }: Props) => {
         {children}
       </Text>
     </SanityLink>
-  );
-};
+  )
+}

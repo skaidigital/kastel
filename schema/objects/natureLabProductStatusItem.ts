@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const natureLabProductStatusItem = defineType({
   title: 'Status item',
@@ -19,4 +19,4 @@ export const natureLabProductStatusItem = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

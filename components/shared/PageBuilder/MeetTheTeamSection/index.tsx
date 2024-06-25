@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { TeamMember } from '@/components/shared/PageBuilder/MeetTheTeamSection/TeamMember';
-import { MeetTheTeamSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { TeamMember } from '@/components/shared/PageBuilder/MeetTheTeamSection/TeamMember'
+import { MeetTheTeamSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
 
 interface PropsWithExtra extends MeetTheTeamSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const MeetTheTeamSection = ({ data }: Props) => {
-  const { title, people, sectionSettings } = data;
+  const { title, people, sectionSettings } = data
 
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsDesktop()
 
   if (isDesktop) {
     return (
@@ -34,11 +34,13 @@ export const MeetTheTeamSection = ({ data }: Props) => {
         <Container className="flex flex-col gap-y-10">
           {title && <h2 className="text-heading-xl font-bold uppercase">{title}</h2>}
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {people?.map((person) => <TeamMember data={person} key={person.name} />)}
+            {people?.map((person) => (
+              <TeamMember data={person} key={person.name} />
+            ))}
           </div>
         </Container>
       </Section>
-    );
+    )
   }
 
   return (
@@ -67,5 +69,5 @@ export const MeetTheTeamSection = ({ data }: Props) => {
         </CarouselContent>
       </Carousel>
     </Section>
-  );
-};
+  )
+}

@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import { Text } from '@/components/base/Text';
-import { useState } from 'react';
+import { Text } from '@/components/base/Text'
+import { useState } from 'react'
 
 export function ExpandableText({ children }: { children: React.ReactNode }) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false)
 
   const toggleText = () => {
-    setExpanded(!expanded);
-  };
+    setExpanded(!expanded)
+  }
 
   return (
     <div
@@ -28,5 +28,5 @@ export function ExpandableText({ children }: { children: React.ReactNode }) {
         </Text>
       )}
     </div>
-  );
+  )
 }

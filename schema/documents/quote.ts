@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Quotes } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Quotes } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const quote = defineType({
   title: 'Quote',
@@ -16,7 +16,7 @@ export const quote = defineType({
       return {
         title
         // subtitle: subtitle || undefined
-      };
+      }
     }
   },
   fields: [
@@ -69,9 +69,9 @@ export const quote = defineType({
             context?.parent?.authorType === 'internal' &&
             !person
           ) {
-            return 'Please select a person';
+            return 'Please select a person'
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => !parent?.showAuthor || parent?.authorType === 'external'
     }),
@@ -86,11 +86,11 @@ export const quote = defineType({
             context?.parent?.authorType === 'external' &&
             !person
           ) {
-            return 'Please write the name of the author';
+            return 'Please write the name of the author'
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => !parent?.showAuthor || parent?.authorType === 'internal'
     })
   ]
-});
+})

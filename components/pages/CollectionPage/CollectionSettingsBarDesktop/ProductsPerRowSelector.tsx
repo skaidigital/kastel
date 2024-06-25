@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { useCollectionContext } from '@/components/pages/CollectionPage/Context';
-import { cn } from '@/lib/utils';
+import { useCollectionContext } from '@/components/pages/CollectionPage/Context'
+import { cn } from '@/lib/utils'
 
 export function ProductsPerRowSelector() {
-  const { productsPerRow, setProductsPerRow } = useCollectionContext();
+  const { productsPerRow, setProductsPerRow } = useCollectionContext()
 
   function handleOnClick(number: number) {
-    setProductsPerRow(number);
+    setProductsPerRow(number)
   }
 
   return (
@@ -19,11 +19,11 @@ export function ProductsPerRowSelector() {
         <ViewProductNumber cols={4} active={productsPerRow} />
       </button>
     </div>
-  );
+  )
 }
 
 function ViewProductNumber({ cols, active }: { cols: 3 | 4; active: number | null }) {
-  const validatedActive = active ? Number(active) : 4;
+  const validatedActive = active ? Number(active) : 4
 
   return (
     <div className="flex space-x-[2px]">
@@ -37,5 +37,5 @@ function ViewProductNumber({ cols, active }: { cols: 3 | 4; active: number | nul
         />
       ))}
     </div>
-  );
+  )
 }

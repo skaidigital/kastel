@@ -1,15 +1,15 @@
-import { FilterSheet } from '@/components/FilterSheet';
-import { SortSheet } from '@/components/SortSheet';
-import { CollectionActionsBarSettings } from '@/components/pages/CollectionPage/ActionsBarMobile/Settings';
-import { LangValues, MarketValues } from '@/data/constants';
-import { cn } from '@/lib/utils';
+import { FilterSheet } from '@/components/FilterSheet'
+import { SortSheet } from '@/components/SortSheet'
+import { CollectionActionsBarSettings } from '@/components/pages/CollectionPage/ActionsBarMobile/Settings'
+import { LangValues, MarketValues } from '@/data/constants'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  market: MarketValues;
-  lang: LangValues;
-  className?: string;
-  collectionSlug?: string;
-  searchGids?: string[];
+  market: MarketValues
+  lang: LangValues
+  className?: string
+  collectionSlug?: string
+  searchGids?: string[]
 }
 
 export function CollectionActionsBarMobile({
@@ -35,5 +35,5 @@ export function CollectionActionsBarMobile({
       <SortSheet lang={lang} />
       <CollectionActionsBarSettings lang={lang} />
     </div>
-  );
+  )
 }

@@ -1,24 +1,24 @@
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { cn } from '@/lib/utils';
-import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { cn } from '@/lib/utils'
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 interface Retailer {
-  name: string;
-  websiteUrl: string;
-  address1: string;
-  address2?: string;
-  zip: string;
-  city: string;
-  country: string;
+  name: string
+  websiteUrl: string
+  address1: string
+  address2?: string
+  zip: string
+  city: string
+  country: string
 }
 
 // todo use schema from zod
 interface RetailersPageProps {
-  title: string;
-  retailers: Retailer[];
+  title: string
+  retailers: Retailer[]
 }
 
 export function RetailersPage({ title, retailers }: RetailersPageProps) {
@@ -71,21 +71,21 @@ export function RetailersPage({ title, retailers }: RetailersPageProps) {
         </div>
       </Container>
     </Section>
-  );
+  )
 }
 
 interface WrapperProps {
-  retailer: Retailer;
-  children: React.ReactNode;
-  className?: string;
+  retailer: Retailer
+  children: React.ReactNode
+  className?: string
 }
 
 function Wrapper({ retailer, className, children }: WrapperProps) {
-  const Wrapper = retailer.websiteUrl ? Link : 'div';
+  const Wrapper = retailer.websiteUrl ? Link : 'div'
 
   return (
     <Wrapper href={retailer.websiteUrl} className={cn(className)}>
       {children}
     </Wrapper>
-  );
+  )
 }

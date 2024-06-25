@@ -1,36 +1,36 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { Modal, ModalContent, ModalHeader } from '@/components/Modal';
-import { Sheet, SheetContent } from '@/components/Sheet';
-import { NorwegianFlagIcon } from '@/components/icons/NorwegianFlagIcon';
-import { MarketItem } from '@/components/shared/MarketItem';
-import { handleHasChosenMarket } from '@/lib/actions';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { useIsDesktop } from '@/lib/hooks/useMediaQuery';
-import { useRouter } from 'next/navigation';
-import { parseAsBoolean, useQueryState } from 'nuqs';
+import { Dictionary } from '@/app/dictionaries'
+import { Modal, ModalContent, ModalHeader } from '@/components/Modal'
+import { Sheet, SheetContent } from '@/components/Sheet'
+import { NorwegianFlagIcon } from '@/components/icons/NorwegianFlagIcon'
+import { MarketItem } from '@/components/shared/MarketItem'
+import { handleHasChosenMarket } from '@/lib/actions'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { useIsDesktop } from '@/lib/hooks/useMediaQuery'
+import { useRouter } from 'next/navigation'
+import { parseAsBoolean, useQueryState } from 'nuqs'
 
 interface Props {
-  dictionary: Dictionary['market_selector'];
+  dictionary: Dictionary['market_selector']
 }
 
 export function MarketLayout({ dictionary }: Props) {
-  const [isOpen, setIsOpen] = useQueryState('market_popup', parseAsBoolean);
-  const { market, lang } = useBaseParams();
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useQueryState('market_popup', parseAsBoolean)
+  const { market, lang } = useBaseParams()
+  const router = useRouter()
 
   const onClose = (e: any) => {
-    e.preventDefault();
-    setIsOpen(null);
-  };
-
-  async function handleClick(href: string) {
-    await handleHasChosenMarket();
-    setIsOpen(null).then(() => router.push(href));
+    e.preventDefault()
+    setIsOpen(null)
   }
 
-  const isDesktop = useIsDesktop();
+  async function handleClick(href: string) {
+    await handleHasChosenMarket()
+    setIsOpen(null).then(() => router.push(href))
+  }
+
+  const isDesktop = useIsDesktop()
 
   if (isDesktop) {
     return (
@@ -62,7 +62,7 @@ export function MarketLayout({ dictionary }: Props) {
           </div>
         </ModalContent>
       </Modal>
-    );
+    )
   }
 
   return (
@@ -91,5 +91,5 @@ export function MarketLayout({ dictionary }: Props) {
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }

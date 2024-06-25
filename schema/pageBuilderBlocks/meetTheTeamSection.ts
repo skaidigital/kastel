@@ -1,9 +1,9 @@
 import {
   filterAlreadyAddedReferences,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { UsersFour } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { UsersFour } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const meetTheTeamSection = defineType({
   title: 'Meet the team',
@@ -49,4 +49,4 @@ export const meetTheTeamSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

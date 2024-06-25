@@ -39,4 +39,4 @@ export const VisaLogo = (props: React.SVGProps<SVGSVGElement>) => (
       fill="#182E66"
     />
   </svg>
-);
+)

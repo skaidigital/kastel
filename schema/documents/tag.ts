@@ -1,9 +1,9 @@
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Tag } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Tag } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const tag = defineType({
   title: 'Tag',
@@ -18,7 +18,7 @@ export const tag = defineType({
     prepare: ({ title, group }) => {
       return {
         title: `${title} (${group})`
-      };
+      }
     }
   },
   fields: [
@@ -54,16 +54,16 @@ export const tag = defineType({
       // hidden: ({ parent }) => parent?.type !== 'color',
       validation: (Rule) =>
         Rule.custom(async (value, context: any) => {
-          const client = context.getClient({ apiVersion: '2024-01-08' });
-          const parentId = context.document.group?._ref;
+          const client = context.getClient({ apiVersion: '2024-01-08' })
+          const parentId = context.document.group?._ref
 
-          const parentType = await client.fetch(`*[_id == "${parentId}"][0].type`);
+          const parentType = await client.fetch(`*[_id == "${parentId}"][0].type`)
 
           if (!value && parentType === 'color') {
-            return 'Color is required for tags that belong to a color group';
+            return 'Color is required for tags that belong to a color group'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -75,16 +75,16 @@ export const tag = defineType({
       // hidden: ({ parent }) => parent?.type !== 'color',
       validation: (Rule) =>
         Rule.custom(async (value, context: any) => {
-          const client = context.getClient({ apiVersion: '2024-01-08' });
-          const parentId = context.document.group?._ref;
+          const client = context.getClient({ apiVersion: '2024-01-08' })
+          const parentId = context.document.group?._ref
 
-          const parentType = await client.fetch(`*[_id == "${parentId}"][0].type`);
+          const parentType = await client.fetch(`*[_id == "${parentId}"][0].type`)
 
           if (!value && parentType === 'size') {
-            return 'Size is required for tags that belong to a color group';
+            return 'Size is required for tags that belong to a color group'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -104,12 +104,12 @@ export const tag = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -129,12 +129,12 @@ export const tag = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -153,4 +153,4 @@ export const tag = defineType({
       }
     })
   ]
-});
+})

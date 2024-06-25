@@ -1,18 +1,18 @@
-import { Dictionary } from '@/app/dictionaries';
-import { Combination } from '@/components/VariantSelector';
-import { ProductOption } from '@/components/pages/ProductPage/hooks';
-import { SizeGuideProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
-import { useQueryState } from 'nuqs';
-import { Text } from '../base/Text';
-import { SizeGuide } from './SizeGuide';
+import { Dictionary } from '@/app/dictionaries'
+import { Combination } from '@/components/VariantSelector'
+import { ProductOption } from '@/components/pages/ProductPage/hooks'
+import { SizeGuideProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
+import { useQueryState } from 'nuqs'
+import { Text } from '../base/Text'
+import { SizeGuide } from './SizeGuide'
 
 interface Props {
-  option: ProductOption;
-  combinations: Combination[];
-  chooseSizeText: Dictionary['product_page']['choose_size'];
-  sizeGuideText: Dictionary['product_page']['size_guide'];
-  sizeGuide?: SizeGuideProps;
+  option: ProductOption
+  combinations: Combination[]
+  chooseSizeText: Dictionary['product_page']['choose_size']
+  sizeGuideText: Dictionary['product_page']['size_guide']
+  sizeGuide?: SizeGuideProps
 }
 
 export function OptionGroup({
@@ -22,7 +22,7 @@ export function OptionGroup({
   chooseSizeText,
   sizeGuideText
 }: Props) {
-  const [selectedOption, setSelectedOption] = useQueryState(option.slug);
+  const [selectedOption, setSelectedOption] = useQueryState(option.slug)
 
   return (
     <dl className="" key={option.name}>
@@ -43,9 +43,9 @@ export function OptionGroup({
               (combination) =>
                 combination[option.name.toLowerCase()] === value.title &&
                 combination.availableForSale
-            );
+            )
 
-            const isActive = selectedOption === value.title;
+            const isActive = selectedOption === value.title
 
             return (
               <button
@@ -64,9 +64,9 @@ export function OptionGroup({
               >
                 {value.title}
               </button>
-            );
+            )
           })}
       </dd>
     </dl>
-  );
+  )
 }

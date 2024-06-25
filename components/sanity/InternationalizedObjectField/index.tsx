@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { useValidationInfo } from '@/components/sanity/InternationalizedObjectField/useValidationInfo';
-import { LANGS, MARKETS } from '@/data/constants';
-import { Card, Tab, TabList, TabPanel } from '@sanity/ui';
+import { useValidationInfo } from '@/components/sanity/InternationalizedObjectField/useValidationInfo'
+import { LANGS, MARKETS } from '@/data/constants'
+import { Card, Tab, TabList, TabPanel } from '@sanity/ui'
 
-import { useState } from 'react';
-import { MemberField, ObjectFieldProps } from 'sanity';
+import { useState } from 'react'
+import { MemberField, ObjectFieldProps } from 'sanity'
 
 // TODO extend to handle multiple errors
 export function InternationalizedObjectField(props: ObjectFieldProps) {
@@ -14,36 +14,42 @@ export function InternationalizedObjectField(props: ObjectFieldProps) {
     inputProps: { members },
     validation,
     renderDefault
-  } = props;
+  } = props
 
-  const LANGS = props.schemaType.fields.map((field) => field.name);
+  const LANGS = props.schemaType.fields.map((field) => field.name)
 
-  const [activePanelId, setActivePanelId] = useState(LANGS[0]);
+  const [activePanelId, setActivePanelId] = useState(LANGS[0])
 
-  const activeField = props.schemaType.fields.find((field) => field.name === activePanelId);
+  const activeField = props.schemaType.fields.find((field) => field.name === activePanelId)
   const activeMember = members.find(
     (member) => member.kind === 'field' && member.name === activePanelId
-  );
+  )
 
   const DefaultRender = () => (
-    <>{renderDefault({ ...props, validation: mergedValidation, children: null })}</>
-  );
+    <>
+      {renderDefault({
+        ...props,
+        validation: mergedValidation,
+        children: null
+      })}
+    </>
+  )
 
-  const { mergedValidation } = useValidationInfo(validation, members);
+  const { mergedValidation } = useValidationInfo(validation, members)
 
   return (
     <Card>
       <DefaultRender />
       <TabList space={2}>
         {LANGS.map((lang) => {
-          const langData = props.schemaType.fields.find((field) => field.name === lang);
-          if (!langData) return null;
+          const langData = props.schemaType.fields.find((field) => field.name === lang)
+          if (!langData) return null
 
           const hasError = mergedValidation.find((error) => error.path.at(1) === lang)
             ? true
-            : false;
+            : false
 
-          const flag = getFlagByLocale(lang);
+          const flag = getFlagByLocale(lang)
 
           return (
             <Tab
@@ -55,7 +61,7 @@ export function InternationalizedObjectField(props: ObjectFieldProps) {
               onClick={() => setActivePanelId(lang)}
               selected={activePanelId === lang}
             />
-          );
+          )
         })}
       </TabList>
 
@@ -81,19 +87,19 @@ export function InternationalizedObjectField(props: ObjectFieldProps) {
         </TabPanel>
       )}
     </Card>
-  );
+  )
 }
 
 export function getFlagByLocale(locale: string) {
   switch (locale) {
     case 'no':
-      return '🇳🇴';
+      return '🇳🇴'
     case 'en':
-      return '🇬🇧';
+      return '🇬🇧'
     case 'sv':
-      return '🇸🇪';
+      return '🇸🇪'
     default:
-      throw new Error(`Unknown locale: ${locale}`);
+      throw new Error(`Unknown locale: ${locale}`)
   }
 }
 
@@ -102,20 +108,20 @@ export function generateObjectFields({
   schemaType,
   type
 }: {
-  schemaType: 'string' | 'richText' | 'slug' | 'richText';
-  type: 'lang' | 'market';
+  schemaType: 'string' | 'richText' | 'slug' | 'richText'
+  type: 'lang' | 'market'
 }) {
   if (type === 'lang') {
     return LANGS.map((lang) => ({
       name: lang.id,
       type: schemaType,
       title: lang.id
-    }));
+    }))
   }
 
   return MARKETS.map((market) => ({
     name: market.id,
     type: schemaType,
     title: market.id
-  }));
+  }))
 }

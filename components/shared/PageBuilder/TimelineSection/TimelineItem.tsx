@@ -1,6 +1,6 @@
-import { AspectRatio } from '@/components/AspectRatio';
-import { Media } from '@/components/Media';
-import { TimelineItemProps } from '@/components/shared/PageBuilder/hooks';
+import { AspectRatio } from '@/components/AspectRatio'
+import { Media } from '@/components/Media'
+import { TimelineItemProps } from '@/components/shared/PageBuilder/hooks'
 
 export function TimelineItem({
   title,
@@ -22,5 +22,5 @@ export function TimelineItem({
         </AspectRatio>
       )}
     </div>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { LangValues } from '@/data/constants';
-import { getLinkWithoutText } from '@/lib/sanity/fragments';
-import { portableTextValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { getLinkWithoutText } from '@/lib/sanity/fragments'
+import { portableTextValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 export const legalPageValidator = z.object({
   id: z.string(),
@@ -11,9 +11,9 @@ export const legalPageValidator = z.object({
   title: z.string(),
   subtitle: z.string().optional(),
   content: portableTextValidator
-});
+})
 
-export type LegalPagePayload = z.infer<typeof legalPageValidator>;
+export type LegalPagePayload = z.infer<typeof legalPageValidator>
 
 export function getLegalPageQuery({ lang }: { lang: LangValues }) {
   const query = groq`
@@ -35,7 +35,7 @@ export function getLegalPageQuery({ lang }: { lang: LangValues }) {
           }
         }
       }
-    `;
+    `
 
-  return query;
+  return query
 }

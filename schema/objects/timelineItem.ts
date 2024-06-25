@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const timelineItem = defineType({
   title: 'Timeline item',
@@ -14,7 +14,7 @@ export const timelineItem = defineType({
       return {
         title: label || 'Untitled',
         subtitle: title || undefined
-      };
+      }
     }
   },
   fields: [
@@ -51,4 +51,4 @@ export const timelineItem = defineType({
       type: 'aspectRatioSettings'
     })
   ]
-});
+})

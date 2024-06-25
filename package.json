@@ -12,13 +12,10 @@
     "prod": "next build && next start",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
     "lint-staged": "lint-staged",
+    "lint": "biome check",
     "prepare": "husky install",
     "commit": "cz",
-    "prettier": "prettier --write --ignore-unknown .",
-    "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check",
     "export:prod": "sanity dataset export production ./backup/production-export.tar.gz",
     "import:dev": "sanity dataset import ./backup/production-export.tar.gz development --replace"
   },
@@ -26,13 +23,7 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*": [
-      "prettier --write --ignore-unknown"
-    ],
-    "**/*.{js,jsx,ts,tsx}": [
-      "npx prettier --write",
-      "pnpm lint"
-    ]
+    "**/*.{js,jsx,ts,tsx}": ["pnpm biome check --write"]
   },
   "config": {
     "commitizen": {
@@ -74,7 +65,6 @@
     "@sanity/client": "^6.19.0",
     "@sanity/color-input": "^3.1.0",
     "@sanity/document-internationalization": "^2.0.1",
-    "@sanity/eslint-config-studio": "^3.0.1",
     "@sanity/icons": "^2.10.2",
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-url-secret": "^1.6.1",
@@ -101,7 +91,6 @@
     "downshift": "^9.0.4",
     "embla-carousel-autoplay": "^8.0.2",
     "embla-carousel-react": "^8.0.2",
-    "eslint-config-next": "^13.4.12",
     "framer-motion": "^11.1.7",
     "graphql": "^16.8.1",
     "jiti": "^1.21.0",
@@ -147,33 +136,23 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.2",
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
     "@commitlint/cz-commitlint": "^17.8.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.9",
-    "@tanstack/eslint-plugin-query": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/negotiator": "^0.6.3",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
     "@vercel/git-hooks": "^1.0.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-unicorn": "^48.0.0",
     "husky": "^8.0.0",
     "inquirer": "^8.2.5",
     "lint-staged": "^13.2.3",
-    "prettier-plugin-tailwindcss": "^0.6.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   }

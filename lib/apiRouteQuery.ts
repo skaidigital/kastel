@@ -6,10 +6,10 @@ export const apiRouteQuery = async (route: string, body: any) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
-    }).then((res) => res.json());
+    }).then((res) => res.json())
 
-    return response;
+    return response
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}

@@ -42,4 +42,4 @@ export const AmazonPayLogo = (props: React.SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
-);
+)

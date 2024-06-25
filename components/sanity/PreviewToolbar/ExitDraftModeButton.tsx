@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { cn } from '@/lib/utils';
-import { ExitIcon } from '@radix-ui/react-icons';
-import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils'
+import { ExitIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
 export function ExitDraftModeButton({ className }: Props) {
-  const router = useRouter();
+  const router = useRouter()
   function handleClick() {
-    router.push('/api/disable-draft');
-    router.refresh();
+    router.push('/api/disable-draft')
+    router.refresh()
   }
 
   return (
@@ -26,5 +26,5 @@ export function ExitDraftModeButton({ className }: Props) {
       <ExitIcon className="size-4" />
       <span className="text-xs">Exit draft mode</span>
     </button>
-  );
+  )
 }

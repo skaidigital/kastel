@@ -1,38 +1,38 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { Button } from '@/components/Button';
-import { AccountPageHeader } from '@/components/account/AccountPageHeader';
-import { FormCombobox } from '@/components/form/FormCombobox';
-import { FormInput } from '@/components/form/FormInput';
-import { FormSwitch } from '@/components/form/FormSwitch';
-import { DeleteAddressButton } from '@/components/pages/EditAddressPage/DeleteAddressButton';
-import { updateAddress } from '@/components/pages/EditAddressPage/actions';
+import { Dictionary } from '@/app/dictionaries'
+import { Button } from '@/components/Button'
+import { AccountPageHeader } from '@/components/account/AccountPageHeader'
+import { FormCombobox } from '@/components/form/FormCombobox'
+import { FormInput } from '@/components/form/FormInput'
+import { FormSwitch } from '@/components/form/FormSwitch'
+import { DeleteAddressButton } from '@/components/pages/EditAddressPage/DeleteAddressButton'
+import { updateAddress } from '@/components/pages/EditAddressPage/actions'
 import {
   UpdateAddressFormProps,
   updateAddressFormValidator
-} from '@/components/pages/EditAddressPage/hooks';
-import { ROUTES } from '@/data/constants';
-import countries from '@/data/countries';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { Address } from '@/lib/shopify/types';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+} from '@/components/pages/EditAddressPage/hooks'
+import { ROUTES } from '@/data/constants'
+import countries from '@/data/countries'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { Address } from '@/lib/shopify/types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 interface Props {
-  dictionary: Dictionary['create_address_page'];
-  data: Address;
-  addressId: string;
-  isDefaultAddress: boolean;
+  dictionary: Dictionary['create_address_page']
+  data: Address
+  addressId: string
+  isDefaultAddress: boolean
 }
 
 export function EditAddressPage({ dictionary, data, addressId, isDefaultAddress }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const { market, lang } = useBaseParams();
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition()
+  const { market, lang } = useBaseParams()
+  const router = useRouter()
 
   const { handleSubmit, control, reset } = useForm<UpdateAddressFormProps>({
     resolver: zodResolver(updateAddressFormValidator),
@@ -48,27 +48,27 @@ export function EditAddressPage({ dictionary, data, addressId, isDefaultAddress 
       territoryCode: data.territoryCode || '',
       defaultAddress: isDefaultAddress || false
     }
-  });
+  })
 
   const onSubmit: SubmitHandler<UpdateAddressFormProps> = async (data) => {
     startTransition(async () => {
-      const response = await updateAddress({ data, addressId });
+      const response = await updateAddress({ data, addressId })
 
       if (!response.success) {
-        reset();
+        reset()
         toast.error('Something went wrong', {
           description: response.userErrors && response.userErrors[0]?.message
-        });
+        })
       }
       if (response.success) {
-        reset();
+        reset()
         toast('Success!', {
           description: 'Your new address has been updated.'
-        });
-        router.push(`/${market}/${lang}/${ROUTES.ADDRESSES}`);
+        })
+        router.push(`/${market}/${lang}/${ROUTES.ADDRESSES}`)
       }
-    });
-  };
+    })
+  }
 
   return (
     <div className="grid lg:col-span-3">
@@ -111,5 +111,5 @@ export function EditAddressPage({ dictionary, data, addressId, isDefaultAddress 
         </div>
       </form>
     </div>
-  );
+  )
 }

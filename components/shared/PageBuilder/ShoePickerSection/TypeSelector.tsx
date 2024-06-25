@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
-import { useShoePickerContext } from '@/components/shared/PageBuilder/ShoePickerSection/Context';
-import { ShoePickerProps } from '@/components/shared/PageBuilder/hooks';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select'
+import { useShoePickerContext } from '@/components/shared/PageBuilder/ShoePickerSection/Context'
+import { ShoePickerProps } from '@/components/shared/PageBuilder/hooks'
 
 interface Props {
-  types: ShoePickerProps['types'];
-  activeTypeName: string;
+  types: ShoePickerProps['types']
+  activeTypeName: string
 }
 
 export function TypeSelector({ types, activeTypeName }: Props) {
-  const { setActiveTypeName } = useShoePickerContext();
+  const { setActiveTypeName } = useShoePickerContext()
 
   async function handleChange(value: string) {
     // await setActiveTypeName(value);
-    setActiveTypeName(value);
+    setActiveTypeName(value)
   }
 
   return (
@@ -38,5 +38,5 @@ export function TypeSelector({ types, activeTypeName }: Props) {
         ))}
       </SelectContent>
     </Select>
-  );
+  )
 }

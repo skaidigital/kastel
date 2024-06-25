@@ -1,5 +1,5 @@
-import { heroValidator } from '@/components/shared/PageBuilder/hooks';
-import { LangValues } from '@/data/constants';
+import { heroValidator } from '@/components/shared/PageBuilder/hooks'
+import { LangValues } from '@/data/constants'
 import {
   aspectRatioSettings,
   base,
@@ -10,28 +10,28 @@ import {
   getMedia,
   getQuestionAndAnswer,
   table
-} from '@/lib/sanity/fragments';
+} from '@/lib/sanity/fragments'
 import {
   imageValidator,
   linkValidator,
   questionAndAnswerValidator,
   tableValidator
-} from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+} from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const sectionItemValidator = z.object({
   title: z.string(),
   description: z.string(),
   icon: imageValidator
-});
+})
 
 const sectionValidator = z.object({
   title: z.string(),
   description: z.string().optional(),
   items: z.array(sectionItemValidator),
   cta: linkValidator
-});
+})
 
 export const kastelClubPageValidator = z.object({
   hero: heroValidator,
@@ -57,11 +57,11 @@ export const kastelClubPageValidator = z.object({
     table: tableValidator
   }),
   referAFriend: sectionValidator
-});
+})
 
-export type KastelClubSectionItemProps = z.infer<typeof sectionItemValidator>;
-export type KastelClubSectionProps = z.infer<typeof sectionValidator>;
-export type KastelClubPagePayload = z.infer<typeof kastelClubPageValidator>;
+export type KastelClubSectionItemProps = z.infer<typeof sectionItemValidator>
+export type KastelClubSectionProps = z.infer<typeof sectionValidator>
+export type KastelClubPagePayload = z.infer<typeof kastelClubPageValidator>
 
 export function getSection(lang: LangValues) {
   return groq`
@@ -77,7 +77,7 @@ export function getSection(lang: LangValues) {
         ${getImageBase(lang)}
       }
     }
-  `;
+  `
 }
 
 export function getKastelClubPageQuery(lang: LangValues) {
@@ -135,5 +135,5 @@ export function getKastelClubPageQuery(lang: LangValues) {
         }
       }
     }  
-  `;
+  `
 }

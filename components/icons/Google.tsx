@@ -33,5 +33,5 @@ export const Google = ({ className }: { className: string }) => {
       <path fill="#fff" d="M50 75a25 25 90 1 0 0-50 25 25 90 0 0 0 50z" />
       <path fill="#1a73e8" d="M50 69.8a19.8 19.8 90 1 0 0-39.6 19.8 19.8 90 0 0 0 39.6z" />{' '}
     </svg>
-  );
-};
+  )
+}

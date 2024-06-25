@@ -1,14 +1,14 @@
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { HeadingAndLinksProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { HeadingAndLinksProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  item?: HeadingAndLinksProps;
-  className?: string;
+  item?: HeadingAndLinksProps
+  className?: string
 }
 
 export function FooterItem({ item, className }: Props) {
-  if (!item) return null;
+  if (!item) return null
 
   return (
     <div key={item.heading} className={cn('flex flex-col gap-y-8', className)}>
@@ -30,5 +30,5 @@ export function FooterItem({ item, className }: Props) {
           ))}
       </div>
     </div>
-  );
+  )
 }

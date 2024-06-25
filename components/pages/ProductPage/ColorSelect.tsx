@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import { Carousel, CarouselContent, CarouselItem, useCarousel } from '@/components/Carousel';
-import { CustomLink } from '@/components/CustomLink';
-import { Text } from '@/components/base/Text';
-import { SanityImage } from '@/components/sanity/SanityImage';
+import { Carousel, CarouselContent, CarouselItem, useCarousel } from '@/components/Carousel'
+import { CustomLink } from '@/components/CustomLink'
+import { Text } from '@/components/base/Text'
+import { SanityImage } from '@/components/sanity/SanityImage'
 import {
   CarouselNext,
   CarouselPrevious
-} from '@/components/shared/Cart/CrossSell/CrossSellCarouselButton';
-import { LangValues, ROUTES } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
-import { ProductSiblings } from './hooks';
+} from '@/components/shared/Cart/CrossSell/CrossSellCarouselButton'
+import { LangValues, ROUTES } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
+import { ProductSiblings } from './hooks'
 
 interface Props {
-  products: ProductSiblings;
+  products: ProductSiblings
 }
 
 export function ColorSelect({ products }: Props) {
-  const pathname = usePathname();
-  const { lang } = useBaseParams();
-  const urlSlug = pathname.split('/').pop();
+  const pathname = usePathname()
+  const { lang } = useBaseParams()
+  const urlSlug = pathname.split('/').pop()
 
-  const activeProduct = products.find((product) => product.slug === urlSlug);
+  const activeProduct = products.find((product) => product.slug === urlSlug)
 
-  const colorString = getColorString(lang);
+  const colorString = getColorString(lang)
 
   return (
     <Carousel className="" opts={{ align: 'start' }}>
@@ -61,28 +61,28 @@ export function ColorSelect({ products }: Props) {
         ))}
       </CarouselContent>
     </Carousel>
-  );
+  )
 }
 
 function Buttons() {
-  const { canScrollNext } = useCarousel();
-  if (!canScrollNext) return null;
+  const { canScrollNext } = useCarousel()
+  if (!canScrollNext) return null
 
   return (
     <div className="hidden gap-x-1 lg:flex">
       <CarouselPrevious />
       <CarouselNext />
     </div>
-  );
+  )
 }
 
 function getColorString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Color';
+      return 'Color'
     case 'no':
-      return 'Farge';
+      return 'Farge'
     default:
-      return 'Color';
+      return 'Color'
   }
 }

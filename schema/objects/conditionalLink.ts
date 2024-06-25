@@ -1,6 +1,6 @@
-import { INTERNAL_LINK_OPTIONS } from '@/data/constants';
-import { hiddenBasedOnLink, validateLinkType } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { INTERNAL_LINK_OPTIONS } from '@/data/constants'
+import { hiddenBasedOnLink, validateLinkType } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const conditionalLink = defineType({
   title: 'Link',
@@ -35,24 +35,30 @@ export const conditionalLink = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any, context: any) => {
           if (context?.parent?.hasLink) {
-            const hasNo = value?.no;
-            const hasEn = value?.en;
+            const hasNo = value?.no
+            const hasEn = value?.en
 
             if (!hasNo || !hasEn) {
               return [
-                !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-                !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
-              ].filter(Boolean);
+                !hasNo && {
+                  message: 'You must provide a Norwegian translation',
+                  paths: ['no']
+                },
+                !hasEn && {
+                  message: 'You must provide an English translation',
+                  paths: ['en']
+                }
+              ].filter(Boolean)
             }
           }
 
-          return true;
+          return true
         }),
       hidden: ({ parent }) => {
         if (parent?.hasLink === false) {
-          return true;
+          return true
         }
-        return false;
+        return false
       }
     }),
     defineField({
@@ -63,13 +69,13 @@ export const conditionalLink = defineType({
       hidden: ({ parent }) => parent?.type !== 'internal' || !parent?.hasLink,
       validation: (Rule) =>
         Rule.custom((linkTo, context: any) => {
-          const hasLink = context.parent?.hasLink;
-          const linkType = context.parent?.type;
+          const hasLink = context.parent?.hasLink
+          const linkType = context.parent?.type
 
           if (hasLink && linkType === 'internal' && !linkTo) {
-            return 'Internal link requires a link to a page';
+            return 'Internal link requires a link to a page'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -80,13 +86,13 @@ export const conditionalLink = defineType({
       hidden: ({ parent }) => parent?.type !== 'external' || !parent?.hasLink,
       validation: (Rule) =>
         Rule.custom((href, context: any) => {
-          const hasLink = context.parent?.hasLink;
-          const linkType = context.parent?.type;
+          const hasLink = context.parent?.hasLink
+          const linkType = context.parent?.type
 
           if (hasLink && linkType === 'external' && !href) {
-            return 'External link requires a link to a page';
+            return 'External link requires a link to a page'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -97,14 +103,14 @@ export const conditionalLink = defineType({
       hidden: ({ parent }) => parent?.type !== 'external' || !parent?.hasLink,
       validation: (Rule) =>
         Rule.custom((openInNewTab, context: any) => {
-          const hasLink = context.parent?.hasLink;
-          const linkType = context.parent?.type;
+          const hasLink = context.parent?.hasLink
+          const linkType = context.parent?.type
 
           if (hasLink && linkType === 'external' && openInNewTab === undefined) {
-            return 'You have to choose if the link should open in a new tab or not';
+            return 'You have to choose if the link should open in a new tab or not'
           }
-          return true;
+          return true
         })
     })
   ]
-});
+})

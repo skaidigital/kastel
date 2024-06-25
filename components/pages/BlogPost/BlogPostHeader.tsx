@@ -1,17 +1,17 @@
-import { Badge } from '@/components/Badge';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { LangValues } from '@/data/constants';
-import { AspectRatios, SanityImageProps } from '@/lib/sanity/types';
-import { cn, getAspectRatioString } from '@/lib/utils';
+import { Badge } from '@/components/Badge'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { LangValues } from '@/data/constants'
+import { AspectRatios, SanityImageProps } from '@/lib/sanity/types'
+import { cn, getAspectRatioString } from '@/lib/utils'
 
 interface Props {
-  readTime: string;
-  title: string;
-  lang: LangValues;
-  aspectRatioMobile: AspectRatios;
-  aspectRatioDesktop: AspectRatios;
-  imageMobile: SanityImageProps;
-  imageDesktop: SanityImageProps;
+  readTime: string
+  title: string
+  lang: LangValues
+  aspectRatioMobile: AspectRatios
+  aspectRatioDesktop: AspectRatios
+  imageMobile: SanityImageProps
+  imageDesktop: SanityImageProps
 }
 
 export function BlogPostHeader({
@@ -23,8 +23,8 @@ export function BlogPostHeader({
   imageMobile,
   imageDesktop
 }: Props) {
-  const mobileAspectRatio = getAspectRatioString(aspectRatioMobile);
-  const desktopAspectRatio = getAspectRatioString(aspectRatioDesktop);
+  const mobileAspectRatio = getAspectRatioString(aspectRatioMobile)
+  const desktopAspectRatio = getAspectRatioString(aspectRatioDesktop)
 
   return (
     <div className="flex w-full flex-col">
@@ -43,16 +43,16 @@ export function BlogPostHeader({
         {imageDesktop && <SanityImage image={imageDesktop} fill sizes="95vw" />}
       </div>
     </div>
-  );
+  )
 }
 
 function getReadTimeString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'min read';
+      return 'min read'
     case 'no':
-      return 'min lesetid';
+      return 'min lesetid'
     default:
-      return 'min read';
+      return 'min read'
   }
 }

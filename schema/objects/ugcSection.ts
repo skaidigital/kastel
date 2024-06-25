@@ -1,5 +1,5 @@
-import { VideoCamera } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { VideoCamera } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const ugcSection = defineType({
   title: 'UGC Section',
@@ -14,7 +14,7 @@ export const ugcSection = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'UGC section'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const ugcSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

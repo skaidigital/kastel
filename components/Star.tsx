@@ -1,11 +1,11 @@
 interface Props {
-  fill: number;
+  fill: number
 }
 
 export function Star({ fill }: Props) {
-  const fillPercentage = Math.min(Math.max(fill, 0), 100);
+  const fillPercentage = Math.min(Math.max(fill, 0), 100)
 
-  const gradientId = `gradient-${Math.random()}`;
+  const gradientId = `gradient-${Math.random()}`
 
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,5 +28,5 @@ export function Star({ fill }: Props) {
         fill={`url(#${gradientId})`}
       />
     </svg>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import { randomKey } from '@/lib/sanity/studioUtils';
-import { AddIcon, SearchIcon } from '@sanity/icons';
-import { Box, Button, Card, Dialog, Flex, Grid, Text, TextInput } from '@sanity/ui';
-import { useCallback, useState } from 'react';
+import { randomKey } from '@/lib/sanity/studioUtils'
+import { AddIcon, SearchIcon } from '@sanity/icons'
+import { Box, Button, Card, Dialog, Flex, Grid, Text, TextInput } from '@sanity/ui'
+import { useCallback, useState } from 'react'
 
 /*----MODULE CARD-------*/
 // TODO make the amount of cols dependt on the container size
 const ModuleCard = ({ module, onClick }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <Card
@@ -44,31 +44,31 @@ const ModuleCard = ({ module, onClick }) => {
         </Flex>
       </Flex>
     </Card>
-  );
-};
+  )
+}
 
 /*----MODULE MODAL-------*/
 const SelectModuleModal = ({ modules, onClose, onItemAppend }) => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState('')
 
   const handleModuleClick = useCallback(
     (module) => {
       onItemAppend({
         _type: module.name,
         _key: randomKey(12)
-      });
+      })
 
-      onClose();
+      onClose()
     },
     [onItemAppend, onClose]
-  );
+  )
 
   const filteredModules = modules.filter((module) => {
     return (
       module.title?.toLowerCase().includes(searchValue.toLowerCase()) ||
       module.description?.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  });
+    )
+  })
 
   return (
     <Dialog header="Select Module" id="dialog-example" onClose={onClose} zOffset={1000} width={800}>
@@ -98,16 +98,16 @@ const SelectModuleModal = ({ modules, onClose, onItemAppend }) => {
         {/* </Grid> */}
       </div>
     </Dialog>
-  );
-};
+  )
+}
 
 const AddModuleButton = (props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
-  const onClose = useCallback(() => setOpen(false), []);
-  const onOpen = useCallback(() => setOpen(true), []);
+  const onClose = useCallback(() => setOpen(false), [])
+  const onOpen = useCallback(() => setOpen(true), [])
 
-  const modules = props.schemaType.of; // get all the schema types from the attached array
+  const modules = props.schemaType.of // get all the schema types from the attached array
 
   return (
     <Grid columns={1} gap={2}>
@@ -117,11 +117,11 @@ const AddModuleButton = (props) => {
         <SelectModuleModal modules={modules} onClose={onClose} onItemAppend={props.onItemAppend} />
       )}
     </Grid>
-  );
-};
-
-function PageBuilderModal(props) {
-  return props.renderDefault({ ...props, arrayFunctions: AddModuleButton });
+  )
 }
 
-export default PageBuilderModal;
+function PageBuilderModal(props) {
+  return props.renderDefault({ ...props, arrayFunctions: AddModuleButton })
+}
+
+export default PageBuilderModal

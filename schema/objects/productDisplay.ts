@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const productDisplay = defineType({
   title: 'Product display (Optional)',
@@ -51,4 +51,4 @@ export const productDisplay = defineType({
       // validation: (Rule) => Rule.min(1).max(4)
     })
   ]
-});
+})

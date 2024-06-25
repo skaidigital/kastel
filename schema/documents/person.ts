@@ -1,5 +1,5 @@
-import { UserCircle } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { UserCircle } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const person = defineType({
   title: 'Person',
@@ -15,7 +15,7 @@ export const person = defineType({
       return {
         title: selection.title,
         media: selection.media
-      };
+      }
     }
   },
   fields: [
@@ -61,4 +61,4 @@ export const person = defineType({
       // validation: validateAllStringTranslations
     })
   ]
-});
+})

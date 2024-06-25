@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import { cva, type VariantProps } from 'cva';
+import { cn } from '@/lib/utils'
+import { type VariantProps, cva } from 'cva'
 
 export const sectionProps = cva({
   base: 'bg-white',
@@ -25,13 +25,13 @@ export const sectionProps = cva({
     noBottomPadding: false,
     hasBottomBorder: true
   }
-});
+})
 
 export interface Props
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof sectionProps> {
-  label: string; // for aria-labelledby
-  srHeading: string; // for sr-only h2
+  label: string // for aria-labelledby
+  srHeading: string // for sr-only h2
 }
 
 export const Section = ({
@@ -49,7 +49,13 @@ export const Section = ({
     <section
       aria-labelledby={label}
       className={cn(
-        sectionProps({ size, noTopPadding, noBottomPadding, hasBottomBorder, className })
+        sectionProps({
+          size,
+          noTopPadding,
+          noBottomPadding,
+          hasBottomBorder,
+          className
+        })
       )}
       {...props}
     >
@@ -58,5 +64,5 @@ export const Section = ({
       </h2>
       {children}
     </section>
-  );
-};
+  )
+}

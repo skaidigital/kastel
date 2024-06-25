@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { CustomLink } from '@/components/CustomLink';
-import { AccountPageHeader } from '@/components/account/AccountPageHeader';
-import { EmptyState } from '@/components/account/EmptyState';
-import { Text } from '@/components/base/Text';
-import { AddressCard } from '@/components/pages/AddressesPage/AddressCard';
-import { LangValues, ROUTES } from '@/data/constants';
-import { Address } from '@/lib/shopify/types';
-import { MapPinIcon } from '@heroicons/react/20/solid';
-import { PlusIcon } from '@radix-ui/react-icons';
+import { Dictionary } from '@/app/dictionaries'
+import { CustomLink } from '@/components/CustomLink'
+import { AccountPageHeader } from '@/components/account/AccountPageHeader'
+import { EmptyState } from '@/components/account/EmptyState'
+import { Text } from '@/components/base/Text'
+import { AddressCard } from '@/components/pages/AddressesPage/AddressCard'
+import { LangValues, ROUTES } from '@/data/constants'
+import { Address } from '@/lib/shopify/types'
+import { MapPinIcon } from '@heroicons/react/20/solid'
+import { PlusIcon } from '@radix-ui/react-icons'
 
 interface Props {
-  addresses: Address[];
-  defaultAddress: Address;
-  dictionary: Dictionary['address_page'];
-  lang: LangValues;
+  addresses: Address[]
+  defaultAddress: Address
+  dictionary: Dictionary['address_page']
+  lang: LangValues
 }
 
 export function AddressesPage({ addresses, defaultAddress, dictionary, lang }: Props) {
-  const hasAnAddress = addresses.length > 0 || defaultAddress;
+  const hasAnAddress = addresses.length > 0 || defaultAddress
 
   return (
     <div className="grid lg:col-span-6">
@@ -47,5 +47,5 @@ export function AddressesPage({ addresses, defaultAddress, dictionary, lang }: P
         />
       )}
     </div>
-  );
+  )
 }

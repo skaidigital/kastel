@@ -1,5 +1,5 @@
-import { Star } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Star } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 const textPlacements = [
   { title: 'Top left', value: 'top-left' },
@@ -14,7 +14,7 @@ const textPlacements = [
   { title: 'Split top', value: 'split-top' },
   { title: 'Split center', value: 'split-center' },
   { title: 'Split bottom', value: 'split-bottom' }
-];
+]
 
 export const hero = defineType({
   title: 'Hero',
@@ -29,7 +29,7 @@ export const hero = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Hero section'
-      };
+      }
     }
   },
   fields: [
@@ -59,16 +59,16 @@ export const hero = defineType({
       hidden: ({ parent }) => !parent.link?.hasLink,
       validation: (Rule) =>
         Rule.custom((field: any, context: any) => {
-          const haslink = context.parent?.link?.hasLink;
+          const haslink = context.parent?.link?.hasLink
 
           if (haslink && !field) {
-            return 'You must select a button variant';
+            return 'You must select a button variant'
           }
 
           if (field && !field?.variant) {
-            return 'You must select a button variant';
+            return 'You must select a button variant'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -102,4 +102,4 @@ export const hero = defineType({
       }
     })
   ]
-});
+})

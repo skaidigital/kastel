@@ -1,9 +1,9 @@
 import {
   filterAlreadyAddedReferences,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { List } from '@phosphor-icons/react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { List } from '@phosphor-icons/react'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const faqBlock = defineType({
   title: 'FAQ block',
@@ -19,7 +19,7 @@ export const faqBlock = defineType({
         title: title || 'No title defined',
         subtitle: 'FAQ block',
         icon: List
-      };
+      }
     }
   },
   fields: [
@@ -64,4 +64,4 @@ export const faqBlock = defineType({
       to: [{ type: 'badge' }]
     })
   ]
-});
+})

@@ -1,31 +1,23 @@
-'use client';
+'use client'
 
-import { overlayClasses } from '@/components/Overlay';
-import { TouchTarget } from '@/components/TouchTarget';
-import { Heading } from '@/components/base/Heading';
-import { cn } from '@/lib/utils';
-import { XMarkIcon } from '@heroicons/react/20/solid';
-import { ReactNode } from 'react';
-import { Drawer } from 'vaul';
+import { overlayClasses } from '@/components/Overlay'
+import { TouchTarget } from '@/components/TouchTarget'
+import { Heading } from '@/components/base/Heading'
+import { cn } from '@/lib/utils'
+import { XMarkIcon } from '@heroicons/react/20/solid'
+import { ReactNode } from 'react'
+import { Drawer } from 'vaul'
 
 interface Props {
-  children: React.ReactNode;
-  title?: string;
-  className?: string;
-  overlayClassName?: string;
-  noPadding?: boolean;
-  onClose?: (e: any) => void;
-  layer?: 1 | 2 | 3;
+  children: React.ReactNode
+  title?: string
+  className?: string
+  noPadding?: boolean
+  onClose?: (e: any) => void
+  layer?: 1 | 2 | 3
 }
 
-export function SheetContent({
-  children,
-  title,
-  className,
-  overlayClassName,
-  noPadding,
-  layer = 1
-}: Props) {
+export function SheetContent({ children, title, className, noPadding, layer = 1 }: Props) {
   return (
     <Drawer.Portal>
       <Drawer.Overlay
@@ -52,18 +44,18 @@ export function SheetContent({
         </div>
       </Drawer.Content>
     </Drawer.Portal>
-  );
+  )
 }
 
 interface SheetRootProps {
-  isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  isOpen?: boolean
+  onOpenChange?: (open: boolean) => void
 
-  children: ReactNode;
+  children: ReactNode
 }
 
 export function Sheet({ children, isOpen, onOpenChange }: SheetRootProps) {
-  const isControlled = isOpen !== undefined;
+  const isControlled = isOpen !== undefined
 
   return (
     <Drawer.Root
@@ -72,13 +64,13 @@ export function Sheet({ children, isOpen, onOpenChange }: SheetRootProps) {
     >
       {children}
     </Drawer.Root>
-  );
+  )
 }
 
 interface SheetHeaderProps {
-  title: string;
-  className?: string;
-  children?: ReactNode;
+  title: string
+  className?: string
+  children?: ReactNode
 }
 
 export function SheetHeader({ title, className, children }: SheetHeaderProps) {
@@ -100,13 +92,13 @@ export function SheetHeader({ title, className, children }: SheetHeaderProps) {
       </div>
       {children && <div className="mt-4"> {children}</div>}
     </div>
-  );
+  )
 }
 
-Drawer.Trigger.displayName = 'SheetTrigger';
-Drawer.Close.displayName = 'SheetClose';
+Drawer.Trigger.displayName = 'SheetTrigger'
+Drawer.Close.displayName = 'SheetClose'
 
-const DrawerTrigger = Drawer.Trigger;
-const DrawerClose = Drawer.Close;
+const DrawerTrigger = Drawer.Trigger
+const DrawerClose = Drawer.Close
 
-export { DrawerClose as SheetClose, DrawerTrigger as SheetTrigger };
+export { DrawerClose as SheetClose, DrawerTrigger as SheetTrigger }

@@ -1,35 +1,35 @@
-'use client';
+'use client'
 
-import { Dictionary } from '@/app/dictionaries';
-import { Button } from '@/components/Button';
-import { AccountPageHeader } from '@/components/account/AccountPageHeader';
-import { FormCombobox } from '@/components/form/FormCombobox';
-import { FormInput } from '@/components/form/FormInput';
-import { FormSwitch } from '@/components/form/FormSwitch';
-import { createAddress } from '@/components/pages/CreateAddressPage/actions';
+import { Dictionary } from '@/app/dictionaries'
+import { Button } from '@/components/Button'
+import { AccountPageHeader } from '@/components/account/AccountPageHeader'
+import { FormCombobox } from '@/components/form/FormCombobox'
+import { FormInput } from '@/components/form/FormInput'
+import { FormSwitch } from '@/components/form/FormSwitch'
+import { createAddress } from '@/components/pages/CreateAddressPage/actions'
 import {
   CreateAddressFormInput,
   createAddressFormInputValidator
-} from '@/components/pages/CreateAddressPage/hooks';
-import { ROUTES } from '@/data/constants';
-import countries from '@/data/countries';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+} from '@/components/pages/CreateAddressPage/hooks'
+import { ROUTES } from '@/data/constants'
+import countries from '@/data/countries'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 interface Props {
-  dictionary: Dictionary['create_address_page'];
+  dictionary: Dictionary['create_address_page']
 }
 
 export function CreateAddressPage({ dictionary }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const { market, lang } = useBaseParams();
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition()
+  const { market, lang } = useBaseParams()
+  const router = useRouter()
 
-  const { handleSubmit, control, reset, getValues } = useForm<CreateAddressFormInput>({
+  const { handleSubmit, control, reset } = useForm<CreateAddressFormInput>({
     resolver: zodResolver(createAddressFormInputValidator),
     mode: 'onSubmit',
     defaultValues: {
@@ -43,27 +43,27 @@ export function CreateAddressPage({ dictionary }: Props) {
       territoryCode: 'NO',
       defaultAddress: false
     }
-  });
+  })
 
   const onSubmit: SubmitHandler<CreateAddressFormInput> = async (data) => {
     startTransition(async () => {
-      const response = await createAddress(data);
+      const response = await createAddress(data)
 
       if (!response.success) {
-        reset();
+        reset()
         toast.error('Something went wrong', {
           description: response.userErrors && response.userErrors[0]?.message
-        });
+        })
       }
       if (response.success) {
-        reset();
+        reset()
         toast('Success!', {
           description: 'Your new address has been created.'
-        });
-        router.push(`/${market}/${lang}/${ROUTES.ADDRESSES}`);
+        })
+        router.push(`/${market}/${lang}/${ROUTES.ADDRESSES}`)
       }
-    });
-  };
+    })
+  }
 
   return (
     <div className="grid lg:col-span-3">
@@ -104,5 +104,5 @@ export function CreateAddressPage({ dictionary }: Props) {
         </Button>
       </form>
     </div>
-  );
+  )
 }

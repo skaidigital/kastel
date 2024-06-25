@@ -1,16 +1,16 @@
-import { Hero } from '@/components/Hero';
-import { HeroProps } from '@/components/shared/PageBuilder/hooks';
+import { Hero } from '@/components/Hero'
+import { HeroProps } from '@/components/shared/PageBuilder/hooks'
 
 interface PropsWithExtra extends HeroProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const HeroSection = ({ data }: Props) => {
-  return <Hero data={data} />;
-};
+  return <Hero data={data} />
+}

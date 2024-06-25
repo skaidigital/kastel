@@ -1,15 +1,15 @@
-import { METAFIELDS } from '@/data/constants';
-import { ProductInputCreate, ProductInputUpdate, PublicationInput } from '../shopify/types';
-import { ProductSyncSchema, VariantSyncValidator } from './types';
+import { METAFIELDS } from '@/data/constants'
+import { ProductInputCreate, ProductInputUpdate, PublicationInput } from '../shopify/types'
+import { ProductSyncSchema, VariantSyncValidator } from './types'
 
 export function serilizeProductByShopifyIdInput(gid: string) {
   const serializedProduct = {
     id: gid,
     namespace: METAFIELDS.product.sanityId.namespace,
     key: METAFIELDS.product.sanityId.key
-  };
+  }
 
-  return serializedProduct;
+  return serializedProduct
 }
 
 export function serializeShopifyProductInputCreate(product: ProductSyncSchema): ProductInputCreate {
@@ -18,7 +18,7 @@ export function serializeShopifyProductInputCreate(product: ProductSyncSchema): 
     key: METAFIELDS.product.sanityId.key,
     type: 'single_line_text_field',
     value: product._id
-  };
+  }
   const serializedProduct: ProductInputCreate = {
     input: {
       title: product.title,
@@ -37,9 +37,9 @@ export function serializeShopifyProductInputCreate(product: ProductSyncSchema): 
         mediaContentType: 'IMAGE'
       }
     ]
-  };
+  }
 
-  return serializedProduct;
+  return serializedProduct
 }
 
 export function serializeShopifyProductInputUpdate(product: ProductSyncSchema): ProductInputUpdate {
@@ -54,19 +54,19 @@ export function serializeShopifyProductInputUpdate(product: ProductSyncSchema): 
         serializeShopifyVariantInput(variant, product.trackStock)
       )
     }
-  };
+  }
 
-  return serializedProduct;
+  return serializedProduct
 }
 function serializeShopifyVariantInput(variant: VariantSyncValidator, trackStock: boolean) {
-  const { discountedPrice, price } = variant;
+  const { discountedPrice, price } = variant
 
   let options: string[] = [variant.option1, variant.option2, variant.option3].filter(
     (option): option is string => option !== null && option !== undefined
-  );
+  )
 
   if (options[0] === '') {
-    options = ['Default Title'];
+    options = ['Default Title']
   }
 
   const serializedVariant = {
@@ -78,9 +78,9 @@ function serializeShopifyVariantInput(variant: VariantSyncValidator, trackStock:
     inventoryItem: {
       tracked: trackStock
     }
-  };
+  }
 
-  return serializedVariant;
+  return serializedVariant
 }
 
 export function serializePublicationInput(id: string, publicationId: string): PublicationInput {
@@ -91,7 +91,7 @@ export function serializePublicationInput(id: string, publicationId: string): Pu
         publicationId
       }
     ]
-  };
+  }
 
-  return serializedPublication;
+  return serializedPublication
 }

@@ -1,24 +1,24 @@
-import { Dictionary } from '@/app/dictionaries';
-import { Logo } from '@/components/Logo';
-import { Container } from '@/components/base/Container';
-import { Text } from '@/components/base/Text';
-import { FooterItem } from '@/components/global/Footer/FooterItem';
-import { MadeBySkai } from '@/components/global/Footer/MadeBySkai';
-import { FooterPayload } from '@/components/global/Footer/hooks';
-import { SanityLink } from '@/components/sanity/SanityLink';
-import { MarketSelectorDropdown } from '@/components/shared/MarketSelectorDropdown';
-import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
-import { MarketValues } from '@/data/constants';
+import { Dictionary } from '@/app/dictionaries'
+import { Logo } from '@/components/Logo'
+import { Container } from '@/components/base/Container'
+import { Text } from '@/components/base/Text'
+import { FooterItem } from '@/components/global/Footer/FooterItem'
+import { MadeBySkai } from '@/components/global/Footer/MadeBySkai'
+import { FooterPayload } from '@/components/global/Footer/hooks'
+import { SanityLink } from '@/components/sanity/SanityLink'
+import { MarketSelectorDropdown } from '@/components/shared/MarketSelectorDropdown'
+import { NewsletterSignup } from '@/components/shared/NewsletterSignup'
+import { MarketValues } from '@/data/constants'
 
 interface Props {
-  data: FooterPayload;
-  dictionary: Dictionary['footer'];
-  market: MarketValues;
-  children?: React.ReactNode;
+  data: FooterPayload
+  dictionary: Dictionary['footer']
+  market: MarketValues
+  children?: React.ReactNode
 }
 
 export function FooterLayout({ data: footer, dictionary, market, children }: Props) {
-  if (!footer) return null;
+  if (!footer) return null
 
   return (
     <footer className="bg-brand-primary py-10 text-white lg:py-20">
@@ -101,5 +101,5 @@ export function FooterLayout({ data: footer, dictionary, market, children }: Pro
         </div>
       </Container>
     </footer>
-  );
+  )
 }

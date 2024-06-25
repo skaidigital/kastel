@@ -1,13 +1,13 @@
-import { Heading } from '@/components/base/Heading';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { cn } from '@/lib/utils';
-import { PortableTextBlock } from 'next-sanity';
+import { Heading } from '@/components/base/Heading'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { cn } from '@/lib/utils'
+import { PortableTextBlock } from 'next-sanity'
 
 interface Props {
-  name: string;
-  welcomeBackString: string;
-  content: PortableTextBlock[];
-  className?: string;
+  name: string
+  welcomeBackString: string
+  content: PortableTextBlock[]
+  className?: string
 }
 
 export function WelcomeMessage({ name, welcomeBackString, content, className }: Props) {
@@ -26,5 +26,5 @@ export function WelcomeMessage({ name, welcomeBackString, content, className }: 
         <PortableTextRenderer value={content} type="normal" />
       </div>
     </div>
-  );
+  )
 }

@@ -1,33 +1,30 @@
-import { AspectRatio } from '@/components/AspectRatio';
-import { Media } from '@/components/Media';
-import { Section } from '@/components/base/Section';
-import { FullBleedMediaSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { cn } from '@/lib/utils';
+import { AspectRatio } from '@/components/AspectRatio'
+import { Media } from '@/components/Media'
+import { Section } from '@/components/base/Section'
+import { FullBleedMediaSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { cn } from '@/lib/utils'
 
 interface PropsWithExtra extends FullBleedMediaSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const FullBleedMediaSection = ({ data }: Props) => {
   const {
-    index,
-    pageId,
-    pageType,
     title,
     description,
     media,
     aspectRatioSettings,
     textPlacementMobile,
     textPlacementDesktop
-  } = data;
+  } = data
 
-  const hasAnyContent = title || description ? true : false;
+  const hasAnyContent = title || description ? true : false
 
   return (
     <Section
@@ -97,5 +94,5 @@ export const FullBleedMediaSection = ({ data }: Props) => {
       )}
       {hasAnyContent && <div className="absolute left-0 top-0 z-[1] h-full w-full bg-black/30" />}
     </Section>
-  );
-};
+  )
+}

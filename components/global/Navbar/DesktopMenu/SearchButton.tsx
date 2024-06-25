@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
-import { VisuallyHidden } from '@/components/VisuallyHidden';
-import { SearchBar } from '@/components/global/Navbar/SearchBar';
-import { LangValues } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { cn } from '@/lib/utils';
-import * as Dialog from '@radix-ui/react-dialog';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { AnimatePresence } from 'framer-motion';
-import { Suspense, useState } from 'react';
+import { VisuallyHidden } from '@/components/VisuallyHidden'
+import { SearchBar } from '@/components/global/Navbar/SearchBar'
+import { LangValues } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { cn } from '@/lib/utils'
+import * as Dialog from '@radix-ui/react-dialog'
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { AnimatePresence } from 'framer-motion'
+import { Suspense, useState } from 'react'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
 export function SearchButton({ className }: Props) {
-  const { lang } = useBaseParams();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { lang } = useBaseParams()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const onClose = () => setIsOpen(false);
-  const searchString = getSearchString(lang);
+  const onClose = () => setIsOpen(false)
+  const searchString = getSearchString(lang)
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -47,18 +47,18 @@ export function SearchButton({ className }: Props) {
         </Dialog.Portal>
       </AnimatePresence>
     </Dialog.Root>
-  );
+  )
 }
 
 function getSearchString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Search';
+      return 'Search'
     case 'no':
-      return 'Søk';
+      return 'Søk'
     default:
-      return 'Search';
+      return 'Search'
   }
 }
 
-export const SearchClose = Dialog.Close;
+export const SearchClose = Dialog.Close

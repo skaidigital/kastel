@@ -1,5 +1,5 @@
-import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const merchandising = defineType({
   title: 'Merchandising',
@@ -9,7 +9,7 @@ export const merchandising = defineType({
     prepare() {
       return {
         title: 'Merchandising'
-      };
+      }
     }
   },
   fields: [
@@ -52,4 +52,4 @@ export const merchandising = defineType({
       type: 'i18n.number'
     })
   ]
-});
+})

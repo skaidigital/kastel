@@ -1,27 +1,27 @@
-import { formatPrice } from '@/app/api/shopify/utils';
-import { CustomLinkProductCard } from '@/components/CustomLink';
-import { OnSaleBadge } from '@/components/OnSaleBadge';
-import { Colors } from '@/components/shared/ProductCard/Colors';
-import { ProductCardProvider } from '@/components/shared/ProductCard/Context';
-import { ProductCardImage } from '@/components/shared/ProductCard/Image';
-import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer';
-import { Rating } from '@/components/shared/ProductCard/Rating';
-import { Wishlist } from '@/components/shared/ProductCard/Wishlist';
-import { ProductCardProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
-import { Badges, DiscountBadge } from './Badges';
-import { PriceAndSizeRange } from './PriceAndSizeRange';
+import { formatPrice } from '@/app/api/shopify/utils'
+import { CustomLinkProductCard } from '@/components/CustomLink'
+import { OnSaleBadge } from '@/components/OnSaleBadge'
+import { Colors } from '@/components/shared/ProductCard/Colors'
+import { ProductCardProvider } from '@/components/shared/ProductCard/Context'
+import { ProductCardImage } from '@/components/shared/ProductCard/Image'
+import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer'
+import { Rating } from '@/components/shared/ProductCard/Rating'
+import { Wishlist } from '@/components/shared/ProductCard/Wishlist'
+import { ProductCardProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
+import { Badges, DiscountBadge } from './Badges'
+import { PriceAndSizeRange } from './PriceAndSizeRange'
 
 interface Props {
-  product: ProductCardProps;
-  firstImage?: 'product' | 'lifestyle';
-  priority?: boolean;
-  className?: string;
-  imageSizes?: string;
+  product: ProductCardProps
+  firstImage?: 'product' | 'lifestyle'
+  priority?: boolean
+  className?: string
+  imageSizes?: string
 }
 
 export function ProductCard({ product, firstImage, priority, className, imageSizes }: Props) {
-  if (!product) return null;
+  if (!product) return null
 
   const {
     slug,
@@ -34,22 +34,22 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
     sku,
     colorways,
     sizes
-  } = product;
+  } = product
 
-  const hasSizeRange = sizes?.filter((size) => size.type === 'size')[0];
-  const lowestSize = hasSizeRange?.options[0];
-  const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1];
-  const foundSizeRange = lowestSize && highestSize ? true : false;
-  const sizeRange = `${lowestSize?.title}-${highestSize?.title}`;
+  const hasSizeRange = sizes?.filter((size) => size.type === 'size')[0]
+  const lowestSize = hasSizeRange?.options[0]
+  const highestSize = hasSizeRange?.options[hasSizeRange?.options.length - 1]
+  const foundSizeRange = lowestSize && highestSize ? true : false
+  const sizeRange = `${lowestSize?.title}-${highestSize?.title}`
 
-  const biggestDiscount = product?.largestDiscount;
+  const biggestDiscount = product?.largestDiscount
 
   const formattedMinPrice = minVariantPrice
     ? formatPrice({
         amount: String(minVariantPrice.amount),
         currencyCode: minVariantPrice.currencyCode
       })
-    : undefined;
+    : undefined
 
   return (
     <div className="relative h-full border border-brand-light-grey @container">
@@ -100,5 +100,5 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
         </CustomLinkProductCard>
       </ProductCardProvider>
     </div>
-  );
+  )
 }

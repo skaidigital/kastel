@@ -1,5 +1,5 @@
-import { VideoCamera } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { VideoCamera } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const ugcBlock = defineType({
   title: 'UGC Block',
@@ -14,7 +14,7 @@ export const ugcBlock = defineType({
       return {
         title: title || 'UGC block',
         subtitle: 'UGC block'
-      };
+      }
     }
   },
   fields: [
@@ -35,4 +35,4 @@ export const ugcBlock = defineType({
       validation: (Rule) => Rule.required().min(3).max(3)
     })
   ]
-});
+})

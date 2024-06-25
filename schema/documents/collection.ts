@@ -1,9 +1,9 @@
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Gear, Package, PaintBrush } from '@phosphor-icons/react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Gear, Package, PaintBrush } from '@phosphor-icons/react'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const collection = defineType({
   title: 'Kolleksjon',
@@ -30,7 +30,7 @@ export const collection = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled'
-      };
+      }
     }
   },
   fields: [
@@ -84,12 +84,12 @@ export const collection = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         }),
       group: 'settings'
     }),
@@ -110,12 +110,12 @@ export const collection = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any) => {
           if (!value?.current) {
-            return 'Slug is required';
+            return 'Slug is required'
           }
           if (value?.current?.includes(' ')) {
-            return 'Slug cannot contain spaces';
+            return 'Slug cannot contain spaces'
           }
-          return true;
+          return true
         }),
       group: 'settings'
     }),
@@ -178,4 +178,4 @@ export const collection = defineType({
       group: 'settings'
     })
   ]
-});
+})

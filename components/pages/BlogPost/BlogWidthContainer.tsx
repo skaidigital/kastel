@@ -1,10 +1,10 @@
-import { BlogWidth } from '@/components/pages/BlogPost/hooks';
-import { cn } from '@/lib/utils';
+import { BlogWidth } from '@/components/pages/BlogPost/hooks'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  width: BlogWidth;
-  children: React.ReactNode;
-  className?: string;
+  width: BlogWidth
+  children: React.ReactNode
+  className?: string
 }
 
 export function BlogWidthContainer({ width, children, className }: Props) {
@@ -18,5 +18,5 @@ export function BlogWidthContainer({ width, children, className }: Props) {
     >
       {children}
     </div>
-  );
+  )
 }

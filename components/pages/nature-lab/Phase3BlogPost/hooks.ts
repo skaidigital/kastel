@@ -1,8 +1,8 @@
-import { LangValues } from '@/data/constants';
-import { getImageBase } from '@/lib/sanity/fragments';
-import { imageValidator, portableTextValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { getImageBase } from '@/lib/sanity/fragments'
+import { imageValidator, portableTextValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const phase3BlogPostValidator = z.object({
   id: z.string(),
@@ -14,9 +14,9 @@ const phase3BlogPostValidator = z.object({
   }),
   imageMobile: imageValidator,
   imageDesktop: imageValidator
-});
+})
 
-export type Phase3BlogPostPayload = z.infer<typeof phase3BlogPostValidator>;
+export type Phase3BlogPostPayload = z.infer<typeof phase3BlogPostValidator>
 
 export function getPhase3BlogPost({ lang }: { lang: LangValues }) {
   const query = groq`
@@ -36,7 +36,7 @@ export function getPhase3BlogPost({ lang }: { lang: LangValues }) {
       imageDesktop{
         ${getImageBase(lang)}
       },
-    }`;
+    }`
 
-  return query;
+  return query
 }

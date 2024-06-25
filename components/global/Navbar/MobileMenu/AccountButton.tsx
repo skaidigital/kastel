@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import { CustomLink } from '@/components/CustomLink';
-import { LangValues, ROUTES } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { logIn } from '@/lib/shopify/customer/actions';
-import { useUser } from '@/lib/useUser';
+import { CustomLink } from '@/components/CustomLink'
+import { LangValues, ROUTES } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { logIn } from '@/lib/shopify/customer/actions'
+import { useUser } from '@/lib/useUser'
 
 export function AccountButton() {
-  const { lang } = useBaseParams();
-  const accountString = getAccountString(lang);
-  const { isLoggedIn } = useUser();
+  const { lang } = useBaseParams()
+  const accountString = getAccountString(lang)
+  const { isLoggedIn } = useUser()
 
   if (isLoggedIn) {
     return (
       <CustomLink href={ROUTES.ACCOUNT} className="text-sm font-medium text-brand-mid-grey">
         {accountString}
       </CustomLink>
-    );
+    )
   }
 
   async function handleClick() {
-    await logIn();
+    await logIn()
   }
 
   return (
@@ -31,16 +31,16 @@ export function AccountButton() {
     >
       {accountString}
     </button>
-  );
+  )
 }
 
 function getAccountString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Account';
+      return 'Account'
     case 'no':
-      return 'Konto';
+      return 'Konto'
     default:
-      return 'Account';
+      return 'Account'
   }
 }

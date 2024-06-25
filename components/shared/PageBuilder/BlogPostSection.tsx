@@ -1,26 +1,26 @@
-import { BlogPostCard } from '@/components/BlogPostCard';
-import { Button } from '@/components/Button';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel';
-import { CustomLink } from '@/components/CustomLink';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { BlogPostSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { LangValues, ROUTES } from '@/data/constants';
+import { BlogPostCard } from '@/components/BlogPostCard'
+import { Button } from '@/components/Button'
+import { Carousel, CarouselContent, CarouselItem } from '@/components/Carousel'
+import { CustomLink } from '@/components/CustomLink'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { BlogPostSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { LangValues, ROUTES } from '@/data/constants'
 
 interface PropsWithExtra extends BlogPostSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
-  lang: LangValues;
+  index: number
+  pageId: string
+  pageType: string
+  lang: LangValues
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const BlogPostSection = ({ data }: Props) => {
-  const { index, pageId, pageType, lang, title, buttonText, sectionSettings, posts } = data;
+  const { title, buttonText, sectionSettings, posts } = data
 
   return (
     <Section
@@ -63,9 +63,11 @@ export const BlogPostSection = ({ data }: Props) => {
           )}
         </div>
         <div className="grid grid-cols-3 gap-x-4">
-          {posts?.map((post) => <BlogPostCard key={post.title} post={post} />)}
+          {posts?.map((post) => (
+            <BlogPostCard key={post.title} post={post} />
+          ))}
         </div>
       </Container>
     </Section>
-  );
-};
+  )
+}

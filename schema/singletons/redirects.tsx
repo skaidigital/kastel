@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const redirects = defineType({
   title: 'Redirects',
@@ -8,7 +8,7 @@ export const redirects = defineType({
     prepare() {
       return {
         title: 'Redirects'
-      };
+      }
     }
   },
   fields: [
@@ -31,7 +31,7 @@ export const redirects = defineType({
               return {
                 title: `/${title} -> /${subtitle}`,
                 subtitle: `Permanent: ${permanent}`
-              };
+              }
             }
           },
           fields: [
@@ -56,4 +56,4 @@ export const redirects = defineType({
       ]
     })
   ]
-});
+})

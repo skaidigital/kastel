@@ -1,5 +1,5 @@
-import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const filters = defineType({
   title: 'Filters',
@@ -9,7 +9,7 @@ export const filters = defineType({
     prepare() {
       return {
         title: 'Filters'
-      };
+      }
     }
   },
   fields: [
@@ -31,4 +31,4 @@ export const filters = defineType({
       validation: (Rule) => Rule.min(1).max(6)
     })
   ]
-});
+})

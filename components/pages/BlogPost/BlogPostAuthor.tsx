@@ -1,10 +1,10 @@
-import { Text } from '@/components/base/Text';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { AuthorProps } from '@/lib/sanity/types';
-import { cn } from '@/lib/utils';
+import { Text } from '@/components/base/Text'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { AuthorProps } from '@/lib/sanity/types'
+import { cn } from '@/lib/utils'
 
 interface Props extends AuthorProps {
-  className?: string;
+  className?: string
 }
 
 export function BlogPostAuthor({ name, role, image, description, className }: Props) {
@@ -40,5 +40,5 @@ export function BlogPostAuthor({ name, role, image, description, className }: Pr
         )}
       </div>
     </div>
-  );
+  )
 }

@@ -34,5 +34,5 @@ export function FlagUS(props: React.ComponentProps<'svg'>) {
         <use xlinkHref="#e" x="2470" />
       </g>
     </svg>
-  );
+  )
 }

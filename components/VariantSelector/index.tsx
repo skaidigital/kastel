@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { useProductInventory } from '@/app/api/shopify/useProductInventory';
-import { Dictionary } from '@/app/dictionaries';
-import { OptionGroup } from '@/components/VariantSelector/OptionGroup';
-import { ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks';
-import { SizeGuideProps } from '@/lib/sanity/types';
+import { useProductInventory } from '@/app/api/shopify/useProductInventory'
+import { Dictionary } from '@/app/dictionaries'
+import { OptionGroup } from '@/components/VariantSelector/OptionGroup'
+import { ProductOption, ProductVariant } from '@/components/pages/ProductPage/hooks'
+import { SizeGuideProps } from '@/lib/sanity/types'
 
 export type Combination = {
-  id: string;
-  availableForSale: boolean;
-  [key: string]: string | boolean;
-};
+  id: string
+  availableForSale: boolean
+  [key: string]: string | boolean
+}
 
 interface Props {
-  productId: string;
-  options: ProductOption[];
-  featuredOptions: string[];
-  variants: ProductVariant[];
-  dictionary: Dictionary['product_page'];
-  sizeGuide?: SizeGuideProps;
+  productId: string
+  options: ProductOption[]
+  featuredOptions: string[]
+  variants: ProductVariant[]
+  dictionary: Dictionary['product_page']
+  sizeGuide?: SizeGuideProps
 }
 
 export function VariantSelector({
@@ -29,7 +29,7 @@ export function VariantSelector({
   sizeGuide,
   dictionary
 }: Props) {
-  const { data: inventory } = useProductInventory(productId);
+  const { data: inventory } = useProductInventory(productId)
 
   const combinations: Combination[] = variants.map((variant) => ({
     id: variant.id,
@@ -47,9 +47,9 @@ export function VariantSelector({
         }),
         {} as Record<string, string>
       )
-  }));
+  }))
 
-  const filteredOptions = filterOptions(variants, options, featuredOptions);
+  const filteredOptions = filterOptions(variants, options, featuredOptions)
 
   return filteredOptions.map((option) => {
     return (
@@ -61,8 +61,8 @@ export function VariantSelector({
         sizeGuideText={dictionary.size_guide}
         combinations={combinations}
       />
-    );
-  });
+    )
+  })
 }
 
 export function filterOptions(
@@ -71,16 +71,16 @@ export function filterOptions(
   featuredOptions: string[]
 ) {
   // Gather all variant values
-  const variantValues = variants.map((variant) => variant.selectedOptions?.[0]?.value);
+  const variantValues = variants.map((variant) => variant.selectedOptions?.[0]?.value)
 
   // Filter out any options not present in variants
   // and also filter featuredValues
   options.forEach((option) => {
-    option.values = option.values.filter((value) => variantValues.includes(value.title));
+    option.values = option.values.filter((value) => variantValues.includes(value.title))
     if (option.type === 'size') {
-      featuredOptions = featuredOptions?.filter((value) => variantValues.includes(value));
+      featuredOptions = featuredOptions?.filter((value) => variantValues.includes(value))
     }
-  });
+  })
 
-  return options;
+  return options
 }

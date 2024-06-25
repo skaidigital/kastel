@@ -1,25 +1,25 @@
-import { shopifyAdminQuery } from '../admin';
-import { getWishlistForUser } from './getWishlist';
+import { shopifyAdminQuery } from '../admin'
+import { getWishlistForUser } from './getWishlist'
 
 export async function deleteWishlist() {
-  const wishlistResponse = await getWishlistForUser();
+  const wishlistResponse = await getWishlistForUser()
 
   if (!wishlistResponse) {
-    return 'No wishlist found';
+    return 'No wishlist found'
   }
 
-  await deleteWishlistForUser({ gid: wishlistResponse.id });
+  await deleteWishlistForUser({ gid: wishlistResponse.id })
 
-  return 'Delete the wishlist';
+  return 'Delete the wishlist'
 }
 
 // Admin function, removes wishlist
 async function deleteWishlistForUser({ gid }: { gid: string }) {
   const deleteWishlistResponse = await shopifyAdminQuery(deleteWishlistQuery, {
     id: gid
-  });
+  })
 
-  return deleteWishlistResponse;
+  return deleteWishlistResponse
 }
 
 export const deleteWishlistQuery = /* GraphQL */ `
@@ -32,4 +32,4 @@ export const deleteWishlistQuery = /* GraphQL */ `
       }
     }
   }
-`;
+`

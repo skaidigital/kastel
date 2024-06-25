@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const buttonSettings = defineType({
   title: 'Button settings',
@@ -20,4 +20,4 @@ export const buttonSettings = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

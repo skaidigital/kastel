@@ -1,10 +1,10 @@
-import { ASPECT_RATIOS } from '@/data/constants';
+import { ASPECT_RATIOS } from '@/data/constants'
 import {
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Article, Gear, PaintBrush } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Article, Gear, PaintBrush } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const blogPost = defineType({
   title: 'Blog post',
@@ -41,7 +41,7 @@ export const blogPost = defineType({
         title: selection.title,
         subtitle: 'Blog post',
         media: selection.media
-      };
+      }
     }
   },
   fields: [
@@ -187,4 +187,4 @@ export const blogPost = defineType({
       group: 'settings'
     })
   ]
-});
+})

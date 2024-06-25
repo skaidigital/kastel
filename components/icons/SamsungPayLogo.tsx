@@ -69,4 +69,4 @@ export const SamsungPayLogo = (props: React.SVGProps<SVGSVGElement>) => (
       fill="black"
     />
   </svg>
-);
+)

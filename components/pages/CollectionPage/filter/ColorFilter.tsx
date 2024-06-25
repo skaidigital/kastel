@@ -1,38 +1,38 @@
-'use client';
-import { Text } from '@/components/base/Text';
-import { cn } from '@/lib/utils';
-import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
-import { FilterItemSchema } from './hooks';
+'use client'
+import { Text } from '@/components/base/Text'
+import { cn } from '@/lib/utils'
+import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs'
+import { FilterItemSchema } from './hooks'
 
 interface ColorFilterProps {
-  filter: FilterItemSchema;
-  parentKey: string;
+  filter: FilterItemSchema
+  parentKey: string
 }
 
 export function ColorFilter({ filter, parentKey }: ColorFilterProps) {
-  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString));
+  const [state, setState] = useQueryState(parentKey, parseAsArrayOf(parseAsString))
 
   function handleOnClick() {
-    const newState: string[] = [];
+    const newState: string[] = []
     if (!state) {
-      setState([filter.slug!]);
-      return;
+      setState([filter.slug!])
+      return
     }
     if (state.includes(filter.slug!)) {
-      const filteredState = state.filter((slug) => slug !== filter.slug);
-      newState.push(...filteredState);
+      const filteredState = state.filter((slug) => slug !== filter.slug)
+      newState.push(...filteredState)
     } else {
-      newState.push(...state, filter.slug!);
+      newState.push(...state, filter.slug!)
     }
 
     if (newState.length === 0) {
-      setState(null);
-      return;
+      setState(null)
+      return
     }
-    setState(newState);
+    setState(newState)
   }
 
-  const isActive = state?.includes(filter.slug!);
+  const isActive = state?.includes(filter.slug!)
 
   return (
     <button
@@ -45,5 +45,5 @@ export function ColorFilter({ filter, parentKey }: ColorFilterProps) {
       />
       <Text size="xs">{filter.title}</Text>
     </button>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField } from 'sanity';
+import { defineArrayMember, defineField } from 'sanity'
 
 // ? Allows you to edit text, but not size or anything like that
 export const variableText = defineField({
@@ -48,4 +48,4 @@ export const variableText = defineField({
       type: 'block'
     })
   ]
-});
+})

@@ -1,12 +1,12 @@
-import { Text } from '@/components/base/Text';
-import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
+import { Text } from '@/components/base/Text'
+import { cn } from '@/lib/utils'
+import { ReactNode } from 'react'
 
 interface Props {
-  htmlFor: string;
-  children: ReactNode;
-  description?: string;
-  className?: string;
+  htmlFor: string
+  children: ReactNode
+  description?: string
+  className?: string
 }
 
 export const FormLabel = ({ htmlFor, children, description, className }: Props) => {
@@ -23,5 +23,5 @@ export const FormLabel = ({ htmlFor, children, description, className }: Props) 
         </Text>
       )}
     </div>
-  );
-};
+  )
+}

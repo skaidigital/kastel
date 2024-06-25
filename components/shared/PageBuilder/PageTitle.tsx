@@ -1,18 +1,18 @@
-import { Container } from '@/components/base/Container';
-import { PageTitleProps } from '@/components/shared/PageBuilder/hooks';
+import { Container } from '@/components/base/Container'
+import { PageTitleProps } from '@/components/shared/PageBuilder/hooks'
 
 interface PropsWithExtra extends PageTitleProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const PageTitle = ({ data }: Props) => {
-  const { title, description } = data;
+  const { title, description } = data
 
   return (
     <section title="Hero section">
@@ -25,5 +25,5 @@ export const PageTitle = ({ data }: Props) => {
         )}
       </Container>
     </section>
-  );
-};
+  )
+}

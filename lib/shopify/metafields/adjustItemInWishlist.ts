@@ -1,47 +1,47 @@
-'use server';
+'use server'
 
-import { getCustomerId } from '@/components/smile/hooks';
-import { METAFIELDS } from '@/data/constants';
-import { shopifyAdminQuery } from '../admin';
-import { getWishlist } from './getWishlist';
-import { metafieldsSetMutation } from './query';
+import { getCustomerId } from '@/components/smile/hooks'
+import { METAFIELDS } from '@/data/constants'
+import { shopifyAdminQuery } from '../admin'
+import { getWishlist } from './getWishlist'
+import { metafieldsSetMutation } from './query'
 
 export async function addItemToWishlist(itemGid: string) {
-  const wishlist = await getWishlist();
+  const wishlist = await getWishlist()
 
   if (wishlist.includes(itemGid)) {
-    return 'Item already in wishlist';
+    return 'Item already in wishlist'
   }
-  wishlist.push(itemGid);
+  wishlist.push(itemGid)
 
-  const customerGid = await getCustomerId();
+  const customerGid = await getCustomerId()
 
   if (!customerGid) {
-    return 'No customer found';
+    return 'No customer found'
   }
 
-  await adjustItemsInWishlistForUser({ customerGid, wishlist });
+  await adjustItemsInWishlistForUser({ customerGid, wishlist })
 
-  return 'Item added to wishlist';
+  return 'Item added to wishlist'
 }
 
 export async function removeItemFromWishlist(itemGid: string) {
-  const wishlist = await getWishlist();
+  const wishlist = await getWishlist()
 
   if (!wishlist.includes(itemGid)) {
-    return 'Item not in wishlist';
+    return 'Item not in wishlist'
   }
-  const customerGid = await getCustomerId();
+  const customerGid = await getCustomerId()
 
   if (!customerGid) {
-    return 'No customer found';
+    return 'No customer found'
   }
 
-  const newWishlist = wishlist.filter((item) => item !== itemGid);
+  const newWishlist = wishlist.filter((item) => item !== itemGid)
 
-  await adjustItemsInWishlistForUser({ customerGid, wishlist: newWishlist });
+  await adjustItemsInWishlistForUser({ customerGid, wishlist: newWishlist })
 
-  return 'Item removed from wishlist';
+  return 'Item removed from wishlist'
 }
 
 // Admin function, sets new wishlist
@@ -49,8 +49,8 @@ async function adjustItemsInWishlistForUser({
   customerGid,
   wishlist
 }: {
-  customerGid: string;
-  wishlist: string[];
+  customerGid: string
+  wishlist: string[]
 }) {
   const metafields = [
     {
@@ -60,9 +60,9 @@ async function adjustItemsInWishlistForUser({
       ownerId: customerGid,
       value: JSON.stringify(wishlist)
     }
-  ];
+  ]
 
-  const addItemToWishlistResponse = await shopifyAdminQuery(metafieldsSetMutation, { metafields });
+  const addItemToWishlistResponse = await shopifyAdminQuery(metafieldsSetMutation, { metafields })
 
-  return addItemToWishlistResponse;
+  return addItemToWishlistResponse
 }

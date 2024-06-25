@@ -1,9 +1,9 @@
 import {
   filterAlreadyAddedReferences,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Leaf } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Leaf } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const natureLabInnovationSection = defineType({
   title: 'Nature Lab Innnovation',
@@ -18,7 +18,7 @@ export const natureLabInnovationSection = defineType({
       return {
         title: selection.title,
         subtitle: selection.description
-      };
+      }
     }
   },
   type: 'object',
@@ -55,4 +55,4 @@ export const natureLabInnovationSection = defineType({
       validation: (Rule) => Rule.required().min(1).max(6)
     })
   ]
-});
+})

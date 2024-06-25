@@ -1,12 +1,12 @@
-import { METAFIELDS } from '@/data/constants';
-import { customerAccountFetch } from '../customer';
+import { METAFIELDS } from '@/data/constants'
+import { customerAccountFetch } from '../customer'
 
 export async function getWishlist(): Promise<string[]> {
-  const wishlistResponse = await getWishlistForUser();
+  const wishlistResponse = await getWishlistForUser()
 
-  if (!wishlistResponse?.value) return [];
+  if (!wishlistResponse?.value) return []
 
-  return JSON.parse(wishlistResponse?.value) || [];
+  return JSON.parse(wishlistResponse?.value) || []
 }
 
 export async function getWishlistForUser() {
@@ -17,26 +17,26 @@ export async function getWishlistForUser() {
       namespace: METAFIELDS.customer.wishlist.namespace
     },
     cache: 'no-store'
-  });
+  })
 
-  return wishlistResponse.body?.data?.customer?.metafield;
+  return wishlistResponse.body?.data?.customer?.metafield
 }
 
 type CustomerMetadata = {
   data: {
     customer: {
       metafield: {
-        id: string;
-        key: string;
-        value: string;
-      };
-    };
-  };
+        id: string
+        key: string
+        value: string
+      }
+    }
+  }
   variables: {
-    key: string;
-    namespace: string;
-  };
-};
+    key: string
+    namespace: string
+  }
+}
 
 const getWishlistQuery = /* GraphQL */ `
   query getWishlist($key: String!, $namespace: String!) {
@@ -48,4 +48,4 @@ const getWishlistQuery = /* GraphQL */ `
       }
     }
   }
-`;
+`

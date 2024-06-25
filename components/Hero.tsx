@@ -1,15 +1,15 @@
-import { AspectRatio } from '@/components/AspectRatio';
-import { Button } from '@/components/Button';
-import { Media } from '@/components/Media';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { ConditionalSanityLink } from '@/components/sanity/ConditionalSanityLink';
-import { HeroProps } from '@/components/shared/PageBuilder/hooks';
-import { cn } from '@/lib/utils';
+import { AspectRatio } from '@/components/AspectRatio'
+import { Button } from '@/components/Button'
+import { Media } from '@/components/Media'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { ConditionalSanityLink } from '@/components/sanity/ConditionalSanityLink'
+import { HeroProps } from '@/components/shared/PageBuilder/hooks'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  data: HeroProps;
+  data: HeroProps
 }
 
 export function Hero({ data }: Props) {
@@ -22,11 +22,11 @@ export function Hero({ data }: Props) {
     textPositionMobile,
     buttonSettings,
     aspectRatioSettings
-  } = data;
+  } = data
 
-  const hasAnyContent = title || description || (link.hasLink && link.text) ? true : false;
+  const hasAnyContent = title || description || (link.hasLink && link.text) ? true : false
 
-  const Wrapper = link?.hasLink ? ConditionalSanityLink : 'div';
+  const Wrapper = link?.hasLink ? ConditionalSanityLink : 'div'
 
   return (
     <Section
@@ -99,5 +99,5 @@ export function Hero({ data }: Props) {
         </Wrapper>
       </AspectRatio>
     </Section>
-  );
+  )
 }

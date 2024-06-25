@@ -1,50 +1,50 @@
-import { Dictionary } from '@/app/dictionaries';
-import { HotspotImage } from '@/components/HotspotImage';
-import { ProductForm } from '@/components/ProductForm';
-import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd';
-import { ProductFormScrollContainer } from '@/components/ProductForm/ScrollContainer';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { ProductPageContextProvider } from '@/components/pages/ProductPage/Context';
-import { MobileProductPageGallery } from '@/components/pages/ProductPage/MobileProductPageGallery';
-import { ProductPageRating } from '@/components/pages/ProductPage/Rating';
-import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton';
-import { ProductPageShortDescription } from '@/components/pages/ProductPage/ShortDescription';
-import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel';
-import { ViewItemEventTrigger } from '@/components/pages/ProductPage/ViewItemEventTrigger';
-import { Product } from '@/components/pages/ProductPage/hooks';
-import { CrossSell } from '@/components/shared/Cart/CrossSell';
-import { PageBuilder } from '@/components/shared/PageBuilder';
-import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks';
-import { Wishlist } from '@/components/shared/ProductCard/Wishlist';
-import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts';
-import { LangValues, MarketValues } from '@/data/constants';
-import { urlForImage } from '@/lib/sanity/image';
-import { SanityImageProps } from '@/lib/sanity/types';
-import { SearchParams } from '@/lib/types';
-import { ColorSelector } from './ColorSelector';
-import { DesktopProductGallery } from './DesktopProductGallery';
-import { DiscountBadge } from './DiscountBadge';
-import { PaymentIcons } from './PaymentIcons';
-import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews';
-import { ProductFAQs } from './ProductFAQs';
-import { ProductPrice } from './ProductPrice';
-import { UspsMarquee } from './Usps';
+import { Dictionary } from '@/app/dictionaries'
+import { HotspotImage } from '@/components/HotspotImage'
+import { ProductForm } from '@/components/ProductForm'
+import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd'
+import { ProductFormScrollContainer } from '@/components/ProductForm/ScrollContainer'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { ProductPageContextProvider } from '@/components/pages/ProductPage/Context'
+import { MobileProductPageGallery } from '@/components/pages/ProductPage/MobileProductPageGallery'
+import { ProductPageRating } from '@/components/pages/ProductPage/Rating'
+import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton'
+import { ProductPageShortDescription } from '@/components/pages/ProductPage/ShortDescription'
+import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel'
+import { ViewItemEventTrigger } from '@/components/pages/ProductPage/ViewItemEventTrigger'
+import { Product } from '@/components/pages/ProductPage/hooks'
+import { CrossSell } from '@/components/shared/Cart/CrossSell'
+import { PageBuilder } from '@/components/shared/PageBuilder'
+import { PageBuilderBlock } from '@/components/shared/PageBuilder/hooks'
+import { Wishlist } from '@/components/shared/ProductCard/Wishlist'
+import { ReccommendedProducts } from '@/components/shared/ReccommendedProducts'
+import { LangValues, MarketValues } from '@/data/constants'
+import { urlForImage } from '@/lib/sanity/image'
+import { SanityImageProps } from '@/lib/sanity/types'
+import { SearchParams } from '@/lib/types'
+import { ColorSelector } from './ColorSelector'
+import { DesktopProductGallery } from './DesktopProductGallery'
+import { DiscountBadge } from './DiscountBadge'
+import { PaymentIcons } from './PaymentIcons'
+import { ProductDescriptionAndReviews } from './ProductDescriptionAndReviews'
+import { ProductFAQs } from './ProductFAQs'
+import { ProductPrice } from './ProductPrice'
+import { UspsMarquee } from './Usps'
 
 interface Props {
-  data: Product;
-  dictionary: Dictionary['product_page'];
-  searchParams?: SearchParams;
-  market: MarketValues;
-  lang: LangValues;
+  data: Product
+  dictionary: Dictionary['product_page']
+  searchParams?: SearchParams
+  market: MarketValues
+  lang: LangValues
 }
 
 export async function ProductPageLayout(props: Props) {
-  const { data: product, market, lang } = props;
+  const { data: product, market, lang } = props
 
-  if (!product) return null;
+  if (!product) return null
 
   const {
     mainImage,
@@ -61,11 +61,11 @@ export async function ProductPageLayout(props: Props) {
     pageBuilder,
     largestDiscount,
     sku
-  } = product;
+  } = product
 
   const lifeStyleImageCheck = lifestyleImage?.asset?._ref
     ? (lifestyleImage as SanityImageProps)
-    : undefined;
+    : undefined
 
   return (
     <ProductPageContextProvider>
@@ -240,5 +240,5 @@ export async function ProductPageLayout(props: Props) {
 
       <ReccommendedProducts lang={lang} market={market} />
     </ProductPageContextProvider>
-  );
+  )
 }

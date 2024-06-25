@@ -13873,4 +13873,4 @@ export const productSyncData = [
     trackStock: true,
     type: 'VARIABLE'
   }
-];
+]

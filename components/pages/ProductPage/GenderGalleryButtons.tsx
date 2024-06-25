@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
 import {
   ProductPageContextType,
   useProductPageContext
-} from '@/components/pages/ProductPage/Context';
-import { LangValues } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { cn } from '@/lib/utils';
+} from '@/components/pages/ProductPage/Context'
+import { LangValues } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  className?: string;
+  className?: string
 }
 
 export function GenderGalleryButtons({ className }: Props) {
-  const { activeGender, setActiveGender } = useProductPageContext();
-  const { lang } = useBaseParams();
+  const { activeGender, setActiveGender } = useProductPageContext()
+  const { lang } = useBaseParams()
 
   async function handleClick(gender: ProductPageContextType['activeGender']) {
-    const toast = (await import('sonner')).toast;
-    setActiveGender(gender);
-    toast.success(getSuccessToastTitle(lang, gender));
+    const toast = (await import('sonner')).toast
+    setActiveGender(gender)
+    toast.success(getSuccessToastTitle(lang, gender))
   }
 
   return (
@@ -45,16 +45,16 @@ export function GenderGalleryButtons({ className }: Props) {
         Male
       </button>
     </div>
-  );
+  )
 }
 
 function getSuccessToastTitle(lang: LangValues, gender: ProductPageContextType['activeGender']) {
   switch (lang) {
     case 'no':
-      return `Du vil nå se bilder av ${gender === 'male' ? 'menn' : 'kvinner'}`;
+      return `Du vil nå se bilder av ${gender === 'male' ? 'menn' : 'kvinner'}`
     case 'en':
-      return `You will now see ${gender === 'male' ? 'male' : 'female'} images`;
+      return `You will now see ${gender === 'male' ? 'male' : 'female'} images`
     default:
-      return `You will now see ${gender === 'male' ? 'male' : 'female'} images`;
+      return `You will now see ${gender === 'male' ? 'male' : 'female'} images`
   }
 }

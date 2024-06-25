@@ -1,11 +1,11 @@
-import Video from '@/components/Video';
-import { Heading } from '@/components/base/Heading';
-import { ListItem } from '@/components/base/ListItem';
-import { OL } from '@/components/base/OL';
-import { Text } from '@/components/base/Text';
-import { UL } from '@/components/base/UL';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityLink } from '@/components/sanity/SanityLink';
+import Video from '@/components/Video'
+import { Heading } from '@/components/base/Heading'
+import { ListItem } from '@/components/base/ListItem'
+import { OL } from '@/components/base/OL'
+import { Text } from '@/components/base/Text'
+import { UL } from '@/components/base/UL'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SanityLink } from '@/components/sanity/SanityLink'
 
 export const portableTextSerializer = {
   block: {
@@ -42,40 +42,40 @@ export const portableTextSerializer = {
   },
   list: {
     bullet: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
 
       return (
         <UL level={level} className="mt-4">
           {children}
         </UL>
-      );
+      )
     },
     number: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
 
       return (
         <OL level={level} className="mt-4">
           {children}
         </OL>
-      );
+      )
     }
   },
   listItem: {
     bullet: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
       return (
         <ListItem level={level} className="mt-0 pt-0">
           {children}
         </ListItem>
-      );
+      )
     },
     number: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
       return (
         <ListItem level={level} className="mt-0 pt-0">
           {children}
         </ListItem>
-      );
+      )
     }
   },
 
@@ -104,14 +104,14 @@ export const portableTextSerializer = {
             </figcaption>
           )}
         </figure>
-      );
+      )
     },
     video: ({ value }: any) => {
       return (
         <div className="aspect-h-9 aspect-w-16 relative mt-6 w-full">
           <Video playbackId={value.videoUrl} loading="lazy" resolution="HD" controlled />
         </div>
-      );
+      )
     }
   }
-};
+}

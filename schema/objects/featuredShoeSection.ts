@@ -1,5 +1,5 @@
-import { Sneaker } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Sneaker } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const featuredShoeSection = defineType({
   title: 'Featured Shoe section',
@@ -14,7 +14,7 @@ export const featuredShoeSection = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Featured Shoe section'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const featuredShoeSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

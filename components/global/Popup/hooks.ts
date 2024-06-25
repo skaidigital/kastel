@@ -1,9 +1,9 @@
-import { CACHE_TAGS, LangValues } from '@/data/constants';
-import * as fragments from '@/lib/sanity/fragments';
-import { loadQuery } from '@/lib/sanity/store';
-import { imageValidator, linkValidator, richTextValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { CACHE_TAGS, LangValues } from '@/data/constants'
+import * as fragments from '@/lib/sanity/fragments'
+import { loadQuery } from '@/lib/sanity/store'
+import { imageValidator, linkValidator, richTextValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const infoPopupValidator = z.object({
   isShown: z.boolean(),
@@ -13,7 +13,7 @@ const infoPopupValidator = z.object({
   content: richTextValidator,
   image: imageValidator,
   link: linkValidator
-});
+})
 
 const newsletterPopupValidator = z.object({
   isShown: z.boolean(),
@@ -23,14 +23,14 @@ const newsletterPopupValidator = z.object({
   content: richTextValidator,
   image: imageValidator,
   buttonText: z.string()
-});
+})
 
 export const popupValidator = z.discriminatedUnion('type', [
   infoPopupValidator,
   newsletterPopupValidator
-]);
+])
 
-export type PopupPayload = z.infer<typeof popupValidator>;
+export type PopupPayload = z.infer<typeof popupValidator>
 
 export function getPopupQuery(lang: LangValues) {
   const query = groq`
@@ -58,13 +58,13 @@ export function getPopupQuery(lang: LangValues) {
         "buttonText": buttonTextNewsletter.${lang},
       },
     }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 export function loadPopup(lang: LangValues) {
-  const query = getPopupQuery(lang);
+  const query = getPopupQuery(lang)
 
-  return loadQuery<PopupPayload>(query, {}, { next: { tags: [CACHE_TAGS.POPUP] } });
+  return loadQuery<PopupPayload>(query, {}, { next: { tags: [CACHE_TAGS.POPUP] } })
 }

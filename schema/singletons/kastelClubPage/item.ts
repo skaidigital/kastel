@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const kastelClubPageSectionItem = defineType({
   title: 'Item',
@@ -14,7 +14,7 @@ export const kastelClubPageSectionItem = defineType({
       return {
         title: title || 'No title',
         subtitle: subtitle || 'No description'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const kastelClubPageSectionItem = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

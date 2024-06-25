@@ -11,8 +11,8 @@ import {
   Section,
   Tailwind,
   Text
-} from '@react-email/components';
-import { NatureLabEmailTemplateProps } from './sendMail';
+} from '@react-email/components'
+import { NatureLabEmailTemplateProps } from './sendMail'
 
 export const NatureLabEmailTemplate = ({
   name = 'Navn Navnesen',
@@ -58,17 +58,17 @@ export const NatureLabEmailTemplate = ({
       </Body>
     </Tailwind>
   </Html>
-);
+)
 
-export default NatureLabEmailTemplate;
+export default NatureLabEmailTemplate
 
 const main = {
   backgroundColor: '#ffffff',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
-};
+}
 
 const reportLink = {
   fontSize: '14px',
   color: '#b4becc'
-};
+}

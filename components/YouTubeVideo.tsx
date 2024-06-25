@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player'
 
 interface Props {
-  url: string;
+  url: string
 }
 
 export function YouTubeVideo({ url }: Props) {
-  return <ReactPlayer url={url} />;
+  return <ReactPlayer url={url} />
 }

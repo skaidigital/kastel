@@ -1,27 +1,27 @@
-import { NavbarLayout } from '@/components/global/Navbar/NavbarLayout';
-import { NavbarPayload, getNavbarQuery } from '@/components/global/Navbar/hooks';
-import Cart from '@/components/shared/Cart';
-import { CrossSell } from '@/components/shared/Cart/CrossSell';
-import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
-import { loadQuery } from '@/lib/sanity/store';
+import { NavbarLayout } from '@/components/global/Navbar/NavbarLayout'
+import { NavbarPayload, getNavbarQuery } from '@/components/global/Navbar/hooks'
+import Cart from '@/components/shared/Cart'
+import { CrossSell } from '@/components/shared/Cart/CrossSell'
+import { CACHE_TAGS, LangValues, MarketValues } from '@/data/constants'
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined'
+import { loadQuery } from '@/lib/sanity/store'
 
 async function loadNavbar({ market, lang }: { market: MarketValues; lang: LangValues }) {
-  const query = getNavbarQuery({ market, lang });
+  const query = getNavbarQuery({ market, lang })
 
-  return loadQuery<NavbarPayload>(query, {}, { next: { tags: [CACHE_TAGS.NAVBAR] } });
+  return loadQuery<NavbarPayload>(query, {}, { next: { tags: [CACHE_TAGS.NAVBAR] } })
 }
 
 interface Props {
-  market: MarketValues;
-  lang: LangValues;
-  className?: string;
+  market: MarketValues
+  lang: LangValues
+  className?: string
 }
 export async function Navbar({ market, lang, className }: Props) {
-  const initial = await loadNavbar({ market, lang });
+  const initial = await loadNavbar({ market, lang })
   // const isDraftMode = draftMode().isEnabled;
 
-  const withoutNullValues = nullToUndefined(initial.data);
+  const withoutNullValues = nullToUndefined(initial.data)
   // let validatedData;
 
   // if (!isDraftMode) {
@@ -41,5 +41,5 @@ export async function Navbar({ market, lang, className }: Props) {
         />
       </Cart>
     </NavbarLayout>
-  );
+  )
 }

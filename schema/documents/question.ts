@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { List } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { List } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const question = defineType({
   title: 'Question',
@@ -14,7 +14,7 @@ export const question = defineType({
     prepare({ title }) {
       return {
         title: title || 'Untitled'
-      };
+      }
     }
   },
   fields: [
@@ -42,4 +42,4 @@ export const question = defineType({
       type: 'richText'
     })
   ]
-});
+})

@@ -1,29 +1,29 @@
-'use client';
+'use client'
 
-import { Badge } from '@/components/Badge';
-import { CustomLink } from '@/components/CustomLink';
-import { Heading } from '@/components/base/Heading';
-import { Text } from '@/components/base/Text';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { LangValues, ROUTES } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { BlogPostCardProps } from '@/lib/sanity/types';
-import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
+import { Badge } from '@/components/Badge'
+import { CustomLink } from '@/components/CustomLink'
+import { Heading } from '@/components/base/Heading'
+import { Text } from '@/components/base/Text'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { LangValues, ROUTES } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { BlogPostCardProps } from '@/lib/sanity/types'
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
 
 export interface Props {
-  post: BlogPostCardProps;
-  sizes?: string;
+  post: BlogPostCardProps
+  sizes?: string
 }
 
 export function BlogPostCard({ post, sizes }: Props) {
-  const { title, description, readLength, image, slug } = post;
-  const { lang } = useBaseParams();
+  const { title, description, readLength, image, slug } = post
+  const { lang } = useBaseParams()
 
-  const readMoreString = getReadMoreString(lang);
-  const readTimeString = getReadTimeString(lang);
+  const readMoreString = getReadMoreString(lang)
+  const readTimeString = getReadTimeString(lang)
 
   if (!title || !image || !slug) {
-    return null;
+    return null
   }
 
   return (
@@ -51,27 +51,27 @@ export function BlogPostCard({ post, sizes }: Props) {
         </div>
       </CustomLink>
     </article>
-  );
+  )
 }
 
 function getReadTimeString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'min read';
+      return 'min read'
     case 'no':
-      return 'min lesetid';
+      return 'min lesetid'
     default:
-      return 'min read';
+      return 'min read'
   }
 }
 
 function getReadMoreString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Read more';
+      return 'Read more'
     case 'no':
-      return 'Les mer';
+      return 'Les mer'
     default:
-      return 'Read more';
+      return 'Read more'
   }
 }

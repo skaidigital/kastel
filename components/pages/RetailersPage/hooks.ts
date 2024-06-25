@@ -1,5 +1,5 @@
-import { MarketValues } from '@/data/constants';
-import { groq } from 'next-sanity';
+import { MarketValues } from '@/data/constants'
+import { groq } from 'next-sanity'
 
 export function getRetailersPageQuery(market: MarketValues) {
   const query = groq`
@@ -15,7 +15,7 @@ export function getRetailersPageQuery(market: MarketValues) {
             "country": address.country
         }
     }
-  `;
+  `
 
-  return query;
+  return query
 }

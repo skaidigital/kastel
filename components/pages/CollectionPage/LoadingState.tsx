@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
 export function CollectionProductsLoadingState() {
   return (
@@ -21,5 +21,5 @@ export function CollectionProductsLoadingState() {
         </div>
       ))}
     </div>
-  );
+  )
 }

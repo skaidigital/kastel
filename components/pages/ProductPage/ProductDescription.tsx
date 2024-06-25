@@ -1,12 +1,12 @@
-import { Heading } from '@/components/base/Heading';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { cn } from '@/lib/utils';
-import { PortableTextBlock } from 'next-sanity';
+import { Heading } from '@/components/base/Heading'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { cn } from '@/lib/utils'
+import { PortableTextBlock } from 'next-sanity'
 
 interface Props {
-  heading: string;
-  content: PortableTextBlock[];
-  className?: string;
+  heading: string
+  content: PortableTextBlock[]
+  className?: string
 }
 
 export function ProductDescription({ heading, content, className }: Props) {
@@ -17,5 +17,5 @@ export function ProductDescription({ heading, content, className }: Props) {
       </Heading>
       <PortableTextRenderer value={content} />
     </div>
-  );
+  )
 }

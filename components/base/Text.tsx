@@ -1,5 +1,5 @@
-import { Slot } from '@radix-ui/react-slot';
-import { cva, type VariantProps } from 'cva';
+import { Slot } from '@radix-ui/react-slot'
+import { type VariantProps, cva } from 'cva'
 
 const textProps = cva({
   base: '',
@@ -18,19 +18,19 @@ const textProps = cva({
   defaultVariants: {
     size: 'default'
   }
-});
+})
 
 export interface TextProps extends VariantProps<typeof textProps> {
-  children: React.ReactNode;
-  as?: React.ElementType;
-  asChild?: boolean;
-  className?: string;
+  children: React.ReactNode
+  as?: React.ElementType
+  asChild?: boolean
+  className?: string
 }
 
 const Text = ({ size, as: Component = 'span', asChild, children, className }: TextProps) => {
-  const Comp = asChild ? Slot : Component;
+  const Comp = asChild ? Slot : Component
 
-  return <Comp className={textProps({ size, className })}>{children}</Comp>;
-};
+  return <Comp className={textProps({ size, className })}>{children}</Comp>
+}
 
-export { Text, textProps };
+export { Text, textProps }

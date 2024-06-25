@@ -1,5 +1,5 @@
-import { Cart } from '@/lib/shopify/types';
-import { useQuery } from '@tanstack/react-query';
+import { Cart } from '@/lib/shopify/types'
+import { useQuery } from '@tanstack/react-query'
 
 async function getCart(): Promise<{ cart: Cart | null }> {
   const cartResponse = await fetch('/api/shopify/getCart', {
@@ -7,19 +7,22 @@ async function getCart(): Promise<{ cart: Cart | null }> {
     headers: {
       'Content-Type': 'application/json'
     }
-  });
-  const cart = await cartResponse.json();
+  })
+  const cart = await cartResponse.json()
 
-  return cart;
+  return cart
 }
 
 export function useCart() {
   const response = useQuery({
     queryKey: ['cart'],
     queryFn: async () => {
-      return getCart();
+      return getCart()
     }
-  });
+  })
 
-  return { cart: response.data?.cart || undefined, isLoading: response.isLoading };
+  return {
+    cart: response.data?.cart || undefined,
+    isLoading: response.isLoading
+  }
 }

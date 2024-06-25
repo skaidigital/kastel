@@ -1,7 +1,7 @@
-import { env } from '@/env';
-import { MetadataRoute } from 'next';
+import { env } from '@/env'
+import { MetadataRoute } from 'next'
 
-const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : env.BASE_URL;
+const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : env.BASE_URL
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -11,5 +11,5 @@ export default function robots(): MetadataRoute.Robots {
       disallow: '/private/'
     },
     sitemap: `${baseUrl}/sitemap.xml`
-  };
+  }
 }

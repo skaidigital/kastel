@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Check } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Check } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const pageNotFound = defineType({
   title: 'Page not found',
@@ -11,7 +11,7 @@ export const pageNotFound = defineType({
     prepare() {
       return {
         title: 'Page not found'
-      };
+      }
     }
   },
   fields: [
@@ -34,4 +34,4 @@ export const pageNotFound = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

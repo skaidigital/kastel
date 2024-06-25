@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const settingsSEOAndSocials = defineType({
   title: 'SEO & Socials',
@@ -9,7 +9,7 @@ export const settingsSEOAndSocials = defineType({
     prepare() {
       return {
         title: 'Default settings for SEO and Social Sharing'
-      };
+      }
     }
   },
   fields: [
@@ -40,4 +40,4 @@ export const settingsSEOAndSocials = defineType({
       name: 'ogImage'
     })
   ]
-});
+})

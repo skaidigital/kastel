@@ -1,39 +1,39 @@
-'use client';
+'use client'
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { NatureLabExplainerSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import { useState } from 'react';
+} from '@/components/Accordion'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Tabs'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { NatureLabExplainerSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import { useState } from 'react'
 
 interface PropsWithExtra extends NatureLabExplainerSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 // TODO consider making the image of type media instead
 // TODO download and set all the fonts correctly
 // TODO make sure the image doesn't resize and look fucked
 export const NatureLabExplainerSection = ({ data }: Props) => {
-  const { index, pageId, pageType, title, titleTitle, titleContent, steps, sectionSettings } = data;
+  const { title, titleTitle, titleContent, steps, sectionSettings } = data
 
   // TODO figure out why it can be undefined
-  const [activeTabTitle, setActiveTabTitle] = useState<string | undefined>(steps[0]?.title);
+  const [activeTabTitle, setActiveTabTitle] = useState<string | undefined>(steps[0]?.title)
 
   return (
     <Section
@@ -175,5 +175,5 @@ export const NatureLabExplainerSection = ({ data }: Props) => {
         </Tabs>
       </div>
     </Section>
-  );
-};
+  )
+}

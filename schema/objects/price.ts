@@ -1,4 +1,4 @@
-import { currencies } from '@/data/currencies';
+import { currencies } from '@/data/currencies'
 
 // Define the custom 'price' type
 export const price = {
@@ -18,9 +18,9 @@ export const price = {
       type: 'string',
       options: {
         list: currencies.map((currency) => {
-          return { title: currency, value: currency };
+          return { title: currency, value: currency }
         })
       }
     }
   ]
-};
+}

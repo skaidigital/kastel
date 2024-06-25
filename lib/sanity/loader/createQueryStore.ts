@@ -1,4 +1,4 @@
-import { createQueryStore } from '@sanity/react-loader/rsc';
+import { createQueryStore } from '@sanity/react-loader/rsc'
 
 /**
  * The queryStore instance is shared in RSC and client components, and thus this file must be kept tiny
@@ -9,4 +9,4 @@ import { createQueryStore } from '@sanity/react-loader/rsc';
 export const queryStore = createQueryStore({
   client: false,
   ssr: true
-});
+})

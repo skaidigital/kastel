@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Recycle } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Recycle } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const natureLabExplainerBlock = defineType({
   title: 'Nature Lab Explainer block',
@@ -15,7 +15,7 @@ export const natureLabExplainerBlock = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Nature Lab Explainer block'
-      };
+      }
     }
   },
   fields: [
@@ -60,7 +60,7 @@ export const natureLabExplainerBlock = defineType({
             prepare({ title }) {
               return {
                 title: title || 'Untitled'
-              };
+              }
             }
           },
           fields: [
@@ -99,4 +99,4 @@ export const natureLabExplainerBlock = defineType({
       ]
     })
   ]
-});
+})

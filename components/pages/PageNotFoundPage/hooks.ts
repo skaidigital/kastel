@@ -1,16 +1,16 @@
-import { LangValues } from '@/data/constants';
-import { getImageBase } from '@/lib/sanity/fragments';
-import { imageValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { getImageBase } from '@/lib/sanity/fragments'
+import { imageValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 export const pageNotFoundValidator = z.object({
   title: z.string(),
   content: z.string(),
   image: imageValidator
-});
+})
 
-export type PageNotFoundPayload = z.infer<typeof pageNotFoundValidator>;
+export type PageNotFoundPayload = z.infer<typeof pageNotFoundValidator>
 
 export function getPageNotFoundQuery(lang: LangValues) {
   const query = groq`
@@ -21,7 +21,7 @@ export function getPageNotFoundQuery(lang: LangValues) {
                 ${getImageBase(lang)}
             }
       }
-    `;
+    `
 
-  return query;
+  return query
 }

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
 export const LoadingSpinner = ({ className }: { className?: string }) => {
   return (
@@ -19,5 +19,5 @@ export const LoadingSpinner = ({ className }: { className?: string }) => {
         fill="currentColor"
       ></path>
     </svg>
-  );
-};
+  )
+}

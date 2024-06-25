@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Gear, Sneaker } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Gear, Sneaker } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const natureLabSettings = defineType({
   title: 'Nature Lab settings page',
@@ -11,7 +11,7 @@ export const natureLabSettings = defineType({
     prepare() {
       return {
         title: 'Nature Lab settings'
-      };
+      }
     }
   },
   groups: [
@@ -71,4 +71,4 @@ export const natureLabSettings = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

@@ -1,22 +1,22 @@
-import { Badge } from '@/components/Badge';
-import { TracingBeam } from '@/components/TracingBeam';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { TimelineItem } from '@/components/shared/PageBuilder/TimelineSection/TimelineItem';
-import { TimelineSectionProps } from '@/components/shared/PageBuilder/hooks';
+import { Badge } from '@/components/Badge'
+import { TracingBeam } from '@/components/TracingBeam'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { TimelineItem } from '@/components/shared/PageBuilder/TimelineSection/TimelineItem'
+import { TimelineSectionProps } from '@/components/shared/PageBuilder/hooks'
 
 interface PropsWithExtra extends TimelineSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const TimelineSection = ({ data }: Props) => {
-  const { index, pageId, title, description, badge, sectionSettings, timeline } = data;
+  const { title, description, badge, sectionSettings, timeline } = data
 
   return (
     <Section
@@ -45,5 +45,5 @@ export const TimelineSection = ({ data }: Props) => {
         </div>
       </Container>
     </Section>
-  );
-};
+  )
+}

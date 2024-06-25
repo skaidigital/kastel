@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer';
-import { Text } from '@/components/base/Text';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { LangValues } from '@/data/constants';
-import { PortableTextBlock } from '@portabletext/react';
-import { PlusIcon } from '@radix-ui/react-icons';
+} from '@/components/Accordion'
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components/Drawer'
+import { Text } from '@/components/base/Text'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { LangValues } from '@/data/constants'
+import { PortableTextBlock } from '@portabletext/react'
+import { PlusIcon } from '@radix-ui/react-icons'
 
 interface Props {
   faqs: {
-    question: string;
-    answer: PortableTextBlock[];
-  }[];
-  lang: LangValues;
+    question: string
+    answer: PortableTextBlock[]
+  }[]
+  lang: LangValues
 }
 
 export function ProductFAQs({ faqs, lang }: Props) {
-  const faqString = getFaqString(lang);
+  const faqString = getFaqString(lang)
 
   return (
     <div className="my-8 lg:my-6">
@@ -60,16 +60,16 @@ export function ProductFAQs({ faqs, lang }: Props) {
         </DrawerContent>
       </Drawer>
     </div>
-  );
+  )
 }
 
 function getFaqString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Frequently asked questions';
+      return 'Frequently asked questions'
     case 'no':
-      return 'Ofte stilte spørsmål';
+      return 'Ofte stilte spørsmål'
     default:
-      return 'Frequently asked questions';
+      return 'Frequently asked questions'
   }
 }

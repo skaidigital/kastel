@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { PopupLayout } from '@/components/global/Popup/PopupLayout';
-import { LangValues } from '@/data/constants';
-import { useQuery } from '@tanstack/react-query';
+import { PopupLayout } from '@/components/global/Popup/PopupLayout'
+import { LangValues } from '@/data/constants'
+import { useQuery } from '@tanstack/react-query'
 
 function usePopup(lang: LangValues) {
   return useQuery({
@@ -14,25 +14,25 @@ function usePopup(lang: LangValues) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ lang })
-      });
+      })
 
-      const data = await response.json();
-      return data;
+      const data = await response.json()
+      return data
     },
     enabled: !!lang
-  });
+  })
 }
 
 interface Props {
-  lang: LangValues;
+  lang: LangValues
 }
 
 export function Popup({ lang }: Props) {
-  const { data: popupData } = usePopup(lang);
+  const { data: popupData } = usePopup(lang)
 
   if (!popupData || !popupData.data.isShown) {
-    return null;
+    return null
   }
 
-  return <PopupLayout data={popupData.data} />;
+  return <PopupLayout data={popupData.data} />
 }

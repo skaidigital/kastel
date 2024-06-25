@@ -3,22 +3,22 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Hero } from '@/components/Hero';
-import { Container } from '@/components/base/Container';
-import { KastelClubPageMarquee } from '@/components/pages/KastelClubPage/Marquee';
-import { KastelClubPageSection } from '@/components/pages/KastelClubPage/Section';
-import { KastelClubPagePayload } from '@/components/pages/KastelClubPage/hooks';
-import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
-import { cn } from '@/lib/utils';
-import { PortableText } from 'next-sanity';
+} from '@/components/Accordion'
+import { Hero } from '@/components/Hero'
+import { Container } from '@/components/base/Container'
+import { KastelClubPageMarquee } from '@/components/pages/KastelClubPage/Marquee'
+import { KastelClubPageSection } from '@/components/pages/KastelClubPage/Section'
+import { KastelClubPagePayload } from '@/components/pages/KastelClubPage/hooks'
+import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer'
+import { cn } from '@/lib/utils'
+import { PortableText } from 'next-sanity'
 
 interface Props {
-  data: KastelClubPagePayload;
+  data: KastelClubPagePayload
 }
 
 export async function KastelClubPage({ data }: Props) {
-  const { hero, waysToEarn, faq, perks, referAFriend, marquee, tiers } = data;
+  const { hero, waysToEarn, faq, perks, referAFriend, marquee, tiers } = data
 
   return (
     <div>
@@ -134,5 +134,5 @@ export async function KastelClubPage({ data }: Props) {
         )}
       </div>
     </div>
-  );
+  )
 }

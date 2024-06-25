@@ -3,51 +3,51 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Badge } from '@/components/Badge';
-import { AccountPageHeader } from '@/components/account/AccountPageHeader';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
+} from '@/components/Accordion'
+import { Badge } from '@/components/Badge'
+import { AccountPageHeader } from '@/components/account/AccountPageHeader'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
 import {
   CustomerServicePagePayload,
   customerServicePageValidator,
   getCustomerServicePageQuery
-} from '@/components/pages/AccountCustomerServicePage/hooks';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { CACHE_TAGS, LangValues } from '@/data/constants';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
-import { loadQuery } from '@/lib/sanity/store';
-import { cn } from '@/lib/utils';
+} from '@/components/pages/AccountCustomerServicePage/hooks'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { CACHE_TAGS, LangValues } from '@/data/constants'
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined'
+import { loadQuery } from '@/lib/sanity/store'
+import { cn } from '@/lib/utils'
 
 async function loadCustomerServicePage(lang: LangValues) {
-  const query = getCustomerServicePageQuery(lang);
+  const query = getCustomerServicePageQuery(lang)
 
   return loadQuery<CustomerServicePagePayload>(
     query,
     {},
     { next: { tags: [CACHE_TAGS.HELP_CENTER] } }
-  );
+  )
 }
 
 interface Props {
-  lang: LangValues;
+  lang: LangValues
 }
 
 export async function AccountCustomerServicePage({ lang }: Props) {
-  const initial = await loadCustomerServicePage(lang);
+  const initial = await loadCustomerServicePage(lang)
 
-  const withoutNullValues = nullToUndefined(initial.data);
-  const validatedData = customerServicePageValidator.safeParse(withoutNullValues);
+  const withoutNullValues = nullToUndefined(initial.data)
+  const validatedData = customerServicePageValidator.safeParse(withoutNullValues)
 
   if (!validatedData.success) {
-    console.error(validatedData.error.errors);
+    console.error(validatedData.error.errors)
 
-    throw new Error('Failed to validate customer service page data');
+    throw new Error('Failed to validate customer service page data')
   }
 
-  const page = validatedData.data;
+  const page = validatedData.data
 
   return (
     <Container className="mb-20 mt-6 lg:mt-10 lg:grid lg:grid-cols-12">
@@ -86,14 +86,14 @@ export async function AccountCustomerServicePage({ lang }: Props) {
         </Section>
       </div>
     </Container>
-  );
+  )
 }
 
 interface HeaderProps {
-  title: string;
-  description?: string;
-  badge?: string;
-  className?: string;
+  title: string
+  description?: string
+  badge?: string
+  className?: string
 }
 
 function Header({ title, description, badge, className }: HeaderProps) {
@@ -105,5 +105,5 @@ function Header({ title, description, badge, className }: HeaderProps) {
         {description && <Text className="mt-4 font-medium text-brand-mid-grey">{description}</Text>}
       </div>
     </div>
-  );
+  )
 }

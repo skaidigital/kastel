@@ -1,9 +1,9 @@
 import {
   concatenatePageBuilderQueries,
   pageBuilderValidator
-} from '@/components/shared/PageBuilder/hooks';
-import { LangValues, MarketValues } from '@/data/constants';
-import * as fragments from '@/lib/sanity/fragments';
+} from '@/components/shared/PageBuilder/hooks'
+import { LangValues, MarketValues } from '@/data/constants'
+import * as fragments from '@/lib/sanity/fragments'
 import {
   // galleryValidator,
   hotspotImageValidator,
@@ -11,9 +11,9 @@ import {
   optionalImageValidator,
   portableTextValidator,
   richTextValidator
-} from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+} from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const sizeProductOptionValidator = z.object({
   type: z.literal('size'),
@@ -24,7 +24,7 @@ const sizeProductOptionValidator = z.object({
       title: z.string()
     })
   )
-});
+})
 
 const stringProductOptionValidator = z.object({
   type: z.literal('text'),
@@ -35,14 +35,14 @@ const stringProductOptionValidator = z.object({
       title: z.string()
     })
   )
-});
+})
 
 const productOptionValidator = z.discriminatedUnion('type', [
   sizeProductOptionValidator,
   stringProductOptionValidator
-]);
+])
 
-export type ProductOption = z.infer<typeof productOptionValidator>;
+export type ProductOption = z.infer<typeof productOptionValidator>
 
 const selectedOptionValidator = z
   .object({
@@ -51,8 +51,8 @@ const selectedOptionValidator = z
     value: z.string()
   })
   .optional()
-  .nullable();
-export type SelectedOption = z.infer<typeof selectedOptionValidator>;
+  .nullable()
+export type SelectedOption = z.infer<typeof selectedOptionValidator>
 
 const productVariantValidator = z.object({
   id: z.string(),
@@ -60,33 +60,33 @@ const productVariantValidator = z.object({
   discountedPrice: z.number().optional(),
   selectedOptions: z.array(selectedOptionValidator),
   sku: z.string()
-});
-export type ProductVariant = z.infer<typeof productVariantValidator>;
+})
+export type ProductVariant = z.infer<typeof productVariantValidator>
 
 const siblingProductValidator = z.object({
   title: z.string(),
   slug: z.string(),
   isColor: z.boolean(),
   color: z.string().optional()
-});
-export type SiblingProduct = z.infer<typeof siblingProductValidator>;
+})
+export type SiblingProduct = z.infer<typeof siblingProductValidator>
 
 const PriceValidator = z.object({
   amount: z.number().transform((val) => String(val)),
   currencyCode: z.string()
-});
+})
 
 const imageInGalleryValidator = imageValidator.extend({
   type: z.literal('figure')
-});
+})
 const videoInGalleryValidator = z.object({
   type: z.literal('mux.video'),
   videoUrl: z.string()
-});
+})
 
 export const productGalleryValidator = z.array(
   z.discriminatedUnion('type', [imageInGalleryValidator, videoInGalleryValidator])
-);
+)
 
 // TODO make it non-optional after Luisa has fixed them all
 export const sizeGuideValidator = z.object({
@@ -98,7 +98,7 @@ export const sizeGuideValidator = z.object({
       })
     )
   })
-});
+})
 
 export const productValidator = z.object({
   id: z.string(),
@@ -147,18 +147,18 @@ export const productValidator = z.object({
     .optional(),
   sizeGuide: sizeGuideValidator.optional(),
   pageBuilder: pageBuilderValidator.optional()
-});
+})
 
-export type Product = z.infer<typeof productValidator>;
+export type Product = z.infer<typeof productValidator>
 
 export function getProductQuery({
   market,
   lang,
   gender
 }: {
-  market: MarketValues;
-  lang: LangValues;
-  gender: 'male' | 'female';
+  market: MarketValues
+  lang: LangValues
+  gender: 'male' | 'female'
 }) {
   const query = groq`
   *[_type == "product" && slug_${lang}.current == $slug && status_${market} == "ACTIVE"][0]{
@@ -357,27 +357,27 @@ export function getProductQuery({
       }
     ),
   }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 const productSiblingValidator = z.object({
   title: z.string(),
   mainImage: imageValidator,
   slug: z.string()
-});
+})
 
-export const productSiblingsValidator = z.array(productSiblingValidator);
+export const productSiblingsValidator = z.array(productSiblingValidator)
 
-export type ProductSiblings = z.infer<typeof productSiblingsValidator>;
+export type ProductSiblings = z.infer<typeof productSiblingsValidator>
 
 export function getSiblingProductsQuery({
   market,
   lang
 }: {
-  market: MarketValues;
-  lang: LangValues;
+  market: MarketValues
+  lang: LangValues
 }) {
   const query = groq`
   *[_type == "product" && references($typeId) && status_${market} == "ACTIVE" && defined(gid_${market}) && defined(color)]{
@@ -387,21 +387,21 @@ export function getSiblingProductsQuery({
     },
     "slug": slug_${lang}.current,
      }
-  `;
+  `
 
-  return query;
+  return query
 }
 
 function getGallerByGender({
   market,
   gender
 }: {
-  market: MarketValues;
-  gender: 'male' | 'female';
+  market: MarketValues
+  gender: 'male' | 'female'
 }) {
   if (gender === 'male') {
-    return fragments.getGalleryMale(market);
+    return fragments.getGalleryMale(market)
   }
 
-  return fragments.getGalleryFemale(market);
+  return fragments.getGalleryFemale(market)
 }

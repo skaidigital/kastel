@@ -1,10 +1,10 @@
-import { Text } from '@/components/base/Text';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { SanityImageProps } from '@/lib/sanity/types';
+import { Text } from '@/components/base/Text'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { SanityImageProps } from '@/lib/sanity/types'
 
 interface Props {
-  title: string;
-  image: SanityImageProps;
+  title: string
+  image: SanityImageProps
 }
 
 export function USPItem({ title, image }: Props) {
@@ -13,5 +13,5 @@ export function USPItem({ title, image }: Props) {
       <SanityImage width={40} height={40} image={image} />
       <Text size="overline-sm">{title}</Text>
     </div>
-  );
+  )
 }

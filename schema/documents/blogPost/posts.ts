@@ -1,5 +1,5 @@
-import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { filterAlreadyAddedReferences } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const blogPostReccommendedBlogPosts = defineType({
   title: 'Reccommended blog posts',
@@ -27,19 +27,25 @@ export const blogPostReccommendedBlogPosts = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any, context: any) => {
           if (context?.parent?.type === 'mostRecent') {
-            return true;
+            return true
           }
 
-          const hasNo = value?.no;
-          const hasEn = value?.en;
+          const hasNo = value?.no
+          const hasEn = value?.en
 
           if (!hasNo || !hasEn) {
             return [
-              !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-              !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
-            ].filter(Boolean);
+              !hasNo && {
+                message: 'You must provide a Norwegian translation',
+                paths: ['no']
+              },
+              !hasEn && {
+                message: 'You must provide an English translation',
+                paths: ['en']
+              }
+            ].filter(Boolean)
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.type === 'mostRecent'
     }),
@@ -50,19 +56,25 @@ export const blogPostReccommendedBlogPosts = defineType({
       validation: (Rule: any) =>
         Rule.custom((value: any, context: any) => {
           if (context?.parent?.type === 'mostRecent') {
-            return true;
+            return true
           }
 
-          const hasNo = value?.no;
-          const hasEn = value?.en;
+          const hasNo = value?.no
+          const hasEn = value?.en
 
           if (!hasNo || !hasEn) {
             return [
-              !hasNo && { message: 'You must provide a Norwegian translation', paths: ['no'] },
-              !hasEn && { message: 'You must provide an English translation', paths: ['en'] }
-            ].filter(Boolean);
+              !hasNo && {
+                message: 'You must provide a Norwegian translation',
+                paths: ['no']
+              },
+              !hasEn && {
+                message: 'You must provide an English translation',
+                paths: ['en']
+              }
+            ].filter(Boolean)
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.type === 'mostRecent'
     }),
@@ -82,11 +94,11 @@ export const blogPostReccommendedBlogPosts = defineType({
       validation: (Rule) =>
         Rule.custom((posts: any, context: any) => {
           if (context?.parent?.type === 'selected' && !posts.length) {
-            return 'Please select at least one blog post';
+            return 'Please select at least one blog post'
           }
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.type === 'mostRecent'
     })
   ]
-});
+})

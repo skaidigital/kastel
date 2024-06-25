@@ -1,16 +1,16 @@
-import { LangValues } from '@/data/constants';
-import { getBlogPostCard } from '@/lib/sanity/fragments';
-import { blogPostCardValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { getBlogPostCard } from '@/lib/sanity/fragments'
+import { blogPostCardValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const blogPostLandingPageValidator = z.object({
   title: z.string(),
   description: z.string(),
   posts: z.array(blogPostCardValidator)
-});
+})
 
-export type BlogPostLandingPagePayload = z.infer<typeof blogPostLandingPageValidator>;
+export type BlogPostLandingPagePayload = z.infer<typeof blogPostLandingPageValidator>
 
 export function getBlogPostLandingPagePayload({ lang }: { lang: LangValues }) {
   const query = groq`
@@ -21,7 +21,7 @@ export function getBlogPostLandingPagePayload({ lang }: { lang: LangValues }) {
        ${getBlogPostCard(lang)}
       }
     }
-  `;
+  `
 
-  return query;
+  return query
 }

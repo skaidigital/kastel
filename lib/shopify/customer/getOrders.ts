@@ -1,38 +1,38 @@
-import { PageInfo } from '@/app/api/shopify/types';
-import { ACCOUNT_PAGE_ORDERS_PAGE_SIZE } from '@/data/constants';
-import { customerAccountFetch } from '@/lib/shopify/customer';
-import { FulfillmentStatus, OrderFinancialStatus } from '@/lib/shopify/customer/types';
-import { MONEY_FRAGMENT } from '@/lib/shopify/fragments';
-import { Money } from '@/lib/shopify/types';
+import { PageInfo } from '@/app/api/shopify/types'
+import { ACCOUNT_PAGE_ORDERS_PAGE_SIZE } from '@/data/constants'
+import { customerAccountFetch } from '@/lib/shopify/customer'
+import { FulfillmentStatus, OrderFinancialStatus } from '@/lib/shopify/customer/types'
+import { MONEY_FRAGMENT } from '@/lib/shopify/fragments'
+import { Money } from '@/lib/shopify/types'
 
 type ShopifyResponse = {
   data: {
     customer: {
       orders?: {
-        pageInfo: PageInfo;
+        pageInfo: PageInfo
         nodes: {
-          id: string;
-          name: string;
-          createdAt: string;
-          currencyCode: string;
-          totalPrice: Money;
-          financialStatus: OrderFinancialStatus;
+          id: string
+          name: string
+          createdAt: string
+          currencyCode: string
+          totalPrice: Money
+          financialStatus: OrderFinancialStatus
           fulfillments?: {
             nodes: {
-              status: FulfillmentStatus;
-            }[];
-          };
-        }[];
-      };
-    };
-  };
+              status: FulfillmentStatus
+            }[]
+          }
+        }[]
+      }
+    }
+  }
   variables: {
-    first: number;
-    last?: number;
-    startCursor?: string;
-    endCursor?: string;
-  };
-};
+    first: number
+    last?: number
+    startCursor?: string
+    endCursor?: string
+  }
+}
 
 const customerOrdersQuery = /* GraphQL */ `
   query ($first: Int!, $last: Int, $startCursor: String, $endCursor: String) {
@@ -63,7 +63,7 @@ const customerOrdersQuery = /* GraphQL */ `
     }
   }
   ${MONEY_FRAGMENT}
-`;
+`
 
 export async function getOrders(lastCursor?: string) {
   const res = await customerAccountFetch<ShopifyResponse>({
@@ -73,10 +73,10 @@ export async function getOrders(lastCursor?: string) {
       first: ACCOUNT_PAGE_ORDERS_PAGE_SIZE,
       startCursor: lastCursor
     }
-  });
+  })
 
-  const orders = res.body.data.customer.orders?.nodes;
-  const pageInfo = res.body.data.customer.orders?.pageInfo;
+  const orders = res.body.data.customer.orders?.nodes
+  const pageInfo = res.body.data.customer.orders?.pageInfo
 
-  return { orders, pageInfo };
+  return { orders, pageInfo }
 }

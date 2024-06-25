@@ -1,5 +1,5 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const blogLandingPage = defineType({
   title: 'Blog Landing page',
@@ -10,7 +10,7 @@ export const blogLandingPage = defineType({
       return {
         title: 'Blog Landing page',
         subtitle: 'Blog Landing page'
-      };
+      }
     }
   },
   fields: [
@@ -30,4 +30,4 @@ export const blogLandingPage = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

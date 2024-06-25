@@ -1,5 +1,5 @@
-import { BulkVariantEditForm } from '@/components/sanity/customComponents/bulkVariantEditForm';
-import { MARKETS, PRODUCT_TYPES } from '@/data/constants';
+import { BulkVariantEditForm } from '@/components/sanity/customComponents/bulkVariantEditForm'
+import { MARKETS, PRODUCT_TYPES } from '@/data/constants'
 import {
   filterAlreadyAddedReferences,
   i18nField,
@@ -8,9 +8,9 @@ import {
   readOnlyUnlessDeveloper,
   slugIsUniqueForLangAndSchemaType,
   validateAllStringTranslations
-} from '@/lib/sanity/studioUtils';
-import { Gear, Image, PaintBrush, Sneaker, Video } from '@phosphor-icons/react';
-import { defineArrayMember, defineField, defineType } from 'sanity';
+} from '@/lib/sanity/studioUtils'
+import { Gear, Image, PaintBrush, Sneaker, Video } from '@phosphor-icons/react'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const product = defineType({
   title: 'Product',
@@ -144,14 +144,14 @@ export const product = defineType({
       },
       validation: (Rule: any) =>
         Rule.custom((value: any, context: any) => {
-          const hasModel = context?.document?.productType?._ref ? true : false;
+          const hasModel = context?.document?.productType?._ref ? true : false
 
           if (hasModel) {
-            return true;
+            return true
           }
 
-          const hasNo = value?.no;
-          const hasEn = value?.en;
+          const hasNo = value?.no
+          const hasEn = value?.en
 
           if (!hasNo || !hasEn) {
             return [
@@ -165,10 +165,10 @@ export const product = defineType({
                   'You must provide an English short description if you do not set a model under settings',
                 paths: ['en']
               }
-            ].filter(Boolean);
+            ].filter(Boolean)
           }
 
-          return true;
+          return true
         }),
       group: 'editorial'
     }),
@@ -183,14 +183,14 @@ export const product = defineType({
       },
       validation: (Rule: any) =>
         Rule.custom((value: any, context: any) => {
-          const hasModel = context?.document?.productType?._ref ? true : false;
+          const hasModel = context?.document?.productType?._ref ? true : false
 
           if (hasModel) {
-            return true;
+            return true
           }
 
-          const hasNo = value?.no;
-          const hasEn = value?.en;
+          const hasNo = value?.no
+          const hasEn = value?.en
 
           if (!hasNo || !hasEn) {
             return [
@@ -204,10 +204,10 @@ export const product = defineType({
                   'You must provide an English long description title if you do not set a model under settings',
                 paths: ['en']
               }
-            ].filter(Boolean);
+            ].filter(Boolean)
           }
 
-          return true;
+          return true
         }),
       group: 'editorial'
     }),
@@ -222,14 +222,14 @@ export const product = defineType({
       },
       validation: (Rule: any) =>
         Rule.custom((value: any, context: any) => {
-          const hasModel = context?.document?.productType?._ref ? true : false;
+          const hasModel = context?.document?.productType?._ref ? true : false
 
           if (hasModel) {
-            return true;
+            return true
           }
 
-          const hasNo = value?.no;
-          const hasEn = value?.en;
+          const hasNo = value?.no
+          const hasEn = value?.en
 
           if (!hasNo || !hasEn) {
             return [
@@ -243,10 +243,10 @@ export const product = defineType({
                   'You have to provide English long description details if you do not set a model under settings',
                 paths: ['en']
               }
-            ].filter(Boolean);
+            ].filter(Boolean)
           }
 
-          return true;
+          return true
         }),
       group: 'editorial'
     }),
@@ -316,30 +316,30 @@ export const product = defineType({
       validation: (Rule) =>
         Rule.custom((value: any, context: any) => {
           const marketsWithActiveProduct = MARKETS.reduce((activeMarketIds: string[], market) => {
-            const marketId = market.id;
-            const statusField = `status_${marketId}`;
-            const isActive = context.parent[statusField] === 'ACTIVE';
+            const marketId = market.id
+            const statusField = `status_${marketId}`
+            const isActive = context.parent[statusField] === 'ACTIVE'
 
             if (isActive) {
-              activeMarketIds.push(marketId);
+              activeMarketIds.push(marketId)
             }
 
-            return activeMarketIds;
-          }, []);
+            return activeMarketIds
+          }, [])
 
           // Identify missing active markets from the value array
           const missingActiveMarkets = marketsWithActiveProduct.filter(
             (marketId) => !value.includes(marketId)
-          );
+          )
 
           // Check if there are any missing active markets
           if (missingActiveMarkets.length > 0) {
             // Create a readable list of missing market IDs for the error message
-            const missingMarketsList = missingActiveMarkets.join(', ');
-            return `Missing active market(s): ${missingMarketsList}. All markets with an active product must be included.`;
+            const missingMarketsList = missingActiveMarkets.join(', ')
+            return `Missing active market(s): ${missingMarketsList}. All markets with an active product must be included.`
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -371,10 +371,10 @@ export const product = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.parent?.isColor && !value) {
-            return 'You have to set this field';
+            return 'You have to set this field'
           }
 
-          return true;
+          return true
         })
     }),
     ...i18nField({
@@ -412,21 +412,21 @@ export const product = defineType({
       hidden: ({ parent }) => parent?.type !== 'VARIABLE',
       validation: (Rule) =>
         Rule.custom((value: any, context: any) => {
-          const isSimpleProduct = context.parent?.type === 'SIMPLE';
+          const isSimpleProduct = context.parent?.type === 'SIMPLE'
 
           if (isSimpleProduct) {
-            return true;
+            return true
           }
 
           if (!value) {
-            return 'Options are required';
+            return 'Options are required'
           }
 
           if (value?.length < 1 || value?.length > 3) {
-            return 'You must have between 1 and 3 options';
+            return 'You must have between 1 and 3 options'
           }
 
-          return true;
+          return true
         }),
       of: [
         defineField({
@@ -498,10 +498,10 @@ export const product = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.parent?.type === 'SIMPLE' && value === undefined) {
-            return 'You have to set this field';
+            return 'You have to set this field'
           }
 
-          return true;
+          return true
         })
     }),
     defineField({
@@ -519,10 +519,10 @@ export const product = defineType({
             context.parent?.type === 'SIMPLE' &&
             value === undefined
           ) {
-            return 'You have to set this field';
+            return 'You have to set this field'
           }
 
-          return true;
+          return true
         })
     }),
     ...i18nNumber({
@@ -530,19 +530,19 @@ export const product = defineType({
       name: 'price',
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
-          const { parent, path } = context;
-          const activeMarkets = parent?.markets;
-          const currentMarket = path[0].split('_')[1];
+          const { parent, path } = context
+          const activeMarkets = parent?.markets
+          const currentMarket = path[0].split('_')[1]
 
           if (!activeMarkets?.includes(currentMarket)) {
-            return true;
+            return true
           }
 
           if (parent?.type === 'SIMPLE' && !value) {
-            return 'Price is required';
+            return 'Price is required'
           }
 
-          return true;
+          return true
         }),
       hidden: ({ parent }: any) => parent?.type !== 'SIMPLE'
     }),
@@ -560,10 +560,10 @@ export const product = defineType({
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
           if (context.parent?.type === 'SIMPLE' && !value) {
-            return 'SKU is required';
+            return 'SKU is required'
           }
 
-          return true;
+          return true
         }),
       hidden: ({ parent }) => parent?.type !== 'SIMPLE'
     }),
@@ -590,15 +590,15 @@ export const product = defineType({
           })
       },
       validation: (Rule) =>
-        Rule.custom((value, context: any) => {
+        Rule.custom((value) => {
           if (!value?.current) {
-            return 'The slug is required';
+            return 'The slug is required'
           }
           // Make sure the slug only has lowercase letters, noe spaces and valid characters
           if (!/^[a-z0-9-]+$/.test(value?.current)) {
-            return 'The slug can only contain lowercase letters, numbers and hyphens';
+            return 'The slug can only contain lowercase letters, numbers and hyphens'
           }
-          return true;
+          return true
         }),
       group: 'settings'
     }),
@@ -617,15 +617,15 @@ export const product = defineType({
           })
       },
       validation: (Rule) =>
-        Rule.custom((value, context: any) => {
+        Rule.custom((value) => {
           if (!value?.current) {
-            return 'The slug is required';
+            return 'The slug is required'
           }
           // Make sure the slug only has lowercase letters, noe spaces and valid characters
           if (!/^[a-z0-9-]+$/.test(value?.current)) {
-            return 'The slug can only contain lowercase letters, numbers and a-z';
+            return 'The slug can only contain lowercase letters, numbers and a-z'
           }
-          return true;
+          return true
         }),
       group: 'settings'
     }),
@@ -725,14 +725,14 @@ export const product = defineType({
       internalTitle: 'internalTitle'
     },
     prepare(selection) {
-      const { mainImage, title, internalTitle } = selection;
+      const { mainImage, title, internalTitle } = selection
 
-      const bestTitle = internalTitle || title || 'Untitled';
+      const bestTitle = internalTitle || title || 'Untitled'
 
       return {
         title: bestTitle,
         media: mainImage
-      };
+      }
     }
   }
-});
+})

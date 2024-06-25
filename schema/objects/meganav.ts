@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { TagChevron } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { TagChevron } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const meganav = defineType({
   title: 'Meganav',
@@ -15,7 +15,7 @@ export const meganav = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Meganav'
-      };
+      }
     }
   },
   fields: [
@@ -45,4 +45,4 @@ export const meganav = defineType({
       validation: (Rule) => Rule.max(4)
     })
   ]
-});
+})

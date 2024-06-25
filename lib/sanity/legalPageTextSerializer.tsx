@@ -1,8 +1,8 @@
-import { ListItem } from '@/components/base/ListItem';
-import { OL } from '@/components/base/OL';
-import { Text } from '@/components/base/Text';
-import { UL } from '@/components/base/UL';
-import { SanityLink } from '@/components/sanity/SanityLink';
+import { ListItem } from '@/components/base/ListItem'
+import { OL } from '@/components/base/OL'
+import { Text } from '@/components/base/Text'
+import { UL } from '@/components/base/UL'
+import { SanityLink } from '@/components/sanity/SanityLink'
 
 export const legalPageTextSerializer = {
   block: {
@@ -21,40 +21,40 @@ export const legalPageTextSerializer = {
   },
   list: {
     bullet: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
 
       return (
         <UL level={level} className="mt-4 flex flex-col gap-y-2">
           {children}
         </UL>
-      );
+      )
     },
     number: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
 
       return (
         <OL level={level} className="mt-4 flex flex-col gap-y-2">
           {children}
         </OL>
-      );
+      )
     }
   },
   listItem: {
     bullet: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
       return (
         <ListItem level={level} className="pt-0 text-sm text-brand-mid-grey md:text-sm lg:text-sm">
           {children}
         </ListItem>
-      );
+      )
     },
     number: ({ children, value }: any) => {
-      const { level } = value;
+      const { level } = value
       return (
         <ListItem level={level} className="pt-0 text-sm text-brand-mid-grey md:text-sm lg:text-sm">
           {children}
         </ListItem>
-      );
+      )
     }
   },
 
@@ -73,4 +73,4 @@ export const legalPageTextSerializer = {
   types: {
     // Add image
   }
-};
+}

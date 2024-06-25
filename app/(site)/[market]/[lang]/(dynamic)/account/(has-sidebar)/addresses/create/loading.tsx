@@ -1,5 +1,5 @@
-import LoadingDots from '@/components/LoadingDots';
+import LoadingDots from '@/components/LoadingDots'
 
 export default function Loading() {
-  return <LoadingDots />;
+  return <LoadingDots />
 }

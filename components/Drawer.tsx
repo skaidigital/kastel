@@ -1,22 +1,21 @@
-'use client';
+'use client'
 
-import { Overlay } from '@/components/Overlay';
-import { TouchTarget } from '@/components/TouchTarget';
-import { VisuallyHidden } from '@/components/VisuallyHidden';
-import { headingStyles } from '@/components/base/Heading';
-import { cn } from '@/lib/utils';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import * as Dialog from '@radix-ui/react-dialog';
-import { ReactNode } from 'react';
+import { Overlay } from '@/components/Overlay'
+import { TouchTarget } from '@/components/TouchTarget'
+import { VisuallyHidden } from '@/components/VisuallyHidden'
+import { headingStyles } from '@/components/base/Heading'
+import { cn } from '@/lib/utils'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import * as Dialog from '@radix-ui/react-dialog'
+import { ReactNode } from 'react'
 
 interface Props {
-  children: React.ReactNode;
-  placement?: 'left' | 'right' | 'bottom';
-  className?: string;
-  ref?: React.Ref<HTMLDivElement>;
+  children: React.ReactNode
+  placement?: 'left' | 'right' | 'bottom'
+  className?: string
 }
 
-export function DrawerContent({ children, placement = 'right', className, ref }: Props) {
+export function DrawerContent({ children, placement = 'right', className }: Props) {
   return (
     <Dialog.Portal>
       <Overlay />
@@ -36,17 +35,17 @@ export function DrawerContent({ children, placement = 'right', className, ref }:
         {children}
       </Dialog.Content>
     </Dialog.Portal>
-  );
+  )
 }
 
 interface DrawerRootProps {
-  isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  children: ReactNode;
+  isOpen?: boolean
+  onOpenChange?: (open: boolean) => void
+  children: ReactNode
 }
 
 export function Drawer({ children, isOpen, onOpenChange }: DrawerRootProps) {
-  const isControlled = isOpen !== undefined;
+  const isControlled = isOpen !== undefined
 
   return (
     <Dialog.Root
@@ -55,13 +54,13 @@ export function Drawer({ children, isOpen, onOpenChange }: DrawerRootProps) {
     >
       {children}
     </Dialog.Root>
-  );
+  )
 }
 
 interface DrawerTriggerProps {
-  children: ReactNode;
-  className?: string;
-  asChild?: boolean;
+  children: ReactNode
+  className?: string
+  asChild?: boolean
 }
 
 export function DrawerTrigger({ children, className, asChild = true }: DrawerTriggerProps) {
@@ -69,22 +68,22 @@ export function DrawerTrigger({ children, className, asChild = true }: DrawerTri
     <Dialog.Trigger asChild={asChild} className={className}>
       {children}
     </Dialog.Trigger>
-  );
+  )
 }
 
 interface DrawerCloseProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export function DrawerClose({ children }: DrawerCloseProps) {
-  return <Dialog.Close asChild>{children}</Dialog.Close>;
+  return <Dialog.Close asChild>{children}</Dialog.Close>
 }
 
 interface DrawerHeaderProps {
-  title: string;
-  description: string;
-  children?: ReactNode;
-  className?: string;
+  title: string
+  description: string
+  children?: ReactNode
+  className?: string
 }
 
 export function DrawerHeader({ title, description, children, className }: DrawerHeaderProps) {
@@ -107,5 +106,5 @@ export function DrawerHeader({ title, description, children, className }: Drawer
       </div>
       {children}
     </div>
-  );
+  )
 }

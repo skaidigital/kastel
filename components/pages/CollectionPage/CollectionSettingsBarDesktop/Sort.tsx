@@ -1,32 +1,32 @@
-'use client';
+'use client'
 
-import { Select, SelectContent, SelectItem, SelectValue } from '@/components/Select';
-import { LangValues } from '@/data/constants';
-import { getSortOptions } from '@/lib/utils';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { SelectTrigger } from '@radix-ui/react-select';
-import { useRouter } from 'next/navigation';
-import { parseAsString, useQueryState } from 'nuqs';
+import { Select, SelectContent, SelectItem, SelectValue } from '@/components/Select'
+import { LangValues } from '@/data/constants'
+import { getSortOptions } from '@/lib/utils'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
+import { SelectTrigger } from '@radix-ui/react-select'
+import { useRouter } from 'next/navigation'
+import { parseAsString, useQueryState } from 'nuqs'
 
 interface Props {
-  lang: LangValues;
+  lang: LangValues
 }
 
 export function Sort({ lang }: Props) {
-  const router = useRouter();
-  const [sort, setSort] = useQueryState('sort', parseAsString);
+  const router = useRouter()
+  const [sort, setSort] = useQueryState('sort', parseAsString)
 
   function handleChange(e: string) {
-    setSort(e).then(() => router.refresh());
+    setSort(e).then(() => router.refresh())
   }
 
-  const sortOptions = getSortOptions(lang);
+  const sortOptions = getSortOptions(lang)
 
   return (
     <div className="w-40 rounded-[2px] bg-brand-light-grey text-center text-brand-mid-grey">
       <Select
         onValueChange={(e) => {
-          handleChange(e);
+          handleChange(e)
         }}
         defaultValue={sort || sortOptions[0]?.value}
       >
@@ -49,5 +49,5 @@ export function Sort({ lang }: Props) {
         </SelectContent>
       </Select>
     </div>
-  );
+  )
 }

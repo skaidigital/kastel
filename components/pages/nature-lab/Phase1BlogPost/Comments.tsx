@@ -1,17 +1,17 @@
-import { AddCommentForm } from '@/components/pages/nature-lab/Phase1BlogPost/AddCommentForm';
-import { Comment } from '@/components/pages/nature-lab/Phase1BlogPost/Comment';
-import { CommentProps } from '@/components/pages/nature-lab/Phase1BlogPost/hooks';
-import { LangValues } from '@/data/constants';
+import { AddCommentForm } from '@/components/pages/nature-lab/Phase1BlogPost/AddCommentForm'
+import { Comment } from '@/components/pages/nature-lab/Phase1BlogPost/Comment'
+import { CommentProps } from '@/components/pages/nature-lab/Phase1BlogPost/hooks'
+import { LangValues } from '@/data/constants'
 
 interface Props {
-  documentId: string;
-  slug: string;
-  lang: LangValues;
-  comments?: CommentProps[];
+  documentId: string
+  slug: string
+  lang: LangValues
+  comments?: CommentProps[]
 }
 
 export function Comments({ documentId, slug, lang, comments }: Props) {
-  const feedBackFromTheCommunityTranslation = getFeedBackFromTheCommunityTranslation(lang);
+  const feedBackFromTheCommunityTranslation = getFeedBackFromTheCommunityTranslation(lang)
 
   return (
     <div className="mt-10 flex flex-col gap-y-5 lg:mt-20">
@@ -27,16 +27,16 @@ export function Comments({ documentId, slug, lang, comments }: Props) {
       )}
       <AddCommentForm documentId={documentId} slug={slug} />
     </div>
-  );
+  )
 }
 
 function getFeedBackFromTheCommunityTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Tilbakemelding fra samfunnet';
+      return 'Tilbakemelding fra samfunnet'
     case 'en':
-      return 'Feedback from the community';
+      return 'Feedback from the community'
     default:
-      return 'Feedback from the community';
+      return 'Feedback from the community'
   }
 }

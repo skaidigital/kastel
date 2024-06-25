@@ -1,19 +1,19 @@
-import { Dictionary } from '@/app/dictionaries';
+import { Dictionary } from '@/app/dictionaries'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from '@/components/Carousel';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { ProductCard } from '@/components/shared/ProductCard';
-import { ReccommendedProductPayload } from '@/components/shared/ReccommendedProducts/hooks';
+} from '@/components/Carousel'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { ProductCard } from '@/components/shared/ProductCard'
+import { ReccommendedProductPayload } from '@/components/shared/ReccommendedProducts/hooks'
 
 interface Props {
-  data: ReccommendedProductPayload;
-  dictionary: Dictionary['reccommended_products'];
+  data: ReccommendedProductPayload
+  dictionary: Dictionary['reccommended_products']
 }
 
 export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
@@ -53,5 +53,5 @@ export const ReccommendedProductsLayout = ({ data, dictionary }: Props) => {
         </Carousel>
       </Container>
     </Section>
-  );
-};
+  )
+}

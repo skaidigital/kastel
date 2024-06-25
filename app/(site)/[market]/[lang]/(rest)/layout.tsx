@@ -1,23 +1,23 @@
-import { AnnouncementBanner } from '@/components/global/AnnouncementBanner';
-import { Footer } from '@/components/global/Footer';
-import { LayoutUSPMarquee } from '@/components/global/LayoutUSPMarquee';
-import { Navbar } from '@/components/global/Navbar';
-import { LangValues, MarketValues } from '@/data/constants';
-import { ReactNode } from 'react';
+import { AnnouncementBanner } from '@/components/global/AnnouncementBanner'
+import { Footer } from '@/components/global/Footer'
+import { LayoutUSPMarquee } from '@/components/global/LayoutUSPMarquee'
+import { Navbar } from '@/components/global/Navbar'
+import { LangValues, MarketValues } from '@/data/constants'
+import { ReactNode } from 'react'
 
 export async function generateStaticParams() {
   return [
     { market: 'no', lang: 'no' },
     { market: 'no', lang: 'en' }
-  ];
+  ]
 }
 
 interface Props {
   params: {
-    market: MarketValues;
-    lang: LangValues;
-  };
-  children: ReactNode;
+    market: MarketValues
+    lang: LangValues
+  }
+  children: ReactNode
 }
 
 export default function Layout({ children, params: { market, lang } }: Props) {
@@ -29,5 +29,5 @@ export default function Layout({ children, params: { market, lang } }: Props) {
       <LayoutUSPMarquee lang={lang} />
       <Footer market={market} lang={lang} />
     </div>
-  );
+  )
 }

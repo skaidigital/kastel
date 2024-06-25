@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
+import { cn } from '@/lib/utils'
+import { ReactNode } from 'react'
 
 interface Props {
-  children: ReactNode;
-  level?: number;
-  className?: string;
+  children: ReactNode
+  level?: number
+  className?: string
 }
 
 export const ListItem = ({ children, level = 1, className }: Props) => {
@@ -20,5 +20,5 @@ export const ListItem = ({ children, level = 1, className }: Props) => {
     >
       {children}
     </li>
-  );
-};
+  )
+}

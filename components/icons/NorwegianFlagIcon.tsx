@@ -7,5 +7,5 @@ export function NorwegianFlagIcon(props: React.SVGProps<SVGSVGElement>) {
       <path fill="#002664" d="M210 0h60v480h-60z" />
       <path fill="#002664" d="M0 210h640v60H0z" />
     </svg>
-  );
+  )
 }

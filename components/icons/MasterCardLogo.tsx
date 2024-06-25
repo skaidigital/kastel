@@ -33,4 +33,4 @@ export const MasterCardLogo = (props: React.SVGProps<SVGSVGElement>) => (
       fill="#EB001B"
     />
   </svg>
-);
+)

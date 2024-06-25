@@ -1,25 +1,25 @@
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { getProductIdSku, getProductReviews } from '@/components/lipscore/hooks';
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
-import { ProductReviews } from './ProductReviews';
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { getProductIdSku, getProductReviews } from '@/components/lipscore/hooks'
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
+import { ProductReviews } from './ProductReviews'
 
 interface Props {
-  title: string;
-  description: string;
-  sku: string;
+  title: string
+  description: string
+  sku: string
 }
 
 export async function ProductDescriptionAndReviews({ title, description, sku }: Props) {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient()
 
-  const lipscoreProductId = await getProductIdSku(sku);
-  const page = 1;
+  const lipscoreProductId = await getProductIdSku(sku)
+  const page = 1
 
   await queryClient.prefetchQuery({
     queryKey: ['productReviews', page],
     queryFn: () => getProductReviews(String(lipscoreProductId), page)
-  });
+  })
 
   return (
     <Section
@@ -40,5 +40,5 @@ export async function ProductDescriptionAndReviews({ title, description, sku }: 
         </HydrationBoundary>
       </Container>
     </Section>
-  );
+  )
 }

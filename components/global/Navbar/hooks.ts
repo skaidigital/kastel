@@ -1,30 +1,30 @@
-import { LangValues, MarketValues } from '@/data/constants';
-import * as fragments from '@/lib/sanity/fragments';
-import { headingAndLinksValidator, imageValidator, linkValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues, MarketValues } from '@/data/constants'
+import * as fragments from '@/lib/sanity/fragments'
+import { headingAndLinksValidator, imageValidator, linkValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 export const featuredNavItemValidator = z.object({
   title: z.string(),
   image: imageValidator,
   link: linkValidator
-});
+})
 
 export const meganavValidator = z.object({
   type: z.literal('meganav'),
   title: z.string(),
   links: z.array(headingAndLinksValidator),
   featuredProducts: z.array(featuredNavItemValidator).optional()
-});
+})
 
 // TODO fix. It should be discriminated union but then it is not a zod object and it fails
 export const navbarValidator = z.object({
   items: z.array(z.union([linkValidator, meganavValidator])),
   hasAnnouncementBanner: z.boolean()
-});
+})
 
-export type MeganavPayload = z.infer<typeof meganavValidator>;
-export type NavbarPayload = z.infer<typeof navbarValidator>;
+export type MeganavPayload = z.infer<typeof meganavValidator>
+export type NavbarPayload = z.infer<typeof navbarValidator>
 
 export function getNavbarQuery({ market, lang }: { market: MarketValues; lang: LangValues }) {
   const query = groq`
@@ -59,7 +59,7 @@ export function getNavbarQuery({ market, lang }: { market: MarketValues; lang: L
       },
     }
   } 
-  `;
+  `
 
-  return query;
+  return query
 }

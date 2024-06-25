@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { Skeleton } from '@/components/Skeleton';
-import { cn } from '@/lib/utils';
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
+import { Skeleton } from '@/components/Skeleton'
+import { cn } from '@/lib/utils'
+import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 
 interface CrossSellSkeletonProps {
-  className?: string;
+  className?: string
 }
 
 export function CrossSellSkeleton({ className }: CrossSellSkeletonProps) {
@@ -27,5 +27,5 @@ export function CrossSellSkeleton({ className }: CrossSellSkeletonProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

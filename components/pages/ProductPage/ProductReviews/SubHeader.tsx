@@ -1,66 +1,66 @@
-'use client';
+'use client'
 
-import { Heading } from '@/components/base/Heading';
-import { getProductReviewsTESTJunip } from '@/components/pages/ProductPage/ProductReviews/ProductReviews.hooks';
-import { accordionItemAnimation } from '@/lib/animations';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { UseFormRegister, useForm } from 'react-hook-form';
+import { Heading } from '@/components/base/Heading'
+import { getProductReviewsTESTJunip } from '@/components/pages/ProductPage/ProductReviews/ProductReviews.hooks'
+import { accordionItemAnimation } from '@/lib/animations'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { UseFormRegister, useForm } from 'react-hook-form'
 
 const getJunipQueryParams = (sort: string, stars: string) => {
-  let sortParam = '';
-  let starsParam = '';
+  let sortParam = ''
+  let starsParam = ''
 
   if (sort === 'Fremhevet') {
-    sortParam = '&sort[field]=featured&sort[order]=desc';
+    sortParam = '&sort[field]=featured&sort[order]=desc'
   }
   if (sort === 'Nyeste') {
-    sortParam = '&sort[field]=created_at&sort[order]=desc';
+    sortParam = '&sort[field]=created_at&sort[order]=desc'
   }
   if (sort === 'Eldste') {
-    sortParam = '&sort[field]=created_at&sort[order]=asc';
+    sortParam = '&sort[field]=created_at&sort[order]=asc'
   }
   if (sort === 'Høyest rangert') {
-    sortParam = '&sort[field]=rating&sort[order]=desc';
+    sortParam = '&sort[field]=rating&sort[order]=desc'
   }
   if (sort === 'Lavest rangert') {
-    sortParam = '&sort[field]=rating&sort[order]=asc';
+    sortParam = '&sort[field]=rating&sort[order]=asc'
   }
 
   if (stars === 'All') {
-    starsParam = '';
+    starsParam = ''
   }
   if (stars === '1 stjerne') {
-    starsParam = '&filter[rating]=1';
+    starsParam = '&filter[rating]=1'
   }
   if (stars === '2 stjerner') {
-    starsParam = '&filter[rating]=2';
+    starsParam = '&filter[rating]=2'
   }
   if (stars === '3 stjerner') {
-    starsParam = '&filter[rating]=3';
+    starsParam = '&filter[rating]=3'
   }
   if (stars === '4 stjerner') {
-    starsParam = '&filter[rating]=4';
+    starsParam = '&filter[rating]=4'
   }
   if (stars === '5 stjerner') {
-    starsParam = '&filter[rating]=5';
+    starsParam = '&filter[rating]=5'
   }
 
-  const result = sortParam + starsParam + '&page[size]=5';
+  const result = sortParam + starsParam + '&page[size]=5'
 
-  return result;
-};
-
-interface SubHeaderProps {
-  setReviews: any;
-  setSearchParams: any;
-  setReviewPage: any;
-  productId: string;
+  return result
 }
 
-const starOptions = ['All', '1 stjerne', '2 stjerner', '3 stjerner', '4 stjerner', '5 stjerner'];
+interface SubHeaderProps {
+  setReviews: any
+  setSearchParams: any
+  setReviewPage: any
+  productId: string
+}
 
-const sortOptions = ['Fremhevet', 'Nyeste', 'Eldste', 'Høyest rangert', 'Lavest rangert'];
+const starOptions = ['All', '1 stjerne', '2 stjerner', '3 stjerner', '4 stjerner', '5 stjerner']
+
+const sortOptions = ['Fremhevet', 'Nyeste', 'Eldste', 'Høyest rangert', 'Lavest rangert']
 
 export const SubHeader = ({
   setReviews,
@@ -68,7 +68,7 @@ export const SubHeader = ({
   setReviewPage,
   productId
 }: SubHeaderProps) => {
-  const [showOptions, setShowOptions] = useState(true);
+  const [showOptions, setShowOptions] = useState(true)
 
   const { register, watch } = useForm({
     mode: 'onSubmit',
@@ -77,34 +77,34 @@ export const SubHeader = ({
       settingSort: 'Fremhevet',
       withMedia: true
     }
-  });
+  })
 
-  const watchSettingStars = watch('settingStars');
-  const watchSettingSort = watch('settingSort');
+  const watchSettingStars = watch('settingStars')
+  const watchSettingSort = watch('settingSort')
 
   const handleNewSearchParams = async () => {
     try {
-      const params = getJunipQueryParams(watchSettingSort, watchSettingStars);
+      const params = getJunipQueryParams(watchSettingSort, watchSettingStars)
 
-      await setSearchParams(params);
+      await setSearchParams(params)
 
       await getProductReviewsTESTJunip(productId, params).then((response) => {
-        setReviewPage(response.meta.page.after);
-        setReviews(response.product_reviews);
-      });
+        setReviewPage(response.meta.page.after)
+        setReviews(response.product_reviews)
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const toggleShowOptions = () => {
-    setShowOptions(!showOptions);
-  };
+    setShowOptions(!showOptions)
+  }
 
   useEffect(() => {
-    handleNewSearchParams();
+    handleNewSearchParams()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watchSettingStars, watchSettingSort]);
+  }, [watchSettingStars, watchSettingSort])
 
   return (
     <>
@@ -145,12 +145,12 @@ export const SubHeader = ({
         </AnimatePresence>
       </div>
     </>
-  );
-};
+  )
+}
 
 interface SettingStarsProps {
-  values: string[];
-  registerFunction: UseFormRegister<any>;
+  values: string[]
+  registerFunction: UseFormRegister<any>
 }
 
 const SettingStars = ({ values, registerFunction }: SettingStarsProps) => {
@@ -178,16 +178,16 @@ const SettingStars = ({ values, registerFunction }: SettingStarsProps) => {
                 {value}
               </div>
             </label>
-          );
+          )
         })}
       </div>
     </>
-  );
-};
+  )
+}
 
 interface SettingSortProps {
-  values: string[];
-  registerFunction: UseFormRegister<any>;
+  values: string[]
+  registerFunction: UseFormRegister<any>
 }
 
 const SettingSort = ({ values, registerFunction }: SettingSortProps) => {
@@ -215,9 +215,9 @@ const SettingSort = ({ values, registerFunction }: SettingSortProps) => {
                 {value}
               </div>
             </label>
-          );
+          )
         })}
       </div>
     </div>
-  );
-};
+  )
+}

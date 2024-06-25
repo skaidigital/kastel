@@ -1,25 +1,25 @@
-import { env } from '@/env';
-import { apiVersion, projectId } from '@/lib/sanity/api';
-import { locate } from '@/lib/sanity/plugins/locate';
-import { productVariantBasedOnProduct } from '@/lib/sanity/templates';
-import { defaultDocumentNodeResolver } from '@/schema/defaultDocumentNodeResolver';
-import { structure } from '@/schema/structure';
-import { table } from '@sanity/table';
-import { visionTool } from '@sanity/vision';
-import { defineConfig, definePlugin } from 'sanity';
-import { imageHotspotArrayPlugin } from 'sanity-plugin-hotspot-array';
-import { I18nFields } from 'sanity-plugin-i18n-fields';
-import { media, mediaAssetSource } from 'sanity-plugin-media';
-import { muxInput } from 'sanity-plugin-mux-input';
-import { noteField } from 'sanity-plugin-note-field';
-import { simplerColorInput } from 'sanity-plugin-simpler-color-input';
-import { vercelDeployTool } from 'sanity-plugin-vercel-deploy';
-import { webhooks } from 'sanity-plugin-webhooks';
-import { presentationTool } from 'sanity/presentation';
-import { structureTool } from 'sanity/structure';
-import { SyncProductToShopify } from './lib/sanity/actions.client';
-import schema from './schema';
-import './styles/sanity.css';
+import { env } from '@/env'
+import { apiVersion, projectId } from '@/lib/sanity/api'
+import { locate } from '@/lib/sanity/plugins/locate'
+import { productVariantBasedOnProduct } from '@/lib/sanity/templates'
+import { defaultDocumentNodeResolver } from '@/schema/defaultDocumentNodeResolver'
+import { structure } from '@/schema/structure'
+import { table } from '@sanity/table'
+import { visionTool } from '@sanity/vision'
+import { defineConfig, definePlugin } from 'sanity'
+import { imageHotspotArrayPlugin } from 'sanity-plugin-hotspot-array'
+import { I18nFields } from 'sanity-plugin-i18n-fields'
+import { media, mediaAssetSource } from 'sanity-plugin-media'
+import { muxInput } from 'sanity-plugin-mux-input'
+import { noteField } from 'sanity-plugin-note-field'
+import { simplerColorInput } from 'sanity-plugin-simpler-color-input'
+import { vercelDeployTool } from 'sanity-plugin-vercel-deploy'
+import { webhooks } from 'sanity-plugin-webhooks'
+import { presentationTool } from 'sanity/presentation'
+import { structureTool } from 'sanity/structure'
+import { SyncProductToShopify } from './lib/sanity/actions.client'
+import schema from './schema'
+import './styles/sanity.css'
 
 const config = definePlugin({
   name: 'sharedConfig',
@@ -61,15 +61,15 @@ const config = definePlugin({
     table()
   ],
   tools: (prev, { currentUser }) => {
-    const isAdmin = currentUser?.roles?.some((role) => role.name === 'developer');
+    const isAdmin = currentUser?.roles?.some((role) => role.name === 'developer')
 
     if (isAdmin) {
-      return prev;
+      return prev
     }
 
-    const filteredTools = ['vision', 'webhooks'];
+    const filteredTools = ['vision', 'webhooks']
 
-    return prev.filter((tool) => !filteredTools.includes(tool.name));
+    return prev.filter((tool) => !filteredTools.includes(tool.name))
   },
   form: {
     file: {
@@ -86,28 +86,28 @@ const config = definePlugin({
   document: {
     actions: (prev, context) => {
       if (context.schemaType === 'product') {
-        const productSyncActions = SyncProductToShopify(context);
+        const productSyncActions = SyncProductToShopify(context)
         const productSyncActionsFunctions = productSyncActions.map((action) => {
-          return () => action;
-        });
+          return () => action
+        })
 
         // const customOrder = [prev[0], ...productSyncActionsFunctions, ...prev.slice(1)];
-        const documentActions = [...prev, ...productSyncActionsFunctions];
+        const documentActions = [...prev, ...productSyncActionsFunctions]
 
-        return documentActions;
+        return documentActions
       }
       if (context.schemaType === 'productVariant') {
         const everythingExceptDuplicateAction = prev.filter(
           (action) => action.action !== 'duplicate'
-        );
+        )
 
-        return everythingExceptDuplicateAction;
+        return everythingExceptDuplicateAction
       }
 
-      return prev;
+      return prev
     }
   }
-});
+})
 
 export default defineConfig({
   basePath: '/studio',
@@ -120,4 +120,4 @@ export default defineConfig({
     enabled: true,
     inputDateTimeFormat: 'dd.MM.yyyy HH:mm'
   }
-});
+})

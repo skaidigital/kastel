@@ -1,9 +1,9 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
 interface Props {
-  label: string;
-  value: string;
-  className?: string;
+  label: string
+  value: string
+  className?: string
 }
 
 export function ValuePair({ label, value, className }: Props) {
@@ -20,5 +20,5 @@ export function ValuePair({ label, value, className }: Props) {
         </span>
       )}
     </div>
-  );
+  )
 }

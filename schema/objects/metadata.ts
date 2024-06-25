@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity'
 
 export const metadata = defineType({
   title: 'SEO & Social',
@@ -44,4 +44,4 @@ export const metadata = defineType({
       validation: undefined
     })
   ]
-});
+})

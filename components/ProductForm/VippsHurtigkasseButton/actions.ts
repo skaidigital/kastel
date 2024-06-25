@@ -1,19 +1,19 @@
-'use server';
+'use server'
 
-import { env } from '@/env';
-import { removeVariantGid } from '@/lib/shopify/helpers';
+import { env } from '@/env'
+import { removeVariantGid } from '@/lib/shopify/helpers'
 
 export async function goToVippsHurtigkasse(activeVariantId: string) {
   if (!activeVariantId) {
-    console.error('No active variant id found');
-    return;
+    console.error('No active variant id found')
+    return
   }
 
-  const formattedVariantId = removeVariantGid(activeVariantId);
+  const formattedVariantId = removeVariantGid(activeVariantId)
 
-  const items = [{ variant_id: formattedVariantId, quantity: 1 }];
+  const items = [{ variant_id: formattedVariantId, quantity: 1 }]
 
-  const baseUrl = env.BASE_URL;
+  const baseUrl = env.BASE_URL
 
   try {
     const response = await fetch(baseUrl + '/api/vipps/create-checkout', {
@@ -24,12 +24,12 @@ export async function goToVippsHurtigkasse(activeVariantId: string) {
       body: JSON.stringify({
         items
       })
-    });
+    })
 
-    const data = await response.json();
+    const data = await response.json()
 
-    return data;
+    return data
   } catch (error) {
-    console.error({ error });
+    console.error({ error })
   }
 }

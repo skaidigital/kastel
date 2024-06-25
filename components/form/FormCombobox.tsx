@@ -1,19 +1,19 @@
-import { FormLabel } from '@/components/form/FormLabel';
-import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
-import { useCombobox } from 'downshift';
-import { useState } from 'react';
-import { useController } from 'react-hook-form';
+import { FormLabel } from '@/components/form/FormLabel'
+import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
+import { useCombobox } from 'downshift'
+import { useState } from 'react'
+import { useController } from 'react-hook-form'
 
 interface Item {
-  label: string;
-  value: string;
+  label: string
+  value: string
 }
 
 interface FormComboboxProps {
-  control: any;
-  name: string;
-  items: Item[];
-  label: string;
+  control: any
+  name: string
+  items: Item[]
+  label: string
 }
 
 // TODO style it more to be on brand
@@ -24,9 +24,9 @@ export const FormCombobox = ({ control, name, items, label }: FormComboboxProps)
   } = useController({
     name,
     control
-  });
+  })
 
-  const [inputItems, setInputItems] = useState(items);
+  const [inputItems, setInputItems] = useState(items)
 
   const {
     isOpen,
@@ -43,9 +43,9 @@ export const FormCombobox = ({ control, name, items, label }: FormComboboxProps)
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) => item.label.toLowerCase().includes(inputValue?.toLowerCase() ?? ''))
-      );
+      )
     }
-  });
+  })
 
   return (
     <div className="relative flex flex-col gap-y-1 text-sm">
@@ -83,5 +83,5 @@ export const FormCombobox = ({ control, name, items, label }: FormComboboxProps)
       </ul>
       {error && <p className="mt-1 text-xs text-red-500">{error.message}</p>}
     </div>
-  );
-};
+  )
+}

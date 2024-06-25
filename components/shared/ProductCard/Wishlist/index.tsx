@@ -1,24 +1,27 @@
-'use client';
+'use client'
 
-import { WishlistButton } from '@/components/shared/ProductCard/Wishlist/WishlistButton';
-import { useIsItemInWishlist } from '@/lib/shopify/metafields/isItemInWishlist';
-import { useUser } from '@/lib/useUser';
-import { cn } from '@/lib/utils';
-import { HeartIcon as HeartIconFilled } from '@heroicons/react/20/solid';
-import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline';
+import { WishlistButton } from '@/components/shared/ProductCard/Wishlist/WishlistButton'
+import { useIsItemInWishlist } from '@/lib/shopify/metafields/isItemInWishlist'
+import { useUser } from '@/lib/useUser'
+import { cn } from '@/lib/utils'
+import { HeartIcon as HeartIconFilled } from '@heroicons/react/20/solid'
+import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline'
 
 interface Props {
-  gid: string;
-  className?: string;
+  gid: string
+  className?: string
 }
 
 export function Wishlist({ gid, className }: Props) {
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn } = useUser()
 
-  const { data: isInWishlist, isLoading } = useIsItemInWishlist({ gid, isLoggedIn });
+  const { data: isInWishlist, isLoading } = useIsItemInWishlist({
+    gid,
+    isLoggedIn
+  })
 
   if (isLoading) {
-    return <WishlistFallback className={className} />;
+    return <WishlistFallback className={className} />
   }
 
   return (
@@ -34,7 +37,7 @@ export function Wishlist({ gid, className }: Props) {
         <HeartIconOutline className="size-4" />
       )}
     </WishlistButton>
-  );
+  )
 }
 
 export function WishlistFallback({ className }: { className?: string }) {
@@ -44,5 +47,5 @@ export function WishlistFallback({ className }: { className?: string }) {
     >
       <HeartIconOutline className="size-4" />
     </div>
-  );
+  )
 }

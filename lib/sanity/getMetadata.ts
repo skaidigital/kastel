@@ -1,8 +1,8 @@
-import { LangValues } from '@/data/constants';
-import { loadQuery } from '@/lib/sanity/store';
-import { imageValidator } from '@/lib/sanity/validators';
-import { groq } from 'next-sanity';
-import { z } from 'zod';
+import { LangValues } from '@/data/constants'
+import { loadQuery } from '@/lib/sanity/store'
+import { imageValidator } from '@/lib/sanity/validators'
+import { groq } from 'next-sanity'
+import { z } from 'zod'
 
 const metadataValidator = z.object({
   metaTitle: z.string(),
@@ -10,9 +10,9 @@ const metadataValidator = z.object({
   noFollow: z.boolean(),
   noIndex: z.boolean(),
   ogImage: imageValidator.optional()
-});
+})
 
-export type MetadataPayload = z.infer<typeof metadataValidator>;
+export type MetadataPayload = z.infer<typeof metadataValidator>
 
 export function getMetadataQuery(lang: LangValues) {
   const query = groq`
@@ -22,9 +22,9 @@ export function getMetadataQuery(lang: LangValues) {
       noFollow,
       noIndex,
       ogImage
-    }`;
+    }`
 
-  return query;
+  return query
 }
 
 export async function loadMetadata({
@@ -32,17 +32,17 @@ export async function loadMetadata({
   slug,
   schemaType
 }: {
-  lang: LangValues;
-  slug: string;
-  schemaType: string;
+  lang: LangValues
+  slug: string
+  schemaType: string
 }) {
-  const metadataQuery = getMetadataQuery(lang);
+  const metadataQuery = getMetadataQuery(lang)
 
   const metadata = await loadQuery<MetadataPayload | null>(
     metadataQuery,
     { slug, schemaType },
     { next: { tags: [`${schemaType}:${slug}`] } }
-  );
+  )
 
-  return metadata.data;
+  return metadata.data
 }

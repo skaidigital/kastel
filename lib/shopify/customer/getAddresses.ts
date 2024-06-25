@@ -1,16 +1,16 @@
-import { CACHE_TAGS } from '@/data/constants';
-import { customerAccountFetch } from '@/lib/shopify/customer';
-import { Address } from '@/lib/shopify/types';
+import { CACHE_TAGS } from '@/data/constants'
+import { customerAccountFetch } from '@/lib/shopify/customer'
+import { Address } from '@/lib/shopify/types'
 
 type ShopifyResponse = {
   data: {
     customer: {
       addresses: {
-        nodes: Address[];
-      };
-    };
-  };
-};
+        nodes: Address[]
+      }
+    }
+  }
+}
 
 const customerAddressesQuery = /* GraphQL */ `
   {
@@ -31,14 +31,14 @@ const customerAddressesQuery = /* GraphQL */ `
       }
     }
   }
-`;
+`
 
 export async function getAddresses() {
   const res = await customerAccountFetch<ShopifyResponse>({
     query: customerAddressesQuery,
     cache: 'no-store',
     tags: [CACHE_TAGS.CUSTOMER_ADDRESS]
-  });
+  })
 
-  return res.body.data.customer.addresses.nodes;
+  return res.body.data.customer.addresses.nodes
 }

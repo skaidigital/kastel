@@ -1,10 +1,10 @@
-import { CustomLink } from '@/components/CustomLink';
-import { Text } from '@/components/base/Text';
+import { CustomLink } from '@/components/CustomLink'
+import { Text } from '@/components/base/Text'
 
 interface Props {
-  icon: React.ReactNode;
-  title: string;
-  href: string;
+  icon: React.ReactNode
+  title: string
+  href: string
 }
 
 export function LinkButton({ icon, title, href }: Props) {
@@ -20,5 +20,5 @@ export function LinkButton({ icon, title, href }: Props) {
         </Text>
       </span>
     </CustomLink>
-  );
+  )
 }

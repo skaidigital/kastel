@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import { formatPrice } from '@/app/api/shopify/utils';
-import { Dictionary } from '@/app/dictionaries';
-import { Text } from '@/components/base/Text';
-import { cn } from '@/lib/utils';
-import { GiftIcon } from '@heroicons/react/20/solid';
-import * as Progress from '@radix-ui/react-progress';
-import { useEffect, useState } from 'react';
+import { formatPrice } from '@/app/api/shopify/utils'
+import { Dictionary } from '@/app/dictionaries'
+import { Text } from '@/components/base/Text'
+import { cn } from '@/lib/utils'
+import { GiftIcon } from '@heroicons/react/20/solid'
+import * as Progress from '@radix-ui/react-progress'
+import { useEffect, useState } from 'react'
 
 interface Props {
-  freeShippingAmount: number;
-  totalAmount: number;
-  currencyCode: string;
-  dictionary: Dictionary['cart_drawer'];
-  className?: string;
+  freeShippingAmount: number
+  totalAmount: number
+  currencyCode: string
+  dictionary: Dictionary['cart_drawer']
+  className?: string
 }
 
 export const FreeShippingCountdown = ({
@@ -23,27 +23,27 @@ export const FreeShippingCountdown = ({
   currencyCode,
   className
 }: Props) => {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0)
 
-  const currentProgress = (totalAmount / freeShippingAmount) * 100;
-  const awayFromFreeShipping = freeShippingAmount - totalAmount;
-  const hasFreeShipping = totalAmount >= freeShippingAmount;
+  const currentProgress = (totalAmount / freeShippingAmount) * 100
+  const awayFromFreeShipping = freeShippingAmount - totalAmount
+  const hasFreeShipping = totalAmount >= freeShippingAmount
 
   useEffect(() => {
-    const correctProgress = currentProgress > 100 ? 100 : currentProgress;
-    const timer = setTimeout(() => setProgress(correctProgress), 500);
-    return () => clearTimeout(timer);
-  }, [currentProgress]);
+    const correctProgress = currentProgress > 100 ? 100 : currentProgress
+    const timer = setTimeout(() => setProgress(correctProgress), 500)
+    return () => clearTimeout(timer)
+  }, [currentProgress])
 
   const youAreAwayFromFreeShippingPartOne =
-    dictionary.you_are_away_from_free_shipping.split('__AMOUNT__')[0];
+    dictionary.you_are_away_from_free_shipping.split('__AMOUNT__')[0]
   const youAreAwayFromFreeShippingPartTwo =
-    dictionary.you_are_away_from_free_shipping.split('__AMOUNT__')[1];
+    dictionary.you_are_away_from_free_shipping.split('__AMOUNT__')[1]
 
   const formattedAwayFromFreeShipping = formatPrice({
     amount: String(awayFromFreeShipping),
     currencyCode
-  });
+  })
 
   return (
     <div className={cn('flex flex-col gap-y-2', className)}>
@@ -74,5 +74,5 @@ export const FreeShippingCountdown = ({
         />
       </Progress.Root>
     </div>
-  );
-};
+  )
+}

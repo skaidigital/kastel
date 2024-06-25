@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { Trophy } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { Trophy } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const kastelClubBlock = defineType({
   title: 'Kastel Club block',
@@ -15,7 +15,7 @@ export const kastelClubBlock = defineType({
       return {
         title: title || 'Kastel Club block',
         subtitle: 'Kastel Club block'
-      };
+      }
     }
   },
   fields: [
@@ -67,7 +67,7 @@ export const kastelClubBlock = defineType({
               return {
                 title: title || 'Untitled',
                 subtitle: subtitle || 'Untitled'
-              };
+              }
             }
           },
           fields: [
@@ -122,7 +122,7 @@ export const kastelClubBlock = defineType({
                       return {
                         title: title || 'Untitled',
                         subtitle: subtitle || 'Untitled'
-                      };
+                      }
                     }
                   },
                   fields: [
@@ -155,4 +155,4 @@ export const kastelClubBlock = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

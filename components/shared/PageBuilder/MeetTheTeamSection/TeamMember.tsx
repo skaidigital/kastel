@@ -1,8 +1,8 @@
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { MeetTheTeamSectionProps } from '@/components/shared/PageBuilder/hooks';
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { MeetTheTeamSectionProps } from '@/components/shared/PageBuilder/hooks'
 
 interface Props {
-  data: MeetTheTeamSectionProps['people'][0];
+  data: MeetTheTeamSectionProps['people'][0]
 }
 
 export function TeamMember({ data }: Props) {
@@ -21,5 +21,5 @@ export function TeamMember({ data }: Props) {
         )}
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import moneyFragment from '@/lib/shopify/fragments/money';
+import moneyFragment from '@/lib/shopify/fragments/money'
 
 const orderFragment = /* GraphQL */ `
   fragment order on Order {
@@ -12,7 +12,7 @@ const orderFragment = /* GraphQL */ `
     displyFinancialStatus
     createdAt
   }
-`;
+`
 
 // export const getCollectionQuery = /* GraphQL */ `
 //   query getCollection($handle: String!) {
@@ -34,7 +34,7 @@ export const getOrders = /* GraphQL */ `
     }
   }
   ${orderFragment}
-`;
+`
 
 // export const getCollectionProductsQuery = /* GraphQL */ `
 //   query getCollectionProducts(

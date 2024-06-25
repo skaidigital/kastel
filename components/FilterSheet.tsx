@@ -1,32 +1,32 @@
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet';
-import { Text } from '@/components/base/Text';
-import { loadFilter } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop/Filter';
-import { FilterGroupItem } from '@/components/pages/CollectionPage/filter/FilterGroupItem';
-import { FilterLayout } from '@/components/pages/CollectionPage/filter/FilterLayout';
-import { filterGroupsValidator } from '@/components/pages/CollectionPage/filter/hooks';
-import { OnSaleCheckbox } from '@/components/shared/CollectionAndSearchActionsBarMobile/OnSaleCheckbox';
-import { LangValues, MarketValues } from '@/data/constants';
-import { PlusIcon } from '@radix-ui/react-icons';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/Sheet'
+import { Text } from '@/components/base/Text'
+import { loadFilter } from '@/components/pages/CollectionPage/CollectionSettingsBarDesktop/Filter'
+import { FilterGroupItem } from '@/components/pages/CollectionPage/filter/FilterGroupItem'
+import { FilterLayout } from '@/components/pages/CollectionPage/filter/FilterLayout'
+import { filterGroupsValidator } from '@/components/pages/CollectionPage/filter/hooks'
+import { OnSaleCheckbox } from '@/components/shared/CollectionAndSearchActionsBarMobile/OnSaleCheckbox'
+import { LangValues, MarketValues } from '@/data/constants'
+import { PlusIcon } from '@radix-ui/react-icons'
 
 interface Props {
-  market: MarketValues;
-  lang: LangValues;
-  collectionSlug?: string;
-  searchGids?: string[];
+  market: MarketValues
+  lang: LangValues
+  collectionSlug?: string
+  searchGids?: string[]
 }
 
 export async function FilterSheet({ market, lang, collectionSlug, searchGids }: Props) {
-  const initial = await loadFilter(lang);
+  const initial = await loadFilter(lang)
 
-  const filterGroupResponse = initial?.data?.items;
-  const filterGroup = filterGroupsValidator.parse(filterGroupResponse);
+  const filterGroupResponse = initial?.data?.items
+  const filterGroup = filterGroupsValidator.parse(filterGroupResponse)
 
-  const filterGroupKeys = filterGroup.map((item) => item.slug);
+  const filterGroupKeys = filterGroup.map((item) => item.slug)
 
-  const firstThreeFilterGroups = filterGroup.slice(0, 3);
-  const restFilterGroups = filterGroup.slice(3);
+  const firstThreeFilterGroups = filterGroup.slice(0, 3)
+  const restFilterGroups = filterGroup.slice(3)
 
-  const filterString = getFilterString(lang);
+  const filterString = getFilterString(lang)
 
   return (
     <Sheet>
@@ -83,16 +83,16 @@ export async function FilterSheet({ market, lang, collectionSlug, searchGids }: 
         </FilterLayout>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
 
 function getFilterString(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Filter';
+      return 'Filter'
     case 'no':
-      return 'Filtrer';
+      return 'Filtrer'
     default:
-      return 'Filter';
+      return 'Filter'
   }
 }

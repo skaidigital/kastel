@@ -30,9 +30,9 @@
 
 //   return <PageNotFound data={validatedData} />;
 // }
-import { Button } from '@/components/Button';
-import { CustomLink } from '@/components/CustomLink';
-import { ROUTES } from '@/data/constants';
+import { Button } from '@/components/Button'
+import { CustomLink } from '@/components/CustomLink'
+import { ROUTES } from '@/data/constants'
 
 export default function NotFound() {
   return (
@@ -48,5 +48,5 @@ export default function NotFound() {
         <CustomLink href={ROUTES.HOME}>Go to Homepage</CustomLink>
       </Button>
     </div>
-  );
+  )
 }

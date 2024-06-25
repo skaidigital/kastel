@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import {
   AlertDialog,
@@ -9,46 +9,46 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '@/components/AlertDialog';
-import { deleteAddress } from '@/components/pages/EditAddressPage/DeleteAddressButton/actions';
-import { ROUTES } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { TrashIcon } from '@radix-ui/react-icons';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
-import { toast } from 'sonner';
+} from '@/components/AlertDialog'
+import { deleteAddress } from '@/components/pages/EditAddressPage/DeleteAddressButton/actions'
+import { ROUTES } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { TrashIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import { toast } from 'sonner'
 
 interface Props {
-  addressId: string;
-  className?: string;
+  addressId: string
+  className?: string
 }
 
-export function DeleteAddressButton({ addressId, className }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const { market, lang } = useBaseParams();
-  const router = useRouter();
+export function DeleteAddressButton({ addressId }: Props) {
+  const [isPending, startTransition] = useTransition()
+  const { market, lang } = useBaseParams()
+  const router = useRouter()
 
   const onSubmit = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation(); // Stop the event from bubbling up
+    e.preventDefault()
+    e.stopPropagation() // Stop the event from bubbling up
 
     startTransition(async () => {
-      const response = await deleteAddress(addressId);
+      const response = await deleteAddress(addressId)
 
       if (!response.success) {
         toast.error('Something went wrong', {
           description: response.userErrors && response.userErrors[0]?.message
-        });
-        return;
+        })
+        return
       }
       if (response.success) {
         toast('Success!', {
           description: 'This address has been deleted.'
-        });
-        router.push(`/${market}/${lang}/${ROUTES.ADDRESSES}`);
+        })
+        router.push(`/${market}/${lang}/${ROUTES.ADDRESSES}`)
       }
-    });
-  };
+    })
+  }
 
   return (
     <AlertDialog>
@@ -76,5 +76,5 @@ export function DeleteAddressButton({ addressId, className }: Props) {
         </form>
       </AlertDialogContent>
     </AlertDialog>
-  );
+  )
 }

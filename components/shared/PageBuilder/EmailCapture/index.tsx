@@ -1,41 +1,41 @@
-'use client';
+'use client'
 
-import { Badge } from '@/components/Badge';
-import { Button } from '@/components/Button';
-import { Logo } from '@/components/Logo';
-import { Media } from '@/components/Media';
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { FormCheckbox } from '@/components/form/FormCheckbox';
-import { submitEmailCaptureForm } from '@/components/shared/PageBuilder/EmailCapture/actions';
+import { Badge } from '@/components/Badge'
+import { Button } from '@/components/Button'
+import { Logo } from '@/components/Logo'
+import { Media } from '@/components/Media'
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { FormCheckbox } from '@/components/form/FormCheckbox'
+import { submitEmailCaptureForm } from '@/components/shared/PageBuilder/EmailCapture/actions'
 import {
   EmailCaptureForm,
   emailCaptureFormValidator
-} from '@/components/shared/PageBuilder/EmailCapture/hooks';
-import { EmailCaptureProps } from '@/components/shared/PageBuilder/hooks';
-import { LangValues } from '@/data/constants';
-import { useBaseParams } from '@/lib/hooks/useBaseParams';
-import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { PortableText } from 'next-sanity';
-import { useTransition } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+} from '@/components/shared/PageBuilder/EmailCapture/hooks'
+import { EmailCaptureProps } from '@/components/shared/PageBuilder/hooks'
+import { LangValues } from '@/data/constants'
+import { useBaseParams } from '@/lib/hooks/useBaseParams'
+import { portableTextSerializer } from '@/lib/sanity/portableTextSerializer'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { PortableText } from 'next-sanity'
+import { useTransition } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 interface PropsWithExtra extends EmailCaptureProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const EmailCapture = ({ data }: Props) => {
-  const { title, description, badge, buttonText, media, klaviyoListId } = data;
-  const [isPending, startTransition] = useTransition();
-  const { lang } = useBaseParams();
+  const { title, description, badge, buttonText, media, klaviyoListId } = data
+  const [isPending, startTransition] = useTransition()
+  const { lang } = useBaseParams()
 
   const {
     control,
@@ -49,25 +49,25 @@ export const EmailCapture = ({ data }: Props) => {
       name: '',
       email: ''
     }
-  });
+  })
 
   const onSubmit: SubmitHandler<EmailCaptureForm> = (data) => {
     startTransition(async () => {
-      const response = await submitEmailCaptureForm(data, klaviyoListId);
+      const response = await submitEmailCaptureForm(data, klaviyoListId)
 
       if (!response.success) {
-        toast.error(response.message);
-        return;
+        toast.error(response.message)
+        return
       }
 
-      reset();
-      const successTitle = getSuccessTitle(lang);
-      const successDescription = getSuccessDescription(lang);
+      reset()
+      const successTitle = getSuccessTitle(lang)
+      const successDescription = getSuccessDescription(lang)
       toast.success(successTitle, {
         description: successDescription
-      });
-    });
-  };
+      })
+    })
+  }
 
   return (
     <Section
@@ -139,27 +139,27 @@ export const EmailCapture = ({ data }: Props) => {
         )}
       </div>
     </Section>
-  );
-};
+  )
+}
 
 function getSuccessTitle(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Welcome to the club!';
+      return 'Welcome to the club!'
     case 'no':
-      return 'Velkommen til klubben!';
+      return 'Velkommen til klubben!'
     default:
-      return 'Welcome to the club!';
+      return 'Welcome to the club!'
   }
 }
 
 function getSuccessDescription(lang: LangValues) {
   switch (lang) {
     case 'en':
-      return 'Check your inbox for a confirmation email';
+      return 'Check your inbox for a confirmation email'
     case 'no':
-      return 'Sjekk innboksen din for en bekreftelses-e-post';
+      return 'Sjekk innboksen din for en bekreftelses-e-post'
     default:
-      return 'Check your inbox for a confirmation email';
+      return 'Check your inbox for a confirmation email'
   }
 }

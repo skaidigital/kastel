@@ -21,13 +21,13 @@ const getIcon = (name: string, color?: string) => {
 
           <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
         </>
-      );
+      )
     case 'facebook':
       return (
         <>
           <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
         </>
-      );
+      )
     case 'settings':
       return (
         <>
@@ -37,7 +37,7 @@ const getIcon = (name: string, color?: string) => {
           />
           <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" fill={color} />
         </>
-      );
+      )
     case 'mastercard':
       return (
         <>
@@ -61,7 +61,7 @@ const getIcon = (name: string, color?: string) => {
             fill="#FF5E00"
           />
         </>
-      );
+      )
     case 'vipps':
       return (
         <>
@@ -94,7 +94,7 @@ const getIcon = (name: string, color?: string) => {
 	c2.1,0,3.5-0.8,3.5-2.1c0-1.2-0.7-2.1-3-2.5l-3.4-0.6c-3.6-0.7-5.8-3.2-5.8-6.4C124.2,23.5,128.7,21.4,132.3,21.4z"
           />
         </>
-      );
+      )
     case 'klarna':
       return (
         <>
@@ -106,7 +106,7 @@ const getIcon = (name: string, color?: string) => {
             fill="#17120F"
           />
         </>
-      );
+      )
     case 'visa':
       return (
         <>
@@ -118,7 +118,7 @@ const getIcon = (name: string, color?: string) => {
             fill="#172B85"
           />
         </>
-      );
+      )
     case 'paypal':
       return (
         <>
@@ -152,7 +152,7 @@ const getIcon = (name: string, color?: string) => {
             fill="#253B80"
           />
         </>
-      );
+      )
     case 'Checkmark':
       return (
         <path
@@ -164,20 +164,20 @@ const getIcon = (name: string, color?: string) => {
           strokeMiterlimit="10"
           d="M12.1 52.1l24.4 24.4 53-53"
         />
-      );
+      )
   }
-};
+}
 
 interface IconProps {
-  id: string;
-  name: string;
-  viewBox: string;
-  className: string;
-  color?: string;
+  id: string
+  name: string
+  viewBox: string
+  className: string
+  color?: string
 }
 
 export const Icon = (props: IconProps) => {
-  const { id, name, color, viewBox, className } = props;
+  const { id, name, color, viewBox, className } = props
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -188,5 +188,5 @@ export const Icon = (props: IconProps) => {
       <title id={`${name.replace(/\s/g, '').toLowerCase()}-${id}`}>{name}</title>
       {getIcon(name, color)}
     </svg>
-  );
-};
+  )
+}

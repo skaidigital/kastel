@@ -3,8 +3,8 @@ import {
   LINK_TYPES,
   SMILE_DEEP_LINKS,
   SMILE_DEEP_LINK_OPTIONS
-} from '@/data/constants';
-import { ValidationContext, defineField, defineType } from 'sanity';
+} from '@/data/constants'
+import { ValidationContext, defineField, defineType } from 'sanity'
 
 export const linkWithoutText = defineType({
   title: 'Link without text',
@@ -16,11 +16,11 @@ export const linkWithoutText = defineType({
       href: 'href'
     },
     prepare(value) {
-      const { to, href } = value;
+      const { to, href } = value
       return {
         title: to || href || 'No title',
         subtitle: 'Link'
-      };
+      }
     }
   },
   fields: [
@@ -43,9 +43,9 @@ export const linkWithoutText = defineType({
       validation: (Rule) =>
         Rule.custom((linkTo, context: ValidationContext) => {
           if (context.document?._type === 'internal' && !linkTo) {
-            return 'Internal link requires a link to a page';
+            return 'Internal link requires a link to a page'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -61,9 +61,9 @@ export const linkWithoutText = defineType({
       validation: (Rule) =>
         Rule.custom((linkToSmileLancher, context: any) => {
           if (context.parent?.type === 'smile' && !linkToSmileLancher) {
-            return 'Smile link requires a link to a place in the Smile Launcher';
+            return 'Smile link requires a link to a place in the Smile Launcher'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -75,9 +75,9 @@ export const linkWithoutText = defineType({
       validation: (Rule) =>
         Rule.custom((href, context: ValidationContext) => {
           if (context.document?.type === 'external' && !href) {
-            return 'External link requires a link to a page';
+            return 'External link requires a link to a page'
           }
-          return true;
+          return true
         })
     }),
     defineField({
@@ -89,10 +89,10 @@ export const linkWithoutText = defineType({
       validation: (Rule) =>
         Rule.custom((openInNewTab, context: any) => {
           if (context.parent?.type === 'external' && openInNewTab === undefined) {
-            return 'You have to choose if the link should open in a new tab or not';
+            return 'You have to choose if the link should open in a new tab or not'
           }
-          return true;
+          return true
         })
     })
   ]
-});
+})

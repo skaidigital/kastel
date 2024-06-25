@@ -1,9 +1,9 @@
 import {
   InternationalizedObjectField,
   generateObjectFields
-} from '@/components/sanity/InternationalizedObjectField';
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { defineField, defineType } from 'sanity';
+} from '@/components/sanity/InternationalizedObjectField'
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { defineField, defineType } from 'sanity'
 
 export const updateItem = defineType({
   title: 'Item',
@@ -18,7 +18,7 @@ export const updateItem = defineType({
       return {
         title: title || 'Untitled',
         subtitle: date || undefined
-      };
+      }
     }
   },
   fields: [
@@ -64,4 +64,4 @@ export const updateItem = defineType({
       validation: (Rule) => Rule.required()
     })
   ]
-});
+})

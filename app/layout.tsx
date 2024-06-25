@@ -1,13 +1,13 @@
-import { env } from '@/env';
-import '@/lib/_suppressLogs';
-import { GoogleTagManager } from '@next/third-parties/google';
-import PlausibleProvider from 'next-plausible';
-import Script from 'next/script';
-import '../styles/globals.css';
+import { env } from '@/env'
+import '@/lib/_suppressLogs'
+import { GoogleTagManager } from '@next/third-parties/google'
+import PlausibleProvider from 'next-plausible'
+import Script from 'next/script'
+import '../styles/globals.css'
 
 // TODO figure out how to dynamically change lang
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const isInProduction = process.env.NODE_ENV === 'production';
+  const isInProduction = process.env.NODE_ENV === 'production'
 
   return (
     <html lang="no">
@@ -31,5 +31,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className={`bg-white`}>{children}</body>
     </html>
-  );
+  )
 }

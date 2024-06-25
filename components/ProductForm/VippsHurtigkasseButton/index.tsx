@@ -1,47 +1,47 @@
-'use client';
+'use client'
 
-import { useProductInventory } from '@/app/api/shopify/useProductInventory';
-import { goToVippsHurtigkasse } from '@/components/ProductForm/VippsHurtigkasseButton/actions';
-import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks';
-import { useActiveVariant } from '@/lib/hooks/useActiveVariant';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { useProductInventory } from '@/app/api/shopify/useProductInventory'
+import { goToVippsHurtigkasse } from '@/components/ProductForm/VippsHurtigkasseButton/actions'
+import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks'
+import { useActiveVariant } from '@/lib/hooks/useActiveVariant'
+import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 
 interface Props {
-  variants: ProductVariant[];
-  productType: Product['type'];
-  productId: string;
-  classname?: string;
+  variants: ProductVariant[]
+  productType: Product['type']
+  productId: string
+  classname?: string
 }
 
 export function VippsHurtigkasseButton({ variants, productType, productId, classname }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   const activeVariant = useActiveVariant({
     variants,
     productType
-  });
+  })
 
-  const { data: inventory, isLoading: inventoryLoading } = useProductInventory(productId);
+  const { data: inventory, isLoading: inventoryLoading } = useProductInventory(productId)
 
-  const id = activeVariant?.id;
+  const id = activeVariant?.id
   const availableForSale = inventory?.variants.edges.find((variant) => variant.node.id === id)?.node
-    .availableForSale;
+    .availableForSale
 
   return (
     <button
       className={cn('disabled:cursor-not-allowed disabled:opacity-50', classname)}
       onClick={() => {
-        if (!availableForSale || !id) return;
+        if (!availableForSale || !id) return
         startTransition(async () => {
-          const response = await goToVippsHurtigkasse(id);
+          const response = await goToVippsHurtigkasse(id)
 
           if (response) {
-            router.push(response);
+            router.push(response)
           }
-        });
+        })
       }}
       disabled={!availableForSale || !id || isPending || inventoryLoading}
     >
@@ -65,5 +65,5 @@ export function VippsHurtigkasseButton({ variants, productType, productId, class
         />
       </svg>
     </button>
-  );
+  )
 }

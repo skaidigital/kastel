@@ -1,20 +1,19 @@
-import { Container } from '@/components/base/Container';
-import { Section } from '@/components/base/Section';
-import { HeroImage } from '@/components/pages/nature-lab/HeroImage';
-import { Summary } from '@/components/pages/nature-lab/Phase3BlogPost/Summary';
-import { Phase3BlogPostPayload } from '@/components/pages/nature-lab/Phase3BlogPost/hooks';
-import { LangValues } from '@/data/constants';
-import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer';
-import { PortableText } from '@portabletext/react';
+import { Container } from '@/components/base/Container'
+import { Section } from '@/components/base/Section'
+import { HeroImage } from '@/components/pages/nature-lab/HeroImage'
+import { Summary } from '@/components/pages/nature-lab/Phase3BlogPost/Summary'
+import { Phase3BlogPostPayload } from '@/components/pages/nature-lab/Phase3BlogPost/hooks'
+import { LangValues } from '@/data/constants'
+import { portableTextNatureLabSerializer } from '@/lib/sanity/portableTextNatureLabSerializer'
+import { PortableText } from '@portabletext/react'
 
 interface Props {
-  data: Phase3BlogPostPayload;
-  lang: LangValues;
-  slug: string;
+  data: Phase3BlogPostPayload
+  lang: LangValues
 }
 
-export function Phase3BlogPost({ data, lang, slug }: Props) {
-  const titleString = getTitleTranslation(lang);
+export function Phase3BlogPost({ data, lang }: Props) {
+  const titleString = getTitleTranslation(lang)
 
   return (
     <Section
@@ -40,16 +39,16 @@ export function Phase3BlogPost({ data, lang, slug }: Props) {
         </Container>
       )}
     </Section>
-  );
+  )
 }
 
 function getTitleTranslation(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Tittel';
+      return 'Tittel'
     case 'en':
-      return 'Title';
+      return 'Title'
     default:
-      return 'Title';
+      return 'Title'
   }
 }

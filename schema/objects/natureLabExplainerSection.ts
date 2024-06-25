@@ -1,5 +1,5 @@
-import { Recycle } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Recycle } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const natureLabExplainerSection = defineType({
   title: 'Nature Lab Explainer section',
@@ -14,7 +14,7 @@ export const natureLabExplainerSection = defineType({
       return {
         title: title || 'Untitled',
         subtitle: 'Nature Lab Explainer section'
-      };
+      }
     }
   },
   fields: [
@@ -37,4 +37,4 @@ export const natureLabExplainerSection = defineType({
       type: 'marketAvailability'
     })
   ]
-});
+})

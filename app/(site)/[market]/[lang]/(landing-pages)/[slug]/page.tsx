@@ -1,24 +1,24 @@
-import { PageLayout } from '@/components/pages/PageLayout';
+import { PageLayout } from '@/components/pages/PageLayout'
 import {
   PagePayload,
   getPageQuery,
   removeEmptyPageBuilderObjects
-} from '@/components/pages/PageLayout/hooks';
-import { LangValues, MarketValues } from '@/data/constants';
-import { loadMetadata } from '@/lib/sanity/getMetadata';
-import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs';
-import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
-import { loadQuery } from '@/lib/sanity/store';
-import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+} from '@/components/pages/PageLayout/hooks'
+import { LangValues, MarketValues } from '@/data/constants'
+import { loadMetadata } from '@/lib/sanity/getMetadata'
+import { generateStaticSlugs } from '@/lib/sanity/loader/generateStaticSlugs'
+import { nullToUndefined } from '@/lib/sanity/nullToUndefined'
+import { loadQuery } from '@/lib/sanity/store'
+import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage'
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-static'
 
 export async function generateStaticParams({ params: { lang } }: { params: { lang: LangValues } }) {
-  const slugs = await generateStaticSlugs(lang, 'page');
+  const slugs = await generateStaticSlugs(lang, 'page')
 
-  return slugs;
+  return slugs
 }
 
 function loadPage({
@@ -26,29 +26,29 @@ function loadPage({
   market,
   lang
 }: {
-  slug: string;
-  market: MarketValues;
-  lang: LangValues;
+  slug: string
+  market: MarketValues
+  lang: LangValues
 }) {
-  const query = getPageQuery({ market, lang });
+  const query = getPageQuery({ market, lang })
 
-  return loadQuery<PagePayload | null>(query, { slug }, { next: { tags: [`page:${slug}`] } });
+  return loadQuery<PagePayload | null>(query, { slug }, { next: { tags: [`page:${slug}`] } })
 }
 
 interface Props {
-  params: { slug: string; market: MarketValues; lang: LangValues };
+  params: { slug: string; market: MarketValues; lang: LangValues }
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const { slug, market, lang } = params;
-  const initial = await loadPage({ slug, market, lang });
+  const { slug, market, lang } = params
+  const initial = await loadPage({ slug, market, lang })
 
   if (!initial.data) {
-    return notFound();
+    return notFound()
   }
 
-  const pageWithoutNullValues = nullToUndefined(initial.data);
-  const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
+  const pageWithoutNullValues = nullToUndefined(initial.data)
+  const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues)
 
   // const validatedPage = pageValidator.safeParse(cleanedPageData);
 
@@ -57,26 +57,26 @@ export default async function PageSlugRoute({ params }: Props) {
   //   return notFound();
   // }
 
-  return <PageLayout data={cleanedPageData} market={market} lang={lang} />;
+  return <PageLayout data={cleanedPageData} market={market} lang={lang} />
 }
 
 export async function generateMetadata({
   params: { slug, lang }
 }: {
-  params: { slug: string; lang: LangValues };
+  params: { slug: string; lang: LangValues }
 }): Promise<Metadata> {
   const metadata = await loadMetadata({
     lang,
     slug,
     schemaType: 'page'
-  });
+  })
 
-  const title = metadata?.metaTitle;
-  const description = metadata?.metaDescription;
-  const shouldIndex = !metadata?.noIndex;
-  const shouldFollow = !metadata?.noFollow;
-  const ogImage = metadata?.ogImage;
-  const ogImageUrl = ogImage ? urlForOpenGraphImage(ogImage) : undefined;
+  const title = metadata?.metaTitle
+  const description = metadata?.metaDescription
+  const shouldIndex = !metadata?.noIndex
+  const shouldFollow = !metadata?.noFollow
+  const ogImage = metadata?.ogImage
+  const ogImageUrl = ogImage ? urlForOpenGraphImage(ogImage) : undefined
 
   return {
     ...(title && { title }),
@@ -94,5 +94,5 @@ export async function generateMetadata({
         follow: shouldFollow
       }
     }
-  };
+  }
 }

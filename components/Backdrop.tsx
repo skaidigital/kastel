@@ -1,9 +1,9 @@
-import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-import { forwardRef } from 'react';
+import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
+import { forwardRef } from 'react'
 
 interface Props {
-  type?: 'dark' | 'blur';
+  type?: 'dark' | 'blur'
 }
 
 export const Backdrop = forwardRef<HTMLDivElement, Props>(({ type = 'dark' }, ref) => {
@@ -19,7 +19,7 @@ export const Backdrop = forwardRef<HTMLDivElement, Props>(({ type = 'dark' }, re
         type === 'dark' && 'bg-black'
       )}
     />
-  );
-});
+  )
+})
 
-Backdrop.displayName = 'Backdrop';
+Backdrop.displayName = 'Backdrop'

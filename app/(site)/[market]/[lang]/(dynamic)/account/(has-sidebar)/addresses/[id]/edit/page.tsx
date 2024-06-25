@@ -1,25 +1,25 @@
-import { getDictionary } from '@/app/dictionaries';
-import { EditAddressPage } from '@/components/pages/EditAddressPage';
-import { LangValues, MarketValues } from '@/data/constants';
-import { getAddresses } from '@/lib/shopify/customer/getAddress';
-import { getDefaultAddress } from '@/lib/shopify/customer/getDefaultAddress';
-import { Metadata } from 'next';
+import { getDictionary } from '@/app/dictionaries'
+import { EditAddressPage } from '@/components/pages/EditAddressPage'
+import { LangValues, MarketValues } from '@/data/constants'
+import { getAddresses } from '@/lib/shopify/customer/getAddress'
+import { getDefaultAddress } from '@/lib/shopify/customer/getDefaultAddress'
+import { Metadata } from 'next'
 
 interface Props {
   params: {
-    lang: LangValues;
-    id: string;
-  };
+    lang: LangValues
+    id: string
+  }
 }
 
 export default async function Page({ params: { id, lang } }: Props) {
-  const { create_address_page: dictionary } = await getDictionary({ lang });
+  const { create_address_page: dictionary } = await getDictionary({ lang })
 
-  const [address, defaultAddress] = await Promise.all([getAddresses(id), getDefaultAddress()]);
-  const isDefaultAddress = defaultAddress?.id === address?.id ? true : false;
+  const [address, defaultAddress] = await Promise.all([getAddresses(id), getDefaultAddress()])
+  const isDefaultAddress = defaultAddress?.id === address?.id ? true : false
 
   if (!address || !defaultAddress) {
-    return null;
+    return null
   }
 
   return (
@@ -29,20 +29,20 @@ export default async function Page({ params: { id, lang } }: Props) {
       addressId={id}
       isDefaultAddress={isDefaultAddress}
     />
-  );
+  )
 }
 
 export const metadata: Metadata = {
   title: getTitle()
-};
+}
 
 function getTitle() {
-  const market = 'no' as MarketValues;
+  const market = 'no' as MarketValues
 
   switch (market) {
     case 'no':
-      return 'Rediger adresse';
+      return 'Rediger adresse'
     case 'sv':
-      return 'Redigera adress';
+      return 'Redigera adress'
   }
 }

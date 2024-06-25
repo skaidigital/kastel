@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { ProductInventoryResponse } from '@/components/ProductForm/hooks';
-import { useQuery } from '@tanstack/react-query';
+import { ProductInventoryResponse } from '@/components/ProductForm/hooks'
+import { useQuery } from '@tanstack/react-query'
 
 async function getProductInventory(id: string): Promise<ProductInventoryResponse> {
   const response = await fetch(`/api/shopify/getProductInventory`, {
@@ -10,11 +10,11 @@ async function getProductInventory(id: string): Promise<ProductInventoryResponse
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ id })
-  });
+  })
 
-  const data = await response.json();
+  const data = await response.json()
 
-  return data;
+  return data
 }
 
 // TODO set maxAge for this thing
@@ -22,9 +22,9 @@ export function useProductInventory(productId: string) {
   return useQuery({
     queryKey: ['productInventory', productId],
     queryFn: async () => {
-      const response = await getProductInventory(productId);
-      return response;
+      const response = await getProductInventory(productId)
+      return response
     },
     enabled: !!productId
-  });
+  })
 }

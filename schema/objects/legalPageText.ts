@@ -1,5 +1,5 @@
-import { Image, Link } from '@phosphor-icons/react';
-import { defineArrayMember, defineField } from 'sanity';
+import { Image, Link } from '@phosphor-icons/react'
+import { defineArrayMember, defineField } from 'sanity'
 
 export const legalPageText = defineField({
   name: 'legalPageText',
@@ -67,4 +67,4 @@ export const legalPageText = defineField({
       icon: Image
     }
   ]
-});
+})

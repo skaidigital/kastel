@@ -1,24 +1,24 @@
 type SuccessResponse<T> = {
-  success: true;
-  data?: T;
-};
+  success: true
+  data?: T
+}
 
 type ErrorResponse = {
-  success: false;
-  error: any;
-};
+  success: false
+  error: any
+}
 
-export type Response<T> = SuccessResponse<T> | ErrorResponse;
+export type Response<T> = SuccessResponse<T> | ErrorResponse
 
-export type SearchParams = { [key: string]: string };
+export type SearchParams = { [key: string]: string }
 
-export type ConsentType = 'accept' | 'reject';
+export type ConsentType = 'accept' | 'reject'
 
 export interface TrackEventOptions {
-  [key: string]: string | number | boolean;
+  [key: string]: string | number | boolean
 }
 
 export interface TrackEventProps {
-  eventName: string;
-  options?: TrackEventOptions;
+  eventName: string
+  options?: TrackEventOptions
 }

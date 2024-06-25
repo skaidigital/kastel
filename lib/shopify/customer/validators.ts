@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const orderFinancialStatusValidator = z.enum([
   'AUTHORIZED',
@@ -7,6 +7,6 @@ export const orderFinancialStatusValidator = z.enum([
   'PENDING',
   'REFUNDED',
   'VOIDED'
-]);
+])
 
-export const fulfillmentStatusValidator = z.enum(['CANCELLED', 'ERROR', 'FAILURE', 'SUCCESS']);
+export const fulfillmentStatusValidator = z.enum(['CANCELLED', 'ERROR', 'FAILURE', 'SUCCESS'])

@@ -3,28 +3,28 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/Accordion';
-import { Badge } from '@/components/Badge';
-import { Container } from '@/components/base/Container';
-import { Heading } from '@/components/base/Heading';
-import { Section } from '@/components/base/Section';
-import { Text } from '@/components/base/Text';
-import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer';
-import { FAQSectionProps } from '@/components/shared/PageBuilder/hooks';
-import { cn } from '@/lib/utils';
+} from '@/components/Accordion'
+import { Badge } from '@/components/Badge'
+import { Container } from '@/components/base/Container'
+import { Heading } from '@/components/base/Heading'
+import { Section } from '@/components/base/Section'
+import { Text } from '@/components/base/Text'
+import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
+import { FAQSectionProps } from '@/components/shared/PageBuilder/hooks'
+import { cn } from '@/lib/utils'
 
 interface PropsWithExtra extends FAQSectionProps {
-  index: number;
-  pageId: string;
-  pageType: string;
+  index: number
+  pageId: string
+  pageType: string
 }
 
 interface Props {
-  data: PropsWithExtra;
+  data: PropsWithExtra
 }
 
 export const FAQSection = ({ data }: Props) => {
-  const { index, pageId, pageType, title, description, badge, items, sectionSettings } = data;
+  const { title, description, badge, items, sectionSettings } = data
 
   return (
     <Section
@@ -53,14 +53,14 @@ export const FAQSection = ({ data }: Props) => {
         </Accordion>
       </Container>
     </Section>
-  );
-};
+  )
+}
 
 interface HeaderProps {
-  title: string;
-  description?: string;
-  badge?: string;
-  className?: string;
+  title: string
+  description?: string
+  badge?: string
+  className?: string
 }
 
 function Header({ title, description, badge, className }: HeaderProps) {
@@ -72,5 +72,5 @@ function Header({ title, description, badge, className }: HeaderProps) {
         {description && <Text className="mt-4 font-medium text-brand-mid-grey">{description}</Text>}
       </div>
     </div>
-  );
+  )
 }

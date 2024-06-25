@@ -1,30 +1,30 @@
-import { AccountPageSchema } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/hooks';
-import { KlaviyoIdentify } from '@/components/klaviyo/Identify';
-import { KastelClubCard } from '@/components/pages/AccountPage/KastelClubCard';
-import { LinkButton } from '@/components/pages/AccountPage/LinkButton';
-import { MyInfoCard } from '@/components/pages/AccountPage/MyInfoCard';
-import { ProductDisplay } from '@/components/pages/AccountPage/ProductDisplay';
-import { WelcomeMessage } from '@/components/pages/AccountPage/WelcomeMessage';
-import { SanityImage } from '@/components/sanity/SanityImage';
-import { LangValues, ROUTES } from '@/data/constants';
-import { getCustomerData } from '@/lib/shopify/metafields/getCustomerData';
+import { AccountPageSchema } from '@/app/(site)/[market]/[lang]/(dynamic)/account/(has-sidebar)/hooks'
+import { KlaviyoIdentify } from '@/components/klaviyo/Identify'
+import { KastelClubCard } from '@/components/pages/AccountPage/KastelClubCard'
+import { LinkButton } from '@/components/pages/AccountPage/LinkButton'
+import { MyInfoCard } from '@/components/pages/AccountPage/MyInfoCard'
+import { ProductDisplay } from '@/components/pages/AccountPage/ProductDisplay'
+import { WelcomeMessage } from '@/components/pages/AccountPage/WelcomeMessage'
+import { SanityImage } from '@/components/sanity/SanityImage'
+import { LangValues, ROUTES } from '@/data/constants'
+import { getCustomerData } from '@/lib/shopify/metafields/getCustomerData'
 import {
   HeartIcon,
   MapPinIcon,
   QuestionMarkCircleIcon,
   ShoppingBagIcon
-} from '@heroicons/react/20/solid';
-import { Suspense } from 'react';
+} from '@heroicons/react/20/solid'
+import { Suspense } from 'react'
 
 interface Props {
-  data: AccountPageSchema;
-  lang: LangValues;
+  data: AccountPageSchema
+  lang: LangValues
 }
 
 export async function AccountPage({ data, lang }: Props) {
-  const customerData = await getCustomerData();
+  const customerData = await getCustomerData()
 
-  const welcomeBackString = getWelcomeBackString(lang);
+  const welcomeBackString = getWelcomeBackString(lang)
 
   return (
     <>
@@ -102,16 +102,16 @@ export async function AccountPage({ data, lang }: Props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 function getWelcomeBackString(lang: LangValues) {
   switch (lang) {
     case 'no':
-      return 'Velkommen tilbake';
+      return 'Velkommen tilbake'
     case 'en':
-      return 'Welcome back';
+      return 'Welcome back'
     default:
-      return 'Welcome back';
+      return 'Welcome back'
   }
 }

@@ -29,4 +29,4 @@ export const GooglePayLogo = (props: React.SVGProps<SVGSVGElement>) => (
       fill="#E94235"
     />
   </svg>
-);
+)

@@ -1,6 +1,6 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils';
-import { TextHOne } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
+import { TextHOne } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const pageTitle = defineType({
   title: 'Page title',
@@ -29,4 +29,4 @@ export const pageTitle = defineType({
       validation: validateAllStringTranslations
     })
   ]
-});
+})

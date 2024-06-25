@@ -1,5 +1,5 @@
-import { Storefront } from '@phosphor-icons/react';
-import { defineField, defineType } from 'sanity';
+import { Storefront } from '@phosphor-icons/react'
+import { defineField, defineType } from 'sanity'
 
 export const retailer = defineType({
   title: 'Retailer',
@@ -25,4 +25,4 @@ export const retailer = defineType({
       type: 'url'
     })
   ]
-});
+})

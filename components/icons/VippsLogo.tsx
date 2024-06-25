@@ -29,4 +29,4 @@ export const VippsLogo = (props: React.SVGProps<SVGSVGElement>) => (
       fill="#FF5B24"
     />
   </svg>
-);
+)
