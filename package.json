@@ -85,7 +85,7 @@
     "@sanity/vision": "^3.35.2",
     "@sanity/visual-editing": "^2.1.0",
     "@sanity/webhook": "^4.0.0",
-    "@sentry/nextjs": "^7.105.0",
+    "@sentry/nextjs": "^8.11.0",
     "@shopify/hydrogen-react": "2023.4.5",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-query": "^5.35.1",
