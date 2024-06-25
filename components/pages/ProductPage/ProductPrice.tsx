@@ -3,6 +3,7 @@
 import { formatPrice } from '@/app/api/shopify/utils'
 import { Product, ProductVariant } from '@/components/pages/ProductPage/hooks'
 import { useActiveVariant } from '@/lib/hooks/useActiveVariant'
+import { cn } from '@/lib/utils'
 
 interface Props {
   productType: Product['type']
@@ -10,6 +11,7 @@ interface Props {
   currencyCode: string
   minVariantPrice: Product['minVariantPrice']
   maxVariantPrice: Product['maxVariantPrice']
+  type: 'normal' | 'natureLab'
 }
 
 export function ProductPrice({
@@ -17,7 +19,8 @@ export function ProductPrice({
   productType,
   variants,
   minVariantPrice,
-  maxVariantPrice
+  maxVariantPrice,
+  type
 }: Props) {
   const activeVariant = useActiveVariant({
     productType,
@@ -55,7 +58,12 @@ export function ProductPrice({
   const minAndMaxPricesAreEqual = formattedMinVariantPrice === formattedMaxVariantPrice
 
   return (
-    <div className="mt-4 flex text-sm">
+    <div
+      className={cn(
+        'mt-4 flex text-sm',
+        type === 'natureLab' && 'font-nature-lab-body text-nature-lab-md'
+      )}
+    >
       <>
         {formattedDiscountedPrice && (
           <span className="mr-3 " suppressHydrationWarning>

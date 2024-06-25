@@ -10,6 +10,7 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from '@/components
 import { Text } from '@/components/base/Text'
 import { PortableTextRenderer } from '@/components/sanity/PortableTextRenderer'
 import { LangValues } from '@/data/constants'
+import { cn } from '@/lib/utils'
 import { PortableTextBlock } from '@portabletext/react'
 import { PlusIcon } from '@radix-ui/react-icons'
 
@@ -19,9 +20,10 @@ interface Props {
     answer: PortableTextBlock[]
   }[]
   lang: LangValues
+  type: 'normal' | 'natureLab'
 }
 
-export function ProductFAQs({ faqs, lang }: Props) {
+export function ProductFAQs({ faqs, lang, type }: Props) {
   const faqString = getFaqString(lang)
 
   return (
@@ -30,7 +32,14 @@ export function ProductFAQs({ faqs, lang }: Props) {
         <DrawerTrigger>
           <button className="w-full">
             <div className="flex w-full items-center justify-between py-[10px]">
-              <Text as="p" size="xs" className="font-medium">
+              <Text
+                as="p"
+                size="xs"
+                className={cn(
+                  'font-medium',
+                  type === 'natureLab' && 'font-nature-lab-body text-nature-lab-md'
+                )}
+              >
                 {faqString}
               </Text>
               <PlusIcon className="size-4" />

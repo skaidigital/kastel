@@ -73,7 +73,14 @@ export function USPCarouselLayout({ productType, variants, type, items }: Props)
           {formattedItems?.map((item) => (
             <CarouselItem key={item} className="basis-[100%] pl-2">
               <div className="flex justify-between">
-                <Text as="p" size="xs" className="text-brand-dark-grey">
+                <Text
+                  as="p"
+                  size="xs"
+                  className={cn(
+                    'text-brand-dark-grey',
+                    type === 'natureLab' && 'font-nature-lab-body text-nature-lab-sm'
+                  )}
+                >
                   {item}
                 </Text>
               </div>

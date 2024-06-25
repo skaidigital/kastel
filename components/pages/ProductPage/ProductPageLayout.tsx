@@ -129,7 +129,7 @@ export async function ProductPageLayout(props: Props) {
             }
           />
           <div className="no-flex-grow sticky top-0 h-fit gap-y-10 lg:max-w-[560px]">
-            <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
+            <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" type="normal" />
             <ProductFormScrollContainer>
               <div className="mt-6 lg:px-[84px]">
                 <div className="flex flex-col">
@@ -160,6 +160,7 @@ export async function ProductPageLayout(props: Props) {
                       variants={variants}
                       minVariantPrice={product.minVariantPrice}
                       maxVariantPrice={product.maxVariantPrice}
+                      type="normal"
                     />
                   )}
                 </div>
@@ -176,7 +177,7 @@ export async function ProductPageLayout(props: Props) {
                     </Text>
                   )}
                   {type === 'VARIABLE' && typeId && (
-                    <ColorSelector typeId={typeId} market={market} lang={lang} />
+                    <ColorSelector typeId={typeId} market={market} lang={lang} type="normal" />
                   )}
                   <ProductForm
                     lang={lang}
@@ -195,7 +196,7 @@ export async function ProductPageLayout(props: Props) {
                   productType={product.type}
                   lang={lang}
                 />
-                {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} />}
+                {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} type="normal" />}
                 <CrossSell
                   market={market}
                   lang={lang}

@@ -7,10 +7,11 @@ import { Product } from './hooks'
 interface Props {
   usps: Product['usps']
   size: 'sm' | 'lg'
+  type: 'normal' | 'natureLab'
   className?: string
 }
 
-export function UspsMarquee({ usps, size, className }: Props) {
+export function UspsMarquee({ usps, size, className, type }: Props) {
   return (
     usps && (
       <div
@@ -28,7 +29,13 @@ export function UspsMarquee({ usps, size, className }: Props) {
             return (
               <div key={usp.icon.asset._ref + index} className="mr-24 flex items-center gap-2">
                 <SanityImage width={iconSize} height={iconSize} image={usp.icon} noPlaceholder />
-                <span className={cn(size === 'sm' && 'text-sm', size === 'lg' && 'text-md')}>
+                <span
+                  className={cn(
+                    size === 'sm' && 'text-sm',
+                    size === 'lg' && 'text-md',
+                    type === 'natureLab' && 'font-nature-lab-body text-nature-lab-md'
+                  )}
+                >
                   {usp.title}
                 </span>
               </div>

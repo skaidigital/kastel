@@ -16,9 +16,10 @@ import { ProductSiblings } from './hooks'
 
 interface Props {
   products: ProductSiblings
+  type: 'normal' | 'natureLab'
 }
 
-export function ColorSelect({ products }: Props) {
+export function ColorSelect({ products, type }: Props) {
   const pathname = usePathname()
   const { lang } = useBaseParams()
   const urlSlug = pathname.split('/').pop()
@@ -30,7 +31,11 @@ export function ColorSelect({ products }: Props) {
   return (
     <Carousel className="" opts={{ align: 'start' }}>
       <div className="flex justify-between">
-        <Text as="p" size="xs" className="mb-3">
+        <Text
+          as="p"
+          size="xs"
+          className={cn('mb-3', type === 'natureLab' && 'font-nature-lab-body text-nature-lab-md')}
+        >
           {colorString}: {activeProduct?.title}
         </Text>
         <Buttons />

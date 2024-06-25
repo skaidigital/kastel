@@ -3,7 +3,6 @@ import { ProductForm } from '@/components/ProductForm'
 import { ProductJsonLd } from '@/components/ProductForm/ProductJsonLd'
 import { ProductFormScrollContainer } from '@/components/ProductForm/ScrollContainer'
 import { Container } from '@/components/base/Container'
-import { Heading } from '@/components/base/Heading'
 import { Section } from '@/components/base/Section'
 import { Text } from '@/components/base/Text'
 import { ColorSelector } from '@/components/pages/ProductPage/ColorSelector'
@@ -14,16 +13,12 @@ import { MobileProductPageGallery } from '@/components/pages/ProductPage/MobileP
 import { PaymentIcons } from '@/components/pages/ProductPage/PaymentIcons'
 import { ProductFAQs } from '@/components/pages/ProductPage/ProductFAQs'
 import { ProductPrice } from '@/components/pages/ProductPage/ProductPrice'
-import { ProductPageRating } from '@/components/pages/ProductPage/Rating'
-import { ScrollToRatingsButton } from '@/components/pages/ProductPage/ScrollToRatingsButton'
 import { ProductPageShortDescription } from '@/components/pages/ProductPage/ShortDescription'
 import { USPCarousel } from '@/components/pages/ProductPage/USPCarousel'
 import { UspsMarquee } from '@/components/pages/ProductPage/Usps'
 import { ViewItemEventTrigger } from '@/components/pages/ProductPage/ViewItemEventTrigger'
 import { Product } from '@/components/pages/ProductPage/hooks'
-import { Something } from '@/components/pages/nature-lab/PilotProductPage/Something'
-import { CrossSell } from '@/components/shared/Cart/CrossSell'
-import { Wishlist } from '@/components/shared/ProductCard/Wishlist'
+import { DetailedInfo } from '@/components/pages/nature-lab/PilotProductPage/DetailedInfo'
 import { LangValues, MarketValues } from '@/data/constants'
 import { urlForImage } from '@/lib/sanity/image'
 import { SanityImageProps } from '@/lib/sanity/types'
@@ -50,8 +45,7 @@ export function PilotProductPage({ product, market, lang }: Props) {
     variants,
     options,
     typeId,
-    largestDiscount,
-    sku
+    largestDiscount
   } = product
 
   const lifeStyleImageCheck = lifestyleImage?.asset?._ref
@@ -121,27 +115,32 @@ export function PilotProductPage({ product, market, lang }: Props) {
             }
           />
           <div className="no-flex-grow sticky top-0 h-fit gap-y-10 lg:max-w-[560px]">
-            <UspsMarquee usps={product.usps} size="sm" className="hidden lg:flex" />
+            <UspsMarquee
+              usps={product.usps}
+              size="sm"
+              className="hidden lg:flex"
+              type="natureLab"
+            />
             <ProductFormScrollContainer>
               <div className="mt-6 lg:px-[84px]">
                 <div className="flex flex-col">
-                  <div className="mb-[10px] flex items-center justify-between">
+                  {/* <div className="mb-[10px] flex items-center justify-between">
                     <div className="flex gap-2">
                       <ScrollToRatingsButton>
                         <ProductPageRating sku={sku} />
                       </ScrollToRatingsButton>
                     </div>
                     <Wishlist gid={id} className="border border-brand-light-grey bg-[#F5F5F4]" />
-                  </div>
+                  </div> */}
                   {title && (
-                    <Heading as="h1" size="xs" className="mb-1">
+                    <h1 className="uppercase font-nature-lab-heading text-nature-lab-heading-sm lg:text-nature-lab-heading-md text-nature-lab-dark-grey">
                       {title}
-                    </Heading>
+                    </h1>
                   )}
                   {subtitle && (
-                    <Text as="p" size="sm">
+                    <span className="font-nature-lab-body text-nature-lab-md text-red-700 mt-1">
                       {subtitle}
-                    </Text>
+                    </span>
                   )}
                   {product.minVariantPrice && (
                     <ProductPrice
@@ -152,6 +151,7 @@ export function PilotProductPage({ product, market, lang }: Props) {
                       variants={variants}
                       minVariantPrice={product.minVariantPrice}
                       maxVariantPrice={product.maxVariantPrice}
+                      type="natureLab"
                     />
                   )}
                 </div>
@@ -168,7 +168,7 @@ export function PilotProductPage({ product, market, lang }: Props) {
                     </Text>
                   )}
                   {type === 'VARIABLE' && typeId && (
-                    <ColorSelector typeId={typeId} market={market} lang={lang} />
+                    <ColorSelector typeId={typeId} market={market} lang={lang} type="normal" />
                   )}
                   <ProductForm
                     lang={lang}
@@ -182,25 +182,18 @@ export function PilotProductPage({ product, market, lang }: Props) {
                 </div>
                 <PaymentIcons market={market} />
                 <USPCarousel
-                  type="normal"
+                  type="natureLab"
                   variants={variants}
                   productType={product.type}
                   lang={lang}
                 />
-                {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} />}
-                <CrossSell
-                  market={market}
-                  lang={lang}
-                  gid={product.id}
-                  className="mt-8"
-                  crossSellItemClassName="p-0 lg:p-0 mt-2"
-                />
+                {product.faqs && <ProductFAQs faqs={product.faqs} lang={lang} type="natureLab" />}
               </div>
             </ProductFormScrollContainer>
           </div>
         </Container>
       </Section>
-      <Something />
+      <DetailedInfo />
     </ProductPageContextProvider>
   )
 }

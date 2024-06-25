@@ -27,9 +27,10 @@ interface Props {
   typeId: string
   market: MarketValues
   lang: LangValues
+  type: 'normal' | 'natureLab'
 }
 
-export async function ColorSelector({ typeId, market, lang }: Props) {
+export async function ColorSelector({ typeId, market, lang, type }: Props) {
   const initial = await loadSiblingProducts({ typeId, market, lang })
 
   if (!initial.data) {
@@ -40,5 +41,5 @@ export async function ColorSelector({ typeId, market, lang }: Props) {
 
   const validatedProducts = productSiblingsValidator.parse(productsWithoutNullValues)
 
-  return <ColorSelect products={validatedProducts} />
+  return <ColorSelect products={validatedProducts} type={type} />
 }
