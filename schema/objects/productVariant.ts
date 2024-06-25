@@ -1,4 +1,5 @@
 import { MARKETS } from '@/data/constants';
+import { client } from '@/lib/sanity/client';
 import {
   i18nField,
   i18nNumber,
@@ -9,11 +10,62 @@ import { Sneaker } from '@phosphor-icons/react';
 import { SanityDocument, groq } from 'next-sanity';
 import { defineField, defineType } from 'sanity';
 
+// Define a variable to cache parent markets
+const parentMarketsCache: Record<string, string[]> = {};
+
+const validateMarketField = (Rule: any) => {
+  return Rule.custom((value: any, context: any) => {
+    const marketId = context.path[0].split('_')[1];
+    // Fetch parent product to check the markets it's available in
+    const parentId = context.document.parentProduct?._ref;
+    if (parentId) {
+      const parentMarkets = parentMarketsCache[parentId] || [];
+      if (parentMarkets.includes(marketId) && !value) {
+        return `This field is required for market: ${marketId}`;
+      }
+    }
+    return true;
+  });
+};
+
+// Fetch parent product markets and store in the document's hidden fields
+async function fetchParentMarkets(document: SanityDocument): Promise<string[]> {
+  if (!document?._id) return [];
+
+  const parentMarkets = await client.fetch(`*[_id == $parentId][0].markets`, {
+    parentId: document._id
+  });
+
+  parentMarketsCache[document._id] = parentMarkets;
+
+  return parentMarkets || [];
+}
+
+// Initial value function to set up the initial document with parent markets information
+const getParentMarketsInitialValue = async ({ document }: { document: SanityDocument }) => {
+  const parentMarkets = await fetchParentMarkets(document);
+  return {
+    _parentMarkets: parentMarkets
+  };
+};
+
+// Higher-order function to sync hidden groups based on markets
+const hiddenMarketGroup =
+  (marketId: string) =>
+  (context: any): boolean => {
+    const { document } = context;
+    const parentRef = document?.parentProduct?._ref;
+    const parentMarkets = parentMarketsCache[parentRef] || [];
+
+    return !parentMarkets.includes(marketId);
+  };
+
 export const productVariant = defineType({
   title: 'Produktvariant',
   name: 'productVariant',
   type: 'document',
   icon: Sneaker,
+  initialValue: (document) => getParentMarketsInitialValue({ document }),
   fieldsets: [
     {
       name: 'shopify',
@@ -39,10 +91,13 @@ export const productVariant = defineType({
       icon: () => '🙌',
       default: true
     },
+
     ...MARKETS.map((market) => ({
       name: market.id,
       title: market.name,
-      icon: () => market.flag
+      icon: () => market.flag,
+      // hidden: ({ document }: any) => !document?.markets?.includes(market.id)
+      hidden: hiddenMarketGroup(market.id)
     }))
   ],
   preview: {
@@ -71,7 +126,7 @@ export const productVariant = defineType({
       title: 'Price',
       name: 'price',
       fieldset: 'price',
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => validateMarketField(Rule)
     }),
     ...i18nNumber({
       title: 'Discounted price',
