@@ -13,7 +13,7 @@ export function Something() {
   console.log(activeTab)
 
   return (
-    <Section label="Something" srHeading="Something" noTopPadding>
+    <Section label="Something" srHeading="Something" noTopPadding className="bg-nature-lab-beige">
       {/* Mobile */}
       <Container size="natureLab" className="lg:hidden">
         <Select value={activeTab} onValueChange={(value) => setActiveTab(value as Tab)}>
