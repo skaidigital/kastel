@@ -24,10 +24,10 @@ export function DetailedInfo({ lang }: Props) {
       {/* Mobile */}
       <Container size="natureLab" className="lg:hidden">
         <Select value={activeTab} onValueChange={(value) => setActiveTab(value as Tab)}>
-          <SelectTrigger>
+          <SelectTrigger className="justify-center font-nature-lab-body text-nature-lab-md font-medium text-nature-lab-dark-grey uppercase py-5 border-neutral-300">
             <SelectValue placeholder="Select" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="font-nature-lab-body text-nature-lab-md font-medium text-nature-lab-dark-grey uppercase bg-nature-lab-beige border-neutral-300">
             <SelectItem value="idea">Idea</SelectItem>
             <SelectItem value="status">Status</SelectItem>
             <SelectItem value="updates">Updates</SelectItem>

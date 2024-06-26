@@ -93,7 +93,7 @@ export function PilotProductPage({ product, market, lang }: Props) {
         noBottomPadding
         label="product-hero"
         srHeading="Product Hero"
-        className="gap-y-5 bg-nature-lab-beige pb-9 lg:flex"
+        className="gap-y-5 bg-nature-lab-beige pb-9 lg:flex border-none"
       >
         <Container className="relative flex flex-1 flex-col gap-x-0 lg:mt-0 lg:px-0 lg:py-0 lg:pt-0 xl:flex-row">
           <DesktopProductGallery

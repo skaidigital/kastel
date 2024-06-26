@@ -50,18 +50,6 @@ export const updateItem = defineType({
         field: InternationalizedObjectField
       },
       validation: validateAllStringTranslations
-    }),
-    defineField({
-      title: 'Content 🇧🇻',
-      name: 'contentNo',
-      type: 'richTextNatureLab',
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      title: 'Content 🇬🇧',
-      name: 'contentEn',
-      type: 'richTextNatureLab',
-      validation: (Rule) => Rule.required()
     })
   ]
 })
