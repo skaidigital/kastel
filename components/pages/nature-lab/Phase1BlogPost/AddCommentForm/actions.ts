@@ -26,6 +26,7 @@ export async function createComment({ documentId, data, slug }: Props) {
     }
 
     const { name, email, text } = validatedData.data
+    const today = new Date().toISOString()
 
     await adminClient
       .patch(documentId)
@@ -34,7 +35,8 @@ export async function createComment({ documentId, data, slug }: Props) {
         {
           name,
           email,
-          text
+          text,
+          createdAt: today
         }
       ])
       .commit({

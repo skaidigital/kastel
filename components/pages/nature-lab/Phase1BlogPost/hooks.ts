@@ -7,8 +7,8 @@ import { z } from 'zod'
 const commentValidator = z.object({
   id: z.string(),
   name: z.string().min(1),
-  email: z.string().email(),
-  text: z.string().min(1)
+  text: z.string().min(1),
+  createdAt: z.string()
 })
 
 const updateValidator = z.object({
@@ -30,6 +30,8 @@ const phase1BlogPostValidator = z.object({
   imageMobile: imageValidator,
   imageDesktop: imageValidator,
   updates: z.array(updateValidator).optional(),
+  allowComments: z.boolean(),
+  commentsDescription: portableTextValidator.optional(),
   comments: z.array(commentValidator).optional()
 })
 
@@ -47,7 +49,7 @@ export function getPhase1BlogPost({ lang }: { lang: LangValues }) {
         startDate,
         status,
       },
-      callout[]{
+      "callout": callout.${lang}[]{
         ...
       },
       imageMobile{
@@ -66,11 +68,15 @@ export function getPhase1BlogPost({ lang }: { lang: LangValues }) {
           ...
         }
       },
+      allowComments,
+      "commentsDescription": commentsDescription.${lang}[]{
+        ...
+      },
       comments[]{
         "id": _key,
         name,
-        email,
-        text
+        text,
+        createdAt
       }
     }`
 

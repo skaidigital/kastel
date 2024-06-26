@@ -3,7 +3,8 @@ import {
   generateObjectFields
 } from '@/components/sanity/InternationalizedObjectField'
 import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
-import { Article } from '@phosphor-icons/react'
+import { formatDate } from '@/lib/utils'
+import { Article, Chat } from '@phosphor-icons/react'
 import { defineField, defineType } from 'sanity'
 
 // TODO Validate everything in the question based on the boolean
@@ -73,7 +74,11 @@ export const phase1BlogPost = defineType({
       description:
         'Can be used for directing the user to a phase 2 product that came from this experiment.',
       name: 'callout',
-      type: 'richText',
+      type: 'object',
+      fields: generateObjectFields({ schemaType: 'richText', type: 'lang' }),
+      components: {
+        field: InternationalizedObjectField
+      },
       group: 'settings'
     }),
     defineField({
@@ -85,44 +90,24 @@ export const phase1BlogPost = defineType({
       group: 'editorial'
     }),
     defineField({
-      title: 'Question for the reader?',
-      name: 'hasQuestion',
+      title: 'Allow comments?',
+      name: 'allowComments',
       type: 'boolean',
       initialValue: false,
       validation: (Rule) => Rule.required(),
       group: 'settings'
     }),
     defineField({
-      title: 'Comments',
-      name: 'comments',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          title: 'Comment',
-          fields: [
-            defineField({
-              title: 'Name',
-              name: 'name',
-              type: 'string',
-              validation: (Rule) => Rule.required()
-            }),
-            defineField({
-              title: 'Email',
-              name: 'email',
-              type: 'email',
-              validation: (Rule) => Rule.required()
-            }),
-            defineField({
-              title: 'Text',
-              name: 'text',
-              type: 'text',
-              validation: (Rule) => Rule.required()
-            })
-          ]
-        }
-      ],
-      group: 'editorial'
+      title: 'Text below "Feedback from the community"',
+      name: 'commentsDescription',
+      type: 'object',
+      fields: generateObjectFields({ schemaType: 'richText', type: 'lang' }),
+      components: {
+        field: InternationalizedObjectField
+      },
+      group: 'settings',
+      validation: validateAllStringTranslations,
+      hidden: ({ parent }) => !parent?.allowComments
     }),
     defineField({
       title: 'Desktop image',
@@ -148,6 +133,63 @@ export const phase1BlogPost = defineType({
       },
       group: 'settings',
       validation: validateAllStringTranslations
+    }),
+    defineField({
+      title: 'Comments',
+      name: 'comments',
+      type: 'array',
+      icon: Chat,
+      // Preview with name, text and date
+      of: [
+        {
+          type: 'object',
+          title: 'Comment',
+          preview: {
+            select: {
+              name: 'name',
+              text: 'text',
+              createdAt: 'createdAt'
+            },
+            prepare({ name, text, createdAt }) {
+              return {
+                title: `${name} commented (${formatDate(createdAt)})`,
+                subtitle: text
+              }
+            }
+          },
+          fields: [
+            defineField({
+              title: 'Name',
+              name: 'name',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+              readOnly: true
+            }),
+            defineField({
+              title: 'Email',
+              name: 'email',
+              type: 'email',
+              validation: (Rule) => Rule.required(),
+              readOnly: true
+            }),
+            defineField({
+              title: 'Text',
+              name: 'text',
+              type: 'text',
+              validation: (Rule) => Rule.required(),
+              readOnly: true
+            }),
+            defineField({
+              title: 'Created at',
+              name: 'createdAt',
+              type: 'datetime',
+              validation: (Rule) => Rule.required(),
+              readOnly: true
+            })
+          ]
+        }
+      ],
+      group: 'editorial'
     }),
     defineField({
       title: 'Metadata',

@@ -50,9 +50,17 @@ export function Phase1BlogPost({ data, lang, slug }: Props) {
           </div>
         )}
       </Container>
-      <Container size="natureLab">
-        <Comments documentId={data.id} slug={slug} comments={data.comments} lang={lang} />
-      </Container>
+      {data?.allowComments && (
+        <Container size="natureLab" className="mt-20 lg:mt-40">
+          <Comments
+            documentId={data.id}
+            slug={slug}
+            comments={data.comments}
+            lang={lang}
+            description={data.commentsDescription}
+          />
+        </Container>
+      )}
     </Section>
   )
 }

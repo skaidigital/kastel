@@ -1,9 +1,9 @@
 import { FormLabel } from '@/components/form/FormLabel'
-import { StyledInput } from '@/components/form/StyledInput'
+import { StyledTextArea } from '@/components/form/StyledTextarea'
 import type { Control } from 'react-hook-form'
 import { useController } from 'react-hook-form'
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   control: Control<any>
   name: string
   label: string
@@ -11,7 +11,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant?: 'normal' | 'natureLab'
 }
 
-export const FormInput = ({ control, name, label, description, variant, ...rest }: InputProps) => {
+export const FormTextarea = ({
+  control,
+  name,
+  label,
+  description,
+  variant,
+  ...rest
+}: InputProps) => {
   const {
     field: { value, onChange },
     fieldState: { error }
@@ -25,7 +32,7 @@ export const FormInput = ({ control, name, label, description, variant, ...rest 
       <FormLabel htmlFor={name} description={description} variant={variant}>
         {label}
       </FormLabel>
-      <StyledInput
+      <StyledTextArea
         {...rest}
         name={name}
         value={value}

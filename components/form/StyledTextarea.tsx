@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import { forwardRef } from 'react'
 import type { FieldError } from 'react-hook-form'
 
-type StyledInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+type StyledInputProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   error?: FieldError
   variant?: 'normal' | 'natureLab'
 }
@@ -10,17 +10,17 @@ type StyledInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 /**
  * StyledInput is a component that wraps the native input element.
  */
-export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
+export const StyledTextArea = forwardRef<HTMLTextAreaElement, StyledInputProps>(
   ({ error, className, name, variant, ...otherProps }, ref) => {
     return (
       <div className="w-full">
-        <input
+        <textarea
           ref={ref}
           id={name}
           name={name}
           {...otherProps}
           className={cn(
-            'w-full rounded-[2px] border border-brand-light-grey bg-white p-3 text-sm outline-none placeholder:text-sm focus:border-brand-dark-grey disabled:cursor-not-allowed disabled:bg-gray-50',
+            'w-full rounded-[2px] border border-brand-light-grey bg-white p-3 text-sm outline-none placeholder:text-sm focus:border-brand-dark-grey disabled:cursor-not-allowed disabled:bg-gray-50 resize-none',
             variant === 'natureLab' &&
               'font-nature-lab-body text-nature-lab-sm text-brand-mid-grey bg-nature-lab-beige border-neutral-300',
             error
@@ -39,4 +39,4 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
   }
 )
 
-StyledInput.displayName = 'StyledInput'
+StyledTextArea.displayName = 'StyledTextArea'
