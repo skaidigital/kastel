@@ -7,15 +7,8 @@ import {
   CarouselPrevious
 } from '@/components/Carousel'
 import { HotspotImage } from '@/components/HotspotImage'
-import {
-  HybridTooltip,
-  HybridTooltipContent,
-  HybridTooltipTrigger
-} from '@/components/HybridTooltip'
 import LazyLoadedVideo from '@/components/LazyLoadedVideo'
 import { Media } from '@/components/Media'
-import { Quote } from '@/components/Quote'
-import { TooltipProvider } from '@/components/Tooltip'
 import { YouTubeVideo } from '@/components/YouTubeVideo'
 import { Container } from '@/components/base/Container'
 import { ListItem } from '@/components/base/ListItem'
@@ -23,6 +16,8 @@ import { OL } from '@/components/base/OL'
 import { Text } from '@/components/base/Text'
 import { UL } from '@/components/base/UL'
 import { BlogWidthContainer } from '@/components/pages/BlogPost/BlogWidthContainer'
+import { ProductHoverCard } from '@/components/sanity/ProductHoverCard'
+import { Quote } from '@/components/sanity/Quote'
 import { SanityImage } from '@/components/sanity/SanityImage'
 import { SanityLink } from '@/components/sanity/SanityLink'
 import { ProductCard } from '@/components/shared/ProductCard'
@@ -134,18 +129,7 @@ export const portableTextBlogPostSerializer = {
       </SanityLink>
     ),
     productLink: ({ children, value }: any) => {
-      return (
-        <TooltipProvider delayDuration={0}>
-          <HybridTooltip>
-            <HybridTooltipTrigger className="bg-brand-primary px-1 font-medium text-white">
-              {children}
-            </HybridTooltipTrigger>
-            <HybridTooltipContent className="border-none p-0">
-              {value.product && <ProductCard product={value.product} />}
-            </HybridTooltipContent>
-          </HybridTooltip>
-        </TooltipProvider>
-      )
+      return <ProductHoverCard value={value}>{children}</ProductHoverCard>
     }
   },
   types: {
@@ -237,7 +221,7 @@ export const portableTextBlogPostSerializer = {
         </BlogWidthContainer>
       )
     },
-    quote: ({ value }: any) => <Quote quote={value} />,
+    quote: ({ value }: any) => <Quote quote={value} type="normal" />,
     // TODO turn this into a component? Getting a bit big
     products: ({ value }: any) => {
       const productCount = value?.products?.length

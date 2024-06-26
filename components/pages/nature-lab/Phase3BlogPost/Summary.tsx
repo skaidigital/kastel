@@ -20,10 +20,25 @@ export function Summary({ data, lang }: Props) {
     <div className="border-y border-neutral-400 py-3 lg:py-4">
       <Container size="natureLab">
         <div className="flex flex-col gap-y-6 lg:flex-row lg:justify-between">
-          <ValuePair label="Type" value={innovationString} />
-          {innovationId && <ValuePair label={experimentIdString} value={innovationId} />}
+          <ValuePair
+            label="Type"
+            value={innovationString}
+            valueClassName="font-nature-lab-body font-medium"
+          />
+          {innovationId && (
+            <ValuePair
+              label={experimentIdString}
+              value={innovationId}
+              valueClassName="font-nature-lab-body font-medium"
+            />
+          )}
           {completionDate && (
-            <ValuePair label={compledtionDateString} value={formatDate(String(completionDate))} />
+            <ValuePair
+              label={compledtionDateString}
+              value={formatDate(String(completionDate))}
+              className="lg:text-right"
+              valueClassName="font-nature-lab-body font-medium"
+            />
           )}
         </div>
       </Container>

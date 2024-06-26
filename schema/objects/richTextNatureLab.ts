@@ -1,4 +1,3 @@
-import { validateAllStringTranslations } from '@/lib/sanity/studioUtils'
 import { Image, Link, Quotes, Sneaker, Video } from '@phosphor-icons/react'
 import { defineArrayMember, defineField } from 'sanity'
 
@@ -32,21 +31,21 @@ export const richTextNatureLab = defineField({
                 type: 'linkWithoutText'
               })
             ]
+          },
+          {
+            name: 'productLink',
+            type: 'object',
+            title: 'Product link',
+            icon: Sneaker,
+            fields: [
+              defineField({
+                title: 'Product',
+                name: 'product',
+                type: 'reference',
+                to: [{ type: 'product' }]
+              })
+            ]
           }
-          // {
-          //   name: 'productLink',
-          //   type: 'object',
-          //   title: 'Product link',
-          //   icon: Sneaker,
-          //   fields: [
-          //     defineField({
-          //       title: 'Product',
-          //       name: 'product',
-          //       type: 'reference',
-          //       to: [{ type: 'product' }]
-          //     })
-          //   ]
-          // }
         ],
         decorators: [
           {
@@ -71,6 +70,10 @@ export const richTextNatureLab = defineField({
         {
           title: 'H3',
           value: 'h3'
+        },
+        {
+          title: 'Block quote',
+          value: 'blockquote'
         }
       ],
       type: 'block'
@@ -80,14 +83,6 @@ export const richTextNatureLab = defineField({
       name: 'video',
       title: 'Video',
       icon: Video
-      // fields: [
-      //   defineField({
-      //     title: 'Video',
-      //     name: 'video',
-      //     type: 'mux.video',
-      //     validation: (Rule) => Rule.required()
-      //   }),
-      // ]
     },
     {
       type: 'image',
@@ -115,7 +110,7 @@ export const richTextNatureLab = defineField({
       icon: Sneaker,
       preview: {
         select: {
-          title: 'title.en'
+          title: 'title'
         },
         prepare({ title }) {
           return {
@@ -128,8 +123,8 @@ export const richTextNatureLab = defineField({
         defineField({
           title: 'Title',
           name: 'title',
-          type: 'i18n.string',
-          validation: validateAllStringTranslations
+          type: 'string',
+          validation: (Rule) => Rule.required()
         }),
         defineField({
           title: 'Products',

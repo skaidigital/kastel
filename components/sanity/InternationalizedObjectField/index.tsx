@@ -108,7 +108,7 @@ export function generateObjectFields({
   schemaType,
   type
 }: {
-  schemaType: 'string' | 'richText' | 'slug' | 'richText'
+  schemaType: 'string' | 'richText' | 'richTextNatureLab' | 'slug' | 'richText'
   type: 'lang' | 'market'
 }) {
   if (type === 'lang') {

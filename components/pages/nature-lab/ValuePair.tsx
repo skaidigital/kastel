@@ -4,9 +4,10 @@ interface Props {
   label: string
   value: string
   className?: string
+  valueClassName?: string
 }
 
-export function ValuePair({ label, value, className }: Props) {
+export function ValuePair({ label, value, className, valueClassName }: Props) {
   return (
     <div className={cn('flex flex-col gap-y-1', className)}>
       {label && (
@@ -15,7 +16,12 @@ export function ValuePair({ label, value, className }: Props) {
         </span>
       )}
       {value && (
-        <span className="font-nature-lab-heading text-nature-lab-heading-xs uppercase text-nature-lab-dark-grey">
+        <span
+          className={cn(
+            'font-nature-lab-heading text-nature-lab-heading-xs uppercase',
+            valueClassName
+          )}
+        >
           {value}
         </span>
       )}

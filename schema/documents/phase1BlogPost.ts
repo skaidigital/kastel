@@ -7,11 +7,6 @@ import { formatDate } from '@/lib/utils'
 import { Article, Chat } from '@phosphor-icons/react'
 import { defineField, defineType } from 'sanity'
 
-// TODO Validate everything in the question based on the boolean
-// TODO add metadata
-// TODO translate callout
-// TODO add slug
-// TODO add array of content objects (main content)
 export const phase1BlogPost = defineType({
   title: 'Nature Lab phase 1 blog post',
   name: 'phase1BlogPost',
@@ -75,7 +70,7 @@ export const phase1BlogPost = defineType({
         'Can be used for directing the user to a phase 2 product that came from this experiment.',
       name: 'callout',
       type: 'object',
-      fields: generateObjectFields({ schemaType: 'richText', type: 'lang' }),
+      fields: generateObjectFields({ schemaType: 'richTextNatureLab', type: 'lang' }),
       components: {
         field: InternationalizedObjectField
       },
@@ -101,7 +96,7 @@ export const phase1BlogPost = defineType({
       title: 'Text below "Feedback from the community"',
       name: 'commentsDescription',
       type: 'object',
-      fields: generateObjectFields({ schemaType: 'richText', type: 'lang' }),
+      fields: generateObjectFields({ schemaType: 'richTextNatureLab', type: 'lang' }),
       components: {
         field: InternationalizedObjectField
       },

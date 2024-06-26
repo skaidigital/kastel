@@ -65,24 +65,10 @@ export const phase3BlogPost = defineType({
       group: 'editorial'
     }),
     defineField({
-      title: 'Content 🇧🇻',
-      name: 'contentNo',
-      type: 'richTextNatureLab',
-      validation: (Rule) => Rule.required(),
-      group: 'editorial'
-    }),
-    defineField({
-      title: 'Content 🇬🇧',
-      name: 'contentEn',
-      type: 'richTextNatureLab',
-      validation: (Rule) => Rule.required(),
-      group: 'editorial'
-    }),
-    defineField({
       title: 'Content',
       name: 'content',
       type: 'object',
-      fields: generateObjectFields({ schemaType: 'richText', type: 'lang' }),
+      fields: generateObjectFields({ schemaType: 'richTextNatureLab', type: 'lang' }),
       components: {
         field: InternationalizedObjectField
       },

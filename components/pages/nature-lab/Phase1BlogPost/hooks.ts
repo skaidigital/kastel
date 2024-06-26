@@ -1,4 +1,5 @@
-import { LangValues } from '@/data/constants'
+import { getNatureLabPortableText } from '@/components/pages/nature-lab/hooks'
+import { LangValues, MarketValues } from '@/data/constants'
 import { getAuthor, getImageBase } from '@/lib/sanity/fragments'
 import { authorValidator, imageValidator, portableTextValidator } from '@/lib/sanity/validators'
 import { groq } from 'next-sanity'
@@ -39,7 +40,7 @@ export type CommentProps = z.infer<typeof commentValidator>
 export type UpdateProps = z.infer<typeof updateValidator>
 export type Phase1BlogPostPayload = z.infer<typeof phase1BlogPostValidator>
 
-export function getPhase1BlogPost({ lang }: { lang: LangValues }) {
+export function getPhase1BlogPost({ lang, market }: { lang: LangValues; market: MarketValues }) {
   const query = groq`
     *[_type == "phase1BlogPost" && slug.${lang}.current == $slug][0] {
       "id": _id,
@@ -50,7 +51,7 @@ export function getPhase1BlogPost({ lang }: { lang: LangValues }) {
         status,
       },
       "callout": callout.${lang}[]{
-        ...
+        ${getNatureLabPortableText({ lang, market })}
       },
       imageMobile{
         ${getImageBase(lang)}
@@ -65,12 +66,12 @@ export function getPhase1BlogPost({ lang }: { lang: LangValues }) {
         },
         date,
         "content": content.${lang}[]{
-          ...
+          ${getNatureLabPortableText({ lang, market })}
         }
       },
       allowComments,
       "commentsDescription": commentsDescription.${lang}[]{
-        ...
+        ${getNatureLabPortableText({ lang, market })}
       },
       comments[]{
         "id": _key,
