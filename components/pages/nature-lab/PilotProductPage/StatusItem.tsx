@@ -13,8 +13,8 @@ export function StatusItem({ isCurrent, status, description }: Props) {
   return (
     <div className="flex gap-x-6 lg:gap-x-10">
       <div className="flex flex-col gap-y-1 items-center">
-        <div className="size-4 bg-brand-primary" />
-        <div className="w-1 h-full grow bg-brand-primary" />
+        <div className={cn('size-4', isCurrent ? 'bg-brand-primary' : 'bg-neutral-300')} />
+        <div className={cn('w-1 h-full grow', isCurrent ? 'bg-brand-primary' : 'bg-neutral-300')} />
       </div>
       <div
         className={cn(
@@ -23,7 +23,7 @@ export function StatusItem({ isCurrent, status, description }: Props) {
         )}
       >
         {status && (
-          <h3 className="text-nature-lab-heading-sm lg:text-nature-lab-heading-md font-nature-lab-heading uppercase mb-4">
+          <h3 className="text-nature-lab-heading-xs lg:text-nature-lab-heading-sm font-nature-lab-heading uppercase mb-4">
             {isCurrent && 'Current:'}
             {status}
           </h3>

@@ -18,7 +18,6 @@ interface Props {
 
 export function DetailedInfo({ lang }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>('idea')
-  console.log(activeTab)
 
   return (
     <Section label="Something" srHeading="Something" noTopPadding className="bg-nature-lab-beige">
