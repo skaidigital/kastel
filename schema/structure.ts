@@ -112,11 +112,7 @@ export const structure: StructureResolver = (S: StructureBuilder) => {
       list(S, 'Collections', `_type == 'collection'`).icon(Package),
       S.divider(),
       group(S, '🚧 Nature Lab', [
-        listNew({
-          S,
-          title: 'Landing page',
-          schemaType: 'natureLabLandingPage'
-        }).icon(File),
+        singleton(S, 'Landing page', 'natureLabLandingPage', 'natureLabLandingPage').icon(File),
         listNew({
           S,
           title: 'Phase 1 blog posts',
