@@ -33,12 +33,13 @@ export function CollectionPage({
   includedSearchParamsKeys
 }: PageProps) {
   const searchParams = useSearchParams();
-  const paramsObject = Object.fromEntries(searchParams.entries());
+  const paramsObjectRaw = Object.fromEntries(searchParams.entries());
+  const paramsObject = filterObject(paramsObjectRaw, includedSearchParamsKeys);
 
   const paramValues = formatSearchParamsValues(paramsObject, includedSearchParamsKeys);
 
-  const sortKey = paramsObject?.sort;
-  const onSale = paramsObject?.on_sale ? true : false;
+  const sortKey = paramsObjectRaw?.sort;
+  const onSale = paramsObjectRaw?.on_sale ? true : false;
 
   const prioritizedSortkey = onSale ? 'on_sale' : sortKey;
   const currentPage = Number(searchParams.get('page')) || 1;
@@ -114,4 +115,13 @@ function formatSearchParamsValues(
     return null;
   }
   return paramValues;
+}
+
+function filterObject(obj: any, keys: string[]) {
+  return Object.keys(obj)
+    .filter((key) => keys.includes(key))
+    .reduce((acc: any, key) => {
+      acc[key] = obj[key];
+      return acc;
+    }, {});
 }

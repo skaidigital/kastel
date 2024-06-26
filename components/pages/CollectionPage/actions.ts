@@ -113,12 +113,15 @@ async function handleFiltration(
   if (!paramValues || Object.keys(paramValues).length === 0) {
     return products;
   }
+  // get keys from paramValues
+  const keys = Object.keys(paramValues);
+
+  if (keys.length === 0) {
+    return products;
+  }
 
   const gids = products.map((product) => product.gid);
   const productStockData: any = await isProductsInStock(gids);
-
-  // get keys from paramValues
-  const keys = Object.keys(paramValues);
 
   const sizeUrlKey = ['sizes', 'storrelser'];
   // remove out of stock products
