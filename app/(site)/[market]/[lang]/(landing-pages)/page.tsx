@@ -27,8 +27,6 @@ interface Props {
 export default async function HomePage({ params: { market, lang } }: Props) {
   const initial = await loadHomePage({ market, lang });
 
-  console.log({ initial });
-
   if (!initial.data) {
     return notFound();
   }
