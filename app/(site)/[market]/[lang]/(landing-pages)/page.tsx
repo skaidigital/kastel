@@ -1,15 +1,16 @@
 import { PageLayout } from '@/components/pages/PageLayout';
 import {
-  PagePayload,
   getPageQuery,
-  removeEmptyPageBuilderObjects
+  removeEmptyPageBuilderObjects,
+  type PagePayload
 } from '@/components/pages/PageLayout/hooks';
-import { LangValues, MarketValues } from '@/data/constants';
+import type { LangValues, MarketValues } from '@/data/constants';
 import { loadMetadata } from '@/lib/sanity/getMetadata';
 import { nullToUndefined } from '@/lib/sanity/nullToUndefined';
 import { loadQuery } from '@/lib/sanity/store';
 import { urlForOpenGraphImage } from '@/lib/sanity/urlForOpenGraphImage';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-static';
 
@@ -25,6 +26,12 @@ interface Props {
 
 export default async function HomePage({ params: { market, lang } }: Props) {
   const initial = await loadHomePage({ market, lang });
+
+  console.log({ initial });
+
+  if (!initial.data) {
+    return notFound();
+  }
 
   const pageWithoutNullValues = nullToUndefined(initial.data);
   const cleanedPageData = removeEmptyPageBuilderObjects(pageWithoutNullValues);
@@ -47,7 +54,11 @@ export async function generateMetadata({
 }: {
   params: { lang: LangValues };
 }): Promise<Metadata> {
-  const metadata = await loadMetadata({ lang, slug: 'home', schemaType: 'page' });
+  const metadata = await loadMetadata({
+    lang,
+    slug: 'home',
+    schemaType: 'page'
+  });
 
   const title = metadata?.metaTitle;
   const description = metadata?.metaDescription;

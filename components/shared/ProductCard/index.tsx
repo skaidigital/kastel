@@ -7,7 +7,7 @@ import { ProductCardImage } from '@/components/shared/ProductCard/Image';
 import { ImageContainer } from '@/components/shared/ProductCard/ImageContainer';
 import { Rating } from '@/components/shared/ProductCard/Rating';
 import { Wishlist } from '@/components/shared/ProductCard/Wishlist';
-import { ProductCardProps } from '@/lib/sanity/types';
+import type { ProductCardProps } from '@/lib/sanity/types';
 import { cn } from '@/lib/utils';
 import { Badges, DiscountBadge } from './Badges';
 import { PriceAndSizeRange } from './PriceAndSizeRange';
@@ -69,7 +69,7 @@ export function ProductCard({ product, firstImage, priority, className, imageSiz
                   sizes={imageSizes}
                 />
               )}
-              <div className="absolute left-3 top-3 flex gap-x-1 @xs:left-4 @xs:top-4">
+              <div className="absolute left-3 top-3 flex flex-col gap-1 gap-x-1 @xs:left-4 @xs:top-4">
                 <div className="flex flex-col gap-1 @[200px]:flex-row">
                   {biggestDiscount && <OnSaleBadge className="text-xs lg:text-sm" />}
                   {biggestDiscount && (
