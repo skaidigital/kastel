@@ -1,6 +1,6 @@
 import { bulkUpdateVariants } from '@/lib/sanity/actions';
-import { ToastParams, useToast } from '@sanity/ui';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useToast, type ToastParams } from '@sanity/ui';
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useMemoObservable } from 'react-rx';
 import { useDocumentStore, useFormValue } from 'sanity';
@@ -51,7 +51,12 @@ export const BulkVariantEditForm = () => {
     }
   }, [results]);
 
-  const handleInputChange = (id: string, field: keyof ProductVariant, value: any) => {
+  const handleInputChange = (
+    id: string,
+    field: keyof ProductVariant,
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    value: any
+  ) => {
     setVariantChanges((prevState) => ({
       ...prevState,
       [id]: {
@@ -129,7 +134,7 @@ export const BulkVariantEditForm = () => {
                     variantChanges[variant._id]?.discountedPrice_no ?? variant.discountedPrice_no
                   }
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange(variant._id, 'price_no', Number(e.target.value))
+                    handleInputChange(variant._id, 'discountedPrice_no', Number(e.target.value))
                   }
                 />
               </td>
@@ -151,7 +156,7 @@ export const BulkVariantEditForm = () => {
                     variantChanges[variant._id]?.discountedPrice_sv ?? variant.discountedPrice_sv
                   }
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange(variant._id, 'price_sv', Number(e.target.value))
+                    handleInputChange(variant._id, 'discountedPrice_sv', Number(e.target.value))
                   }
                 />
               </td>
@@ -174,7 +179,7 @@ export const BulkVariantEditForm = () => {
       </table>
       <div className="mt-4">
         <button
-          //   type="submit"
+          type="button"
           onClick={handleSubmit}
           disabled={Object.keys(variantChanges).length === 0} // Re-enable conditional disabling
           className="rounded-sm bg-black px-2 py-1 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
